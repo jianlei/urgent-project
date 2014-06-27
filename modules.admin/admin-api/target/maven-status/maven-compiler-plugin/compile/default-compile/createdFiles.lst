@@ -1,8 +1,0 @@
-com\daren\admin\api\internal\ExampleServiceImpl.class
-com\daren\admin\api\dao\IRoleBeanDao.class
-com\daren\admin\api\internal\ExampleActivator.class
-com\daren\admin\api\biz\IUserBeanService.class
-com\daren\admin\api\biz\IUserLoginService.class
-com\daren\admin\api\ExampleService.class
-com\daren\admin\api\biz\IRoleBeanService.class
-com\daren\admin\api\dao\IUserBeanDao.class

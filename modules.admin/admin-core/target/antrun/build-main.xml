@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <copy todir="D:/java-develop/tools/apache-karaf-3.0.1/deploy" file="target/com.daren.admin.core-1.0-SNAPSHOT.jar"/>
-</target>
-</project>
