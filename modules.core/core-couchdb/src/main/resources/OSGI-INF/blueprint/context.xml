@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <!--	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">-->
+    <!--		<command name="test/hello">-->
+    <!--			<action class="net.lr.tut.karaf.command.HelloShellCommand" />-->
+    <!--		</command>-->
+    <!---->
+    <!--	</command-bundle>-->
+
+    <!--	<reference id="httpService" availability="mandatory" interface="org.osgi.service.http.HttpContext">-->
+    <!--	</reference>-->
+
+    <!--	<bean id="myClass" class="net.lr.tut.karaf.hello.MyClass">-->
+    <!--		<property name="httpService" ref="httpService" />-->
+    <!--	</bean>-->
+
+    <!--	<service ref="myClass">-->
+    <!--		<interfaces>-->
+    <!--			<value>org.osgi.service.command.Function</value>-->
+    <!--		</interfaces>-->
+    <!--		<service-properties>-->
+    <!--			<entry key="osgi.command.scope" value="servlet" />-->
+    <!--			<entry key="osgi.command.function" value="register" />-->
+    <!--		</service-properties>-->
+    <!--	</service>-->
+
+    <!--<service>
+        <interfaces>
+            <value>javax.servlet.http.HttpServlet</value>
+        </interfaces>
+        <service-properties>
+            <entry key="alias" value="/test2" />
+        </service-properties>
+        <bean class="com.daren.platform.template.SimpleServlet">
+        </bean>
+    </service>-->
+
+    <!-- 发布菜单目录 -->
+    <service interface="com.daren.platform.couchdb.api.ICarInfoService" ref="carInfoServiceImpl">
+
+    </service>
+    <bean id="carInfoServiceImpl" class="com.daren.platform.couchdb.impl.CarInfoServiceImpl"
+          init-method="init" destroy-method="destroy" scope="singleton">
+    </bean>
+    <!-- <reference id="messageService" interface="com.daren.platform.couchdb.api.IMessageService" />
+
+     <bean class="com.daren.platform.couchdb.test.TestMessage" init-method="init">
+         <property name="messageService"   ref="messageService"/>
+     </bean>-->
+</blueprint>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>shared-plugin-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>compiled-bundle-settings</artifactId>
+
+    <name>urgent-project - bundle instructions</name>
+
+    <packaging>pom</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <!-- OSGi Arquillian test begin-->
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-karaf-embedded</artifactId>
+            <version>2.1.0.CR4</version>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-karaf</artifactId>
+            <version>2.1.0.CR4</version>
+            <scope>test</scope>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-felix-embedded</artifactId>
+            <version>2.1.0.CR4</version>
+            <scope>test</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-bom</artifactId>
+            <version>1.1.2.Final</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>1.1.2.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- OSGi Arquillian test end-->
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!--
+             | example additional resource entries, useful when building Eclipse RCP applications
+            -->
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>plugin.xml</include>
+                    <include>plugin.properties</include>
+                    <include>icons/**</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.janssk1</groupId>
+                <artifactId>maven-dependencygraph-plugin</artifactId>
+                <version>1.2</version>
+            </plugin>
+            <plugin>
+                <!--
+                 | the following instructions build a simple set of public/private classes into an OSGi bundle
+                -->
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <!--
+                         | assume public classes are in the top package, and private classes are under ".internal"
+                        -->
+                        <Export-Package>
+                            !${bundle.namespace}.internal.*,${bundle.namespace}.*;version="${project.version}"
+                        </Export-Package>
+                        <Private-Package>${bundle.namespace}.internal.*</Private-Package>
+                        <!--
+                         | each module can override these defaults in their osgi.bnd file
+                        -->
+                        <_include>-osgi.bnd</_include>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

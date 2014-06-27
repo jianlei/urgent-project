@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1403882505234
+Build-Jdk: 1.7.0_03
+Built-By: sunlf
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint.xml
+Bundle-Description: Urgent Admin Core Module
+Bundle-DocURL: http://www.jldaren.com/
+Bundle-ManifestVersion: 2
+Bundle-Name: Urgent :: Admin - Core
+Bundle-SymbolicName: com.daren.admin.core
+Bundle-Vendor: DaRen Company
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: *;scope=compile|runtime
+Export-Package: com.daren.admin.core;version="1.0.0.SNAPSHOT";uses:="com
+ .daren.admin.api.biz,com.daren.admin.api.dao,com.daren.admin.entities,c
+ om.daren.core.impl.biz"
+Export-Service: com.daren.admin.api.biz.IUserBeanService,com.daren.admin
+ .api.biz.IUserLoginService
+Import-Package: com.daren.admin.api.biz;version="[1.0,2)",com.daren.admi
+ n.api.dao;version="[1.0,2)",com.daren.admin.entities;version="[1.0,2)",
+ com.daren.core.api.persistence;version="[1.0,2)",com.daren.core.impl.bi
+ z;version="[1.0,2)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Import-Service: com.daren.admin.api.dao.IUserBeanDao;multiple:=false
+Tool: Bnd-2.1.0.20130426-122213

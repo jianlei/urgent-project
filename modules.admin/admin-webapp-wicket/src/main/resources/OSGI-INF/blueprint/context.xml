@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        default-activation="lazy"
+        >
+
+    <!-- 发布菜单目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="100">
+        <bean class="com.daren.admin.webapp.wicket.AdminMenuModule">
+        </bean>
+    </service>
+
+
+    <!-- 发布用户子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.UserMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布角色子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.RoleMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布日志子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.LogMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布权限管理子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.AuthorityMenuItemsModule">
+        </bean>
+    </service>
+
+
+</blueprint>

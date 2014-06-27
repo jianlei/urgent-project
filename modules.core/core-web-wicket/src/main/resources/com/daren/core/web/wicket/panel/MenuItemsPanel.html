@@ -1,0 +1,32 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <!--<li class="stick">-->
+    <!--<a wicket:id="menus">-->
+    <!--<span wicket:id="name"/>-->
+    <!--</a>-->
+    <!--<ul wicket:id="submenusContainer" class="dropdown-menu" data-role="dropdown">-->
+    <!--<li wicket:id="menusItems" class="stick">-->
+    <!--<a wicket:id="menus">-->
+    <!--<span wicket:id="name"/>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</li>-->
+
+    <li wicket:id="menusContainer">
+        <a wicket:id="menus">
+
+            <span wicket:id="name"/>
+            <span
+                    class="label label-info pull-right" wicket:id="msgNum">6</span> <i class="arrow icon-angle-left"
+                                                                                       wicket:id="jiantou"></i></a>
+
+        <ul class="sub-menu" wicket:id="submenusContainer">
+            <li wicket:id="menusItems"><a wicket:id="menus"> <i class="icon-angle-right"></i> <span wicket:id="name"/>
+            </a></li>
+        </ul>
+    </li>
+</wicket:panel>
+</body>
+</html>

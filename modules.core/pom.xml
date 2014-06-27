@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.daren.platform</groupId>
+        <artifactId>urgent-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>modules.core</artifactId>
+
+    <name>Urgent :: Modules - Core</name>
+
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>core-api</module>
+        <module>core-archetype</module>
+        <module>core-couchdb</module>
+        <module>core-datasource</module>
+        <module>core-impl</module>
+        <module>core-util</module>
+        <module>core-web-api</module>
+        <module>core-web-bootup-wicket</module>
+        <module>core-web-resources</module>
+        <module>core-web-wicket</module>
+        <module>core-workflow</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

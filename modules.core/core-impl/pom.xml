@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <relativePath>../../poms/compiled/</relativePath>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.daren.core</groupId>
+    <artifactId>com.daren.core.impl</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>bundle</packaging>
+
+    <properties>
+        <bundle.symbolicName>com.daren.core.impl</bundle.symbolicName>
+        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <name>Urgent :: Core - Impl</name>
+    <description>Core Impl</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.platform</groupId>
+            <artifactId>com.daren.platform.couchdb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
+            <version>0.0.6_1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.5</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <path id="enhance.path.ref">
+                                    <fileset dir="${project.build.outputDirectory}">
+                                        <include name="*Bean*/*.class"/>
+                                    </fileset>
+                                </path>
+                                <pathconvert property="enhance.files" refid="enhance.path.ref" pathsep=" "/>
+                                <java classname="org.apache.openjpa.enhance.PCEnhancer">
+                                    <arg line="-p persistence.xml"/>
+                                    <arg line="${enhance.files}"/>
+                                    <classpath>
+                                        <path refid="maven.dependency.classpath"/>
+                                        <path refid="maven.compile.classpath"/>
+                                    </classpath>
+                                </java>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="target/${project.artifactId}-${project.version}.jar"
+                                      todir="${karaf.path}"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

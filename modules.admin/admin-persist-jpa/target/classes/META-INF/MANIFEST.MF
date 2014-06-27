@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1403882504549
+Build-Jdk: 1.7.0_03
+Built-By: sunlf
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint.xml
+Bundle-Description: Urgent Admin Persist JPA Container Managed Module
+Bundle-DocURL: http://www.jldaren.com/
+Bundle-ManifestVersion: 2
+Bundle-Name: Urgent :: Admin - Persist JPA Container Managed
+Bundle-SymbolicName: com.daren.admin.persist.openjpa
+Bundle-Vendor: DaRen Company
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: *;scope=compile|runtime
+Export-Package: com.daren.admin.persist.openjpa;version="1.0.0.SNAPSHOT"
+ ;uses:="com.daren.admin.api.dao,com.daren.admin.entities,com.daren.core
+ .impl.persistence"
+Export-Service: com.daren.admin.api.dao.IRoleBeanDao,com.daren.admin.api
+ .dao.IUserBeanDao
+Import-Package: com.daren.admin.api.dao;version="[1.0,2)",com.daren.admi
+ n.entities;version="[1.0,2)",com.daren.core.api.persistence;version="[1
+ .0,2)",com.daren.core.impl.persistence;version="[1.0,2)",org.apache.log
+ 4j;version="[1.2,2)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+ ,javax.persistence;version="[1.1,2)"
+Tool: Bnd-2.1.0.20130426-122213

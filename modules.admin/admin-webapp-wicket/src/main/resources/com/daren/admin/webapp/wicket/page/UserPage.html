@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title>Wicket - jQuery UI: kendo-ui data-table (commands)</title>
+    <link rel="stylesheet" type="text/css" href="res/css/kendo/kendo.common.min.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="res/css/kendo/kendo.default.min.css" media="all"/>
+</wicket:head>
+
+<body wicket:id="iris">
+<style>
+
+    .modal-body {
+        max-height: 500px !important;
+    / / 7 列 的 高 度
+    }
+
+    .row-fluid [class*="span"]:first-child {
+        margin-left: 0px
+    }
+
+    .btn {
+        padding: 2px 10px !important;
+    }
+
+    .dropdown-menu {
+        min-width: 70px !important;
+    }
+
+    .portlet-body .btn-group {
+        margin-bottom: 0px !important;
+    }
+</style>
+<div id="portlet-config" class="modal hide">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>Widget Settings</h3>
+    </div>
+    <div class="modal-body">
+        Widget settings form goes here
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <!-- begin-->
+        <div class="span12">
+
+            <h3 class="page-title">
+
+                <small></small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="../../home/">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li>
+                    <i class="icon-cogs"></i>
+                    <a href="#">系统管理</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">用户管理</a></li>
+            </ul>
+
+        </div>
+        <!--end -->
+    </div>
+</div>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+<div class="portlet box blue">
+<div class="portlet-title">
+    <div class="caption"><i class="icon-edit"></i>用户管理</div>
+    <div class="tools"></div>
+</div>
+<div class="portlet-body">
+<!--ajax弹出层提交表单 开始-->
+<div class="clearfix" aria-hidden="true">
+
+
+    <div id="form_modal2" class="modal hide fade" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel2" aria-hidden="true">
+
+        <div class="modal-header portlet-title">
+
+            <button wicket:id="reset_form_1" type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true"></button>
+
+            <h3 id="myModalLabel2"><label wicket:id="pageName1"></label><label
+                    wicket:id="pageName2"></label></h3>
+
+        </div>
+
+        <div class="modal-body">
+            <div wicket:id="feedback"></div>
+            <form wicket:id="add_user_form" class="form-horizontal">
+
+                <div class="control-group">
+
+                    <label class="control-label">姓名</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="name" size="16"
+                               type="text" value=""/>
+
+                    </div>
+
+                </div>
+                <div class="control-group">
+
+                    <label class="control-label">登录账号</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="loginName"
+                               size="16"
+                               type="text" value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label class="control-label">密码</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="password"
+                               size="16" type="password" value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label class="control-label">确认密码</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" size="16" type="password"
+                               value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label class="control-label">邮箱</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="email" size="16"
+                               type="text" value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label class="control-label">电话</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="phone" size="16"
+                               type="text" value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label class="control-label">手机</label>
+
+                    <div class="controls">
+
+                        <input class="m-wrap m-ctrl-medium date-picker" wicket:id="mobile" size="16"
+                               type="text" value=""/>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn green btn-primary" wicket:id="submit_button"
+                            data-dismiss="modal" aria-hidden="true">保存
+                    </button>
+
+                    <button class="btn" wicket:id="reset_form_2" data-dismiss="modal">取消</button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <div class="control-group">
+
+            <label class="control-label"></label>
+
+            <div class="controls">
+
+                <a class="btn green" href="#form_modal2" data-toggle="modal">
+
+                    <span wicket:id="addUser"> 新增</span>
+                    <i class="icon-share"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!--ajax弹出层提交表单 结束-->
+<div wicket:id="dataContainer">
+    <div wicket:id="dialog">[dialog]</div>
+    <wicket:fragment wicket:id="dialog-delete">
+        Are you sure you want to delete this item?
+    </wicket:fragment>
+
+    <form wicket:id="formTable">
+
+        <div wicket:id="datatable" x-style="width: 720px;"></div>
+        <br/>
+        <button wicket:id="refresh">Refresh</button>
+        <br/>
+        <!--<span wicket:id="button"></span><br />-->
+    </form>
+    <div wicket:id="feedbackTable" x-style="width: 360px;"></div>
+    <!--
+
+        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+            <thead>
+            <tr>
+                <th>用户名</th>
+                <th class="hidden-480">登录名</th>
+                &lt;!&ndash;<th class="hidden-480">密码</th>&ndash;&gt;
+                            <th class="hidden-480">邮箱</th>
+                            <th class="hidden-480">电话</th>
+                            <th class="hidden-480">手机</th>
+                            <th class="hidden-480">角色</th>
+                            <th class="hidden-480">创建时间</th>
+                            <th style="width: 40px!important;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="" wicket:id="userRows">
+                            <td><span wicket:id="userName"></span></td>
+                            <td><span wicket:id="loginName"></span></td>
+                            <td><span wicket:id="email"></span></td>
+                            <td><span wicket:id="phone"></span></td>
+                            <td><span wicket:id="mobile"></span></td>
+                            <td><span wicket:id="role"></span></td>
+                            <td><span wicket:id="createDate"></span></td>
+
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn black" href="#" data-toggle="dropdown">
+                                        <i class="icon-edit"></i> 更多
+                                        <i class="icon-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#form_modal2" wicket:id="edit" data-toggle="modal">编辑</a></li>
+                                        <li><a wicket:id="del">删除</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    jQuery(document).ready(function () {
+        /*  alert(111111)
+         // jQuery("a.k-button").attr("href","#form_modal2")
+         jQuery(".gridcell").find('a').attr("href","#form_modal2");*/
+
+    });
+</script>
+</body>
+</html>

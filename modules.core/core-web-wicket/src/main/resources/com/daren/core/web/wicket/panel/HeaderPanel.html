@@ -1,0 +1,97 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <!-- BEGIN LOGO -->
+                <a class="brand" href="#">
+                    <img src="res/media/image/logo-new.png" alt="logo"/>
+                    <span class="logo_font" style="font-size: 16px;color: #fff;font-family: \5FAE\8F6F\96C5\9ED1;">销售助手管理系统</span>
+                </a>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                    <img src="res/media/image/menu-toggler.png" alt=""/>
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <ul class="nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+
+                    <li class="dropdown" id="header_notification_bar">
+
+                        <ul class="dropdown-menu extended notification">
+
+                        </ul>
+                    </li>
+                    <!-- END NOTIFICATION DROPDOWN -->
+                    <!-- BEGIN INBOX DROPDOWN -->
+                    <li class="dropdown" id="header_inbox_bar">
+
+                        <ul class="dropdown-menu extended inbox">
+
+                        </ul>
+                    </li>
+                    <!-- END INBOX DROPDOWN -->
+                    <!-- BEGIN TODO DROPDOWN -->
+                    <li class="dropdown" id="header_task_bar">
+
+                        <ul class="dropdown-menu extended tasks">
+
+                            <li class="external">
+                                <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END TODO DROPDOWN -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="" src="res/media/image/avatar1_small.jpg"/>
+                            <span class="username"><span wicket:id="userName"></span></span>
+                            <i class="icon-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li><a href="#" wicket:id="lockScreen"><i class="icon-lock"></i> 锁屏</a></li>
+                            <li><a href="#" wicket:id="signout"><i class="icon-key"></i> 登出</a></li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <li class="dropdown" style="padding-left:54px">
+                        <!-- BEGIN STYLE CUSTOMIZER -->
+                        <div class="color-panel hidden-phone">
+                            <div class="color-mode-icons icon-color"></div>
+                            <div class="color-mode-icons icon-color-close"></div>
+                            <div class="color-mode">
+                                <p>主题颜色</p>
+                                <ul class="inline">
+                                    <li class="color-black current color-default" data-style="default"></li>
+                                    <li class="color-blue" data-style="blue"></li>
+                                    <li class="color-brown" data-style="brown"></li>
+                                    <li class="color-purple" data-style="purple"></li>
+                                    <li class="color-grey" data-style="grey"></li>
+                                    <li class="color-white color-light" data-style="light"></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!-- END BEGIN STYLE CUSTOMIZER -->
+                    </li>
+                </ul>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
+    </div>
+    <!-- END HEADER -->
+
+
+</wicket:panel>
+</body>
+</html>
