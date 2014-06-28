@@ -133,54 +133,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
-
-
-            <!--<plugin>
-                <groupId>com.versioneye</groupId>
-                <artifactId>versioneye-maven-plugin</artifactId>
-                <version>2.0.1</version>
-            </plugin>-->
-            <!--<plugin>
-                <groupId>com.github.danielflower.mavenplugins</groupId>
-                <artifactId>maven-gitlog-plugin</artifactId>
-                <version>1.6.0</version>
-                <configuration>
-                    <reportTitle>Changelog for ${project.name} version ${project.version}</reportTitle>
-                    <verbose>true</verbose>
-                    <outputDirectory>target/docs</outputDirectory>
-                    <generatePlainTextChangeLog>true</generatePlainTextChangeLog>
-                    <plainTextChangeLogFilename>changelog-${project.version}.txt</plainTextChangeLogFilename>
-                    <generateSimpleHTMLChangeLog>true</generateSimpleHTMLChangeLog>
-                    <markdownChangeLogFilename>changelog-${project.version}.md</markdownChangeLogFilename>
-                    <generateMarkdownChangeLog>true</generateMarkdownChangeLog>
-                    <simpleHTMLChangeLogFilename>changelog-${project.version}.html</simpleHTMLChangeLogFilename>
-                    <generateHTMLTableOnlyChangeLog>true</generateHTMLTableOnlyChangeLog>
-                    <htmlTableOnlyChangeLogFilename>changelog-${project.version}-tableonly.html</htmlTableOnlyChangeLogFilename>
-                    <issueManagementSystem>GitHub issue tracker</issueManagementSystem>
-                    <issueManagementUrl>https://github.com/danielflower/maven-gitlog-plugin/issues</issueManagementUrl>
-                    <fullGitMessage>true</fullGitMessage>
-                    <dateFormat>yyyy-MM-dd HH:mm:ss Z</dateFormat>
-                    <includeCommitsAfter>2014-04-01 00:00:00.0 AM</includeCommitsAfter>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    &lt;!&ndash; Maven artifact that contains maven-gitlog-plugin CommitFilter to be used &ndash;&gt;
-                    &lt;!&ndash; CommitFilters are loaded using the SPI mechanism Provided by the JRE:    &ndash;&gt;
-                    &lt;!&ndash; http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html    &ndash;&gt;
-                    &lt;!&ndash;<dependency>
-                        <groupId>es.e-ucm.ead</groupId>
-                        <artifactId>gitlog-maven-plugin-ext</artifactId>
-                        <version>0.1.1</version>
-                    </dependency>&ndash;&gt;
-                </dependencies>
-            </plugin>-->
-
         </plugins>
     </build>
     <reporting>

@@ -3,6 +3,8 @@ package com.daren.admin.api.dao;
 import com.daren.admin.entities.RoleBeanImpl;
 import com.daren.core.api.persistence.IGenericDao;
 
+import java.util.List;
+
 /**
  * @类描述：角色管理Dao接口
  * @创建人：sunlf
@@ -12,4 +14,16 @@ import com.daren.core.api.persistence.IGenericDao;
  * @修改备注：
  */
 public interface IRoleBeanDao extends IGenericDao<RoleBeanImpl, Long> {
+    /**
+     * 获得角色名列表
+     * @return
+     */
+    List<String> getRoleNameList();
+    /**
+     * 通过角色名获得角色对象
+     *
+     * @param roleName 角色名
+     * @return
+     */
+    public RoleBeanImpl getRole(String roleName);
 }

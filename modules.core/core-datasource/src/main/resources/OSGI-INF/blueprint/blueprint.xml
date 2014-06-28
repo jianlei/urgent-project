@@ -45,34 +45,15 @@
     </service>
 
     <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/world"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/urgent"/>
         <property name="user" value="root"/>
         <property name="password" value="1234"/>
     </bean>
 
-    <service interface="javax.sql.DataSource" ref="connectionPool">
+    <service interface="javax.sql.DataSource" ref="dataSource">
         <service-properties>
             <entry key="osgi.jndi.service.name" value="jdbc/mysqlds"/>
         </service-properties>
     </service>
-
-    <bean id="connectionPool" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-        <property name="datasourceBean" ref="dataSource"/>
-        <property name="idleConnectionTestPeriodInSeconds" value="300"/>
-        <property name="idleMaxAgeInSeconds" value="240"/>
-        <property name="maxConnectionsPerPartition" value="10"/>
-        <property name="minConnectionsPerPartition" value="2"/>
-        <property name="partitionCount" value="2"/>
-        <property name="acquireIncrement" value="1"/>
-        <property name="poolAvailabilityThreshold" value="5"/>
-
-        <!--<property name="connectionTestStatement" value="${storage.db.testquery}"/>-->
-        <!--<property name="connectionTimeoutInMs" value="${storage.db.connectionTimeout}"/>-->
-        <!--<property name="queryExecuteTimeLimitInMs" value="${storage.db.queryTimeout}"/>-->
-        <property name="lazyInit" value="false"/>
-        <property name="statementsCacheSize" value="0"/>
-        <property name="defaultTransactionIsolation" value="SERIALIZATION"/>
-        <property name="poolName" value="mdp-storage"/>
-    </bean>
 
 </blueprint>

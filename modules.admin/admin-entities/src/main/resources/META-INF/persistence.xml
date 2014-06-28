@@ -47,6 +47,8 @@
         <class>com.daren.admin.entities.UserBeanImpl</class>
         <class>com.daren.admin.entities.PermissionBeanImpl</class>
         <class>com.daren.admin.entities.RoleBeanImpl</class>
+        <class>com.daren.admin.entities.DictBeanImpl</class>
+        <class>com.daren.admin.entities.OfficeBeanImpl</class>
         <class>com.daren.core.impl.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->

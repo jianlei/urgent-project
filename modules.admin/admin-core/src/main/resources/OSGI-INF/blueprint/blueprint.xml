@@ -36,7 +36,37 @@
              interface="com.daren.admin.api.biz.IUserLoginService"/>
     <reference id="userBeanDao" interface="com.daren.admin.api.dao.IUserBeanDao"/>
     <!--角色dao服务注册-->
+    <bean id="roleBeanServiceImpl" class="com.daren.admin.core.RoleBeanServiceImpl">
+        <property name="roleBeanDao" ref="roleBeanDao"/>
+        <property name="userBeanDao" ref="userBeanDao"/>
+    </bean>
+    <service id="roleBeanService" ref="roleBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IRoleBeanService"/>
+    <reference id="roleBeanDao" interface="com.daren.admin.api.dao.IRoleBeanDao"/>
 
+    <!--权限服务注册-->
+    <bean id="permissionBeanServiceImpl" class="com.daren.admin.core.PermissionBeanServiceImpl">
+        <property name="permissionBeanDao" ref="permissionBeanDao"/>
+    </bean>
+    <service id="permissionBeanService" ref="permissionBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IPermissionBeanService"/>
+    <reference id="permissionBeanDao" interface="com.daren.admin.api.dao.IPermissionBeanDao"/>
+
+    <!--字典服务注册-->
+    <bean id="dictBeanServiceImpl" class="com.daren.admin.core.DictBeanServiceImpl">
+        <property name="dictBeanDao" ref="dictBeanDao"/>
+    </bean>
+    <service id="dictBeanService" ref="dictBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IDictBeanService"/>
+    <reference id="dictBeanDao" interface="com.daren.admin.api.dao.IDictBeanDao"/>
+
+    <!--机构服务注册-->
+    <bean id="officeBeanServiceImpl" class="com.daren.admin.core.OfficeBeanServiceImpl">
+        <property name="officeBeanDao" ref="officeBeanDao"/>
+    </bean>
+    <service id="officeBeanService" ref="officeBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IOfficeBeanService"/>
+    <reference id="officeBeanDao" interface="com.daren.admin.api.dao.IOfficeBeanDao"/>
 
 </blueprint>
 

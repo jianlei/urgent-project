@@ -35,5 +35,14 @@
         </bean>
     </service>
 
+    <!-- 发布字典管理子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.DictMenuItemsModule"/>
+    </service>
+
+    <!-- 发布机构管理子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.OfficeMenuItemsModule"/>
+    </service>
 
 </blueprint>
