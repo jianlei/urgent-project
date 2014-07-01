@@ -223,6 +223,13 @@
         <bundle>mvn:org.apache.shiro/shiro-ehcache/1.2.3</bundle>
     </feature>
 
+    <feature name="jedis" version="2.5.1">
+            <bundle dependency="true">mvn:org.apache.commons/commons-pool2/2.0</bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jedis/2.5.1_1
+        </bundle>
+    </feature>
+
     <feature name="urgent-all" version="3.0.1">
         <feature>webconsole</feature>
         <feature>openjpa</feature>

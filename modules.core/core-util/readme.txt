@@ -6,3 +6,4 @@ Iris平台的工具类
 2.DateUtil 日期工具类
 3.JNDIHelper用于获得OSGI环境下的service
 4.OgnlExpressionHelp 表达式
+5.CouchdbConfig 用于couchdb的配置文件

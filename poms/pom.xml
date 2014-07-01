@@ -22,7 +22,7 @@
     </modules>
     <properties>
         <maven-pax-plugin.version>1.5</maven-pax-plugin.version>
-        <maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
+        <maven-bundle-plugin.version>2.5.0</maven-bundle-plugin.version>
         <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <depends-maven-plugin.version>1.2</depends-maven-plugin.version>
@@ -58,6 +58,9 @@
         <guava.version>15.0</guava.version>
         <jquery-ui.version>6.16.0</jquery-ui.version>
         <lightcouch.version>0.0.6_1</lightcouch.version>
+        <jedis.version>2.4.2</jedis.version>
+        <org.apache.servicemix.bundles.jedis.version>2.5.1_1</org.apache.servicemix.bundles.jedis.version>
+        <commons-pool2.version>2.0</commons-pool2.version>
     </properties>
     <build>
         <pluginManagement>
@@ -246,57 +249,13 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>com.daren.resource</groupId>
-                <artifactId>com.daren.resource.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
 
             <dependency>
-                <groupId>com.daren.resource</groupId>
-                <artifactId>com.daren.resource.core</artifactId>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.cache</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>com.daren.training</groupId>
-                <artifactId>com.daren.training.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.customer</groupId>
-                <artifactId>com.daren.customer.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.testdrive</groupId>
-                <artifactId>com.daren.testdrive.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.daren.purchaseschema</groupId>
-                <artifactId>com.daren.purchaseschema.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.purchaseschema</groupId>
-                <artifactId>com.daren.purchaseschema.core</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.platform</groupId>
-                <artifactId>com.daren.platform.couchdb</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!--Urgent Core end-->
             <!--openjpa begin-->
             <dependency>
@@ -510,58 +469,9 @@
                 <version>${ariesBlueprintAnnotationImplVersion}</version>
                 <scope>provided</scope>
             </dependency>
-            <!--销售顾问模块-->
-            <dependency>
-                <groupId>com.daren.salesman</groupId>
-                <artifactId>com.daren.salesman.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.salesman</groupId>
-                <artifactId>com.daren.salesman.core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.salesman</groupId>
-                <artifactId>com.daren.salesman.persist.openjpa</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.salesman</groupId>
-                <artifactId>com.daren.salesman.entities</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <!---->
 
-            <!--车型模块-->
-            <dependency>
-                <groupId>com.daren.cartype</groupId>
-                <artifactId>com.daren.cartype.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.cartype</groupId>
-                <artifactId>com.daren.cartype.core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.cartype</groupId>
-                <artifactId>com.daren.cartype.persist.openjpa</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.cartype</groupId>
-                <artifactId>com.daren.cartype.entities</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
+
+
             <dependency>
                 <groupId>org.apache.servicemix.specs</groupId>
                 <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
@@ -688,6 +598,7 @@
                 <version>4.1.0.Final_3</version>
                 <scope>provided</scope>
             </dependency>
+
             <!--数据库连接池-->
             <dependency>
                 <groupId>com.jolbox</groupId>
@@ -695,6 +606,22 @@
                 <version>0.8.0.RELEASE</version>
                 <scope>provided</scope>
             </dependency>
+
+            <!--jedis begin-->
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.jedis</artifactId>
+                <version>${org.apache.servicemix.bundles.jedis.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--jedis end-->
         </dependencies>
     </dependencyManagement>
 

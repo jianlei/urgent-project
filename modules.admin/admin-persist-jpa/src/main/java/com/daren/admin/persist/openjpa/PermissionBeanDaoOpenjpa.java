@@ -25,8 +25,5 @@ public class PermissionBeanDaoOpenjpa extends GenericOpenJpaDao<PermissionBeanIm
     @Override
     public List<PermissionBeanImpl> getChildPermission(PermissionBeanImpl permissionBean) {
         return this.find("select u from PermissionBeanImpl u where u.parent=?1", permissionBean);
-
     }
-
-
 }

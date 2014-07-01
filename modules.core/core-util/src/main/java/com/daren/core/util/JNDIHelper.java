@@ -17,12 +17,10 @@ public class JNDIHelper {
         try {
             InitialContext ic = new InitialContext();
 
-            return (T) ic.lookup("osgi:service/"
-                    + serviceName);
+            return (T) ic.lookup("osgi:service/" + serviceName);
         } catch (NamingException e) {
             e.printStackTrace();
-            IOException ioe = new IOException(
-                    "service resolution failed");
+            IOException ioe = new IOException("service resolution failed");
             ioe.initCause(e);
             throw ioe;
         }
