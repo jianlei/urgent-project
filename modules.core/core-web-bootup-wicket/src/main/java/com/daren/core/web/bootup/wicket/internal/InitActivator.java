@@ -1,5 +1,6 @@
 package com.daren.core.web.bootup.wicket.internal;
 
+import com.daren.core.web.bootup.wicket.filter.DelegatingFilterFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -31,8 +32,8 @@ public class InitActivator implements BundleActivator {
     public void start(BundleContext bundleContext) throws Exception {
         InitActivator.context = bundleContext;
 //        注册一个测试filter
-        /*DelegatingFilterFactory delegatingFilterFactory = new DelegatingFilterFactory(bundleContext, "blueprint.simple.default", 2);
-        delegatingFilterFactory.register();*/
+        DelegatingFilterFactory delegatingFilterFactory = new DelegatingFilterFactory(bundleContext, "blueprint.simple.default", 2);
+        delegatingFilterFactory.register();
     }
 
     /*

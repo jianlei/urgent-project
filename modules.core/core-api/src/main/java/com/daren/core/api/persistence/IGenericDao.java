@@ -8,7 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by dell on 14-1-16.
+ * @类描述：DAO数据访问通用接口
+ * @创建人：sunlf
+ * @创建时间：2014-7-3 下午1:01:59
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
     /**

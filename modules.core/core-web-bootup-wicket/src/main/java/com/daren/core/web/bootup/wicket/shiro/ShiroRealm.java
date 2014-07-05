@@ -92,14 +92,6 @@ public class ShiroRealm extends AuthorizingRealm {
             userLoginService.updateUserLoginInfo(userBean.getId(), SecurityUtils.getSubject().getSession().getHost());
             return new SimpleAuthenticationInfo(userName, password, getName());
         }
-        /*if ("user".equals(userName)) {
-            return new SimpleAuthenticationInfo("user", "user", getName());
-        } else if ("admin".equals(userName)) {
-            return new SimpleAuthenticationInfo("admin", "admin", getName());
-        } else if ("both".equals(userName)) {
-            return new SimpleAuthenticationInfo("both", "both", getName());
-        }*/
-
         throw new AuthenticationException();
     }
 

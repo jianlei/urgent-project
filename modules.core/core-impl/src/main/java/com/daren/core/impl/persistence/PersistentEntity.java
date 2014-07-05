@@ -7,12 +7,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
- * Base entity for all persistence entities in the system.
- *
- * @author Aliaksei Papou
+ * @类描述：系统中全部实体类的基础实体类
+ * @创建人：sunlf
+ * @创建时间：2014-3-27 下午1:01:59
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
+
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class PersistentEntity implements IPersistentEntity {
@@ -28,7 +31,8 @@ public abstract class PersistentEntity implements IPersistentEntity {
     private Date creationDate = new Date();// 创建日期
     private String createBy;    // 创建者
     private String updateBy;    // 更新者
-    private Date updateDate;// 更新日期
+    private Date updateDate = new Date();
+    ;// 更新日期
 
     @Override
     public long getId() {

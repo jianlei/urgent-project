@@ -1,7 +1,7 @@
 package com.daren.admin.entities;
 
-import com.google.common.collect.Lists;
 import com.daren.core.impl.persistence.PersistentEntity;
+import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,7 +31,7 @@ public class PermissionBeanImpl extends PersistentEntity {
     private List<RoleBeanImpl> roleList = Lists.newArrayList(); // 拥有角色列表
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
     public PermissionBeanImpl getParent() {
         return (PermissionBeanImpl) parent;
@@ -124,7 +124,7 @@ public class PermissionBeanImpl extends PersistentEntity {
     }
 
 
-    @ManyToMany(mappedBy = "permissionList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "permissionList", fetch = FetchType.EAGER)
     @OrderBy("id")
     public List<RoleBeanImpl> getRoleList() {
         return roleList;

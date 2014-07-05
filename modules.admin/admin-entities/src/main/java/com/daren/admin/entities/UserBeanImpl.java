@@ -1,17 +1,13 @@
 package com.daren.admin.entities;
 
-import com.google.common.collect.Lists;
 import com.daren.core.impl.persistence.PersistentEntity;
-import org.hibernate.validator.constraints.Email;
+import com.google.common.collect.Lists;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * @类描述：用户实体实现类
@@ -26,16 +22,11 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class UserBeanImpl extends PersistentEntity {
-    @NotNull(message = "登录名不能为空")
-    @Max(5)
+    private OfficeBeanImpl company;    // 归属公司
+    private OfficeBeanImpl office;    // 归属部门
     private String loginName;// 登录名
-    @Size(min = 4, max = 10)
-    @NotNull(message = "姓名不能为空")
     private String name;  // 姓名
-    @NotNull(message = "密码不能为空")
-    @Min(6)
     private String password; // 密码
-    @Email
     private String email; // 邮箱
     private String phone;    // 电话
     private String mobile;    // 手机
@@ -130,7 +121,10 @@ public class UserBeanImpl extends PersistentEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {
+                    "user_id", "role_id"})})
     @OrderBy("id")
     public List<RoleBeanImpl> getRoleList() {
         return roleList;
@@ -139,5 +133,25 @@ public class UserBeanImpl extends PersistentEntity {
 
     public void setRoleList(List<RoleBeanImpl> roleList) {
         this.roleList = roleList;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    public OfficeBeanImpl getCompany() {
+        return company;
+    }
+
+    public void setCompany(OfficeBeanImpl company) {
+        this.company = company;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "office_id")
+    public OfficeBeanImpl getOffice() {
+        return office;
+    }
+
+    public void setOffice(OfficeBeanImpl office) {
+        this.office = office;
     }
 }

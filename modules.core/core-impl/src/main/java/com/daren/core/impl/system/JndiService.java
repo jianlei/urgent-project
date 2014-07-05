@@ -8,12 +8,18 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- * JNDI 系统服务，用于获得业务服务
+ * @类描述：JNDI 系统服务，用于获得业务服务
+ * @创建人：sunlf
+ * @创建时间：2014-7-3 下午1:01:59
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
+
 public class JndiService implements IJndiService<IBizService> {
     @Override
     public IBizService getOsgiService(IBizService iService) {
-        InitialContext ctx = null;
+        InitialContext ctx;
         IBizService offers = null;
         try {
             ctx = new InitialContext();

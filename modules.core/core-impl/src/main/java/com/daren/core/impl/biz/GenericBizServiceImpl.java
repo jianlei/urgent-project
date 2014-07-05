@@ -20,12 +20,6 @@ public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IB
     private String entityClassName;
     protected final Logger log = Logger.getLogger(getClass());
 
-
-    @Override
-    public IPersistentEntity addEntity(IPersistentEntity entity) {
-        return (IPersistentEntity) dao.save(entity);
-    }
-
     @Override
     public void deleteEntity(long entityId) {
         log.debug("remove entity of " + entityClassName + ";PK is " + entityId);

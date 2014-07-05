@@ -14,8 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by dell on 14-1-16.
+ * @类描述：DAO数据访问通用实现类
+ * @创建人：sunlf
+ * @创建时间：2014-7-3 下午1:01:59
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
+
 public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializable> implements IGenericDao<T, PK> {
     protected final Logger log = Logger.getLogger(getClass());
     private Class<T> persistentClass;
@@ -84,12 +90,11 @@ public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializa
     @Override
     public T save(T object) {
         entityManager.merge(object);
-//        entityManager.persist(object);
         entityManager.flush();
         return object;
     }
 
-    //    @Override
+    //@Override
     public void remove(String className, T object) {
         entityManager.remove(object);
         entityManager.flush();
@@ -120,6 +125,7 @@ public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializa
     /**
      * 按HQL查询唯一对象.
      */
+    @Override
     public <T> T findUnique(String hql, Object... values) {
         List list = this.find(hql, values);
         if (list != null && list.size() > 0) {
@@ -129,6 +135,7 @@ public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializa
         return null;
     }
 
+    @Override
     public List find(String hql, Object... values) {
         return createQuery(hql, values).getResultList();
     }
@@ -136,6 +143,7 @@ public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializa
     /**
      * 根据查询函数与参数列表创建Query对象,后续可进行更多处理,辅助函数.
      */
+
     protected Query createQuery(String queryString, Object... parameter) {
         Query queryObject = entityManager.createQuery(queryString);
         if (parameter != null) {

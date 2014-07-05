@@ -1,7 +1,7 @@
 package com.daren.admin.entities;
 
-import com.google.common.collect.Lists;
 import com.daren.core.impl.persistence.PersistentEntity;
+import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,6 +26,8 @@ public class RoleBeanImpl extends PersistentEntity {
     private List<UserBeanImpl> userList = Lists.newArrayList(); // 拥有用户列表
     private List<PermissionBeanImpl> permissionList = Lists.newArrayList(); // 拥有菜单列表
 
+    public RoleBeanImpl() {
+    }
 
     public String getName() {
         return name;
@@ -47,7 +49,7 @@ public class RoleBeanImpl extends PersistentEntity {
     }
 
 
-    @ManyToMany(mappedBy = "roleList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roleList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("id")
     public List<UserBeanImpl> getUserList() {
         return userList;

@@ -154,14 +154,19 @@
             <artifactId>wicketstuff-shiro</artifactId>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>com.code-troopers</groupId>
-            <artifactId>wicket-jsr303-parsley</artifactId>
-        </dependency>
--->
+        <!-- <dependency>
+             <groupId>com.code-troopers</groupId>
+             <artifactId>wicket-jsr303-parsley</artifactId>
+         </dependency>
+ -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-bean-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
 
         <!-- OPTIONAL DEPENDENCY
@@ -171,6 +176,7 @@
             <version>${wicket.version}</version>
         </dependency>
         -->
+
     </dependencies>
 
     <build>

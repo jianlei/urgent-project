@@ -5,7 +5,12 @@ import com.daren.core.api.IEntity;
 import java.util.Date;
 
 /**
- * 持久化实体接口
+ * @类描述：持久化实体根接口
+ * @创建人：sunlf
+ * @创建时间：2014-7-3 下午1:01:59
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 
 public interface IPersistentEntity extends IEntity {

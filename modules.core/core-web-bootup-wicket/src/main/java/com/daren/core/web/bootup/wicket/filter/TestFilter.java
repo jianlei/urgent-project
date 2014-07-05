@@ -19,6 +19,7 @@ public class TestFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     @Override

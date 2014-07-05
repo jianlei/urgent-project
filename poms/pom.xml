@@ -28,6 +28,8 @@
         <depends-maven-plugin.version>1.2</depends-maven-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+        <openjpa-maven-plugin.version>2.3.0</openjpa-maven-plugin.version>
+        <hibernate3-maven-plugin.version>3.0</hibernate3-maven-plugin.version>
         <derby.Version>10.8.2.2</derby.Version>
         <openjpa.Version>2.3.0</openjpa.Version>
         <geronimoJpaSpec.Version>1.1</geronimoJpaSpec.Version>
@@ -61,6 +63,7 @@
         <jedis.version>2.4.2</jedis.version>
         <org.apache.servicemix.bundles.jedis.version>2.5.1_1</org.apache.servicemix.bundles.jedis.version>
         <commons-pool2.version>2.0</commons-pool2.version>
+        <gson.version>2.2.4</gson.version>
     </properties>
     <build>
         <pluginManagement>
@@ -143,6 +146,21 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>${build-helper-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.openjpa</groupId>
+                    <artifactId>openjpa-maven-plugin</artifactId>
+                    <version>${openjpa-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>hibernate3-maven-plugin</artifactId>
+                    <version>${hibernate3-maven-plugin.version}</version>
+                    <configuration>
+                        <hibernatetool>
+                            <jpaconfiguration/>
+                        </hibernatetool>
+                    </configuration>
                 </plugin>
 
             </plugins>
@@ -471,7 +489,6 @@
             </dependency>
 
 
-
             <dependency>
                 <groupId>org.apache.servicemix.specs</groupId>
                 <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
@@ -622,6 +639,12 @@
                 <scope>provided</scope>
             </dependency>
             <!--jedis end-->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

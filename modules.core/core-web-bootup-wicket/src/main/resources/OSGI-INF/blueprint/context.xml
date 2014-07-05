@@ -51,4 +51,13 @@
         </bean>
     </service>
 
+
+    <service interface="org.ops4j.pax.wicket.api.FilterFactory">
+        <service-properties>
+            <entry key="pax.wicket.applicationname" value="blueprint.simple.default"/>
+            <entry key="pax.wicket.filter.priority" value="2"/>
+        </service-properties>
+        <bean class="com.daren.core.web.bootup.wicket.filter.DelegatingFilterFactory"/>
+
+    </service>
 </blueprint>

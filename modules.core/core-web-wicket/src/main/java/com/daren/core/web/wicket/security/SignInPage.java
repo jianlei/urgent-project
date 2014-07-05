@@ -33,6 +33,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.util.string.Strings;
+import org.ops4j.pax.wicket.util.serialization.PaxWicketSerializer;
 
 
 public class SignInPage extends WebPage {
@@ -114,6 +115,8 @@ public class SignInPage extends WebPage {
                 rememberMe, host, captcha);
         try {
             currentUser.login(token);
+            PaxWicketSerializer serializer = (PaxWicketSerializer) getApplication().getFrameworkSettings().getSerializer();
+            serializer.serialize(currentUser);
             return true;
 
             // the following exceptions are just a few you can catch and handle accordingly. See the
