@@ -1,6 +1,6 @@
 package com.daren.admin.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.page.UserPage;
+import com.daren.admin.webapp.wicket.page.Page1;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.Page;
 
@@ -27,7 +27,8 @@ public class UserMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Class<? extends Page> getPageClass() {
-        return UserPage.class;  //To change body of implemented methods use File | Settings | File Templates.
+//        return UserPage.class;
+        return Page1.class;
     }
 
     @Override

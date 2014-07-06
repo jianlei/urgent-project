@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
+
+    <ext:property-placeholder placeholder-prefix="$[" placeholder-suffix="]"/>
+
+    <!--<reference id="homePageProviderService" interface="com.daren.core.web.api.provider.IHomePageProvider"/>-->
+
+    <!-- <bean id="irisShiroApplication" class="com.daren.core.web.bootup.wicket.IrisShiroApplication">
+         &lt;!&ndash;<property name="homePageProvider" value=""/>&ndash;&gt;
+         &lt;!&ndash;<property name="homePageProvider" ref="homePageProviderService"/>&ndash;&gt;
+     </bean>-->
+
+
+    <service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
+        <service-properties>
+            <entry key="pax.wicket.applicationname" value="blueprint.simple.default"/>
+            <entry key="pax.wicket.mountpoint" value="/"/>
+        </service-properties>
+        <bean class="com.daren.core.web.bootup.wicket.filter.ShiroWebApplicationFactory">
+            <property name="wicketApplication" value="com.daren.core.web.bootup.wicket.IrisShiroApplication"/>
+        </bean>
+    </service>
+
+
+    <bean id="shiroRealm" class="com.daren.core.web.bootup.wicket.shiro.ShiroRealm"/>
+
+    <bean id="webSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
+          destroy-method="destroy">
+        <property name="realm" ref="shiroRealm"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <!--<property name="sessionMode" value="native"/>-->
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
+    <!--<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="1800000"/>
+    </bean>-->
+
+    <!-- 发布session工厂 -->
+
+    <bean id="SessionFactory" class="com.daren.core.web.bootup.wicket.shiro.ShiroSessionFactory">
+
+    </bean>
+
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1200000"/>
+        <property name="sessionDAO" ref="customShiroSessionDAO"/>
+        <property name="sessionFactory" ref="SessionFactory"/>
+        <!--<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>-->
+    </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- <property name="maxActive" value="1024" />
+         <property name="maxIdle" value="200" />
+         <property name="maxWait" value="1000" />
+         <property name="testOnBorrow" value="true" />-->
+    </bean>
+
+    <bean id="shardedJedisPool" class="redis.clients.jedis.JedisPool">
+        <argument index="0" ref="jedisPoolConfig"/>
+        <argument index="1" value="127.0.0.1"/>
+        <argument index="2" value="6379" type="int"/>
+    </bean>
+
+    <bean id="jedisShiroSessionRepository" class="com.daren.core.web.bootup.wicket.shiro.JedisShiroSessionRepository">
+        <property name="jedisPool" ref="shardedJedisPool"/>
+    </bean>
+
+    <service ref="jedisShiroSessionRepository"
+             interface="com.daren.core.web.bootup.wicket.shiro.ShiroSessionRepository">
+
+    </service>
+
+    <bean id="customShiroSessionDAO" class="com.daren.core.web.bootup.wicket.shiro.CustomShiroSessionDAO">
+        <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+    </bean>
+
+    <!-- 用户授权信息Cache, 采用EhCache -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache.xml"/>
+    </bean>
+
+
+    <service interface="org.ops4j.pax.wicket.api.FilterFactory">
+        <service-properties>
+            <entry key="pax.wicket.applicationname" value="blueprint.simple.default"/>
+            <entry key="pax.wicket.filter.priority" value="2"/>
+        </service-properties>
+        <bean class="com.daren.core.web.bootup.wicket.filter.ShiroFilterFactory">
+            <property name="webSecurityManager" ref="webSecurityManager"/>
+        </bean>
+    </service>
+</blueprint>

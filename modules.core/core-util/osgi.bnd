@@ -6,4 +6,5 @@
 #Meta-Persistence: META-INF/persistence.xml
 #JPA-PersistenceUnits:core-cm
 #Import-Package:org.apache.derby.jdbc,*
-Import-Package: com.daren.admin.entities.*,org.apache.openjpa.*,*
+#Import-Package:*
+DynamicImport-Package:*

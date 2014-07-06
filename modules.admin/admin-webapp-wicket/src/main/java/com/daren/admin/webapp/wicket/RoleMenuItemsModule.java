@@ -1,6 +1,6 @@
 package com.daren.admin.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.page.ListRolePage;
+import com.daren.admin.webapp.wicket.page.Page2;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.Page;
 
@@ -26,7 +26,8 @@ public class RoleMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Class<? extends Page> getPageClass() {
-        return ListRolePage.class;  //To change body of implemented methods use File | Settings | File Templates.
+        return Page2.class;
+//        return ListRolePage.class;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

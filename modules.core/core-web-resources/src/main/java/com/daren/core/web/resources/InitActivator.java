@@ -22,6 +22,7 @@ public class InitActivator implements BundleActivator {
         reference = bundleContext.getServiceReference(HttpService.class.getName());
         HttpService httpService = (HttpService) bundleContext.getService(reference);
         httpService.registerResources("/res", "/urgent", null);
+        httpService.registerResources("/cus", "/custome", null);
     }
 
     @Override

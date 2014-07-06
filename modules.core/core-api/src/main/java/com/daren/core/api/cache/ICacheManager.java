@@ -2,6 +2,8 @@ package com.daren.core.api.cache;
 
 import com.daren.core.api.IService;
 
+import java.util.Set;
+
 /**
  * @类描述：cache interface
  * @创建人：sunlf
@@ -54,4 +56,20 @@ public interface ICacheManager extends IService {
      * @param key
      */
     public void del(String key);
+
+    /**
+     * 删除被匹配到了的key
+     *
+     * @param keysPattern
+     */
+    void deleteByKeysPattern(String keysPattern);
+
+
+    /**
+     * 获取匹配到了的key
+     *
+     * @param keysPattern
+     * @return
+     */
+    public Set<byte[]> getKeysByKeysPattern(String keysPattern);
 }

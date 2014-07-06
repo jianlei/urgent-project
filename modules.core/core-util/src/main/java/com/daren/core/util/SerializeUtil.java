@@ -1,15 +1,11 @@
 package com.daren.core.util;
 
-import org.apache.wicket.application.IClassResolver;
-import org.ops4j.pax.wicket.util.serialization.PaxWicketObjectInputStream;
-import org.ops4j.pax.wicket.util.serialization.PaxWicketObjectOutputStream;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URL;
-import java.util.Iterator;
 
 /**
  * @类描述：redis 序列化应用类
@@ -21,74 +17,96 @@ import java.util.Iterator;
  */
 public class SerializeUtil {
     public static byte[] serialize(Object object) {
-        ObjectOutputStream oos = null;
         ByteArrayOutputStream baos = null;
+        ObjectOutputStream oos = null;
         try {
             // 序列化
-            /*baos = new ByteArrayOutputStream();
-			oos = new ObjectOutputStream(baos);
-			oos.writeObject(object);*/
-//			byte[] bytes = baos.toByteArray();
             baos = new ByteArrayOutputStream();
-            PaxWicketObjectOutputStream devModeOS = new PaxWicketObjectOutputStream(baos);
-
-            devModeOS.writeObject(object);
-            devModeOS.flush();
-            devModeOS.close();
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(object);
             byte[] bytes = baos.toByteArray();
             return bytes;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+
+
+    }
+
+    public static String serializeJson(Object object) {
+
+        Gson mapper = new Gson();
+        try {
+            return mapper.toJson(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static <T> T unserializeJson(String json, Class cls) {
+
+        Gson mapper = new Gson();
+        try {
+            return (T) mapper.fromJson(json, cls);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     @SuppressWarnings("unchecked")
-    public static Object unserialize(byte[] bytes) {
-        /*ClassLoader curThreadCls=Thread.currentThread().getContextClassLoader();
-        ClassLoader cls=SerializeUtil.class.getClassLoader();
-        if(curThreadCls!=cls)
-            Thread.currentThread().setContextClassLoader(cls);
-		ByteArrayInputStream bais = null;
-		try {
-			// 反序列化
-			bais = new ByteArrayInputStream(bytes);
-			ObjectInputStream ois = new ObjectInputStream(bais);
-			
-			return  ois.readObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;*/
-        IClassResolver resolver = new IClassResolver() {
-            @Override
-            public Class<?> resolveClass(String classname)
-                    throws ClassNotFoundException {
-                ClassLoader classLoader = getClass().getClassLoader();
-                return classLoader.loadClass(classname);
-            }
+    public static <T> T unserialize(byte[] bytes) {
 
-            @Override
-            public Iterator<URL> getResources(String name) {
-                throw new UnsupportedOperationException("This method should NOT BE CALLED!");
-            }
-
-
-            @Override
-            public ClassLoader getClassLoader() {
-                throw new UnsupportedOperationException("This method should NOT BE CALLED!");
-            }
-        };
-
-        ByteArrayInputStream roBAIS = new ByteArrayInputStream(bytes);
-        PaxWicketObjectInputStream roOIS = null;
+        ByteArrayInputStream bais = null;
         try {
-            roOIS = new PaxWicketObjectInputStream(roBAIS, resolver);
-            return roOIS.readObject();
+            // 反序列化
+            bais = new ByteArrayInputStream(bytes);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            /*{
+                Set<ClassLoader> lhs = new LinkedHashSet<ClassLoader>();
+                {
+                    // Keep a set if discovered class loaders
+                    lhs.add(getClass().getClassLoader());
+                }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+                @Override
+                protected Class<?> resolveClass(ObjectStreamClass desc)
+                        throws ClassNotFoundException, IOException {
+
+                    for (ClassLoader cl : lhs)
+                        try {
+                            Class<?> c = cl.loadClass(desc.getName());
+
+                            // we found the class, so we can use its class loader,
+                            // it is in the proper class space  if the uses constraints
+                            // are set properly (and you're using bnd so you should be ok)
+
+                            lhs.add(c.getClassLoader());
+
+                            // The paranoid among us would check
+                            // the serial uuid here ...
+                            // long uuid = desc.getSerialVersionUID();
+                            // Field field = c.getField("serialVersionUID");
+                            // assert uuid == field.get(null)
+
+                            return c;
+                        } catch (Exception e) {
+                            // Ignore
+                        }
+
+                    // Fallback (for void and primitives)
+                    return super.resolveClass(desc);
+                }
+            };*/
+
+            Object o = ois.readObject();
+            return (T) o;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

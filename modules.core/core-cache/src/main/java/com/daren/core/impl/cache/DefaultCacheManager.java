@@ -3,9 +3,11 @@ package com.daren.core.impl.cache;
 
 import com.daren.core.api.cache.ICacheManager;
 import com.daren.core.util.SerializeUtil;
-import com.google.gson.Gson;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
+
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @类描述：cache implement class
@@ -18,20 +20,12 @@ import redis.clients.jedis.ShardedJedisPool;
 public class DefaultCacheManager implements ICacheManager {
 
     private ShardedJedisPool pool;
-    private Gson gson = new Gson();
 
 
     public void setPool(ShardedJedisPool pool) {
         this.pool = pool;
     }
 
-    /**
-     * 使用gson存储json对象
-     *
-     * @param key   key
-     * @param value value
-     * @param <T>
-     */
     @Override
     public <T> void save(String key, T value) {
         // 从池中获取一个Jedis对象
@@ -39,11 +33,14 @@ public class DefaultCacheManager implements ICacheManager {
         if (value instanceof String) {
             jedis.set(key, (String) value);
         } else {
-            jedis.set(key, gson.toJson(value));
+            jedis.set(key.getBytes(), SerializeUtil.serialize(value));
         }
+
+
         // 释放对象池
         pool.returnResource(jedis);
     }
+
 
     @Override
     public <T> void save(String key, T value, int sec) {
@@ -54,9 +51,11 @@ public class DefaultCacheManager implements ICacheManager {
         } else {
             jedis.setex(key.getBytes(), sec, SerializeUtil.serialize(value));
         }
+
+        // 释放对象池
+        pool.returnResource(jedis);
     }
 
-    @Override
     public String get(String key) {
         // 从池中获取一个Jedis对象
         ShardedJedis jedis = pool.getResource();
@@ -69,7 +68,6 @@ public class DefaultCacheManager implements ICacheManager {
         return value;
     }
 
-    @Override
     public Boolean exists(String key) {
         ShardedJedis jedis = pool.getResource();
         boolean flag = jedis.exists(key);
@@ -77,7 +75,6 @@ public class DefaultCacheManager implements ICacheManager {
         return flag;
     }
 
-    @Override
     public byte[] getObj(String key) {
         // 从池中获取一个Jedis对象
         ShardedJedis jedis = pool.getResource();
@@ -97,5 +94,33 @@ public class DefaultCacheManager implements ICacheManager {
         if (jedis.exists(key)) {
             jedis.del(key);
         }
+
+        // 释放对象池
+        pool.returnResource(jedis);
+    }
+
+
+    public void deleteByKeysPattern(String keysPattern) {
+        ShardedJedis jedis = pool.getResource();
+        Set<String> keys = jedis.hkeys(keysPattern);
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()) {
+            String s = it.next();
+            System.out.println(s);
+        }
+        // 释放对象池
+        pool.returnResource(jedis);
+
+
+    }
+
+    public Set<byte[]> getKeysByKeysPattern(String keysPattern) {
+        ShardedJedis jedis = pool.getResource();
+        Set<byte[]> keys = jedis.hkeys(keysPattern.getBytes());
+
+        // 释放对象池
+        pool.returnResource(jedis);
+
+        return keys;
     }
 }

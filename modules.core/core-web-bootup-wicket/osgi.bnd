@@ -3,9 +3,10 @@
 #-----------------------------------------------------------------
 
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
-Import-Package: org.apache.wicket.request.resource,org.apache.wicket.request.cycle,org.apache.wicket.page,org.apache.wicket.util,org.apache.wicket.ajax,org.apache.wicket.request,org.apache.wicket.request.http,org.apache.wicket.event,*
+Import-Package: org.apache.wicket.request.resource,org.apache.wicket.request.cycle,org.apache.wicket.page,org.apache.wicket.util,org.apache.wicket.ajax,org.apache.wicket.request,org.apache.wicket.request.http,org.apache.wicket.event,org.apache.wicket.session,*
 #-wab:src/main/webapp
 #打包类库
 #-wablib: {maven-dependencies}
 #Web-ContextPath: /
 #Include-Resource: src/main/resources
+#DynamicImport-Package:com.daren.admin.entities.*
