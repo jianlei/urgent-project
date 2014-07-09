@@ -25,22 +25,28 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
-            <version>0.0.6_1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.entities</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -89,7 +95,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="target/${artifactId}-${version}.jar"
+                                <copy file="target/${project.artifactId}-${project.version}.jar"
                                       todir="${karaf.path}"/>
                             </target>
                         </configuration>

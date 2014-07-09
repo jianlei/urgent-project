@@ -83,7 +83,7 @@
         <module>modules.admin</module>
         <module>karaf-features</module>
         <!--<module>assembly</module>-->
-
+        <module>modules.enterprise</module>
     </modules>
 
     <build>

@@ -11,3 +11,9 @@ install wrap:mvn:org.wicketstuff/wicketstuff-shiro/6.14.0
 install wrap:mvn:org.apache.velocity/velocity/1.6.3
 install wrap:mvn:org.freemarker/freemarker/2.3.19
 install wrap:mvn:org.antlr/stringtemplate/4.0.2
+
+karaf@root()> feature:repo-add mvn:org.apache.karaf.cellar/apache-karaf-cellar/3.0.0/xml/features
+karaf@root()> feature:install -v cellar
+
+karaf@root()> feature:repo-add mvn:org.apache.karaf.cave/apache-karaf-cave/3.0.0/xml/features
+karaf@root()> feature:install cave-server

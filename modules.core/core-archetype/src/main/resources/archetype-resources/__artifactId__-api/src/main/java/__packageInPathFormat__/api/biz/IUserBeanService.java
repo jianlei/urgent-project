@@ -1,7 +1,6 @@
 package ${package}.api.biz;
 
-import ${package}.api.persistence.IUserBean;
-import ${package}.api.biz.IBizService;
+import com.daren.core.api.biz.IBizService; ;
 
 import java.util.List;
 

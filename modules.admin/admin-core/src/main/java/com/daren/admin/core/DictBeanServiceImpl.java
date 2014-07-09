@@ -19,6 +19,7 @@ import java.util.List;
 public class DictBeanServiceImpl extends GenericBizServiceImpl implements IDictBeanService {
     private IDictBeanDao dictBeanDao;
 
+
     public void setDictBeanDao(IDictBeanDao dictBeanDao) {
         this.dictBeanDao = dictBeanDao;
         super.init(dictBeanDao, com.daren.admin.entities.DictBeanImpl.class.getName());
@@ -26,6 +27,6 @@ public class DictBeanServiceImpl extends GenericBizServiceImpl implements IDictB
 
     @Override
     public List<DictBeanImpl> getDictList(String type) {
-        return dictBeanDao.getDictList(type) ;
+        return dictBeanDao.getDictList(type);
     }
 }

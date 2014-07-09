@@ -37,14 +37,14 @@
          </properties>
      </persistence-unit>-->
 
-    <persistence-unit transaction-type="JTA" name="cartype-cm">
+    <persistence-unit transaction-type="JTA" name="${DartifactId}-cm">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <!--<jta-data-source>osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/TradeDataSource)</jta-data-source>-->
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
         </non-jta-data-source>
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
 
-        <class>${artifactId}.entities.UserBeanImpl</class>
+        <class>${groupId}.entities.ExampleBeanImpl</class>
         <class>com.daren.core.impl.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->

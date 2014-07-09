@@ -21,9 +21,7 @@
 
     </properties>
     <modules>
-        <module>
-            -api
-        </module>
+        <module>${artifactId}-api</module>
         <module>${artifactId}-core</module>
         <module>${artifactId}-persist-jpa</module>
         <module>${artifactId}-entities</module>
