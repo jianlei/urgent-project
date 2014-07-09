@@ -5,31 +5,31 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>${groupId}</groupId>
-        <artifactId>${project.artifactId}</artifactId>
-        <version>${project.version}</version>
+        <artifactId>${artifactId}</artifactId>
+        <version>${version}</version>
     </parent>
-    <groupId>com.daren.${project.artifactId}</groupId>
-    <artifactId>com.daren.${project.artifactId}.webapp.wicket</artifactId>
+    <groupId>com.daren.${artifactId}</groupId>
+    <artifactId>com.daren.${artifactId}.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: ${project.artifactId} - Wicket Web Application</name>
-    <description>${project.artifactId} - Webapp Wicket</description>
+    <name>Urgent :: ${artifactId} - Wicket Web Application</name>
+    <description>${artifactId} - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.${project.artifactId}.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.${artifactId}.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.${project.artifactId}</groupId>
-            <artifactId>com.daren.${project.artifactId}.api</artifactId>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.${project.artifactId}</groupId>
-            <artifactId>com.daren.${project.artifactId}.core</artifactId>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.core</artifactId>
         </dependency>
 
         <dependency>
@@ -124,7 +124,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="target/${project.artifactId}-${project.version}.jar"
+                                <copy file="target/${artifactId}-${version}.jar"
                                       todir="${karaf.path}"/>
                             </target>
                         </configuration>

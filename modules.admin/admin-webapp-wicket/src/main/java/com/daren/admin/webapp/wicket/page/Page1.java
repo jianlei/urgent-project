@@ -15,8 +15,6 @@ import org.apache.wicket.markup.html.WebPage;
  * 修改备注:  [说明本次修改内容]
  */
 public class Page1 extends WebPage {
-
-
     public Page1() {
         Session session = SecurityUtils.getSubject().getSession();
         Object o = session.getAttribute(PermissionConstant.SYS_CURRENT_USER);

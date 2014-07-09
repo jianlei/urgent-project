@@ -21,7 +21,7 @@
     </properties>
     <modules>
         <module>core-api</module>
-        <!--<module>core-archetype</module>-->
+        <module>core-archetype</module>
         <!--<module>core-couchdb</module>-->
         <module>core-cache</module>
         <module>core-datasource</module>

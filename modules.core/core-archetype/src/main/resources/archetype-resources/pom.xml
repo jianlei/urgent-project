@@ -10,10 +10,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
-    <artifactId>${project.artifactId}</artifactId>
-    <version>${project.version}</version>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
 
-    <name>Urgent :: Modules - ${project.artifactId}</name>
+    <name>Urgent :: Modules - ${artifactId}</name>
 
     <packaging>pom</packaging>
 
@@ -21,42 +21,44 @@
 
     </properties>
     <modules>
-        <module>${project.artifactId}-api</module>
-        <module>${project.artifactId}-core</module>
-        <module>${project.artifactId}-persist-jpa</module>
-        <module>${project.artifactId}-entities</module>
-        <module>${project.artifactId}-webapp-wicket</module>
+        <module>
+            -api
+        </module>
+        <module>${artifactId}-core</module>
+        <module>${artifactId}-persist-jpa</module>
+        <module>${artifactId}-entities</module>
+        <module>${artifactId}-webapp-wicket</module>
     </modules>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.daren.${project.artifactId}</groupId>
-                <artifactId>com.daren.${project.artifactId}.core</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.daren.${artifactId}</groupId>
+                <artifactId>com.daren.${artifactId}.core</artifactId>
+                <version>${version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.${project.artifactId}</groupId>
-                <artifactId>com.daren.${project.artifactId}.api</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.daren.${artifactId}</groupId>
+                <artifactId>com.daren.${artifactId}.api</artifactId>
+                <version>${version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.${project.artifactId}</groupId>
-                <artifactId>com.daren.${project.artifactId}.entities</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.daren.${artifactId}</groupId>
+                <artifactId>com.daren.${artifactId}.entities</artifactId>
+                <version>${version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.${project.artifactId}</groupId>
-                <artifactId>com.daren.${project.artifactId}.persist.openjpa</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.daren.${artifactId}</groupId>
+                <artifactId>com.daren.${artifactId}.persist.openjpa</artifactId>
+                <version>${version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.${project.artifactId}</groupId>
-                <artifactId>com.daren.${project.artifactId}.webapp.wicket</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.daren.${artifactId}</groupId>
+                <artifactId>com.daren.${artifactId}.webapp.wicket</artifactId>
+                <version>${version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

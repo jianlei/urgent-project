@@ -2,10 +2,9 @@ package com.daren.core.util;
 
 import com.google.gson.Gson;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @类描述：redis 序列化应用类
@@ -66,9 +65,9 @@ public class SerializeUtil {
         try {
             // 反序列化
             bais = new ByteArrayInputStream(bytes);
-            ObjectInputStream ois = new ObjectInputStream(bais);
-            /*{
+            ObjectInputStream ois = new ObjectInputStream(bais) {
                 Set<ClassLoader> lhs = new LinkedHashSet<ClassLoader>();
+
                 {
                     // Keep a set if discovered class loaders
                     lhs.add(getClass().getClassLoader());
@@ -102,7 +101,7 @@ public class SerializeUtil {
                     // Fallback (for void and primitives)
                     return super.resolveClass(desc);
                 }
-            };*/
+            };
 
             Object o = ois.readObject();
             return (T) o;
