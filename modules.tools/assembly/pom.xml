@@ -46,7 +46,7 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.daren.core</groupId>
+            <groupId>com.daren.tools</groupId>
             <artifactId>karaf-features</artifactId>
             <version>1.0</version>
             <classifier>features</classifier>

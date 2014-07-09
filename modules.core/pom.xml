@@ -21,7 +21,6 @@
     </properties>
     <modules>
         <module>core-api</module>
-        <module>core-archetype</module>
         <!--<module>core-couchdb</module>-->
         <module>core-cache</module>
         <module>core-datasource</module>
@@ -31,7 +30,6 @@
         <module>core-web-bootup-wicket</module>
         <module>core-web-resources</module>
         <module>core-web-wicket</module>
-        <module>core-workflow</module>
     </modules>
     <dependencyManagement>
         <dependencies>
