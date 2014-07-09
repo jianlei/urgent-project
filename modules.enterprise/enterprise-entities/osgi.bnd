@@ -4,5 +4,5 @@
 
 #Bundle-Activator: ${bundle.namespace}.internal.ExampleActivator
 Meta-Persistence: META-INF/persistence.xml
-JPA-PersistenceUnits:admin-am,admin-cm
-Import-Package:org.apache.derby.jdbc,*
+JPA-PersistenceUnits:enterprise-cm
+#Import-Package:org.apache.derby.jdbc,*

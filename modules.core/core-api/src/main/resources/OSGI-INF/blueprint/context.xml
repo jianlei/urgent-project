@@ -32,7 +32,7 @@
         <service-properties>
             <entry key="alias" value="/test2" />
         </service-properties>
-        <bean class="com.daren.platform.com.daren.platform.couchdb.SimpleServlet">
+        <bean class="com.daren.middlewarere.com.daren.middlewarere.couchdb.SimpleServlet">
         </bean>
     </service>-->
 </blueprint>

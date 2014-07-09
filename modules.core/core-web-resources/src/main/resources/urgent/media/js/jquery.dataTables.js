@@ -1820,7 +1820,7 @@
                 var sSearchStr = oSettings.oLanguage.sSearch;
                 sSearchStr = (sSearchStr.indexOf('_INPUT_') !== -1) ?
                     sSearchStr.replace('_INPUT_', '<input type="text" />') :
-                    sSearchStr === "" ? '<input type="text" />' : sSearchStr + ' <input type="text" />';
+                        sSearchStr === "" ? '<input type="text" />' : sSearchStr + ' <input type="text" />';
 
                 var nFilter = document.createElement('div');
                 nFilter.className = oSettings.oClasses.sFilter;
@@ -3962,7 +3962,7 @@
                     oData = (typeof $.parseJSON === 'function') ?
                         $.parseJSON(sValue) : eval('(' + sValue + ')');
                     sFullCookie = fnCallback(sNameFile, oData, date.toGMTString(),
-                        aParts.join('/') + "/");
+                            aParts.join('/') + "/");
                 }
                 else {
                     sFullCookie = sNameFile + "=" + encodeURIComponent(sValue) +
@@ -4341,7 +4341,7 @@
                  * without forcing scrolling
                  */
                 var n = $(
-                    '<div style="position:absolute; top:0; left:0; height:1px; width:1px; overflow:hidden">' +
+                        '<div style="position:absolute; top:0; left:0; height:1px; width:1px; overflow:hidden">' +
                         '<div style="position:absolute; top:1px; left:1px; width:100px; overflow:scroll;">' +
                         '<div id="DT_BrowserTest" style="width:100%; height:10px;"></div>' +
                         '</div>' +
@@ -4827,10 +4827,10 @@
                 $(_fnGetTrNodes(oSettings)).removeClass(oSettings.asStripeClasses.join(' '));
 
                 $('th, td', oSettings.nTHead).removeClass([
-                    oSettings.oClasses.sSortable,
-                    oSettings.oClasses.sSortableAsc,
-                    oSettings.oClasses.sSortableDesc,
-                    oSettings.oClasses.sSortableNone ].join(' ')
+                        oSettings.oClasses.sSortable,
+                        oSettings.oClasses.sSortableAsc,
+                        oSettings.oClasses.sSortableDesc,
+                        oSettings.oClasses.sSortableNone ].join(' ')
                 );
                 if (oSettings.bJUI) {
                     $('th span.' + oSettings.oClasses.sSortIcon
@@ -7088,14 +7088,14 @@
 		 *          {
 		 *            "engine":   "Trident",
 		 *            "browser":  "Internet Explorer 4.0",
-		 *            "platform": "Win 95+",
+		 *            "middleware": "Win 95+",
 		 *            "version":  4,
 		 *            "grade":    "X"
 		 *          },
 		 *          {
 		 *            "engine":   "Trident",
 		 *            "browser":  "Internet Explorer 5.0",
-		 *            "platform": "Win 95+",
+		 *            "middleware": "Win 95+",
 		 *            "version":  5,
 		 *            "grade":    "C"
 		 *          }
@@ -7103,7 +7103,7 @@
 		 *        "aoColumns": [
 		 *          { "sTitle": "Engine",   "mData": "engine" },
 		 *          { "sTitle": "Browser",  "mData": "browser" },
-		 *          { "sTitle": "Platform", "mData": "platform" },
+		 *          { "sTitle": "Platform", "mData": "middleware" },
 		 *          { "sTitle": "Version",  "mData": "version" },
 		 *          { "sTitle": "Grade",    "mData": "grade" }
 		 *        ]
@@ -8151,7 +8151,7 @@
              */
             "fnStateSave": function (oSettings, oData) {
                 this.oApi._fnCreateCookie(
-                    oSettings.sCookiePrefix + oSettings.sInstance,
+                        oSettings.sCookiePrefix + oSettings.sInstance,
                     this.oApi._fnJsonString(oData),
                     oSettings.iCookieDuration,
                     oSettings.sCookiePrefix,
@@ -9328,9 +9328,9 @@
 		 *        "aoColumns": [
 		 *          { "mData": "engine" },
 		 *          { "mData": "browser" },
-		 *          { "mData": "platform.inner" },
-		 *          { "mData": "platform.details.0" },
-		 *          { "mData": "platform.details.1" }
+		 *          { "mData": "middleware.inner" },
+		 *          { "mData": "middleware.details.0" },
+		 *          { "mData": "middleware.details.1" }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -9410,7 +9410,7 @@
 		 *          { "mData": "engine" },
 		 *          { "mData": "browser" },
 		 *          {
-		 *            "mData": "platform",
+		 *            "mData": "middleware",
 		 *            "mRender": "[, ].name"
 		 *          }
 		 *        ]
@@ -9581,7 +9581,7 @@
 		 *        "aoColumnDefs": [ 
 		 *          { "sName": "engine", "aTargets": [ 0 ] },
 		 *          { "sName": "browser", "aTargets": [ 1 ] },
-		 *          { "sName": "platform", "aTargets": [ 2 ] },
+		 *          { "sName": "middleware", "aTargets": [ 2 ] },
 		 *          { "sName": "version", "aTargets": [ 3 ] },
 		 *          { "sName": "grade", "aTargets": [ 4 ] }
 		 *        ]
@@ -9595,7 +9595,7 @@
 		 *        "aoColumns": [ 
 		 *          { "sName": "engine" },
 		 *          { "sName": "browser" },
-		 *          { "sName": "platform" },
+		 *          { "sName": "middleware" },
 		 *          { "sName": "version" },
 		 *          { "sName": "grade" }
 		 *        ]
@@ -9922,7 +9922,7 @@
                 "bInfinite": null,
 
                 /**
-                 * Width of the scrollbar for the web-browser's platform. Calculated
+                 * Width of the scrollbar for the web-browser's middleware. Calculated
                  * during table initialisation.
                  *  @type int
                  *  @default 0
@@ -10786,10 +10786,10 @@
 
                     var sAppend = (!oSettings.bJUI) ?
                         '<a class="' + oSettings.oClasses.sPagePrevDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button">' + oLang.sPrevious + '</a>' +
-                            '<a class="' + oSettings.oClasses.sPageNextDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button">' + oLang.sNext + '</a>'
+                        '<a class="' + oSettings.oClasses.sPageNextDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button">' + oLang.sNext + '</a>'
                         :
                         '<a class="' + oSettings.oClasses.sPagePrevDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button"><span class="' + oSettings.oClasses.sPageJUIPrev + '"></span></a>' +
-                            '<a class="' + oSettings.oClasses.sPageNextDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button"><span class="' + oSettings.oClasses.sPageJUINext + '"></span></a>';
+                        '<a class="' + oSettings.oClasses.sPageNextDisabled + '" tabindex="' + oSettings.iTabIndex + '" role="button"><span class="' + oSettings.oClasses.sPageJUINext + '"></span></a>';
                     $(nPaging).append(sAppend);
 
                     var els = $('a', nPaging);
@@ -10875,7 +10875,7 @@
                     };
 
                     $(nPaging).append(
-                        '<a  tabindex="' + oSettings.iTabIndex + '" class="' + oClasses.sPageButton + " " + oClasses.sPageFirst + '">' + oLang.sFirst + '</a>' +
+                            '<a  tabindex="' + oSettings.iTabIndex + '" class="' + oClasses.sPageButton + " " + oClasses.sPageFirst + '">' + oLang.sFirst + '</a>' +
                             '<a  tabindex="' + oSettings.iTabIndex + '" class="' + oClasses.sPageButton + " " + oClasses.sPagePrevious + '">' + oLang.sPrevious + '</a>' +
                             '<span></span>' +
                             '<a tabindex="' + oSettings.iTabIndex + '" class="' + oClasses.sPageButton + " " + oClasses.sPageNext + '">' + oLang.sNext + '</a>' +

@@ -38,13 +38,13 @@
 		<service-properties>
 			<entry key="alias" value="/test2" />
 		</service-properties>
-		<bean class="com.daren.platform.com.daren.platform.couchdb.SimpleServlet">
+		<bean class="com.daren.middlewarere.com.daren.middlewarere.couchdb.SimpleServlet">
 		</bean>
 	</service>-->
     <!--<bean class="com.daren.core.impl.test.TestMessage" init-method="init">
         <property name="carInfoService" ref="carInfoService"/>
     </bean>
-    <reference id="carInfoService" interface="com.daren.platform.couchdb.api.ICarInfoService"/>
+    <reference id="carInfoService" interface="com.daren.middlewarere.couchdb.api.ICarInfoService"/>
    --> <!--系统提供的服务-->
     <bean id="jndiService" class="com.daren.core.impl.system.JndiService"/>
     <service id="sys_jndiService" interface="com.daren.core.api.system.IJndiService" ref="jndiService"/>

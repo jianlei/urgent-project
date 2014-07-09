@@ -22,6 +22,7 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <name>Urgent :: Core - API</name>
     <description>Core API</description>
 
