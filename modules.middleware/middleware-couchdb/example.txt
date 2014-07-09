@@ -1,0 +1,23 @@
+curl -H 'Content-Type: application/json' -X PUT http://127.0.0.1:5984/dms4/_design/replicateFilter -d \
+'{
+  "filters":{
+    "clientFilter":"function(doc, req) {
+      if (doc._deleted) {
+        return true;
+      }
+
+      if(!doc.clientId) {
+        return false;
+      }
+
+      if(!req.query.clientId) {
+        throw(\"Please provide a query parameter clientId.\");
+      }
+
+      if(doc.clientId == req.query.clientId) {
+        return true;
+      }
+      return false;
+    }"
+  }
+}'

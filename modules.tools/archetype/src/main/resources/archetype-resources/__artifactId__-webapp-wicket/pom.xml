@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${artifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+    <groupId>com.daren.${artifactId}</groupId>
+    <artifactId>com.daren.${artifactId}.webapp.wicket</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Urgent :: ${artifactId} - Wicket Web Application</name>
+    <description>${artifactId} - Webapp Wicket</description>
+    <packaging>bundle</packaging>
+
+    <properties>
+        <bundle.symbolicName>com.daren.${artifactId}.webapp.wicket</bundle.symbolicName>
+        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.resource</groupId>
+            <artifactId>com.daren.resource.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.resource</groupId>
+            <artifactId>com.daren.resource.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-extensions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.wicket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.aries.blueprint</groupId>
+            <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-atinject_1.0_spec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.platform</groupId>
+            <artifactId>com.daren.platform.couchdb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
+            <version>0.0.6_1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="target/${project.artifactId}-${project.version}.jar"
+                                      todir="${karaf.path}"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
