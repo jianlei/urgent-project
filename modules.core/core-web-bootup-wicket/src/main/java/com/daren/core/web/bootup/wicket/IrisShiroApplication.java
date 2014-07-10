@@ -3,6 +3,7 @@ package com.daren.core.web.bootup.wicket;
 
 import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.api.provider.IHomePageProvider;
+import com.daren.core.web.wicket.HomePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
 import org.apache.shiro.SecurityUtils;
@@ -52,16 +53,17 @@ public class IrisShiroApplication extends WebApplication {
     // --------------------------------------------------------------------------
 
     public IrisShiroApplication() {
-        try {
+        /*try {
             homePageProvider = JNDIHelper.getJNDIServiceForName(IHomePageProvider.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
     public Class<? extends Page> getHomePage() {
-        return homePageProvider.getPageClass();
+        //return homePageProvider.getPageClass();
+        return HomePage.class;
     }
 
     // --------------------------------------------------------------------------
@@ -84,8 +86,8 @@ public class IrisShiroApplication extends WebApplication {
         setSessionStoreProvider(new PlatSessionStoreProver());
         setPageManagerProvider(new NoSerializationPageManagerProvider(this));
         //设置首页映射路径
-        mountPage("/home/", homePageProvider.getPageClass());
-
+        //mountPage("/home/", homePageProvider.getPageClass());
+        mountPage("/home/", HomePage.class);
         // Enable Shiro security
         AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
         getSecuritySettings().setAuthorizationStrategy(authz);

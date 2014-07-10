@@ -17,7 +17,7 @@
     </reference-list>
 
     <!--homepage service-->
-    <service id="homePageService" interface="com.daren.core.web.api.provider.IHomePageProvider" ranking="10">
+    <service id="homePageService" interface="com.daren.core.web.api.provider.IHomePageProvider" ranking="40">
         <bean class="com.daren.core.web.wicket.impl.HomePageProviderImpl"/>
     </service>
 
