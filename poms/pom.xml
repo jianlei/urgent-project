@@ -401,6 +401,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-velocity</artifactId>
+                <version>${wicket.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring</artifactId>
                 <version>${shiro.version}</version>
@@ -421,6 +428,12 @@
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-ehcache</artifactId>
+                <version>${shiro.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-cas</artifactId>
                 <version>${shiro.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -645,6 +658,14 @@
                 <version>${gson.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.velocity</artifactId>
+                <version>1.7_6</version>
+                <scope>provided</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -38,12 +38,13 @@ public class ListDictPage extends BasePage {
     @Reference(id = "roleBeanService", serviceInterface = IRoleBeanService.class)*/
     private IDictBeanService dictBeanService;
 
-    Label label1= new Label("pageName1","添加字典");
-    Label label2= new Label("pageName2","编辑字典");
+
+    Label label1 = new Label("pageName1", "添加字典");
+    Label label2 = new Label("pageName2", "编辑字典");
 
     public ListDictPage() {
         try {
-            dictBeanService =   JNDIHelper.getJNDIServiceForName(IDictBeanService.class.getName());
+            dictBeanService = JNDIHelper.getJNDIServiceForName(IDictBeanService.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,7 +79,7 @@ public class ListDictPage extends BasePage {
         form.add(new AjaxButton("submit_button", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
-                DictBeanImpl dictBean  = (DictBeanImpl) getParent().getDefaultModelObject();
+                DictBeanImpl dictBean = (DictBeanImpl) getParent().getDefaultModelObject();
                 dictBeanService.saveEntity(dictBean);
                 setResponsePage(ListDictPage.class);
                 label1.setVisible(true);
@@ -161,8 +162,6 @@ public class ListDictPage extends BasePage {
             }
         });
     }
-
-
 
 
 }

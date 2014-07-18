@@ -3,10 +3,13 @@ package com.daren.enterprise.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePage;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.webapp.wicket.component.ExtAbstractBehavior;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.markup.html.basic.Label;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 
 /**
  * @类描述：品牌维护
@@ -23,5 +26,10 @@ public class EnterprisePage extends BasePage {
     @Reference(id = "enterpriseService", serviceInterface = IEnterpriseBeanService.class)
     private IEnterpriseBeanService enterpriseBeanService;
 
+    public EnterprisePage() {
+        Label label = new Label("tst");
+        add(label);
+        label.add(new ExtAbstractBehavior());
 
+    }
 }

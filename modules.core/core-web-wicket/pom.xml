@@ -136,6 +136,11 @@
             <artifactId>com.daren.core.impl</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-cas</artifactId>
+        </dependency>
+
         <!--<dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>jquery-ui-core</artifactId>
