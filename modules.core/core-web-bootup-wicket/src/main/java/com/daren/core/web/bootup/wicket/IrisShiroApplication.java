@@ -1,8 +1,8 @@
 package com.daren.core.web.bootup.wicket;
 
 
-import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.api.provider.IHomePageProvider;
+import com.daren.core.web.validation.JSR303ValidationListener;
 import com.daren.core.web.wicket.HomePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
@@ -37,7 +37,6 @@ import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 import org.wicketstuff.shiro.wicket.page.store.PageCacheManager;
 import org.wicketstuff.shiro.wicket.page.store.SerializedPageWrapper;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 public class IrisShiroApplication extends WebApplication {
@@ -94,7 +93,8 @@ public class IrisShiroApplication extends WebApplication {
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(
                 new ShiroUnauthorizedComponentListener(SignInPage.class, AccessDeniedPage.class, authz));
         // SecurityUtils.getSubject().getSession().setTimeout(-1000l);
-
+        //增加JSR303校验监听器
+        getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
         mountPage("login", SignInPage.class);
 
         /* In case of unhandled exception redirect it to a custom page */
@@ -238,7 +238,7 @@ public class IrisShiroApplication extends WebApplication {
             if (currentSubject != null) {
                 session = currentSubject.getSession(false);
             /*
-			 * guarantee we pulled the same session that Wicket expects us to pull. Because Shiro's
+             * guarantee we pulled the same session that Wicket expects us to pull. Because Shiro's
 			 * Subject acquisition in web apps is based on the incoming request, and so is Wicket's,
 			 * this should _always_ be the same. If not, something is seriously wrong:
 			 */

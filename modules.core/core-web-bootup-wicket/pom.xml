@@ -57,6 +57,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.validation</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.api</artifactId>
         </dependency>

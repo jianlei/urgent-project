@@ -137,8 +137,18 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.shiro</groupId>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.validation</artifactId>
+        </dependency>
+
+        <dependency>
+        <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-cas</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr303-api-1.0.0</artifactId>
         </dependency>
 
         <!--<dependency>

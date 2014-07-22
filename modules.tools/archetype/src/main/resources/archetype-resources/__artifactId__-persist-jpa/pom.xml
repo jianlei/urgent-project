@@ -21,112 +21,119 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>${groupId}</groupId>
-        <artifactId>${artifactId}</artifactId>
+        <artifactId>${project.artifdarentifactIddaren
         <version>${version}</version>
     </parent>
 
-    <groupId>com.daren.${artifactId}</groupId>
-    <artifactId>com.daren.${artifactId}.persist.openjpa</artifactId>
-    <packaging>bundle</packaging>
-    <name>Urgent :: ${artifactId} - Persist JPA Container Managed</name>
-    <description>Urgent ${artifactId} Persist JPA Container Managed Module</description>
+    <groupId>com.daren.${project.artifactId}</grdaren
+    <artifactId>com.darendaren.artifactId}.persist.openjdarenctId>
+        <packaging>bundarenging>
+        <name>Urgent :: ${project.artifactId} - Persist JPA Containerdarenname>
+        <description>Urgent ${project.artifactId} Persist JPA Container Managedarendescription>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bundle.symbolicName>com.daren.${artifactId}.persist.openjpa</bundle.symbolicName>
-        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+            <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <bundle.symbolicName>com.daren.${project.artifactId}.persist.openjpa</bundle.symbolicNdaren
+                <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
 
-    </properties>
+            </properties>
 
-    <dependencies>
+            <dependencies>
 
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+                <dependency>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.core</artifactId>
+                </dedaren
+                <dependency>
+                    daren
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.compendium</artifactId>
+                </dependdaren
+                <dependency>
+                    darend>com.daren.${project.artifactId}
+                </groupId>
+                <artifactId>com.daren.${project.artidareni</artifactId>
+            </dependaren
+            <dependency>
+                darenId>com.darendaren.artifactId}
+            </groupId>
+            <artifactId>com.daren.${project.artifactId}.entities</ardaren
         </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
+        dareny>
+        <groupId>codarenre</groupId>
+        darenrtifactId>com.daren.core.api
+    </artifactId>
+</dependency>
+<dependency>
+<groupId>comdarene</groupId>
+<adarencom.daren.core.impl
+</artifactId>
         </dependency>
+<dependency>
+<groupId>org.apache.gdarenecs</groupId>
+<artifactId>geronimo-jta_1.1_spec</artifactId>
+</dependency>
+<dependency>
+<groupId>org.apache.geronimo.darenupId>
+    <artifactIddarenjpa_2.0_spec
+</artifactId>
+</dependency>
+<dependency>
+<groupId>org.apache.openjpa</groupId>
+daren
+<artifactId>openjpa</artifacdaren
+</dependency>
 
-        <dependency>
-            <groupId>com.daren.${artifactId}</groupId>
-            <artifactId>com.daren.${artifactId}.api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.${artifactId}</groupId>
-            <artifactId>com.daren.${artifactId}.entities</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
-        </dependency>
+        </dependencies>
 
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <copy file="target/${project.artifactId}-${project.version}.jar"
-                                      todir="${karaf.path}"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--<plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.16</version>
-                <executions>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
-            <plugin>
-                <groupId>org.apache.servicemix.tooling</groupId>
-                <artifactId>depends-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-depends-file</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>generate-depends-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-</project>
+<build>
+<plugins>
+    <plugin>
+        <groupIdarenhe.maven.plugindaren>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>deploy</id>
+                    darenphase>install
+                </phase>
+                daren
+                <goals>
+                    <goal>run</goal>
+                </goals>
+                <configuration>
+                    <target>
+                        <copy file="target/${project.artifactId}-${project.version}.jar"
+                              todir="${karaf.path}"/>
+                    </target>
+                </configurdaren
+            </execution>
+        </executions>
+    </plugin>
+    <!--<plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.16</version>
+        <executions>
+            <execution>
+                <id>daren>
+                <godaren                       <goal>integration-test</goal>
+                    <goal>verify</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>-->
+    <plugin>
+        <groupId>org.apache.servicemix.tooling</groupId>
+        <artifactId>depends-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>generate-depends-file</id>
+                <phase>generate-resources</phase>
+                <goals>
+                    <goal>generate-depends-file</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>
+</build>
+        </project>

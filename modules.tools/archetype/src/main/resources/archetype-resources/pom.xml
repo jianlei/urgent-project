@@ -4,30 +4,31 @@
 
     <parent>
         <groupId>com.daren.platform.urgent-project.build</groupId>
-        <artifactId>compiled-bundle-settings</artifactId>
+        <artifactId>compiled-bundle-settings</artifdaren
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
-    <version>${version}</version>
+    <artifactIddaren.artifactId}
+</ardaren    <verdarension}</version>
 
-    <name>Urgent :: Modules - ${artifactId}</name>
+<name>Urgent :: Modules - ${project.artifactId}</name>
 
-    <packaging>pom</packaging>
+<darenpom</packaging>
 
     <properties>
 
     </properties>
     <modules>
-        <module>${artifactId}-api</module>
-        <module>${artifactId}-core</module>
-        <module>${artifactId}-persist-jpa</module>
-        <module>${artifactId}-entities</module>
-        <module>${artifactId}-webapp-wicket</module>
+    <module>${project.artifactId}-api</module>
+    daren>${project.artifactId}-core
+    </module>
+<darenroject.artifactId}-persist-jpa</module>
+        daren{project.artifactId}-entities</module>
+<moduledaren.artifactId}-webapp-wicket</module>
     </modules>
-    <dependencyManagement>
+        darendencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.daren.${artifactId}</groupId>
@@ -36,11 +37,13 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.${artifactId}</groupId>
-                <artifactId>com.daren.${artifactId}.api</artifactId>
-                <version>${version}</version>
-                <scope>provided</scope>
-            </dependency>
+                <groupId>com.daren.${project.artifactId}</groupId>
+                <artifactId>com.daren.${project.artifdaren</artifactId>
+                <verdarension}
+            </version>
+            darenpe>provided
+            <daren
+        </dependency>
             <dependency>
                 <groupId>com.daren.${artifactId}</groupId>
                 <artifactId>com.daren.${artifactId}.entities</artifactId>

@@ -17,6 +17,7 @@
 package com.daren.core.web.wicket.security;
 
 
+import com.daren.core.web.validation.JSR303FormValidator;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -30,52 +31,42 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.io.IClusterable;
-import org.apache.wicket.util.string.Strings;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 public class SignInPage extends WebPage {
-    private String username = "";
-    private String password = "";
     private Form<LoginBean> form;
     private LoginBean loginBean = new LoginBean();
-    private String validateCode = "";
 
     public SignInPage(PageParameters parameters) {
         super(parameters);
-        final FeedbackPanel feedback = new FeedbackPanel(
-                "errors");
+
         form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean)) {
             @Override
             protected void onSubmit() {
-
-                if (Strings.isEmpty(username) || Strings.isEmpty(password))
-                    return;
-                if (login(username, password, true, SecurityUtils.getSubject().getSession().getHost(), validateCode))
+                loginBean = getModel().getObject();
+                if (login(loginBean.getUsername(), loginBean.getPassword(), true, SecurityUtils.getSubject().getSession().getHost(), loginBean.getValidateCode()))
                     onSignInSucceeded();
-
-
             }
         };
 
+        final FeedbackPanel feedback = new FeedbackPanel("errors");
+        form.add(feedback.setOutputMarkupId(true));
+        TextField txtUserName = new TextField("username");
+        form.add(txtUserName.setOutputMarkupId(true));
+//        txtUserName.setLabel(new Model("用户名"));
 
-        feedback.setOutputMarkupId(true);
+        PasswordTextField pwd = new PasswordTextField("password");
+        pwd.setLabel(new Model("密码"));
+        form.add(pwd.setOutputMarkupId(true));
 
-        form.add(feedback);
-
-        form.setDefaultModel(new CompoundPropertyModel(this));
-
-        TextField username1 = new TextField("username");
-        username1.setRequired(true);
-        form.add(username1);
         TextField validateCode = new TextField("validateCode");
-        validateCode.setRequired(true);
-//        validateCode.add(new CaptchaValidator());
-
         form.add(validateCode);
-
-        form.add(new PasswordTextField("password"));
 
         final CaptchaImage captchaImage = new CaptchaImage("captchaImage");
         captchaImage.setOutputMarkupId(true);
@@ -91,7 +82,7 @@ public class SignInPage extends WebPage {
                 }
             }
         }.add(captchaImage));
-
+        form.add(new JSR303FormValidator());
         add(form);
     }
 
@@ -146,15 +137,22 @@ public class SignInPage extends WebPage {
 }
 
 class LoginBean implements IClusterable {
+    @NotNull(message = "'用户名'是必填项")
+    @Size(min = 4, max = 10)
     private String username;
 
+    @NotNull
+    @Size(min = 4, max = 10)
     private String password;
     /**
      * True if the user should be remembered via form persistence (cookies)
      */
+
     private boolean rememberMe = true;
 
+    @NotNull(message = "'校验码'是必填项")
     private String validateCode;
+
 
     public String getValidateCode() {
         return validateCode;

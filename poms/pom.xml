@@ -209,6 +209,14 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.validation</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.core</artifactId>

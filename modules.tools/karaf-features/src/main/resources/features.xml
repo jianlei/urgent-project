@@ -60,17 +60,17 @@
         <feature>urgent-core</feature>
 
         <bundle dependency="true">
-            mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.2.0
+            mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0
         </bundle>
         <bundle dependency="true">
-            mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.scripting-api-1.0/2.2.0
+            mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.scripting-api-1.0/2.4.0
         </bundle>
         <bundle dependency="true">
             mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.hibernate-validator/4.1.0.Final_3
         </bundle>
         <!--<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.hibernate-validator/4.1.0.Final_3</bundle>-->
-        <!--<bundle>mvn:org.hibernate/hibernate-validator/4.3.1.Final</bundle>-->
-        <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0</bundle>
+        <!--<bundle>mvn:org.hibernate/hibernate-validator/4.3.0.Final</bundle>-->
+        <!--<bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0</bundle>-->
         <!--<bundle>mvn:joda-time/joda-time/2.3</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jsoup/1.5.2_2</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.reflections/0.9.8_1</bundle>

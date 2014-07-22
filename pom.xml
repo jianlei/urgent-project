@@ -122,7 +122,7 @@
                     <optimize>true</optimize>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
-                    <verbose>true</verbose>
+                    <!--<verbose>true</verbose>-->
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -165,9 +165,9 @@
                                 <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 
                                 <if>
-                                    <available file="target/${artifactId}-${version}.jar"/>
+                                    <available file="target/${project.artifactId}-${project.version}.jar"/>
                                     <then>
-                                        <copy file="target/${artifactId}-${version}.jar"
+                                        <copy file="target/${project.artifactId}-${project.version}.jar"
                                               todir="${karaf.path}"/>
                                     </then>
 
