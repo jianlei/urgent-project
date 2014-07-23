@@ -2,7 +2,8 @@ package com.daren.admin.webapp.wicket;
 
 import com.daren.admin.webapp.wicket.page.ListLogPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
-import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * @类描述：日志子菜单定义类
@@ -25,10 +26,6 @@ public class LogMenuItemsModule implements IMenuItemsModule {
         return 30;
     }
 
-    @Override
-    public Class<? extends Page> getPageClass() {
-        return ListLogPage.class;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
     public String getName() {
@@ -43,5 +40,10 @@ public class LogMenuItemsModule implements IMenuItemsModule {
     @Override
     public String getTag() {
         return "admin.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Panel getPanel(String id, WebMarkupContainer wmc) {
+        return new ListLogPage(id, wmc);
     }
 }

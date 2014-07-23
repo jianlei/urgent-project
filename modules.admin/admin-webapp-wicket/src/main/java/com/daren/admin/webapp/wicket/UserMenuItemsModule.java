@@ -2,7 +2,8 @@ package com.daren.admin.webapp.wicket;
 
 import com.daren.admin.webapp.wicket.page.Page1;
 import com.daren.core.web.api.module.IMenuItemsModule;
-import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * @类描述：系统用户子菜单服务定义
@@ -25,11 +26,6 @@ public class UserMenuItemsModule implements IMenuItemsModule {
         return 0;
     }
 
-    @Override
-    public Class<? extends Page> getPageClass() {
-//        return UserPage.class;
-        return Page1.class;
-    }
 
     @Override
     public String getName() {
@@ -44,5 +40,10 @@ public class UserMenuItemsModule implements IMenuItemsModule {
     @Override
     public String getTag() {
         return "admin.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Panel getPanel(String id, WebMarkupContainer wmc) {
+        return new Page1(id, wmc);
     }
 }

@@ -15,10 +15,10 @@
  */
 package com.daren.core.web.api.provider;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：wicket页面接口
+ * @类描述：wicket组件接口
  * @创建人：sunlf
  * @创建时间：2014-7-3 下午1:01:59
  * @修改人：
@@ -26,8 +26,7 @@ import org.apache.wicket.markup.html.WebPage;
  * @修改备注：
  */
 
-public interface IPageProvider {
+public interface IPanelProvider {
 
-    Class<? extends WebPage> getPageClass();
-
+    Panel getPanel(String id);
 }

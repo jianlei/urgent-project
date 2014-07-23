@@ -1,7 +1,8 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.Item;
@@ -22,9 +23,10 @@ import java.util.List;
  * @修改备注：增加功能
  */
 
-public class ListLogPage extends BasePage {
-    public ListLogPage() {
+public class ListLogPage extends BasePanel {
 
+    public ListLogPage(String id, WebMarkupContainer wmc) {
+        super(id, wmc);
         //填充数据列表
         List<LogBean> logBeanList = getAllEntity();
         ListDataProvider<LogBean> listDataProvider = new ListDataProvider<LogBean>(logBeanList);

@@ -3,11 +3,12 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBeanImpl;
 import com.daren.core.util.JNDIHelper;
-import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -31,7 +32,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ListDictPage extends BasePage {
+public class ListDictPage extends BasePanel {
     //注入字典业务服务
     /*@Named
     @Inject
@@ -42,7 +43,8 @@ public class ListDictPage extends BasePage {
     Label label1 = new Label("pageName1", "添加字典");
     Label label2 = new Label("pageName2", "编辑字典");
 
-    public ListDictPage() {
+    public ListDictPage(String id, WebMarkupContainer wmc) {
+        super(id, wmc);
         try {
             dictBeanService = JNDIHelper.getJNDIServiceForName(IDictBeanService.class.getName());
         } catch (IOException e) {
@@ -81,7 +83,7 @@ public class ListDictPage extends BasePage {
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
                 DictBeanImpl dictBean = (DictBeanImpl) getParent().getDefaultModelObject();
                 dictBeanService.saveEntity(dictBean);
-                setResponsePage(ListDictPage.class);
+//                setResponsePage(ListDictPage.class);
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -147,7 +149,7 @@ public class ListDictPage extends BasePage {
                     @Override
                     public void onClick() {
                         dictBeanService.deleteEntity(dictBean.getId());
-                        setResponsePage(ListDictPage.class);
+//                        setResponsePage(ListDictPage.class);
                     }
                 });
 

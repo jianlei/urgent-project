@@ -1,6 +1,5 @@
 package com.daren.core.web.wicket.panel;
 
-import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
 import com.daren.core.web.wicket.MenuModuleManager;
@@ -92,8 +91,9 @@ public class MenuItemsPanel extends Panel {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         getSession().setAttribute("menus", index + "," + i);
-                        setResponsePage(((IMenuItemsModule) item.getModelObject()).getPageClass());
-                        getSession().setAttribute("subMenus", ((IMenuItemsModule) item.getModelObject()).getPageClass().toString());
+                        /*setResponsePage(((IMenuItemsModule) item.getModelObject()).getPageClass());
+                        getSession().setAttribute("subMenus", ((IMenuItemsModule) item.getModelObject()).getPageClass().toString());*/
+
                     }
                 };
 
@@ -106,9 +106,9 @@ public class MenuItemsPanel extends Panel {
                 i++;
                 submenusLink.setOutputMarkupId(true);
                 submenusLink.add(new Label("name", " <i class=\"" + item.getModelObject().getIcon() + "\"></i>" + item.getModelObject().getName()).setRenderBodyOnly(true).setEscapeModelStrings(false));
-                if (selectedSubMenus != null && selectedSubMenus.equals(((IMenuItemsModule) item.getModelObject()).getPageClass().toString())) {
+                /*if (selectedSubMenus != null && selectedSubMenus.equals(((IMenuItemsModule) item.getModelObject()).getPageClass().toString())) {
                     submenusLink.add(new AttributeModifier("style", "color: white;background-color: gray;"));
-                }
+                }*/
                 item.add(submenusLink);
 
 

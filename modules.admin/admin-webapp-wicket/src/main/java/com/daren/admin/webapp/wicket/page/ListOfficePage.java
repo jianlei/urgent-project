@@ -3,12 +3,13 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IOfficeBeanService;
 import com.daren.admin.entities.OfficeBeanImpl;
 import com.daren.core.util.JNDIHelper;
-import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.tree.table.*;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -39,7 +40,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ListOfficePage extends BasePage {
+public class ListOfficePage extends BasePanel {
     //注入机构业务服务
     /*@Named
     @Inject
@@ -48,12 +49,13 @@ public class ListOfficePage extends BasePage {
     private final TreeTable tree;
 
 
-    Label label1= new Label("pageName1","添加机构");
-    Label label2= new Label("pageName2","编辑机构");
+    Label label1 = new Label("pageName1", "添加机构");
+    Label label2 = new Label("pageName2", "编辑机构");
 
-    public ListOfficePage() {
+    public ListOfficePage(String id, WebMarkupContainer wmc) {
+        super(id, wmc);
         try {
-            officeBeanService =   JNDIHelper.getJNDIServiceForName(IOfficeBeanService.class.getName());
+            officeBeanService = JNDIHelper.getJNDIServiceForName(IOfficeBeanService.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,8 +74,8 @@ public class ListOfficePage extends BasePage {
         TextField formType = new TextField("type");
         TextField formGrade = new TextField("grade");
         TextField formAddress = new TextField("address");
-        TextField formZipCode= new TextField("zipCode");
-        TextField formMaster= new TextField("master");
+        TextField formZipCode = new TextField("zipCode");
+        TextField formMaster = new TextField("master");
         TextField formPhone = new TextField("phone");
         TextField formFax = new TextField("fax");
         TextField formEmail = new TextField("email");
@@ -105,9 +107,8 @@ public class ListOfficePage extends BasePage {
         form.add(new AjaxButton("submit_button", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
-                OfficeBeanImpl OfficeBean  = (OfficeBeanImpl) getParent().getDefaultModelObject();
+                OfficeBeanImpl OfficeBean = (OfficeBeanImpl) getParent().getDefaultModelObject();
                 officeBeanService.saveEntity(OfficeBean);
-                setResponsePage(ListOfficePage.class);
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -178,7 +179,6 @@ public class ListOfficePage extends BasePage {
                     @Override
                     public void onClick() {
                         officeBeanService.deleteEntity(OfficeBean.getId());
-                        setResponsePage(ListOfficePage.class);
                     }
                 });
 
@@ -195,7 +195,7 @@ public class ListOfficePage extends BasePage {
 
         //创建treetable
 
-        IColumn columns[] = new IColumn[] {
+        IColumn columns[] = new IColumn[]{
                 new PropertyTreeColumn<String>(new ColumnLocation(ColumnLocation.Alignment.MIDDLE, 8,
                         ColumnLocation.Unit.PROPORTIONAL), "Tree Column (middle)", "userObject.property1"),
                 new PropertyRenderableColumn<String>(
@@ -208,7 +208,7 @@ public class ListOfficePage extends BasePage {
                         ColumnLocation.Unit.PROPORTIONAL), "M3", "userObject.property5"),
                 new PropertyRenderableColumn<String>(
                         new ColumnLocation(ColumnLocation.Alignment.RIGHT, 8, ColumnLocation.Unit.EM), "R1", "userObject.property6")
-                };
+        };
 
         tree = new TreeTable("treeTable", createTreeModel(), columns);
         tree.getTreeState().setAllowSelectMultiple(true);
@@ -216,8 +216,8 @@ public class ListOfficePage extends BasePage {
         tree.getTreeState().collapseAll();
     }
 
-    protected TreeModel createTreeModel()
-    {
+
+    protected TreeModel createTreeModel() {
         List<Object> l1 = new ArrayList<Object>();
         l1.add("test 1.1");
         l1.add("test 1.2");
@@ -259,8 +259,7 @@ public class ListOfficePage extends BasePage {
         return convertToTreeModel(l1);
     }
 
-    private TreeModel convertToTreeModel(List<Object> list)
-    {
+    private TreeModel convertToTreeModel(List<Object> list) {
         TreeModel model = null;
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new ModelBean("ROOT"));
         add(rootNode, list);
@@ -268,27 +267,20 @@ public class ListOfficePage extends BasePage {
         return model;
     }
 
-    private void add(DefaultMutableTreeNode parent, List<Object> sub)
-    {
-        for (Object obj : sub)
-        {
-            if (obj instanceof List)
-            {
+    private void add(DefaultMutableTreeNode parent, List<Object> sub) {
+        for (Object obj : sub) {
+            if (obj instanceof List) {
                 DefaultMutableTreeNode child = new DefaultMutableTreeNode(new ModelBean(
                         "subtree..."));
                 parent.add(child);
                 add(child, (List<Object>) obj);
-            }
-            else
-            {
+            } else {
                 DefaultMutableTreeNode child = new DefaultMutableTreeNode(new ModelBean(
                         obj.toString()));
                 parent.add(child);
             }
         }
     }
-
-
 
 
 }

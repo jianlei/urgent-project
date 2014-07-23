@@ -153,7 +153,6 @@ class LoginBean implements IClusterable {
     @NotNull(message = "'校验码'是必填项")
     private String validateCode;
 
-
     public String getValidateCode() {
         return validateCode;
     }

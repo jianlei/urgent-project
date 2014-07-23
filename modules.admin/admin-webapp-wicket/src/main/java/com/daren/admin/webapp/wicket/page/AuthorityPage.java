@@ -1,6 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
-import org.apache.wicket.markup.html.WebPage;
+import com.daren.core.web.wicket.BasePanel;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 
 /**
  * @类描述：权限管理控制类
@@ -11,5 +12,9 @@ import org.apache.wicket.markup.html.WebPage;
  * @修改备注：
  */
 
-public class AuthorityPage extends WebPage {
+public class AuthorityPage extends BasePanel {
+    public AuthorityPage(String id, WebMarkupContainer wmc) {
+        super(id, wmc);
+    }
+
 }

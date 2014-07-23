@@ -9,7 +9,7 @@ package com.daren.core.web.api.module;
  */
 
 
-public interface IMenuItemsModule extends IPageModule {
+public interface IMenuItemsModule extends IPanelModule {
     /**
      * 菜单唯一编号
      *

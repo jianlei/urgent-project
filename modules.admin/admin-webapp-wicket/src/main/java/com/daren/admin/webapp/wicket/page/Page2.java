@@ -1,6 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
-import org.apache.wicket.markup.html.WebPage;
+import com.daren.core.web.wicket.BasePanel;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 
 /**
  * 项目名称:  urgent-project
@@ -11,5 +12,8 @@ import org.apache.wicket.markup.html.WebPage;
  * 修改时间:  2014/7/5 20:36
  * 修改备注:  [说明本次修改内容]
  */
-public class Page2 extends WebPage {
+public class Page2 extends BasePanel {
+    public Page2(String id, WebMarkupContainer wmc) {
+        super(id, wmc);
+    }
 }

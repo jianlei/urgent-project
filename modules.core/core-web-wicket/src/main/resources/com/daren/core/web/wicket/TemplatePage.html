@@ -17,7 +17,7 @@
     <div class="top_c">
         <div class="top-menu">
             <ul class="top-menu-nav">
-                <li><a href="#">首页</a></li>
+                <li><a href="../../home/">首页</a></li>
                 <li><a href="#">查询界面<i class="tip-up"></i></a>
                     <ul class="kidc">
                         <li><a target="Conframe" href="Template/find-form.html">表单样式</a></li>
@@ -74,13 +74,16 @@
     <!--右边框架开始-->
     <div class="right_c">
         <div class="nav-tip" onclick="javascript:void(0)">&nbsp;</div>
-
     </div>
-    <div class="Conframe">
-        <iframe name="Conframe" id="Conframe"></iframe>
-    </div>
+    <!--<div class="Conframe">
+        <wicket:child />
+    </div>-->
     <!--右边框架结束-->
-
+    <div class="Conframe">
+        <span wicket:id="container">
+            <div wicket:id="panel"/>
+        </span>
+    </div>
     <!--底部开始-->
     <div class="bottom_c" wicket:id="footer"></div>
     <!--底部结束-->

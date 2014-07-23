@@ -1,8 +1,8 @@
 package com.daren.core.web.wicket.impl;
 
 import com.daren.core.web.api.provider.IHomePageProvider;
-import com.daren.core.web.wicket.CustomeHomePage;
-import org.apache.wicket.Page;
+import com.daren.core.web.wicket.TemplatePage;
+import org.apache.wicket.markup.html.WebPage;
 
 /**
  * 项目名称:  urgent-project
@@ -15,8 +15,8 @@ import org.apache.wicket.Page;
  */
 public class CustomeHomePageProviderImpl implements IHomePageProvider {
     @Override
-    public Class<? extends Page> getPageClass() {
-        return CustomeHomePage.class;
+    public Class<? extends WebPage> getPageClass() {
+        return TemplatePage.class;
     }
 }
 

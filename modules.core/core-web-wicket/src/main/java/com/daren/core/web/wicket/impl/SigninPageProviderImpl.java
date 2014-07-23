@@ -2,7 +2,7 @@ package com.daren.core.web.wicket.impl;
 
 import com.daren.core.web.api.provider.ISigninPageProvider;
 import com.daren.core.web.wicket.security.SignInPage;
-import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebPage;
 
 /**
  * 项目名称:  urgent-project
@@ -15,7 +15,7 @@ import org.apache.wicket.Page;
  */
 public class SigninPageProviderImpl implements ISigninPageProvider {
     @Override
-    public Class<? extends Page> getPageClass() {
+    public Class<? extends WebPage> getPageClass() {
         return SignInPage.class;
     }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org">
-<body wicket:id="iris">
+<body>
+<wicket:panel>
 <script src="res/media/js/table-editable.js"></script>
 <script type="text/javascript" src="res/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="res/media/js/DT_bootstrap.js"></script>
@@ -8,6 +9,7 @@
     .row-fluid [class*="span"]:first-child {
         margin-left: 0px
     }
+
     .modal-body {
         max-height: 500px !important;
     / / 7 列 的 高 度
@@ -69,13 +71,16 @@
                     <div class="clearfix" aria-hidden="true">
 
 
-                        <div id="form_modal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div id="form_modal2" class="modal hide fade" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel2" aria-hidden="true">
 
                             <div class="modal-header portlet-title">
 
-                                <button wicket:id="reset_form_1" type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <button wicket:id="reset_form_1" type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true"></button>
 
-                                <h3 id="myModalLabel2"><label wicket:id="pageName1"></label><label wicket:id="pageName2"></label></h3>
+                                <h3 id="myModalLabel2"><label wicket:id="pageName1"></label><label
+                                        wicket:id="pageName2"></label></h3>
 
                             </div>
 
@@ -96,7 +101,8 @@
 
                                         <div class="controls">
 
-                                            <input class="span6 m-wrap" wicket:id="label" size="16" type="text" value="" />
+                                            <input class="span6 m-wrap" wicket:id="label" size="16" type="text"
+                                                   value=""/>
 
                                         </div>
 
@@ -108,7 +114,8 @@
 
                                         <div class="controls">
 
-                                            <input class="span6 m-wrap" wicket:id="value" size="16" type="text" value="" />
+                                            <input class="span6 m-wrap" wicket:id="value" size="16" type="text"
+                                                   value=""/>
 
                                         </div>
 
@@ -120,7 +127,8 @@
 
                                         <div class="controls">
 
-                                            <input class="span6 m-wrap" wicket:id="type" size="16" type="text" value="" />
+                                            <input class="span6 m-wrap" wicket:id="type" size="16" type="text"
+                                                   value=""/>
 
                                         </div>
 
@@ -132,7 +140,8 @@
 
                                         <div class="controls">
 
-                                            <input class="span6 m-wrap" wicket:id="description" size="16" type="text" value="" />
+                                            <input class="span6 m-wrap" wicket:id="description" size="16" type="text"
+                                                   value=""/>
 
                                         </div>
 
@@ -144,7 +153,8 @@
 
                                         <div class="controls">
 
-                                            <input class="span6 m-wrap" wicket:id="sort" size="16" type="text" value="" />
+                                            <input class="span6 m-wrap" wicket:id="sort" size="16" type="text"
+                                                   value=""/>
 
                                         </div>
 
@@ -152,7 +162,9 @@
 
                                     <div class="modal-footer">
 
-                                        <button class="btn green button-next" wicket:id="submit_button" data-dismiss="modal" aria-hidden="true">保存</button>
+                                        <button class="btn green button-next" wicket:id="submit_button"
+                                                data-dismiss="modal" aria-hidden="true">保存
+                                        </button>
 
                                         <button class="btn" wicket:id="reset_form_2" data-dismiss="modal">取消</button>
 
@@ -169,7 +181,7 @@
 
                                 <div class="controls">
 
-                                    <a  class="btn green"  href="#form_modal2"  data-toggle="modal">
+                                    <a class="btn green" href="#form_modal2" data-toggle="modal">
 
                                         新增<i class="icon-share"></i>
 
@@ -206,7 +218,7 @@
                                         <i class="icon-angle-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a wicket:id="edit" href="#form_modal2" >编辑</a></li>
+                                        <li><a wicket:id="edit" href="#form_modal2">编辑</a></li>
                                         <li><a class="delete" wicket:id="del">删除</a></li>
                                     </ul>
                                 </div>
@@ -225,5 +237,6 @@
         FormWizard.init();
     });
 </script>
+</wicket:panel>
 </body>
 </html>

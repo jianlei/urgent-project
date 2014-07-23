@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wicket="http://wicket.apache.org">
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="cus/Styles/formui.css"/>
@@ -37,96 +37,98 @@
     </script>
 </head>
 <body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"></b>查询界面<b class="tip"></b>查询结果二</div>
+    <table class="tbform">
+        <thead>
+        <tr>
+            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件</td>
+        </tr>
+        </thead>
+        <tbody>
 
-<div class="alert alert-info">当前位置<b class="tip"></b>查询界面<b class="tip"></b>查询结果二</div>
-<table class="tbform">
-    <thead>
-    <tr>
-        <td colspan="6" class="auto-style2">&nbsp;请填写查询条件</td>
-    </tr>
-    </thead>
-    <tbody>
+        <tr>
+            <td>单据号</td>
+            <td class="detail">
+                <input id="formid" class="ipt" size="16" type="text"/> <input type="button" id="findid" value="查找"
+                                                                              class="btn btn-mini"/>
+            </td>
+            <td>单据类型</td>
+            <td class="td_detail">
+                <input id="formid" class="ipt"/></td>
+            <td class="tdl">部门</td>
+            <td>
+                <select size="1" name="ENTPdept" id="bumen">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+                    <option
+                            value="10389">第三营销事业部
+                    </option>
+                    <option
+                            value="10390">第一营销事业部
+                    </option>
+                    <option
+                            value="10391">康讯公司
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>提交日期起</td>
+            <td>
+                <div class="input-append">
+                    <input class="ipt datepicker" size="16" type="text" id="startime"/><span class="add-on"><i
+                        class="icon-calendar"></i></span>至<input id="endtime" class="ipt datepicker" size="16"
+                                                                 type="text"/><span
+                        class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+            </td>
+            <td>报销人</td>
+            <td>
+                <select size="1" name="select2" id="baoxiaoren">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+                    <option
+                            value="10389">第三营销事业部
+                    </option>
+                    <option
+                            value="10390">第一营销事业部
+                    </option>
+                    <option
+                            value="10391">康讯公司
+                    </option>
+                    <option
+                            value="10392">网络事业部
+                    </option>
+                </select></td>
+            <td>所属项目</td>
+            <td>
+                <select id="xiangmu" size="1" name="select3">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+                    <option
+                            value="10389">第三营销事业部
+                    </option>
+                    <option
+                            value="10390">第一营销事业部
+                    </option>
+                    <option
+                            value="11159">IT中心
+                    </option>
+                    <option
+                            value="11160">ZTE全球售后服务中心
+                    </option>
+                </select></td>
+        </tr>
 
-    <tr>
-        <td>单据号</td>
-        <td class="detail">
-            <input id="formid" class="ipt" size="16" type="text"/> <input type="button" id="findid" value="查找"
-                                                                          class="btn btn-mini"/>
-        </td>
-        <td>单据类型</td>
-        <td class="td_detail">
-            <input id="formid" class="ipt"/></td>
-        <td class="tdl">部门</td>
-        <td>
-            <select size="1" name="ENTPdept" id="bumen">
-                <option value="10401"></option>
-                <option value="10388">第二营销事业部</option>
-                <option
-                        value="10389">第三营销事业部
-                </option>
-                <option
-                        value="10390">第一营销事业部
-                </option>
-                <option
-                        value="10391">康讯公司
-                </option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>提交日期起</td>
-        <td>
-            <div class="input-append">
-                <input class="ipt datepicker" size="16" type="text" id="startime"/><span class="add-on"><i
-                    class="icon-calendar"></i></span>至<input id="endtime" class="ipt datepicker" size="16" type="text"/><span
-                    class="add-on"><i class="icon-calendar"></i></span>
-            </div>
-        </td>
-        <td>报销人</td>
-        <td>
-            <select size="1" name="select2" id="baoxiaoren">
-                <option value="10401"></option>
-                <option value="10388">第二营销事业部</option>
-                <option
-                        value="10389">第三营销事业部
-                </option>
-                <option
-                        value="10390">第一营销事业部
-                </option>
-                <option
-                        value="10391">康讯公司
-                </option>
-                <option
-                        value="10392">网络事业部
-                </option>
-            </select></td>
-        <td>所属项目</td>
-        <td>
-            <select id="xiangmu" size="1" name="select3">
-                <option value="10401"></option>
-                <option value="10388">第二营销事业部</option>
-                <option
-                        value="10389">第三营销事业部
-                </option>
-                <option
-                        value="10390">第一营销事业部
-                </option>
-                <option
-                        value="11159">IT中心
-                </option>
-                <option
-                        value="11160">ZTE全球售后服务中心
-                </option>
-            </select></td>
-    </tr>
-
-    <tr>
-        <td colspan="6" align="right">
-            <input class="btn" id="find" type="button" value="查询" data-toggle="modal" href="#myModal"
-                   data-keyboard="false" data-backdrop="false"/>
-            <input class="btn" type="button" value="清空"/></td>
-    </tr>
-    </tbody>
-</table>
+        <tr>
+            <td colspan="6" align="right">
+                <input class="btn" id="find" type="button" value="查询" data-toggle="modal" href="#myModal"
+                       data-keyboard="false" data-backdrop="false"/>
+                <input class="btn" type="button" value="清空"/></td>
+        </tr>
+        </tbody>
+    </table>
+</wicket:panel>
 </body>
 </html>

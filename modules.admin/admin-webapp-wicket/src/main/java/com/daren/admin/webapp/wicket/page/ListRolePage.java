@@ -2,9 +2,10 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.entities.RoleBeanImpl;
-import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.BasePanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -26,7 +27,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ListRolePage extends BasePage {
+public class ListRolePage extends BasePanel {
     //注入角色业务服务
     @Named
     @Inject
@@ -34,12 +35,13 @@ public class ListRolePage extends BasePage {
     private IRoleBeanService roleBeanService;
 
 
-    public ListRolePage() {
+    public ListRolePage(String id, WebMarkupContainer wmc) {
         /*try {
             roleCodeBeanService = (IRoleBeanService) JNDIHelper.getJNDIServiceForName(IRoleBeanService.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+        super(id, wmc);
         List<RoleBeanImpl> roleCodeList = roleBeanService.getAllEntity();
         ListDataProvider<RoleBeanImpl> listDataProvider = new ListDataProvider<RoleBeanImpl>(roleCodeList);
         add(new DataView<RoleBeanImpl>("fileRows", listDataProvider) {
