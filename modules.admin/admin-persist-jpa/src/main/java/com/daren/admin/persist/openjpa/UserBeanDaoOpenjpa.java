@@ -1,7 +1,7 @@
 package com.daren.admin.persist.openjpa;
 
 import com.daren.admin.api.dao.IUserBeanDao;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
 import java.util.Date;
@@ -10,24 +10,24 @@ import java.util.List;
 /**
  * Created by dell on 14-1-16.
  */
-public class UserBeanDaoOpenjpa extends GenericOpenJpaDao<UserBeanImpl, Long> implements IUserBeanDao {
-    private final String className = com.daren.admin.entities.UserBeanImpl.class.getName();
+public class UserBeanDaoOpenjpa extends GenericOpenJpaDao<UserBean, Long> implements IUserBeanDao {
+    private final String className = UserBean.class.getName();
 
     /**
      * Constructor that sets the entity to User.class.
      */
     public UserBeanDaoOpenjpa() {
-//        super.setEntityManager(UserBeanImpl.class);
+//        super.setEntityManager(UserBean.class);
     }
 
     @Override
-    public List<UserBeanImpl> getUserList() {
+    public List<UserBean> getUserList() {
         log.debug("get user info");
         return super.getAll(className);
     }
 
     @Override
-    public UserBeanImpl saveUser(UserBeanImpl user) {
+    public UserBean saveUser(UserBean user) {
         return super.save(user);
     }
 
@@ -37,17 +37,17 @@ public class UserBeanDaoOpenjpa extends GenericOpenJpaDao<UserBeanImpl, Long> im
     }
 
     @Override
-    public UserBeanImpl getUser(Long userId) {
+    public UserBean getUser(Long userId) {
         return super.get(className, userId);
     }
 
-    public UserBeanImpl getUser(String username) {
-        UserBeanImpl user = this.findUnique("select u from UserBeanImpl u where u.loginName=?1", username);
+    public UserBean getUser(String username) {
+        UserBean user = this.findUnique("select u from UserBean u where u.loginName=?1", username);
         return user;
     }
 
     @Override
     public void updateUserLoginInfo(long id, String loginIp) {
-        this.update("update UserBeanImpl u set u.loginIp=?1, u.loginDate=?2 where u.id = ?3", loginIp, new Date(), id);
+        this.update("update UserBean u set u.loginIp=?1, u.loginDate=?2 where u.id = ?3", loginIp, new Date(), id);
     }
 }

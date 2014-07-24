@@ -1,4 +1,4 @@
-package com.daren.core.api.exception;
+package com.daren.core.api.persistence;
 
 /**
  * @author jgarcia

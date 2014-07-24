@@ -9,8 +9,8 @@
         </non-jta-data-source>
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
         <!--<jar-file></jar-file>-->
-        <!--<class>com.daren.admin.entities.UserBeanImpl</class>-->
-        <class>com.daren.core.impl.persistence.PersistentEntity</class>
+        <!--<class>com.daren.admin.entities.UserBean</class>-->
+        <class>com.daren.core.api.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 

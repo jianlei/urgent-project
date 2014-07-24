@@ -1,6 +1,6 @@
 package com.daren.admin.api.dao;
 
-import com.daren.admin.entities.PermissionBeanImpl;
+import com.daren.admin.entities.PermissionBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.List;
  * @修改备注：
  */
 
-public interface IPermissionBeanDao extends IGenericDao<PermissionBeanImpl, Long> {
-    PermissionBeanImpl getRootPermission();
+public interface IPermissionBeanDao extends IGenericDao<PermissionBean, Long> {
+    PermissionBean getRootPermission();
 
-    List<PermissionBeanImpl> getChildPermission(PermissionBeanImpl permissionBean);
+    List<PermissionBean> getChildPermission(PermissionBean permissionBean);
 }

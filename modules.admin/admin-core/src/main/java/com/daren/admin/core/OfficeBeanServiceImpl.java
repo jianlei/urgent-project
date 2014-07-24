@@ -2,6 +2,7 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IOfficeBeanService;
 import com.daren.admin.api.dao.IOfficeBeanDao;
+import com.daren.admin.entities.OfficeBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 /**
@@ -18,6 +19,6 @@ public class OfficeBeanServiceImpl extends GenericBizServiceImpl implements IOff
 
     public void setOfficeBeanDao(IOfficeBeanDao officeBeanDao) {
         this.officeBeanDao = officeBeanDao;
-        super.init(officeBeanDao, com.daren.admin.entities.OfficeBeanImpl.class.getName());
+        super.init(officeBeanDao, OfficeBean.class.getName());
     }
 }

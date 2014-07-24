@@ -1,6 +1,6 @@
 package com.daren.admin.entities;
 
-import com.daren.core.impl.persistence.PersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
@@ -17,8 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "sys_permission")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class PermissionBeanImpl extends PersistentEntity {
-    private PermissionBeanImpl parent;    // 父级菜单
+public class PermissionBean extends PersistentEntity {
+    private PermissionBean parent;    // 父级菜单
     private String parentIds; // 所有父级编号
     private String name;    // 名称
     private String href;    // 链接
@@ -27,18 +27,18 @@ public class PermissionBeanImpl extends PersistentEntity {
     private String isShow;    // 是否在菜单中显示（1：显示；0：不显示）
     private String permission; // 权限标识
 
-    private List<PermissionBeanImpl> childList = Lists.newArrayList();// 拥有子菜单列表
-    private List<RoleBeanImpl> roleList = Lists.newArrayList(); // 拥有角色列表
+    private List<PermissionBean> childList = Lists.newArrayList();// 拥有子菜单列表
+    private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
-    public PermissionBeanImpl getParent() {
-        return (PermissionBeanImpl) parent;
+    public PermissionBean getParent() {
+        return (PermissionBean) parent;
     }
 
 
-    public void setParent(PermissionBeanImpl parent) {
+    public void setParent(PermissionBean parent) {
         this.parent = parent;
     }
 
@@ -114,24 +114,24 @@ public class PermissionBeanImpl extends PersistentEntity {
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     @OrderBy(value = "sort")
-    public List<PermissionBeanImpl> getChildList() {
+    public List<PermissionBean> getChildList() {
         return childList;
     }
 
 
-    public void setChildList(List<PermissionBeanImpl> childList) {
+    public void setChildList(List<PermissionBean> childList) {
         this.childList = childList;
     }
 
 
     @ManyToMany(mappedBy = "permissionList", fetch = FetchType.EAGER)
     @OrderBy("id")
-    public List<RoleBeanImpl> getRoleList() {
+    public List<RoleBean> getRoleList() {
         return roleList;
     }
 
 
-    public void setRoleList(List<RoleBeanImpl> roleList) {
+    public void setRoleList(List<RoleBean> roleList) {
         this.roleList = roleList;
     }
 }

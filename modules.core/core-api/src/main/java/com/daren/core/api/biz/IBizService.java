@@ -1,7 +1,7 @@
 package com.daren.core.api.biz;
 
 import com.daren.core.api.IService;
-import com.daren.core.api.persistence.IPersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 
-public interface IBizService<T extends IPersistentEntity> extends IService {
+public interface IBizService<T extends PersistentEntity> extends IService {
 
     public void deleteEntity(long entityId);
 

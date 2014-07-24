@@ -18,26 +18,13 @@
  *     along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.daren.core.api.exception;
+package com.daren.core.api.persistence;
 
 /**
- * Application runtime exception occurs when system is not supposed to catch the exception.
+ * Aware interface for exceptions to be able to get its internal error information.
  *
  * @author Denis Skarbichev
  */
-public class InternalRuntimeException extends RuntimeException implements ExceptionAware {
-    private InternalError error;
-
-    public InternalRuntimeException(String errorCode, Object... params) {
-        error = new InternalError(errorCode, params);
-    }
-
-    public InternalRuntimeException(InternalError error) {
-        this.error = error;
-    }
-
-    public InternalError getError() {
-        return error;
-    }
-
+public interface ExceptionAware {
+    public InternalError getError();
 }

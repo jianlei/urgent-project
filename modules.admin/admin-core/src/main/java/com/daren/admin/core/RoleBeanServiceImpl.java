@@ -3,8 +3,8 @@ package com.daren.admin.core;
 import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.api.dao.IRoleBeanDao;
 import com.daren.admin.api.dao.IUserBeanDao;
-import com.daren.admin.entities.RoleBeanImpl;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.RoleBean;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
 
     public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
         this.roleBeanDao = roleBeanDao;
-        super.init(roleBeanDao, com.daren.admin.entities.RoleBeanImpl.class.getName());
+        super.init(roleBeanDao, RoleBean.class.getName());
     }
 
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
@@ -38,28 +38,24 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
     }
 
     @Override
-    public void saveRoleUser(RoleBeanImpl roleBean, List<UserBeanImpl> userSelect) {
-        List<UserBeanImpl> userBeanList=new ArrayList<UserBeanImpl>();
+    public void saveRoleUser(RoleBean roleBean, List<UserBean> userSelect) {
+        List<UserBean> userBeanList = new ArrayList<UserBean>();
         //为新对象
-        if(roleBean.getId()==0l){
-            roleBean=roleBeanDao.save(roleBean);
-        }
-        else  {
-            userBeanList=roleBeanDao.get(RoleBeanImpl.class.getName(),roleBean.getId()).getUserList();
+        if (roleBean.getId() == 0l) {
+            roleBean = roleBeanDao.save(roleBean);
+        } else {
+            userBeanList = roleBeanDao.get(RoleBean.class.getName(), roleBean.getId()).getUserList();
         }
 
         //删除全部该角色下的用户
-        if(userSelect.size()==0){
+        if (userSelect.size() == 0) {
             removRole(roleBean, userBeanList);
-        }
-        else
-        {
+        } else {
             removRole(roleBean, userBeanList);
             //添加角色到用户
-            for(UserBeanImpl userBean:userSelect){
-                UserBeanImpl user=userBeanDao.getUser(userBean.getId());
-                if(!user.getRoleList().contains(roleBean))
-                {
+            for (UserBean userBean : userSelect) {
+                UserBean user = userBeanDao.getUser(userBean.getId());
+                if (!user.getRoleList().contains(roleBean)) {
                     user.getRoleList().add(roleBean);
                     userBeanDao.save(user);
                 }
@@ -67,8 +63,8 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
         }
     }
 
-    private void removRole(RoleBeanImpl roleBean, List<UserBeanImpl> userBeanList) {
-        for (UserBeanImpl userBean:userBeanList){
+    private void removRole(RoleBean roleBean, List<UserBean> userBeanList) {
+        for (UserBean userBean : userBeanList) {
             userBean.getRoleList().remove(roleBean);
             userBeanDao.save(userBean);
         }

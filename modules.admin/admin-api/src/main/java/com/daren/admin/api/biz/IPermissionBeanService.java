@@ -1,6 +1,6 @@
 package com.daren.admin.api.biz;
 
-import com.daren.admin.entities.PermissionBeanImpl;
+import com.daren.admin.entities.PermissionBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
@@ -17,9 +17,10 @@ import java.util.List;
 public interface IPermissionBeanService extends IBizService {
     /**
      * 获得root权限信息
+     *
      * @return
      */
-    PermissionBeanImpl getRootPermission();
+    PermissionBean getRootPermission();
 
-    List<PermissionBeanImpl> getChildPermission(PermissionBeanImpl permissionBean);
+    List<PermissionBean> getChildPermission(PermissionBean permissionBean);
 }

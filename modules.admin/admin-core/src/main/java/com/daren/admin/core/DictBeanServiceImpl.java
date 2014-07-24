@@ -2,7 +2,7 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.dao.IDictBeanDao;
-import com.daren.admin.entities.DictBeanImpl;
+import com.daren.admin.entities.DictBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.List;
@@ -22,11 +22,11 @@ public class DictBeanServiceImpl extends GenericBizServiceImpl implements IDictB
 
     public void setDictBeanDao(IDictBeanDao dictBeanDao) {
         this.dictBeanDao = dictBeanDao;
-        super.init(dictBeanDao, com.daren.admin.entities.DictBeanImpl.class.getName());
+        super.init(dictBeanDao, DictBean.class.getName());
     }
 
     @Override
-    public List<DictBeanImpl> getDictList(String type) {
+    public List<DictBean> getDictList(String type) {
         return dictBeanDao.getDictList(type);
     }
 }

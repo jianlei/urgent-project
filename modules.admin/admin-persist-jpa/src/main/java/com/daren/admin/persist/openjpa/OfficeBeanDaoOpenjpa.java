@@ -1,7 +1,7 @@
 package com.daren.admin.persist.openjpa;
 
 import com.daren.admin.api.dao.IOfficeBeanDao;
-import com.daren.admin.entities.OfficeBeanImpl;
+import com.daren.admin.entities.OfficeBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
 /**
@@ -13,5 +13,5 @@ import com.daren.core.impl.persistence.GenericOpenJpaDao;
  * @修改备注：
  */
 
-public class OfficeBeanDaoOpenjpa extends GenericOpenJpaDao<OfficeBeanImpl, Long> implements IOfficeBeanDao {
+public class OfficeBeanDaoOpenjpa extends GenericOpenJpaDao<OfficeBean, Long> implements IOfficeBeanDao {
 }

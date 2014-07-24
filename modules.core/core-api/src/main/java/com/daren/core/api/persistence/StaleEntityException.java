@@ -18,25 +18,20 @@
  *     along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.daren.core.api.exception;
+package com.daren.core.api.persistence;
+
+
+import com.daren.core.api.Translations;
 
 /**
- * Exception is for internal application exception handling.
+ * Stale entity exception occurs when entity database version is not consistent with entity version in memory
  *
  * @author Denis Skarbichev
  */
-public class InternalException extends Exception implements ExceptionAware {
-    private InternalError error;
-
-    public InternalException(String errorCode, Object... params) {
-        error = new InternalError(errorCode, params);
-    }
-
-    public InternalException(InternalError error) {
-        this.error = error;
-    }
-
-    public InternalError getError() {
-        return error;
+public class StaleEntityException extends InternalRuntimeException {
+    public StaleEntityException(PersistentEntity entity) {
+        super(new com.daren.core.api.persistence.InternalError(Translations.STALE_OBJECT_STATE_EXCEPTION,
+                entity.getClass(),
+                entity.getVersion()));
     }
 }

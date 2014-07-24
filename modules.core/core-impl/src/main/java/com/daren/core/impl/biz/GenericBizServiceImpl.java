@@ -2,7 +2,7 @@ package com.daren.core.impl.biz;
 
 import com.daren.core.api.biz.IBizService;
 import com.daren.core.api.persistence.IGenericDao;
-import com.daren.core.api.persistence.IPersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IB
     }
 
     @Override
-    public void saveEntity(IPersistentEntity entity) {
+    public void saveEntity(PersistentEntity entity) {
         dao.save(entity);
     }
 
@@ -37,8 +37,8 @@ public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IB
     }
 
     @Override
-    public IPersistentEntity getEntity(long entityId) {
-        return (IPersistentEntity) dao.get(entityClassName, entityId);
+    public PersistentEntity getEntity(long entityId) {
+        return (PersistentEntity) dao.get(entityClassName, entityId);
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.daren.admin.persist.openjpa;
 
 import com.daren.admin.api.dao.IRoleBeanDao;
-import com.daren.admin.entities.RoleBeanImpl;
+import com.daren.admin.entities.RoleBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
 import javax.persistence.Query;
@@ -16,7 +16,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class RoleBeanDaoOpenjpa extends GenericOpenJpaDao<RoleBeanImpl, Long> implements IRoleBeanDao {
+public class RoleBeanDaoOpenjpa extends GenericOpenJpaDao<RoleBean, Long> implements IRoleBeanDao {
     @Override
     public List<String> getRoleNameList() {
         /*List<RoleBeanImpl> roleBeanList=super.getAll(RoleBeanImpl.class.getName());
@@ -26,14 +26,14 @@ public class RoleBeanDaoOpenjpa extends GenericOpenJpaDao<RoleBeanImpl, Long> im
                 roleNameList.add(roleBean.getName());
             }
         }*/
-        final Query query = entityManager.createQuery("select c.name from RoleBeanImpl c ");
+        final Query query = entityManager.createQuery("select c.name from RoleBean c ");
         final List<String> resultList = query.getResultList();
         return resultList;
     }
 
     @Override
-    public RoleBeanImpl getRole(String roleName) {
-        RoleBeanImpl roleBean = this.findUnique("select u from RoleBeanImpl u where u.name=?1", roleName);
+    public RoleBean getRole(String roleName) {
+        RoleBean roleBean = this.findUnique("select u from RoleBeanImpl u where u.name=?1", roleName);
         return roleBean;
     }
 }

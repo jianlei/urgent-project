@@ -14,7 +14,7 @@ import javax.xml.bind.Marshaller;
  * @version 1.0
  * @since <pre>һ�� 29, 2014</pre>
  */
-public class UserBeanImplTest {
+public class UserBeanTest {
 
     @Before
     public void before() throws Exception {
@@ -39,11 +39,11 @@ public class UserBeanImplTest {
      */
     @Test
     public void testJaxb() throws Exception {
-        UserBeanImpl user = new UserBeanImpl();
+        UserBean user = new UserBean();
         user.setName("name");
         user.setPassword("password");
 
-        JAXBContext jc = JAXBContext.newInstance(UserBeanImpl.class);
+        JAXBContext jc = JAXBContext.newInstance(UserBean.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(user, System.out);

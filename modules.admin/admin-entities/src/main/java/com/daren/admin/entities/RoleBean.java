@@ -1,6 +1,6 @@
 package com.daren.admin.entities;
 
-import com.daren.core.impl.persistence.PersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
@@ -19,14 +19,14 @@ import java.util.List;
 @Table(name = "sys_role")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class RoleBeanImpl extends PersistentEntity {
+public class RoleBean extends PersistentEntity {
     private String name;    // 角色名称
     private String remark;  //角色备注
 
-    private List<UserBeanImpl> userList = Lists.newArrayList(); // 拥有用户列表
-    private List<PermissionBeanImpl> permissionList = Lists.newArrayList(); // 拥有菜单列表
+    private List<UserBean> userList = Lists.newArrayList(); // 拥有用户列表
+    private List<PermissionBean> permissionList = Lists.newArrayList(); // 拥有菜单列表
 
-    public RoleBeanImpl() {
+    public RoleBean() {
     }
 
     public String getName() {
@@ -51,12 +51,12 @@ public class RoleBeanImpl extends PersistentEntity {
 
     @ManyToMany(mappedBy = "roleList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("id")
-    public List<UserBeanImpl> getUserList() {
+    public List<UserBean> getUserList() {
         return userList;
     }
 
 
-    public void setUserList(List<UserBeanImpl> userList) {
+    public void setUserList(List<UserBean> userList) {
         this.userList = userList;
     }
 
@@ -64,12 +64,12 @@ public class RoleBeanImpl extends PersistentEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sys_role_permission", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     @OrderBy("id")
-    public List<PermissionBeanImpl> getPermissionList() {
+    public List<PermissionBean> getPermissionList() {
         return permissionList;
     }
 
 
-    public void setPermissionList(List<PermissionBeanImpl> permissionList) {
+    public void setPermissionList(List<PermissionBean> permissionList) {
         this.permissionList = permissionList;
     }
 }
