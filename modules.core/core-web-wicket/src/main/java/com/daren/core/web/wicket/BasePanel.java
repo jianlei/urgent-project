@@ -20,6 +20,5 @@ public abstract class BasePanel extends Panel {
     public BasePanel(String id, WebMarkupContainer wmc) {
         super(id);
         this.webMarkupContainer = wmc;
-//        add(new Include("footer", "cus/Template/FooterPage.html"));
     }
 }

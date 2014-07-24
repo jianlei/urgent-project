@@ -3,6 +3,8 @@ package com.daren.enterprise.webapp.wicket;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.enterprise.webapp.wicket.page.EnterprisePage;
 import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * @类描述：品牌子菜单定义类
@@ -27,11 +29,6 @@ public class EnterpriseMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
-    public Class<? extends Page> getPageClass() {
-        return EnterprisePage.class;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public String getName() {
         return "企业信息管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -44,5 +41,10 @@ public class EnterpriseMenuItemsModule implements IMenuItemsModule {
     @Override
     public String getTag() {
         return "enterprise.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Panel getPanel(String id, WebMarkupContainer wmc) {
+        return new EnterprisePage(id, wmc);
     }
 }

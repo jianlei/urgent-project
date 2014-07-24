@@ -1,250 +1,536 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org">
 <head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../Styles/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/admin-all.css" />
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/ui-lightness/jquery-ui-1.8.22.custom.css" />
     <script type="text/javascript">
-        function writeCookie(name, value, hours) {
-            var expire = "";
-            if (hours != null) {
-                expire = new Date((new Date()).getTime() + hours * 3600000);
-                expire = "; expires=" + expire.toGMTString();
-            }
-            document.cookie = name + "=" + escape(value) + expire;
-        }
-        function readCookie(name) {
-            var cookieValue = "";
-            var search = name + "=";
-            if (document.cookie.length > 0) {
-                offset = document.cookie.indexOf(search);
-                if (offset != -1) {
-                    offset += search.length;
-                    end = document.cookie.indexOf(";", offset);
-                    if (end == -1) end = document.cookie.length;
-                    cookieValue = unescape(document.cookie.substring(offset, end))
-                }
-            }
-            return cookieValue;
-        }
-        function clear() {
-            writeCookie("hovers", "", 222);
-            document.location = document.location.href;
-        }
+        $(function () {
+            $(".datepicker").datepicker();
+
+            $('#list').hide();
+            $('#find').click(function () {
+                $('#list').show();
+            })
+        })
+
     </script>
 </head>
-<body wicket:id="iris">
-<style>
-    A.applink:hover {
-        border: 2px dotted #DCE6F4;
-        padding: 2px;
-        background-color: #ffff00;
-        color: green;
-        text-decoration: none
-    }
 
-    A.applink {
-        border: 2px dotted #DCE6F4;
-        padding: 2px;
-        color: #2F5BFF;
-        background: transparent;
-        text-decoration: none
-    }
+<body>
+    <wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"></b>查询界面<b class="tip"></b>表单样式</div>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>单据号</td>
+            <td class="detail">
+                <input type="text" />
+            </td>
+            <td>单据类型</td>
+            <td class="td_detail">
+                <input type="text" /></td>
+            <td>部门 </td>
+            <td>
+                <select>
+                    <option>第二营销事业部</option>
+                    <option>第三营销事业部</option>
+                    <option>第一营销事业部</option>
+                    <option>康讯公司</option>
+                    <option>网络事业部</option>
+                    <option>移动事业部</option>
+                    <option>手机事业部</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <!--<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 </td>
+    </tr>
+    </thead>
+    <tbody>
 
-    A.info {
-        color: #2F5BFF;
-        background: transparent;
-        text-decoration: none
-    }
-
-    A.info:hover {
-        color: green;
-        background: transparent;
-        text-decoration: underline
-    }
-
-    .row-fluid [class*="span"]:first-child {
-        margin-left: 0px
-    }
-
-    .modal-body {
-        max-height: 500px !important;
-    / / 7 列 的 高 度
-    }
-
-    .btn {
-        padding: 2px 10px !important;
-    }
-
-    .dropdown-menu {
-        min-width: 70px !important;
-    }
-
-    .portlet-body .btn-group {
-        margin-bottom: 0px !important;
-    }
-</style>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <!-- begin-->
-        <div class="span12">
-
-            <h3 class="page-title">
-
-                <small></small>
-            </h3>
-            <ul class="breadcrumb">
-                <li>
-                    <i class="icon-home"></i>
-                    <a href="../../home/">首页</a>
-                    <i class="icon-angle-right"></i>
-                </li>
-                <li>
-                    <i class="icon-table"></i>
-                    <a href="#">产品管理</a>
-                    <i class="icon-angle-right"></i>
-                </li>
-                <li><a href="#">品牌管理</a></li>
-            </ul>
-
-        </div>
-        <!--end -->
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="portlet box blue">
-                <div class="portlet-title">
-                    <div class="caption"><i class="icon-edit"></i>品牌管理</div>
-                    <div class="tools"></div>
-                </div>
-                <div class="portlet-body">
-                    <!--ajax弹出层提交表单 开始-->
-                    <div class="clearfix" aria-hidden="true">
-
-
-                        <div id="form_modal2" class="modal hide fade" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel2" aria-hidden="true">
-
-                            <div class="modal-header portlet-title">
-
-                                <button wicket:id="reset_form_1" type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true"></button>
-
-                                <h3 id="myModalLabel2"><label wicket:id="pageName1"></label><label
-                                        wicket:id="pageName2"></label></h3>
-
-                            </div>
-
-                            <div class="modal-body">
-
-                                <form wicket:id="add_brand_form" class="form-horizontal">
-
-                                    <div class="control-group">
-
-                                        <label class="control-label">产品名称</label>
-
-                                        <div class="controls">
-
-                                            <input class="m-wrap m-ctrl-medium date-picker" wicket:id="name" size="16"
-                                                   type="text" value=""/>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="control-group">
-
-                                        <label class="control-label">描述</label>
-
-                                        <div class="controls">
-
-                                            <input class="m-wrap m-ctrl-medium date-picker" wicket:id="summary"
-                                                   size="16" type="text" value=""/>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer">
-
-                                        <button class="btn green btn-primary" wicket:id="submit_button"
-                                                data-dismiss="modal" aria-hidden="true">保存
-                                        </button>
-
-                                        <button class="btn" wicket:id="reset_form_2" data-dismiss="modal">取消</button>
-
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <div class="control-group">
-
-                                <label class="control-label"></label>
-
-                                <div class="controls">
-
-                                    <!--<a  class="btn yellow"  href="#form_modal2"  data-toggle="modal">-->
-                                    <a class="btn green" href="#form_modal2" data-toggle="modal">
-
-                                        新增<i class="icon-share"></i>
-
-                                    </a>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--ajax弹出层提交表单 结束-->
-                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                        <thead>
-                        <tr>
-                            <th>品牌名称</th>
-                            <th class="hidden-480">创建时间</th>
-                            <th class="hidden-480">版本审核人</th>
-                            <th class="hidden-480">版本号</th>
-                            <th class="hidden-480">描述</th>
-                            <th class="hidden-480">状态</th>
-                            <th class="hidden-480">发布日期</th>
-                            <th class="hidden-480" style="width: 40px!important;">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="" wicket:id="brandRow">
-                            <td><span wicket:id="name"></span></td>
-                            <td><span wicket:id="createDate"></span></td>
-                            <td><span wicket:id="checkPerson"></span></td>
-                            <td><span wicket:id="number"></span></td>
-                            <td><span wicket:id="summary"></span></td>
-                            <td><span wicket:id="state"></span></td>
-                            <td><span wicket:id="date"></span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a class="btn black" href="#" data-toggle="dropdown">
-                                        <i class="icon-edit"></i> 更多
-                                        <i class="icon-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a wicket:id="edit">编辑</a></li>
-                                        <li><a class="delete" wicket:id="del">删除</a></li>
-                                        <li class="divider"></li>
-                                        <li><a wicket:id="editResource">查看资源</a></li>
-                                        <li><a href="#">查看历史</a></li>
-                                        <li><a wicket:id="release">发布</a></li>
-                                        <li><a wicket:id="approve">审核通过</a></li>
-                                        <li><a wicket:id="reject">驳回</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <tr>
+        <td>单据号</td>
+        <td class="detail">
+            <input type="text" />
+        </td>
+        <td>单据类型</td>
+        <td class="td_detail">
+            <input type="text" /></td>
+        <td>部门 </td>
+        <td>
+            <select>
+                <option>第二营销事业部</option>
+                <option>第三营销事业部</option>
+                <option>第一营销事业部</option>
+                <option>康讯公司</option>
+                <option>网络事业部</option>
+                <option>移动事业部</option>
+                <option>手机事业部</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>提交日期起 </td>
+        <td>
+            <div class="input-append">
+                <input class="span2 datepicker" size="16" type="text" /><span class="add-on"><i class="icon-calendar"></i></span>至<input class="span2 datepicker" size="16" type="text" /><span class="add-on"><i class="icon-calendar"></i></span>
             </div>
-        </div>
-    </div>
-</div>
+        </td>
+        <td>报销人 </td>
+        <td>
+            <select size="1" name="select2">
+                <option value="10401"></option>
+                <option value="10388">第二营销事业部</option>
+                <option
+                        value="10389">第三营销事业部</option>
+                <option
+                        value="10390">第一营销事业部</option>
+                <option
+                        value="10391">康讯公司</option>
+                <option
+                        value="10392">网络事业部</option>
+                <option
+                        value="10393">移动事业部</option>
+                <option
+                        value="10394">手机事业部</option>
+                <option
+                        value="10395">中兴通讯（香港）有限公司</option>
+                <option
+                        value="10396">人事中心</option>
+                <option
+                        value="10399">财务中心</option>
+                <option
+                        value="10400">市场中心</option>
+                <option
+                        value="10401">质企中心</option>
+                <option
+                        value="10402">技术中心</option>
+                <option
+                        value="10386">CDMA事业部</option>
+                <option
+                        value="10387">本部事业部</option>
+                <option
+                        value="10006">技术中心IC所</option>
+                <option
+                        value="11005">中兴通讯学院</option>
+                <option
+                        value="11015">第四营销事业部</option>
+                <option
+                        value="11153">第五营销事业部</option>
+                <option
+                        value="11158">数据事业部</option>
+                <option
+                        value="11159">IT中心</option>
+                <option
+                        value="11160">ZTE全球售后服务中心</option>
+            </select></td>
+        <td>所属项目</td>
+        <td>
+            <select
+                    size="1" name="select3"
+                    s>
+                <option value="10401"></option>
+                <option value="10388">第二营销事业部</option>
+                <option
+                        value="10389">第三营销事业部</option>
+                <option
+                        value="10390">第一营销事业部</option>
+                <option
+                        value="10391">康讯公司</option>
+                <option
+                        value="10392">网络事业部</option>
+                <option
+                        value="10393">移动事业部</option>
+                <option
+                        value="10394">手机事业部</option>
+                <option
+                        value="10395">中兴通讯（香港）有限公司</option>
+                <option
+                        value="10396">人事中心</option>
+                <option
+                        value="10399">财务中心</option>
+                <option
+                        value="10400">市场中心</option>
+                <option
+                        value="10401">质企中心</option>
+                <option
+                        value="10402">技术中心</option>
+                <option
+                        value="10386">CDMA事业部</option>
+                <option
+                        value="10387">本部事业部</option>
+                <option
+                        value="10006">技术中心IC所</option>
+                <option
+                        value="11005">中兴通讯学院</option>
+                <option
+                        value="11015">第四营销事业部</option>
+                <option
+                        value="11153">第五营销事业部</option>
+                <option
+                        value="11158">数据事业部</option>
+                <option
+                        value="11159">IT中心</option>
+                <option
+                        value="11160">ZTE全球售后服务中心</option>
+            </select></td>
+    </tr>
+    <tr>
+        <td>本币金额</td>
+        <td>
+            <div class="input-append">
+                <input class="span2" id="Text2" size="16" type="text" /><span class="add-on">$</span>至<input class="span2" id="Text3" size="16" type="text" /><span class="add-on">$</span>
+            </div>
+        </td>
+        <td>申请人 </td>
+        <td colspan="3">
+            <input type="text"></td>
+    </tr>
+    <tr>
+        <td>提交财务审核日期 </td>
+        <td>
+            <div class="input-append">
+                <input class="span2 datepicker" size="16" type="text" /><span class="add-on"><i class="icon-calendar"></i></span>至<input class="span2 datepicker" size="16" type="text" /><span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+        </td>
+        <td>单据状态 </td>
+        <td colspan="3">
+            <select
+                    size="1" name="select4">
+                <option value="10401"></option>
+                <option value="10388">第二营销事业部</option>
+                <option
+                        value="10389">第三营销事业部</option>
+                <option
+                        value="10390">第一营销事业部</option>
+                <option
+                        value="10391">康讯公司</option>
+                <option
+                        value="10392">网络事业部</option>
+                <option
+                        value="10393">移动事业部</option>
+                <option
+                        value="10394">手机事业部</option>
+                <option
+                        value="10395">中兴通讯（香港）有限公司</option>
+                <option
+                        value="10396">人事中心</option>
+                <option
+                        value="10399">财务中心</option>
+                <option
+                        value="10400">市场中心</option>
+                <option
+                        value="10401">质企中心</option>
+                <option
+                        value="10402">技术中心</option>
+                <option
+                        value="10386">CDMA事业部</option>
+                <option
+                        value="10387">本部事业部</option>
+                <option
+                        value="10006">技术中心IC所</option>
+                <option
+                        value="11005">中兴通讯学院</option>
+                <option
+                        value="11015">第四营销事业部</option>
+                <option
+                        value="11153">第五营销事业部</option>
+                <option
+                        value="11158">数据事业部</option>
+                <option
+                        value="11159">IT中心</option>
+                <option
+                        value="11160">ZTE全球售后服务中心</option>
+            </select>
+            至
+            <select
+                    size="1" name="select5">
+                <option value="10401"></option>
+                <option value="10388">第二营销事业部</option>
+                <option
+                        value="10389">第三营销事业部</option>
+                <option
+                        value="10390">第一营销事业部</option>
+                <option
+                        value="10391">康讯公司</option>
+                <option
+                        value="10392">网络事业部</option>
+                <option
+                        value="10393">移动事业部</option>
+                <option
+                        value="10394">手机事业部</option>
+                <option
+                        value="10395">中兴通讯（香港）有限公司</option>
+                <option
+                        value="10396">人事中心</option>
+                <option
+                        value="10399">财务中心</option>
+                <option
+                        value="10400">市场中心</option>
+                <option
+                        value="10401">质企中心</option>
+                <option
+                        value="10402">技术中心</option>
+                <option
+                        value="10386">CDMA事业部</option>
+                <option
+                        value="10387">本部事业部</option>
+                <option
+                        value="10006">技术中心IC所</option>
+                <option
+                        value="11005">中兴通讯学院</option>
+                <option
+                        value="11015">第四营销事业部</option>
+                <option
+                        value="11153">第五营销事业部</option>
+                <option
+                        value="11158">数据事业部</option>
+                <option
+                        value="11159">IT中心</option>
+                <option
+                        value="11160">ZTE全球售后服务中心</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" align="right">
+            <input class="btn btn-inverse" id="find" type="button" value="查询" />
+            <input class="btn btn-inverse" type="button" value="清空" /></td>
+    </tr>
+    </tbody>
+    </table>-->
+    <!--   <table class="table table-striped table-bordered table-condensed" id="list">
+       <thead>
+       <tr class="tr_detail">
+           <td>单据号 </td>
+           <td>报销人部门</td>
+           <td>报销人</td>
+           <td>申请金额</td>
+           <td>审核金额 </td>
+           <td>所属项目 </td>
+           <td>申请人 </td>
+           <td>提交日期 </td>
+           <td>单据类型 </td>
+           <td>审批状态 </td>
+           <td>摘要 </td>
+       </tr>
+       </thead>
+       <tbody>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>现金</td>
+           <td>票据 </td>
+           <td>负责人 </td>
+           <td>3009.40</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>产品国内差旅费单据 </td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>现金</td>
+           <td>票据 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>产品国内差旅费单据 </td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>CDMA-国内市场部 </td>
+           <td>现金 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>谭晓松 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行存款</td>
+           <td>谭晓松 </td>
+           <td>任务成员 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>1209NewPro</td>
+           <td>谭晓松 </td>
+           <td>任务成员 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>testqzw</td>
+           <td>谭晓松 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行存款</td>
+           <td>执行中 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>testqzw</td>
+           <td>指派中 </td>
+           <td></td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>谭晓松 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>谭晓松 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>产品国内差旅费单据 </td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>上级取消 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>谭晓松 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="even">
+           <td><a>HS301-2005000020 </a></td>
+           <td>银行承兑汇票</td>
+           <td>执行中 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr>
+           <td><a>HS301-2005000020 </a></td>
+           <td>测试产品项目p</td>
+           <td>上级取消 </td>
+           <td>负责人 </td>
+           <td>0.00</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+       </tr>
+       <tr class="tr_pagenumber">
+           <td colspan="100">当前第5页/共55页&nbsp;&nbsp;共650条记录&nbsp;&nbsp;<a class="badge badge-inverse">首页</a>&nbsp;<a class="badge badge-inverse">下一页</a>&nbsp;
+               <a class="badge badge-inverse">1</a>&nbsp;<a class="badge badge-inverse">2</a>&nbsp;<a class="badge badge-inverse">3</a>&nbsp;<a class="badge badge-inverse">4</a>&nbsp;
+               <a class="badge badge-warning">5</a>&nbsp;<a class="badge badge-inverse">...</a>&nbsp;<a class="badge badge-inverse">55</a>&nbsp;<a class="badge badge-inverse">上一页</a>&nbsp;<a class="badge badge-inverse">尾页</a></td>
+       </tr>
+       </tbody>
+       </table>
+   -->
+
+    </wicket:panel>
 </body>
 </html>

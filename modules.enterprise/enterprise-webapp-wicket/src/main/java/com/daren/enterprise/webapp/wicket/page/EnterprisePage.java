@@ -1,12 +1,9 @@
 package com.daren.enterprise.webapp.wicket.page;
 
-
-import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
-import com.daren.enterprise.webapp.wicket.component.ExtAbstractBehavior;
 import org.apache.aries.blueprint.annotation.Reference;
-import org.apache.wicket.markup.html.basic.Label;
-
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,16 +17,15 @@ import javax.inject.Named;
  * @修改备注：
  */
 
-public class EnterprisePage extends BasePage {
+public class EnterprisePage extends BasePanel {
     @Named
     @Inject
     @Reference(id = "enterpriseService", serviceInterface = IEnterpriseBeanService.class)
     private IEnterpriseBeanService enterpriseBeanService;
 
-    public EnterprisePage() {
-        Label label = new Label("tst");
-        add(label);
-        label.add(new ExtAbstractBehavior());
+    public EnterprisePage(String id, WebMarkupContainer wmc) {
 
+
+        super(id, wmc);
     }
 }

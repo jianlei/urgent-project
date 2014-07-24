@@ -24,6 +24,7 @@ public class EnterpriseBeanImpl extends PersistentEntity {
 
     public EnterpriseBeanImpl() {
 
+
     }
 
     public String getEmail() {
