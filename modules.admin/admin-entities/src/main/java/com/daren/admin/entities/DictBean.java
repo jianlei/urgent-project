@@ -1,6 +1,6 @@
 package com.daren.admin.entities;
 
-import com.daren.core.impl.persistence.PersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -20,12 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "sys_dict")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class DictBeanImpl extends PersistentEntity {
-    private String label;	// 标签名
-    private String value;	// 数据值
-    private String type;	// 类型
+public class DictBean extends PersistentEntity {
+    private String label;    // 标签名
+    private String value;    // 数据值
+    private String type;    // 类型
     private String description;// 描述
-    private Integer sort;	// 排序
+    private Integer sort;    // 排序
 
     public String getLabel() {
         return label;

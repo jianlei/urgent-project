@@ -1,6 +1,6 @@
 package com.daren.core.web.wicket.panel;
 
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.PermissionConstant;
 import com.daren.core.web.wicket.security.LockScreen;
 import com.daren.core.web.wicket.security.SignOutPage;
@@ -27,7 +27,7 @@ public class HeaderPanel extends Panel {
         //todo 获得当前用户需要封装到单独的service中
         String userName = "";
         Session session = SecurityUtils.getSubject().getSession();
-        UserBeanImpl userBean = (UserBeanImpl) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
+        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
         if (userBean != null) {
             userName = userBean.getName();
         } else {

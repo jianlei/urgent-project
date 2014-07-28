@@ -18,13 +18,34 @@
  *     along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.daren.core.api.exception;
+package com.daren.core.api.persistence;
+
+import java.io.Serializable;
 
 /**
- * Aware interface for exceptions to be able to get its internal error information.
+ * Exception error description, contains information about translation message key and its parameters.
  *
  * @author Denis Skarbichev
  */
-public interface ExceptionAware {
-    public InternalError getError();
+public class InternalError implements Serializable {
+    private String code;
+    private Object[] params;
+
+    public InternalError(String code) {
+        this.code = code;
+    }
+
+    public InternalError(String code, Object... params) {
+        this(code);
+        this.params = params;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+
+    public Object[] getParams() {
+        return params;
+    }
 }

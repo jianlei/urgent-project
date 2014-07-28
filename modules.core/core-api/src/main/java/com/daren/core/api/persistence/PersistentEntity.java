@@ -1,7 +1,4 @@
-package com.daren.core.impl.persistence;
-
-import com.daren.core.api.exception.StaleEntityException;
-import com.daren.core.api.persistence.IPersistentEntity;
+package com.daren.core.api.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +15,7 @@ import java.util.Date;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class PersistentEntity implements IPersistentEntity {
+public abstract class PersistentEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,22 +31,18 @@ public abstract class PersistentEntity implements IPersistentEntity {
     private Date updateDate = new Date();
     ;// 更新日期
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public long getVersion() {
         return version;
     }
 
-    @Override
     public void setVersion(long vers) {
         if (vers < version) {
             throw new StaleEntityException(this);
@@ -57,42 +50,34 @@ public abstract class PersistentEntity implements IPersistentEntity {
         this.version = vers;
     }
 
-    @Override
     public String getCreateBy() {
         return createBy;
     }
 
-    @Override
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
-    @Override
     public String getUpdateBy() {
         return updateBy;
     }
 
-    @Override
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
-    @Override
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    @Override
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
-    @Override
     public Date getCreationDate() {
         return creationDate;
     }
 
-    @Override
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }

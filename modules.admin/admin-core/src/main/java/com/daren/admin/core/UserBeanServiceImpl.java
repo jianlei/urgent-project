@@ -2,7 +2,7 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.api.dao.IUserBeanDao;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
         this.userBeanDao = userBeanDao;
-        super.init(userBeanDao, com.daren.admin.entities.UserBeanImpl.class.getName());
+        super.init(userBeanDao, UserBean.class.getName());
     }
 
     public void init() {
@@ -30,22 +30,22 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     @Override
 
-    public UserBeanImpl addUser(UserBeanImpl user) {
+    public UserBean addUser(UserBean user) {
         return userBeanDao.saveUser(user);
     }
 
     @Override
-    public void delUser(UserBeanImpl user) {
+    public void delUser(UserBean user) {
         userBeanDao.removeUser(user.getId());
     }
 
     @Override
-    public void saveUser(UserBeanImpl user) {
+    public void saveUser(UserBean user) {
         userBeanDao.saveUser(user);
     }
 
-    public List<UserBeanImpl> getAllUser() {
-        return userBeanDao.getAll(com.daren.admin.entities.UserBeanImpl.class.getName());
+    public List<UserBean> getAllUser() {
+        return userBeanDao.getAll(UserBean.class.getName());
     }
 
 

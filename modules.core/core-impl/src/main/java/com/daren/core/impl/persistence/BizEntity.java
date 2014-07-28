@@ -20,7 +20,7 @@
 
 package com.daren.core.impl.persistence;
 
-import com.daren.core.api.persistence.IBizEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -33,16 +33,14 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 
-public abstract class BizEntity extends PersistentEntity implements IBizEntity {
+public abstract class BizEntity extends PersistentEntity {
     @Column(name = "key_", unique = true)
     private String key;
 
-    @Override
     public String getBizKey() {
         return key;
     }
 
-    @Override
     public void setBizKey(String key) {
         this.key = key;
     }

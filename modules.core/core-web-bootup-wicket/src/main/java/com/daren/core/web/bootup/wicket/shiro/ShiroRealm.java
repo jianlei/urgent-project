@@ -1,7 +1,7 @@
 package com.daren.core.web.bootup.wicket.shiro;
 
 import com.daren.admin.api.biz.IUserLoginService;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.wicket.PermissionConstant;
 import com.daren.core.web.wicket.security.CaptchaException;
@@ -84,7 +84,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (token.getCaptcha() == null || !token.getCaptcha().equalsIgnoreCase(code)) {
             throw new CaptchaException("验证码错误!");
         }
-        UserBeanImpl userBean = userLoginService.login(userName, String.valueOf(password));
+        UserBean userBean = userLoginService.login(userName, String.valueOf(password));
         if (userBean != null) {
             //保存用户信息到session
             session = SecurityUtils.getSubject().getSession();

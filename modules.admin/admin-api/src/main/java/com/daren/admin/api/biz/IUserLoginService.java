@@ -1,7 +1,7 @@
 package com.daren.admin.api.biz;
 
 
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public interface IUserLoginService {
      * @param password 用户密码
      * @return
      */
-    public UserBeanImpl login(String username, String password);
+    public UserBean login(String username, String password);
 
     /**
      * 记录用户登录后的时间和登录ip

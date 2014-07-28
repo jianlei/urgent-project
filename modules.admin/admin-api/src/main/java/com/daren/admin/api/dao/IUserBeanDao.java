@@ -1,6 +1,6 @@
 package com.daren.admin.api.dao;
 
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.List;
  * Created by dell on 14-1-16.
  */
 
-public interface IUserBeanDao extends IGenericDao<UserBeanImpl, Long> {
+public interface IUserBeanDao extends IGenericDao<UserBean, Long> {
     /**
      * Gets a list of users ordered by the uppercase version of their username.
      *
      * @return List populated list of users
      */
-    List<UserBeanImpl> getUserList();
+    List<UserBean> getUserList();
 
     /**
      * Saves a user's information.
@@ -23,7 +23,7 @@ public interface IUserBeanDao extends IGenericDao<UserBeanImpl, Long> {
      * @param user the object to be saved
      * @return the persisted User object
      */
-    UserBeanImpl saveUser(UserBeanImpl user);
+    UserBean saveUser(UserBean user);
 
     /**
      * 删除一个用户
@@ -32,7 +32,7 @@ public interface IUserBeanDao extends IGenericDao<UserBeanImpl, Long> {
      */
     void removeUser(Long userId);
 
-    UserBeanImpl getUser(Long userId);
+    UserBean getUser(Long userId);
 
     /**
      * 通过用户名获得用户对象
@@ -40,7 +40,7 @@ public interface IUserBeanDao extends IGenericDao<UserBeanImpl, Long> {
      * @param username 用户名
      * @return
      */
-    public UserBeanImpl getUser(String username);
+    public UserBean getUser(String username);
 
     void updateUserLoginInfo(long id, String loginIp);
 }

@@ -1,7 +1,7 @@
 package com.daren.admin.persist.openjpa;
 
 import com.daren.admin.api.dao.IDictBeanDao;
-import com.daren.admin.entities.DictBeanImpl;
+import com.daren.admin.entities.DictBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
 import javax.persistence.Query;
@@ -16,11 +16,11 @@ import java.util.List;
  * @修改备注：
  */
 
-public class DictBeanDaoOpenjpa extends GenericOpenJpaDao<DictBeanImpl, Long> implements IDictBeanDao {
+public class DictBeanDaoOpenjpa extends GenericOpenJpaDao<DictBean, Long> implements IDictBeanDao {
     @Override
-    public List<DictBeanImpl> getDictList(String type) {
-        final Query query =createQuery("select c  from DictBeanImpl c where c.type=?1", type);
-        final List<DictBeanImpl> resultList = query.getResultList();
+    public List<DictBean> getDictList(String type) {
+        final Query query = createQuery("select c  from DictBeanImpl c where c.type=?1", type);
+        final List<DictBean> resultList = query.getResultList();
         return resultList;
     }
 }

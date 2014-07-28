@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IOfficeBeanService;
-import com.daren.admin.entities.OfficeBeanImpl;
+import com.daren.admin.entities.OfficeBean;
 import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.AttributeModifier;
@@ -65,7 +65,7 @@ public class ListOfficePage extends BasePanel {
         add(label1);
         add(label2);
 
-        final Form<OfficeBeanImpl> form = new Form<OfficeBeanImpl>("add_office_form", new CompoundPropertyModel<OfficeBeanImpl>(new OfficeBeanImpl()));
+        final Form<OfficeBean> form = new Form<OfficeBean>("add_office_form", new CompoundPropertyModel<OfficeBean>(new OfficeBean()));
         add(form);
         AjaxFormValidatingBehavior.addToAllFormComponents(form, "keydown", Duration.ONE_SECOND);
 
@@ -107,7 +107,7 @@ public class ListOfficePage extends BasePanel {
         form.add(new AjaxButton("submit_button", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
-                OfficeBeanImpl OfficeBean = (OfficeBeanImpl) getParent().getDefaultModelObject();
+                OfficeBean OfficeBean = (com.daren.admin.entities.OfficeBean) getParent().getDefaultModelObject();
                 officeBeanService.saveEntity(OfficeBean);
                 label1.setVisible(true);
                 label2.setVisible(false);
@@ -122,7 +122,7 @@ public class ListOfficePage extends BasePanel {
         add(new Link("reset_form_1") {
             @Override
             public void onClick() {
-                form.setModelObject(new OfficeBeanImpl());
+                form.setModelObject(new OfficeBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -131,21 +131,21 @@ public class ListOfficePage extends BasePanel {
         form.add(new Link("reset_form_2") {
             @Override
             public void onClick() {
-                form.setModelObject(new OfficeBeanImpl());
+                form.setModelObject(new OfficeBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
         });
 
 
-        List<OfficeBeanImpl> roleCodeList = officeBeanService.getAllEntity();
-        ListDataProvider<OfficeBeanImpl> listDataProvider = new ListDataProvider<OfficeBeanImpl>(roleCodeList);
-        add(new DataView<OfficeBeanImpl>("roleRows", listDataProvider) {
+        List<OfficeBean> roleCodeList = officeBeanService.getAllEntity();
+        ListDataProvider<OfficeBean> listDataProvider = new ListDataProvider<OfficeBean>(roleCodeList);
+        add(new DataView<OfficeBean>("roleRows", listDataProvider) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(final Item<OfficeBeanImpl> item) {
-                final OfficeBeanImpl OfficeBean;
+            protected void populateItem(final Item<OfficeBean> item) {
+                final OfficeBean OfficeBean;
                 OfficeBean = item.getModelObject();
 
                 item.add(new Label("code", OfficeBean.getCode()));
@@ -170,7 +170,7 @@ public class ListOfficePage extends BasePanel {
                 item.add(new Link("edit") {
                     @Override
                     public void onClick() {
-                        form.setModelObject((OfficeBeanImpl) getParent().getDefaultModelObject());
+                        form.setModelObject((com.daren.admin.entities.OfficeBean) getParent().getDefaultModelObject());
                         label1.setVisible(false);
                         label2.setVisible(true);
                     }

@@ -18,34 +18,26 @@
  *     along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.daren.core.api.exception;
-
-import java.io.Serializable;
+package com.daren.core.api.persistence;
 
 /**
- * Exception error description, contains information about translation message key and its parameters.
+ * Application runtime exception occurs when system is not supposed to catch the exception.
  *
  * @author Denis Skarbichev
  */
-public class InternalError implements Serializable {
-    private String code;
-    private Object[] params;
+public class InternalRuntimeException extends RuntimeException implements ExceptionAware {
+    private com.daren.core.api.persistence.InternalError error;
 
-    public InternalError(String code) {
-        this.code = code;
+    public InternalRuntimeException(String errorCode, Object... params) {
+        error = new com.daren.core.api.persistence.InternalError(errorCode, params);
     }
 
-    public InternalError(String code, Object... params) {
-        this(code);
-        this.params = params;
+    public InternalRuntimeException(com.daren.core.api.persistence.InternalError error) {
+        this.error = error;
     }
 
-    public String getCode() {
-        return code;
+    public com.daren.core.api.persistence.InternalError getError() {
+        return error;
     }
 
-
-    public Object[] getParams() {
-        return params;
-    }
 }

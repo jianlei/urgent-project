@@ -1,6 +1,6 @@
 package com.daren.enterprise.entities;
 
-import com.daren.core.impl.persistence.PersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;

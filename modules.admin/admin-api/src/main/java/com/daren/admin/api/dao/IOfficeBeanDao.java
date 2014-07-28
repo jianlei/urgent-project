@@ -1,6 +1,6 @@
 package com.daren.admin.api.dao;
 
-import com.daren.admin.entities.OfficeBeanImpl;
+import com.daren.admin.entities.OfficeBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 /**
@@ -12,5 +12,5 @@ import com.daren.core.api.persistence.IGenericDao;
  * @修改备注：
  */
 
-public interface IOfficeBeanDao extends IGenericDao<OfficeBeanImpl, Long> {
+public interface IOfficeBeanDao extends IGenericDao<OfficeBean, Long> {
 }

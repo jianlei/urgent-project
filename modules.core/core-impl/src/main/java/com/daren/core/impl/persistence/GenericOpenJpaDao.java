@@ -1,9 +1,9 @@
 package com.daren.core.impl.persistence;
 
 
-import com.daren.core.api.exception.SearchException;
 import com.daren.core.api.persistence.IGenericDao;
-import com.daren.core.api.persistence.IPersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
+import com.daren.core.api.persistence.SearchException;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -22,7 +22,7 @@ import java.util.Map;
  * @修改备注：
  */
 
-public class GenericOpenJpaDao<T extends IPersistentEntity, PK extends Serializable> implements IGenericDao<T, PK> {
+public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializable> implements IGenericDao<T, PK> {
     protected final Logger log = Logger.getLogger(getClass());
     private Class<T> persistentClass;
     protected EntityManager entityManager;

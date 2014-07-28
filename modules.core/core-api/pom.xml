@@ -40,11 +40,18 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jpa_2.0_spec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -55,6 +62,30 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <path id="enhance.path.ref">
+                                    <fileset dir="${project.build.outputDirectory}">
+                                        <include name="*Bean*/*.class"/>
+                                    </fileset>
+                                </path>
+                                <pathconvert property="enhance.files" refid="enhance.path.ref" pathsep=" "/>
+                                <java classname="org.apache.openjpa.enhance.PCEnhancer">
+                                    <arg line="-p persistence.xml"/>
+                                    <arg line="${enhance.files}"/>
+                                    <classpath>
+                                        <path refid="maven.dependency.classpath"/>
+                                        <path refid="maven.compile.classpath"/>
+                                    </classpath>
+                                </java>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>deploy</id>
                         <phase>install</phase>
@@ -70,6 +101,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.data;
 
 import com.daren.admin.api.biz.IUserBeanService;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.util.JNDIHelper;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 
@@ -18,13 +18,13 @@ import java.util.List;
  * @修改备注：
  */
 
-public class UserProvider extends ListDataProvider<UserBeanImpl> {
+public class UserProvider extends ListDataProvider<UserBean> {
     /*@Named
     @Inject
     @Reference(id = "userLoginService", serviceInterface = IUserBeanService.class)*/
     private IUserBeanService userBeanService;
 
-    private List<UserBeanImpl> userBeanList = new ArrayList<UserBeanImpl>();
+    private List<UserBean> userBeanList = new ArrayList<UserBean>();
 
     public UserProvider() {
 
@@ -36,7 +36,7 @@ public class UserProvider extends ListDataProvider<UserBeanImpl> {
     }
 
     @Override
-    protected List<UserBeanImpl> getData() {
+    protected List<UserBean> getData() {
         try {
             userBeanService = (IUserBeanService) JNDIHelper.getJNDIServiceForName(IUserBeanService.class.getName());
         } catch (IOException e) {

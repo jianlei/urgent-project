@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IOfficeBeanService;
-import com.daren.admin.entities.OfficeBeanImpl;
+import com.daren.admin.entities.OfficeBean;
 import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.wicket.BasePage;
 import org.apache.wicket.Component;
@@ -31,17 +31,17 @@ public class TreeTablePage extends BasePage {
 
     public TreeTablePage() {
         try {
-            officeBeanService =   JNDIHelper.getJNDIServiceForName(IOfficeBeanService.class.getName());
+            officeBeanService = JNDIHelper.getJNDIServiceForName(IOfficeBeanService.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List<OfficeBeanImpl> officeBeanList = officeBeanService.getAllEntity();
-        ListDataProvider<OfficeBeanImpl> listDataProvider = new ListDataProvider<OfficeBeanImpl>(officeBeanList);
-        DataView<OfficeBeanImpl> dataView=new DataView<OfficeBeanImpl>("officeRows", listDataProvider) {
+        List<OfficeBean> officeBeanList = officeBeanService.getAllEntity();
+        ListDataProvider<OfficeBean> listDataProvider = new ListDataProvider<OfficeBean>(officeBeanList);
+        DataView<OfficeBean> dataView = new DataView<OfficeBean>("officeRows", listDataProvider) {
             @Override
-            protected void populateItem(Item<OfficeBeanImpl> item) {
-                final OfficeBeanImpl OfficeBean;
+            protected void populateItem(Item<OfficeBean> item) {
+                final OfficeBean OfficeBean;
                 OfficeBean = item.getModelObject();
                 item.add(new Label("code", OfficeBean.getCode()));
                 item.add(new Label("name", OfficeBean.getName()));
@@ -51,7 +51,7 @@ public class TreeTablePage extends BasePage {
                     public void onComponentTag(Component component, ComponentTag tag) {
 //                        tag.put("style", "background-color:red");
                         tag.put("data-tt-id", StringValue.valueOf(OfficeBean.getId()));
-                        if(OfficeBean.getParent()!=null){
+                        if (OfficeBean.getParent() != null) {
                             tag.put("data-tt-parent-id", StringValue.valueOf(OfficeBean.getParent().getId()));
                         }
                     }
@@ -73,7 +73,7 @@ public class TreeTablePage extends BasePage {
 
 //        response.render(OnDomReadyHeaderItem.forScript("jQuery(\"#treeTable\").treetable({ expandable: true });")) ;
 
-      //  response.render(OnDomReadyHeaderItem.forScript(" $('ul.tree').checkTree();")) ;
+        //  response.render(OnDomReadyHeaderItem.forScript(" $('ul.tree').checkTree();")) ;
         /*response.render(CssHeaderItem.forReference(new CssResourceReference(TreeTablePage.class,
                 "styles.css")));*/
         /*response.render(CssHeaderItem.forReference(new CssResourceReference(TreeTablePage.class,

@@ -1,6 +1,6 @@
 package com.daren.admin.api.dao;
 
-import com.daren.admin.entities.DictBeanImpl;
+import com.daren.admin.entities.DictBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 import java.util.List;
@@ -14,6 +14,6 @@ import java.util.List;
  * @修改备注：
  */
 
-public interface IDictBeanDao extends IGenericDao<DictBeanImpl, Long> {
-    List<DictBeanImpl> getDictList(String type);
+public interface IDictBeanDao extends IGenericDao<DictBean, Long> {
+    List<DictBean> getDictList(String type);
 }

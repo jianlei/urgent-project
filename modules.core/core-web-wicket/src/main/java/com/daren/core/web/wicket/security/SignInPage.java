@@ -118,6 +118,7 @@ public class SignInPage extends WebPage {
         } catch (final CaptchaException ae) {
             error("验证码错误.");
         } catch (final AuthenticationException ae) {
+            ae.printStackTrace();
             error("无效用户名或密码.");
         } catch (final Exception ex) {
             error("登录失败");

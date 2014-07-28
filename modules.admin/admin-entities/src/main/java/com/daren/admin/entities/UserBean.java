@@ -1,6 +1,6 @@
 package com.daren.admin.entities;
 
-import com.daren.core.impl.persistence.PersistentEntity;
+import com.daren.core.api.persistence.PersistentEntity;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
@@ -21,9 +21,9 @@ import java.util.List;
 @Table(name = "sys_user")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class UserBeanImpl extends PersistentEntity {
-    private OfficeBeanImpl company;    // 归属公司
-    private OfficeBeanImpl office;    // 归属部门
+public class UserBean extends PersistentEntity {
+    private OfficeBean company;    // 归属公司
+    private OfficeBean office;    // 归属部门
     private String loginName;// 登录名
     private String name;  // 姓名
     private String password; // 密码
@@ -33,9 +33,9 @@ public class UserBeanImpl extends PersistentEntity {
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
 
-    private List<RoleBeanImpl> roleList = Lists.newArrayList(); // 拥有角色列表
+    private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
 
-    public UserBeanImpl() {
+    public UserBean() {
 
     }
 
@@ -126,32 +126,32 @@ public class UserBeanImpl extends PersistentEntity {
             uniqueConstraints = {@UniqueConstraint(columnNames = {
                     "user_id", "role_id"})})
     @OrderBy("id")
-    public List<RoleBeanImpl> getRoleList() {
+    public List<RoleBean> getRoleList() {
         return roleList;
     }
 
 
-    public void setRoleList(List<RoleBeanImpl> roleList) {
+    public void setRoleList(List<RoleBean> roleList) {
         this.roleList = roleList;
     }
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    public OfficeBeanImpl getCompany() {
+    public OfficeBean getCompany() {
         return company;
     }
 
-    public void setCompany(OfficeBeanImpl company) {
+    public void setCompany(OfficeBean company) {
         this.company = company;
     }
 
     @ManyToOne
     @JoinColumn(name = "office_id")
-    public OfficeBeanImpl getOffice() {
+    public OfficeBean getOffice() {
         return office;
     }
 
-    public void setOffice(OfficeBeanImpl office) {
+    public void setOffice(OfficeBean office) {
         this.office = office;
     }
 }

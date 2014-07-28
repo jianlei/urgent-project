@@ -1,6 +1,12 @@
 package com.daren.admin.webapp.wicket.page;
 
 
+import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.entities.RoleBean;
+import com.daren.admin.entities.UserBean;
+import com.daren.admin.webapp.wicket.data.UserProvider;
+import com.daren.core.web.wicket.BasePage;
+import com.daren.core.web.wicket.PermissionConstant;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.core.ajax.IJQueryAjaxAware;
 import com.googlecode.wicket.jquery.core.ajax.JQueryAjaxBehavior;
@@ -14,12 +20,6 @@ import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
-import com.daren.admin.api.biz.IUserBeanService;
-import com.daren.admin.entities.RoleBeanImpl;
-import com.daren.admin.entities.UserBeanImpl;
-import com.daren.admin.webapp.wicket.data.UserProvider;
-import com.daren.core.web.wicket.BasePage;
-import com.daren.core.web.wicket.PermissionConstant;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.MarkupContainer;
@@ -59,7 +59,7 @@ public class UserPage extends BasePage {
 
     Label label1 = new Label("pageName1", "添加用户");
     Label label2 = new Label("pageName2", "编辑用户");
-    DataTable<UserBeanImpl> table = null;
+    DataTable<UserBean> table = null;
 
     @Override
     protected void onInitialize() {
@@ -76,7 +76,7 @@ public class UserPage extends BasePage {
         final UserProvider userProvider = new UserProvider();
 
 
-        final Form<UserBeanImpl> form = new Form<UserBeanImpl>("add_user_form", new CompoundPropertyModel<UserBeanImpl>(new UserBeanImpl()));
+        final Form<UserBean> form = new Form<UserBean>("add_user_form", new CompoundPropertyModel<UserBean>(new UserBean()));
         add(form);
         // AjaxFormValidatingBehavior.addToAllFormComponents(form, "keydown", Duration.ONE_SECOND);
 
@@ -140,7 +140,7 @@ public class UserPage extends BasePage {
 
         };
 
-        IDataProvider<UserBeanImpl> provider = newDataProvider();
+        IDataProvider<UserBean> provider = newDataProvider();
         List<IColumn> columns = newColumnList();
 
         Options options = new Options();
@@ -154,7 +154,7 @@ public class UserPage extends BasePage {
         options.set("groupable", true);
         options.set("columnMenu", true);*/
 
-        table = new DataTable<UserBeanImpl>("datatable", columns, userProvider, 5, options) {
+        table = new DataTable<UserBean>("datatable", columns, userProvider, 5, options) {
 
             private static final long serialVersionUID = 1L;
 
@@ -171,7 +171,7 @@ public class UserPage extends BasePage {
                 }
                 if (button.match("修改")) {
 
-                    UserBeanImpl userBean = (UserBeanImpl) userBeanService.getEntity(Long.parseLong(value));
+                    UserBean userBean = (UserBean) userBeanService.getEntity(Long.parseLong(value));
                     form.setModelObject(userBean);
 
                     label1.setVisible(false);
@@ -232,7 +232,7 @@ public class UserPage extends BasePage {
         form.add(new AjaxButton("submit_button", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
-                UserBeanImpl userBean = (UserBeanImpl) getParent().getDefaultModelObject();
+                UserBean userBean = (UserBean) getParent().getDefaultModelObject();
                 userBeanService.saveEntity(userBean);
 //                setResponsePage(UserPage.class);
                 userProvider.updateData();
@@ -251,7 +251,7 @@ public class UserPage extends BasePage {
         add(new Link("reset_form_1") {
             @Override
             public void onClick() {
-                form.setModelObject(new UserBeanImpl());
+                form.setModelObject(new UserBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -260,7 +260,7 @@ public class UserPage extends BasePage {
         form.add(new Link("reset_form_2") {
             @Override
             public void onClick() {
-                form.setModelObject(new UserBeanImpl());
+                form.setModelObject(new UserBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -383,9 +383,9 @@ public class UserPage extends BasePage {
      * @param roleBeanList
      * @return
      */
-    private String getRoleList(List<RoleBeanImpl> roleBeanList) {
+    private String getRoleList(List<RoleBean> roleBeanList) {
         String value = "";
-        for (RoleBeanImpl roleBean : roleBeanList) {
+        for (RoleBean roleBean : roleBeanList) {
             value = value + roleBean.getName() + ",";
         }
         //截掉最后一个“，”
@@ -394,8 +394,8 @@ public class UserPage extends BasePage {
         return value;
     }
 
-    private static IDataProvider<UserBeanImpl> newDataProvider() {
-        return new ListDataProvider<UserBeanImpl>(userBeanService.getAllUser());
+    private static IDataProvider<UserBean> newDataProvider() {
+        return new ListDataProvider<UserBean>(userBeanService.getAllUser());
     }
 
     private List<IColumn> newColumnList() {
@@ -419,8 +419,8 @@ public class UserPage extends BasePage {
         columns.add(new PropertyColumn("角色") {
             @Override
             public Object getValue(Object object) {
-                UserBeanImpl userBean = (UserBeanImpl) object;
-                List<RoleBeanImpl> roleBeanList = userBean.getRoleList();
+                UserBean userBean = (UserBean) object;
+                List<RoleBean> roleBeanList = userBean.getRoleList();
                 String roleList = getRoleList(roleBeanList);
                 return roleList;
             }

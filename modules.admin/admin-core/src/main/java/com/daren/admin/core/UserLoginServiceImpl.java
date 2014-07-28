@@ -2,9 +2,9 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IUserLoginService;
 import com.daren.admin.api.dao.IUserBeanDao;
-import com.daren.admin.entities.PermissionBeanImpl;
-import com.daren.admin.entities.RoleBeanImpl;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.PermissionBean;
+import com.daren.admin.entities.RoleBean;
+import com.daren.admin.entities.UserBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class UserLoginServiceImpl implements IUserLoginService {
     }
 
     @Override
-    public UserBeanImpl login(String username, String password) {
-        UserBeanImpl user = userBeanDao.getUser(username);
+    public UserBean login(String username, String password) {
+        UserBean user = userBeanDao.getUser(username);
         if (user == null) {
             return null;
         }
@@ -46,11 +46,11 @@ public class UserLoginServiceImpl implements IUserLoginService {
     @Override
     public List<String> getUserPermission(String username) {
         List<String> stringList = new ArrayList<String>();
-        UserBeanImpl userBean = userBeanDao.getUser(username);
+        UserBean userBean = userBeanDao.getUser(username);
         if (userBean != null) {
-            List<RoleBeanImpl> roleBeanList = userBean.getRoleList();
-            for (RoleBeanImpl rolebean : roleBeanList) {
-                for (PermissionBeanImpl permissionBean : rolebean.getPermissionList()) {
+            List<RoleBean> roleBeanList = userBean.getRoleList();
+            for (RoleBean rolebean : roleBeanList) {
+                for (PermissionBean permissionBean : rolebean.getPermissionList()) {
                     String permission = permissionBean.getPermission();
                     if (null != permission && !permission.equals(""))
                         stringList.add(permission);

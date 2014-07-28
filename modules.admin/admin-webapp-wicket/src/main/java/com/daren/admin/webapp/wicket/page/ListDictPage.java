@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictBeanService;
-import com.daren.admin.entities.DictBeanImpl;
+import com.daren.admin.entities.DictBean;
 import com.daren.core.util.JNDIHelper;
 import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.AttributeModifier;
@@ -56,7 +56,7 @@ public class ListDictPage extends BasePanel {
         add(label1);
         add(label2);
 
-        final Form<DictBeanImpl> form = new Form<DictBeanImpl>("add_role_form", new CompoundPropertyModel<DictBeanImpl>(new DictBeanImpl()));
+        final Form<DictBean> form = new Form<DictBean>("add_role_form", new CompoundPropertyModel<DictBean>(new DictBean()));
         add(form);
         AjaxFormValidatingBehavior.addToAllFormComponents(form, "keydown", Duration.ONE_SECOND);
 
@@ -81,7 +81,7 @@ public class ListDictPage extends BasePanel {
         form.add(new AjaxButton("submit_button", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> submitForm) {
-                DictBeanImpl dictBean = (DictBeanImpl) getParent().getDefaultModelObject();
+                DictBean dictBean = (DictBean) getParent().getDefaultModelObject();
                 dictBeanService.saveEntity(dictBean);
 //                setResponsePage(ListDictPage.class);
                 label1.setVisible(true);
@@ -97,7 +97,7 @@ public class ListDictPage extends BasePanel {
         add(new Link("reset_form_1") {
             @Override
             public void onClick() {
-                form.setModelObject(new DictBeanImpl());
+                form.setModelObject(new DictBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
@@ -106,21 +106,21 @@ public class ListDictPage extends BasePanel {
         form.add(new Link("reset_form_2") {
             @Override
             public void onClick() {
-                form.setModelObject(new DictBeanImpl());
+                form.setModelObject(new DictBean());
                 label1.setVisible(true);
                 label2.setVisible(false);
             }
         });
 
 
-        List<DictBeanImpl> roleCodeList = dictBeanService.getAllEntity();
-        ListDataProvider<DictBeanImpl> listDataProvider = new ListDataProvider<DictBeanImpl>(roleCodeList);
-        add(new DataView<DictBeanImpl>("roleRows", listDataProvider) {
+        List<DictBean> roleCodeList = dictBeanService.getAllEntity();
+        ListDataProvider<DictBean> listDataProvider = new ListDataProvider<DictBean>(roleCodeList);
+        add(new DataView<DictBean>("roleRows", listDataProvider) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(final Item<DictBeanImpl> item) {
-                final DictBeanImpl dictBean;
+            protected void populateItem(final Item<DictBean> item) {
+                final DictBean dictBean;
                 dictBean = item.getModelObject();
 
                 item.add(new Label("label", dictBean.getLabel()));
@@ -140,7 +140,7 @@ public class ListDictPage extends BasePanel {
                 item.add(new Link("edit") {
                     @Override
                     public void onClick() {
-                        form.setModelObject((DictBeanImpl) getParent().getDefaultModelObject());
+                        form.setModelObject((DictBean) getParent().getDefaultModelObject());
                         label1.setVisible(false);
                         label2.setVisible(true);
                     }

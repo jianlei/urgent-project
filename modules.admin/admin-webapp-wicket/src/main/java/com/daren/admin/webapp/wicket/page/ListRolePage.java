@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IRoleBeanService;
-import com.daren.admin.entities.RoleBeanImpl;
+import com.daren.admin.entities.RoleBean;
 import com.daren.core.web.wicket.BasePanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.AttributeModifier;
@@ -42,14 +42,14 @@ public class ListRolePage extends BasePanel {
             e.printStackTrace();
         }*/
         super(id, wmc);
-        List<RoleBeanImpl> roleCodeList = roleBeanService.getAllEntity();
-        ListDataProvider<RoleBeanImpl> listDataProvider = new ListDataProvider<RoleBeanImpl>(roleCodeList);
-        add(new DataView<RoleBeanImpl>("fileRows", listDataProvider) {
+        List<RoleBean> roleCodeList = roleBeanService.getAllEntity();
+        ListDataProvider<RoleBean> listDataProvider = new ListDataProvider<RoleBean>(roleCodeList);
+        add(new DataView<RoleBean>("fileRows", listDataProvider) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(final Item<RoleBeanImpl> item) {
-                final RoleBeanImpl roleBean;
+            protected void populateItem(final Item<RoleBean> item) {
+                final RoleBean roleBean;
                 roleBean = item.getModelObject();
 
                 item.add(new Label("name", roleBean.getName()));

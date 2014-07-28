@@ -1,7 +1,6 @@
 package com.daren.core.api.persistence;
 
 import com.daren.core.api.dao.IDaoService;
-import com.daren.core.api.exception.SearchException;
 
 import java.io.Serializable;
 import java.util.List;

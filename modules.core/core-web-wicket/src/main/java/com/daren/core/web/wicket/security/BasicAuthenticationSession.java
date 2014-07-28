@@ -1,7 +1,7 @@
 package com.daren.core.web.wicket.security;
 
 import com.daren.admin.api.biz.IUserLoginService;
-import com.daren.admin.entities.UserBeanImpl;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.util.JNDIHelper;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -17,13 +17,13 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
      @Inject
      @Reference(id="userLoginService",serviceInterface = IUserLoginService.class)*/
     private IUserLoginService userLoginService;
-    private UserBeanImpl userBean;
+    private UserBean userBean;
 
-    public UserBeanImpl getUserBean() {
+    public UserBean getUserBean() {
         return userBean;
     }
 
-    public void setUserBean(UserBeanImpl userBean) {
+    public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
     }
 

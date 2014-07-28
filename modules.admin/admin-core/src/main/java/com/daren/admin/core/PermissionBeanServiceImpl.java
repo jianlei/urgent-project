@@ -2,7 +2,7 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IPermissionBeanService;
 import com.daren.admin.api.dao.IPermissionBeanDao;
-import com.daren.admin.entities.PermissionBeanImpl;
+import com.daren.admin.entities.PermissionBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.List;
@@ -16,22 +16,22 @@ import java.util.List;
  * @修改备注：
  */
 
-public class PermissionBeanServiceImpl extends GenericBizServiceImpl implements IPermissionBeanService{
+public class PermissionBeanServiceImpl extends GenericBizServiceImpl implements IPermissionBeanService {
     private IPermissionBeanDao permissionBeanDao;
 
     public void setPermissionBeanDao(IPermissionBeanDao permissionBeanDao) {
         this.permissionBeanDao = permissionBeanDao;
-        super.init(permissionBeanDao, com.daren.admin.entities.PermissionBeanImpl.class.getName());
+        super.init(permissionBeanDao, PermissionBean.class.getName());
 
     }
 
     @Override
-    public PermissionBeanImpl getRootPermission() {
+    public PermissionBean getRootPermission() {
         return permissionBeanDao.getRootPermission();
     }
 
     @Override
-    public List<PermissionBeanImpl> getChildPermission(PermissionBeanImpl permissionBean) {
+    public List<PermissionBean> getChildPermission(PermissionBean permissionBean) {
         return permissionBeanDao.getChildPermission(permissionBean);
     }
 }

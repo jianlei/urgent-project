@@ -1,7 +1,7 @@
 package com.daren.admin.persist.openjpa;
 
 import com.daren.admin.api.dao.IPermissionBeanDao;
-import com.daren.admin.entities.PermissionBeanImpl;
+import com.daren.admin.entities.PermissionBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.List;
  * @修改备注：
  */
 
-public class PermissionBeanDaoOpenjpa extends GenericOpenJpaDao<PermissionBeanImpl, Long> implements IPermissionBeanDao {
+public class PermissionBeanDaoOpenjpa extends GenericOpenJpaDao<PermissionBean, Long> implements IPermissionBeanDao {
     @Override
-    public PermissionBeanImpl getRootPermission() {
-        PermissionBeanImpl permissionBean = this.findUnique("select u from PermissionBeanImpl u where u.parent is null");
+    public PermissionBean getRootPermission() {
+        PermissionBean permissionBean = this.findUnique("select u from PermissionBeanImpl u where u.parent is null");
         return permissionBean;
     }
 
     @Override
-    public List<PermissionBeanImpl> getChildPermission(PermissionBeanImpl permissionBean) {
+    public List<PermissionBean> getChildPermission(PermissionBean permissionBean) {
         return this.find("select u from PermissionBeanImpl u where u.parent=?1", permissionBean);
     }
 }

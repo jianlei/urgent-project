@@ -1,6 +1,6 @@
 package com.daren.admin.api.biz;
 
-import com.daren.admin.entities.DictBeanImpl;
+import com.daren.admin.entities.DictBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
@@ -16,14 +16,15 @@ import java.util.List;
 
 public interface IDictBeanService extends IBizService {
     //机构类型
-    public static final String SYS_OFFICE_TYPE= "sys_office_type";
+    public static final String SYS_OFFICE_TYPE = "sys_office_type";
     //机构等级
-    public static final String SYS_OFFICE_GRADE= "sys_office_grade";
+    public static final String SYS_OFFICE_GRADE = "sys_office_grade";
 
     /**
      * 根据类型常量获得字典项
+     *
      * @param type
      * @return
      */
-    List<DictBeanImpl> getDictList(String type)  ;
+    List<DictBean> getDictList(String type);
 }
