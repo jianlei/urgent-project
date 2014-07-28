@@ -6,6 +6,7 @@ import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 
 /**
@@ -18,14 +19,15 @@ import javax.inject.Named;
  */
 
 public class EnterprisePage extends BasePanel {
-    @Named
+
     @Inject
-    @Reference(id = "enterpriseService", serviceInterface = IEnterpriseBeanService.class)
     private IEnterpriseBeanService enterpriseBeanService;
 
     public EnterprisePage(String id, WebMarkupContainer wmc) {
 
 
         super(id, wmc);
+
+        List list=enterpriseBeanService.getAllEntity();
     }
 }
