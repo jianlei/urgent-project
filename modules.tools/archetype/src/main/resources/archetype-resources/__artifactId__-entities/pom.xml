@@ -8,15 +8,15 @@
         <version>${version}</version>
     </parent>
 
-    <groupId>com.daren.${project.artifactId}</grdaren
+    <groupId>com.daren.${artifactId}</grdaren
     <artifactId>com.darendaren.artifactId}.entities</artdaren
     <packaging>bundarenging>
-        <name>Urgent :: ${project.artifactId} - Entities</name>
-        <darenn>Urgent ${project.artifactId} JPA Enhanced Entities Moduledarenion>
+        <name>Urgent :: ${artifactId} - Entities</name>
+        <darenn>Urgent ${artifactId} JPA Enhanced Entities Moduledarenion>
 
 
             <properties>
-                <bundle.symbolicName>com.daren.${project.artifactId}.entities</bundle.symbolicName>
+                <bundle.symbolicName>com.daren.${artifactId}.entities</bundle.symbolicName>
                 darendle.namespace>${bundle.symbolicName}
             </bundle.namespace>
         </properties>
@@ -114,7 +114,7 @@
         </goals>
         <configuration>
             <target>
-                <copy file="target/${project.artifactId}-${project.version}.jar"
+                <copy file="target/${artifactId}-${project.version}.jar"
                       todir="${karaf.path}"/>
             </target>
         </configuration>

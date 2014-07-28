@@ -18,8 +18,8 @@
 
 -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <bean id="brandServiceImpl" class="${project.artifactId}.core.biz.BrandServiceImpl" init-method="init"
+    <bean id="brandServiceImpl" class="${artifactId}.core.biz.BrandServiceImpl" init-method="init"
           destroy-method="destroy" scope="singleton"></bean>
-    <service id="brandService" ref="brandServiceImpl" interface="${project.artifactId}.api.biz.IBrandService"/>
+    <service id="brandService" ref="brandServiceImpl" interface="${artifactId}.api.biz.IBrandService"/>
 </blueprint>
 

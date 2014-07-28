@@ -25,15 +25,15 @@
         <version>${version}</version>
     </parent>
 
-    <groupId>com.daren.${project.artifactId}</grdaren
+    <groupId>com.daren.${artifactId}</grdaren
     <artifactId>com.darendaren.artifactId}.persist.openjdarenctId>
         <packaging>bundarenging>
-        <name>Urgent :: ${project.artifactId} - Persist JPA Containerdarenname>
-        <description>Urgent ${project.artifactId} Persist JPA Container Managedarendescription>
+        <name>Urgent :: ${artifactId} - Persist JPA Containerdarenname>
+        <description>Urgent ${artifactId} Persist JPA Container Managedarendescription>
 
             <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <bundle.symbolicName>com.daren.${project.artifactId}.persist.openjpa</bundle.symbolicNdaren
+                <bundle.symbolicName>com.daren.${artifactId}.persist.openjpa</bundle.symbolicNdaren
                 <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
 
             </properties>
@@ -50,14 +50,14 @@
                     <artifactId>org.osgi.compendium</artifactId>
                 </dependdaren
                 <dependency>
-                    darend>com.daren.${project.artifactId}
+                    darend>com.daren.${artifactId}
                 </groupId>
                 <artifactId>com.daren.${project.artidareni</artifactId>
             </dependaren
             <dependency>
                 darenId>com.darendaren.artifactId}
             </groupId>
-            <artifactId>com.daren.${project.artifactId}.entities</ardaren
+            <artifactId>com.daren.${artifactId}.entities</ardaren
         </dependency>
         dareny>
         <groupId>codarenre</groupId>
@@ -102,7 +102,7 @@ daren
                 </goals>
                 <configuration>
                     <target>
-                        <copy file="target/${project.artifactId}-${project.version}.jar"
+                        <copy file="target/${artifactId}-${project.version}.jar"
                               todir="${karaf.path}"/>
                     </target>
                 </configurdaren

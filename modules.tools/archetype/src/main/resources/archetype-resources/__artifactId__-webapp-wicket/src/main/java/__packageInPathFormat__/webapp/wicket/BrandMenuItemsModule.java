@@ -1,18 +1,16 @@
 package ${package}.webapp.wicket;
 
-import ${package}.webapp.wicket.page.BrandPage;
+import ${package}.webapp.wicket.page.CartypePage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.Page;
 
 /**
- * @类描述：品牌子菜单定义类
- * @创建人：sunlf
- * @创建时间：2014-03-29 上午10:23
- * @修改人：
- * @修改时间：
- * @修改备注：
+ * Created with IntelliJ IDEA.
+ * Cartype: sunlf
+ * Date: 14-3-13
+ * Time: 下午4:14
+ * To change this template use File | Settings | File Templates.
  */
-
 public class BrandMenuItemsModule implements IMenuItemsModule {
 
 
@@ -23,17 +21,17 @@ public class BrandMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 20;
     }
 
     @Override
     public Class<? extends Page> getPageClass() {
-        return BrandPage.class;  //To change body of implemented methods use File | Settings | File Templates.
+        return CartypePage.class;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public String getName() {
-        return "品牌管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "车型管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
