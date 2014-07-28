@@ -4,22 +4,22 @@
 
     <parent>
         <groupId>${groupId}</groupId>
-        <artifactId>${project.artifactId}</artifactId>
+        <artifactId>${artifactId}</artifactId>
         <version>${version}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.${project.artifactId}</groupId>
-    <artifactId>com.daren.${project.artifactId}.api</artifactId>
+    <groupId>com.daren.${artifactId}</groupId>
+    <artifactId>com.daren.${artifactId}.api</artifactId>
     <version>${version}</version>
 
     <properties>
-        <bundle.symbolicName>com.daren.${project.artifactId}.api</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.${artifactId}.api</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: ${project.artifactId} - API</name>
-    <description>${project.artifactId} API</description>
+    <name>Urgent :: ${artifactId} - API</name>
+    <description>${artifactId} API</description>
 
     <packaging>bundle</packaging>
 
@@ -45,8 +45,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.${project.artifactId}</groupId>
-            <artifactId>com.daren.${project.artifactId}.entities</artifactId>
+            <groupId>com.daren.${artifactId}</groupId>
+            <artifactId>com.daren.${artifactId}.entities</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -95,7 +95,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="target/${project.artifactId}-${project.version}.jar"
+                                <copy file="target/${artifactId}-${project.version}.jar"
                                       todir="${karaf.path}"/>
                             </target>
                         </configuration>

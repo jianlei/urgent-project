@@ -17,8 +17,6 @@ public final class ExampleActivator
      */
     public void start(BundleContext bc)
             throws Exception {
-        System.out.println("STARTING com.daren.cloud");
-
         Dictionary props = new Properties();
         // add specific service properties here...
 
@@ -33,9 +31,7 @@ public final class ExampleActivator
      */
     public void stop(BundleContext bc)
             throws Exception {
-        System.out.println("STOPPING com.daren.cloud");
-
-        // no need to unregister our service - the OSGi framework handles it for us
+       // no need to unregister our service - the OSGi framework handles it for us
     }
 }
 

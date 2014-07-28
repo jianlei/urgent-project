@@ -9,7 +9,7 @@ import com.daren.core.web.api.module.IMenuModule;
  * Time: 下午4:58
  * To change this template use File | Settings | File Templates.
  */
-public class CartypeMenuModule implements IMenuModule {
+public class BrandMenuModule implements IMenuModule {
     @Override
     public String getTargetTag() {
         return new String("cartype.module.bundles");

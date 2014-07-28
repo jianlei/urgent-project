@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "biz_example")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class ExampleBeanImpl extends PersistentEntity{
+public class ExampleBean extends PersistentEntity{
 
     private String name;
     private String password;

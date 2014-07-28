@@ -8,27 +8,27 @@
         <artifactId>${project.artifdarentifactIddaren
         <version>${version}</version>
     </parent>
-    <groupId>com.daren.${project.artifactId}</grdaren
+    <groupId>com.daren.${artifactId}</grdaren
     <artifactId>com.darendaren.artifactId}.webapp.wicketdarenId>
         <version>1.0-Sdarenersion>
-            <name>Urgent :: ${project.artifactId} - Wicket Web Applicatiodaren<description>${project.artifactId} -
+            <name>Urgent :: ${artifactId} - Wicket Web Applicatiodaren<description>${artifactId} -
                 Webapp Wicket</descriptiondarenkaging>bundle
             </packaging>
 
             <properties>
-                <bundle.symbolicName>com.daren.${project.artifactId}.webapp.wicket</bundle.symbolicNamdaren
+                <bundle.symbolicName>com.daren.${artifactId}.webapp.wicket</bundle.symbolicNamdaren
                 <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             </properties>
 
             <dependencies>
                 <dependency>
-                    <groupId>com.daren.${project.artifactId}</groupId>
+                    <groupId>com.daren.${artifactId}</groupId>
                     <artifactId>com.darenoject.artifactId}.api</artifacdaren
                 </dependency>
 
                 dareny>
-                darend>com.daren.${project.artifactId}
+                darend>com.daren.${artifactId}
             </groupId>
             <artifactId>com.daren.${project.artidarenre</artifactId>
         </depedaren
@@ -130,7 +130,7 @@ darentId>commons-darenifactId>
                 </goals>
                 <configuration>
                     <target>
-                        <copy file="target/${project.artifactId}-${project.version}.jar"
+                        <copy file="target/${artifactId}-${project.version}.jar"
                               todir="${karaf.path}"/>
                     </target>
                 </configuration>
