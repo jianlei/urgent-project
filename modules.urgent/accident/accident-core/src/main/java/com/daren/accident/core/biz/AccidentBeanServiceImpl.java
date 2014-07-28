@@ -1,9 +1,9 @@
 package com.daren.accident.core.biz;
 
 import com.daren.core.impl.biz.GenericBizServiceImpl;
-import com.daren.accident.api.biz.IaccidentBeanService;
+import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
-import com.daren.accident.entities.accidentBeanImpl;
+import com.daren.accident.entities.AccidentBeanImpl;
 
 /**
  * @类描述：品牌服务实现类
@@ -14,12 +14,12 @@ import com.daren.accident.entities.accidentBeanImpl;
  * @修改备注：
  */
 
-public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IaccidentBeanService {
+public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IAccidentBeanService {
     private IAccidentBeanDao accidentBeanDao;
 
     public void setaccidentBeanDao(IAccidentBeanDao accidentBeanDao) {
         this.accidentBeanDao = accidentBeanDao;
-        super.init(accidentBeanDao, accidentBeanImpl.class.getName());
+        super.init(accidentBeanDao, AccidentBeanImpl.class.getName());
     }
 }
 

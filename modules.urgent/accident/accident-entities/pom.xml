@@ -27,8 +27,8 @@
 
     <artifactId>com.daren.accident.entities</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: accident - Entities</name>
-    <description>Urgent accident JPA Enhanced Entities Module</description>
+    <name>Urgent :: Accident - Entities</name>
+    <description>Urgent Accident JPA Enhanced Entities Module</description>
 
 
     <properties>

@@ -1,7 +1,7 @@
 package com.daren.accident.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.accident.api.biz.IaccidentBeanService;
+import com.daren.accident.api.biz.IAccidentBeanService;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import java.util.List;
 public class AccidentPage extends BasePanel {
 
     @Inject
-    private IaccidentBeanService accidentBeanService;
+    private IAccidentBeanService accidentBeanService;
 
     public AccidentPage(String id, WebMarkupContainer wmc) {
 

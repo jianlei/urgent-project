@@ -25,12 +25,12 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 10;
     }
 
     @Override
     public String getName() {
-        return "企业信息管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "事故管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "accident.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -3,16 +3,9 @@
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
         default-activation="lazy"
         >
-
-    <!-- 发布菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.accident.webapp.wicket.MainMenuModule">
-        </bean>
-    </service>
-
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.accident.webapp.wicket.accidentMenuItemsModule">
+        <bean class="com.daren.accident.webapp.wicket.AccidentMenuItemsModule">
         </bean>
     </service>
 </blueprint>

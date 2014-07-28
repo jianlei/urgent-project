@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="reserveplanService" interface="com.daren.reserveplan.api.biz.IReservePlanBeanService">
+        <bean class="com.daren.reserveplan.core.biz.ReservePlanBeanServiceImpl">
+            <property name="reserveplanBeanDao" ref="reserveplanBeanDao"/>
+                </bean>
+    </service>
+    <reference id="reserveplanBeanDao" interface="com.daren.reserveplan.api.dao.IReservePlanBeanDao"/>
+</blueprint>
+

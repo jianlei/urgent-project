@@ -28,8 +28,8 @@
     <groupId>com.daren.accident</groupId>
     <artifactId>com.daren.accident.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: accident - Persist JPA Container Managed</name>
-    <description>Urgent accident Persist JPA Container Managed Module</description>
+    <name>Urgent :: Accident - Persist JPA Container Managed</name>
+    <description>Urgent Accident Persist JPA Container Managed Module</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -120,7 +120,7 @@
                 <executions>
                     <execution>
                         <id>generate-depends-file</id>
-                        <phase>generate-accident</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>generate-depends-file</goal>
                         </goals>
