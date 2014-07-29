@@ -1,6 +1,6 @@
 ﻿html, body {
     height: 100%;
-    width: 99.99%;
+    width: 100%;
 }
 
 .warp {
@@ -183,6 +183,16 @@
     display: inline-block;
 }
 
+table thead {
+    background: #efefef;
+    font-weight: bold;
+    color: #323D53;
+}
+
+table thead tr td {
+    padding: 15px 0;
+}
+
 .alert .tip {
     height: 0;
     margin: 0 8px;
@@ -269,6 +279,10 @@
     border: none;
     height: 100%;
     width: 100%;
+}
+
+.table {
+    white-space: nowrap;
 }
 
 .bottom_c {

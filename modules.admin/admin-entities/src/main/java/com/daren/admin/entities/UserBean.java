@@ -24,7 +24,7 @@ import java.util.List;
 public class UserBean extends PersistentEntity {
     private OfficeBean company;    // 归属公司
     private OfficeBean office;    // 归属部门
-    private String loginName;// 登录名
+        private String loginName;// 登录名
     private String name;  // 姓名
     private String password; // 密码
     private String email; // 邮箱
