@@ -1,6 +1,7 @@
 package com.daren.drill.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.drill.api.biz.IUrgentDrillBeanService;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 
 import javax.inject.Inject;
@@ -17,8 +18,10 @@ import java.util.List;
  */
 
 public class UrgentDrillPage extends BasePanel {
-
+    @Inject
+    private IUrgentDrillBeanService urgentDrillBeanService;
     public UrgentDrillPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
+        List list = urgentDrillBeanService.getAllEntity();
     }
 }

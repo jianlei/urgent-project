@@ -6,9 +6,9 @@ import com.daren.drill.api.dao.IUrgentDrillBeanDao;
 import com.daren.drill.entities.UrgentDrillBean;
 
 /**
- * @类描述：品牌服务实现类
- * @创建人：wangkr
- * @创建时间：2014-04-04 下午2:42
+ * @类描述：应急演练
+ * @创建人：张清欣
+ * @创建时间：2014-07-28 下午16:25
  * @修改人：
  * @修改时间：
  * @修改备注：
