@@ -15,13 +15,11 @@ import com.daren.reserveplan.entities.ReservePlanBeanImpl;
  */
 
 public class ReservePlanBeanServiceImpl extends GenericBizServiceImpl implements IReservePlanBeanService {
-    private IReservePlanBeanDao reserveplanBeanDao;
+    private IReservePlanBeanDao reservePlanBeanDao;
 
-
-
-    public void setReserveplanBeanDao(IReservePlanBeanDao reserveplanBeanDao) {
-        this.reserveplanBeanDao = reserveplanBeanDao;
-        super.init(reserveplanBeanDao, ReservePlanBeanImpl.class.getName());
+    public void setReservePlanBeanDao(IReservePlanBeanDao reservePlanBeanDao) {
+        this.reservePlanBeanDao = reservePlanBeanDao;
+        super.init(reservePlanBeanDao, ReservePlanBeanImpl.class.getName());
     }
 }
 

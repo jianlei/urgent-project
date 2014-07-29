@@ -21,13 +21,13 @@ import java.util.List;
 public class ReservePlanPage extends BasePanel {
 
     @Inject
-    private IReservePlanBeanService reserveplanBeanService;
+    private IReservePlanBeanService reservePlanBeanService;
 
     public ReservePlanPage(String id, WebMarkupContainer wmc) {
 
 
         super(id, wmc);
 
-        List list=reserveplanBeanService.getAllEntity();
+        List list=reservePlanBeanService.getAllEntity();
     }
 }

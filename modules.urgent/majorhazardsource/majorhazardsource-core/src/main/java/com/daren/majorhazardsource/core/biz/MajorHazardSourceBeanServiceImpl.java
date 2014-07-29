@@ -3,7 +3,7 @@ package com.daren.majorhazardsource.core.biz;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
 import com.daren.majorhazardsource.api.dao.IMajorHazardSourceBeanDao;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBeanImpl;
+import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
 
 /**
  * @类描述：品牌服务实现类
@@ -19,7 +19,7 @@ public class MajorHazardSourceBeanServiceImpl extends GenericBizServiceImpl impl
 
     public void setMajorHazardSourceBeanDao(IMajorHazardSourceBeanDao majorHazardSourceBeanDao) {
         this.majorHazardSourceBeanDao = majorHazardSourceBeanDao;
-        super.init(majorHazardSourceBeanDao, MajorHazardSourceBeanImpl.class.getName());
+        super.init(majorHazardSourceBeanDao, MajorHazardSourceBean.class.getName());
     }
 }
 

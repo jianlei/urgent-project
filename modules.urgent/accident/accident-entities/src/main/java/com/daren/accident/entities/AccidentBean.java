@@ -1,4 +1,4 @@
-package com.daren.majorhazardsource.entities;
+package com.daren.accident.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
 
@@ -13,16 +13,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "biz_majorhazardsource")
+@Table(name = "biz_accident")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class MajorHazardSourceBeanImpl extends PersistentEntity {
+public class AccidentBean extends PersistentEntity {
 
     private String name;
     private String password;
     private String email;
 
-    public MajorHazardSourceBeanImpl() {
+    public AccidentBean() {
 
 
     }
