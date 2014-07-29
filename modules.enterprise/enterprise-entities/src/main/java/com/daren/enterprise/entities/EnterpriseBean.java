@@ -13,19 +13,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "biz_enterprise")
+@Table(name = "urgent_enterprise")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class EnterpriseBeanImpl extends PersistentEntity {
+public class EnterpriseBean extends PersistentEntity {
 
     private String name;
+    private String account;
     private String password;
     private String email;
 
-    public EnterpriseBeanImpl() {
-
-
+    public String getAccount() {
+        return account;
     }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public EnterpriseBean() { }
 
     public String getEmail() {
         return email;

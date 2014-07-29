@@ -3,7 +3,7 @@ package com.daren.enterprise.core.biz;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.api.dao.IEnterpriseBeanDao;
-import com.daren.enterprise.entities.EnterpriseBeanImpl;
+import com.daren.enterprise.entities.EnterpriseBean;
 
 /**
  * @类描述：品牌服务实现类
@@ -19,7 +19,7 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
 
     public void setEnterpriseBeanDao(IEnterpriseBeanDao enterpriseBeanDao) {
         this.enterpriseBeanDao = enterpriseBeanDao;
-        super.init(enterpriseBeanDao, EnterpriseBeanImpl.class.getName());
+        super.init(enterpriseBeanDao, EnterpriseBean.class.getName());
     }
 }
 
