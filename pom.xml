@@ -79,11 +79,14 @@
     <modules>
         <module>poms</module>
         <module>modules.core</module>
-        <!--<module>modules.middleware</module>-->
         <module>modules.admin</module>
         <module>modules.tools</module>
-        <!--<module>modules.common</module>-->
         <module>modules.enterprise</module>
+        <module>modules.urgent/resources</module>
+        <module>modules.urgent/reserveplan</module>
+        <module>modules.urgent/majorhazardsource</module>
+        <module>modules.urgent/drill</module>
+        <module>modules.urgent/accident</module>
     </modules>
 
     <build>

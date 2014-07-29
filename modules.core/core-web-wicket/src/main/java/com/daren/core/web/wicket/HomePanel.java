@@ -26,7 +26,7 @@ public class HomePanel extends BasePanel {
         Link link = new Link("link") {
             @Override
             public void onClick() {
-                setResponsePage(new RedirectPage("http://www.google.com"));
+                setResponsePage(new RedirectPage("http://www.baidu.com"));
             }
         };
         add(link);

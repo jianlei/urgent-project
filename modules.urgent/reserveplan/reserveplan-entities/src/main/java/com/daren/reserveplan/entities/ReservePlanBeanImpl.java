@@ -1,4 +1,4 @@
-package com.daren.enterprise.entities;
+package com.daren.reserveplan.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
 
@@ -13,16 +13,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "biz_enterprise")
+@Table(name = "biz_reserveplan")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class EnterpriseBeanImpl extends PersistentEntity {
+public class ReservePlanBeanImpl extends PersistentEntity {
 
     private String name;
     private String password;
     private String email;
 
-    public EnterpriseBeanImpl() {
+    public ReservePlanBeanImpl() {
 
 
     }

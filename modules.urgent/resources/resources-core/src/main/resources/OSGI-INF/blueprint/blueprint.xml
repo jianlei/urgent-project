@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="resourcesService" interface="com.daren.resources.api.biz.IResourcesBeanService">
+        <bean class="com.daren.resources.core.biz.ResourcesBeanServiceImpl">
+            <property name="resourcesBeanDao" ref="resourcesBeanDao"/>
+                </bean>
+    </service>
+    <reference id="resourcesBeanDao" interface="com.daren.resources.api.dao.IResourcesBeanDao"/>
+</blueprint>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="accidentService" interface="com.daren.accident.api.biz.IAccidentBeanService">
+        <bean class="com.daren.accident.core.biz.AccidentBeanServiceImpl">
+            <property name="accidentBeanDao" ref="accidentBeanDao"/>
+                </bean>
+    </service>
+    <reference id="accidentBeanDao" interface="com.daren.accident.api.dao.IAccidentBeanDao"/>
+</blueprint>
+

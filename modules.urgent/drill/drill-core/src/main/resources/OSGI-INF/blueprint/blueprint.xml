@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="urgentDrillBeanService" interface="com.daren.drill.api.biz.IUrgentDrillBeanService">
+        <bean class="com.daren.drill.core.biz.UrgentDrillBeanServiceImpl">
+            <property name="urgentDrillBeanDao" ref="urgentDrillBeanDao"/>
+                </bean>
+    </service>
+    <reference id="urgentDrillBeanDao" interface="com.daren.drill.api.dao.IUrgentDrillBeanDao"/>
+</blueprint>
