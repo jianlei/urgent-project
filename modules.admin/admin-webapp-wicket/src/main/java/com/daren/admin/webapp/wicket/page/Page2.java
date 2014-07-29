@@ -55,8 +55,9 @@ public class Page2 extends BasePanel {
         options.set("height", 430);
         options.set("pageable", "{ pageSizes: [ 25, 50, 100 ] }");
         //options.set("sortable", true); // already set, as provider IS-A ISortStateLocator
-        options.set("groupable", true);
-        options.set("columnMenu", true);
+        options.set("groupable", false);
+        options.set("columnMenu", false);
+        options.set("selectable",true);
 
         final DataTable<UserBean> table = new DataTable<UserBean>("datatable", columns, provider, 25, options);
         form.add(table);

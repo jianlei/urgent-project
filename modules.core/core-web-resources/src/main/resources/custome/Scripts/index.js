@@ -1,6 +1,6 @@
 ﻿$(function () {
     //日历
-    $("#datepicker").datepicker();
+   // $("#datepicker").datepicker();
     //左边菜单
     $('.one').click(function () {
         $('.one').removeClass('one-hover');

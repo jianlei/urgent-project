@@ -2,8 +2,14 @@ package com.daren.core.web.wicket;
 
 import com.daren.core.web.wicket.custome.CustomeHeaderPanel;
 import com.daren.core.web.wicket.custome.CustomeMenuPanel;
+import org.apache.wicket.Application;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
+import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 
@@ -27,5 +33,13 @@ public class TemplatePage extends WebPage {
         add(new CustomeMenuPanel("menuPanel", wmc));
         add(new FooterPage("footer"));
 //        add(new Include("footer", "cus/Template/FooterPage.html"));
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        IJavaScriptLibrarySettings settings =Application.get().getJavaScriptLibrarySettings();
+        response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(settings.getJQueryReference())));
+
     }
 }
