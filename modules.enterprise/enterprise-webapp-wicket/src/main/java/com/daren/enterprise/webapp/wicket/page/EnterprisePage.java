@@ -8,7 +8,9 @@ import java.util.List;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.ui.widget.menu.MenuItem;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -51,7 +53,7 @@ public class EnterprisePage extends BasePanel {
 
 
         super(id, wmc);
-// FeedbackPanel //
+        // FeedbackPanel //
         final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
         this.add(feedback);
 
@@ -64,7 +66,7 @@ public class EnterprisePage extends BasePanel {
         options.set("pageable", "{ pageSizes: [ 25, 50, 100 ] }");
         options.set("columnMenu", true);
         options.set("selectable", Options.asString("multiple"));
-        options.set("toolbar", "[ { name: 'view', text: 'View' }, { name: 'save', text: 'Save' } ]");
+        options.set("toolbar", "[ { name: 'del', text: 'Del' }, { name: 'save', text: 'Save' } ]");
 
         final DataTable<EnterpriseBean> table = new DataTable<EnterpriseBean>("datatable", columns, provider, 20, options) {
 
@@ -72,7 +74,7 @@ public class EnterprisePage extends BasePanel {
 
             /**
              * Triggered when a toolbar button is clicked.
-             */
+            */
             @Override
             public void onClick(AjaxRequestTarget target, String button, List<String> values) {
                 this.info(button + " " + values);
@@ -90,7 +92,7 @@ public class EnterprisePage extends BasePanel {
 
             @Override
             protected JQueryAjaxBehavior newToolbarAjaxBehavior(IJQueryAjaxAware source) {
-                return new ToolbarAjaxBehavior(source, "name");
+                return new ToolbarAjaxBehavior(source, "id");
             }
         };
 
@@ -123,21 +125,29 @@ public class EnterprisePage extends BasePanel {
 
     private List<IColumn> newColumnList() {
         List<IColumn> columns = new ArrayList<IColumn>();
+        columns.add(new PropertyColumn("企业编号", "id"));
         columns.add(new PropertyColumn("企业名称", "name"));
         columns.add(new PropertyColumn("企业邮箱", "email"));
         columns.add(new PropertyColumn("登录帐号", "account"));
         columns.add(new CurrencyPropertyColumn("登录密码", "password"));
 
-        columns.add(new CommandsColumn("操作 ", 85) {
+        columns.add(new CommandsColumn("操作", 100) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public List<ColumnButton> newButtons() {
-                return Arrays.asList(new ColumnButton("edit", Model.of("Edit"), "name"));
+                List<ColumnButton> columnButtonList = new ArrayList<ColumnButton>();
+                columnButtonList.add(new ColumnButton("edit", Model.of("Edit"), "id"));
+                columnButtonList.add(new ColumnButton("delete", Model.of("Delete"), "id"));
+                return columnButtonList;
             }
         });
-
         return columns;
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
     }
 }
