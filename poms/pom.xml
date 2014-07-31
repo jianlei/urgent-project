@@ -58,7 +58,7 @@
         <activiti.version>5.15.1</activiti.version>
         <cxf.version>2.7.10</cxf.version>
         <guava.version>15.0</guava.version>
-        <jquery-ui.version>6.16.1-SNAPSHOT</jquery-ui.version>
+        <jquery-ui.version>6.16.0</jquery-ui.version>
         <lightcouch.version>0.0.6_1</lightcouch.version>
         <jedis.version>2.4.2</jedis.version>
         <org.apache.servicemix.bundles.jedis.version>2.5.1_1</org.apache.servicemix.bundles.jedis.version>
