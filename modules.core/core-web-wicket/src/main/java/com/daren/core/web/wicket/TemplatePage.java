@@ -27,10 +27,11 @@ public class TemplatePage extends WebPage {
     public TemplatePage() {
         final WebMarkupContainer wmc = new WebMarkupContainer("container");
         wmc.setOutputMarkupPlaceholderTag(true); //Set the flag placeholder so it can be updated via AJAX
-        wmc.add(new HomePanel("panel", wmc));
+
         add(wmc.setOutputMarkupId(true));
         add(new CustomeHeaderPanel("headerPanel"));
         add(new CustomeMenuPanel("menuPanel", wmc));
+        wmc.add(new HomePanel("panel", wmc));
         add(new FooterPage("footer"));
 //        add(new Include("footer", "cus/Template/FooterPage.html"));
     }
@@ -38,8 +39,10 @@ public class TemplatePage extends WebPage {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        IJavaScriptLibrarySettings settings =Application.get().getJavaScriptLibrarySettings();
+       /* IJavaScriptLibrarySettings settings =Application.get().getJavaScriptLibrarySettings();
         response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(settings.getJQueryReference())));
+*/
+
 
     }
 }

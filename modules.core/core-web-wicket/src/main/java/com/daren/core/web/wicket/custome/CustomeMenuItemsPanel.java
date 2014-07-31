@@ -3,9 +3,11 @@ package com.daren.core.web.wicket.custome;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
+import com.daren.core.web.wicket.HomePage;
 import com.daren.core.web.wicket.MenuModuleManager;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -35,6 +37,7 @@ public class CustomeMenuItemsPanel extends Panel {
                         wmc.removeAll();
                         wmc.addOrReplace(((IMenuItemsModule) item.getModelObject()).getPanel("panel", wmc));
 //                         setResponsePage();
+
                         target.add(wmc);
                     }
                    /* @Override
@@ -42,6 +45,7 @@ public class CustomeMenuItemsPanel extends Panel {
                         setResponsePage(((IMenuItemsModule) item.getModelObject()).getPageClass());
                     }*/
                 };
+
                 submenusLink.setOutputMarkupId(true);
                 submenusLink.add(new Label("linkName", item.getModelObject().getName()).setRenderBodyOnly(true).setEscapeModelStrings(false));
                 item.add(submenusLink);

@@ -1,59 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
-<head>
+<wicket:head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="cus/Styles/formui.css"/>
-    <link rel="stylesheet" type="text/css" href="cus/Styles/base.css"/>
-    <link rel="stylesheet" type="text/css" href="cus/Styles/admin-all.css"/>
-    <script type="text/javascript" src="cus/Scripts/jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="cus/Scripts/jquery-ui-1.8.22.custom.min.js"></script>
     <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
-    <script type="text/javascript" src="cus/Scripts/ChurAlert.min.js?skin=blue"></script>
-    <script type="text/javascript" src="cus/Scripts/chur-alert.1.0.js"></script>
-    <script type="text/javascript" src="cus/Scripts/tb.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $(".datepicker").datepicker();
-            $('.modal').hide();
-            $('#find').click(function () {
-                $.dialog({
-                    title: '查询结果',
-                    content: 'url:Template/griddatalist.html',
-                    width: 650,
-                    height: 450
-                })
-            })
-            $('#findid').click(function () {
-                $.dialog({
-                    title: '单据编号',
-                    content: 'url:Template/Iddatalist.html',
-                    width: 350,
-                    height: 250
-                })
-            })
-        })
-
-    </script>
-</head>
+    <!--<script type="text/javascript" src="cus/Scripts/tb.js"></script>-->
+   </wicket:head>
 <body>
 <wicket:panel>
-    <div class="alert alert-info">当前位置<b class="tip"></b>查询界面<b class="tip"></b>查询结果二</div>
-    <table class="tbform">
+    <div class="alert alert-info">当前位置<b class="tip"/>系统管理<b class="tip"/>用户管理</div>
+    <table class="table table-striped table-bordered table-condensed">
         <thead>
         <tr>
-            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件</td>
+            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
         </tr>
         </thead>
         <tbody>
-
         <tr>
-            <td>单据号</td>
+            <td class="tdl">单据号</td>
             <td class="detail">
-                <input id="formid" class="ipt" size="16" type="text"/> <input type="button" id="findid" value="查找"
-                                                                              class="btn btn-mini"/>
+                <input id="formid" class="ipt"/>
             </td>
-            <td>单据类型</td>
+            <td class="tdl">单据类型</td>
             <td class="td_detail">
                 <input id="formid" class="ipt"/></td>
             <td class="tdl">部门</td>
@@ -61,29 +29,28 @@
                 <select size="1" name="ENTPdept" id="bumen">
                     <option value="10401"></option>
                     <option value="10388">第二营销事业部</option>
+
                     <option
-                            value="10389">第三营销事业部
+                            value="11159">IT中心
                     </option>
                     <option
-                            value="10390">第一营销事业部
-                    </option>
-                    <option
-                            value="10391">康讯公司
+                            value="11160">ZTE全球售后服务中心
                     </option>
                 </select>
             </td>
         </tr>
         <tr>
-            <td>提交日期起</td>
+            <td class="tdl">提交日期起</td>
             <td>
                 <div class="input-append">
-                    <input class="ipt datepicker" size="16" type="text" id="startime"/><span class="add-on"><i
-                        class="icon-calendar"></i></span>至<input id="endtime" class="ipt datepicker" size="16"
-                                                                 type="text"/><span
-                        class="add-on"><i class="icon-calendar"></i></span>
+                    <input class="span2 datepicker" size="16" type="text" id="startime"/>
+                <span class="add-on">
+                <i class="icon-calendar"></i></span>至
+                    <input id="endtime" class="span2 datepicker" size="16" type="text"/>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
                 </div>
             </td>
-            <td>报销人</td>
+            <td class="tdl">报销人</td>
             <td>
                 <select size="1" name="select2" id="baoxiaoren">
                     <option value="10401"></option>
@@ -95,13 +62,13 @@
                             value="10390">第一营销事业部
                     </option>
                     <option
-                            value="10391">康讯公司
+                            value="11159">IT中心
                     </option>
                     <option
-                            value="10392">网络事业部
+                            value="11160">ZTE全球售后服务中心
                     </option>
                 </select></td>
-            <td>所属项目</td>
+            <td class="tdl">所属项目</td>
             <td>
                 <select id="xiangmu" size="1" name="select3">
                     <option value="10401"></option>
@@ -123,9 +90,31 @@
 
         <tr>
             <td colspan="6" align="right">
-                <input class="btn" id="find" type="button" value="查询" data-toggle="modal" href="#myModal"
-                       data-keyboard="false" data-backdrop="false"/>
-                <input class="btn" type="button" value="清空"/></td>
+                <input class="btn btn-inverse" id="find" type="button" value="查询"/>
+                <input class="btn btn-inverse" type="button" value="清空"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+        <thead>
+        <tr class="tr_detail">
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>etc</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr wicket:id="rows">
+            <td wicket:id="col1">Row 1 Data 1</td>
+            <td wicket:id="col2">Row 1 Data 2</td>
+            <td wicket:id="col3">etc</td>
+            <td><a href="#" wicket:id="label"><!--<span wicket:id="linklabel"></span>-->kj</a></td>
+        </tr>
+
+
+        <tr class="tr_pagenumber" >
+            <td align="center" colspan="100" wicket:id="navigator"></td>
         </tr>
         </tbody>
     </table>

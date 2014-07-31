@@ -3,6 +3,7 @@ package com.daren.core.web.bootup.wicket;
 
 import com.daren.core.web.api.provider.IHomePageProvider;
 import com.daren.core.web.validation.JSR303ValidationListener;
+import com.daren.core.web.wicket.HomePage;
 import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
@@ -62,6 +63,7 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     public Class<? extends Page> getHomePage() {
         //return homePageProvider.getPageClass();
+//        return TemplatePage.class;
         return TemplatePage.class;
     }
 

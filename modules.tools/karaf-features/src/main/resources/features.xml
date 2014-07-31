@@ -228,7 +228,7 @@
     </feature>
 
     <feature name="jedis" version="2.5.1">
-        <bundle>mvn:org.apache.commons/commons-pool2/2.0</bundle>
+        <!--<bundle>mvn:org.apache.commons/commons-pool2/2.0</bundle>-->
         <bundle>
         mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jedis/2.5.1_1
         </bundle>

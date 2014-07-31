@@ -1,5 +1,6 @@
 package com.daren.core.web.wicket.navigator;
 
+import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
@@ -11,7 +12,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 /**
  * Created by Dell on 14-7-29.
  */
-public class DarenNavigator extends PagingNavigator {
+public class DarenNavigator extends AjaxPagingNavigator {
 
     private static final long serialVersionUID = 1;
 

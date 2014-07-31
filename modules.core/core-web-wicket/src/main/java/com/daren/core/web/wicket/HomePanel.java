@@ -1,5 +1,6 @@
 package com.daren.core.web.wicket;
 
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.pages.RedirectPage;
@@ -30,6 +31,8 @@ public class HomePanel extends BasePanel {
             }
         };
         add(link);
+        final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
+        this.add(feedback);
 
 //        add(new Include("footer", "cus/Template/FooterPage.html"));
     }

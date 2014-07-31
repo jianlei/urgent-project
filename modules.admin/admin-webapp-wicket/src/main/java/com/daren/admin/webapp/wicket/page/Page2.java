@@ -6,20 +6,34 @@ import com.daren.admin.webapp.wicket.data.Product;
 import com.daren.admin.webapp.wicket.data.ProductDataProvider;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.core.ajax.IJQueryAjaxAware;
+import com.googlecode.wicket.jquery.core.ajax.JQueryAjaxBehavior;
+import com.googlecode.wicket.jquery.core.settings.IJQueryLibrarySettings;
+import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
+import com.googlecode.wicket.kendo.ui.datatable.ToolbarAjaxBehavior;
+import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.CurrencyPropertyColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.Application;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,10 +56,12 @@ public class Page2 extends BasePanel {
 
     public Page2(String id, WebMarkupContainer wmc) {
         super(id, wmc);
+        final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
+        this.add(feedback);
 
         // Form //
-        final Form<?> form = new Form<Void>("form");
-        this.add(form);
+        /*final Form<?> form = new Form<Void>("form");
+        this.add(form);*/
 
         // DataTable //
         IDataProvider<UserBean> provider = newDataProvider();
@@ -58,12 +74,35 @@ public class Page2 extends BasePanel {
         options.set("groupable", false);
         options.set("columnMenu", false);
         options.set("selectable",true);
+        options.set("toolbar", "[ { name: 'view', text: 'View' }, { name: 'save', text: 'Save' } ]");
+        final DataTable<UserBean> table = new DataTable<UserBean>("datatable", columns, provider, 25, options){
+            @Override
+            public void onClick(AjaxRequestTarget target, String button, List<String> values)
+            {
+                this.info(button + " " + values);
+                target.add(feedback);
+            }
 
-        final DataTable<UserBean> table = new DataTable<UserBean>("datatable", columns, provider, 25, options);
-        form.add(table);
+            /**
+             * Triggered when a column button is clicked.
+             */
+            @Override
+            public void onClick(AjaxRequestTarget target, ColumnButton button, String value)
+            {
+                this.info(button.getName() + " #" + value);
+                target.add(feedback);
+            }
+
+            @Override
+            protected JQueryAjaxBehavior newToolbarAjaxBehavior(IJQueryAjaxAware source)
+            {
+                return new ToolbarAjaxBehavior(source, "id");
+            }
+        };
+        add(table);
 
         // Button //
-        form.add(new AjaxButton("refresh") {
+        /*add(new AjaxButton("refresh") {
 
             private static final long serialVersionUID = 1L;
 
@@ -72,7 +111,7 @@ public class Page2 extends BasePanel {
             {
                 table.refresh(target);
             }
-        });
+        });*/
     }
 
     private static IDataProvider<UserBean> newDataProvider()
@@ -95,8 +134,29 @@ public class Page2 extends BasePanel {
 //        columns.add(new CurrencyPropertyColumn("Price", "price", 70));
 //		columns.add(new DatePropertyColumn("Date", "date"));
         columns.add(new PropertyColumn("登录名", "loginName"));
+        columns.add(new CommandsColumn("", 100) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public List<ColumnButton> newButtons()
+            {
+                return Arrays.asList(new ColumnButton("edit", Model.of("Edit"), "id"));
+            }
+        });
 
         return columns;
     }
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        /*IJavaScriptLibrarySettings settings = (IJQueryLibrarySettings) Application.get().getJavaScriptLibrarySettings();
+
+        // jQuery UI resource reference //
+        if (settings.getJQueryUIReference() != null)
+        {
+            response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(settings.getJQueryUIReference())));
+        }*/
+    }
 }
