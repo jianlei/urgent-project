@@ -6,13 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.googlecode.wicket.jquery.ui.widget.menu.MenuItem;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.Model;
@@ -49,105 +56,67 @@ public class EnterprisePage extends BasePanel {
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
 
-    public EnterprisePage(String id, WebMarkupContainer wmc) {
-
+    public EnterprisePage(final String id,final WebMarkupContainer wmc) {
 
         super(id, wmc);
-        // FeedbackPanel //
-        final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
-        this.add(feedback);
+        WebMarkupContainer table = new WebMarkupContainer("table");
 
-        // DataTable //
-        IDataProvider<EnterpriseBean> provider = newDataProvider();
-        List<IColumn> columns = newColumnList();
+        add(table.setOutputMarkupId(true));
 
-        Options options = new Options();
-        options.set("height", 430);
-        options.set("pageable", "{ pageSizes: [ 25, 50, 100 ] }");
-        options.set("columnMenu", true);
-        options.set("selectable", Options.asString("multiple"));
-        options.set("toolbar", "[ { name: 'del', text: 'Del' }, { name: 'save', text: 'Save' } ]");
+        List<EnterpriseBean> enterpriseBeanList = enterpriseBeanService.getAllEntity();
 
-        final DataTable<EnterpriseBean> table = new DataTable<EnterpriseBean>("datatable", columns, provider, 20, options) {
-
+        PageableListView<EnterpriseBean> lv = new PageableListView <EnterpriseBean>("rows", enterpriseBeanList,10)
+        {
             private static final long serialVersionUID = 1L;
 
-            /**
-             * Triggered when a toolbar button is clicked.
-            */
             @Override
-            public void onClick(AjaxRequestTarget target, String button, List<String> values) {
-                this.info(button + " " + values);
-                target.add(feedback);
-            }
+            protected void populateItem(ListItem<EnterpriseBean> item)
+            {
+                final EnterpriseBean enterpriseBean = item.getModelObject();
+                item.add(getToCreatePageLink(id, wmc, "check_QYMC", enterpriseBean.getId()).add(new Label("QYMC", enterpriseBean.getQymc()))
+                );
+                item.add(new Label("JGFL", enterpriseBean.getJgfl()));
+                item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
+                item.add(new Label("MAILADDRESS", enterpriseBean.getMailaddress()));
+                item.add(new Label("ADDRESS_JY", enterpriseBean.getAddress_jy()));
 
-            /**
-             * Triggered when a column button is clicked.
-             */
-            @Override
-            public void onClick(AjaxRequestTarget target, ColumnButton button, String value) {
-                this.info(button.getName() + " #" + value);
-                target.add(feedback);
-            }
 
-            @Override
-            protected JQueryAjaxBehavior newToolbarAjaxBehavior(IJQueryAjaxAware source) {
-                return new ToolbarAjaxBehavior(source, "id");
+                AjaxLink alink=  new AjaxLink("del") {
+                    @Override
+                    protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+                    {
+                        super.updateAjaxAttributes(attributes);
+                        AjaxCallListener listener = new AjaxCallListener();
+                        listener.onPrecondition("if(!confirm('确定要删除么?')){return false;}");
+                        attributes.getAjaxCallListeners().add(listener);
+                    }
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        /*target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
+                                + "/libya.protests/index.html?hpt="+enterpriseBean.getId()+"')");*/
+                        enterpriseBeanService.deleteEntity(enterpriseBean.getId());
+                    }
+                };
+                item.add(alink.setOutputMarkupId(true));
             }
         };
+        CustomePagingNavigator pagingNavigator= new CustomePagingNavigator("navigator", lv);
+        table.add(pagingNavigator);
+        table.setVersioned(false);
+        table.add(lv);
 
-        this.add(table);
-
-        // form & button//
-        final Form<?> form = new Form<Void>("form");
-        this.add(form);
-
-        form.add(new Button("export") {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected String getIcon() {
-                return KendoIcon.TICK;
-            }
-
-            @Override
-            public void onSubmit() {
-                CSVDataExporter.export(this.getRequestCycle(), table, "export.csv");
-            }
-        });
+        add(getToCreatePageLink(id, wmc, "create", -1));
     }
 
-    private IDataProvider<EnterpriseBean> newDataProvider() {
-        ListDataProvider listDataProvider = new ListDataProvider(enterpriseBeanService.getAllEntity());
-        return listDataProvider;
-    }
-
-    private List<IColumn> newColumnList() {
-        List<IColumn> columns = new ArrayList<IColumn>();
-        columns.add(new PropertyColumn("企业编号", "id"));
-        columns.add(new PropertyColumn("企业名称", "name"));
-        columns.add(new PropertyColumn("企业邮箱", "email"));
-        columns.add(new PropertyColumn("登录帐号", "account"));
-        columns.add(new CurrencyPropertyColumn("登录密码", "password"));
-
-        columns.add(new CommandsColumn("操作", 100) {
-
-            private static final long serialVersionUID = 1L;
-
+    private AjaxLink getToCreatePageLink(final String id,final WebMarkupContainer wmc,String wicketId,final long enterpriseBeanId){
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
-            public List<ColumnButton> newButtons() {
-                List<ColumnButton> columnButtonList = new ArrayList<ColumnButton>();
-                columnButtonList.add(new ColumnButton("edit", Model.of("Edit"), "id"));
-                columnButtonList.add(new ColumnButton("delete", Model.of("Delete"), "id"));
-                return columnButtonList;
+            public void onClick(AjaxRequestTarget target) {
+                wmc.removeAll();
+                wmc.addOrReplace(new EnterpriseCreatePage(id,wmc,enterpriseBeanId));
+                target.add(wmc);
             }
-        });
-        return columns;
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
+        };
+        return ajaxLink;
     }
 }

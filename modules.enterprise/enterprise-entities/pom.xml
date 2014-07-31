@@ -77,6 +77,10 @@
             <artifactId>com.daren.core.impl</artifactId>
         </dependency>
         <!-- end OpenJPA PCEnhancer depends -->
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr303-api-1.0.0</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
