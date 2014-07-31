@@ -10,35 +10,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
+ * 政务法规
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "urgent_regulation")
+@Table(name = "urg_reg_regulation")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class RegulationBean extends PersistentEntity {
+    private Long enterpriseId;      //企业ID
+    private String name;             //名称
+    private String description;     //描述
 
-    private String name;
-    private String account;
-    private String password;
-    private String email;
-
-    public String getAccount() {
-        return account;
+    public Long getEnterpriseId() {
+        return enterpriseId;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public RegulationBean() { }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getName() {
@@ -49,15 +38,11 @@ public class RegulationBean extends PersistentEntity {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public static void main(String[] args) throws Exception {
-
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

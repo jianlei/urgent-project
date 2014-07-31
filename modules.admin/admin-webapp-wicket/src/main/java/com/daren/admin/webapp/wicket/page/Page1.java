@@ -31,48 +31,45 @@ public class Page1 extends BasePanel {
 
         //构造数据
         List<String[]> rows = new ArrayList<String[]>();
-        for (int i = 0; i < 50; i++)
-        {
-            rows.add(new String[] { "Foo" + i, "Bar" + i, "fizzbuzz" + i });
+        for (int i = 0; i < 50; i++) {
+            rows.add(new String[]{"Foo" + i, "Bar" + i, "fizzbuzz" + i});
         }
 
-        PageableListView<String[]> lv = new PageableListView <String[]>("rows", rows,10)
-        {
+        PageableListView<String[]> lv = new PageableListView<String[]>("rows", rows, 10) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(ListItem<String[]> item)
-            {
+            protected void populateItem(ListItem<String[]> item) {
                 final String[] row = item.getModelObject();
 
                 item.add(new Label("col1", row[0]));
                 item.add(new Label("col2", row[1]));
                 item.add(new Label("col3", row[2]));
 
-                AjaxLink alink=  new AjaxLink("label") {
+                AjaxLink alink = new AjaxLink("label") {
                     @Override
-                    protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
-                    {
+                    protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
                         super.updateAjaxAttributes(attributes);
                         AjaxCallListener listener = new AjaxCallListener();
                         listener.onPrecondition("if(!confirm('Do you really want to delete?')){return false;}");
                         attributes.getAjaxCallListeners().add(listener);
                     }
+
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         System.out.println("AJAX WORKS");
                         target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
-                                + "/libya.protests/index.html?hpt="+row[0]
-     /* you probably want to encode this first */+"')");
+                                + "/libya.protests/index.html?hpt=" + row[0]
+     /* you probably want to encode this first */ + "')");
                         String asda = row[0];
 //                        target.add(this); // update the link component
                     }
                 };
-//                    alink.add(new Label("linklabel", "Yes ajax works!"));
+                alink.add(new Label("linklabel", "Yes ajax works!"));
                 item.add(alink.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator= new CustomePagingNavigator("navigator", lv){
+        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
 
         };
         table.add(pagingNavigator);
