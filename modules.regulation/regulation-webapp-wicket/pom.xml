@@ -4,32 +4,32 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.enterprise</groupId>
-        <artifactId>modules.enterprise</artifactId>
+        <groupId>com.daren.regulation</groupId>
+        <artifactId>modules.regulation</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.enterprise</groupId>
-    <artifactId>com.daren.enterprise.webapp.wicket</artifactId>
+    <groupId>com.daren.regulation</groupId>
+    <artifactId>com.daren.regulation.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Enterprise - Wicket Web Application</name>
-    <description>Enterprise - Webapp Wicket</description>
+    <name>Urgent :: Regulation - Wicket Web Application</name>
+    <description>Regulation - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.enterprise.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.regulation.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.api</artifactId>
+            <groupId>com.daren.regulation</groupId>
+            <artifactId>com.daren.regulation.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.core</artifactId>
+            <groupId>com.daren.regulation</groupId>
+            <artifactId>com.daren.regulation.core</artifactId>
         </dependency>
 
         <dependency>
@@ -98,8 +98,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.entities</artifactId>
+            <groupId>com.daren.regulation</groupId>
+            <artifactId>com.daren.regulation.entities</artifactId>
         </dependency>
 
         <dependency>

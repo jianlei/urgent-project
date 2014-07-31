@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <relativePath>../poms/compiled/</relativePath>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.daren.regulation</groupId>
+    <artifactId>modules.regulation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Urgent :: Modules - Regulation</name>
+
+    <packaging>pom</packaging>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>regulation-api</module>
+        <module>regulation-core</module>
+        <module>regulation-persist-jpa</module>
+        <module>regulation-entities</module>
+        <module>regulation-webapp-wicket</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.daren.regulation</groupId>
+                <artifactId>com.daren.regulation.core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.regulation</groupId>
+                <artifactId>com.daren.regulation.api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.regulation</groupId>
+                <artifactId>com.daren.regulation.entities</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.regulation</groupId>
+                <artifactId>com.daren.regulation.persist.openjpa</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.regulation</groupId>
+                <artifactId>com.daren.regulation.webapp.wicket</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

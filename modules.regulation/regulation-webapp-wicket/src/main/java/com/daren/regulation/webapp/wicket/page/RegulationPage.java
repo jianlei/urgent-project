@@ -1,4 +1,4 @@
-package com.daren.enterprise.webapp.wicket.page;
+package com.daren.regulation.webapp.wicket.page;
 
 
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.enterprise.api.biz.IEnterpriseBeanService;
-import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.regulation.api.biz.IRegulationBeanService;
+import com.daren.regulation.entities.RegulationBean;
 import com.googlecode.wicket.jquery.ui.widget.menu.MenuItem;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -44,12 +44,12 @@ import javax.inject.Inject;
  * @修改备注：
  */
 
-public class EnterprisePage extends BasePanel {
+public class RegulationPage extends BasePanel {
 
     @Inject
-    private IEnterpriseBeanService enterpriseBeanService;
+    private IRegulationBeanService regulationBeanService;
 
-    public EnterprisePage(String id, WebMarkupContainer wmc) {
+    public RegulationPage(String id, WebMarkupContainer wmc) {
 
 
         super(id, wmc);
@@ -58,7 +58,7 @@ public class EnterprisePage extends BasePanel {
         this.add(feedback);
 
         // DataTable //
-        IDataProvider<EnterpriseBean> provider = newDataProvider();
+        IDataProvider<RegulationBean> provider = newDataProvider();
         List<IColumn> columns = newColumnList();
 
         Options options = new Options();
@@ -68,7 +68,7 @@ public class EnterprisePage extends BasePanel {
         options.set("selectable", Options.asString("multiple"));
         options.set("toolbar", "[ { name: 'del', text: 'Del' }, { name: 'save', text: 'Save' } ]");
 
-        final DataTable<EnterpriseBean> table = new DataTable<EnterpriseBean>("datatable", columns, provider, 20, options) {
+        final DataTable<RegulationBean> table = new DataTable<RegulationBean>("datatable", columns, provider, 20, options) {
 
             private static final long serialVersionUID = 1L;
 
@@ -118,8 +118,8 @@ public class EnterprisePage extends BasePanel {
         });
     }
 
-    private IDataProvider<EnterpriseBean> newDataProvider() {
-        ListDataProvider listDataProvider = new ListDataProvider(enterpriseBeanService.getAllEntity());
+    private IDataProvider<RegulationBean> newDataProvider() {
+        ListDataProvider listDataProvider = new ListDataProvider(regulationBeanService.getAllEntity());
         return listDataProvider;
     }
 
