@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "urgent_majorhazardsource")
+@Table(name = "urg_major_majorhazardsource")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class MajorHazardSourceBean extends PersistentEntity {
@@ -22,7 +22,7 @@ public class MajorHazardSourceBean extends PersistentEntity {
      * 经度
      */
     private String lng;
-    /**
+     /**
      * 纬度
      */
     private String lat;
@@ -39,9 +39,22 @@ public class MajorHazardSourceBean extends PersistentEntity {
      */
     private String expertName;
     /**
-     * 事故率
+     * 可能发生的事故率
      */
     private int accidentRate;
+
+    /*
+    企业ID
+     */
+    private int enterpriseBeanId;
+
+    public int getEnterpriseBeanId() {
+        return enterpriseBeanId;
+    }
+
+    public void setEnterpriseBeanId(int enterpriseBeanId) {
+        this.enterpriseBeanId = enterpriseBeanId;
+    }
 
     public MajorHazardSourceBean() {
 
