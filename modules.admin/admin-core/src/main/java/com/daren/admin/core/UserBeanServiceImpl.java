@@ -48,5 +48,11 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
         return userBeanDao.getAll(UserBean.class.getName());
     }
 
+    @Override
+    public List<UserBean> queryUser(UserBean userBean) {
+
+        return userBeanDao.find("select a from UserBean a where a.name LIKE ?1", "%" + userBean.getName() + "%");
+    }
+
 
 }
