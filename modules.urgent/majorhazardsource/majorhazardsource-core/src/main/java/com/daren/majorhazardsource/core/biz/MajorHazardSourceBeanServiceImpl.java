@@ -5,6 +5,8 @@ import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
 import com.daren.majorhazardsource.api.dao.IMajorHazardSourceBeanDao;
 import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
 
+import java.util.List;
+
 /**
  * @类描述：品牌服务实现类
  * @创建人：wangkr
@@ -20,6 +22,10 @@ public class MajorHazardSourceBeanServiceImpl extends GenericBizServiceImpl impl
     public void setMajorHazardSourceBeanDao(IMajorHazardSourceBeanDao majorHazardSourceBeanDao) {
         this.majorHazardSourceBeanDao = majorHazardSourceBeanDao;
         super.init(majorHazardSourceBeanDao, MajorHazardSourceBean.class.getName());
+    }
+    @Override
+    public List<MajorHazardSourceBean> queryMajorHazardSource(MajorHazardSourceBean enterpriseBean) {
+        return majorHazardSourceBeanDao.find("select a from MajorHazardSourceBean a where a.name LIKE ?1", "%" + enterpriseBean.getName() + "%");
     }
 }
 

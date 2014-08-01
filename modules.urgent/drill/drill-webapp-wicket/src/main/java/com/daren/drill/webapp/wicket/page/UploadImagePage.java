@@ -1,8 +1,8 @@
 package com.daren.drill.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.drill.api.biz.IUploadDocumentService;
-import com.daren.drill.entities.DocmentBean;
+import com.daren.drill.api.biz.IUploadImageService;
+import com.daren.drill.entities.ImageBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @类描述：应急演练-上传文档
+ * @类描述：应急演练-上传图片
  * @创建人：张清欣
  * @创建时间：2014-07-28 下午16:25
  * @修改人：
@@ -27,15 +27,15 @@ import java.util.List;
  * @修改备注：
  */
 
-public class UploadDocumentPage extends BasePanel {
+public class UploadImagePage extends BasePanel {
     @Inject
-    private IUploadDocumentService uploadDocumentService;
+    private IUploadImageService uploadImageService;
 
-    public UploadDocumentPage(final String id, final WebMarkupContainer wmc, final long entityId) {
+    public UploadImagePage(final String id, final WebMarkupContainer wmc, final long entityId) {
         super(id, wmc);
-        final DocmentBean docmentBean = new DocmentBean();
+        final ImageBean imageBean = new ImageBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
-        Form form = new Form("form", new CompoundPropertyModel(docmentBean));
+        Form form = new Form("form", new CompoundPropertyModel(imageBean));
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
@@ -44,7 +44,7 @@ public class UploadDocumentPage extends BasePanel {
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                DocmentBean docmentBean1 = (DocmentBean) form.getDefaultModelObject();
+                ImageBean imageBean1 = (ImageBean) form.getDefaultModelObject();
                 try {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
@@ -52,17 +52,17 @@ public class UploadDocumentPage extends BasePanel {
                             String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
-                            docmentBean1.setFilePath(path);
-                            docmentBean1.setName(fileUpload.getClientFileName());
-                            docmentBean1.setSize(fileUpload.getSize());
-                            docmentBean1.setType(fileUpload.getContentType());
+                            imageBean1.setFilePath(path);
+                            imageBean1.setName(fileUpload.getClientFileName());
+                            imageBean1.setSize(fileUpload.getSize());
+                            imageBean1.setType(fileUpload.getContentType());
                         }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                docmentBean1.setAttach(entityId);
-                uploadDocumentService.saveEntity(docmentBean1);
+                imageBean1.setAttach(entityId);
+                uploadImageService.saveEntity(imageBean1);
                 super.onSubmit(target, form);
                 wmc.removeAll();
                 wmc.addOrReplace(new UrgentDrillPage(id, wmc));

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @类描述：应急演练
+ * @类描述：应急演练-上传视频
  * @创建人：张清欣
  * @创建时间：2014-07-28 下午16:25
  * @修改人：
@@ -49,9 +49,10 @@ public class UploadVideoPage extends BasePanel {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            fileUpload.getSize();
-                            File file = new File("F:\\saveFilePath\\" + fileUpload.getMD5());
+                            String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                            File file = new File(path);
                             fileUpload.writeTo(file);
+                            videoBean1.setFilePath(path);
                             videoBean1.setName(fileUpload.getClientFileName());
                             videoBean1.setSize(fileUpload.getSize());
                             videoBean1.setType(fileUpload.getContentType());

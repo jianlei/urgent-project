@@ -30,5 +30,13 @@
         </bean>
     </service>
 
+    <service interface="com.daren.drill.api.dao.IImageBeanDao">
+        <bean class="com.daren.drill.persist.openjpa.ImageBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="drill-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+
 </blueprint>
 

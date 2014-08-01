@@ -5,6 +5,8 @@ import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.api.dao.IEnterpriseBeanDao;
 import com.daren.enterprise.entities.EnterpriseBean;
 
+import java.util.List;
+
 /**
  * @类描述：品牌服务实现类
  * @创建人：wangkr
@@ -21,6 +23,12 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
         this.enterpriseBeanDao = enterpriseBeanDao;
         super.init(enterpriseBeanDao, EnterpriseBean.class.getName());
     }
+
+    @Override
+    public List<EnterpriseBean> queryEnterprise(EnterpriseBean enterpriseBean) {
+        return enterpriseBeanDao.find("select a from EnterpriseBean a where a.qymc LIKE ?1", "%" + enterpriseBean.getQymc() + "%");
+    }
+
 }
 
 
