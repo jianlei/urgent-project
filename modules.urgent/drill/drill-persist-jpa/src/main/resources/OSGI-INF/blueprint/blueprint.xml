@@ -6,8 +6,24 @@
         xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
         xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
 
-    <service interface="com.daren.drill.api.dao.IAccidentBeanDao">
-        <bean class="com.daren.drill.persist.openjpa.AccidentBeanDaoOpenjpa"> <!--init-method="init">-->
+    <service interface="com.daren.drill.api.dao.IUrgentDrillBeanDao">
+        <bean class="com.daren.drill.persist.openjpa.UrgentDrillBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="drill-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+
+    <service interface="com.daren.drill.api.dao.IDocmentBeanDao">
+        <bean class="com.daren.drill.persist.openjpa.DocmentBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="drill-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+
+    <service interface="com.daren.drill.api.dao.IVideoBenaDao">
+        <bean class="com.daren.drill.persist.openjpa.VideoBeanDaoOpenjpa"> <!--init-method="init">-->
             <jpa:context property="entityManager" unitname="drill-cm"/>
             <tx:transaction method="*" value="Required"/>
             <!--<property name="persistEntityService" ref="persistEntityService" />-->

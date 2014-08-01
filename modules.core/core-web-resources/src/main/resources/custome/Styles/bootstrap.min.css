@@ -721,7 +721,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 input, textarea {
-    width: 210px
+    width: 170px
 }
 
 textarea {
@@ -4133,11 +4133,11 @@ a.label:hover, a.badge:hover {
 }
 
 .label-inverse, .badge-inverse {
-    background-color: #333
+    background-color: #808080
 }
 
 .label-inverse[href], .badge-inverse[href] {
-    background-color: #1a1a1a
+    background-color: #808080
 }
 
 @-webkit-keyframes progress-bar-stripes {

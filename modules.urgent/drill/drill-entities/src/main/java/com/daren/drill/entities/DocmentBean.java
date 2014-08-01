@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class DocmentBean extends PersistentEntity {
     private String name;            //文档名称
     private String type;            //文档类型
-    private Integer size;           //文档大小
+    private long size;           //文档大小
     private long attach;           //文档归属（应急演练管理ID）
     private String description;    //描述
     private String filePath;        //文档路径
@@ -35,11 +35,11 @@ public class DocmentBean extends PersistentEntity {
         this.type = type;
     }
 
-    public Integer getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

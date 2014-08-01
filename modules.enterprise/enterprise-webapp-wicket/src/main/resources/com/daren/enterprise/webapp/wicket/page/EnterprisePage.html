@@ -3,57 +3,126 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
     <title></title>
-
-    <!--<script type="text/javascript" src="cus/Scripts/jquery-1.7.2.js"></script>-->
-    <!--<script type="text/javascript" src="cus/Scripts/jquery-ui-1.8.22.custom.min.js"></script>-->
-    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
     <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.filtermenu.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.columnmenu.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.groupable.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.pager.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.reorderable.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.grid.min.js"></script>
+    <!--<script type="text/javascript" src="cus/Scripts/tb.js"></script>-->
 </wicket:head>
-
 <body>
 <wicket:panel>
-    <div class="alert alert-info">当前位置<b class="tip"></b>信息管理<b class="tip"></b>企业管理</div>
+    <div class="alert alert-info">当前位置<b class="tip"/>系统管理<b class="tip"/>用户管理</div>
     <table class="table table-striped table-bordered table-condensed">
         <thead>
         <tr>
-            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件</td>
+            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
         </tr>
         </thead>
+        <tbody>
         <tr>
-            <td>单据号</td>
+            <td class="tdl">单据号</td>
             <td class="detail">
-                <input type="text"/>
+                <input id="formid123" class="ipt"/>
             </td>
-            <td>单据类型</td>
+            <td class="tdl">单据类型</td>
             <td class="td_detail">
-                <input type="text"/></td>
-            <td>部门</td>
+                <input id="formid" class="ipt"/></td>
+            <td class="tdl">部门</td>
             <td>
-                <select>
-                    <option>第二营销事业部</option>
-                    <option>第三营销事业部</option>
-                    <option>第一营销事业部</option>
-                    <option>康讯公司</option>
-                    <option>网络事业部</option>
-                    <option>移动事业部</option>
-                    <option>手机事业部</option>
+                <select size="1" name="ENTPdept" id="bumen">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+
+                    <option
+                            value="11159">IT中心
+                    </option>
+                    <option
+                            value="11160">ZTE全球售后服务中心
+                    </option>
                 </select>
             </td>
         </tr>
+        <tr>
+            <td class="tdl">提交日期起</td>
+            <td>
+                <div class="input-append">
+                    <input class="span2 datepicker" size="16" type="text" id="startime"/>
+                <span class="add-on">
+                <i class="icon-calendar"></i></span>至
+                    <input id="endtime" class="span2 datepicker" size="16" type="text"/>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+            </td>
+            <td class="tdl">报销人</td>
+            <td>
+                <select size="1" name="select2" id="baoxiaoren">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+                    <option
+                            value="10389">第三营销事业部
+                    </option>
+                    <option
+                            value="10390">第一营销事业部
+                    </option>
+                    <option
+                            value="11159">IT中心
+                    </option>
+                    <option
+                            value="11160">ZTE全球售后服务中心
+                    </option>
+                </select></td>
+            <td class="tdl">所属项目</td>
+            <td>
+                <select id="xiangmu" size="1" name="select3">
+                    <option value="10401"></option>
+                    <option value="10388">第二营销事业部</option>
+                    <option
+                            value="10389">第三营销事业部
+                    </option>
+                    <option
+                            value="10390">第一营销事业部
+                    </option>
+                    <option
+                            value="11159">IT中心
+                    </option>
+                    <option
+                            value="11160">ZTE全球售后服务中心
+                    </option>
+                </select></td>
+        </tr>
+
+        <tr>
+            <td colspan="6" align="left">
+                <input class="btn btn-inverse" id="find" type="button" value="查询"/>
+                <input class="btn btn-inverse" type="button" value="清空"/>
+                <input class="btn btn-inverse" type="button" value="新建" wicket:id="create"/>
+            </td>
+        </tr>
+        </tbody>
     </table>
-    <form wicket:id="form" style="text-align: right;">
-        <button wicket:id="export">导出所有</button>
-    </form>
-    <br />
-    <div wicket:id="datatable">[datatable]</div>
-    <br/>
-    <div wicket:id="feedback"></div>
+    <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+        <thead>
+        <tr class="tr_detail">
+            <th>企业名称</th>
+            <th>监管分类</th>
+            <th>联系方式</th>
+            <th>电子邮箱</th>
+            <th>经营地址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr wicket:id="rows">
+            <td><a href="#" wicket:id="check_QYMC"><span wicket:id="QYMC"></span></a></td>
+            <td wicket:id="JGFL">无</td>
+            <td wicket:id="QYLXFS">无</td>
+            <td wicket:id="MAILADDRESS">无</td>
+            <td wicket:id="ADDRESS_JY">无</td>
+            <td><a href="#" wicket:id="del">asd</a></td>
+            <!--<td><a href="#" wicket:id="label">&lt;!&ndash;<span wicket:id="linklabel"></span>&ndash;&gt;kj</a></td>-->
+        </tr>
+            <tr class="tr_pagenumber" >
+                <td align="center" colspan="100" wicket:id="navigator"></td>
+            </tr>
+        </tbody>
+    </table>
 </wicket:panel>
 </body>
 </html>

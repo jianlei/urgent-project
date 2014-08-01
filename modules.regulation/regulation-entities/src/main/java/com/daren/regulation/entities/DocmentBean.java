@@ -1,4 +1,4 @@
-package com.daren.drill.entities;
+package com.daren.regulation.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
 
@@ -6,18 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 应急演练管理-视频
+ * 政务法规-文档
+ * 政务法规-文档
  * Created by 张清欣 on 14-7-28.
  */
 @Entity
-@Table(name = "urg_dri_video")
-public class VideoBean extends PersistentEntity {
-    private String name;            //视频名称
-    private String type;            //视频类型
-    private long size;           //视频大小
-    private long attach;           //视频归属（应急演练管理ID）
+@Table(name = "urg_reg_docment")
+public class DocmentBean extends PersistentEntity {
+    private String name;            //文档名称
+    private String type;            //文档类型
+    private Integer size;           //文档大小
+    private long attach;           //文档归属（应急演练管理ID）
     private String description;    //描述
-    private String filePath;        //视频路径
+    private String filePath;        //文档路径
 
     public String getName() {
         return name;
@@ -35,11 +36,11 @@ public class VideoBean extends PersistentEntity {
         this.type = type;
     }
 
-    public long getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
