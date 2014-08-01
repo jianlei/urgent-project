@@ -36,16 +36,15 @@ public class MajorHazardSourceCreatePage extends BasePanel {
     @Inject
     private IMajorHazardSourceBeanService majorHazardSourceService;
 
-    Form<MajorHazardSourceBean> majorHazardSourceBeanForm =  new Form("majorHazardSourceForm", new CompoundPropertyModel(new MajorHazardSourceBean()));
+    Form<MajorHazardSourceBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new MajorHazardSourceBean()));
 
-    public MajorHazardSourceCreatePage(final String id, final WebMarkupContainer wmc,final long majorHazardSourceBeanId) {
+    public MajorHazardSourceCreatePage(final String id, final WebMarkupContainer wmc, final long majorHazardSourceBeanId) {
         super(id, wmc);
         initForm(majorHazardSourceBeanId);
-        addForm();
-
+        addForm(id, wmc);
     }
 
-    private void addForm() {
+    public void addForm(final String id, final WebMarkupContainer wmc) {
 
         majorHazardSourceBeanForm.setMultiPart(true);
         this.add(majorHazardSourceBeanForm);
@@ -57,22 +56,33 @@ public class MajorHazardSourceCreatePage extends BasePanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean) form.getDefaultModelObject();
                 if (null != majorHazardSourceBean) {
-                    majorHazardSourceBean.setUpdateDate(new Date());
-                    majorHazardSourceService.saveEntity(majorHazardSourceBean);
+                    try {
+                        majorHazardSourceBean.setUpdateDate(new Date());
+                        majorHazardSourceService.saveEntity(majorHazardSourceBean);
+
+                        target.appendJavaScript("alert('保存成功')");
+
+                        wmc.removeAll();
+                        wmc.addOrReplace(new MajorHazardSourcePage(id, wmc));
+                        target.add(wmc);
+                    } catch (Exception e) {
+                        //MajorHazardSourceCreatePage.this.log.error("保存重大危险源异常，" +e.toString());
+                        target.appendJavaScript("alert('保存失败')");
+                    }
                 }
             }
         };
         add(ajaxSubmitLink);
     }
 
-    private void initForm(long majorHazardSourceBeanId){
-        if(-1 != majorHazardSourceBeanId){
-            MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean)majorHazardSourceService.getEntity(majorHazardSourceBeanId);
+    private void initForm(long majorHazardSourceBeanId) {
+        if (-1 != majorHazardSourceBeanId) {
+            MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean) majorHazardSourceService.getEntity(majorHazardSourceBeanId);
             majorHazardSourceBeanForm.setModelObject(majorHazardSourceBean);
         }
     }
 
-    private void addTextFieldToForm(String value){
+    private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
         majorHazardSourceBeanForm.add(textField);
     }
