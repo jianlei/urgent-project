@@ -47,6 +47,7 @@
         <class>com.daren.drill.entities.UrgentDrillBean</class>
         <class>com.daren.drill.entities.DocmentBean</class>
         <class>com.daren.drill.entities.VideoBean</class>
+        <class>com.daren.drill.entities.ImageBean</class>
         <class>com.daren.core.api.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
