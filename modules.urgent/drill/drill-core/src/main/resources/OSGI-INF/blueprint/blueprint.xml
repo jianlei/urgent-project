@@ -21,4 +21,11 @@
         </bean>
     </service>
     <reference id="videoBenaDao" interface="com.daren.drill.api.dao.IVideoBenaDao"/>
+
+    <service id="uploadImageService" interface="com.daren.drill.api.biz.IUploadImageService">
+        <bean class="com.daren.drill.core.biz.UploadImageServiceImpl">
+            <property name="imageBeanDao" ref="imageBeanDao"/>
+        </bean>
+    </service>
+    <reference id="imageBeanDao" interface="com.daren.drill.api.dao.IImageBeanDao"/>
 </blueprint>

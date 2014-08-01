@@ -52,6 +52,7 @@ public class UploadVideoPage extends BasePanel {
                             fileUpload.getSize();
                             File file = new File("F:\\saveFilePath\\" + fileUpload.getMD5());
                             fileUpload.writeTo(file);
+                            videoBean1.setFilePath("F:\\saveFilePath\\");
                             videoBean1.setName(fileUpload.getClientFileName());
                             videoBean1.setSize(fileUpload.getSize());
                             videoBean1.setType(fileUpload.getContentType());

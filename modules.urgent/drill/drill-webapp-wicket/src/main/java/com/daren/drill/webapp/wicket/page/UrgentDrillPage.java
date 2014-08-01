@@ -3,6 +3,7 @@ package com.daren.drill.webapp.wicket.page;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.drill.api.biz.IUploadDocumentService;
+import com.daren.drill.api.biz.IUploadImageService;
 import com.daren.drill.api.biz.IUploadVideoService;
 import com.daren.drill.api.biz.IUrgentDrillBeanService;
 import com.daren.drill.entities.UrgentDrillBean;
@@ -33,6 +34,8 @@ public class UrgentDrillPage extends BasePanel {
     private IUploadDocumentService uploadDocumentService;
     @Inject
     private IUploadVideoService uploadVideoService;
+    @Inject
+    private IUploadImageService uploadImageService;
 
     public UrgentDrillPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
@@ -71,6 +74,7 @@ public class UrgentDrillPage extends BasePanel {
                         System.out.println("AJAX WORKS");
                     }
                 };
+                alinkImage.add(new Label("imagelabel", "图片(" + uploadImageService.getImageBeanListByAttach(urgentDrillBean.getId()).size() + ")"));
                 item.add(alinkImage.setOutputMarkupId(true));
 
                 //上传文档
@@ -97,7 +101,9 @@ public class UrgentDrillPage extends BasePanel {
                 AjaxLink alinkuploadImage = new AjaxLink("uploadImage") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("AJAX WORKS");
+                        wmc.removeAll();
+                        wmc.addOrReplace(new UploadImagePage(id, wmc, urgentDrillBean.getId()));
+                        target.add(wmc);
                     }
                 };
                 item.add(alinkuploadImage.setOutputMarkupId(true));
