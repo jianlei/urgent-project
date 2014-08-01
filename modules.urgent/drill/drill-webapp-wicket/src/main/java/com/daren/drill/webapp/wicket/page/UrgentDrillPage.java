@@ -53,7 +53,9 @@ public class UrgentDrillPage extends BasePanel {
                 AjaxLink alinkDocument = new AjaxLink("document") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("AJAX WORKS");
+                        wmc.removeAll();
+                        wmc.addOrReplace(new DocumentListPage(id, wmc, urgentDrillBean.getId()));
+                        target.add(wmc);
                     }
                 };
                 alinkDocument.add(new Label("documentlabel", "文档(" + uploadDocumentService.getDocmentBeanListByAttach(urgentDrillBean.getId()).size() + ")"));
@@ -62,7 +64,9 @@ public class UrgentDrillPage extends BasePanel {
                 AjaxLink alinkVideo = new AjaxLink("video") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("AJAX WORKS");
+                        wmc.removeAll();
+                        wmc.addOrReplace(new VideoListPage(id, wmc, urgentDrillBean.getId()));
+                        target.add(wmc);
                     }
                 };
                 alinkVideo.add(new Label("videolabel", "视频(" + uploadVideoService.getVideoBeanListByAttach(urgentDrillBean.getId()).size() + ")"));
@@ -71,7 +75,9 @@ public class UrgentDrillPage extends BasePanel {
                 AjaxLink alinkImage = new AjaxLink("image") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("AJAX WORKS");
+                        wmc.removeAll();
+                        wmc.addOrReplace(new ImageListPage(id, wmc, urgentDrillBean.getId()));
+                        target.add(wmc);
                     }
                 };
                 alinkImage.add(new Label("imagelabel", "图片(" + uploadImageService.getImageBeanListByAttach(urgentDrillBean.getId()).size() + ")"));

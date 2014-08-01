@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @类描述：应急演练
+ * @类描述：应急演练-上传文档
  * @创建人：张清欣
  * @创建时间：2014-07-28 下午16:25
  * @修改人：
@@ -49,10 +49,10 @@ public class UploadDocumentPage extends BasePanel {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            fileUpload.getSize();
-                            File file = new File("F:\\saveFilePath\\" + fileUpload.getMD5());
+                            String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                            File file = new File(path);
                             fileUpload.writeTo(file);
-                            docmentBean1.setFilePath("F:\\saveFilePath\\");
+                            docmentBean1.setFilePath(path);
                             docmentBean1.setName(fileUpload.getClientFileName());
                             docmentBean1.setSize(fileUpload.getSize());
                             docmentBean1.setType(fileUpload.getContentType());
