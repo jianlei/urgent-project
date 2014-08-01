@@ -36,16 +36,15 @@ public class EnterpriseCreatePage extends BasePanel {
 
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
-    Form<EnterpriseBean> enterpriseBeanForm =  new Form("enterpriseForm", new CompoundPropertyModel(new EnterpriseBean()));
+    Form<EnterpriseBean> enterpriseBeanForm = new Form("enterpriseForm", new CompoundPropertyModel(new EnterpriseBean()));
 
-    public EnterpriseCreatePage(String id, WebMarkupContainer wmc,long enterpriseBeanId) {
+    public EnterpriseCreatePage(final String id, final WebMarkupContainer wmc, long enterpriseBeanId) {
         super(id, wmc);
         initForm(enterpriseBeanId);
-        addForm();
-
+        addForm(id,wmc);
     }
 
-    private void addForm() {
+    private void addForm(final String id, final WebMarkupContainer wmc) {
 
         enterpriseBeanForm.setMultiPart(true);
         this.add(enterpriseBeanForm);
@@ -57,22 +56,31 @@ public class EnterpriseCreatePage extends BasePanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 EnterpriseBean enterpriseBean = (EnterpriseBean) form.getDefaultModelObject();
                 if (null != enterpriseBean) {
-                    enterpriseBean.setUpdateDate(new Date());
-                    enterpriseBeanService.saveEntity(enterpriseBean);
+                    try {
+                        enterpriseBean.setUpdateDate(new Date());
+                        enterpriseBeanService.saveEntity(enterpriseBean);
+                        target.appendJavaScript("alert('保存成功')");
+                        wmc.removeAll();
+                        wmc.addOrReplace(new EnterprisePage(id, wmc));
+                        target.add(wmc);
+                    } catch (Exception e) {
+                        //log.error("保存企业信息异常，" +e.toString());
+                        target.appendJavaScript("alert('保存失败')");
+                    }
                 }
             }
         };
         add(ajaxSubmitLink);
     }
 
-    private void initForm(long enterpriseBeanId){
-        if(-1 != enterpriseBeanId){
-            EnterpriseBean enterpriseBean = (EnterpriseBean)enterpriseBeanService.getEntity(enterpriseBeanId);
+    private void initForm(long enterpriseBeanId) {
+        if (-1 != enterpriseBeanId) {
+            EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseBeanId);
             enterpriseBeanForm.setModelObject(enterpriseBean);
         }
     }
 
-    private void addTextFieldToForm(String value){
+    private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
         enterpriseBeanForm.add(textField);
     }

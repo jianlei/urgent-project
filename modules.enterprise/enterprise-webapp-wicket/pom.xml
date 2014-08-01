@@ -142,6 +142,11 @@
             <artifactId>com.daren.core.web.validation</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>
