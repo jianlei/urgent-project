@@ -1,23 +1,8 @@
-/**
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.daren.core.web.wicket.security;
 
 
 import com.daren.core.web.validation.JSR303FormValidator;
+import com.daren.core.web.wicket.ValidationStyleBehavior;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -25,11 +10,11 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -46,27 +31,37 @@ public class SignInPage extends WebPage {
     public SignInPage(PageParameters parameters) {
         super(parameters);
 
-        form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean)) {
+        form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean));
+
+        AjaxButton findButton = new AjaxButton("submit", form) {
             @Override
-            protected void onSubmit() {
-                loginBean = getModel().getObject();
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                loginBean = (LoginBean) form.getModelObject();
                 if (login(loginBean.getUsername(), loginBean.getPassword(), true, SecurityUtils.getSubject().getSession().getHost(), loginBean.getValidateCode()))
                     onSignInSucceeded();
             }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                if (target != null)
+                    target.add(form);
+            }
         };
 
-        final FeedbackPanel feedback = new FeedbackPanel("errors");
-        form.add(feedback.setOutputMarkupId(true));
+        form.add(findButton);
+
+        /*final FeedbackPanel feedback = new FeedbackPanel("errors");
+        form.add(feedback.setOutputMarkupId(true));*/
         TextField txtUserName = new TextField("username");
-        form.add(txtUserName.setOutputMarkupId(true));
+        form.add(txtUserName.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 //        txtUserName.setLabel(new Model("用户名"));
 
         PasswordTextField pwd = new PasswordTextField("password");
         pwd.setLabel(new Model("密码"));
-        form.add(pwd.setOutputMarkupId(true));
+        form.add(pwd.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
         TextField validateCode = new TextField("validateCode");
-        form.add(validateCode);
+        form.add(validateCode.add(new ValidationStyleBehavior()));
 
         final CaptchaImage captchaImage = new CaptchaImage("captchaImage");
         captchaImage.setOutputMarkupId(true);
