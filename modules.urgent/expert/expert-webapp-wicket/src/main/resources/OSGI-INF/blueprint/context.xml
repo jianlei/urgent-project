@@ -5,12 +5,12 @@
         >
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.reserveplan.webapp.wicket.MainMenuModule">
+        <bean class="com.daren.expert.webapp.wicket.MainMenuModule">
         </bean>
     </service>
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.reserveplan.webapp.wicket.ReservePlanMenuItemsModule">
+        <bean class="com.daren.expert.webapp.wicket.ExpertMenuItemsModule">
         </bean>
     </service>
 </blueprint>

@@ -40,7 +40,7 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -82,7 +82,7 @@
         <module>modules.admin</module>
         <module>modules.tools</module>
         <module>modules.enterprise</module>
-        <module>modules.urgent/resources</module>
+        <module>modules.urgent/expert</module>
         <module>modules.urgent/reserveplan</module>
         <module>modules.urgent/majorhazardsource</module>
         <module>modules.urgent/drill</module>

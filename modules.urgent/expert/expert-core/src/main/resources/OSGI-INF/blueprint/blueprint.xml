@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="expertService" interface="com.daren.expert.api.biz.IExpertBeanService">
+        <bean class="com.daren.expert.core.biz.ExpertBeanServiceImpl">
+            <property name="expertBeanDao" ref="expertBeanDao"/>
+                </bean>
+    </service>
+    <reference id="expertBeanDao" interface="com.daren.expert.api.dao.IExpertBeanDao"/>
+</blueprint>
+

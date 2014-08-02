@@ -86,7 +86,6 @@ public class EnterprisePage extends BasePanel {
         CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView);
         table.add(pagingNavigator);
         table.add(listView);
-
         createQuery(table, provider, id, wmc);
     }
 

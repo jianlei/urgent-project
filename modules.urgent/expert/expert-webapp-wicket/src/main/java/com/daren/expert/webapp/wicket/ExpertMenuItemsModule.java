@@ -1,7 +1,7 @@
-package com.daren.majorhazardsource.webapp.wicket;
+package com.daren.expert.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.majorhazardsource.webapp.wicket.page.MajorHazardSourcePage;
+import com.daren.expert.webapp.wicket.page.ExpertPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -15,7 +15,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class MajoHazardSourceMenuItemsModule implements IMenuItemsModule {
+public class ExpertMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -30,7 +30,7 @@ public class MajoHazardSourceMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "重大危险源管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "专家管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -40,11 +40,11 @@ public class MajoHazardSourceMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new MajorHazardSourcePage(id, wmc);
+        return new ExpertPage(id, wmc);
     }
 }
