@@ -6,8 +6,8 @@ import com.daren.regulation.api.dao.IRegulationBeanDao;
 import com.daren.regulation.entities.RegulationBean;
 
 /**
- * @类描述：品牌服务实现类
- * @创建人：wangkr
+ * @类描述：法律法规
+ * @创建人：张清欣
  * @创建时间：2014-04-04 下午2:42
  * @修改人：
  * @修改时间：

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <service id="regulationService" interface="com.daren.regulation.api.biz.IRegulationBeanService">
+    <service id="regulationBeanService" interface="com.daren.regulation.api.biz.IRegulationBeanService">
         <bean class="com.daren.regulation.core.biz.RegulationBeanServiceImpl">
             <property name="regulationBeanDao" ref="regulationBeanDao"/>
-                </bean>
+        </bean>
     </service>
     <reference id="regulationBeanDao" interface="com.daren.regulation.api.dao.IRegulationBeanDao"/>
+
+    <service id="uploadDocumentService" interface="com.daren.regulation.api.biz.IUploadDocumentService">
+        <bean class="com.daren.regulation.core.biz.UploadDocumentServiceImpl">
+            <property name="docmentBeanDao" ref="docmentBeanDao"/>
+        </bean>
+    </service>
+    <reference id="docmentBeanDao" interface="com.daren.regulation.api.dao.IDocmentBeanDao"/>
 </blueprint>
 

@@ -271,7 +271,7 @@ table thead tr td {
     overflow: auto;
     right: 8px;
     bottom: 42px;
-    z-index: 999;
+    /*z-index: 1;*/
     padding: 8px;
 }
 

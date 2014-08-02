@@ -45,6 +45,7 @@
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
 
         <class>com.daren.regulation.entities.RegulationBean</class>
+        <class>com.daren.regulation.entities.DocmentBean</class>
         <class>com.daren.core.api.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->

@@ -127,6 +127,11 @@
             <artifactId>wicket-jquery-ui</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>
