@@ -6,6 +6,7 @@ import com.daren.regulation.entities.RegulationBean;
 
 
 /**
+ * 法律法规
  * Created by dell on 14-1-16.
  */
 public class RegulationBeanDaoOpenjpa extends GenericOpenJpaDao<RegulationBean, Long> implements IRegulationBeanDao {
