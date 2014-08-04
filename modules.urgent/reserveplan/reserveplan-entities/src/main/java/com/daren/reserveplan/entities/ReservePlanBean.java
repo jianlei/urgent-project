@@ -13,16 +13,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "biz_reserveplan")
+@Table(name = "biz_res_reserveplan")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class ReservePlanBeanImpl extends PersistentEntity {
+public class ReservePlanBean extends PersistentEntity {
 
     private String name;
     private String password;
     private String email;
 
-    public ReservePlanBeanImpl() {
+    public ReservePlanBean() {
 
 
     }

@@ -3,7 +3,7 @@ package com.daren.reserveplan.core.biz;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.api.dao.IReservePlanBeanDao;
-import com.daren.reserveplan.entities.ReservePlanBeanImpl;
+import com.daren.reserveplan.entities.ReservePlanBean;
 
 /**
  * @类描述：品牌服务实现类
@@ -19,7 +19,7 @@ public class ReservePlanBeanServiceImpl extends GenericBizServiceImpl implements
 
     public void setReservePlanBeanDao(IReservePlanBeanDao reservePlanBeanDao) {
         this.reservePlanBeanDao = reservePlanBeanDao;
-        super.init(reservePlanBeanDao, ReservePlanBeanImpl.class.getName());
+        super.init(reservePlanBeanDao, ReservePlanBean.class.getName());
     }
 }
 

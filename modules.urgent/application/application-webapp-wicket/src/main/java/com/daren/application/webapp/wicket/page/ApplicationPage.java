@@ -1,10 +1,9 @@
-package com.daren.reserveplan.webapp.wicket.page;
+package com.daren.application.webapp.wicket.page;
 
+import com.daren.application.entities.ApplicationBean;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.application.api.biz.IApplicationBeanService;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
-import com.daren.reserveplan.api.biz.IReservePlanBeanService;
-import com.daren.reserveplan.entities.ReservePlanBean;
-import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -12,6 +11,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -24,14 +24,11 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-import sun.net.dns.ResolverConfiguration;
-import com.googlecode.wicket.jquery.core.Options;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.googlecode.wicket.jquery.core.Options;
 
 /**
  * @类描述：品牌维护
@@ -42,23 +39,25 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ReservePlanPage extends BasePanel {
+public class ApplicationPage extends BasePanel {
+
+    private final TabbedPanel tabPanel;
+    ApplicationDataProvider provider = new ApplicationDataProvider();
 
     @Inject
-    private IReservePlanBeanService reservePlanBeanService;
-    private final TabbedPanel tabPanel;
-    UserDataProvider provider = new UserDataProvider();
+    private IApplicationBeanService applicationBeanService;
 
-    public ReservePlanPage(String id, WebMarkupContainer wmc) {
+    public ApplicationPage(String id, WebMarkupContainer wmc) {
 
-        super(id, wmc);
-        //增加tabs支持
+        super(id,wmc);
         Options options = new Options();
+        options.set("collapsible", true);
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
 
 
         final WebMarkupContainer webMarkupContainer = wmc;
+
     }
 
     /**
@@ -68,7 +67,7 @@ public class ReservePlanPage extends BasePanel {
     private List<ITab> newTabList() {
         List<ITab> tabs = new ArrayList<ITab>();
         // tab #1 //
-        tabs.add(new AbstractTab(Model.of("预案管理")) {
+        tabs.add(new AbstractTab(Model.of("用户管理")) {
 
             private static final long serialVersionUID = 1L;
 
@@ -87,9 +86,9 @@ public class ReservePlanPage extends BasePanel {
      * @param table
      * @param
      */
-    private Form createQuery(final WebMarkupContainer table, final UserDataProvider provider, final TabbedPanel tabPanel) {
+    private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel) {
         //处理查询
-        Form<ReservePlanBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ReservePlanBean()));
+        Form<ApplicationBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ApplicationBean()));
         TextField textField = new TextField("name");
 
         myform.add(textField.setOutputMarkupId(true));
@@ -98,8 +97,8 @@ public class ReservePlanPage extends BasePanel {
         AjaxButton findButton = new AjaxButton("find", myform) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                ReservePlanBean userBean = (ReservePlanBean) form.getModelObject();
-                provider.setReservePlanBean(userBean);
+                ApplicationBean userBean = (ApplicationBean) form.getModelObject();
+                provider.setApplicationBean(userBean);
                 target.add(table);
             }
         };
@@ -108,7 +107,7 @@ public class ReservePlanPage extends BasePanel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 if (tabPanel.getModelObject().size() == 1) {
-                    tabPanel.add(new AjaxTab(Model.of("预案编辑")) {
+                    tabPanel.add(new AjaxTab(Model.of("Tab (ajax)")) {
 
                         private static final long serialVersionUID = 1L;
 
@@ -121,7 +120,7 @@ public class ReservePlanPage extends BasePanel {
                                 error(e.getMessage());
                             }
 
-                            return new Fragment(panelId, "panel-2", ReservePlanPage.this);
+                            return new Fragment(panelId, "panel-2", ApplicationPage.this);
                         }
                     });
                 }
@@ -137,19 +136,19 @@ public class ReservePlanPage extends BasePanel {
 
     public class MainFragment extends Fragment {
         public MainFragment(String id, String markupId) {
-            super(id, markupId, ReservePlanPage.this);
+            super(id, markupId, ApplicationPage.this);
 
             final WebMarkupContainer table = new WebMarkupContainer("table");
             add(table.setOutputMarkupId(true));
 
-            final DataView<ReservePlanBean> listView = new DataView<ReservePlanBean>("rows", provider, 10) {
+            final DataView<ApplicationBean> listView = new DataView<ApplicationBean>("rows", provider, 10) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(Item<ReservePlanBean> item) {
-                    final ReservePlanBean reservePlanBean = item.getModelObject();
+                protected void populateItem(Item<ApplicationBean> item) {
+                    final ApplicationBean applicationBean = item.getModelObject();
 
-                    item.add(new Label("col1", reservePlanBean.getName()));
+                    item.add(new Label("name", applicationBean.getName()));
 
                     AjaxLink alink = new AjaxLink("delete") {
                         @Override
@@ -162,15 +161,10 @@ public class ReservePlanPage extends BasePanel {
 
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                        /*target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
-                                + "/libya.protests/index.html?hpt="+row.getId()
-     *//* you probably want to encode this first *//*+"')");*/
-                            reservePlanBeanService.deleteEntity(reservePlanBean.getId());
-                            // target.add(new HomePage());
+                            applicationBeanService.deleteEntity(applicationBean.getId());
                             target.add(table);
                         }
                     };
-//                alink.add(new Label("linklabel", "删除").setOutputMarkupId(true));
                     item.add(alink.setOutputMarkupId(true));
                 }
             };
@@ -178,27 +172,24 @@ public class ReservePlanPage extends BasePanel {
             CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
-//        table.setVersioned(false);
-
-
             table.add(listView);
             add(createQuery(table, provider, tabPanel));
         }
     }
 
-    class UserDataProvider extends ListDataProvider<ReservePlanBean> {
-        private ReservePlanBean userBean = null;
+    class ApplicationDataProvider extends ListDataProvider<ApplicationBean> {
+        private ApplicationBean userBean = null;
 
-        public void setReservePlanBean(ReservePlanBean userBean) {
+        public void setApplicationBean(ApplicationBean userBean) {
             this.userBean = userBean;
         }
 
         @Override
-        protected List<ReservePlanBean> getData() {
+        protected List<ApplicationBean> getData() {
             if (userBean == null)
-                return reservePlanBeanService.getAllEntity();
+                return applicationBeanService.getAllEntity();
             else {
-                return reservePlanBeanService.getAllEntity();
+                return applicationBeanService.getAllEntity();
             }
         }
     }

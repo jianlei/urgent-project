@@ -4,32 +4,33 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.reserveplan</groupId>
-        <artifactId>modules.urgent.reserveplan</artifactId>
+        <groupId>com.daren.application</groupId>
+        <artifactId>modules.urgent.application</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.reserveplan</groupId>
-    <artifactId>com.daren.reserveplan.webapp.wicket</artifactId>
+
+    <groupId>com.daren.application</groupId>
+    <artifactId>com.daren.application.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Reserveplan - Wicket Web Application</name>
-    <description>Reserveplan - Webapp Wicket</description>
+    <name>Urgent :: Application - Wicket Web Application</name>
+    <description>Application - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.reserveplan.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.application.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.reserveplan</groupId>
-            <artifactId>com.daren.reserveplan.api</artifactId>
+            <groupId>com.daren.application</groupId>
+            <artifactId>com.daren.application.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.reserveplan</groupId>
-            <artifactId>com.daren.reserveplan.core</artifactId>
+            <groupId>com.daren.application</groupId>
+            <artifactId>com.daren.application.core</artifactId>
         </dependency>
 
         <dependency>
@@ -98,8 +99,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.reserveplan</groupId>
-            <artifactId>com.daren.reserveplan.entities</artifactId>
+            <groupId>com.daren.application</groupId>
+            <artifactId>com.daren.application.entities</artifactId>
         </dependency>
 
         <dependency>
@@ -111,6 +112,7 @@
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.velocity</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
@@ -136,14 +138,10 @@
             <artifactId>log4j</artifactId>
         </dependency>
 
+
     </dependencies>
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
