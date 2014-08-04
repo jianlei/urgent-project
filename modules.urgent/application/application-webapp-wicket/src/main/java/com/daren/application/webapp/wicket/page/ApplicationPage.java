@@ -20,6 +20,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -43,6 +44,7 @@ public class ApplicationPage extends BasePanel {
 
     private final TabbedPanel tabPanel;
     ApplicationDataProvider provider = new ApplicationDataProvider();
+    final RepeatingView createPage = new RepeatingView("createPage");
 
     @Inject
     private IApplicationBeanService applicationBeanService;
@@ -52,9 +54,8 @@ public class ApplicationPage extends BasePanel {
         super(id,wmc);
         Options options = new Options();
         options.set("collapsible", true);
-        tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
+        tabPanel = new TabbedPanel("tabs", this.newTabList(wmc), options);
         this.add(tabPanel);
-
 
         final WebMarkupContainer webMarkupContainer = wmc;
 
@@ -64,7 +65,7 @@ public class ApplicationPage extends BasePanel {
      * 添加tabs
      * @return
      */
-    private List<ITab> newTabList() {
+    private List<ITab> newTabList(final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList<ITab>();
         // tab #1 //
         tabs.add(new AbstractTab(Model.of("用户管理")) {
@@ -73,7 +74,7 @@ public class ApplicationPage extends BasePanel {
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "panel-1");
+                return new MainFragment(panelId, "panel-1",wmc);
             }
         });
 
@@ -86,7 +87,7 @@ public class ApplicationPage extends BasePanel {
      * @param table
      * @param
      */
-    private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel) {
+    private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel,final WebMarkupContainer wmc) {
         //处理查询
         Form<ApplicationBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ApplicationBean()));
         TextField textField = new TextField("name");
@@ -119,8 +120,11 @@ public class ApplicationPage extends BasePanel {
                             } catch (InterruptedException e) {
                                 error(e.getMessage());
                             }
-
-                            return new Fragment(panelId, "panel-2", ApplicationPage.this);
+                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(),wmc,"11111111111");
+                            createPage.add(applicationCreatePage);
+                            Fragment fragment = new Fragment(panelId, "panel-2", ApplicationPage.this);
+                            fragment.add(createPage);
+                            return fragment;
                         }
                     });
                 }
@@ -135,7 +139,7 @@ public class ApplicationPage extends BasePanel {
     }
 
     public class MainFragment extends Fragment {
-        public MainFragment(String id, String markupId) {
+        public MainFragment(String id, String markupId,final WebMarkupContainer wmc ) {
             super(id, markupId, ApplicationPage.this);
 
             final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -173,7 +177,7 @@ public class ApplicationPage extends BasePanel {
             };
             table.add(pagingNavigator);
             table.add(listView);
-            add(createQuery(table, provider, tabPanel));
+            add(createQuery(table, provider, tabPanel,wmc));
         }
     }
 
