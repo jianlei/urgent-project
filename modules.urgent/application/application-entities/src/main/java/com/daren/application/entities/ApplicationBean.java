@@ -19,20 +19,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ApplicationBean extends PersistentEntity {
 
     private String name;
-    private String password;
-    private String email;
+
+    private String description;
 
     public ApplicationBean() {
 
 
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getName() {
@@ -43,15 +35,11 @@ public class ApplicationBean extends PersistentEntity {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public static void main(String[] args) throws Exception {
-
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- default-activation="lazy" -->
+<blueprint
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
+        xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
+
+    <service interface="com.daren.file.api.dao.IDocmentBeanDao">
+        <bean class="com.daren.file.persist.openjpa.DocmentBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="file-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+    <service interface="com.daren.file.api.dao.IVideoBenaDao">
+        <bean class="com.daren.file.persist.openjpa.VideoBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="file-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+    <service interface="com.daren.file.api.dao.IImageBeanDao">
+        <bean class="com.daren.file.persist.openjpa.ImageBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="file-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+</blueprint>
+

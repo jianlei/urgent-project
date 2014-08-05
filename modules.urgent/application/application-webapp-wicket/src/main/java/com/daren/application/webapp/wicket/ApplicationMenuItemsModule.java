@@ -30,7 +30,7 @@ public class ApplicationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "预案申请表管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "预案模板管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

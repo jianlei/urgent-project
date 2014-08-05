@@ -236,6 +236,32 @@
                 <scope>provided</scope>
             </dependency>
             <!--Urgent Admin Module begin-->
+            <!--Urgent File begin-->
+            <dependency>
+                <groupId>com.daren.file</groupId>
+                <artifactId>com.daren.file.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.file</groupId>
+                <artifactId>com.daren.file.core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.file</groupId>
+                <artifactId>com.daren.file.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.file</groupId>
+                <artifactId>com.daren.file.persist.openjpa</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!--Urgent Core begin-->
             <dependency>
                 <groupId>com.daren.core</groupId>

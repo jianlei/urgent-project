@@ -32,6 +32,11 @@ public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IB
     }
 
     @Override
+    public Object saveEntityAndReturn(PersistentEntity entity) {
+        return dao.save(entity);
+    }
+
+    @Override
     public List getAllEntity() {
         return dao.getAll(entityClassName);
     }

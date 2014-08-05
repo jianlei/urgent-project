@@ -21,6 +21,8 @@ public interface IBizService<T extends PersistentEntity> extends IService {
 
     public void saveEntity(T entity);
 
+    Object saveEntityAndReturn(PersistentEntity entity);
+
     public List getAllEntity();
 
     public T getEntity(long entityId);

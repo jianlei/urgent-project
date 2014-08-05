@@ -4,6 +4,8 @@ import com.daren.application.entities.ApplicationBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.application.api.biz.IApplicationBeanService;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.file.api.biz.IUploadDocumentService;
+import com.daren.file.entities.DocmentBean;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -49,6 +51,9 @@ public class ApplicationPage extends BasePanel {
     @Inject
     private IApplicationBeanService applicationBeanService;
 
+    @Inject
+    private IUploadDocumentService uploadDocumentService;
+
     public ApplicationPage(String id, WebMarkupContainer wmc) {
 
         super(id,wmc);
@@ -90,12 +95,21 @@ public class ApplicationPage extends BasePanel {
     private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel,final WebMarkupContainer wmc) {
         //处理查询
         Form<ApplicationBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ApplicationBean()));
-        TextField textField = new TextField("name");
+        /*TextField textField = new TextField("name");
 
-        myform.add(textField.setOutputMarkupId(true));
+        myform.add(textField.setOutputMarkupId(true));*/
 
 
-        AjaxButton findButton = new AjaxButton("find", myform) {
+       /* AjaxButton findButton = new AjaxButton("find", myform) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                ApplicationBean userBean = (ApplicationBean) form.getModelObject();
+                provider.setApplicationBean(userBean);
+                target.add(table);
+            }
+        };*/
+
+        AjaxButton refreshButton = new AjaxButton("refresh", myform) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 ApplicationBean userBean = (ApplicationBean) form.getModelObject();
@@ -103,6 +117,8 @@ public class ApplicationPage extends BasePanel {
                 target.add(table);
             }
         };
+
+
 
         AjaxButton addButton = new AjaxButton("add") {
             @Override
@@ -120,7 +136,7 @@ public class ApplicationPage extends BasePanel {
                             } catch (InterruptedException e) {
                                 error(e.getMessage());
                             }
-                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(),wmc,"11111111111");
+                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(),wmc,null);
                             createPage.add(applicationCreatePage);
                             Fragment fragment = new Fragment(panelId, "panel-2", ApplicationPage.this);
                             fragment.add(createPage);
@@ -134,7 +150,8 @@ public class ApplicationPage extends BasePanel {
 
         };
         myform.add(addButton);
-        myform.add(findButton);
+        /*myform.add(findButton);*/
+        myform.add(refreshButton);
         return myform;
     }
 
@@ -153,6 +170,9 @@ public class ApplicationPage extends BasePanel {
                     final ApplicationBean applicationBean = item.getModelObject();
 
                     item.add(new Label("name", applicationBean.getName()));
+                    DocmentBean docmentBean = uploadDocumentService.queryDocmentByAttach(applicationBean.getId()).get(0);
+
+                    item.add(new Label("description", docmentBean.getDescription()));
 
                     AjaxLink alink = new AjaxLink("delete") {
                         @Override
