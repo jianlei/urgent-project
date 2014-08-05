@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -21,10 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DictBean extends PersistentEntity {
+    @NotNull(message = "'标签名'是必填项")
     private String label;    // 标签名
+    @NotNull(message = "'数据值'是必填项")
     private String value;    // 数据值
+    @NotNull(message = "'类型'是必填项")
     private String type;    // 类型
     private String description;// 描述
+    @NotNull(message = "'排序'是必填项")
     private Integer sort;    // 排序
 
     public String getLabel() {

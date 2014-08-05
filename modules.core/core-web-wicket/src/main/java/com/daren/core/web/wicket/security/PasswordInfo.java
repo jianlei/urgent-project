@@ -1,8 +1,8 @@
 package com.daren.core.web.wicket.security;
 
-import org.apache.wicket.util.io.IClusterable;
+import org.apache.wicket.model.IDetachable;
 
-public class PasswordInfo implements IClusterable {
+public class PasswordInfo implements IDetachable {
     private String oldPassword;
     private String newPassword;
     private String repeatPassword;
@@ -29,5 +29,10 @@ public class PasswordInfo implements IClusterable {
 
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
+    }
+
+    @Override
+    public void detach() {
+
     }
 }

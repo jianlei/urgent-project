@@ -64,7 +64,7 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
 
     @Override
     public void setModelObject(PasswordInfo passwordInfo) {
-        this.setDefaultModel(new CompoundPropertyModel<PasswordInfo>(passwordInfo));
+        this.setDefaultModel(new CompoundPropertyModel<>(passwordInfo));
     }
 
     // Events //
@@ -77,5 +77,7 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
     public void onError(AjaxRequestTarget target) {
         target.add(this.feedback);
     }
+
+
 }
 

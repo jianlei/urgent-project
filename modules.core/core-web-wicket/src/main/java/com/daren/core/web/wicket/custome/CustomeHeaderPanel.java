@@ -50,6 +50,7 @@ public class CustomeHeaderPanel extends Panel {
 
                 dialog.setTitle(target, "修改密码");
                 dialog.setModelObject(new PasswordInfo()); //Provides a new model object to the dialog
+
                 dialog.open(target); //Important: onOpen() event has been overridden in UserDialog to re-attach the inner form, in order to reflect the updated model
 
             }
