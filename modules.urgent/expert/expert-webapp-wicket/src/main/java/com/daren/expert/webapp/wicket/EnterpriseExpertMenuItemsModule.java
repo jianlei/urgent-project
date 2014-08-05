@@ -1,8 +1,7 @@
 package com.daren.expert.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.expert.webapp.wicket.page.ExpertPage;
-import org.apache.wicket.Page;
+import com.daren.expert.webapp.wicket.page.EnterpriseExpertPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -15,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class ExpertMenuItemsModule implements IMenuItemsModule {
+public class EnterpriseExpertMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -30,7 +29,7 @@ public class ExpertMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "专家管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "企业专家管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -45,6 +44,6 @@ public class ExpertMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new ExpertPage(id, wmc);
+        return new EnterpriseExpertPage(id, wmc);
     }
 }

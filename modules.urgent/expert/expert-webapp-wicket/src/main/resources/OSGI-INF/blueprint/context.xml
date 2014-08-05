@@ -10,7 +10,11 @@
     </service>
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.expert.webapp.wicket.ExpertMenuItemsModule">
+        <bean class="com.daren.expert.webapp.wicket.SafetySupervisionExpertMenuItemsModule">
+        </bean>
+    </service>
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.expert.webapp.wicket.EnterpriseExpertMenuItemsModule">
         </bean>
     </service>
 </blueprint>

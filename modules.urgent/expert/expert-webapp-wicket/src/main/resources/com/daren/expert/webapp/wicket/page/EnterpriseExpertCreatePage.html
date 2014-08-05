@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.filtermenu.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.columnmenu.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.groupable.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.pager.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.reorderable.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.grid.min.js"></script>
+</wicket:head>
+
+<body>
+<wicket:panel>
+    <input class="btn btn-inverse" type="button" value="返回" wicket:id="return"/>
+    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+    <br/><br/>
+
+    <form wicket:id="form">
+        <table class="table table-striped table-bordered table-condensed">
+
+            <tr>
+                <td>专家名称</td>
+                <td><input type="text" wicket:id="name"/></td>
+            </tr>
+            <tr>
+                <td>联系方式</td>
+                <td><input type="text" wicket:id="contactInformation"/></td>
+            </tr>
+            <tr>
+                <td>分类</td>
+                <td><select wicket:id="type"></select></td>
+            </tr>
+        </table>
+    </form>
+</wicket:panel>
+</body>
+</html>

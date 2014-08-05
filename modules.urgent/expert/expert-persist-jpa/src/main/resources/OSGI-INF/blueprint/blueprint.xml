@@ -6,8 +6,16 @@
         xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
         xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
 
-    <service interface="com.daren.expert.api.dao.IExpertBeanDao">
-        <bean class="com.daren.expert.persist.openjpa.ExpertBeanDaoOpenjpa"> <!--init-method="init">-->
+    <service interface="com.daren.expert.api.dao.IEnterpriseExpertBeanDao">
+        <bean class="com.daren.expert.persist.openjpa.EnterpriseExpertBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="expert-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+
+    <service interface="com.daren.expert.api.dao.ISafetySupervisionExpertBeanDao">
+        <bean class="com.daren.expert.persist.openjpa.SafetySupervisionExpertBeanDaoOpenjpa"> <!--init-method="init">-->
             <jpa:context property="entityManager" unitname="expert-cm"/>
             <tx:transaction method="*" value="Required"/>
             <!--<property name="persistEntityService" ref="persistEntityService" />-->
