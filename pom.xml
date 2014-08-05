@@ -81,6 +81,7 @@
         <module>modules.core</module>
         <module>modules.admin</module>
         <module>modules.tools</module>
+        <module>modules.file</module>
         <module>modules.enterprise</module>
         <module>modules.urgent/expert</module>
         <module>modules.urgent/reserveplan</module>
@@ -89,6 +90,8 @@
         <module>modules.urgent/drill</module>
         <module>modules.urgent/accident</module>
         <module>modules.regulation</module>
+        <module>modules.common</module>
+
     </modules>
 
     <build>

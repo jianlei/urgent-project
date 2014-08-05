@@ -21,7 +21,6 @@
     </properties>
     <modules>
         <module>common-api</module>
-        <module>common-ognl</module>
     </modules>
     <dependencyManagement>
         <dependencies>

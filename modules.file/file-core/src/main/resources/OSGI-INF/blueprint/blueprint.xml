@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <service id="uploadDocumentService" interface="com.daren.file.api.biz.IUploadDocumentService">
+        <bean class="com.daren.file.core.biz.UploadDocumentServiceImpl">
+            <property name="docmentBeanDao" ref="docmentBeanDao"/>
+        </bean>
+    </service>
+    <reference id="docmentBeanDao" interface="com.daren.file.api.dao.IDocmentBeanDao"/>
+
+    <service id="uploadVideoService" interface="com.daren.file.api.biz.IUploadVideoService">
+        <bean class="com.daren.file.core.biz.UploadVideoServiceImpl">
+            <property name="videoBenaDao" ref="videoBenaDao"/>
+        </bean>
+    </service>
+    <reference id="videoBenaDao" interface="com.daren.file.api.dao.IVideoBenaDao"/>
+
+    <service id="uploadImageService" interface="com.daren.file.api.biz.IUploadImageService">
+        <bean class="com.daren.file.core.biz.UploadImageServiceImpl">
+            <property name="imageBeanDao" ref="imageBeanDao"/>
+        </bean>
+    </service>
+    <reference id="imageBeanDao" interface="com.daren.file.api.dao.IImageBeanDao"/>
+</blueprint>
