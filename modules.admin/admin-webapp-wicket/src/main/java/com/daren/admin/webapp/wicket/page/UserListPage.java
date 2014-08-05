@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IDictBeanService;
-import com.daren.admin.entities.DictBean;
+import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.googlecode.wicket.jquery.core.Options;
@@ -34,30 +34,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @类描述：字典列表页面
- * @创建人：sunlf
- * @创建时间：2014-03-28 下午10:46
- * @修改人：
- * @修改时间：
- * @修改备注：
+ * 项目名称:  urgent-project
+ * 类描述:    用户列表页面类
+ * 创建人:    sunlf
+ * 创建时间:  2014/8/5 13:34
+ * 修改人:    sunlf
+ * 修改时间:  2014/8/5 13:34
+ * 修改备注:  [说明本次修改内容]
  */
-
-public class DictListPage extends BasePanel {
-
+public class UserListPage extends BasePanel {
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "字典管理";
-    private final static String CONST_ADD = "添加字典";
-    private final static String CONST_EDIT = "编辑字典";
+    private final static String CONST_LIST = "用户管理";
+    private final static String CONST_ADD = "添加用户";
+    private final static String CONST_EDIT = "编辑用户";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
     //注入字典业务服务
     @Inject
-    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    private IDictBeanService dictBeanService;
+    @Reference(id = "userBeanService", serviceInterface = IUserBeanService.class)
+    private IUserBeanService userBeanService;
 
     //构造函数
-    public DictListPage(String id, WebMarkupContainer wmc) {
+    public UserListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
@@ -107,7 +106,7 @@ public class DictListPage extends BasePanel {
      * @param newTabType "修改字典"||"新增字典"
      * @param row        数据
      */
-    private void createNewTab(AjaxRequestTarget target, final String newTabType, final DictBean row) {
+    private void createNewTab(AjaxRequestTarget target, final String newTabType, final UserBean row) {
         //去掉第二个tab
         if (tabPanel.getModelObject().size() == 2) {
             tabPanel.getModelObject().remove(1);
@@ -119,7 +118,7 @@ public class DictListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                DictAddPage dictAddPage = new DictAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                UserAddPage dictAddPage = new UserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -129,7 +128,7 @@ public class DictListPage extends BasePanel {
                     }
                 };
                 repeatingView.add(dictAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", DictListPage.this);
+                Fragment fragment = new Fragment(panelId, "addPanel", UserListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -145,7 +144,7 @@ public class DictListPage extends BasePanel {
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, DictListPage.this);
+            super(id, markupId, UserListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -157,18 +156,19 @@ public class DictListPage extends BasePanel {
             container.add(table.setOutputMarkupId(true));
 
             //add listview
-            final DataView<DictBean> listView = new DataView<DictBean>("rows", provider, numPerPage) {
+            final DataView<UserBean> listView = new DataView<UserBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(Item<DictBean> item) {
-                    final DictBean row = item.getModelObject();
+                protected void populateItem(Item<UserBean> item) {
+                    final UserBean row = item.getModelObject();
 
-                    item.add(new Label("label", row.getLabel()));//标签名
-                    item.add(new Label("value", row.getValue()));//数据值
-                    item.add(new Label("type", row.getType()));//类型
-                    item.add(new Label("description", row.getDescription()));//描述
-                    item.add(new Label("sort", row.getSort()));//排序
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("loginName", row.getLoginName()));
+                    item.add(new Label("email", row.getEmail()));
+                    item.add(new Label("phone", row.getPhone()));
+                    item.add(new Label("mobile", row.getMobile()));
+                    item.add(new Label("creationDate", row.getCreationDate()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
@@ -183,17 +183,17 @@ public class DictListPage extends BasePanel {
             table.add(pagingNavigator);
 
             //增加form
-            Form<DictBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new DictBean()));
-            TextField textField = new TextField("type");
+            Form<UserBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new UserBean()));
+            TextField textField = new TextField("name");
             textField.setRequired(false);
-            dictForm.add(textField.setOutputMarkupId(true));
+            userForm.add(textField.setOutputMarkupId(true));
 
             //find button
-            dictForm.add(initFindButton(provider, dictForm));
+            userForm.add(initFindButton(provider, userForm));
             //add button
-            dictForm.add(initAddButton());
+            userForm.add(initAddButton());
 
-            add(dictForm);
+            add(userForm);
         }
 
         /**
@@ -202,7 +202,7 @@ public class DictListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final DictBean row) {
+        private AjaxLink initUpdateButton(final UserBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -219,7 +219,7 @@ public class DictListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final DictBean row) {
+        private AjaxLink initDeleteButton(final UserBean row) {
             //删除功能
             AjaxLink alink = new AjaxLink("delete") {
                 @Override
@@ -234,7 +234,7 @@ public class DictListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
-                        dictBeanService.deleteEntity(row.getId());
+                        userBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
                         target.addChildren(getPage(), FeedbackPanel.class);
                         target.add(container);
@@ -259,8 +259,8 @@ public class DictListPage extends BasePanel {
             return new IndicatingAjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    DictBean dictBean = (DictBean) form.getModelObject();
-                    provider.setDictBean(dictBean);
+                    UserBean userBean = (UserBean) form.getModelObject();
+                    provider.setUserBean(userBean);
                     target.add(container);
                 }
 
@@ -275,20 +275,20 @@ public class DictListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<DictBean> {
-        private DictBean dictBean = null;
+    class DictDataProvider extends ListDataProvider<UserBean> {
+        private UserBean userBean = null;
 
-        public void setDictBean(DictBean dictBean) {
-            this.dictBean = dictBean;
+        public void setUserBean(UserBean userBean) {
+            this.userBean = userBean;
         }
 
         @Override
-        protected List<DictBean> getData() {
+        protected List<UserBean> getData() {
             //类型为空时候，返回全部记录
-            if (dictBean == null || dictBean.getType().equals(""))
-                return dictBeanService.getAllEntity();
+            if (userBean == null || userBean.getName().equals(""))
+                return userBeanService.getAllEntity();
             else {
-                return dictBeanService.query(dictBean);
+                return userBeanService.query(userBean);
             }
         }
     }

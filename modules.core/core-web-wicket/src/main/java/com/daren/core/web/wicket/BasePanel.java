@@ -1,6 +1,5 @@
 package com.daren.core.web.wicket;
 
-import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -16,10 +15,9 @@ import org.apache.wicket.markup.html.panel.Panel;
  */
 
 public abstract class BasePanel extends Panel {
+    public final Logger log = Logger.getLogger(getClass());
     //ajax target container
     protected WebMarkupContainer webMarkupContainer;
-
-    public final Logger log = Logger.getLogger(getClass());
 
     public BasePanel(String id, WebMarkupContainer wmc) {
         super(id);

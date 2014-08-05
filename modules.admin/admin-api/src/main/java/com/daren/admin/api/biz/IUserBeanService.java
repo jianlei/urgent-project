@@ -19,4 +19,6 @@ public interface IUserBeanService extends IBizService {
     public List<UserBean> getAllUser();
 
     List<UserBean> queryUser(UserBean userBean);
+
+    List<UserBean> query(UserBean userBean);
 }
