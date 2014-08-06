@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="rescueService" interface="com.daren.rescue.api.biz.IRescueBeanService">
+        <bean class="com.daren.rescue.core.biz.RescueBeanServiceImpl">
+            <property name="rescueBeanDao" ref="rescueBeanDao"/>
+                </bean>
+    </service>
+    <reference id="rescueBeanDao" interface="com.daren.rescue.api.dao.IRescueBeanDao"/>
+</blueprint>
+
