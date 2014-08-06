@@ -6,8 +6,8 @@
         xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
         xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
 
-    <service interface="com.daren.file.api.dao.IDocmentBeanDao">
-        <bean class="com.daren.file.persist.openjpa.DocmentBeanDaoOpenjpa"> <!--init-method="init">-->
+    <service interface="com.daren.file.api.dao.IDocumentBeanDao">
+        <bean class="com.daren.file.persist.openjpa.DocumentBeanDaoOpenjpa"> <!--init-method="init">-->
             <jpa:context property="entityManager" unitname="file-cm"/>
             <tx:transaction method="*" value="Required"/>
         </bean>

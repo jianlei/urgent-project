@@ -42,7 +42,7 @@
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
         </non-jta-data-source>
 
-        <class>com.daren.file.entities.DocmentBean</class>
+        <class>com.daren.file.entities.DocumentBean</class>
         <class>com.daren.file.entities.VideoBean</class>
         <class>com.daren.file.entities.ImageBean</class>
         <class>com.daren.core.api.persistence.PersistentEntity</class>

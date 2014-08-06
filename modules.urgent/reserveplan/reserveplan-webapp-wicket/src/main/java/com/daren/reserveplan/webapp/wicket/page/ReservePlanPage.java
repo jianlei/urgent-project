@@ -20,6 +20,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -48,13 +49,14 @@ public class ReservePlanPage extends BasePanel {
     private IReservePlanBeanService reservePlanBeanService;
     private final TabbedPanel tabPanel;
     UserDataProvider provider = new UserDataProvider();
+    final RepeatingView createPage = new RepeatingView("createPage");
 
     public ReservePlanPage(String id, WebMarkupContainer wmc) {
 
         super(id, wmc);
         //增加tabs支持
         Options options = new Options();
-        tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
+        tabPanel = new TabbedPanel("tabs", this.newTabList(wmc), options);
         this.add(tabPanel);
 
 
@@ -63,9 +65,10 @@ public class ReservePlanPage extends BasePanel {
 
     /**
      * 添加tabs
+     *
      * @return
      */
-    private List<ITab> newTabList() {
+    private List<ITab> newTabList(final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList<ITab>();
         // tab #1 //
         tabs.add(new AbstractTab(Model.of("预案管理")) {
@@ -74,7 +77,7 @@ public class ReservePlanPage extends BasePanel {
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "panel-1");
+                return new MainFragment(panelId, "panel-1", wmc);
             }
         });
 
@@ -87,7 +90,7 @@ public class ReservePlanPage extends BasePanel {
      * @param table
      * @param
      */
-    private Form createQuery(final WebMarkupContainer table, final UserDataProvider provider, final TabbedPanel tabPanel) {
+    private Form createQuery(final WebMarkupContainer table, final UserDataProvider provider, final TabbedPanel tabPanel, final WebMarkupContainer wmc) {
         //处理查询
         Form<ReservePlanBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ReservePlanBean()));
         TextField textField = new TextField("name");
@@ -120,8 +123,11 @@ public class ReservePlanPage extends BasePanel {
                             } catch (InterruptedException e) {
                                 error(e.getMessage());
                             }
-
-                            return new Fragment(panelId, "panel-2", ReservePlanPage.this);
+                            ReservePlanEditPage reservePlanEditPage = new ReservePlanEditPage(createPage.newChildId(), wmc, null);
+                            createPage.add(reservePlanEditPage);
+                            Fragment fragment = new Fragment(panelId, "panel-2", ReservePlanPage.this);
+                            fragment.add(createPage);
+                            return fragment;
                         }
                     });
                 }
@@ -136,7 +142,7 @@ public class ReservePlanPage extends BasePanel {
     }
 
     public class MainFragment extends Fragment {
-        public MainFragment(String id, String markupId) {
+        public MainFragment(String id, String markupId, final WebMarkupContainer wmc) {
             super(id, markupId, ReservePlanPage.this);
 
             final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -149,7 +155,7 @@ public class ReservePlanPage extends BasePanel {
                 protected void populateItem(Item<ReservePlanBean> item) {
                     final ReservePlanBean reservePlanBean = item.getModelObject();
 
-                    item.add(new Label("col1", reservePlanBean.getName()));
+                    item.add(new Label("name", reservePlanBean.getName()));
 
                     AjaxLink alink = new AjaxLink("delete") {
                         @Override
@@ -162,15 +168,10 @@ public class ReservePlanPage extends BasePanel {
 
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                        /*target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
-                                + "/libya.protests/index.html?hpt="+row.getId()
-     *//* you probably want to encode this first *//*+"')");*/
                             reservePlanBeanService.deleteEntity(reservePlanBean.getId());
-                            // target.add(new HomePage());
                             target.add(table);
                         }
                     };
-//                alink.add(new Label("linklabel", "删除").setOutputMarkupId(true));
                     item.add(alink.setOutputMarkupId(true));
                 }
             };
@@ -178,21 +179,16 @@ public class ReservePlanPage extends BasePanel {
             CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
-//        table.setVersioned(false);
-
-
             table.add(listView);
-            add(createQuery(table, provider, tabPanel));
+            add(createQuery(table, provider, tabPanel, wmc));
         }
     }
 
     class UserDataProvider extends ListDataProvider<ReservePlanBean> {
         private ReservePlanBean userBean = null;
-
         public void setReservePlanBean(ReservePlanBean userBean) {
             this.userBean = userBean;
         }
-
         @Override
         protected List<ReservePlanBean> getData() {
             if (userBean == null)

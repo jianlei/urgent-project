@@ -5,10 +5,9 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.application.api.biz.IApplicationBeanService;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
-import com.daren.file.entities.DocmentBean;
+import com.daren.file.entities.DocumentBean;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
-import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -19,7 +18,6 @@ import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -170,9 +168,9 @@ public class ApplicationPage extends BasePanel {
                     final ApplicationBean applicationBean = item.getModelObject();
 
                     item.add(new Label("name", applicationBean.getName()));
-                    DocmentBean docmentBean = uploadDocumentService.queryDocmentByAttach(applicationBean.getId()).get(0);
+                    DocumentBean documentBean = uploadDocumentService.queryDocumentByAttach(applicationBean.getId()).get(0);
 
-                    item.add(new Label("description", docmentBean.getDescription()));
+                    item.add(new Label("description", documentBean.getDescription()));
 
                     AjaxLink alink = new AjaxLink("delete") {
                         @Override

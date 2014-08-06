@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "urg_dri_docment")
-public class DocmentBean extends PersistentEntity {
+public class DocumentBean extends PersistentEntity {
     private String name;            //文档名称
     private String type;            //文档类型
     private long size;           //文档大小
@@ -19,7 +19,7 @@ public class DocmentBean extends PersistentEntity {
     private String description;    //描述
     private String filePath;        //文档路径
 
-    public DocmentBean(){
+    public DocumentBean(){
         name = "";
         type = "";
         size=0;
