@@ -24,12 +24,8 @@ import java.util.Map;
 
 public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializable> implements IGenericDao<T, PK> {
     protected final Logger log = Logger.getLogger(getClass());
-    private Class<T> persistentClass;
     protected EntityManager entityManager;
-
-    public void setEntityManager(EntityManager em) {
-        entityManager = em;
-    }
+    private Class<T> persistentClass;
 
     public GenericOpenJpaDao() {
         Object obj = this.getClass().getGenericSuperclass();
@@ -50,6 +46,10 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
      */
     public GenericOpenJpaDao(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
+    }
+
+    public void setEntityManager(EntityManager em) {
+        entityManager = em;
     }
 
     @Override
@@ -89,7 +89,10 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
 
     @Override
     public T save(T object) {
-        entityManager.merge(object);
+        if (object.getId() == 0)//do not persist
+            entityManager.persist(object);
+        else
+            entityManager.merge(object);
         entityManager.flush();
         return object;
     }

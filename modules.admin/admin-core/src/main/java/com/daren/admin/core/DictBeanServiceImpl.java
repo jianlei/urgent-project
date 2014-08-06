@@ -29,4 +29,9 @@ public class DictBeanServiceImpl extends GenericBizServiceImpl implements IDictB
     public List<DictBean> getDictList(String type) {
         return dictBeanDao.getDictList(type);
     }
+
+    @Override
+    public List<DictBean> query(DictBean dictBean) {
+        return dictBeanDao.find("select a from DictBean a where a.type like ?1", "%" + dictBean.getType() + "%");
+    }
 }

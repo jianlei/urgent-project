@@ -3,7 +3,6 @@ package com.daren.core.web.bootup.wicket;
 
 import com.daren.core.web.api.provider.IHomePageProvider;
 import com.daren.core.web.validation.JSR303ValidationListener;
-import com.daren.core.web.wicket.HomePage;
 import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
@@ -29,6 +28,7 @@ import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.session.ISessionStore;
+import org.apache.wicket.settings.IExceptionSettings;
 import org.apache.wicket.util.IProvider;
 import org.apache.wicket.util.lang.Args;
 import org.slf4j.Logger;
@@ -43,21 +43,21 @@ import java.io.Serializable;
 public class IrisShiroApplication extends WebApplication {
     private IHomePageProvider homePageProvider;
 
-    public void setHomePageProvider(IHomePageProvider homePageProvider) {
-        this.homePageProvider = homePageProvider;
-
-    }
-
-    // --------------------------------------------------------------------------
-    // Constructors
-    // --------------------------------------------------------------------------
-
     public IrisShiroApplication() {
         /*try {
             homePageProvider = JNDIHelper.getJNDIServiceForName(IHomePageProvider.class.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+    }
+
+    // --------------------------------------------------------------------------
+    // Constructors
+    // --------------------------------------------------------------------------
+
+    public void setHomePageProvider(IHomePageProvider homePageProvider) {
+        this.homePageProvider = homePageProvider;
+
     }
 
     @Override
@@ -74,6 +74,11 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
+        // Set the proper setting to show the error page
+        // note: will be set until the "failure" link is clicked or the application is
+        // restarted
+        getExceptionSettings().setAjaxErrorHandlingStrategy(
+                IExceptionSettings.AjaxErrorStrategy.REDIRECT_TO_ERROR_PAGE);
         //避免将Wicket 标签输出到客户端
         getMarkupSettings().setStripWicketTags(true);
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
@@ -148,12 +153,10 @@ public class IrisShiroApplication extends WebApplication {
 
     class SessionPageStore implements IPageStore {
 
+        protected static final int DEFAULT_MAX_PAGES = -1;
         private final Logger LOG = LoggerFactory.getLogger(SessionPageStore.class);
         private final String PAGE_MAP_SESSION_KEY = SessionPageStore.class.getName() +
                 "_PAGE_CACHE_MANAGER_SESSION_KEY";
-
-        protected static final int DEFAULT_MAX_PAGES = -1;
-
         private int MAX_PAGE_MAP_SIZE;
 
         public SessionPageStore() {

@@ -27,4 +27,12 @@ public interface IDictBeanService extends IBizService {
      * @return
      */
     List<DictBean> getDictList(String type);
+
+    /**
+     * 模糊查询
+     *
+     * @param dictBean
+     * @return
+     */
+    List<DictBean> query(DictBean dictBean);
 }

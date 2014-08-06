@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <service id="expertService" interface="com.daren.expert.api.biz.IExpertBeanService">
-        <bean class="com.daren.expert.core.biz.ExpertBeanServiceImpl">
-            <property name="expertBeanDao" ref="expertBeanDao"/>
-                </bean>
+    <service id="enterpriseExpertBeanService" interface="com.daren.expert.api.biz.IEnterpriseExpertBeanService">
+        <bean class="com.daren.expert.core.biz.EnterpriseExpertBeanServiceImpl">
+            <property name="enterpriseExpertBeanDao" ref="enterpriseExpertBeanDao"/>
+        </bean>
     </service>
-    <reference id="expertBeanDao" interface="com.daren.expert.api.dao.IExpertBeanDao"/>
+    <reference id="enterpriseExpertBeanDao" interface="com.daren.expert.api.dao.IEnterpriseExpertBeanDao"/>
+
+    <service id="safetySupervisionExpertBeanService"
+             interface="com.daren.expert.api.biz.ISafetySupervisionExpertBeanService">
+        <bean class="com.daren.expert.core.biz.SafetySupervisionExpertBeanServiceImpl">
+            <property name="safetySupervisionExpertBeanDao" ref="safetySupervisionExpertBeanDao"/>
+        </bean>
+    </service>
+    <reference id="safetySupervisionExpertBeanDao"
+               interface="com.daren.expert.api.dao.ISafetySupervisionExpertBeanDao"/>
 </blueprint>
 

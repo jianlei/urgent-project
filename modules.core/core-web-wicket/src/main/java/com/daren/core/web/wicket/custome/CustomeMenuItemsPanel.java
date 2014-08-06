@@ -4,8 +4,10 @@ import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
 import com.daren.core.web.wicket.MenuModuleManager;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -33,7 +35,15 @@ public class CustomeMenuItemsPanel extends Panel {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         wmc.removeAll();
-                        wmc.addOrReplace(((IMenuItemsModule) item.getModelObject()).getPanel("panel", wmc));
+                        //使用延迟加载panel
+                        wmc.addOrReplace(new AjaxLazyLoadPanel("panel") {
+                                             @Override
+                                             public Component getLazyLoadComponent(String markupId) {
+                                                 return ((IMenuItemsModule) item.getModelObject()).getPanel(markupId, wmc);
+                                             }
+                                         }
+
+                        );
                         //                         setResponsePage();
 
                         target.add(wmc);

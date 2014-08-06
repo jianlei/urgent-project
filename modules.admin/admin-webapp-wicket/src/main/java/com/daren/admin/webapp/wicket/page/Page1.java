@@ -12,7 +12,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -53,17 +53,13 @@ public class Page1 extends BasePanel {
 //        this.add(new JQueryBehavior("#tabs", "tabs"));
 
         Options options = new Options();
-        options.set("collapsible", true);
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
-
-
-        final WebMarkupContainer webMarkupContainer = wmc;
-
     }
 
     /**
      * 添加tabs
+     *
      * @return
      */
     private List<ITab> newTabList() {
@@ -96,16 +92,22 @@ public class Page1 extends BasePanel {
         myform.add(textField.setOutputMarkupId(true));
 
 
-        AjaxButton findButton = new AjaxButton("find", myform) {
+        IndicatingAjaxButton findButton = new IndicatingAjaxButton("find", myform) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                try {
+                    // sleep the thread for a half second to simulate a long load
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    error(e.getMessage());
+                }
                 UserBean userBean = (UserBean) form.getModelObject();
                 provider.setUserBean(userBean);
                 target.add(table);
             }
         };
 
-        AjaxButton addButton = new AjaxButton("add") {
+        IndicatingAjaxButton addButton = new IndicatingAjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 if (tabPanel.getModelObject().size() == 1) {
@@ -130,6 +132,10 @@ public class Page1 extends BasePanel {
                 target.add(tabPanel);
             }
 
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                super.onError(target, form);
+            }
         };
         myform.add(addButton);
         myform.add(findButton);
