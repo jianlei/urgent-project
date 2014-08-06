@@ -1,7 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IDictBeanService;
-import com.daren.admin.entities.DictBean;
+import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -18,30 +18,29 @@ import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 
-
 /**
  * 项目名称:  urgent-project
- * 类描述:   字典类的新增和修改页面类
+ * 类描述:    用户新增或修改页面
  * 创建人:    sunlf
- * 创建时间:  2014/8/4 9:43
+ * 创建时间:  2014/8/5 13:44
  * 修改人:    sunlf
- * 修改时间:  2014/8/4 9:43
+ * 修改时间:  2014/8/5 13:44
  * 修改备注:  [说明本次修改内容]
  */
-public class DictAddPage extends Panel {
+public class UserAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     @Inject
-    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    private IDictBeanService dictBeanService;
+    @Reference(id = "userBeanService", serviceInterface = IUserBeanService.class)
+    private IUserBeanService userBeanService;
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public DictAddPage(String id, String type, IModel<DictBean> model) {
+    public UserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
         this.type = type;
 
         if (model.getObject() == null)
             //new model
-            initForm(Model.of(new DictBean()));
+            initForm(Model.of(new UserBean()));
         else
             //edit model
             initForm(model);
@@ -53,27 +52,28 @@ public class DictAddPage extends Panel {
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
-    private void initForm(IModel<DictBean> model) {
-        final Form<DictBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
+    private void initForm(IModel<UserBean> model) {
+        final Form<UserBean> userForm = new Form("userForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new FeedbackPanel("feedback");
-        dictForm.add(feedbackPanel.setOutputMarkupId(true));
+        userForm.add(feedbackPanel.setOutputMarkupId(true));
 
-        dictForm.add(new TextField("label").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("value").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("type").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("description"));
-        dictForm.add(new TextField("sort").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        userForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        userForm.add(new TextField("loginName").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        userForm.add(new TextField("email").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        userForm.add(new TextField("phone"));
+        userForm.add(new TextField("mobile").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+//      userForm.add(new TextField("loginDate").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
-        dictForm.add(new AjaxButton("save", dictForm) {
+        userForm.add(new AjaxButton("save", userForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    DictBean dictBean = (DictBean) form.getModelObject();
-                    dictBeanService.saveEntity(dictBean);
-                    dictForm.setModelObject(new DictBean());
-                    feedbackPanel.info(type + dictBean.getType() + "成功！");
-                    target.add(dictForm);
+                    UserBean userBean = (UserBean) form.getModelObject();
+                    userBeanService.saveEntity(userBean);
+                    userForm.setModelObject(new UserBean());
+                    feedbackPanel.info(type + userBean.getName() + "成功！");
+                    target.add(userForm);
                 } catch (Exception e) {
                     feedbackPanel.error(type + "失败！");
                     e.printStackTrace();
@@ -86,14 +86,14 @@ public class DictAddPage extends Panel {
             }
         });
 
-        dictForm.add(new AjaxLink("cancel") {
+        userForm.add(new AjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 onDeleteTabs(target);
             }
         });
-        dictForm.setOutputMarkupId(true);
-        dictForm.add(new JSR303FormValidator());
-        add(dictForm);
+        userForm.setOutputMarkupId(true);
+        userForm.add(new JSR303FormValidator());
+        add(userForm);
     }
 }
