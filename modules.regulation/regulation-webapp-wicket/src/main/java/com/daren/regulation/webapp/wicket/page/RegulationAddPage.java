@@ -1,8 +1,8 @@
-package com.daren.expert.webapp.wicket.page;
+package com.daren.regulation.webapp.wicket.page;
 
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
-import com.daren.expert.entities.EnterpriseExpertBean;
+import com.daren.regulation.api.biz.IRegulationBeanService;
+import com.daren.regulation.entities.RegulationBean;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -18,17 +18,17 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 
 /**
- * Created by Administrator on 14-8-5.
+ * Created by Administrator on 2014/8/6.
  */
-public class EnterpriseExpertAddPage extends Panel {
+public class RegulationAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     private boolean isAdd;
     @Inject
-    @Reference(id = "enterpriseExpertBeanService", serviceInterface = IEnterpriseExpertBeanService.class)
-    private IEnterpriseExpertBeanService enterpriseExpertBeanService;
+    @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
+    private IRegulationBeanService regulationBeanService;
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public EnterpriseExpertAddPage(String id, String type, IModel<EnterpriseExpertBean> model) {
+    public RegulationAddPage(String id, String type, IModel<RegulationBean> model) {
         super(id, model);
         this.type = type;
 
@@ -36,7 +36,7 @@ public class EnterpriseExpertAddPage extends Panel {
         //new model
         {
             isAdd = true;
-            initForm(Model.of(new EnterpriseExpertBean()));
+            initForm(Model.of(new RegulationBean()));
         } else
         //edit model
         {
@@ -51,27 +51,25 @@ public class EnterpriseExpertAddPage extends Panel {
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
-    private void initForm(IModel<EnterpriseExpertBean> model) {
-        final Form<EnterpriseExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
+    private void initForm(IModel<RegulationBean> model) {
+        final Form<RegulationBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new FeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
 
         dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("contactInformation").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("type").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        dictForm.add(new TextField("description").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
         dictForm.add(new AjaxButton("save", dictForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    EnterpriseExpertBean dictBean = (EnterpriseExpertBean) form.getModelObject();
-                    dictBean.setAttach(1l);
-                    enterpriseExpertBeanService.saveEntity(dictBean);
+                    RegulationBean dictBean = (RegulationBean) form.getModelObject();
+                    regulationBeanService.saveEntity(dictBean);
                     if (isAdd) {
-                        dictForm.setModelObject(new EnterpriseExpertBean());
+                        dictForm.setModelObject(new RegulationBean());
                     }
-                    feedbackPanel.info(type + dictBean.getType() + "成功！");
+                    feedbackPanel.info(type + dictBean.getName() + "成功！");
 
                     target.add(form);
                 } catch (Exception e) {

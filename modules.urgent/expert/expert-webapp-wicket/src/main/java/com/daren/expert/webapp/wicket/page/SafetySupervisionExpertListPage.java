@@ -2,8 +2,8 @@ package com.daren.expert.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
-import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
-import com.daren.expert.entities.EnterpriseExpertBean;
+import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
+import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
@@ -35,13 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 企业专家管理
- * Created by 张清欣 on 14-8-5.
+ * 行管专家管理
+ * Created by Administrator on 2014/8/6.
  */
-public class EnterpriseExpertListPage extends BasePanel {
+public class SafetySupervisionExpertListPage extends BasePanel {
 
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "企业专家";
+    private final static String CONST_LIST = "行管专家";
     private final static String CONST_ADD = "添加专家";
     private final static String CONST_EDIT = "编辑专家";
     private final TabbedPanel tabPanel;
@@ -49,11 +49,11 @@ public class EnterpriseExpertListPage extends BasePanel {
     DictDataProvider provider = new DictDataProvider();
     //注入服务
     @Inject
-    @Reference(id = "enterpriseExpertBeanService", serviceInterface = IEnterpriseExpertBeanService.class)
-    private IEnterpriseExpertBeanService enterpriseExpertBeanService;
+    @Reference(id = "safetySupervisionExpertBeanService", serviceInterface = ISafetySupervisionExpertBeanService.class)
+    private ISafetySupervisionExpertBeanService safetySupervisionExpertBeanService;
 
     //构造函数
-    public EnterpriseExpertListPage(String id, WebMarkupContainer wmc) {
+    public SafetySupervisionExpertListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
@@ -103,7 +103,7 @@ public class EnterpriseExpertListPage extends BasePanel {
      * @param newTabType "修改字典"||"新增字典"
      * @param row        数据
      */
-    private void createNewTab(AjaxRequestTarget target, final String newTabType, final EnterpriseExpertBean row) {
+    private void createNewTab(AjaxRequestTarget target, final String newTabType, final SafetySupervisionExpertBean row) {
         //去掉第二个tab
         if (tabPanel.getModelObject().size() == 2) {
             tabPanel.getModelObject().remove(1);
@@ -115,7 +115,7 @@ public class EnterpriseExpertListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                EnterpriseExpertAddPage enterpriseExpertAddPage = new EnterpriseExpertAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                SafetySupervisionExpertAddPage safetySupervisionExpertAddPage = new SafetySupervisionExpertAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -124,8 +124,8 @@ public class EnterpriseExpertListPage extends BasePanel {
                         target.add(tabPanel);
                     }
                 };
-                repeatingView.add(enterpriseExpertAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", EnterpriseExpertListPage.this);
+                repeatingView.add(safetySupervisionExpertAddPage);
+                Fragment fragment = new Fragment(panelId, "addPanel", SafetySupervisionExpertListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -141,7 +141,7 @@ public class EnterpriseExpertListPage extends BasePanel {
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, EnterpriseExpertListPage.this);
+            super(id, markupId, SafetySupervisionExpertListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -153,12 +153,12 @@ public class EnterpriseExpertListPage extends BasePanel {
             container.add(table.setOutputMarkupId(true));
 
             //add listview
-            final DataView<EnterpriseExpertBean> listView = new DataView<EnterpriseExpertBean>("rows", provider, numPerPage) {
+            final DataView<SafetySupervisionExpertBean> listView = new DataView<SafetySupervisionExpertBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(Item<EnterpriseExpertBean> item) {
-                    final EnterpriseExpertBean row = item.getModelObject();
+                protected void populateItem(Item<SafetySupervisionExpertBean> item) {
+                    final SafetySupervisionExpertBean row = item.getModelObject();
                     item.add(new Label("col1", row.getName()));
                     item.add(new Label("col2", row.getContactInformation()));
                     item.add(new Label("col3", row.getType()));
@@ -176,7 +176,7 @@ public class EnterpriseExpertListPage extends BasePanel {
             table.add(pagingNavigator);
 
             //增加form
-            Form<EnterpriseExpertBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new EnterpriseExpertBean()));
+            Form<SafetySupervisionExpertBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new SafetySupervisionExpertBean()));
             TextField textField = new TextField("type");
             textField.setRequired(false);
             dictForm.add(textField.setOutputMarkupId(true));
@@ -195,7 +195,7 @@ public class EnterpriseExpertListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final EnterpriseExpertBean row) {
+        private AjaxLink initUpdateButton(final SafetySupervisionExpertBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -212,7 +212,7 @@ public class EnterpriseExpertListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final EnterpriseExpertBean row) {
+        private AjaxLink initDeleteButton(final SafetySupervisionExpertBean row) {
             //删除功能
             AjaxLink alink = new AjaxLink("delete") {
                 @Override
@@ -226,7 +226,7 @@ public class EnterpriseExpertListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
-                        enterpriseExpertBeanService.deleteEntity(row.getId());
+                        safetySupervisionExpertBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
                         target.addChildren(getPage(), FeedbackPanel.class);
                         target.add(container);
@@ -251,7 +251,7 @@ public class EnterpriseExpertListPage extends BasePanel {
             return new IndicatingAjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    EnterpriseExpertBean dictBean = (EnterpriseExpertBean) form.getModelObject();
+                    SafetySupervisionExpertBean dictBean = (SafetySupervisionExpertBean) form.getModelObject();
                     provider.setDictBean(dictBean);
                     target.add(container);
                 }
@@ -267,20 +267,20 @@ public class EnterpriseExpertListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<EnterpriseExpertBean> {
-        private EnterpriseExpertBean dictBean = null;
+    class DictDataProvider extends ListDataProvider<SafetySupervisionExpertBean> {
+        private SafetySupervisionExpertBean dictBean = null;
 
-        public void setDictBean(EnterpriseExpertBean dictBean) {
+        public void setDictBean(SafetySupervisionExpertBean dictBean) {
             this.dictBean = dictBean;
         }
 
         @Override
-        protected List<EnterpriseExpertBean> getData() {
+        protected List<SafetySupervisionExpertBean> getData() {
             //类型为空时候，返回全部记录
             if (dictBean == null || dictBean.getType().equals(""))
-                return enterpriseExpertBeanService.getAllEntity();
+                return safetySupervisionExpertBeanService.getAllEntity();
             else {
-                return enterpriseExpertBeanService.query(dictBean);
+                return safetySupervisionExpertBeanService.query(dictBean);
             }
         }
     }
