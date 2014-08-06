@@ -1,7 +1,7 @@
 package com.daren.expert.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.expert.webapp.wicket.page.EnterpriseExpertPage;
+import com.daren.expert.webapp.wicket.page.EnterpriseExpertListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -44,6 +44,6 @@ public class EnterpriseExpertMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new EnterpriseExpertPage(id, wmc);
+        return new EnterpriseExpertListPage(id, wmc);
     }
 }

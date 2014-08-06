@@ -2,6 +2,9 @@ package com.daren.expert.api.biz;
 
 
 import com.daren.core.api.biz.IBizService;
+import com.daren.expert.entities.EnterpriseExpertBean;
+
+import java.util.List;
 
 /**
  * 企业企业专家
@@ -9,4 +12,5 @@ import com.daren.core.api.biz.IBizService;
  */
 public interface IEnterpriseExpertBeanService extends IBizService {
 
+    List<EnterpriseExpertBean> query(EnterpriseExpertBean dictBean);
 }

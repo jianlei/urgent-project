@@ -5,6 +5,8 @@ import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
 import com.daren.expert.api.dao.IEnterpriseExpertBeanDao;
 import com.daren.expert.entities.EnterpriseExpertBean;
 
+import java.util.List;
+
 /**
  * @类描述：企业专家服务实现类
  * @创建人：张清欣
@@ -20,6 +22,11 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
     public void setEnterpriseExpertBeanDao(IEnterpriseExpertBeanDao enterpriseExpertBeanDao) {
         this.enterpriseExpertBeanDao = enterpriseExpertBeanDao;
         super.init(enterpriseExpertBeanDao, EnterpriseExpertBean.class.getName());
+    }
+
+    @Override
+    public List<EnterpriseExpertBean> query(EnterpriseExpertBean dictBean) {
+        return enterpriseExpertBeanDao.find("select a from EnterpriseExpertBean a where a.name like :1");
     }
 }
 

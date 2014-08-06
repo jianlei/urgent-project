@@ -1,7 +1,6 @@
 package com.daren.expert.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.expert.webapp.wicket.page.SafetySupervisionExpertPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -44,6 +43,7 @@ public class SafetySupervisionExpertMenuItemsModule implements IMenuItemsModule 
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new SafetySupervisionExpertPage(id, wmc);
+//        return new SafetySupervisionExpertPage(id, wmc);
+        return null;
     }
 }
