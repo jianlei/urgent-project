@@ -1,11 +1,10 @@
-package com.daren.application.webapp.wicket.page;
+package com.daren.reserveplan.webapp.wicket.page;
 
-
-import com.daren.application.api.biz.IApplicationBeanService;
-import com.daren.application.entities.ApplicationBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
+import com.daren.reserveplan.api.biz.IReservePlanBeanService;
+import com.daren.reserveplan.entities.ReservePlanBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -29,18 +28,17 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ApplicationCreatePage extends BasePanel {
+public class ReservePlanEditPage extends BasePanel {
     @Inject
-    private IApplicationBeanService applicationBeanService;
+    private IReservePlanBeanService reservePlanBeanService;
 
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public ApplicationCreatePage(final String id,final WebMarkupContainer wmc,final ApplicationBean applicationBean) {
+    public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id,wmc);
-        final DocumentBean documentBean = new DocumentBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
-        Form form = new Form("applicationCreateForm", new CompoundPropertyModel(documentBean));
+        Form form = new Form("createForm", new CompoundPropertyModel(new DocumentBean()));
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
@@ -49,7 +47,7 @@ public class ApplicationCreatePage extends BasePanel {
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                DocumentBean documentBean1 = (DocumentBean) form.getDefaultModelObject();
+                DocumentBean documentBean = (DocumentBean) form.getDefaultModelObject();
                 try {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
@@ -57,29 +55,27 @@ public class ApplicationCreatePage extends BasePanel {
                             String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
-                            documentBean1.setFilePath(path);
-                            documentBean1.setName(fileUpload.getClientFileName());
-                            documentBean1.setSize(fileUpload.getSize());
-                            documentBean1.setType(fileUpload.getContentType());
+                            documentBean.setFilePath(path);
+                            documentBean.setName(fileUpload.getClientFileName());
+                            documentBean.setSize(fileUpload.getSize());
+                            documentBean.setType(fileUpload.getContentType());
                         }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(applicationBean == null){
-                    ApplicationBean applicationBeanLocal = new ApplicationBean();
-                    applicationBeanLocal.setName(documentBean1.getName());
-                    applicationBeanLocal = (ApplicationBean)applicationBeanService.saveEntityAndReturn(applicationBeanLocal);
-                    documentBean1.setAttach(applicationBeanLocal.getId());
-                    uploadDocumentService.saveEntity(documentBean1);
+                if(reservePlanBean == null){
+                    ReservePlanBean reservePlanBeanLocal = new ReservePlanBean();
+                    reservePlanBeanLocal.setName(documentBean.getName());
+                    reservePlanBeanLocal = (ReservePlanBean)reservePlanBeanService.saveEntityAndReturn(reservePlanBeanLocal);
+                    documentBean.setAttach(reservePlanBeanLocal.getId());
+                    uploadDocumentService.saveEntity(documentBean);
                 }else{
-                    applicationBean.setName(documentBean1.getName());
-                    applicationBeanService.saveEntity(applicationBean);
-                    documentBean1.setAttach(applicationBean.getId());
-                    uploadDocumentService.saveEntity(documentBean1);
+                    reservePlanBean.setName(documentBean.getName());
+                    reservePlanBeanService.saveEntity(reservePlanBean);
+                    documentBean.setAttach(reservePlanBean.getId());
+                    uploadDocumentService.saveEntity(documentBean);
                 }
-
-
                 super.onSubmit(target, form);
                 target.appendJavaScript("alert('保存成功')");
             }

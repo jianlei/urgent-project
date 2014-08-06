@@ -67,23 +67,7 @@
             <groupId>com.daren.file</groupId>
             <artifactId>com.daren.file.api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.daren.file</groupId>
-            <artifactId>com.daren.file.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.file</groupId>
-            <artifactId>com.daren.file.entities</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.file</groupId>
-            <artifactId>com.daren.file.persist.openjpa</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.wicket</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -153,6 +137,23 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.entities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.persist.openjpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.wicket</artifactId>
         </dependency>
 
 

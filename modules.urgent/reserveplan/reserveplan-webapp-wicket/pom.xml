@@ -112,6 +112,7 @@
             <artifactId>org.apache.servicemix.bundles.velocity</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-jquery-ui-core</artifactId>
@@ -134,6 +135,22 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.entities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.persist.openjpa</artifactId>
         </dependency>
 
     </dependencies>

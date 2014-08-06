@@ -2,21 +2,9 @@ package com.daren.file.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
-import com.daren.file.entities.DocmentBean;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.form.upload.FileUploadField;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @类描述：应急演练-上传文档
@@ -33,7 +21,7 @@ public class UploadDocumentPage extends BasePanel {
 
     public UploadDocumentPage(final String id, final WebMarkupContainer wmc, final long entityId) {
         super(id, wmc);
-       /* final DocmentBean docmentBean = new DocmentBean();
+       /* final DocumentBean docmentBean = new DocumentBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
         Form form = new Form("form", new CompoundPropertyModel(docmentBean));
         form.setMultiPart(true);
@@ -44,7 +32,7 @@ public class UploadDocumentPage extends BasePanel {
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                DocmentBean docmentBean1 = (DocmentBean) form.getDefaultModelObject();
+                DocumentBean docmentBean1 = (DocumentBean) form.getDefaultModelObject();
                 try {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {

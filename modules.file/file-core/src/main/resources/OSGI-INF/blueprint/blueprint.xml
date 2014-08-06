@@ -3,10 +3,10 @@
 
     <service id="uploadDocumentService" interface="com.daren.file.api.biz.IUploadDocumentService">
         <bean class="com.daren.file.core.biz.UploadDocumentServiceImpl">
-            <property name="docmentBeanDao" ref="docmentBeanDao"/>
+            <property name="documentBeanDao" ref="documentBeanDao"/>
         </bean>
     </service>
-    <reference id="docmentBeanDao" interface="com.daren.file.api.dao.IDocmentBeanDao"/>
+    <reference id="documentBeanDao" interface="com.daren.file.api.dao.IDocumentBeanDao"/>
 
     <service id="uploadVideoService" interface="com.daren.file.api.biz.IUploadVideoService">
         <bean class="com.daren.file.core.biz.UploadVideoServiceImpl">
