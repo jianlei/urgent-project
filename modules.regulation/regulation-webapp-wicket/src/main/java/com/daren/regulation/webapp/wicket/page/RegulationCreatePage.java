@@ -42,9 +42,9 @@ public class RegulationCreatePage extends BasePanel {
                 regulationBean1.setEnterpriseId(1l);
                 regulationService.saveEntity(regulationBean1);
                 super.onSubmit(target, form);
-                wmc.removeAll();
+               /* wmc.removeAll();
                 wmc.addOrReplace(new RegulationPage(id, wmc));
-                target.add(wmc);
+                target.add(wmc);*/
             }
         };
         add(ajaxSubmitLinkCreate);
@@ -52,9 +52,9 @@ public class RegulationCreatePage extends BasePanel {
         AjaxLink ajaxLinkReturn = new AjaxLink("return") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                wmc.removeAll();
+                /*wmc.removeAll();
                 wmc.addOrReplace(new RegulationPage(id, wmc));
-                ajaxRequestTarget.add(wmc);
+                ajaxRequestTarget.add(wmc);*/
             }
         };
         this.add(ajaxLinkReturn);

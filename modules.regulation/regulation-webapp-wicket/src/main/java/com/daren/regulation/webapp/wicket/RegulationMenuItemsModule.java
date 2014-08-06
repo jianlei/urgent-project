@@ -1,8 +1,7 @@
 package com.daren.regulation.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.regulation.webapp.wicket.page.RegulationPage;
-import org.apache.wicket.Page;
+import com.daren.regulation.webapp.wicket.page.RegulationListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -45,6 +44,6 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new RegulationPage(id, wmc);
+        return new RegulationListPage(id, wmc);
     }
 }

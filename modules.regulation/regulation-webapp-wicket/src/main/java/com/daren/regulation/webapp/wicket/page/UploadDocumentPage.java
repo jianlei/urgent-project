@@ -65,9 +65,9 @@ public class UploadDocumentPage extends BasePanel {
                 docmentBean1.setAttach(entityId);
                 uploadDocumentService.saveEntity(docmentBean1);
                 super.onSubmit(target, form);
-                wmc.removeAll();
+               /* wmc.removeAll();
                 wmc.addOrReplace(new RegulationPage(id, wmc));
-                target.add(wmc);
+                target.add(wmc);*/
             }
         };
         add(ajaxSubmitLinkCreate);
@@ -75,9 +75,9 @@ public class UploadDocumentPage extends BasePanel {
         AjaxLink ajaxLinkReturn = new AjaxLink("return") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                wmc.removeAll();
+               /* wmc.removeAll();
                 wmc.addOrReplace(new RegulationPage(id, wmc));
-                ajaxRequestTarget.add(wmc);
+                ajaxRequestTarget.add(wmc);*/
             }
         };
         this.add(ajaxLinkReturn);

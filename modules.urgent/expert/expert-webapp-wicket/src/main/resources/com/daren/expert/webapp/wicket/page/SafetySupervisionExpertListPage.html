@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <!--<link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>-->
+    <!--<script type="text/javascript" src="cus/Scripts/tb.js"></script>-->
+</wicket:head>
+<body>
+<wicket:panel>
+    <div wicket:id="tabs"></div>
+    <wicket:fragment wicket:id="mainPanel" id="mainPanel">
+        <div class="alert alert-info">当前位置<b class="tip"/>资源管理<b class="tip"/>行管专家管理</div>
+        <form method="post" wicket:id="form">
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="tdl">类型</td>
+                    <td class="detail">
+                        <input wicket:id="type" class="ipt"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="left">
+                        <input class="btn btn-inverse" id="find" wicket:id="find" type="button" value="查询"/>
+                        <!--<input class="btn btn-inverse" type="reset" value="清空"/>-->
+                        <input class="btn btn-inverse" wicket:id="add" type="button" value="新增"/>
+                        <!--<input class="btn btn-inverse" wicket:id="info" type="button" value="信息"/>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <div wicket:id="container">
+
+            <span wicket:id="feedback"/>
+
+            <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+                <thead>
+                <tr class="tr_detail">
+                    <th>专家名称</th>
+                    <th>联系方式</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr wicket:id="rows">
+                    <td><span wicket:id="col1"></span></td>
+                    <td><span wicket:id="col2"></span></td>
+                    <td><span wicket:id="col3"></span></td>
+                    <!--<td ><a wicket:id="col4">delete</a> </td>-->
+                    <td>
+                        <a href="#" wicket:id="edit"><!--<span wicket:id="linklabel"></span>-->修改</a>
+                        <a href="#" wicket:id="delete"><!--<span wicket:id="linklabel"></span>-->删除</a>
+                    </td>
+
+                </tr>
+
+
+                <tr class="tr_pagenumber">
+                    <td align="center" colspan="100" wicket:id="navigator"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<div wicket:id="infoDialog">[info]</div>-->
+        </div>
+    </wicket:fragment>
+
+    <wicket:fragment wicket:id="addPanel" id="addPanel">
+        <div wicket:id="repeatingView"></div>
+    </wicket:fragment>
+
+</wicket:panel>
+</body>
+</html>

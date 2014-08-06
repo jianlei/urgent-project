@@ -5,6 +5,8 @@ import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.api.dao.ISafetySupervisionExpertBeanDao;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 
+import java.util.List;
+
 /**
  * @类描述：行管专家服务实现类
  * @创建人：张清欣
@@ -20,6 +22,11 @@ public class SafetySupervisionExpertBeanServiceImpl extends GenericBizServiceImp
     public void setSafetySupervisionExpertBeanDao(ISafetySupervisionExpertBeanDao safetySupervisionExpertBeanDao) {
         this.safetySupervisionExpertBeanDao = safetySupervisionExpertBeanDao;
         super.init(safetySupervisionExpertBeanDao, SafetySupervisionExpertBean.class.getName());
+    }
+
+    @Override
+    public List<SafetySupervisionExpertBean> query(SafetySupervisionExpertBean dictBean) {
+        return safetySupervisionExpertBeanDao.find("select e from SafetySupervisionExpertBean e where e.name=?1 ", dictBean.getName());
     }
 }
 

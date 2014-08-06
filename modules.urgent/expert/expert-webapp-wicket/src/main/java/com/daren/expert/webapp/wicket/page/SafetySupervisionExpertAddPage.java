@@ -1,8 +1,8 @@
 package com.daren.expert.webapp.wicket.page;
 
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
-import com.daren.expert.entities.EnterpriseExpertBean;
+import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
+import com.daren.expert.entities.SafetySupervisionExpertBean;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -18,41 +18,35 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 
 /**
- * Created by Administrator on 14-8-5.
+ * Created by Administrator on 2014/8/6.
  */
-public class EnterpriseExpertAddPage extends Panel {
+public class SafetySupervisionExpertAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     private boolean isAdd;
     @Inject
-    @Reference(id = "enterpriseExpertBeanService", serviceInterface = IEnterpriseExpertBeanService.class)
-    private IEnterpriseExpertBeanService enterpriseExpertBeanService;
+    @Reference(id = "safetySupervisionExpertBeanService", serviceInterface = ISafetySupervisionExpertBeanService.class)
+    private ISafetySupervisionExpertBeanService safetySupervisionExpertBeanService;
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public EnterpriseExpertAddPage(String id, String type, IModel<EnterpriseExpertBean> model) {
+    public SafetySupervisionExpertAddPage(String id, String type, IModel<SafetySupervisionExpertBean> model) {
         super(id, model);
         this.type = type;
 
-        if (model.getObject() == null)
-        //new model
-        {
+        if (model.getObject() == null) {
             isAdd = true;
-            initForm(Model.of(new EnterpriseExpertBean()));
-        } else
-        //edit model
-        {
+            initForm(Model.of(new SafetySupervisionExpertBean()));
+        } else {
             isAdd = false;
             initForm(model);
         }
-
-
     }
 
     // Hook 回调函数
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
-    private void initForm(IModel<EnterpriseExpertBean> model) {
-        final Form<EnterpriseExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
+    private void initForm(IModel<SafetySupervisionExpertBean> model) {
+        final Form<SafetySupervisionExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new FeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
@@ -65,11 +59,11 @@ public class EnterpriseExpertAddPage extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    EnterpriseExpertBean dictBean = (EnterpriseExpertBean) form.getModelObject();
+                    SafetySupervisionExpertBean dictBean = (SafetySupervisionExpertBean) form.getModelObject();
                     dictBean.setAttach(1l);
-                    enterpriseExpertBeanService.saveEntity(dictBean);
+                    safetySupervisionExpertBeanService.saveEntity(dictBean);
                     if (isAdd) {
-                        dictForm.setModelObject(new EnterpriseExpertBean());
+                        dictForm.setModelObject(new SafetySupervisionExpertBean());
                     }
                     feedbackPanel.info(type + dictBean.getType() + "成功！");
 
