@@ -1,17 +1,18 @@
 package com.daren.drill.webapp.wicket.page;
 
-import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.drill.api.biz.IUploadImageService;
 import com.daren.drill.entities.ImageBean;
+import com.daren.drill.entities.UrgentDrillBean;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
@@ -27,12 +28,14 @@ import java.util.List;
  * @修改备注：
  */
 
-public class UploadImagePage extends BasePanel {
+public class UploadImagePage extends IrisAbstractDialog<UrgentDrillBean> {
     @Inject
+    @Reference(id = "uploadImageService", serviceInterface = IUploadImageService.class)
     private IUploadImageService uploadImageService;
 
-    public UploadImagePage(final String id, final WebMarkupContainer wmc, final long entityId) {
-        super(id, wmc);
+    public UploadImagePage(String id, String title, IModel<UrgentDrillBean> model) {
+        super(id, title, model);
+        final UrgentDrillBean regulationBean = (UrgentDrillBean) model.getObject();
         final ImageBean imageBean = new ImageBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
         Form form = new Form("form", new CompoundPropertyModel(imageBean));
@@ -40,6 +43,7 @@ public class UploadImagePage extends BasePanel {
         this.add(form);
         form.add(fileUploadField);
         form.add(new TextField("description"));
+
         //保存按钮
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
             @Override
@@ -61,24 +65,11 @@ public class UploadImagePage extends BasePanel {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                imageBean1.setAttach(entityId);
+                imageBean1.setAttach(regulationBean.getId());
                 uploadImageService.saveEntity(imageBean1);
                 super.onSubmit(target, form);
-                wmc.removeAll();
-                wmc.addOrReplace(new UrgentDrillPage(id, wmc));
-                target.add(wmc);
             }
         };
         add(ajaxSubmitLinkCreate);
-        //返回按钮
-        AjaxLink ajaxLinkReturn = new AjaxLink("return") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                wmc.removeAll();
-                wmc.addOrReplace(new UrgentDrillPage(id, wmc));
-                ajaxRequestTarget.add(wmc);
-            }
-        };
-        this.add(ajaxLinkReturn);
     }
 }

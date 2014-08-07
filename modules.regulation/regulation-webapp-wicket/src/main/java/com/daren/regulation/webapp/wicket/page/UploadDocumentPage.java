@@ -70,5 +70,4 @@ public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
         };
         add(ajaxSubmitLinkCreate);
     }
-
 }
