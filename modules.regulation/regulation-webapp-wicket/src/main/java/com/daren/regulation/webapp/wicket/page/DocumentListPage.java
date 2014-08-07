@@ -39,16 +39,10 @@ public class DocumentListPage extends AbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-
     public DocumentListPage(String id, String title, IModel<RegulationBean> model) {
         super(id, title, model);
-
-
         RegulationBean regulationBean = (RegulationBean) model.getObject();
         long entityId = regulationBean.getId();
-        /*Label label=new Label("name");
-        add(label);*/
-        add(new Label("name"));
         List<DocmentBean> list = uploadDocumentService.getDocmentBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
@@ -59,11 +53,9 @@ public class DocumentListPage extends AbstractDialog<RegulationBean> {
                 final DocmentBean docmentBean = item.getModelObject();
                 item.add(new Label("col1", docmentBean.getName()));
                 item.add(new Label("col2", docmentBean.getDescription()));
-
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downDocument", new AbstractReadOnlyModel<File>() {
                     private static final long serialVersionUID = 1L;
-
                     @Override
                     public File getObject() {
                         File tempFile = null;
@@ -97,8 +89,8 @@ public class DocumentListPage extends AbstractDialog<RegulationBean> {
     }
 
     @Override
-    public void setModelObject(RegulationBean user) {
-        this.setDefaultModel(new CompoundPropertyModel<>(user));
+    public void setModelObject(RegulationBean regulationBean) {
+        this.setDefaultModel(new CompoundPropertyModel<>(regulationBean));
     }
 
     @Override
@@ -111,11 +103,6 @@ public class DocumentListPage extends AbstractDialog<RegulationBean> {
     @Override
     public void onClose(AjaxRequestTarget target, DialogButton button) {
         this.setVisible(false);
-    }
-
-    @Override
-    public void onClick(AjaxRequestTarget target, DialogButton button) {
-        super.onClick(target, button);
     }
 
     @Override

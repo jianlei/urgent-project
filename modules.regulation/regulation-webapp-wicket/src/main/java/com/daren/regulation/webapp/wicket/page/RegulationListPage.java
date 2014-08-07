@@ -6,6 +6,7 @@ import com.daren.regulation.api.biz.IRegulationBeanService;
 import com.daren.regulation.entities.RegulationBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -51,7 +52,7 @@ public class RegulationListPage extends BasePanel {
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
-    DocumentListPage dialog;
+    AbstractDialog dialog;
     Fragment fragment;
     //注入服务
     @Inject
@@ -188,7 +189,7 @@ public class RegulationListPage extends BasePanel {
                     AjaxLink alinkDocument = new AjaxLink("document") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            createDialog(target, row, "Fragment dialog box");
+                            createDialog(target, row, "文档列表");
                         }
                     };
                     alinkDocument.add(new Label("documentlabel", "文档"));
@@ -199,6 +200,8 @@ public class RegulationListPage extends BasePanel {
                     item.add(initDeleteButton(row));
                     //add update button
                     item.add(initUpdateButton(row));
+                    //add upload button
+                    item.add(initUploadDocumentButton(row));
                 }
             };
             table.add(listView);
@@ -218,7 +221,6 @@ public class RegulationListPage extends BasePanel {
             dictForm.add(initFindButton(provider, dictForm));
             //add button
             dictForm.add(initAddButton());
-
             add(dictForm);
         }
 
@@ -233,6 +235,15 @@ public class RegulationListPage extends BasePanel {
                 dialogWrapper.removeAll();
             }
             dialog = new DocumentListPage("dialog", title, new CompoundPropertyModel<>(row));
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+        private void createUploadDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new UploadDocumentPage("dialog", title, new CompoundPropertyModel<>(row));
             target.add(dialogWrapper);
             dialog.open(target);
         }
@@ -282,6 +293,22 @@ public class RegulationListPage extends BasePanel {
                         feedbackPanel.error("删除失败！");
                         e.printStackTrace();
                     }
+                }
+            };
+            return alink;
+        }
+
+        /**
+         * 初始化文档上传按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private AjaxLink initUploadDocumentButton(final RegulationBean row) {
+            AjaxLink alink = new AjaxLink("uploadDocument") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createUploadDialog(target, row, "上传文档");
                 }
             };
             return alink;
