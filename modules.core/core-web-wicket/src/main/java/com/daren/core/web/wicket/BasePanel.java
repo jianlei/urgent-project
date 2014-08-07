@@ -22,5 +22,6 @@ public abstract class BasePanel extends Panel {
     public BasePanel(String id, WebMarkupContainer wmc) {
         super(id);
         this.webMarkupContainer = wmc;
+//        webMarkupContainer.add(new DebugBar("debug"));
     }
 }

@@ -1,18 +1,15 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IUserBeanService;
-import com.daren.admin.entities.UserBean;
-import com.daren.admin.webapp.wicket.dialog.ChangePassword;
+import com.daren.admin.api.biz.IRoleBeanService;
+import com.daren.admin.entities.RoleBean;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -40,33 +37,32 @@ import java.util.List;
 
 /**
  * 项目名称:  urgent-project
- * 类描述:    用户列表页面类
+ * 类描述:    角色列表页面类
  * 创建人:    sunlf
- * 创建时间:  2014/8/5 13:34
+ * 创建时间:  2014/8/5 16:58
  * 修改人:    sunlf
- * 修改时间:  2014/8/5 13:34
+ * 修改时间:  2014/8/5 16:58
  * 修改备注:  [说明本次修改内容]
  */
-public class UserListPage extends BasePanel {
+public class RoleListPage extends BasePanel {
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "用户管理";
-    private final static String CONST_ADD = "添加用户";
-    private final static String CONST_EDIT = "编辑用户";
+    private final static String CONST_LIST = "角色管理";
+    private final static String CONST_ADD = "添加角色";
+    private final static String CONST_EDIT = "编辑角色";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
-    UserDataProvider provider = new UserDataProvider();
-    //注入字典业务服务
+    DictDataProvider provider = new DictDataProvider();
+    //注入角色业务服务
     @Inject
-    @Reference(id = "userBeanService", serviceInterface = IUserBeanService.class)
-    private IUserBeanService userBeanService;
+    @Reference(id = "roleBeanService", serviceInterface = IRoleBeanService.class)
+    private IRoleBeanService roleBeanService;
 
     //构造函数
-    public UserListPage(String id, WebMarkupContainer wmc) {
+    public RoleListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
-
     }
 
     /**
@@ -109,10 +105,10 @@ public class UserListPage extends BasePanel {
      * 创建新的页面，用于新增和修改
      *
      * @param target
-     * @param newTabType "修改字典"||"新增字典"
+     * @param newTabType "修改角色"||"新增角色"
      * @param row        数据
      */
-    private void createNewTab(AjaxRequestTarget target, final String newTabType, final UserBean row) {
+    private void createNewTab(AjaxRequestTarget target, final String newTabType, final RoleBean row) {
         //去掉第二个tab
         if (tabPanel.getModelObject().size() == 2) {
             tabPanel.getModelObject().remove(1);
@@ -124,7 +120,7 @@ public class UserListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                UserAddPage dictAddPage = new UserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                RoleAddPage roleAddPage = new RoleAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -133,8 +129,8 @@ public class UserListPage extends BasePanel {
                         target.add(tabPanel);
                     }
                 };
-                repeatingView.add(dictAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", UserListPage.this);
+                repeatingView.add(roleAddPage);
+                Fragment fragment = new Fragment(panelId, "addPanel", RoleListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -146,61 +142,32 @@ public class UserListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
-        final ChangePassword dialog;
         private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, UserListPage.this);
+            super(id, markupId, RoleListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
             //add feedback
             feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
-
-
-            //add dialog
-
-            dialog = new ChangePassword("dialog", "修改密码") {
-
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void onSubmit(AjaxRequestTarget target) {
-//                    PasswordInfo passwordInfo = this.getModelObject();
-
-
-                }
-
-                @Override
-                public void onClose(AjaxRequestTarget target, DialogButton button) {
-                    target.add(this);
-                }
-            };
-            container.add(dialog.setOutputMarkupId(true));
-
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
 
             //add listview
-            final DataView<UserBean> listView = new DataView<UserBean>("rows", provider, numPerPage) {
+            final DataView<RoleBean> listView = new DataView<RoleBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(Item<UserBean> item) {
-                    final UserBean row = item.getModelObject();
+                protected void populateItem(Item<RoleBean> item) {
+                    final RoleBean row = item.getModelObject();
 
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("loginName", row.getLoginName()));
-                    item.add(new Label("email", row.getEmail()));
-                    item.add(new Label("phone", row.getPhone()));
-                    item.add(new Label("mobile", row.getMobile()));
+                    item.add(new Label("remark", row.getRemark()));
                     item.add(new Label("creationDate", DateUtil.convertDateToString(row.getCreationDate(), DateUtil.shortSdf)));
-                    item.add(new Label("roleList", userBeanService.getRoleList(row)));
-                    //add change password button
-                    item.add(initChangePwdButton(row));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
@@ -215,7 +182,7 @@ public class UserListPage extends BasePanel {
             table.add(pagingNavigator);
 
             //增加form
-            Form<UserBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new UserBean()));
+            Form<RoleBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new RoleBean()));
             TextField textField = new TextField("name");
             textField.setRequired(false);
             userForm.add(textField.setOutputMarkupId(true));
@@ -229,31 +196,12 @@ public class UserListPage extends BasePanel {
         }
 
         /**
-         * 初始化修改密码按钮
-         *
-         * @param row 数据
-         * @return link
-         */
-        private Component initChangePwdButton(final UserBean row) {
-            AjaxLink alink = new AjaxLink("changePwd") {
-                @Override
-                public void onClick(AjaxRequestTarget target) {
-                    dialog.setModelObject(row);
-//                    dialog.modelChanged();
-                    dialog.open(target);
-//                    createNewTab(target, CONST_EDIT, row);
-                }
-            };
-            return alink;
-        }
-
-        /**
          * 初始化更新按钮
          *
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final UserBean row) {
+        private AjaxLink initUpdateButton(final RoleBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -270,7 +218,7 @@ public class UserListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final UserBean row) {
+        private AjaxLink initDeleteButton(final RoleBean row) {
             //删除功能
             AjaxLink alink = new AjaxLink("delete") {
                 @Override
@@ -285,7 +233,7 @@ public class UserListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
-                        userBeanService.deleteEntity(row.getId());
+                        roleBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
                         target.addChildren(getPage(), FeedbackPanel.class);
                         target.add(container);
@@ -305,13 +253,13 @@ public class UserListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final UserDataProvider provider, Form form) {
+        private IndicatingAjaxButton initFindButton(final DictDataProvider provider, Form form) {
 
             return new IndicatingAjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    UserBean userBean = (UserBean) form.getModelObject();
-                    provider.setUserBean(userBean);
+                    RoleBean userBean = (RoleBean) form.getModelObject();
+                    provider.setRoleBean(userBean);
                     target.add(container);
                 }
 
@@ -326,20 +274,20 @@ public class UserListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class UserDataProvider extends ListDataProvider<UserBean> {
-        private UserBean userBean = null;
+    class DictDataProvider extends ListDataProvider<RoleBean> {
+        private RoleBean roleBean = null;
 
-        public void setUserBean(UserBean userBean) {
-            this.userBean = userBean;
+        public void setRoleBean(RoleBean roleBean) {
+            this.roleBean = roleBean;
         }
 
         @Override
-        protected List<UserBean> getData() {
+        protected List<RoleBean> getData() {
             //类型为空时候，返回全部记录
-            if (userBean == null || userBean.getName().equals(""))
-                return userBeanService.getAllEntity();
+            if (roleBean == null || roleBean.getName().equals(""))
+                return roleBeanService.getAllEntity();
             else {
-                return userBeanService.query(userBean);
+                return roleBeanService.query(roleBean);
             }
         }
     }

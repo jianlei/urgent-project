@@ -6,8 +6,6 @@ import com.daren.regulation.api.biz.IRegulationBeanService;
 import com.daren.regulation.entities.RegulationBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
-import com.googlecode.wicket.jquery.ui.widget.dialog.FragmentDialog;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -53,7 +51,8 @@ public class RegulationListPage extends BasePanel {
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
-    FragmentDialog<String> dialog;
+    DocumentListPage dialog;
+    Fragment fragment;
     //注入服务
     @Inject
     @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
@@ -134,7 +133,7 @@ public class RegulationListPage extends BasePanel {
                     }
                 };
                 repeatingView.add(regulationAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", RegulationListPage.this);
+                fragment = new Fragment(panelId, "addPanel", RegulationListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -147,31 +146,31 @@ public class RegulationListPage extends BasePanel {
     //列表显示
     public class MainFragment extends Fragment {
         private final JQueryFeedbackPanel feedbackPanel;
-        private final WebMarkupContainer container;
+        private final WebMarkupContainer container, dialogWrapper;
 
         public MainFragment(String id, String markupId) {
             super(id, markupId, RegulationListPage.this);
-
-            // Dialog //
-            dialog = new FragmentDialog<String>("dialog", "Fragment dialog box") {
-
-                @Override
-                public void onClose(AjaxRequestTarget target, DialogButton button) {
-                    target.add(this);
-                }
-
-                @Override
-                protected Fragment newFragment(String s) {
-                    return new DocumentListPage(s, "fragDialog", RegulationListPage.this, Model.of(1));
-                }
-            };
-            add(dialog);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
             //add feedback
             feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
+            //add dialog
+
+            dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+                @Override
+                protected void onBeforeRender() {
+                    if (dialog == null) {
+                        addOrReplace(new Label("dialog"));
+                    } else {
+                        addOrReplace(dialog);
+                    }
+                    super.onBeforeRender();
+                }
+            };
+            container.add(dialogWrapper.setOutputMarkupId(true));
+
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
@@ -181,19 +180,19 @@ public class RegulationListPage extends BasePanel {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(Item<RegulationBean> item) {
+                protected void populateItem(final Item<RegulationBean> item) {
                     final RegulationBean row = item.getModelObject();
                     item.add(new Label("col1", row.getName()));
                     item.add(new Label("col2", row.getDescription()));
+
                     AjaxLink alinkDocument = new AjaxLink("document") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            dialog.setModelObject((row.getName()));
-                            dialog.setTitle(target, "修改密码");
-                            dialog.open(target);
+                            createDialog(target, row, "Fragment dialog box");
                         }
                     };
                     alinkDocument.add(new Label("documentlabel", "文档"));
+
                     item.add(alinkDocument.setOutputMarkupId(true));
 
                     //add delete button
@@ -221,6 +220,21 @@ public class RegulationListPage extends BasePanel {
             dictForm.add(initAddButton());
 
             add(dictForm);
+        }
+
+        /**
+         * 创建dialog
+         * @param target
+         * @param row
+         * @param title
+         */
+        private void createDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new DocumentListPage("dialog", title, new CompoundPropertyModel<>(row));
+            target.add(dialogWrapper);
+            dialog.open(target);
         }
 
         /**
@@ -318,4 +332,6 @@ public class RegulationListPage extends BasePanel {
             }
         }
     }
+
+
 }

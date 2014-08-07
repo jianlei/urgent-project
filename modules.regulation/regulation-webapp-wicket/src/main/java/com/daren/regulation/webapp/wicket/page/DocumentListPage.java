@@ -4,14 +4,18 @@ package com.daren.regulation.webapp.wicket.page;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
-import org.apache.wicket.MarkupContainer;
+import com.daren.regulation.entities.RegulationBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
+import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;
+import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.time.Duration;
@@ -20,6 +24,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,14 +35,20 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class DocumentListPage extends Fragment {
+public class DocumentListPage extends AbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public DocumentListPage(String id, String markupId, MarkupContainer markupProvider, IModel<?> model) {
-        super(id, markupId, markupProvider, model);
 
-        long entityId = (Integer) model.getObject();
+    public DocumentListPage(String id, String title, IModel<RegulationBean> model) {
+        super(id, title, model);
+
+
+        RegulationBean regulationBean = (RegulationBean) model.getObject();
+        long entityId = regulationBean.getId();
+        /*Label label=new Label("name");
+        add(label);*/
+        add(new Label("name"));
         List<DocmentBean> list = uploadDocumentService.getDocmentBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
@@ -52,6 +63,7 @@ public class DocumentListPage extends Fragment {
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downDocument", new AbstractReadOnlyModel<File>() {
                     private static final long serialVersionUID = 1L;
+
                     @Override
                     public File getObject() {
                         File tempFile = null;
@@ -77,4 +89,37 @@ public class DocumentListPage extends Fragment {
     }
 
 
+    @Override
+    public void onConfigure(JQueryBehavior behavior) {
+        super.onConfigure(behavior);
+        behavior.setOption("autoOpen", true);
+        behavior.setOption("closeOnEscape", false);
+    }
+
+    @Override
+    public void setModelObject(RegulationBean user) {
+        this.setDefaultModel(new CompoundPropertyModel<>(user));
+    }
+
+    @Override
+    protected List<DialogButton> getButtons() {
+        List<DialogButton> b = new ArrayList<DialogButton>();
+        b.add(new DialogButton("close"));
+        return b; //this syntax is allowed until the button state (enable and/or visible) is not altered
+    }
+
+    @Override
+    public void onClose(AjaxRequestTarget target, DialogButton button) {
+        this.setVisible(false);
+    }
+
+    @Override
+    public void onClick(AjaxRequestTarget target, DialogButton button) {
+        super.onClick(target, button);
+    }
+
+    @Override
+    public boolean isDefaultCloseEventEnabled() {
+        return true;
+    }
 }

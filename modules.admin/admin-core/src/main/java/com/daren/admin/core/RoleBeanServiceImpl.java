@@ -38,10 +38,15 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
     }
 
     @Override
+    public List<String> getRoleNameList(UserBean userBean) {
+        return roleBeanDao.getRoleNameList(userBean);
+    }
+
+    @Override
     public void saveRoleUser(RoleBean roleBean, List<UserBean> userSelect) {
         List<UserBean> userBeanList = new ArrayList<UserBean>();
         //为新对象
-        if (roleBean.getId() == 0l) {
+        if (roleBean.getId() == 0L) {
             roleBean = roleBeanDao.save(roleBean);
         } else {
             userBeanList = roleBeanDao.get(RoleBean.class.getName(), roleBean.getId()).getUserList();
@@ -49,9 +54,9 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
 
         //删除全部该角色下的用户
         if (userSelect.size() == 0) {
-            removRole(roleBean, userBeanList);
+            removeRole(roleBean, userBeanList);
         } else {
-            removRole(roleBean, userBeanList);
+            removeRole(roleBean, userBeanList);
             //添加角色到用户
             for (UserBean userBean : userSelect) {
                 UserBean user = userBeanDao.getUser(userBean.getId());
@@ -63,7 +68,17 @@ public class RoleBeanServiceImpl extends GenericBizServiceImpl implements IRoleB
         }
     }
 
-    private void removRole(RoleBean roleBean, List<UserBean> userBeanList) {
+    @Override
+    public List<RoleBean> query(RoleBean roleBean) {
+        return roleBeanDao.find("select a from RoleBean a where a.name LIKE ?1", "%" + roleBean.getName() + "%");
+    }
+
+    @Override
+    public List<UserBean> getUserList(RoleBean roleBean) {
+        return null;
+    }
+
+    private void removeRole(RoleBean roleBean, List<UserBean> userBeanList) {
         for (UserBean userBean : userBeanList) {
             userBean.getRoleList().remove(roleBean);
             userBeanDao.save(userBean);

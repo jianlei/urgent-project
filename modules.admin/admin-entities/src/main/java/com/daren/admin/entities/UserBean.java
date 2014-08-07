@@ -4,6 +4,7 @@ import com.daren.core.api.persistence.PersistentEntity;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +25,16 @@ import java.util.List;
 public class UserBean extends PersistentEntity {
     private OfficeBean company;    // 归属公司
     private OfficeBean office;    // 归属部门
+    @NotNull(message = "'登录名'是必填项")
     private String loginName;// 登录名
+    @NotNull(message = "'姓名'是必填项")
     private String name;  // 姓名
+    @NotNull(message = "'密码'是必填项")
     private String password; // 密码
+    @NotNull(message = "'邮箱'是必填项")
     private String email; // 邮箱
     private String phone;    // 电话
+    @NotNull(message = "'手机'是必填项")
     private String mobile;    // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期

@@ -37,6 +37,9 @@
             </table>
         </form>
         <div wicket:id="container">
+            <div wicket:id="dialogWrapper">
+                <div wicket:id="dialog"></div>
+            </div>
             <span wicket:id="feedback"/>
             <table class="table table-striped table-bordered table-condensed" wicket:id="table">
                 <thead>
@@ -50,7 +53,12 @@
                 <tbody>
                 <tr wicket:id="rows">
                     <td><span wicket:id="col1"></span></td>
-                    <td><a href="#" wicket:id="document"><span wicket:id="documentlabel"></span></a></td>
+                    <td>
+                        <!--<div wicket:id="repeatingView1"/>&lt;!&ndash;&ndash;&gt;-->
+                        <!--<div wicket:id="dialog">[dialog]</div>-->
+                        <a href="#" wicket:id="document" title="下载文档"><span wicket:id="documentlabel"></span></a>
+
+                    </td>
                     <td><span wicket:id="col2"></span></td>
                     <td>
                         <a href="#" wicket:id="edit">修改</a>
@@ -63,14 +71,15 @@
                 </tbody>
             </table>
         </div>
-        <div wicket:id="dialog">[dialog]</div>
+
     </wicket:fragment>
     <wicket:fragment wicket:id="addPanel" id="addPanel">
         <div wicket:id="repeatingView"></div>
     </wicket:fragment>
-    <wicket:fragment wicket:id="fragDialog" id="addPanel">
+    <!--<wicket:fragment wicket:id="fragDialog" id="fragDialog">
+        <div wicket:id="detail"></div>
+    </wicket:fragment>-->
 
-    </wicket:fragment>
 </wicket:panel>
 </body>
 </html>
