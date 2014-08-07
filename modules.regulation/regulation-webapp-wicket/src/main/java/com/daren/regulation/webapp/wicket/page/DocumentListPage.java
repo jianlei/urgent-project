@@ -43,7 +43,6 @@ public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
         long entityId = regulationBean.getId();
         /*Label label=new Label("name");
         add(label);*/
-        add(new Label("name"));
         List<DocmentBean> list = uploadDocumentService.getDocmentBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));

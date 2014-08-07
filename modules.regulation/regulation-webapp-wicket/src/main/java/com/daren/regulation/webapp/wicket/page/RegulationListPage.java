@@ -1,12 +1,12 @@
 package com.daren.regulation.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.regulation.api.biz.IRegulationBeanService;
 import com.daren.regulation.entities.RegulationBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -52,7 +52,7 @@ public class RegulationListPage extends BasePanel {
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
-    AbstractDialog dialog;
+    IrisAbstractDialog dialog;
     Fragment fragment;
     //注入服务
     @Inject

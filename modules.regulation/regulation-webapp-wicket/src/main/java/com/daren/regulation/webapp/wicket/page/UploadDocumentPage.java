@@ -1,11 +1,9 @@
 package com.daren.regulation.webapp.wicket.page;
 
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
 import com.daren.regulation.entities.RegulationBean;
-import com.googlecode.wicket.jquery.core.JQueryBehavior;
-import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;
-import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
@@ -18,7 +16,6 @@ import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +27,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class UploadDocumentPage extends AbstractDialog<RegulationBean> {
+public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
@@ -74,32 +71,4 @@ public class UploadDocumentPage extends AbstractDialog<RegulationBean> {
         add(ajaxSubmitLinkCreate);
     }
 
-    @Override
-    public void onConfigure(JQueryBehavior behavior) {
-        super.onConfigure(behavior);
-        behavior.setOption("autoOpen", true);
-        behavior.setOption("closeOnEscape", false);
-    }
-
-    @Override
-    public void setModelObject(RegulationBean regulationBean) {
-        this.setDefaultModel(new CompoundPropertyModel<>(regulationBean));
-    }
-
-    @Override
-    protected List<DialogButton> getButtons() {
-        List<DialogButton> b = new ArrayList<DialogButton>();
-        b.add(new DialogButton("close"));
-        return b;
-    }
-
-    @Override
-    public void onClose(AjaxRequestTarget target, DialogButton button) {
-        this.setVisible(false);
-    }
-
-    @Override
-    public boolean isDefaultCloseEventEnabled() {
-        return true;
-    }
 }
