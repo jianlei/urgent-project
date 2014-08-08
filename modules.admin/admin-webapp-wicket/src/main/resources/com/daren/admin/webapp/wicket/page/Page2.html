@@ -14,98 +14,12 @@
 <body>
 <wicket:panel>
     <div class="alert alert-info">当前位置<b class="tip"/>系统管理<b class="tip"/>用户管理</div>
-    <table class="table table-striped table-bordered table-condensed">
-        <thead>
-        <tr>
-            <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="tdl">单据号</td>
-            <td class="detail">
-                <input id="formid" class="ipt"/>
-            </td>
-            <td class="tdl">单据类型</td>
-            <td class="td_detail">
-                <input id="formid" class="ipt"/></td>
-            <td class="tdl">部门</td>
-            <td>
-                <select size="1" name="ENTPdept" id="bumen">
-                    <option value="10401"></option>
-                    <option value="10388">第二营销事业部</option>
-
-                    <option
-                            value="11159">IT中心
-                    </option>
-                    <option
-                            value="11160">ZTE全球售后服务中心
-                    </option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdl">提交日期起</td>
-            <td>
-                <div class="input-append">
-                    <input class="span2 datepicker" size="16" type="text" id="startime"/>
-                <span class="add-on">
-                <i class="icon-calendar"></i></span>至
-                    <input id="endtime" class="span2 datepicker" size="16" type="text"/>
-                    <span class="add-on"><i class="icon-calendar"></i></span>
-                </div>
-            </td>
-            <td class="tdl">报销人</td>
-            <td>
-                <select size="1" name="select2" id="baoxiaoren">
-                    <option value="10401"></option>
-                    <option value="10388">第二营销事业部</option>
-                    <option
-                            value="10389">第三营销事业部
-                    </option>
-                    <option
-                            value="10390">第一营销事业部
-                    </option>
-                    <option
-                            value="11159">IT中心
-                    </option>
-                    <option
-                            value="11160">ZTE全球售后服务中心
-                    </option>
-                </select></td>
-            <td class="tdl">所属项目</td>
-            <td>
-                <select id="xiangmu" size="1" name="select3">
-                    <option value="10401"></option>
-                    <option value="10388">第二营销事业部</option>
-                    <option
-                            value="10389">第三营销事业部
-                    </option>
-                    <option
-                            value="10390">第一营销事业部
-                    </option>
-                    <option
-                            value="11159">IT中心
-                    </option>
-                    <option
-                            value="11160">ZTE全球售后服务中心
-                    </option>
-                </select></td>
-        </tr>
-
-        <tr>
-            <td colspan="6" align="right">
-                <input class="btn btn-inverse" id="find" type="button" value="查询"/>
-                <input class="btn btn-inverse" type="button" value="清空"/></td>
-        </tr>
-        </tbody>
-    </table>
-    <!--<form wicket:id="form">-->
-    <div wicket:id="datatable">[datatable]</div>
-    <br/>
-    <!--<button wicket:id="refresh">Refresh</button>-->
-    <!--</form>-->
-    <div wicket:id="feedback"></div>
+    <div wicket:id="tree"/>
+    <table wicket:id="table11" class="table table-striped table-bordered table-condensed"></table>
 </wicket:panel>
+<wicket:fragment wicket:id="action">
+    <a href="#" wicket:id="edit"><!--<span wicket:id="linklabel"></span>-->修改</a>
+    <a href="#" wicket:id="delete"><!--<span wicket:id="linklabel"></span>-->删除</a>
+</wicket:fragment>
 </body>
 </html>

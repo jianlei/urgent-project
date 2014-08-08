@@ -1,4 +1,4 @@
-package com.daren.admin.webapp.wicket.page;
+package com.daren.admin.webapp.wicket.table;
 
 
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
@@ -6,7 +6,7 @@ import org.apache.wicket.markup.repeater.data.IDataProvider;
 
 import java.util.List;
 
-public class DataTablePage<T, S> extends DataTable {
+public class IrisDataTable<T, S> extends DataTable {
     private static final long serialVersionUID = 1L;
 
 
@@ -18,7 +18,9 @@ public class DataTablePage<T, S> extends DataTable {
      * @param dataProvider imodel for data provider
      * @param rowsPerPage
      */
-    public DataTablePage(String id, List list, IDataProvider dataProvider, long rowsPerPage) {
+    public IrisDataTable(String id, List list, IDataProvider dataProvider, long rowsPerPage) {
         super(id, list, dataProvider, rowsPerPage);
     }
+
+
 }

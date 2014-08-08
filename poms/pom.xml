@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -30,6 +30,7 @@
         <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
         <openjpa-maven-plugin.version>2.3.0</openjpa-maven-plugin.version>
         <hibernate3-maven-plugin.version>3.0</hibernate3-maven-plugin.version>
+        <yuicompressor.version>1.4.0</yuicompressor.version>
         <derby.Version>10.8.2.2</derby.Version>
         <openjpa.Version>2.3.0</openjpa.Version>
         <geronimoJpaSpec.Version>1.1</geronimoJpaSpec.Version>
@@ -68,6 +69,24 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!--对js和css做压缩和混淆-->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>yuicompressor-maven-plugin</artifactId>
+                    <version>${yuicompressor.version}</version>
+                    <configuration>
+                        <statistics>true</statistics>
+                        <jswarn>false</jswarn>
+                        <suffix>.min</suffix>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compress</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.ops4j</groupId>
                     <artifactId>maven-pax-plugin</artifactId>

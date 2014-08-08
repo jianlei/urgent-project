@@ -23,4 +23,10 @@ public interface IPermissionBeanService extends IBizService {
     PermissionBean getRootPermission();
 
     List<PermissionBean> getChildPermission(PermissionBean permissionBean);
+
+    List<PermissionBean> query(PermissionBean permissionBean);
+
+    List<PermissionBean> getRootBeanList();
+
+    List<PermissionBean> getChildBeanList(PermissionBean permissionBean);
 }

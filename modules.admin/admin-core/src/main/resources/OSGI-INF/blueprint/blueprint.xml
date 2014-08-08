@@ -61,6 +61,14 @@
              interface="com.daren.admin.api.biz.IDictBeanService"/>
     <reference id="dictBeanDao" interface="com.daren.admin.api.dao.IDictBeanDao"/>
 
+    <!--区域服务注册-->
+    <bean id="areaBeanServiceImpl" class="com.daren.admin.core.AreaBeanServiceImpl">
+        <property name="areaBeanDao" ref="areaBeanDao"/>
+    </bean>
+    <service id="areaBeanService" ref="areaBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IAreaBeanService"/>
+    <reference id="areaBeanDao" interface="com.daren.admin.api.dao.IAreaBeanDao"/>
+
     <!--机构服务注册-->
     <bean id="officeBeanServiceImpl" class="com.daren.admin.core.OfficeBeanServiceImpl">
         <property name="officeBeanDao" ref="officeBeanDao"/>

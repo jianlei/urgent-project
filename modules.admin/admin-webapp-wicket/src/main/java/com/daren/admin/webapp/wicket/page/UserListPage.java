@@ -2,7 +2,7 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
-import com.daren.admin.webapp.wicket.dialog.ChangePassword;
+import com.daren.admin.webapp.wicket.dialog.ChangePasswordDialog;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
@@ -146,7 +146,7 @@ public class UserListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
-        final ChangePassword dialog;
+        final ChangePasswordDialog dialog;
         private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
 
@@ -162,7 +162,7 @@ public class UserListPage extends BasePanel {
 
             //add dialog
 
-            dialog = new ChangePassword("dialog", "修改密码") {
+            dialog = new ChangePasswordDialog("dialog", "修改密码") {
 
                 private static final long serialVersionUID = 1L;
 

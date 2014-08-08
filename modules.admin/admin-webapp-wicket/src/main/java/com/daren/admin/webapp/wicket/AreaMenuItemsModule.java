@@ -1,20 +1,20 @@
 package com.daren.admin.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.page.PermissionListPage;
+import com.daren.admin.webapp.wicket.page.AreaListPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：权限子菜单定义类
+ * @类描述：区域子菜单定义类
  * @创建人：sunlf
- * @创建时间：2014-04-03 下午11:03
+ * @创建时间：2014-08-07 下午11:03
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
 
-public class AuthorityMenuItemsModule implements IMenuItemsModule {
+public class AreaMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getNo() {
@@ -23,13 +23,13 @@ public class AuthorityMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 20;
+        return 15;
     }
 
 
     @Override
     public String getName() {
-        return "权限管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "区域管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -45,6 +45,6 @@ public class AuthorityMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new PermissionListPage(id, wmc);
+        return new AreaListPage(id, wmc);
     }
 }

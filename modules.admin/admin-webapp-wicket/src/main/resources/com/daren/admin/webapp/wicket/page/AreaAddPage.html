@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:panel>
+    <body>
+    <div class="alert alert-info">当前位置<b class="tip"/>区域管理<b class="tip"/>区域详细信息</div>
+    <form method="post" wicket:id="areaForm">
+
+        <span wicket:id="feedback"/>
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;区域详细信息 <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+
+            <!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
+            <tbody>
+            <tr>
+                <td class="tdl">父级区域</td>
+                <td>
+                    <div wicket:id="parent.name"/>
+                </td>
+
+                <td class="tdl">区域名称</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="name"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tdl">区域编码</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="code"/>
+                </td>
+                <td class="tdl">区域类型</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="type"/>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </body>
+</wicket:panel>
+</html>
