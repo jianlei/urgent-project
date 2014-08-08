@@ -46,8 +46,8 @@ public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
             @Override
             protected void populateItem(ListItem<DocmentBean> item) {
                 final DocmentBean docmentBean = item.getModelObject();
-                item.add(new Label("col1", docmentBean.getName()));
-                item.add(new Label("col2", docmentBean.getDescription()));
+                item.add(new Label("name", docmentBean.getName()));
+                item.add(new Label("description", docmentBean.getDescription()));
 
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downDocument", new AbstractReadOnlyModel<File>() {

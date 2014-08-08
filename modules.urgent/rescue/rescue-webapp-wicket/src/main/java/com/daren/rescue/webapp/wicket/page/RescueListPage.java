@@ -184,17 +184,17 @@ public class RescueListPage extends BasePanel {
                 @Override
                 protected void populateItem(final Item<RescueBean> item) {
                     final RescueBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getHead()));
-                    item.add(new Label("col3", row.getHeadPhone()));
-                    item.add(new Label("col4", row.getTelephone()));
-                    item.add(new Label("col5", row.getTotalNumber()));
-                    item.add(new Label("col6", row.getAddress()));
-                    item.add(new Label("col7", row.getLongitude()));
-                    item.add(new Label("col8", row.getLatitude()));
-                    item.add(new Label("col9", row.getEquipment()));
-                    item.add(new Label("col10", row.getExpertise()));
-                    item.add(new Label("col11", row.getRemarks()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("head", row.getHead()));
+                    item.add(new Label("headPhone", row.getHeadPhone()));
+                    item.add(new Label("telephone", row.getTelephone()));
+                    item.add(new Label("totalNumber", row.getTotalNumber()));
+                    item.add(new Label("address", row.getAddress()));
+                    item.add(new Label("longitude", row.getLongitude()));
+                    item.add(new Label("latitude", row.getLatitude()));
+                    item.add(new Label("equipment", row.getEquipment()));
+                    item.add(new Label("expertise", row.getExpertise()));
+                    item.add(new Label("remarks", row.getRemarks()));
 
                     AjaxLink alinkOnDuty = new AjaxLink("onDuty") {
                         @Override
