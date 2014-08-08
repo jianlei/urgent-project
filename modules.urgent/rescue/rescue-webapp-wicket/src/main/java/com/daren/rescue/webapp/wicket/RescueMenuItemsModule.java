@@ -1,8 +1,7 @@
 package com.daren.rescue.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.rescue.webapp.wicket.page.RescuePage;
-import org.apache.wicket.Page;
+import com.daren.rescue.webapp.wicket.page.RescueListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -45,6 +44,6 @@ public class RescueMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new RescuePage(id, wmc);
+        return new RescueListPage(id, wmc);
     }
 }

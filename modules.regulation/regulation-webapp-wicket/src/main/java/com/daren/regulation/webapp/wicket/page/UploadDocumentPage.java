@@ -1,17 +1,17 @@
 package com.daren.regulation.webapp.wicket.page;
 
-import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
+import com.daren.regulation.entities.RegulationBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
@@ -27,12 +27,13 @@ import java.util.List;
  * @修改备注：
  */
 
-public class UploadDocumentPage extends BasePanel {
+public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public UploadDocumentPage(final String id, final WebMarkupContainer wmc, final long entityId) {
-        super(id, wmc);
+    public UploadDocumentPage(String id, String title, IModel<RegulationBean> model) {
+        super(id, title, model);
+        final RegulationBean regulationBean = (RegulationBean) model.getObject();
         final DocmentBean docmentBean = new DocmentBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
         Form form = new Form("form", new CompoundPropertyModel(docmentBean));
@@ -62,24 +63,11 @@ public class UploadDocumentPage extends BasePanel {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                docmentBean1.setAttach(entityId);
+                docmentBean1.setAttach(regulationBean.getId());
                 uploadDocumentService.saveEntity(docmentBean1);
                 super.onSubmit(target, form);
-               /* wmc.removeAll();
-                wmc.addOrReplace(new RegulationPage(id, wmc));
-                target.add(wmc);*/
             }
         };
         add(ajaxSubmitLinkCreate);
-        //返回按钮
-        AjaxLink ajaxLinkReturn = new AjaxLink("return") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-               /* wmc.removeAll();
-                wmc.addOrReplace(new RegulationPage(id, wmc));
-                ajaxRequestTarget.add(wmc);*/
-            }
-        };
-        this.add(ajaxLinkReturn);
     }
 }

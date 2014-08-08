@@ -35,8 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 企业专家管理
- * Created by 张清欣 on 14-8-5.
+ * @类描述：企业专家管理
+ * @创建人：张清欣
+ * @创建时间：2014-07-28 下午16:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 public class EnterpriseExpertListPage extends BasePanel {
 

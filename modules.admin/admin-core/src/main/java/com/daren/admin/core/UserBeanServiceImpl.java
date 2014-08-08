@@ -1,7 +1,9 @@
 package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.api.dao.IRoleBeanDao;
 import com.daren.admin.api.dao.IUserBeanDao;
+import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
@@ -12,10 +14,15 @@ import java.util.List;
  */
 public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserBeanService {
     private IUserBeanDao userBeanDao;
+    private IRoleBeanDao roleBeanDao;
 
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
         this.userBeanDao = userBeanDao;
         super.init(userBeanDao, UserBean.class.getName());
+    }
+
+    public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
+        this.roleBeanDao = roleBeanDao;
     }
 
     public void init() {
@@ -57,6 +64,39 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     @Override
     public List<UserBean> query(UserBean userBean) {
         return queryUser(userBean);
+    }
+
+    /**
+     * 生成roleList列表，以逗号分隔
+     *
+     * @param userBean 用户
+     * @return
+     */
+    @Override
+    public String getRoleList(UserBean userBean) {
+        List<RoleBean> roleBeanList = userBean.getRoleList();
+        String value = "";
+        for (RoleBean roleBean : roleBeanList) {
+            value = value + roleBean.getName() + ",";
+        }
+        //截掉最后一个“，”
+        if (value.length() > 1)
+            value = value.substring(0, value.length() - 1);
+        return value;
+    }
+
+    @Override
+    public void saveUserRole(UserBean userBean, List<String> roleSelect) {
+        List<RoleBean> roleBeanList = userBean.getRoleList();
+        //清空全部角色
+        roleBeanList.clear();
+        //重新添加角色
+        if (roleSelect != null && roleSelect.size() > 0) {
+            for (String role : roleSelect) {
+                roleBeanList.add(roleBeanDao.getRole(role));
+            }
+        }
+        saveUser(userBean);
     }
 
 

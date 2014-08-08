@@ -1,16 +1,16 @@
 package com.daren.regulation.webapp.wicket.page;
 
 
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
-import org.apache.wicket.MarkupContainer;
+import com.daren.regulation.entities.RegulationBean;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
@@ -30,14 +30,14 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class DocumentListPage extends Fragment {
+public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public DocumentListPage(String id, String markupId, MarkupContainer markupProvider, IModel<?> model) {
-        super(id, markupId, markupProvider, model);
-
-        long entityId = (Integer) model.getObject();
+    public DocumentListPage(String id, String title, IModel<RegulationBean> model) {
+        super(id, title, model);
+        RegulationBean regulationBean = (RegulationBean) model.getObject();
+        long entityId = regulationBean.getId();
         List<DocmentBean> list = uploadDocumentService.getDocmentBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
@@ -52,6 +52,7 @@ public class DocumentListPage extends Fragment {
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downDocument", new AbstractReadOnlyModel<File>() {
                     private static final long serialVersionUID = 1L;
+
                     @Override
                     public File getObject() {
                         File tempFile = null;
@@ -75,6 +76,4 @@ public class DocumentListPage extends Fragment {
         table.setVersioned(false);
         table.add(lv);
     }
-
-
 }

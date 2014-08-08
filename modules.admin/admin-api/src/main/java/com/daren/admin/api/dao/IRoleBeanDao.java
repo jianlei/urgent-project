@@ -1,6 +1,7 @@
 package com.daren.admin.api.dao;
 
 import com.daren.admin.entities.RoleBean;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 import java.util.List;
@@ -28,4 +29,11 @@ public interface IRoleBeanDao extends IGenericDao<RoleBean, Long> {
      * @return
      */
     public RoleBean getRole(String roleName);
+
+    /**
+     * 获得角色名列表
+     *
+     * @return
+     */
+    List<String> getRoleNameList(UserBean userBean);
 }

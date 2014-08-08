@@ -43,8 +43,6 @@ public class RegulationAddPage extends Panel {
             isAdd = false;
             initForm(model);
         }
-
-
     }
 
     // Hook 回调函数

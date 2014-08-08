@@ -21,4 +21,20 @@ public interface IUserBeanService extends IBizService {
     List<UserBean> queryUser(UserBean userBean);
 
     List<UserBean> query(UserBean userBean);
+
+    /**
+     * 生成roleList列表，以逗号分隔
+     *
+     * @param userBean 用户
+     * @return
+     */
+    public String getRoleList(UserBean userBean);
+
+    /**
+     * 保存用户以及相关的角色
+     *
+     * @param userBean
+     * @param roleSelect
+     */
+    void saveUserRole(UserBean userBean, List<String> roleSelect);
 }

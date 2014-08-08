@@ -2,12 +2,17 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
+import com.daren.admin.webapp.wicket.dialog.ChangePassword;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -49,7 +54,7 @@ public class UserListPage extends BasePanel {
     private final static String CONST_EDIT = "编辑用户";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
-    DictDataProvider provider = new DictDataProvider();
+    UserDataProvider provider = new UserDataProvider();
     //注入字典业务服务
     @Inject
     @Reference(id = "userBeanService", serviceInterface = IUserBeanService.class)
@@ -61,6 +66,7 @@ public class UserListPage extends BasePanel {
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
+
     }
 
     /**
@@ -140,7 +146,8 @@ public class UserListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
-        private final FeedbackPanel feedbackPanel;
+        final ChangePassword dialog;
+        private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
@@ -149,8 +156,30 @@ public class UserListPage extends BasePanel {
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
             //add feedback
-            feedbackPanel = new FeedbackPanel("feedback");
+            feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
+
+
+            //add dialog
+
+            dialog = new ChangePassword("dialog", "修改密码") {
+
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onSubmit(AjaxRequestTarget target) {
+//                    PasswordInfo passwordInfo = this.getModelObject();
+
+
+                }
+
+                @Override
+                public void onClose(AjaxRequestTarget target, DialogButton button) {
+                    target.add(this);
+                }
+            };
+            container.add(dialog.setOutputMarkupId(true));
+
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
@@ -168,7 +197,10 @@ public class UserListPage extends BasePanel {
                     item.add(new Label("email", row.getEmail()));
                     item.add(new Label("phone", row.getPhone()));
                     item.add(new Label("mobile", row.getMobile()));
-                    item.add(new Label("creationDate", row.getCreationDate()));
+                    item.add(new Label("creationDate", DateUtil.convertDateToString(row.getCreationDate(), DateUtil.shortSdf)));
+                    item.add(new Label("roleList", userBeanService.getRoleList(row)));
+                    //add change password button
+                    item.add(initChangePwdButton(row));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
@@ -194,6 +226,25 @@ public class UserListPage extends BasePanel {
             userForm.add(initAddButton());
 
             add(userForm);
+        }
+
+        /**
+         * 初始化修改密码按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private Component initChangePwdButton(final UserBean row) {
+            AjaxLink alink = new AjaxLink("changePwd") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    dialog.setModelObject(row);
+//                    dialog.modelChanged();
+                    dialog.open(target);
+//                    createNewTab(target, CONST_EDIT, row);
+                }
+            };
+            return alink;
         }
 
         /**
@@ -254,7 +305,7 @@ public class UserListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final DictDataProvider provider, Form form) {
+        private IndicatingAjaxButton initFindButton(final UserDataProvider provider, Form form) {
 
             return new IndicatingAjaxButton("find", form) {
                 @Override
@@ -275,7 +326,7 @@ public class UserListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<UserBean> {
+    class UserDataProvider extends ListDataProvider<UserBean> {
         private UserBean userBean = null;
 
         public void setUserBean(UserBean userBean) {

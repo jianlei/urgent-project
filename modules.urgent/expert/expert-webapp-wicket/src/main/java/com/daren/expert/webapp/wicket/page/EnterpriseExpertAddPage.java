@@ -31,20 +31,13 @@ public class EnterpriseExpertAddPage extends Panel {
     public EnterpriseExpertAddPage(String id, String type, IModel<EnterpriseExpertBean> model) {
         super(id, model);
         this.type = type;
-
-        if (model.getObject() == null)
-        //new model
-        {
+        if (model.getObject() == null) {
             isAdd = true;
             initForm(Model.of(new EnterpriseExpertBean()));
-        } else
-        //edit model
-        {
+        } else {
             isAdd = false;
             initForm(model);
         }
-
-
     }
 
     // Hook 回调函数
@@ -53,14 +46,11 @@ public class EnterpriseExpertAddPage extends Panel {
 
     private void initForm(IModel<EnterpriseExpertBean> model) {
         final Form<EnterpriseExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
-
         feedbackPanel = new FeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
-
         dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("contactInformation").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("type").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-
         dictForm.add(new AjaxButton("save", dictForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -72,7 +62,6 @@ public class EnterpriseExpertAddPage extends Panel {
                         dictForm.setModelObject(new EnterpriseExpertBean());
                     }
                     feedbackPanel.info(type + dictBean.getType() + "成功！");
-
                     target.add(form);
                 } catch (Exception e) {
                     feedbackPanel.error(type + "失败！");
