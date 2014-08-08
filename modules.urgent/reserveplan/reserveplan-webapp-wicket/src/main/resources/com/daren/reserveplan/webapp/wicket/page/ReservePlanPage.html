@@ -40,12 +40,22 @@
             <thead>
             <tr class="tr_detail">
                 <th>预案名称</th>
+                <th>预案描述</th>
+                <th>申请表</th>
+                <th>注册表</th>
+                <th>评审专家</th>
+                <th>评审意见</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr wicket:id="rows">
                 <td wicket:id="name"></td>
+                <td wicket:id="description"></td>
+                <td wicket:id="reservePlanApplyId"></td>
+                <td wicket:id="reservePlanRegisterId"></td>
+                <td wicket:id="reviewExpertId"></td>
+                <td wicket:id="reviewCommentId"></td>
                 <td><a href="#" wicket:id="delete">删除</a></td>
             </tr>
             <tr class="tr_pagenumber">
