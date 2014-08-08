@@ -1,8 +1,7 @@
-package com.daren.regulation.webapp.wicket.page;
+package com.daren.drill.webapp.wicket.page;
 
-import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.regulation.api.biz.IRegulationBeanService;
-import com.daren.regulation.entities.RegulationBean;
+import com.daren.drill.api.biz.IUrgentDrillBeanService;
+import com.daren.drill.entities.UrgentDrillBean;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -18,54 +17,57 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 
 /**
- * Created by Administrator on 2014/8/6.
+ * @类描述：应急演练-添加
+ * @创建人：张清欣
+ * @创建时间：2014-07-28 下午16:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class RegulationAddPage extends Panel {
+public class UrgentDrillAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     private boolean isAdd;
+    //注入服务
     @Inject
-    @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
-    private IRegulationBeanService regulationBeanService;
+    @Reference(id = "urgentDrillBeanService", serviceInterface = IUrgentDrillBeanService.class)
+    private IUrgentDrillBeanService urgentDrillBeanService;
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public RegulationAddPage(String id, String type, IModel<RegulationBean> model) {
+    public UrgentDrillAddPage(String id, String type, IModel<UrgentDrillBean> model) {
         super(id, model);
         this.type = type;
 
-        if (model.getObject() == null)
-        //new model
-        {
+        if (model.getObject() == null) {
             isAdd = true;
-            initForm(Model.of(new RegulationBean()));
-        } else
-        //edit model
-        {
+            initForm(Model.of(new UrgentDrillBean()));
+        } else {
             isAdd = false;
             initForm(model);
         }
+
+
     }
 
     // Hook 回调函数
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
-    private void initForm(IModel<RegulationBean> model) {
-        final Form<RegulationBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
+    private void initForm(IModel<UrgentDrillBean> model) {
+        final Form<UrgentDrillBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new FeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
-
-        dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("description").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-
+        dictForm.add(new TextField("name"));
+        dictForm.add(new TextField("description"));
         dictForm.add(new AjaxButton("save", dictForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    RegulationBean dictBean = (RegulationBean) form.getModelObject();
-                    regulationBeanService.saveEntity(dictBean);
+                    UrgentDrillBean dictBean = (UrgentDrillBean) form.getModelObject();
+                    dictBean.setEnterpriseId(1l);
+                    urgentDrillBeanService.saveEntity(dictBean);
                     if (isAdd) {
-                        dictForm.setModelObject(new RegulationBean());
+                        dictForm.setModelObject(new UrgentDrillBean());
                     }
                     feedbackPanel.info(type + dictBean.getName() + "成功！");
 

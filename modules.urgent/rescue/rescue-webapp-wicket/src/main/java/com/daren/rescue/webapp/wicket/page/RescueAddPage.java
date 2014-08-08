@@ -1,8 +1,8 @@
-package com.daren.regulation.webapp.wicket.page;
+package com.daren.rescue.webapp.wicket.page;
 
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.regulation.api.biz.IRegulationBeanService;
-import com.daren.regulation.entities.RegulationBean;
+import com.daren.rescue.api.biz.IRescueBeanService;
+import com.daren.rescue.entities.RescueBean;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -18,17 +18,23 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 
 /**
- * Created by Administrator on 2014/8/6.
+ * @类描述：救援队管理-添加
+ * @创建人：张清欣
+ * @创建时间：2014-08-08 上午10:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class RegulationAddPage extends Panel {
+public class RescueAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     private boolean isAdd;
+    //注入服务
     @Inject
-    @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
-    private IRegulationBeanService regulationBeanService;
+    @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
+    private IRescueBeanService rescueBeanService;
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public RegulationAddPage(String id, String type, IModel<RegulationBean> model) {
+    public RescueAddPage(String id, String type, IModel<RescueBean> model) {
         super(id, model);
         this.type = type;
 
@@ -36,7 +42,7 @@ public class RegulationAddPage extends Panel {
         //new model
         {
             isAdd = true;
-            initForm(Model.of(new RegulationBean()));
+            initForm(Model.of(new RescueBean()));
         } else
         //edit model
         {
@@ -49,8 +55,8 @@ public class RegulationAddPage extends Panel {
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
-    private void initForm(IModel<RegulationBean> model) {
-        final Form<RegulationBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
+    private void initForm(IModel<RescueBean> model) {
+        final Form<RescueBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new FeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
@@ -62,10 +68,11 @@ public class RegulationAddPage extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    RegulationBean dictBean = (RegulationBean) form.getModelObject();
-                    regulationBeanService.saveEntity(dictBean);
+                    RescueBean dictBean = (RescueBean) form.getModelObject();
+                    dictBean.setEnterpriseId(1l);
+                    rescueBeanService.saveEntity(dictBean);
                     if (isAdd) {
-                        dictForm.setModelObject(new RegulationBean());
+                        dictForm.setModelObject(new RescueBean());
                     }
                     feedbackPanel.info(type + dictBean.getName() + "成功！");
 

@@ -1,10 +1,13 @@
-package com.daren.regulation.webapp.wicket.page;
+package com.daren.drill.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
-import com.daren.regulation.api.biz.IRegulationBeanService;
-import com.daren.regulation.entities.RegulationBean;
+import com.daren.drill.api.biz.IUploadDocumentService;
+import com.daren.drill.api.biz.IUploadImageService;
+import com.daren.drill.api.biz.IUploadVideoService;
+import com.daren.drill.api.biz.IUrgentDrillBeanService;
+import com.daren.drill.entities.UrgentDrillBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
@@ -36,19 +39,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @类描述：法律法规
+ * @类描述：应急演练
  * @创建人：张清欣
- * @创建时间：2014-03-29 上午10:25
+ * @创建时间：2014-07-28 下午16:25
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class RegulationListPage extends BasePanel {
+public class UrgentDrillListPage extends BasePanel {
 
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "法律法规";
-    private final static String CONST_ADD = "添加法律法规";
-    private final static String CONST_EDIT = "编辑法律法规";
+    private final static String CONST_LIST = "应急演练";
+    private final static String CONST_ADD = "添加演练";
+    private final static String CONST_EDIT = "编辑演练";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
@@ -56,17 +59,24 @@ public class RegulationListPage extends BasePanel {
     Fragment fragment;
     //注入服务
     @Inject
-    @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
-    private IRegulationBeanService regulationBeanService;
-//    final DocumentListPage dialog;
+    @Reference(id = "urgentDrillBeanService", serviceInterface = IUrgentDrillBeanService.class)
+    private IUrgentDrillBeanService urgentDrillBeanService;
+    @Inject
+    @Reference(id = "uploadDocumentService", serviceInterface = IUploadDocumentService.class)
+    private IUploadDocumentService uploadDocumentService;
+    @Inject
+    @Reference(id = "uploadVideoService", serviceInterface = IUploadVideoService.class)
+    private IUploadVideoService uploadVideoService;
+    @Inject
+    @Reference(id = "uploadImageService", serviceInterface = IUploadImageService.class)
+    private IUploadImageService uploadImageService;
 
     //构造函数
-    public RegulationListPage(String id, WebMarkupContainer wmc) {
+    public UrgentDrillListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
-
     }
 
     /**
@@ -112,7 +122,7 @@ public class RegulationListPage extends BasePanel {
      * @param newTabType "修改字典"||"新增字典"
      * @param row        数据
      */
-    private void createNewTab(AjaxRequestTarget target, final String newTabType, final RegulationBean row) {
+    private void createNewTab(AjaxRequestTarget target, final String newTabType, final UrgentDrillBean row) {
         //去掉第二个tab
         if (tabPanel.getModelObject().size() == 2) {
             tabPanel.getModelObject().remove(1);
@@ -124,7 +134,7 @@ public class RegulationListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                RegulationAddPage regulationAddPage = new RegulationAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                UrgentDrillAddPage urgentDrillAddPage = new UrgentDrillAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -133,8 +143,8 @@ public class RegulationListPage extends BasePanel {
                         target.add(tabPanel);
                     }
                 };
-                repeatingView.add(regulationAddPage);
-                fragment = new Fragment(panelId, "addPanel", RegulationListPage.this);
+                repeatingView.add(urgentDrillAddPage);
+                Fragment fragment = new Fragment(panelId, "addPanel", UrgentDrillListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -151,7 +161,7 @@ public class RegulationListPage extends BasePanel {
         final WebMarkupContainer table;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, RegulationListPage.this);
+            super(id, markupId, UrgentDrillListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -178,30 +188,52 @@ public class RegulationListPage extends BasePanel {
             container.add(table.setOutputMarkupId(true));
 
             //add listview
-            final DataView<RegulationBean> listView = new DataView<RegulationBean>("rows", provider, numPerPage) {
+            final DataView<UrgentDrillBean> listView = new DataView<UrgentDrillBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(final Item<RegulationBean> item) {
-                    final RegulationBean row = item.getModelObject();
+                protected void populateItem(Item<UrgentDrillBean> item) {
+                    final UrgentDrillBean row = item.getModelObject();
                     item.add(new Label("name", row.getName()));
                     item.add(new Label("description", row.getDescription()));
 
                     AjaxLink alinkDocument = new AjaxLink("document") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            createDialog(target, row, "文档列表");
+                            createDocumentDialog(target, row, "文档列表");
                         }
                     };
-                    alinkDocument.add(new Label("documentlabel", "文档"));
+                    alinkDocument.add(new Label("documentlabel", "文档(" + uploadDocumentService.getDocmentBeanListByAttach(row.getId()).size() + ")"));
                     item.add(alinkDocument.setOutputMarkupId(true));
+
+                    AjaxLink alinkVideo = new AjaxLink("video") {
+                        @Override
+                        public void onClick(AjaxRequestTarget target) {
+                            createVideoDialog(target, row, "视频列表");
+                        }
+                    };
+                    alinkVideo.add(new Label("videolabel", "视频(" + uploadVideoService.getVideoBeanListByAttach(row.getId()).size() + ")"));
+                    item.add(alinkVideo.setOutputMarkupId(true));
+
+                    AjaxLink alinkImage = new AjaxLink("image") {
+                        @Override
+                        public void onClick(AjaxRequestTarget target) {
+                            createImageDialog(target, row, "图片列表");
+                        }
+                    };
+                    alinkImage.add(new Label("imagelabel", "图片(" + uploadImageService.getImageBeanListByAttach(row.getId()).size() + ")"));
+                    item.add(alinkImage.setOutputMarkupId(true));
 
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
                     item.add(initUpdateButton(row));
-                    //add upload button
+                    //add upload document button
                     item.add(initUploadDocumentButton(row));
+                    //add upload video button
+                    item.add(initUploadVideoButton(row));
+                    //add upload image button
+                    item.add(initUploadImageButton(row));
                 }
             };
             table.add(listView);
@@ -212,7 +244,7 @@ public class RegulationListPage extends BasePanel {
             table.add(pagingNavigator);
 
             //增加form
-            Form<RegulationBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new RegulationBean()));
+            Form<UrgentDrillBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new UrgentDrillBean()));
             TextField textField = new TextField("name");
             textField.setRequired(false);
             dictForm.add(textField.setOutputMarkupId(true));
@@ -221,17 +253,11 @@ public class RegulationListPage extends BasePanel {
             dictForm.add(initFindButton(provider, dictForm));
             //add button
             dictForm.add(initAddButton());
+
             add(dictForm);
         }
 
-        /**
-         * 创建dialog
-         *
-         * @param target
-         * @param row
-         * @param title
-         */
-        private void createDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+        private void createDocumentDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
@@ -240,11 +266,57 @@ public class RegulationListPage extends BasePanel {
             dialog.open(target);
         }
 
-        private void createUploadDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+        private void createVideoDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new VideoListPage("dialog", title, new CompoundPropertyModel<>(row));
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+        private void createImageDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new ImageListPage("dialog", title, new CompoundPropertyModel<>(row));
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+        private void createUploadDocumentDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
             dialog = new UploadDocumentPage("dialog", title, new CompoundPropertyModel<>(row)) {
+                @Override
+                public void updateTarget(AjaxRequestTarget target) {
+                    target.add(table);
+                }
+            };
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+        private void createUploadVideoDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new UploadVideoPage("dialog", title, new CompoundPropertyModel<>(row)) {
+                @Override
+                public void updateTarget(AjaxRequestTarget target) {
+                    target.add(table);
+                }
+            };
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+        private void createUploadImageDialog(AjaxRequestTarget target, final UrgentDrillBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new UploadImagePage("dialog", title, new CompoundPropertyModel<>(row)) {
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
                     target.add(table);
@@ -260,7 +332,7 @@ public class RegulationListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final RegulationBean row) {
+        private AjaxLink initUpdateButton(final UrgentDrillBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -277,7 +349,7 @@ public class RegulationListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final RegulationBean row) {
+        private AjaxLink initDeleteButton(final UrgentDrillBean row) {
             //删除功能
             AjaxLink alink = new AjaxLink("delete") {
                 @Override
@@ -291,7 +363,7 @@ public class RegulationListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
-                        regulationBeanService.deleteEntity(row.getId());
+                        urgentDrillBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
                         target.addChildren(getPage(), FeedbackPanel.class);
                         target.add(container);
@@ -310,11 +382,43 @@ public class RegulationListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUploadDocumentButton(final RegulationBean row) {
+        private AjaxLink initUploadDocumentButton(final UrgentDrillBean row) {
             AjaxLink alink = new AjaxLink("uploadDocument") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-                    createUploadDialog(target, row, "上传文档");
+                    createUploadDocumentDialog(target, row, "上传文档");
+                }
+            };
+            return alink;
+        }
+
+        /**
+         * 初始化视频上传按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private AjaxLink initUploadVideoButton(final UrgentDrillBean row) {
+            AjaxLink alink = new AjaxLink("uploadVideo") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createUploadVideoDialog(target, row, "上传视频");
+                }
+            };
+            return alink;
+        }
+
+        /**
+         * 初始化图片上传按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private AjaxLink initUploadImageButton(final UrgentDrillBean row) {
+            AjaxLink alink = new AjaxLink("uploadImage") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createUploadImageDialog(target, row, "上传图片");
                 }
             };
             return alink;
@@ -332,7 +436,7 @@ public class RegulationListPage extends BasePanel {
             return new IndicatingAjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    RegulationBean dictBean = (RegulationBean) form.getModelObject();
+                    UrgentDrillBean dictBean = (UrgentDrillBean) form.getModelObject();
                     provider.setDictBean(dictBean);
                     target.add(container);
                 }
@@ -348,20 +452,20 @@ public class RegulationListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<RegulationBean> {
-        private RegulationBean dictBean = null;
+    class DictDataProvider extends ListDataProvider<UrgentDrillBean> {
+        private UrgentDrillBean dictBean = null;
 
-        public void setDictBean(RegulationBean dictBean) {
+        public void setDictBean(UrgentDrillBean dictBean) {
             this.dictBean = dictBean;
         }
 
         @Override
-        protected List<RegulationBean> getData() {
+        protected List<UrgentDrillBean> getData() {
             //类型为空时候，返回全部记录
             if (dictBean == null)
-                return regulationBeanService.getAllEntity();
+                return urgentDrillBeanService.getAllEntity();
             else {
-                return regulationBeanService.query(dictBean);
+                return urgentDrillBeanService.query(dictBean);
             }
         }
     }

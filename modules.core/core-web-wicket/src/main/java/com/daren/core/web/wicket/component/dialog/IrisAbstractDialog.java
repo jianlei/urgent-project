@@ -60,6 +60,7 @@ public class IrisAbstractDialog<T extends Serializable> extends AbstractDialog {
     @Override
     public void onClose(AjaxRequestTarget target, DialogButton button) {
         this.setVisible(false);
+        updateTarget(target);
     }
 
     /**
@@ -75,5 +76,9 @@ public class IrisAbstractDialog<T extends Serializable> extends AbstractDialog {
     @Override
     public void setModelObject(Serializable object) {
         this.setDefaultModel(new CompoundPropertyModel<>(object));
+    }
+
+    //更新父页面列表
+    public void updateTarget(AjaxRequestTarget target) {
     }
 }

@@ -35,8 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 企业专家管理
- * Created by 张清欣 on 14-8-5.
+ * @类描述：企业专家管理
+ * @创建人：张清欣
+ * @创建时间：2014-07-28 下午16:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 public class EnterpriseExpertListPage extends BasePanel {
 
@@ -159,9 +163,9 @@ public class EnterpriseExpertListPage extends BasePanel {
                 @Override
                 protected void populateItem(Item<EnterpriseExpertBean> item) {
                     final EnterpriseExpertBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getContactInformation()));
-                    item.add(new Label("col3", row.getType()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("contactInformation", row.getContactInformation()));
+                    item.add(new Label("type", row.getType()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button

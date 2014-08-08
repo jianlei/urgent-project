@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by dell on 14-1-16.
+ * 综合预案
  */
 @Entity
 @Table(name = "biz_plan_comprehensive")
@@ -21,6 +22,7 @@ import java.util.List;
 public class ComprehensivePlanBean extends PersistentEntity {
 
     private String name;
+
 
     public ComprehensivePlanBean() {
         name="";

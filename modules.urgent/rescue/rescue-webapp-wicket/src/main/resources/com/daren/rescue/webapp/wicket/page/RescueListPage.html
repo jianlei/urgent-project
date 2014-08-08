@@ -10,7 +10,7 @@
 <wicket:panel>
     <div wicket:id="tabs"></div>
     <wicket:fragment wicket:id="mainPanel" id="mainPanel">
-        <div class="alert alert-info">当前位置<b class="tip"/>信息管理<b class="tip"/>政务法规管理</div>
+        <div class="alert alert-info">当前位置<b class="tip"/>资源管理<b class="tip"/>救援队管理</div>
         <form method="post" wicket:id="form">
             <table class="table table-striped table-bordered table-condensed">
                 <thead>
@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="tdl">法律法规名称</td>
+                    <td class="tdl">救援队名称</td>
                     <td class="detail">
                         <input wicket:id="name" class="ipt"/>
                     </td>
@@ -42,23 +42,45 @@
             <table class="table table-striped table-bordered table-condensed" wicket:id="table">
                 <thead>
                 <tr class="tr_detail">
-                    <th>政务法规名称</th>
-                    <th>文档</th>
-                    <th>描述</th>
+                    <th>救援队名称</th>
+                    <th>负责人</th>
+                    <th>负责人电话</th>
+                    <th>值班电话</th>
+                    <th>总人数</th>
+                    <th>地址</th>
+                    <th>经度</th>
+                    <th>纬度</th>
+                    <th>值班表</th>
+                    <th>排班表</th>
+                    <th>主要装备描述</th>
+                    <th>专长描述</th>
+                    <th>备注</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr wicket:id="rows">
                     <td><span wicket:id="name"></span></td>
+                    <td><span wicket:id="head"></span></td>
+                    <td><span wicket:id="headPhone"></span></td>
+                    <td><span wicket:id="telephone"></span></td>
+                    <td><span wicket:id="totalNumber"></span></td>
+                    <td><span wicket:id="address"></span></td>
+                    <td><span wicket:id="longitude"></span></td>
+                    <td><span wicket:id="latitude"></span></td>
                     <td>
-                        <a href="#" wicket:id="document" title="下载文档"><span wicket:id="documentlabel"></span></a>
+                        <a href="#" wicket:id="onDuty" title="值班"><span wicket:id="onDutyLabel"></span></a>
                     </td>
-                    <td><span wicket:id="description"></span></td>
+                    <td>
+                        <a href="#" wicket:id="scheduling" title="值班"><span wicket:id="schedulingLabel"></span></a>
+                    </td>
+                    <td><span wicket:id="equipment"></span></td>
+                    <td><span wicket:id="expertise"></span></td>
+                    <td><span wicket:id="remarks"></span></td>
                     <td>
                         <a href="#" wicket:id="edit">修改</a>
                         <a href="#" wicket:id="delete">删除</a>
-                        <a href="#" wicket:id="uploadDocument">上传文档</a>
+                        <a href="#" wicket:id="uploadOnDutyLabel">上传值班表</a>
                     </td>
                 </tr>
                 <tr class="tr_pagenumber">
@@ -67,7 +89,6 @@
                 </tbody>
             </table>
         </div>
-
     </wicket:fragment>
     <wicket:fragment wicket:id="addPanel" id="addPanel">
         <div wicket:id="repeatingView"></div>

@@ -14,26 +14,51 @@
             </td>
         </tr>
     </table>
+    <div wicket:id="feedBack"></div>
     <form wicket:id="createForm">
         <table class="table table-striped table-bordered table-condensed">
             <thead>
             <tr>
-                <td colspan="6" class="auto-style2">&nbsp;预案申请表基本信息&nbsp;</td>
+                <td colspan="6" class="auto-style2">&nbsp;预案基本信息&nbsp;</td>
             </tr>
             </thead>
             <tbody>
             <tr>
+                <td width="16" class="tdl">名称</td>
+                <td width="16" class="td_detail">
+                    <input class="ipt"  wicket:id="name"/>
+                </td>
                 <td width="16" class="tdl">描述</td>
                 <td width="16" class="td_detail">
                     <input class="ipt"  wicket:id="description"/>
                 </td>
-
             </tr>
             <tr>
-                <td class="tdl" width="16" >上传文件</td>
+                <td class="tdl" width="20" >应急预案申请表</td>
                 <td  class="td_detail">
                     <div class="input-append">
-                        <input class="span2 datepicker" size="50" type="file" wicket:id="filePath"/>
+                        <input class="ipt" size="100" type="file" wicket:id="reservePlanApplyId"/>
+                    </div>
+                </td>
+                <td class="tdl" width="16" >应急预案注册表</td>
+                <td  class="td_detail">
+                    <div class="input-append">
+                        <input class="ipt" size="50" type="file" wicket:id="reservePlanRegisterId"/>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tdl" width="16" >评审专家组</td>
+                <td  class="td_detail">
+                    <div class="input-append">
+                        <input class="ipt" size="50" type="file" wicket:id="reviewExpertId"/>
+                    </div>
+                </td>
+                <td class="tdl" width="16" >评审意见</td>
+                <td  class="td_detail">
+                    <div class="input-append">
+                        <input class="ipt" size="50" type="file" wicket:id="reviewCommentId"/>
                     </div>
                 </td>
             </tr>

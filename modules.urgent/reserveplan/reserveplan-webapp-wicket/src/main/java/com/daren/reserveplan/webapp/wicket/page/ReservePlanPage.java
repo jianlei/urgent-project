@@ -156,6 +156,11 @@ public class ReservePlanPage extends BasePanel {
                     final ReservePlanBean reservePlanBean = item.getModelObject();
 
                     item.add(new Label("name", reservePlanBean.getName()));
+                    item.add(new Label("description", reservePlanBean.getDescription()));
+                    item.add(new Label("reservePlanApplyId", reservePlanBean.getReservePlanApplyId()));
+                    item.add(new Label("reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId()));
+                    item.add(new Label("reviewCommentId", reservePlanBean.getReviewCommentId()));
+                    item.add(new Label("reviewExpertId", reservePlanBean.getReviewExpertId()));
 
                     AjaxLink alink = new AjaxLink("delete") {
                         @Override
