@@ -5,6 +5,7 @@ import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.api.dao.IDocumentBeanDao;
 import com.daren.file.entities.DocumentBean;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,6 @@ public class UploadDocumentServiceImpl extends GenericBizServiceImpl implements 
             return list;
         }
     }
-
 }
 
 

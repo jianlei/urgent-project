@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by dell on 14-1-16.
+ *现场预案
  */
 @Entity
 @Table(name = "biz_plan_spot")

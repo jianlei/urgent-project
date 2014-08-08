@@ -10,10 +10,10 @@ import javax.persistence.Table;
  * Created by 王凯冉 on 20140804.
  */
 @Entity
-@Table(name = "urg_dri_docment")
+@Table(name = "urg_file_document")
 public class DocumentBean extends PersistentEntity {
     private String name;            //文档名称
-    private String type;            //文档类型
+    private String type;            //文档类型u
     private long size;           //文档大小
     private long attach;           //文档归属（应急演练管理ID）
     private String description;    //描述
