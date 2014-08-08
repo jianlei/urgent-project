@@ -1,9 +1,11 @@
 package com.daren.rescue.core.biz;
 
-import com.daren.rescue.entities.RescueBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.api.dao.IRescueBeanDao;
+import com.daren.rescue.entities.RescueBean;
+
+import java.util.List;
 
 /**
  * @类描述：品牌服务实现类
@@ -20,6 +22,11 @@ public class RescueBeanServiceImpl extends GenericBizServiceImpl implements IRes
     public void setRescueBeanDao(IRescueBeanDao rescueBeanDao) {
         this.rescueBeanDao = rescueBeanDao;
         super.init(rescueBeanDao, RescueBean.class.getName());
+    }
+
+    @Override
+    public List<RescueBean> query(RescueBean dictBean) {
+        return rescueBeanDao.find("select r from RescueBean r where r.name=?1", dictBean.getName());
     }
 }
 

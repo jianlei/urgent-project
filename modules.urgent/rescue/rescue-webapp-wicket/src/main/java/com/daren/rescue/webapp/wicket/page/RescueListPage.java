@@ -1,10 +1,10 @@
-package com.daren.regulation.webapp.wicket.page;
+package com.daren.rescue.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
-import com.daren.regulation.api.biz.IRegulationBeanService;
-import com.daren.regulation.entities.RegulationBean;
+import com.daren.rescue.api.biz.IRescueBeanService;
+import com.daren.rescue.entities.RescueBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
@@ -36,14 +36,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @类描述：法律法规
+ * @类描述：救援队管理
  * @创建人：张清欣
- * @创建时间：2014-03-29 上午10:25
+ * @创建时间：2014-08-08 上午10:25
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class RegulationListPage extends BasePanel {
+
+public class RescueListPage extends BasePanel {
 
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "法律法规";
@@ -56,12 +57,11 @@ public class RegulationListPage extends BasePanel {
     Fragment fragment;
     //注入服务
     @Inject
-    @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
-    private IRegulationBeanService regulationBeanService;
-//    final DocumentListPage dialog;
+    @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
+    private IRescueBeanService rescueBeanService;
 
     //构造函数
-    public RegulationListPage(String id, WebMarkupContainer wmc) {
+    public RescueListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
@@ -112,7 +112,7 @@ public class RegulationListPage extends BasePanel {
      * @param newTabType "修改字典"||"新增字典"
      * @param row        数据
      */
-    private void createNewTab(AjaxRequestTarget target, final String newTabType, final RegulationBean row) {
+    private void createNewTab(AjaxRequestTarget target, final String newTabType, final RescueBean row) {
         //去掉第二个tab
         if (tabPanel.getModelObject().size() == 2) {
             tabPanel.getModelObject().remove(1);
@@ -124,7 +124,7 @@ public class RegulationListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                RegulationAddPage regulationAddPage = new RegulationAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                RescueAddPage rescueAddPage = new RescueAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -133,8 +133,8 @@ public class RegulationListPage extends BasePanel {
                         target.add(tabPanel);
                     }
                 };
-                repeatingView.add(regulationAddPage);
-                fragment = new Fragment(panelId, "addPanel", RegulationListPage.this);
+                repeatingView.add(rescueAddPage);
+                fragment = new Fragment(panelId, "addPanel", RescueListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -151,7 +151,7 @@ public class RegulationListPage extends BasePanel {
         final WebMarkupContainer table;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, RegulationListPage.this);
+            super(id, markupId, RescueListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -178,30 +178,48 @@ public class RegulationListPage extends BasePanel {
             container.add(table.setOutputMarkupId(true));
 
             //add listview
-            final DataView<RegulationBean> listView = new DataView<RegulationBean>("rows", provider, numPerPage) {
+            final DataView<RescueBean> listView = new DataView<RescueBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void populateItem(final Item<RegulationBean> item) {
-                    final RegulationBean row = item.getModelObject();
+                protected void populateItem(final Item<RescueBean> item) {
+                    final RescueBean row = item.getModelObject();
                     item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getDescription()));
+                    item.add(new Label("col2", row.getHead()));
+                    item.add(new Label("col3", row.getHeadPhone()));
+                    item.add(new Label("col4", row.getTelephone()));
+                    item.add(new Label("col5", row.getTotalNumber()));
+                    item.add(new Label("col6", row.getAddress()));
+                    item.add(new Label("col7", row.getLongitude()));
+                    item.add(new Label("col8", row.getLatitude()));
+                    item.add(new Label("col9", row.getEquipment()));
+                    item.add(new Label("col10", row.getExpertise()));
+                    item.add(new Label("col11", row.getRemarks()));
 
-                    AjaxLink alinkDocument = new AjaxLink("document") {
+                    AjaxLink alinkOnDuty = new AjaxLink("onDuty") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            createDialog(target, row, "文档列表");
+//                            createDialog(target, row, "值班列表");
                         }
                     };
-                    alinkDocument.add(new Label("documentlabel", "文档"));
-                    item.add(alinkDocument.setOutputMarkupId(true));
+                    alinkOnDuty.add(new Label("onDutyLabel", "值班"));
+                    item.add(alinkOnDuty.setOutputMarkupId(true));
+
+                    AjaxLink alinkScheduling = new AjaxLink("scheduling") {
+                        @Override
+                        public void onClick(AjaxRequestTarget target) {
+//                            createDialog(target, row, "排班列表");
+                        }
+                    };
+                    alinkScheduling.add(new Label("schedulingLabel", "排班"));
+                    item.add(alinkScheduling.setOutputMarkupId(true));
 
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
                     item.add(initUpdateButton(row));
                     //add upload button
-                    item.add(initUploadDocumentButton(row));
+                    item.add(initUploadOnDutyButton(row));
                 }
             };
             table.add(listView);
@@ -212,7 +230,7 @@ public class RegulationListPage extends BasePanel {
             table.add(pagingNavigator);
 
             //增加form
-            Form<RegulationBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new RegulationBean()));
+            Form<RescueBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new RescueBean()));
             TextField textField = new TextField("name");
             textField.setRequired(false);
             dictForm.add(textField.setOutputMarkupId(true));
@@ -231,27 +249,27 @@ public class RegulationListPage extends BasePanel {
          * @param row
          * @param title
          */
-        private void createDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+        private void createDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            dialog = new DocumentListPage("dialog", title, new CompoundPropertyModel<>(row));
+            /*dialog = new DocumentListPage("dialog", title, new CompoundPropertyModel<>(row));
             target.add(dialogWrapper);
-            dialog.open(target);
+            dialog.open(target);*/
         }
 
-        private void createUploadDialog(AjaxRequestTarget target, final RegulationBean row, final String title) {
+        private void createUploadDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            dialog = new UploadDocumentPage("dialog", title, new CompoundPropertyModel<>(row)) {
+            /*dialog = new UploadDocumentPage("dialog", title, new CompoundPropertyModel<>(row)) {
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
                     target.add(table);
                 }
             };
             target.add(dialogWrapper);
-            dialog.open(target);
+            dialog.open(target);*/
         }
 
         /**
@@ -260,7 +278,7 @@ public class RegulationListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final RegulationBean row) {
+        private AjaxLink initUpdateButton(final RescueBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -277,7 +295,7 @@ public class RegulationListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final RegulationBean row) {
+        private AjaxLink initDeleteButton(final RescueBean row) {
             //删除功能
             AjaxLink alink = new AjaxLink("delete") {
                 @Override
@@ -291,7 +309,7 @@ public class RegulationListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
-                        regulationBeanService.deleteEntity(row.getId());
+                        rescueBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
                         target.addChildren(getPage(), FeedbackPanel.class);
                         target.add(container);
@@ -305,16 +323,16 @@ public class RegulationListPage extends BasePanel {
         }
 
         /**
-         * 初始化文档上传按钮
+         * 初始化值班上传按钮
          *
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUploadDocumentButton(final RegulationBean row) {
-            AjaxLink alink = new AjaxLink("uploadDocument") {
+        private AjaxLink initUploadOnDutyButton(final RescueBean row) {
+            AjaxLink alink = new AjaxLink("uploadOnDutyLabel") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-                    createUploadDialog(target, row, "上传文档");
+//                    createUploadDialog(target, row, "上传值班表");
                 }
             };
             return alink;
@@ -332,7 +350,7 @@ public class RegulationListPage extends BasePanel {
             return new IndicatingAjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    RegulationBean dictBean = (RegulationBean) form.getModelObject();
+                    RescueBean dictBean = (RescueBean) form.getModelObject();
                     provider.setDictBean(dictBean);
                     target.add(container);
                 }
@@ -348,20 +366,20 @@ public class RegulationListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<RegulationBean> {
-        private RegulationBean dictBean = null;
+    class DictDataProvider extends ListDataProvider<RescueBean> {
+        private RescueBean dictBean = null;
 
-        public void setDictBean(RegulationBean dictBean) {
+        public void setDictBean(RescueBean dictBean) {
             this.dictBean = dictBean;
         }
 
         @Override
-        protected List<RegulationBean> getData() {
+        protected List<RescueBean> getData() {
             //类型为空时候，返回全部记录
             if (dictBean == null)
-                return regulationBeanService.getAllEntity();
+                return rescueBeanService.getAllEntity();
             else {
-                return regulationBeanService.query(dictBean);
+                return rescueBeanService.query(dictBean);
             }
         }
     }
