@@ -3,8 +3,15 @@
     <service id="rescueService" interface="com.daren.rescue.api.biz.IRescueBeanService">
         <bean class="com.daren.rescue.core.biz.RescueBeanServiceImpl">
             <property name="rescueBeanDao" ref="rescueBeanDao"/>
-                </bean>
+        </bean>
     </service>
     <reference id="rescueBeanDao" interface="com.daren.rescue.api.dao.IRescueBeanDao"/>
+
+    <service id="onDutyBeanService" interface="com.daren.rescue.api.biz.IOnDutyBeanService">
+        <bean class="com.daren.rescue.core.biz.OnDutyBeanServiceImpl">
+            <property name="onDutyBeanDao" ref="onDutyBeanDao"/>
+        </bean>
+    </service>
+    <reference id="onDutyBeanDao" interface="com.daren.rescue.api.dao.IOnDutyBeanDao"/>
 </blueprint>
 
