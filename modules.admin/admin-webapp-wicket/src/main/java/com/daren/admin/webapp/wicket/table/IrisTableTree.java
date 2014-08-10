@@ -10,6 +10,7 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.theme.WindowsTheme
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.OddEvenItem;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.List;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class IrisTableTree<T, S> extends TableTree<T, S> {
 
         getTable().addBottomToolbar(new IrisAjaxNavigationToolbar(getTable()));
         getTable().addTopToolbar(new IrisHeadersToolbar<S>(getTable(), provider));
-        getTable().addBottomToolbar(new NoRecordsToolbar(getTable()));
+        getTable().addBottomToolbar(new NoRecordsToolbar(getTable(), Model.of("未找到记录")));
 
         add(new WindowsTheme());
     }

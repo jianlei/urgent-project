@@ -98,7 +98,7 @@ public class AreaAddPage extends Panel {
                         bean.setParent(AreaAddPage.this.bean);
                         areaForm.setModelObject(bean);
                     }
-                    feedbackPanel.info(type + areaBean.getType() + "成功！");
+                    feedbackPanel.info(type + areaBean.getName() + "成功！");
                     target.add(areaForm);
                 } catch (Exception e) {
                     feedbackPanel.error(type + "失败！");
