@@ -48,8 +48,8 @@ public class VideoListPage extends IrisAbstractDialog<UrgentDrillBean> {
             @Override
             protected void populateItem(ListItem<VideoBean> item) {
                 final VideoBean docmentBean = item.getModelObject();
-                item.add(new Label("col1", docmentBean.getName()));
-                item.add(new Label("col2", docmentBean.getDescription()));
+                item.add(new Label("name", docmentBean.getName()));
+                item.add(new Label("description", docmentBean.getDescription()));
 
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downVideo", new AbstractReadOnlyModel<File>() {

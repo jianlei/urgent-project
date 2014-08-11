@@ -34,4 +34,19 @@ public class PermissionBeanServiceImpl extends GenericBizServiceImpl implements 
     public List<PermissionBean> getChildPermission(PermissionBean permissionBean) {
         return permissionBeanDao.getChildPermission(permissionBean);
     }
+
+    @Override
+    public List<PermissionBean> query(PermissionBean permissionBean) {
+        return null;
+    }
+
+    @Override
+    public List<PermissionBean> getRootBeanList() {
+        return permissionBeanDao.find("select u from PermissionBean u where u.parent is null");
+    }
+
+    @Override
+    public List<PermissionBean> getChildBeanList(PermissionBean permissionBean) {
+        return permissionBeanDao.find("select u from PermissionBean u where u.parent= ?1", permissionBean);
+    }
 }

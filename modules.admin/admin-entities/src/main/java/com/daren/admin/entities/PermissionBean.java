@@ -23,8 +23,8 @@ public class PermissionBean extends PersistentEntity {
     private String name;    // 名称
     private String href;    // 链接
     private String icon;    // 图标
-    private Integer sort;    // 排序
-    private String isShow;    // 是否在菜单中显示（1：显示；0：不显示）
+    private Integer sort;    // 序号
+    private Boolean isShow;    // 是否在菜单中显示（1：显示；0：不显示）
     private String permission; // 权限标识
 
     private List<PermissionBean> childList = Lists.newArrayList();// 拥有子菜单列表
@@ -93,15 +93,13 @@ public class PermissionBean extends PersistentEntity {
     }
 
 
-    public String getIsShow() {
+    public Boolean getIsShow() {
         return isShow;
     }
 
-
-    public void setIsShow(String isShow) {
+    public void setIsShow(Boolean isShow) {
         this.isShow = isShow;
     }
-
 
     public String getPermission() {
         return permission;
@@ -112,7 +110,7 @@ public class PermissionBean extends PersistentEntity {
         this.permission = permission;
     }
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     @OrderBy(value = "sort")
     public List<PermissionBean> getChildList() {
         return childList;
@@ -133,5 +131,10 @@ public class PermissionBean extends PersistentEntity {
 
     public void setRoleList(List<RoleBean> roleList) {
         this.roleList = roleList;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

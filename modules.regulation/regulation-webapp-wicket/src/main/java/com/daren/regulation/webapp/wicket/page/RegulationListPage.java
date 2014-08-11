@@ -184,8 +184,8 @@ public class RegulationListPage extends BasePanel {
                 @Override
                 protected void populateItem(final Item<RegulationBean> item) {
                     final RegulationBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getDescription()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("description", row.getDescription()));
 
                     AjaxLink alinkDocument = new AjaxLink("document") {
                         @Override

@@ -163,9 +163,9 @@ public class EnterpriseExpertListPage extends BasePanel {
                 @Override
                 protected void populateItem(Item<EnterpriseExpertBean> item) {
                     final EnterpriseExpertBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getContactInformation()));
-                    item.add(new Label("col3", row.getType()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("contactInformation", row.getContactInformation()));
+                    item.add(new Label("type", row.getType()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button

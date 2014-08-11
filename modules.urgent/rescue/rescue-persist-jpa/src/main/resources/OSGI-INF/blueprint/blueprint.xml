@@ -14,5 +14,13 @@
         </bean>
     </service>
 
+    <service interface="com.daren.rescue.api.dao.IOnDutyBeanDao">
+        <bean class="com.daren.rescue.persist.openjpa.OnDutyBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="rescue-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+
 </blueprint>
 

@@ -47,9 +47,9 @@ import java.util.List;
 public class RescueListPage extends BasePanel {
 
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "法律法规";
-    private final static String CONST_ADD = "添加法律法规";
-    private final static String CONST_EDIT = "编辑法律法规";
+    private final static String CONST_LIST = "救援队";
+    private final static String CONST_ADD = "添加救援队";
+    private final static String CONST_EDIT = "编辑救援队";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
@@ -184,22 +184,22 @@ public class RescueListPage extends BasePanel {
                 @Override
                 protected void populateItem(final Item<RescueBean> item) {
                     final RescueBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getHead()));
-                    item.add(new Label("col3", row.getHeadPhone()));
-                    item.add(new Label("col4", row.getTelephone()));
-                    item.add(new Label("col5", row.getTotalNumber()));
-                    item.add(new Label("col6", row.getAddress()));
-                    item.add(new Label("col7", row.getLongitude()));
-                    item.add(new Label("col8", row.getLatitude()));
-                    item.add(new Label("col9", row.getEquipment()));
-                    item.add(new Label("col10", row.getExpertise()));
-                    item.add(new Label("col11", row.getRemarks()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("head", row.getHead()));
+                    item.add(new Label("headPhone", row.getHeadPhone()));
+                    item.add(new Label("telephone", row.getTelephone()));
+                    item.add(new Label("totalNumber", row.getTotalNumber()));
+                    item.add(new Label("address", row.getAddress()));
+                    item.add(new Label("longitude", row.getLongitude()));
+                    item.add(new Label("latitude", row.getLatitude()));
+                    item.add(new Label("equipment", row.getEquipment()));
+                    item.add(new Label("expertise", row.getExpertise()));
+                    item.add(new Label("remarks", row.getRemarks()));
 
                     AjaxLink alinkOnDuty = new AjaxLink("onDuty") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-//                            createDialog(target, row, "值班列表");
+                            createOnDutyDialog(target, row, "值班列表");
                         }
                     };
                     alinkOnDuty.add(new Label("onDutyLabel", "值班"));
@@ -220,6 +220,7 @@ public class RescueListPage extends BasePanel {
                     item.add(initUpdateButton(row));
                     //add upload button
                     item.add(initUploadOnDutyButton(row));
+                    item.add(initUploadSchedulingButton(row));
                 }
             };
             table.add(listView);
@@ -249,13 +250,27 @@ public class RescueListPage extends BasePanel {
          * @param row
          * @param title
          */
-        private void createDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
+        private void createOnDutyDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            /*dialog = new DocumentListPage("dialog", title, new CompoundPropertyModel<>(row));
+            dialog = new OnDutyListPage("dialog", title, new CompoundPropertyModel<>(row));
             target.add(dialogWrapper);
-            dialog.open(target);*/
+            dialog.open(target);
+        }
+
+        private void createUploadOnDutyDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new UploadOnDutyPage("dialog", title, new CompoundPropertyModel<>(row)) {
+                @Override
+                public void updateTarget(AjaxRequestTarget target) {
+                    target.add(table);
+                }
+            };
+            target.add(dialogWrapper);
+            dialog.open(target);
         }
 
         private void createUploadDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
@@ -330,6 +345,22 @@ public class RescueListPage extends BasePanel {
          */
         private AjaxLink initUploadOnDutyButton(final RescueBean row) {
             AjaxLink alink = new AjaxLink("uploadOnDutyLabel") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createUploadOnDutyDialog(target, row, "上传值班表");
+                }
+            };
+            return alink;
+        }
+
+        /**
+         * 初始化排班上传按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private AjaxLink initUploadSchedulingButton(final RescueBean row) {
+            AjaxLink alink = new AjaxLink("uploadSchedulingLabel") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
 //                    createUploadDialog(target, row, "上传值班表");

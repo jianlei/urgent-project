@@ -18,12 +18,12 @@ import java.util.List;
 public class PermissionBeanDaoOpenjpa extends GenericOpenJpaDao<PermissionBean, Long> implements IPermissionBeanDao {
     @Override
     public PermissionBean getRootPermission() {
-        PermissionBean permissionBean = this.findUnique("select u from PermissionBeanImpl u where u.parent is null");
+        PermissionBean permissionBean = this.findUnique("select u from PermissionBean u where u.parent is null");
         return permissionBean;
     }
 
     @Override
     public List<PermissionBean> getChildPermission(PermissionBean permissionBean) {
-        return this.find("select u from PermissionBeanImpl u where u.parent=?1", permissionBean);
+        return this.find("select u from PermissionBean u where u.parent=?1", permissionBean);
     }
 }

@@ -42,6 +42,25 @@ public class AreaBean extends PersistentEntity {
         super();
     }
 
+    @Transient
+    public static void sortList(List<AreaBean> list, List<AreaBean> sourcelist, String parentId) {
+        /*for (int i=0; i<sourcelist.size(); i++){
+            AreaBean e = sourcelist.get(i);
+			if (e.getParent()!=null && e.getParent().getId()!=null
+					&& e.getParent().getId().equals(parentId)){
+				list.add(e);
+				// 判断是否还有子节点, 有则继续获取子节点
+				for (int j=0; j<sourcelist.size(); j++){
+					AreaBean childe = sourcelist.get(j);
+					if (childe.getParent()!=null && childe.getParent().getId()!=null
+							&& childe.getParent().getId().equals(e.getId())){
+						sortList(list, sourcelist, e.getId());
+						break;
+					}
+				}
+			}
+		}*/
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -100,7 +119,7 @@ public class AreaBean extends PersistentEntity {
         this.officeList = officeList;
     }
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     @OrderBy(value = "code")
     public List<AreaBean> getChildList() {
         return childList;
@@ -110,24 +129,9 @@ public class AreaBean extends PersistentEntity {
         this.childList = childList;
     }
 
-    @Transient
-    public static void sortList(List<AreaBean> list, List<AreaBean> sourcelist, String parentId) {
-        /*for (int i=0; i<sourcelist.size(); i++){
-			AreaBean e = sourcelist.get(i);
-			if (e.getParent()!=null && e.getParent().getId()!=null
-					&& e.getParent().getId().equals(parentId)){
-				list.add(e);
-				// 判断是否还有子节点, 有则继续获取子节点
-				for (int j=0; j<sourcelist.size(); j++){
-					AreaBean childe = sourcelist.get(j);
-					if (childe.getParent()!=null && childe.getParent().getId()!=null
-							&& childe.getParent().getId().equals(e.getId())){
-						sortList(list, sourcelist, e.getId());
-						break;
-					}
-				}
-			}
-		}*/
+    @Override
+    public String toString() {
+        return name;
     }
 
 

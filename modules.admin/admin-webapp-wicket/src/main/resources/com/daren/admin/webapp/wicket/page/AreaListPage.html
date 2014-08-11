@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <!--<link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>-->
+    <!--<script type="text/javascript" src="cus/Scripts/tb.js"></script>-->
+</wicket:head>
+<body>
+<wicket:panel>
+    <div wicket:id="tabs"></div>
+    <wicket:fragment wicket:id="mainPanel" id="mainPanel">
+        <div class="alert alert-info">当前位置<b class="tip"/>系统管理<b class="tip"/>区域管理</div>
+        <form method="post" wicket:id="form">
+            <table class="table table-striped table-bordered table-condensed">
+                <tbody>
+                <tr>
+                    <td colspan="6" align="left">
+                        <input class="btn btn-inverse" wicket:id="add" type="button" value="新增" title="新增根区域"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <div wicket:id="container">
+            <span wicket:id="feedback"/>
+
+            <div wicket:id="tree"></div>
+        </div>
+        <wicket:fragment wicket:id="action">
+            <a href="#" wicket:id="edit"><!--<span wicket:id="linklabel"></span>-->修改</a>
+            <a href="#" wicket:id="delete"><!--<span wicket:id="linklabel"></span>-->删除</a>
+            <a href="#" wicket:id="addChild"><!--<span wicket:id="linklabel"></span>-->添加子区域</a>
+        </wicket:fragment>
+    </wicket:fragment>
+
+    <wicket:fragment wicket:id="addPanel" id="addPanel">
+        <div wicket:id="repeatingView"></div>
+    </wicket:fragment>
+
+</wicket:panel>
+</body>
+</html>

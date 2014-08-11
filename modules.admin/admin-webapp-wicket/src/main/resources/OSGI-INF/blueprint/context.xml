@@ -45,4 +45,9 @@
         <bean class="com.daren.admin.webapp.wicket.OfficeMenuItemsModule"/>
     </service>
 
+    <!-- 发布区域管理子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.AreaMenuItemsModule"/>
+    </service>
+
 </blueprint>
