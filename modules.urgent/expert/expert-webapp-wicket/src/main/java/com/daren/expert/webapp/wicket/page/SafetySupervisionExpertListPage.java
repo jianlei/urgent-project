@@ -1,7 +1,7 @@
 package com.daren.expert.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
@@ -171,7 +171,7 @@ public class SafetySupervisionExpertListPage extends BasePanel {
             table.add(listView);
 
             //增加分页指示器
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
 

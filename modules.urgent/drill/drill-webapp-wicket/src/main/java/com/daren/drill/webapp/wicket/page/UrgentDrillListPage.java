@@ -2,7 +2,7 @@ package com.daren.drill.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.drill.api.biz.IUploadDocumentService;
 import com.daren.drill.api.biz.IUploadImageService;
 import com.daren.drill.api.biz.IUploadVideoService;
@@ -239,7 +239,7 @@ public class UrgentDrillListPage extends BasePanel {
             table.add(listView);
 
             //增加分页指示器
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
 

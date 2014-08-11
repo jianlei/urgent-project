@@ -25,7 +25,7 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 3;
     }
 
     @Override
@@ -37,10 +37,9 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
     public String getIcon() {
         return "";  //To change body of implemented methods use File | Settings | File Templates.
     }
-
     @Override
     public String getTag() {
-        return "plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

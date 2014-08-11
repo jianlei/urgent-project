@@ -2,7 +2,7 @@ package com.daren.regulation.webapp.wicket.page;
 
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
 import com.daren.regulation.entities.RegulationBean;
@@ -70,7 +70,7 @@ public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
                 item.add(alinkdownDocument.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
         };
         table.add(pagingNavigator);
         table.setVersioned(false);

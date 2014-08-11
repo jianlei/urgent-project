@@ -14,6 +14,7 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.File;
@@ -43,6 +44,8 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
     @Reference(id = "onDutyBeanService", serviceInterface = IOnDutyBeanService.class)
     private IOnDutyBeanService onDutyBeanService;
 
+    private FeedbackPanel feedbackPanel; //信息显示
+
     public UploadOnDutyPage(String id, String title, IModel<RescueBean> model) {
         super(id, title, model);
         final RescueBean regulationBean = (RescueBean) model.getObject();
@@ -52,6 +55,8 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
+        feedbackPanel = new FeedbackPanel("feedback");
+        form.add(feedbackPanel.setOutputMarkupId(true));
 
         //保存按钮
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
@@ -112,17 +117,22 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
                                     if (c5 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setExpertise(getValue(c5));
+                                    onDutyBeanFile.setRemarks(getValue(c5));
                                     onDutyBeanFile.setAttach(regulationBean.getId());
                                     onDutyBeanService.saveEntity(onDutyBeanFile);
                                     super.onSubmit(target, form);
                                 }
                             }
+                            is.close();
                             File fileDelete = new File(path);
-                            fileDelete.delete();
+                            fileDelete.remove();
                         }
                     }
+                    feedbackPanel.info("上传成功！");
+                    target.add(feedbackPanel);
                 } catch (Exception e) {
+                    feedbackPanel.info("上传失败！");
+                    target.add(feedbackPanel);
                     e.printStackTrace();
                 }
             }

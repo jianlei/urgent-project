@@ -2,7 +2,7 @@ package com.daren.rescue.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.googlecode.wicket.jquery.core.Options;
@@ -208,7 +208,7 @@ public class RescueListPage extends BasePanel {
                     AjaxLink alinkScheduling = new AjaxLink("scheduling") {
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-//                            createDialog(target, row, "排班列表");
+                            createSchedulingDialog(target, row, "排班列表");
                         }
                     };
                     alinkScheduling.add(new Label("schedulingLabel", "排班"));
@@ -226,7 +226,7 @@ public class RescueListPage extends BasePanel {
             table.add(listView);
 
             //增加分页指示器
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
 
@@ -259,6 +259,15 @@ public class RescueListPage extends BasePanel {
             dialog.open(target);
         }
 
+        private void createSchedulingDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new SchedulingListPage("dialog", title, new CompoundPropertyModel<>(row));
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
         private void createUploadOnDutyDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
@@ -273,18 +282,18 @@ public class RescueListPage extends BasePanel {
             dialog.open(target);
         }
 
-        private void createUploadDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
+        private void createUploadSchedulingDialog(AjaxRequestTarget target, final RescueBean row, final String title) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            /*dialog = new UploadDocumentPage("dialog", title, new CompoundPropertyModel<>(row)) {
+            dialog = new UploadSchedulingPage("dialog", title, new CompoundPropertyModel<>(row)) {
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
                     target.add(table);
                 }
             };
             target.add(dialogWrapper);
-            dialog.open(target);*/
+            dialog.open(target);
         }
 
         /**
@@ -363,7 +372,7 @@ public class RescueListPage extends BasePanel {
             AjaxLink alink = new AjaxLink("uploadSchedulingLabel") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-//                    createUploadDialog(target, row, "上传值班表");
+                    createUploadSchedulingDialog(target, row, "上传值班表");
                 }
             };
             return alink;

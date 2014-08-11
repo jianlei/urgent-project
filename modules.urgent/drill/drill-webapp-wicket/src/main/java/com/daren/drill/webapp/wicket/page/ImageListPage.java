@@ -2,7 +2,7 @@ package com.daren.drill.webapp.wicket.page;
 
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.drill.api.biz.IUploadImageService;
 import com.daren.drill.entities.ImageBean;
 import com.daren.drill.entities.UrgentDrillBean;
@@ -72,7 +72,7 @@ public class ImageListPage extends IrisAbstractDialog<UrgentDrillBean> {
                 item.add(alinkdownDocument.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
         };
         table.add(pagingNavigator);
         table.setVersioned(false);

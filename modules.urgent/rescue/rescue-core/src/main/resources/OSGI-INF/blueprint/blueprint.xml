@@ -13,5 +13,12 @@
         </bean>
     </service>
     <reference id="onDutyBeanDao" interface="com.daren.rescue.api.dao.IOnDutyBeanDao"/>
+
+    <service id="schedulingBeanService" interface="com.daren.rescue.api.biz.ISchedulingBeanService">
+        <bean class="com.daren.rescue.core.biz.SchedulingBeanServiceImpl">
+            <property name="schedulingBeanDao" ref="schedulingBeanDao"/>
+        </bean>
+    </service>
+    <reference id="schedulingBeanDao" interface="com.daren.rescue.api.dao.ISchedulingBeanDao"/>
 </blueprint>
 

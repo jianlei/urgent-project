@@ -1,6 +1,6 @@
 package com.daren.core.web.wicket;
 
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -75,7 +75,7 @@ public class HomePage extends WebPage {
                     item.add(alink.setOutputMarkupId(true));
                 }
             };
-            CustomePagingNavigator pagingNavigator= new CustomePagingNavigator("navigator", lv){
+            CustomerPagingNavigator pagingNavigator= new CustomerPagingNavigator("navigator", lv){
 
             };
             table.add(pagingNavigator);

@@ -2,7 +2,7 @@ package com.daren.rescue.webapp.wicket.page;
 
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.rescue.api.biz.IOnDutyBeanService;
 import com.daren.rescue.entities.OnDutyBean;
 import com.daren.rescue.entities.RescueBean;
@@ -51,7 +51,7 @@ public class OnDutyListPage extends IrisAbstractDialog<RescueBean> {
                 item.add(new Label("remarks", onDutyBean.getRemarks()));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
         };
         table.add(pagingNavigator);
         table.setVersioned(false);
