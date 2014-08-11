@@ -1,9 +1,9 @@
 package com.daren.rescue.webapp.wicket.page;
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.rescue.api.biz.IOnDutyBeanService;
-import com.daren.rescue.entities.OnDutyBean;
+import com.daren.rescue.api.biz.ISchedulingBeanService;
 import com.daren.rescue.entities.RescueBean;
+import com.daren.rescue.entities.SchedulingBean;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -31,27 +31,27 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @类描述：救援队管理-上传值班
+ * @类描述：救援队管理-上传排班
  * @创建人：张清欣
  * @创建时间：2014-08-08 上午10:25
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
+public class UploadSchedulingPage extends IrisAbstractDialog<RescueBean> {
     //注入服务
     @Inject
-    @Reference(id = "onDutyBeanService", serviceInterface = IOnDutyBeanService.class)
-    private IOnDutyBeanService onDutyBeanService;
+    @Reference(id = "schedulingBeanService", serviceInterface = ISchedulingBeanService.class)
+    private ISchedulingBeanService schedulingBeanService;
 
     private FeedbackPanel feedbackPanel; //信息显示
 
-    public UploadOnDutyPage(String id, String title, IModel<RescueBean> model) {
+    public UploadSchedulingPage(String id, String title, IModel<RescueBean> model) {
         super(id, title, model);
         final RescueBean regulationBean = (RescueBean) model.getObject();
-        final OnDutyBean onDutyBean = new OnDutyBean();
+        final SchedulingBean schedulingBean = new SchedulingBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
-        Form form = new Form("form", new CompoundPropertyModel(onDutyBean));
+        Form form = new Form("form", new CompoundPropertyModel(schedulingBean));
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
@@ -62,12 +62,11 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
         AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-
                 try {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
-                    List<OnDutyBean> list = onDutyBeanService.getOnDutyBeanByAttach(regulationBean.getId());
+                    List<SchedulingBean> list = schedulingBeanService.getOnSchedulingBeanByAttach(regulationBean.getId());
                     for (int i = 0; i < list.size(); i++) {
-                        onDutyBeanService.deleteOnDutyBeanById(list.get(i).getId());
+                        schedulingBeanService.deleteSchedulingBeanById(list.get(i).getId());
                     }
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
@@ -84,7 +83,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
                                 }
                                 // 循环行Row
                                 for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
-                                    OnDutyBean onDutyBeanFile = new OnDutyBean();
+                                    SchedulingBean onDutyBeanFile = new SchedulingBean();
                                     HSSFRow hssfRow = hssfSheet.getRow(rowNum);
                                     if (hssfRow == null) {
                                         continue;
@@ -119,7 +118,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
                                     }
                                     onDutyBeanFile.setRemarks(getValue(c5));
                                     onDutyBeanFile.setAttach(regulationBean.getId());
-                                    onDutyBeanService.saveEntity(onDutyBeanFile);
+                                    schedulingBeanService.saveEntity(onDutyBeanFile);
                                     super.onSubmit(target, form);
                                 }
                             }

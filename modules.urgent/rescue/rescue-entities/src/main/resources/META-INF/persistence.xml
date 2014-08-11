@@ -46,6 +46,7 @@
 
         <class>com.daren.rescue.entities.RescueBean</class>
         <class>com.daren.rescue.entities.OnDutyBean</class>
+        <class>com.daren.rescue.entities.SchedulingBean</class>
         <class>com.daren.core.api.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
