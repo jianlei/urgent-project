@@ -13,12 +13,12 @@ import org.apache.wicket.markup.html.navigation.paging.IPagingLabelProvider;
  * 修改时间:  2014/7/31 0:11
  * 修改备注:  [说明本次修改内容]
  */
-public class CustomePagingNavigator extends AjaxPagingNavigator {
-    public CustomePagingNavigator(String id, IPageable pageable) {
+public class CustomerPagingNavigator extends AjaxPagingNavigator {
+    public CustomerPagingNavigator(String id, IPageable pageable) {
         super(id, pageable);
     }
 
-    public CustomePagingNavigator(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
+    public CustomerPagingNavigator(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
         super(id, pageable, labelProvider);
     }
 }

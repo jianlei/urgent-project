@@ -6,6 +6,10 @@ import com.daren.reserveplan.api.biz.ISpecialPlanBeanService;
 import com.daren.reserveplan.api.dao.IReservePlanBeanDao;
 import com.daren.reserveplan.api.dao.ISpecialPlanBeanDao;
 import com.daren.reserveplan.entities.ReservePlanBean;
+import com.daren.reserveplan.entities.SpecialPlanBean;
+import com.daren.reserveplan.entities.SpotPlanBean;
+
+import java.util.List;
 
 /**
  * @类描述：品牌服务实现类
@@ -21,7 +25,17 @@ public class SpecialPlanBeanServiceImpl extends GenericBizServiceImpl implements
 
     public void setSpecialPlanBeanDao(ISpecialPlanBeanDao specialPlanBeanDao) {
         this.specialPlanBeanDao = specialPlanBeanDao;
-        super.init(specialPlanBeanDao, ReservePlanBean.class.getName());
+        super.init(specialPlanBeanDao, SpecialPlanBean.class.getName());
+    }
+
+    @Override
+    public List<SpecialPlanBean> queryByName(SpecialPlanBean specialPlanBean) {
+        return specialPlanBeanDao.find("select a from SpecialPlanBean a where a.name LIKE ?1", "%" + specialPlanBean.getName() + "%");
+    }
+
+    @Override
+    public List<SpecialPlanBean> queryByReservePlanId(SpecialPlanBean specialPlanBean) {
+        return specialPlanBeanDao.find("select a from SpecialPlanBean a where a.reservePlanId LIKE ?1", "%" + specialPlanBean.getReservePlanId() + "%");
     }
 }
 

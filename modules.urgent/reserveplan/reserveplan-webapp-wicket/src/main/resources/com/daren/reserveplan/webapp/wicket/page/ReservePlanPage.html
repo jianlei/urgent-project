@@ -29,7 +29,6 @@
                 <tr>
                     <td colspan="6" align="right">
                         <input class="btn btn-inverse" wicket:id="find" type="button" value="查询"/>
-                        <input class="btn btn-inverse" type="reset" value="清空"/>
                         <input class="btn btn-inverse" wicket:id="add" type="button" value="新增"/>
                     </td>
                 </tr>
@@ -45,6 +44,9 @@
                 <th>注册表</th>
                 <th>评审专家</th>
                 <th>评审意见</th>
+                <th>综合预案</th>
+                <th>专项预案</th>
+                <th>现场预案</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -52,10 +54,13 @@
             <tr wicket:id="rows">
                 <td wicket:id="name"></td>
                 <td wicket:id="description"></td>
-                <td wicket:id="reservePlanApplyId"></td>
-                <td wicket:id="reservePlanRegisterId"></td>
-                <td wicket:id="reviewExpertId"></td>
-                <td wicket:id="reviewCommentId"></td>
+                <td><a href="#" wicket:id="reservePlanApplyId">下载</a></td>
+                <td><a href="#" wicket:id="reservePlanRegisterId">下载</a></td>
+                <td><a href="#" wicket:id="reviewExpertId">下载</a></td>
+                <td><a href="#" wicket:id="reviewCommentId">下载</a></td>
+                <td><a href="#" wicket:id="comprehensivePlanId">下载</a></td>
+                <td><a href="#" wicket:id="specialPlanBeanList">查看</a></td>
+                <td><a href="#" wicket:id="spotPlanBeanList">查看</a></td>
                 <td><a href="#" wicket:id="delete">删除</a></td>
             </tr>
             <tr class="tr_pagenumber">
@@ -71,6 +76,10 @@
         <div wicket:id="createPage"></div>
     </wicket:fragment>
 
+
+    <wicket:fragment wicket:id="panel-3">
+        <div wicket:id="comprehensivePlanPage"></div>
+    </wicket:fragment>
 
 </wicket:panel>
 </body>

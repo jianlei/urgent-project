@@ -5,29 +5,26 @@ import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
-import org.apache.poi.hdf.extractor.WordDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * @类描述：品牌维护
- * @创建人：sunlf
- * @创建时间：2014-03-29 上午10:25
+ * @类描述：预案管理
+ * @创建人：wangkairan
+ * @创建时间：2014-08-10
  * @修改人：
  * @修改时间：
  * @修改备注：
@@ -40,10 +37,27 @@ public class ReservePlanEditPage extends BasePanel {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    FeedbackPanel feedbackPanel = new FeedbackPanel("feedBack");
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    final RepeatingView spotPlanPanel = new RepeatingView("spotPlanPanel");
+    final RepeatingView specialPlanPanel = new RepeatingView("specialPlanPanel");
+
     public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id, wmc);
         initForm(reservePlanBean);
+        initFeedBack();
+        initPlanPanel(id,wmc,reservePlanBean);
+    }
+
+    private void initPlanPanel(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean){
+        specialPlanPanel.add(new SpecialPlanEditPage(specialPlanPanel.newChildId(),wmc,reservePlanBean));
+        spotPlanPanel.add(new SpotPlanEditPage(spotPlanPanel.newChildId(),wmc,reservePlanBean));
+        add(specialPlanPanel);
+        add(spotPlanPanel);
+    }
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
     }
 
     private void initForm(final ReservePlanBean reservePlanBean) {
@@ -60,10 +74,12 @@ public class ReservePlanEditPage extends BasePanel {
         final FileUploadField uploadFieldRegister = new FileUploadField("reservePlanRegisterId");
         final FileUploadField uploadFieldReview = new FileUploadField("reviewCommentId");
         final FileUploadField uploadFieldExpert = new FileUploadField("reviewExpertId");
+        final FileUploadField uploadFieldComprehensive = new FileUploadField("comprehensivePlanId");
         form.add(uploadFieldApply);
         form.add(uploadFieldRegister);
         form.add(uploadFieldReview);
         form.add(uploadFieldExpert);
+        form.add(uploadFieldComprehensive);
 
         form.add(new TextField("description"));
         form.add(new TextField("name"));
@@ -76,12 +92,13 @@ public class ReservePlanEditPage extends BasePanel {
                 reservePlanBean.setReservePlanRegisterId(saveDocument(uploadFieldRegister));
                 reservePlanBean.setReviewCommentId(saveDocument(uploadFieldReview));
                 reservePlanBean.setReviewExpertId(saveDocument(uploadFieldExpert));
+                reservePlanBean.setComprehensivePlanId(saveDocument(uploadFieldComprehensive));
                 reservePlanBeanService.saveEntity(reservePlanBean);
                 super.onSubmit(target, form);
-                target.appendJavaScript("alert('保存成功')");
+                feedbackPanel.info("保存成功！");
+                target.add(feedbackPanel);
             }
         };
-
         add(ajaxSubmitLinkCreate);
     }
 

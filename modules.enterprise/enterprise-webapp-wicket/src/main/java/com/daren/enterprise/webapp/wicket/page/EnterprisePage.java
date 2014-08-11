@@ -3,7 +3,7 @@ package com.daren.enterprise.webapp.wicket.page;
 import java.util.List;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -83,7 +83,7 @@ public class EnterprisePage extends BasePanel {
                 }
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView);
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
         table.add(pagingNavigator);
         table.add(listView);
         createQuery(table, provider, id, wmc);

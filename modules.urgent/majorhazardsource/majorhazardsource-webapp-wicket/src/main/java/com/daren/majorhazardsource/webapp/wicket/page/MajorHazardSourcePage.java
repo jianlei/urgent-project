@@ -1,7 +1,7 @@
 package com.daren.majorhazardsource.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
 import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -13,8 +13,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
@@ -81,7 +79,7 @@ public class MajorHazardSourcePage extends BasePanel {
                 item.add(alink.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView);
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
         table.add(pagingNavigator);
         table.add(listView);
 

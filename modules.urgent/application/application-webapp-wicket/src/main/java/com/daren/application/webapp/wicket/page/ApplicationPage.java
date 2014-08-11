@@ -3,7 +3,7 @@ package com.daren.application.webapp.wicket.page;
 import com.daren.application.entities.ApplicationBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.application.api.biz.IApplicationBeanService;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
@@ -29,6 +29,7 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.googlecode.wicket.jquery.core.Options;
 
 /**
@@ -54,7 +55,7 @@ public class ApplicationPage extends BasePanel {
 
     public ApplicationPage(String id, WebMarkupContainer wmc) {
 
-        super(id,wmc);
+        super(id, wmc);
         Options options = new Options();
         options.set("collapsible", true);
         tabPanel = new TabbedPanel("tabs", this.newTabList(wmc), options);
@@ -66,18 +67,19 @@ public class ApplicationPage extends BasePanel {
 
     /**
      * 添加tabs
+     *
      * @return
      */
     private List<ITab> newTabList(final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList<ITab>();
         // tab #1 //
-        tabs.add(new AbstractTab(Model.of("用户管理")) {
+        tabs.add(new AbstractTab(Model.of("预案模板管理")) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "panel-1",wmc);
+                return new MainFragment(panelId, "panel-1", wmc);
             }
         });
 
@@ -90,22 +92,9 @@ public class ApplicationPage extends BasePanel {
      * @param table
      * @param
      */
-    private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel,final WebMarkupContainer wmc) {
+    private Form createQuery(final WebMarkupContainer table, final ApplicationDataProvider provider, final TabbedPanel tabPanel, final WebMarkupContainer wmc) {
         //处理查询
         Form<ApplicationBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ApplicationBean()));
-        /*TextField textField = new TextField("name");
-
-        myform.add(textField.setOutputMarkupId(true));*/
-
-
-       /* AjaxButton findButton = new AjaxButton("find", myform) {
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                ApplicationBean userBean = (ApplicationBean) form.getModelObject();
-                provider.setApplicationBean(userBean);
-                target.add(table);
-            }
-        };*/
 
         AjaxButton refreshButton = new AjaxButton("refresh", myform) {
             @Override
@@ -116,13 +105,11 @@ public class ApplicationPage extends BasePanel {
             }
         };
 
-
-
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 if (tabPanel.getModelObject().size() == 1) {
-                    tabPanel.add(new AjaxTab(Model.of("Tab (ajax)")) {
+                    tabPanel.add(new AjaxTab(Model.of("新增预案模板")) {
 
                         private static final long serialVersionUID = 1L;
 
@@ -134,7 +121,7 @@ public class ApplicationPage extends BasePanel {
                             } catch (InterruptedException e) {
                                 error(e.getMessage());
                             }
-                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(),wmc,null);
+                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(), wmc, null);
                             createPage.add(applicationCreatePage);
                             Fragment fragment = new Fragment(panelId, "panel-2", ApplicationPage.this);
                             fragment.add(createPage);
@@ -148,13 +135,12 @@ public class ApplicationPage extends BasePanel {
 
         };
         myform.add(addButton);
-        /*myform.add(findButton);*/
         myform.add(refreshButton);
         return myform;
     }
 
     public class MainFragment extends Fragment {
-        public MainFragment(String id, String markupId,final WebMarkupContainer wmc ) {
+        public MainFragment(String id, String markupId, final WebMarkupContainer wmc) {
             super(id, markupId, ApplicationPage.this);
 
             final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -191,11 +177,11 @@ public class ApplicationPage extends BasePanel {
                 }
             };
 
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
             table.add(listView);
-            add(createQuery(table, provider, tabPanel,wmc));
+            add(createQuery(table, provider, tabPanel, wmc));
         }
     }
 
