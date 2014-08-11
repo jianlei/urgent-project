@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="equipmentService" interface="com.daren.equipment.api.biz.IEquipmentBeanService">
+        <bean class="com.daren.equipment.core.biz.EquipmentBeanServiceImpl">
+            <property name="equipmentBeanDao" ref="equipmentBeanDao"/>
+                </bean>
+    </service>
+    <reference id="equipmentBeanDao" interface="com.daren.equipment.api.dao.IEquipmentBeanDao"/>
+</blueprint>
+

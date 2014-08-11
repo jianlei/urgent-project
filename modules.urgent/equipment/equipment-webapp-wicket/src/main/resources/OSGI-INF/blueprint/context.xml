@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        default-activation="lazy"
+        >
+    <!-- 发布菜单目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.equipment.webapp.wicket.EquipmentMenuItemsModule">
+        </bean>
+    </service>
+</blueprint>

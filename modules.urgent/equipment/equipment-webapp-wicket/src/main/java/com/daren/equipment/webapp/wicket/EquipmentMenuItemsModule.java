@@ -1,7 +1,7 @@
-package com.daren.accident.webapp.wicket;
+package com.daren.equipment.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.accident.webapp.wicket.page.AccidentPage;
+import com.daren.equipment.webapp.wicket.page.EquipmentPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -15,7 +15,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class AccidentMenuItemsModule implements IMenuItemsModule {
+public class EquipmentMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -25,25 +25,28 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 3;
+        return 12;
     }
 
     @Override
     public String getName() {
-        return "事故管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "物资管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public String getIcon() {
         return "";  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
     @Override
     public String getTag() {
         return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new AccidentPage(id, wmc);
+        return new EquipmentPage(id, wmc);
     }
 }
