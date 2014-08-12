@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "urg_major_majorhazardsource")
+@Table(name = "urg_majorhazardsource")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class MajorHazardSourceBean extends PersistentEntity {

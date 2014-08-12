@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"/>应急管理<b class="tip"/>事故详细信息</div>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <td colspan="6" align="right">
+                <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+            </td>
+        </tr>
+    </table>
+    <table  class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <td colspan="6" class="auto-style2">&nbsp;事故详细信息 <i class="tip-up"></i></td>
+        </tr>
+        </thead>
+        <form wicket:id="accidentForm">
+            <tr>
+                <td>事故发生时间</td>
+                <td class="td_detail">
+                    <input wicket:id="accidentTime" type="text"/>
+                </td>
+                <td>事故类别</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentType"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>事故级别</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentLevel"></select>
+                </td>
+                <td>行业类别</td>
+                <td class="td_detail">
+                    <select wicket:id="industryCategory"></select>
+                </td>
+            </tr>
+            <tr>
+
+                <td>事故发生地点</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="place"/>
+                </td>
+            </tr>
+            <tr>
+                <td>事故原因初步分析</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentPreliminaryAnalysis"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>直接经济损失</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="economicLosses"/>
+                </td>
+                <td>事故现场总人数</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="accidentScene"/>
+                </td>
+            </tr>
+            <tr>
+                <td>事故伤亡情况</td>
+                <td>
+                    死亡：<input wicket:id="headcountDeath"/>人
+                </td>
+            </tr>
+            <tr>
+                <td>事故伤亡情况</td>
+                <td>
+                    重伤：<input wicket:id="headcountSerious"/>人
+                </td>
+            </tr>
+            <tr>
+                <td>事故伤亡情况</td>
+                <td>
+                    轻伤：<input wicket:id="headcountSlight"/>人
+                </td>
+            </tr>
+            <tr>
+                <td>事故伤亡情况</td>
+                <td>
+                    被困或下落不明：<input wicket:id="headcountTrappedOrMissing"/>人
+                </td>
+            </tr>
+            <tr>
+                <td>事故伤亡情况</td>
+                <td>
+                    疏散人员数：<input wicket:id="headcountEvacuees"/>人
+                </td>
+            </tr>
+            <tr>
+                <td>事故现场情况、 事故简要经过</td>
+                <td class="td_detail">
+                    <TEXTAREA  wicket:id="accidentDescribe" COLS=40 ROWS=6></TEXTAREA>
+                </td>
+            </tr>
+            <tr>
+                <td>已采取措施</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="measure"/>
+                </td>
+            </tr>
+            <tr>
+                <td>附件</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="attachment"/>
+                </td>
+            </tr>
+            <tr>
+                <td>视频链接地址</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="videoLink"/>
+                </td>
+            </tr>
+            <tr>
+                <td>经办人</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="operator"/>
+                </td>
+                <td>经办人联系电话</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="operatorPhone"/>
+                </td>
+            </tr>
+            <tr>
+                <td>现场联络员</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="liaisons"/>
+                </td>
+                <td>现场联络员联系电话</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="liaisonsPhone"/>
+                </td>
+            </tr>
+            <tr>
+                <td>签发人</td>
+                <td class="td_detail">
+                    <input wicket wicket:id="signer"/>
+                </td>
+            </tr>
+        </form>
+    </table>
+</wicket:panel>
+</body>
+</html>
