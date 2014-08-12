@@ -77,5 +77,13 @@
              interface="com.daren.admin.api.biz.IOfficeBeanService"/>
     <reference id="officeBeanDao" interface="com.daren.admin.api.dao.IOfficeBeanDao"/>
 
+    <!--系统版本服务注册-->
+    <bean id="aboutBeanServiceImpl" class="com.daren.admin.core.AboutBeanServiceImpl">
+        <property name="aboutBeanDao" ref="aboutBeanDao"/>
+    </bean>
+    <service id="aboutBeanService" ref="aboutBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IAboutBeanService"/>
+    <reference id="aboutBeanDao" interface="com.daren.admin.api.dao.IAboutBeanDao"/>
+
 </blueprint>
 

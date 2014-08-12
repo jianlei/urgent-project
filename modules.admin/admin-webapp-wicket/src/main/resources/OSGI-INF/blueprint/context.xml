@@ -50,4 +50,8 @@
         <bean class="com.daren.admin.webapp.wicket.AreaMenuItemsModule"/>
     </service>
 
+    <service interface="com.daren.core.web.api.provider.IAboutDialogProvider">
+        <bean class="com.daren.admin.webapp.wicket.AboutDialogProviderImpl"/>
+    </service>
+
 </blueprint>
