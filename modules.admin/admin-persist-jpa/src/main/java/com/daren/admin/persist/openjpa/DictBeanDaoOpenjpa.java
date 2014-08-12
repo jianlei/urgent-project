@@ -19,7 +19,7 @@ import java.util.List;
 public class DictBeanDaoOpenjpa extends GenericOpenJpaDao<DictBean, Long> implements IDictBeanDao {
     @Override
     public List<DictBean> getDictList(String type) {
-        final Query query = createQuery("select c  from DictBeanImpl c where c.type=?1", type);
+        final Query query = createQuery("select c  from DictBean c where c.type=?1", type);
         final List<DictBean> resultList = query.getResultList();
         return resultList;
     }

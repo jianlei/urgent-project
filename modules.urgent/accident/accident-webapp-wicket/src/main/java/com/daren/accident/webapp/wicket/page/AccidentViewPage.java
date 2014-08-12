@@ -12,27 +12,27 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 /**
  * Created by Dell on 14-8-12.
  */
 public class AccidentViewPage extends BasePanel {
 
+    Form<AccidentBean> accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(new AccidentBean()));
     @Inject
     private IAccidentBeanService accidentBeanService;
 
-    Form<AccidentBean> accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(new AccidentBean()));
-
     public AccidentViewPage(final String id, final WebMarkupContainer wmc, AccidentBean accidentBean) {
         super(id, wmc);
-        if(null == accidentBean){
+        if (null == accidentBean) {
             accidentBean = new AccidentBean();
         }
         initForm(accidentBean.getId());
-        addForm(id, wmc,accidentBean);
+        addForm(id, wmc, accidentBean);
     }
 
-    public void addForm(final String id, final WebMarkupContainer wmc,final AccidentBean accidentBean) {
+    public void addForm(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean) {
         accidentBeanForm.setMultiPart(true);
         this.add(accidentBeanForm);
 
@@ -66,34 +66,39 @@ public class AccidentViewPage extends BasePanel {
         accidentBeanForm.add(textField);
     }
 
-    private void addLabelToForm(String name,String value) {
-        Label label = new Label(name,value);
+    private void addLabelToForm(String name, String value) {
+        Label label = new Label(name, value);
+        accidentBeanForm.add(label);
+    }
+
+    private void addLabelToForm(String name, Date value) {
+        Label label = new Label(name, value);
         accidentBeanForm.add(label);
     }
 
     private void addTextFieldsToForm(AccidentBean accidentBean) {
-        addLabelToForm("signer",accidentBean.getSigner());
-        addLabelToForm("liaisonsPhone",accidentBean.getLiaisonsPhone());
-        addLabelToForm("liaisons",accidentBean.getLiaisons());
-        addLabelToForm("operatorPhone",accidentBean.getOperatorPhone());
-        addLabelToForm("operator",accidentBean.getOperator());
-        addLabelToForm("videoLink",accidentBean.getVideoLink());
-        addLabelToForm("attachment",accidentBean.getAttachment());
-        addLabelToForm("measure",accidentBean.getMeasure());
-        addLabelToForm("describe",accidentBean.getAccidentDescribe());
-        addLabelToForm("headcountEvacuees",accidentBean.getHeadcountEvacuees());
-        addLabelToForm("headcountTrappedOrMissing",accidentBean.getHeadcountTrappedOrMissing());
-        addLabelToForm("headcountSlight",accidentBean.getHeadcountSlight());
-        addLabelToForm("headcountSerious",accidentBean.getHeadcountSerious());
-        addLabelToForm("headcountDeath",accidentBean.getHeadcountDeath());
-        addLabelToForm("accidentScene",accidentBean.getAccidentScene());
-        addLabelToForm("economicLosses",accidentBean.getEconomicLosses());
-        addLabelToForm("accidentPreliminaryAnalysis",accidentBean.getAccidentPreliminaryAnalysis());
-        addLabelToForm("detailsPlace",accidentBean.getDetailsPlace());
-        addLabelToForm("place",accidentBean.getPlace());
-        addLabelToForm("industryCategory",accidentBean.getIndustryCategory());
-        addLabelToForm("accidentLevel",accidentBean.getAccidentLevel());
-        addLabelToForm("accidentType",accidentBean.getAccidentType());
-        addLabelToForm("accidentTime",accidentBean.getAccidentTime());
+        addLabelToForm("signer", accidentBean.getSigner());
+        addLabelToForm("liaisonsPhone", accidentBean.getLiaisonsPhone());
+        addLabelToForm("liaisons", accidentBean.getLiaisons());
+        addLabelToForm("operatorPhone", accidentBean.getOperatorPhone());
+        addLabelToForm("operator", accidentBean.getOperator());
+        addLabelToForm("videoLink", accidentBean.getVideoLink());
+        addLabelToForm("attachment", accidentBean.getAttachment());
+        addLabelToForm("measure", accidentBean.getMeasure());
+        addLabelToForm("describe", accidentBean.getAccidentDescribe());
+        addLabelToForm("headcountEvacuees", accidentBean.getHeadcountEvacuees());
+        addLabelToForm("headcountTrappedOrMissing", accidentBean.getHeadcountTrappedOrMissing());
+        addLabelToForm("headcountSlight", accidentBean.getHeadcountSlight());
+        addLabelToForm("headcountSerious", accidentBean.getHeadcountSerious());
+        addLabelToForm("headcountDeath", accidentBean.getHeadcountDeath());
+        addLabelToForm("accidentScene", accidentBean.getAccidentScene());
+        addLabelToForm("economicLosses", accidentBean.getEconomicLosses());
+        addLabelToForm("accidentPreliminaryAnalysis", accidentBean.getAccidentPreliminaryAnalysis());
+        addLabelToForm("detailsPlace", accidentBean.getDetailsPlace());
+        addLabelToForm("place", accidentBean.getPlace());
+        addLabelToForm("industryCategory", accidentBean.getIndustryCategory());
+        addLabelToForm("accidentLevel", accidentBean.getAccidentLevel());
+        addLabelToForm("accidentType", accidentBean.getAccidentType());
+        addLabelToForm("accidentTime", accidentBean.getAccidentTime());
     }
 }

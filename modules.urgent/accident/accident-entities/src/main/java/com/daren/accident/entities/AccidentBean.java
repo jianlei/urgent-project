@@ -7,6 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 
 /**
@@ -25,7 +26,7 @@ public class AccidentBean extends PersistentEntity {
     private String accidentUnit;//事故单位
     private String accidentPreliminaryAnalysis;//事故原因初步分析
     private String accidentSource;//事故源
-    private String accidentTime;//事故发生时间
+    private Date accidentTime;//事故发生时间
     private String cause;//原因
     private String toll;//伤亡人数
     private String economicLosses;//直接经济损失
@@ -101,11 +102,11 @@ public class AccidentBean extends PersistentEntity {
         this.accidentSource = accidentSource;
     }
 
-    public String getAccidentTime() {
+    public Date getAccidentTime() {
         return accidentTime;
     }
 
-    public void setAccidentTime(String accidentTime) {
+    public void setAccidentTime(Date accidentTime) {
         this.accidentTime = accidentTime;
     }
 

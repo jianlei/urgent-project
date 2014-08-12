@@ -67,6 +67,14 @@ public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
      */
     T save(T object);
 
+    /**
+     * Generic method to save an object - handles both update and insert.
+     *
+     * @param object   the object to save
+     * @param userName the name of user
+     * @return the persisted object
+     */
+    T save(T object, String userName);
 
     /**
      * Generic method to delete an object

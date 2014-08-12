@@ -1,6 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IAreaBeanService;
+import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
 import com.daren.admin.webapp.wicket.table.IrisTableTree;
@@ -24,6 +25,7 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.table.TreeColumn;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -36,6 +38,7 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称:  urgent-project
@@ -52,18 +55,27 @@ public class AreaListPage extends BasePanel {
     private final static String CONST_ADD = "添加区域";
     private final static String CONST_EDIT = "编辑区域";
     private final static String CONST_ADD_CHILD = "添加子区域";
+    private final static String CONST_TYPE = "area_relation"; //type const
+
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     private AreaTreeProvider provider = new AreaTreeProvider();
+    private Map<String, String> typeMap;
     //注入区域业务服务
     @Inject
     @Reference(id = "areaBeanService", serviceInterface = IAreaBeanService.class)
     private IAreaBeanService areaBeanService;
 
+    //注入字典业务服务
+    @Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    private IDictBeanService dictBeanService;
+
     //构造函数
     public AreaListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         tabPanel = new TabbedPanel("tabs", this.newTabList(), new Options());
+        typeMap = dictBeanService.getDictMap(CONST_TYPE);
         this.add(tabPanel);
     }
 
@@ -264,7 +276,13 @@ public class AreaListPage extends BasePanel {
             List<IColumn<AreaBean, String>> columns = new ArrayList<IColumn<AreaBean, String>>();
             columns.add(new TreeColumn<AreaBean, String>(Model.of("区域名称"), null));
             columns.add(new PropertyColumn<AreaBean, String>(Model.of("区域编码"), "code"));
-            columns.add(new PropertyColumn<AreaBean, String>(Model.of("区域类型"), "type"));
+            columns.add(new PropertyColumn<AreaBean, String>(Model.of("区域类型"), "type") {
+                //通过key值获得对应的value
+                @Override
+                public void populateItem(Item<ICellPopulator<AreaBean>> item, String componentId, IModel<AreaBean> rowModel) {
+                    item.add(new Label(componentId, typeMap.get(rowModel.getObject().getType())));
+                }
+            });
             columns.add(new AbstractColumn<AreaBean, String>(Model.of("操作")) {
                 @Override
                 public void populateItem(Item<ICellPopulator<AreaBean>> cellItem, String componentId, IModel<AreaBean> rowModel) {
