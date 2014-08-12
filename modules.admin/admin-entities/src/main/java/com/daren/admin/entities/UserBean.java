@@ -5,7 +5,10 @@ import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.List;
 
@@ -21,14 +24,20 @@ import java.util.List;
 @Entity
 @Table(name = "sys_user")
 @Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement
+@XmlRootElement(name = "UserBean")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserBean extends PersistentEntity {
+    @XmlTransient
     private OfficeBean company;    // 归属公司
+    @XmlTransient
     private OfficeBean office;    // 归属部门
     @NotNull(message = "'登录名'是必填项")
+//    @XmlAttribute
     private String loginName;// 登录名
+    //    @XmlAttribute
     @NotNull(message = "'姓名'是必填项")
     private String name;  // 姓名
+    //    @XmlAttribute
     @NotNull(message = "'密码'是必填项")
     private String password; // 密码
     @NotNull(message = "'邮箱'是必填项")
@@ -38,7 +47,8 @@ public class UserBean extends PersistentEntity {
     private String mobile;    // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
-
+    //    @XmlElement(name="role")
+    @XmlTransient
     private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
 
     public UserBean() {

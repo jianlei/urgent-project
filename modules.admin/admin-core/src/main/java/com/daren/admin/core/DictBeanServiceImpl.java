@@ -5,7 +5,9 @@ import com.daren.admin.api.dao.IDictBeanDao;
 import com.daren.admin.entities.DictBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：字典服务实现类
@@ -28,6 +30,17 @@ public class DictBeanServiceImpl extends GenericBizServiceImpl implements IDictB
     @Override
     public List<DictBean> getDictList(String type) {
         return dictBeanDao.getDictList(type);
+    }
+
+    @Override
+    public Map<String, String> getDictMap(String type) {
+        List<DictBean> dictBeanList = getDictList(type);
+        Map map = new HashMap();
+        if (dictBeanList.size() > 0) {
+            for (DictBean dictBean : dictBeanList)
+                map.put(dictBean.getValue(), dictBean.getLabel());
+        }
+        return map;
     }
 
     @Override

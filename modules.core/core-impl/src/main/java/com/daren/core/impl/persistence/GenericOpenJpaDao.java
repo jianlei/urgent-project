@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -91,8 +92,26 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
     public T save(T object) {
         if (object.getId() == 0)//do not persist
             entityManager.persist(object);
-        else
+        else {
+            object.setUpdateDate(new Date());
             entityManager.merge(object);
+        }
+
+        entityManager.flush();
+        return object;
+    }
+
+    @Override
+    public T save(T object, String userName) {
+        if (object.getId() == 0)//do not persist
+        {
+            object.setCreateBy(userName);
+            entityManager.persist(object);
+        } else {
+            object.setUpdateBy(userName);
+            object.setUpdateDate(new Date());
+            entityManager.merge(object);
+        }
         entityManager.flush();
         return object;
     }
