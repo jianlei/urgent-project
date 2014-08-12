@@ -23,6 +23,16 @@
         </thead>
         <form wicket:id="accidentForm">
             <tr>
+                <td>事故标题</td>
+                <td class="td_detail">
+                    <input wicket:id="accidentTitle" type="text"/>
+                </td>
+                <td>事故企业名称</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentUnit"></select>
+                </td>
+            </tr>
+            <tr>
                 <td>事故发生时间</td>
                 <td class="td_detail">
                     <input wicket:id="accidentTime" type="text"/>

@@ -105,28 +105,7 @@ public class AccidentPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                if (tabPanel.getModelObject().size() == 1) {
-                    tabPanel.add(new AjaxTab(Model.of("事故详细信息")) {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public WebMarkupContainer getLazyPanel(String panelId) {
-                            try {
-                                // sleep the thread for a half second to simulate a long load
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                error(e.getMessage());
-                            }
-                            accidentEditPage = new AccidentEditPage(createPage.newChildId(), wmc, null);
-                            createPage.add(accidentEditPage);
-                            fragment = new Fragment(panelId, "panel-2", AccidentPage.this);
-                            fragment.add(createPage);
-                            return fragment;
-                        }
-                    });
-                }
-                tabPanel.setActiveTab(1);
-                target.add(tabPanel);
+                goAccidentEditPage(wmc, null, target);
             }
         };
         myform.add(addButton);
@@ -145,7 +124,16 @@ public class AccidentPage extends BasePanel {
                 @Override
                 protected void populateItem(Item<AccidentBean> item) {
                     final AccidentBean accidentBean = item.getModelObject();
-                    item.add(new Label("accidentTitle", accidentBean.getAccidentTitle()));
+
+                    AjaxLink ajaxLink = new AjaxLink("accidentTitleLink") {
+                        @Override
+                        public void onClick(AjaxRequestTarget target) {
+                            goAccidentViewPage(wmc,accidentBean,target);
+                        }
+                    };
+                    ajaxLink.add(new Label("accidentTitle", accidentBean.getAccidentTitle()));
+
+                    item.add(ajaxLink);
                     item.add(new Label("accidentLevel", accidentBean.getAccidentLevel()));
                     item.add(new Label("accidentType", accidentBean.getAccidentType()));
                     item.add(new Label("accidentTime", accidentBean.getAccidentTime()));
@@ -177,6 +165,70 @@ public class AccidentPage extends BasePanel {
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    public void goAccidentViewPage( final WebMarkupContainer wmc,final AccidentBean accidentBean,AjaxRequestTarget target){
+        if (tabPanel.getModelObject().size() == 1) {
+            tabPanel.add(new AjaxTab(Model.of("事故详细信息")) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public WebMarkupContainer getLazyPanel(String panelId) {
+                    try {
+                        // sleep the thread for a half second to simulate a long load
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        error(e.getMessage());
+                    }
+                    accidentViewPage = new AccidentViewPage(createPage.newChildId(), wmc, accidentBean, AccidentPage.this);
+                    createPage.add(accidentViewPage);
+                    fragment = new Fragment(panelId, "panel-2", AccidentPage.this);
+                    fragment.add(createPage);
+                    return fragment;
+                }
+            });
+        }else {
+            accidentViewPage = new AccidentViewPage(createPage.newChildId(), wmc, accidentBean, AccidentPage.this);
+            createPage.removeAll();
+            createPage.add(accidentViewPage);
+            fragment.removeAll();
+            fragment.add(createPage);
+            target.add(fragment);
+        }
+        tabPanel.setActiveTab(1);
+        target.add(tabPanel);
+    }
+
+    public void goAccidentEditPage( final WebMarkupContainer wmc,final AccidentBean accidentBean,AjaxRequestTarget target){
+        if (tabPanel.getModelObject().size() == 1) {
+            tabPanel.add(new AjaxTab(Model.of("事故详细信息")) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public WebMarkupContainer getLazyPanel(String panelId) {
+                    try {
+                        // sleep the thread for a half second to simulate a long load
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        error(e.getMessage());
+                    }
+                    accidentEditPage = new AccidentEditPage(createPage.newChildId(), wmc, accidentBean,AccidentPage.this);
+                    createPage.add(accidentEditPage);
+                    fragment = new Fragment(panelId, "panel-2", AccidentPage.this);
+                    fragment.add(createPage);
+                    return fragment;
+                }
+            });
+        }else {
+            accidentEditPage = new AccidentEditPage(createPage.newChildId(), wmc, accidentBean,AccidentPage.this);
+            createPage.removeAll();
+            createPage.add(accidentEditPage);
+            fragment.removeAll();
+            fragment.add(createPage);
+            target.add(fragment);
+        }
+        tabPanel.setActiveTab(1);
+        target.add(tabPanel);
     }
 
     class AccidentDataProvider extends ListDataProvider<AccidentBean> {

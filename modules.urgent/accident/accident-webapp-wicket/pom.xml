@@ -149,12 +149,31 @@
             <groupId>com.daren.file</groupId>
             <artifactId>com.daren.file.entities</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.daren.file</groupId>
-            <artifactId>com.daren.file.persist.openjpa</artifactId>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.entities</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.persist.openjpa</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
 

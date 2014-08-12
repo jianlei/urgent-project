@@ -32,22 +32,25 @@ public class AccidentEditPage extends BasePanel {
 
     Form<AccidentBean> accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(new AccidentBean()));
 
-    final private String selectedAccidentType = "触电";
-    final private String selectedAccidentLevel = "触电";
-    final private String selectedIndustryCategory = "触电";
-    final private String selectedAccidentPreliminaryAnalysis = "触电";
+    private String selectedAccidentType = "";
+    private String selectedAccidentLevel = "";
+    private String selectedIndustryCategory = "";
+    private String selectedAccidentPreliminaryAnalysis = "";
+    private String selectedAccidentUnit = "";
 
-    public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean accidentBean) {
+    public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean accidentBean,AccidentPage accidentPage) {
         super(id, wmc);
-        if(null == accidentBean){
+        if (null == accidentBean) {
             accidentBean = new AccidentBean();
+        }else {
+            initSelected(accidentBean);
         }
         initForm(accidentBean.getId());
-        addForm(id, wmc,accidentBean);
+        addForm(id, wmc, accidentBean,accidentPage);
 
     }
 
-    public void addForm(final String id, final WebMarkupContainer wmc,final AccidentBean accidentBean) {
+    public void addForm(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean,final AccidentPage accidentPage) {
         accidentBeanForm.setMultiPart(true);
         accidentBeanForm.setModelObject(accidentBean);
         this.add(accidentBeanForm);
@@ -73,10 +76,11 @@ public class AccidentEditPage extends BasePanel {
                         accidentBean.setAccidentLevel(selectedAccidentLevel);
                         accidentBean.setIndustryCategory(selectedIndustryCategory);
                         accidentBean.setAccidentPreliminaryAnalysis(selectedAccidentPreliminaryAnalysis);
+                        accidentBean.setAccidentUnit(selectedAccidentUnit);
                         accidentBean.setAccidentDescribe(accidentDescribe.getModelObject());
 //                        accidentBean.setAccidentTime(accidentTime.getDefaultModelObjectAsString());
                         accidentBeanService.saveEntity(accidentBean);
-                        target.appendJavaScript("alert('保存成功')");
+                        accidentPage.goAccidentViewPage(wmc,accidentBean,target);
                     } catch (Exception e) {
                         target.appendJavaScript("alert('保存失败')");
                     }
@@ -93,17 +97,26 @@ public class AccidentEditPage extends BasePanel {
         }
     }
 
-    private void initSelect(List<String> SEARCH_ENGINES,String name,String selected){
+    private void initSelect(List<String> SEARCH_ENGINES, String name, String selected) {
         DropDownChoice<String> listSites = new DropDownChoice<String>(
-                name, new PropertyModel<String>(this,selected), SEARCH_ENGINES);
+                name, new PropertyModel<String>(this, selected), SEARCH_ENGINES);
         accidentBeanForm.add(listSites);
     }
 
-    private void addSelectToForm(){
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentType","selectedAccidentType");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentLevel","selectedAccidentLevel");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"industryCategory","selectedIndustryCategory");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentPreliminaryAnalysis","selectedAccidentPreliminaryAnalysis");
+    private void initSelected(AccidentBean accidentBean) {
+        selectedAccidentType = accidentBean.getAccidentType();
+        selectedAccidentLevel = accidentBean.getAccidentLevel();
+        selectedIndustryCategory = accidentBean.getIndustryCategory();
+        selectedAccidentPreliminaryAnalysis = accidentBean.getAccidentPreliminaryAnalysis();
+        selectedAccidentUnit = accidentBean.getAccidentUnit();
+    }
+
+    private void addSelectToForm() {
+        initSelect(Arrays.asList(new String[]{"","物体打击", "灼烫", "触电"}), "accidentType", "selectedAccidentType");
+        initSelect(Arrays.asList(new String[]{"","物体打击", "灼烫", "触电"}), "accidentLevel", "selectedAccidentLevel");
+        initSelect(Arrays.asList(new String[]{"","物体打击", "灼烫", "触电"}), "industryCategory", "selectedIndustryCategory");
+        initSelect(Arrays.asList(new String[]{"","物体打击", "灼烫", "触电"}), "accidentPreliminaryAnalysis", "selectedAccidentPreliminaryAnalysis");
+        initSelect(Arrays.asList(new String[]{"","1", "2", "3"}), "accidentUnit", "selectedAccidentUnit");
     }
 
     private void addTextFieldToForm(String value) {
@@ -128,6 +141,7 @@ public class AccidentEditPage extends BasePanel {
         addTextFieldToForm("headcountDeath");
         addTextFieldToForm("accidentScene");
         addTextFieldToForm("economicLosses");
+        addTextFieldToForm("accidentTitle");
 //        addTextFieldToForm("accidentPreliminaryAnalysis");
 //        addTextFieldToForm("detailsPlace");
         addTextFieldToForm("place");
