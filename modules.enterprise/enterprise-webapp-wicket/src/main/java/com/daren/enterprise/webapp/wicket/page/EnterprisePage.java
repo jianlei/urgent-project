@@ -54,7 +54,7 @@ public class EnterprisePage extends BasePanel {
             protected void populateItem(Item<EnterpriseBean> item) {
                 {
                     final EnterpriseBean enterpriseBean = item.getModelObject();
-                    item.add(getToCreatePageLink(id, wmc, "check_QYMC", enterpriseBean.getId()).add(new Label("QYMC", enterpriseBean.getQymc()))
+                    item.add(getToCreatePageLink("check_QYMC", enterpriseBean).add(new Label("QYMC", enterpriseBean.getQymc()))
                     );
                     item.add(new Label("JGFL", enterpriseBean.getJgfl()));
                     item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
@@ -73,8 +73,6 @@ public class EnterprisePage extends BasePanel {
 
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                        /*target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
-                                + "/libya.protests/index.html?hpt="+enterpriseBean.getId()+"')");*/
                             enterpriseBeanService.deleteEntity(enterpriseBean.getId());
                             target.add(table);
                         }
@@ -89,16 +87,18 @@ public class EnterprisePage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxLink getToCreatePageLink(final String id, final WebMarkupContainer wmc, String wicketId, final long enterpriseBeanId) {
+    private AjaxLink getToCreatePageLink(String wicketId, final EnterpriseBean enterpriseBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                wmc.removeAll();
-                wmc.addOrReplace(new EnterpriseCreatePage(id, wmc, enterpriseBeanId));
-                target.add(wmc);
+                createButtonOnClick(enterpriseBean,target);
             }
         };
         return ajaxLink;
+    }
+
+    protected void createButtonOnClick(EnterpriseBean  enterpriseBean,AjaxRequestTarget target) {
+
     }
 
     /**
@@ -112,7 +112,7 @@ public class EnterprisePage extends BasePanel {
         TextField textField = new TextField("qymc");
 
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorHazardSourceBeanForm.add(getToCreatePageLink(id, wmc, "create", -1));
+        majorHazardSourceBeanForm.add(getToCreatePageLink("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
 
 

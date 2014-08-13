@@ -67,6 +67,51 @@ public class EnterpriseBean extends PersistentEntity {
 
     public EnterpriseBean() {
         setCreationDate(new Date());
+        qyid = "";
+        qymc = "";
+        cl_sj = new Date();
+        frdb = "";
+        zzjgdm = "";
+        sdlx = "";
+        jjlxbm = "";
+        cyrs = 0;
+        zcaqgcsrs = 0;
+        aqrs = 0;
+        jzaqrs = 0;
+        hyml_dm = "";
+        hylbbm = "";
+        hyzxl_dm = "";
+        xjqybj = "";
+        sjqyid = "";
+        qygmbm = "";
+        gmqk = "";
+        zczc = 0;
+        jgfl = "";
+        sndxssr = 0;
+        aqscfy = 0;
+        yazlqy_bj = "";
+        xzqh_sheng = "";
+        xzqh_ds = "";
+        xzqh_xq = "";
+        address_zc = "";
+        address_jy = "";
+        postcode = "";
+        qylxfs = "";
+        mailaddress = "";
+        dlwz = "";
+        jd = "";
+        wd = "";
+        zdxfdw_bj = "";
+        zybbj = "";
+        aqjgszqk = "";
+        zyjyxm = "";
+        zyyl = "";
+        zycp = "";
+        jgjgdm = "";
+        lrry_jg = "";
+        username = "";
+        userpwd = "";
+        zf_bj = "";
     }
 
     public String getQyid() {
