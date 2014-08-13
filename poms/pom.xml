@@ -238,6 +238,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.core</artifactId>
                 <version>1.0-SNAPSHOT</version>

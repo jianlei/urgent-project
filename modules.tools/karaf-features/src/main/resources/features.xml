@@ -251,6 +251,7 @@
         <feature>jsr303</feature>
         <feature>jquery-ui</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
+        <bundle>mvn:commons-codec/commons-codec/1.8</bundle>
     </feature>
     <!--feature:repo-add mvn:com.daren.tools/karaf-features/1.0/xml/features-->
     <!--feature:repo-add mvn:org.ops4j.pax.wicket/paxwicket/3.0.1/xml/features-->

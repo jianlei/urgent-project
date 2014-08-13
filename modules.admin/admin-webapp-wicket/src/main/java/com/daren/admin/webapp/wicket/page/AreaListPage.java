@@ -76,6 +76,7 @@ public class AreaListPage extends BasePanel {
         super(id, wmc);
         tabPanel = new TabbedPanel("tabs", this.newTabList(), new Options());
         typeMap = dictBeanService.getDictMap(CONST_TYPE);
+
         this.add(tabPanel);
     }
 
