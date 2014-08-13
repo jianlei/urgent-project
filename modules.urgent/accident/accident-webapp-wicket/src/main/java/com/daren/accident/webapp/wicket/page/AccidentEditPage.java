@@ -4,6 +4,7 @@ import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
@@ -31,17 +32,14 @@ public class AccidentEditPage extends BasePanel {
     @Inject
     private IAccidentBeanService accidentBeanService;
 
-    //注入字典业务服务
     @Inject
-    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
     private IDictBeanService dictBeanService;
 
     AccidentBean accidentEditPageAccidentBean = new AccidentBean();
+
     Form<AccidentBean> accidentBeanForm;
 
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-
-    private Map<String, String> accidentTypeMap;
 
     public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean bean) {
         super(id, wmc);
@@ -52,7 +50,6 @@ public class AccidentEditPage extends BasePanel {
         this.add(accidentBeanForm);
         addForm();
         initFeedBack();
-        accidentTypeMap = dictBeanService.getDictMap(IDictConstService.ACCIDENT_TYPE);
     }
 
     public void addForm() {
@@ -81,7 +78,8 @@ public class AccidentEditPage extends BasePanel {
                         target.add(feedbackPanel);
                         onSaveOnclick(bean ,target);
                     } catch (Exception e) {
-                        target.appendJavaScript("alert('保存失败')");
+                        feedbackPanel.info("保存失败！");
+                        target.add(feedbackPanel);
                     }
                 }
             }
@@ -107,33 +105,25 @@ public class AccidentEditPage extends BasePanel {
         feedbackPanel.setOutputMarkupId(true);
         add(feedbackPanel);
     }
-
-    private void initSelect( String name) {
-        IModel dropDownModel = new Model() {
-            public java.io.Serializable getObject() {
-                return new ArrayList(accidentTypeMap.keySet());
-            }
-        };
+    //通过字典初始化下拉列表
+    private void initSelect(String name,String dictConst) {
         //下拉列表
-        DropDownChoice<String> listSites = new DropDownChoice<String>(
-                name, dropDownModel, new IChoiceRenderer() {
-            public String getDisplayValue(Object object) {
-                return accidentTypeMap.get(object);
-            }
-
-            public String getIdValue(Object object, int index) {
-                return object.toString();
-            }
-        });
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,dictConst);
+        accidentBeanForm.add(listSites);
+    }
+    //通过Map初始化下拉列表
+    private void initSelect(String name,Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,typeMap);
         accidentBeanForm.add(listSites);
     }
 
     private void addSelectToForm() {
-        initSelect("accidentType");
-        initSelect("accidentLevel");
-        initSelect("industryCategory");
-        initSelect("accidentPreliminaryAnalysis");
-        initSelect("accidentUnit");
+        initSelect("accidentType",IDictConstService.ACCIDENT_TYPE);
+        initSelect("accidentLevel",IDictConstService.ACCIDENT_LEVEL);
+        initSelect("industryCategory",IDictConstService.INDUSTRY_CATEGORY);
+        initSelect("accidentPreliminaryAnalysis",IDictConstService.ACCIDENT_PRELIMINARY_ANALYSIS);
+        initSelect("accidentUnit",new HashMap<String,String>());
     }
 
     private void addTextFieldToForm(String value) {

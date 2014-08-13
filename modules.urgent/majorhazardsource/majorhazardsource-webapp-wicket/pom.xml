@@ -113,6 +113,20 @@
         </dependency>
 
         <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-jquery-ui-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-kendo-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-jquery-ui</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa</artifactId>
             <scope>provided</scope>
@@ -120,6 +134,67 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.entities</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.persist.openjpa</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
 
     </dependencies>

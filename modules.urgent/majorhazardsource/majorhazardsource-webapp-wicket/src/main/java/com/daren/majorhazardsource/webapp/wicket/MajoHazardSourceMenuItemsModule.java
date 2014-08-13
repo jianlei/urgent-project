@@ -2,6 +2,7 @@ package com.daren.majorhazardsource.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.majorhazardsource.webapp.wicket.page.MajorHazardSourcePage;
+import com.daren.majorhazardsource.webapp.wicket.page.MajorHazardSourceTabPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -45,6 +46,6 @@ public class MajoHazardSourceMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new MajorHazardSourcePage(id, wmc);
+        return new MajorHazardSourceTabPage(id, wmc);
     }
 }

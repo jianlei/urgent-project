@@ -9,6 +9,7 @@ import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,13 +39,22 @@ public class IrisDropDownChoice<T> extends DropDownChoice {
     public IrisDropDownChoice(String id, String dictKey) {
         super(id);
         key = dictKey;
+        typeMap = dictBeanService.getDictMap(key);
+    }
+    /**
+     * 构造函数
+     *
+     * @param id      组件id
+     * @param typeMap 下拉列表内容，不能传空
+     */
+    public IrisDropDownChoice(String id,Map<String, String> typeMap) {
+        super(id);
+        this.typeMap = typeMap;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        typeMap = dictBeanService.getDictMap(key);
 
         IModel dropDownModel = new Model() {
             public java.io.Serializable getObject() {

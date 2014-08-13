@@ -50,7 +50,7 @@ public class MajorHazardSourcePage extends BasePanel {
             @Override
             protected void populateItem(Item<MajorHazardSourceBean> item) {
                 final MajorHazardSourceBean majorHazardSourceBean = item.getModelObject();
-                item.add(getToCreatePageLink(id, wmc, "check_name", majorHazardSourceBean.getId()).add(new Label("name", majorHazardSourceBean.getName()))
+                item.add(getToCreatePageLink("check_name", majorHazardSourceBean).add(new Label("name", majorHazardSourceBean.getName()))
                 );
                 item.add(new Label("expertName", majorHazardSourceBean.getExpertName()));
                 item.add(new Label("estimate", majorHazardSourceBean.getEstimate()));
@@ -86,18 +86,19 @@ public class MajorHazardSourcePage extends BasePanel {
         createQuery(table, provider,id,wmc);
     }
 
-    private AjaxLink getToCreatePageLink(final String id, final WebMarkupContainer wmc, String wicketId, final long enterpriseBeanId) {
+    private AjaxLink getToCreatePageLink(String wicketId, final MajorHazardSourceBean majorHazardSourceBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                wmc.removeAll();
-                wmc.addOrReplace(new MajorHazardSourceCreatePage(id, wmc, enterpriseBeanId));
-                target.add(wmc);
+                createButtonOnClick(majorHazardSourceBean,target);
             }
         };
         return ajaxLink;
     }
 
+    protected void createButtonOnClick(MajorHazardSourceBean majorHazardSourceBean,AjaxRequestTarget target) {
+
+    }
 
     /**
      * 处理查询页面
@@ -110,7 +111,7 @@ public class MajorHazardSourcePage extends BasePanel {
         TextField textField = new TextField("name");
 
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorHazardSourceBeanForm.add(getToCreatePageLink(id, wmc, "create", -1));
+        majorHazardSourceBeanForm.add(getToCreatePageLink("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
 
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {

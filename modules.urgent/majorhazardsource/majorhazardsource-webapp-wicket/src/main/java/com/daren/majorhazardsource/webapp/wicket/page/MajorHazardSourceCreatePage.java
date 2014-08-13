@@ -3,7 +3,9 @@ package com.daren.majorhazardsource.webapp.wicket.page;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
 import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -30,9 +32,17 @@ public class MajorHazardSourceCreatePage extends BasePanel {
 
     Form<MajorHazardSourceBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new MajorHazardSourceBean()));
 
-    public MajorHazardSourceCreatePage(final String id, final WebMarkupContainer wmc, final long majorHazardSourceBeanId) {
+    MajorHazardSourceBean majorHazardSourceBean = new MajorHazardSourceBean();
+
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
+    public MajorHazardSourceCreatePage(final String id, final WebMarkupContainer wmc, final MajorHazardSourceBean bean) {
         super(id, wmc);
-        initForm(majorHazardSourceBeanId);
+        if (null != bean) {
+            majorHazardSourceBean = bean;
+        }
+        initForm(majorHazardSourceBean);
+        initFeedBack();
         addForm(id, wmc);
     }
 
@@ -46,32 +56,39 @@ public class MajorHazardSourceCreatePage extends BasePanel {
         AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean) form.getDefaultModelObject();
+                MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean) majorHazardSourceBeanForm.getDefaultModelObject();
                 if (null != majorHazardSourceBean) {
                     try {
                         majorHazardSourceBean.setUpdateDate(new Date());
                         majorHazardSourceService.saveEntity(majorHazardSourceBean);
-
-                        target.appendJavaScript("alert('保存成功')");
-
-                        wmc.removeAll();
-                        wmc.addOrReplace(new MajorHazardSourcePage(id, wmc));
-                        target.add(wmc);
+                        feedbackPanel.info("保存成功！");
+                        target.add(feedbackPanel);
                     } catch (Exception e) {
-                        //MajorHazardSourceCreatePage.this.log.error("保存重大危险源异常，" +e.toString());
-                        target.appendJavaScript("alert('保存失败')");
+                        feedbackPanel.info("保存失败！");
+                        target.add(feedbackPanel);
                     }
                 }
             }
         };
         add(ajaxSubmitLink);
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
-    private void initForm(long majorHazardSourceBeanId) {
-        if (-1 != majorHazardSourceBeanId) {
-            MajorHazardSourceBean majorHazardSourceBean = (MajorHazardSourceBean) majorHazardSourceService.getEntity(majorHazardSourceBeanId);
-            majorHazardSourceBeanForm.setModelObject(majorHazardSourceBean);
-        }
+    protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+    private void initForm(MajorHazardSourceBean bean) {
+        majorHazardSourceBeanForm.setModelObject(bean);
+    }
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
     }
 
     private void addTextFieldToForm(String value) {
