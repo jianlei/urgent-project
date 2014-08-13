@@ -18,9 +18,13 @@
 
 -->
 <blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
     <!--<bean id="userBeanServiceImpl" class="com.daren.admin.core.UserBeanServiceImpl" init-method="init">-->
 
     <bean id="userBeanServiceImpl" class="com.daren.admin.core.UserBeanServiceImpl">
@@ -77,5 +81,24 @@
              interface="com.daren.admin.api.biz.IOfficeBeanService"/>
     <reference id="officeBeanDao" interface="com.daren.admin.api.dao.IOfficeBeanDao"/>
 
+    <!--系统版本服务注册-->
+    <bean id="aboutBeanServiceImpl" class="com.daren.admin.core.AboutBeanServiceImpl">
+        <property name="aboutBeanDao" ref="aboutBeanDao"/>
+    </bean>
+    <service id="aboutBeanService" ref="aboutBeanServiceImpl"
+             interface="com.daren.admin.api.biz.IAboutBeanService"/>
+    <reference id="aboutBeanDao" interface="com.daren.admin.api.dao.IAboutBeanDao"/>
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="loginService" address="/userBean">
+        <jaxrs:serviceBeans>
+            <ref component-id="userBeanServiceImpl"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 </blueprint>
 

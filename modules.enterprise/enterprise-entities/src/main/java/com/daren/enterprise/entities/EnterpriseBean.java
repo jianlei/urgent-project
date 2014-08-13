@@ -2,9 +2,6 @@ package com.daren.enterprise.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,102 +19,55 @@ import java.util.Date;
 @XmlRootElement
 public class EnterpriseBean extends PersistentEntity {
 
-
-
-    public EnterpriseBean (){
-        setCreationDate(new Date());
-    }
-
     String qyid;//企业id
-
     String qymc;//企业名称
-
     Date cl_sj;//成立时间
-
     String frdb;//法人代表姓名
-
     String zzjgdm;//组织机构代码
-
     String sdlx;//隶属关系代码，参照t_dm_gy_lsgx
-
     String jjlxbm;//登记注册类型编码，参照t_dm_gy_jjlx
-
     long cyrs;//从业人数
-
     long zcaqgcsrs;//注册安全工程师人数
-
     long aqrs;//专职安全管理人数
-
     long jzaqrs;//兼职安全管理人员数
-
     String hyml_dm;//行业门类代码，参照t_dm_gy_hyml
-
     String hylbbm;//行业大类代码，参照t_dm_gy_hydl
-
     String hyzxl_dm;//行业中小类代码，参照t_dm_gy_hyzxl
-
     String xjqybj;//企业是否有下级单位（1：是；0：否）
-
     String sjqyid;//上级单位id
-
     String qygmbm;//企业规模代码，参照t_dm_gy_qygm
-
     String gmqk;//规模情况（是否规模以上企业，0否，1是）
-
     long zczc;//注册资产(万元)
-
     String jgfl;//监管分类，参照t_dm_yh_jgfl
-
     double sndxssr;//上年度销售收入（万元）
-
     double aqscfy;//安全生产费用（万元）
-
     String yazlqy_bj;//液氨制冷企业标记1是，0否
-
     String xzqh_sheng;//行政区划省，参照t_dm_gy_xzqhszxs
-
     String xzqh_ds;//行政区划地市，参照t_dm_gy_xzqhds
-
     String xzqh_xq;//行政区划区县，参照t_dm_gy_xzqhxq
-
     String address_zc;//注册地址
-
     String address_jy;//经营地址
-
     String postcode;//邮编
-
     String qylxfs;//企业联系方式
-
     String mailaddress;//电子邮箱
-
     String dlwz;//地理位置（经度+维度）
-
     String jd;//地理位置（经度）
-
     String wd;//地理位置（维度）
-
     String zdxfdw_bj;//重点消防单位标记，0否，1是
-
     String zybbj;//是否有职业危害因素,1是，0否
-
     String aqjgszqk;//是否有专门安全管理部门，1是，0否
-
     String zyjyxm;//生产经营内容
-
     String zyyl;//主要原料
-
     String zycp;//主要产品
-
     String jgjgdm;//监管机构代码
-
     String lrry_jg;//开户人员所在部门或科室代码
-
     String username;//企业登录用户名
-
     String userpwd;//企业登录密码（md5）
-
     String zf_bj;//作废标记，1为作废，0为启用
 
+    public EnterpriseBean() {
+        setCreationDate(new Date());
+    }
 
     public String getQyid() {
         return qyid;

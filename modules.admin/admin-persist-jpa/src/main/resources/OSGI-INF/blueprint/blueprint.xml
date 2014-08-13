@@ -60,5 +60,14 @@
             <!--<property name="persistEntityService" ref="persistEntityService" />-->
         </bean>
     </service>
+
+    <!--系统版本dao-->
+    <service id="aboutBeanDao" interface="com.daren.admin.api.dao.IAboutBeanDao">
+        <bean class="com.daren.admin.persist.openjpa.AboutBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="admin-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
 </blueprint>
 

@@ -4,6 +4,7 @@ import com.daren.admin.entities.DictBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：字典服务接口类
@@ -27,6 +28,14 @@ public interface IDictBeanService extends IBizService {
      * @return
      */
     List<DictBean> getDictList(String type);
+
+    /**
+     * 根据类型常量获得字典项Map
+     *
+     * @param type
+     * @return
+     */
+    Map<String, String> getDictMap(String type);
 
     /**
      * 模糊查询

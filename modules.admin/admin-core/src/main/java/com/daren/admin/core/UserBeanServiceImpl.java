@@ -52,7 +52,8 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     }
 
     public List<UserBean> getAllUser() {
-        return userBeanDao.getAll(UserBean.class.getName());
+        List<UserBean> beanList = userBeanDao.getAll(UserBean.class.getName());
+        return beanList;
     }
 
     @Override
