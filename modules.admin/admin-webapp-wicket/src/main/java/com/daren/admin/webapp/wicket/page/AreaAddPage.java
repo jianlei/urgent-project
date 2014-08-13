@@ -3,6 +3,7 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IAreaBeanService;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.AreaBean;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -11,9 +12,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -21,7 +20,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -105,22 +103,7 @@ public class AreaAddPage extends Panel {
         areaForm.add(new Label("parent.name"));
         areaForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
-        IModel dropDownModel = new Model() {
-            public java.io.Serializable getObject() {
-                return new ArrayList(typeMap.keySet());
-            }
-        };
-        //下拉列表
-        DropDownChoice<String> listType = new DropDownChoice<String>(
-                "type", dropDownModel, new IChoiceRenderer() {
-            public String getDisplayValue(Object object) {
-                return typeMap.get(object);
-            }
-
-            public String getIdValue(Object object, int index) {
-                return object.toString();
-            }
-        });
+        IrisDropDownChoice listType = new IrisDropDownChoice("type", CONST_TYPE);
         areaForm.add(listType);
 //        areaForm.add(new TextField("type").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         areaForm.add(new TextField("code").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
