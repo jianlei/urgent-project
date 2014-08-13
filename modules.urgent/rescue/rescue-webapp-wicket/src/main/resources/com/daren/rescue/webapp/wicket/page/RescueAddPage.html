@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+
+</wicket:head>
 <wicket:panel>
     <body>
     <div class="alert alert-info">当前位置<b class="tip"/>资源管理<b class="tip"/>救援队管理</div>
@@ -42,28 +45,28 @@
                 </td>
             </tr>
             <tr>
-                <td class="tdl">经度</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="longitude"/>
-                </td>
-                <td class="tdl">纬度</td>
+                <td class="tdl">标注地址</td>
                 <td class="td_detail">
-                    <input class="ipt" wicket:id="latitude"/>
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="text" id="longitude" wicket:id="longitude"/>
+                    <input class="ipt" type="text" id="latitude" wicket:id="latitude"/>
                 </td>
                 <td class="tdl">主要装备描述</td>
                 <td class="td_detail">
                     <input class="ipt" wicket:id="equipment"/>
                 </td>
-            </tr>
-            <tr>
                 <td class="tdl">专长描述</td>
                 <td class="detail">
                     <input class="ipt" wicket:id="expertise"/>
                 </td>
+            </tr>
+            <tr>
                 <td class="tdl">备注</td>
                 <td class="td_detail">
                     <input class="ipt" wicket:id="remarks"/>
                 </td>
+                <td class="tdl"></td>
+                <td class="td_detail"></td>
                 <td class="tdl"></td>
                 <td class="td_detail"></td>
             </tr>
@@ -78,6 +81,9 @@
             </tr>
         </table>
     </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
     </body>
 </wicket:panel>
 </html>
