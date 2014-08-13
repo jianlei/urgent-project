@@ -1,9 +1,6 @@
 package com.daren.core.web.wicket;
 
-import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 
@@ -20,20 +17,7 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 public class HomePanel extends BasePanel {
     //ajax target container
     public HomePanel(String id, WebMarkupContainer wmc) {
-        /**
-         * test forward link
-         */
         super(id, wmc);
-        Link link = new Link("link") {
-            @Override
-            public void onClick() {
-                setResponsePage(new RedirectPage("http://www.baidu.com"));
-            }
-        };
-        add(link);
-        final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
-        this.add(feedback);
 
-//        add(new Include("footer", "cus/Template/FooterPage.html"));
     }
 }
