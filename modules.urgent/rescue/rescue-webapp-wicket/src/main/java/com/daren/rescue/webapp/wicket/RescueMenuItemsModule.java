@@ -24,7 +24,7 @@ public class RescueMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 2;
     }
 
     @Override

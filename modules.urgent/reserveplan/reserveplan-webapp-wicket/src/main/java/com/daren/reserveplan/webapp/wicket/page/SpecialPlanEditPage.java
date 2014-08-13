@@ -32,6 +32,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -155,8 +156,7 @@ public class SpecialPlanEditPage extends BasePanel {
         @Override
         protected List<SpecialPlanBean> getData() {
             if (specialPlanBean == null){
-                specialPlanService.getAllEntity();
-                return specialPlanService.getAllEntity();
+                return new ArrayList<>();
             }
             else {
                 return specialPlanService.queryByReservePlanId(specialPlanBean);

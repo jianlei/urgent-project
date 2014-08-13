@@ -25,7 +25,7 @@ public class EquipmentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 12;
+        return 3;
     }
 
     @Override

@@ -32,6 +32,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -155,8 +156,7 @@ public class SpotPlanEditPage extends BasePanel {
         @Override
         protected List<SpotPlanBean> getData() {
             if (spotPlanBean == null) {
-                spotPlanService.getAllEntity();
-                return spotPlanService.getAllEntity();
+                return new ArrayList<>();
             } else {
                 return spotPlanService.queryByReservePlanId(spotPlanBean);
             }

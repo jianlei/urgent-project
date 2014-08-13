@@ -2,6 +2,7 @@ package com.daren.reserveplan.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.reserveplan.webapp.wicket.page.ReservePlanPage;
+import com.daren.reserveplan.webapp.wicket.page.ReservePlanTabPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -45,6 +46,6 @@ public class ReservePlanMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new ReservePlanPage(id, wmc);
+        return new ReservePlanTabPage(id, wmc);
     }
 }

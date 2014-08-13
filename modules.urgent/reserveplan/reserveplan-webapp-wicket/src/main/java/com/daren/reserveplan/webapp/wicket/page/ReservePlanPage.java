@@ -57,46 +57,46 @@ public class ReservePlanPage extends BasePanel {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    private final TabbedPanel tabPanel;
     ReservePlanDataProvider provider = new ReservePlanDataProvider();
-    final RepeatingView createPage = new RepeatingView("createPage");
 
-    ReservePlanEditPage reservePlanEditPage;
-
-    AjaxTab ajaxTabComprehensivePlan;
-
-    Fragment fragment;
-
-    public ReservePlanPage(String id, WebMarkupContainer wmc) {
-
+    public ReservePlanPage(String id,final WebMarkupContainer wmc) {
         super(id, wmc);
-        createPage.setOutputMarkupId(true);
-        //增加tabs支持
-        Options options = new Options();
-        tabPanel = new TabbedPanel("tabs", this.newTabList(wmc), options);
-        this.add(tabPanel);
+        initForm(wmc);
     }
-
-    /**
-     * 添加tabs
-     *
-     * @return
-     */
-    private List<ITab> newTabList(final WebMarkupContainer wmc) {
-        List<ITab> tabs = new ArrayList<ITab>();
-        // tab #1 //
-        tabs.add(new AbstractTab(Model.of("预案管理")) {
-
+    private void initForm(final WebMarkupContainer wmc){
+        final WebMarkupContainer table = new WebMarkupContainer("table");
+        add(table.setOutputMarkupId(true));
+        final DataView<ReservePlanBean> listView = new DataView<ReservePlanBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "panel-1", wmc);
-            }
-        });
+            protected void populateItem(Item<ReservePlanBean> item) {
+                final ReservePlanBean reservePlanBean = item.getModelObject();
 
-        return tabs;
+
+                item.add(new Label("name", reservePlanBean.getName()));
+                item.add(new Label("description", reservePlanBean.getDescription()));
+
+                addDownLoadLink(item, "reservePlanApplyId", reservePlanBean.getReservePlanApplyId());
+                addDownLoadLink(item, "reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId());
+                addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
+                addDownLoadLink(item, "reviewCommentId", reservePlanBean.getReviewCommentId());
+                addDownLoadLink(item, "comprehensivePlanId", reservePlanBean.getComprehensivePlanId());
+
+                    /*addPlanBeanListLink(item, wmc, "specialPlanBeanList", reservePlanBean);
+
+                    addPlanBeanListLink(item, wmc, "spotPlanBeanList", reservePlanBean);*/
+
+                addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
+            }
+        };
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
+        };
+        table.add(pagingNavigator);
+        table.add(listView);
+        initTable(table);
     }
+    
 
     /**
      * 处理查询页面
@@ -104,12 +104,12 @@ public class ReservePlanPage extends BasePanel {
      * @param table
      * @param
      */
-    private Form createQuery(final WebMarkupContainer table, final ReservePlanDataProvider provider, final TabbedPanel tabPanel, final WebMarkupContainer wmc) {
+    private void initTable(final WebMarkupContainer table) {
         //处理查询
-        Form<ReservePlanBean> myform = new Form<>("form", new CompoundPropertyModel<>(new ReservePlanBean()));
+        Form<ReservePlanBean> reservePlanBeanForm = new Form<>("form", new CompoundPropertyModel<>(new ReservePlanBean()));
         TextField textField = new TextField("name");
-        myform.add(textField.setOutputMarkupId(true));
-        AjaxButton findButton = new AjaxButton("find", myform) {
+        reservePlanBeanForm.add(textField.setOutputMarkupId(true));
+        AjaxButton findButton = new AjaxButton("find", reservePlanBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 ReservePlanBean userBean = (ReservePlanBean) form.getModelObject();
@@ -121,70 +121,15 @@ public class ReservePlanPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                if (tabPanel.getModelObject().size() == 1) {
-                    tabPanel.add(new AjaxTab(Model.of("预案编辑")) {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public WebMarkupContainer getLazyPanel(String panelId) {
-                            try {
-                                // sleep the thread for a half second to simulate a long load
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                error(e.getMessage());
-                            }
-                            reservePlanEditPage = new ReservePlanEditPage(createPage.newChildId(), wmc, null);
-                            createPage.add(reservePlanEditPage);
-                            fragment = new Fragment(panelId, "panel-2", ReservePlanPage.this);
-                            fragment.add(createPage);
-                            return fragment;
-                        }
-                    });
-                }
-                tabPanel.setActiveTab(1);
-                target.add(tabPanel);
+                addButtonOnClick(target);
             }
         };
-        myform.add(addButton);
-        myform.add(findButton);
-        return myform;
+        reservePlanBeanForm.add(addButton);
+        reservePlanBeanForm.add(findButton);
+        add(reservePlanBeanForm);
     }
 
-    public class MainFragment extends Fragment {
-        public MainFragment(String id, String markupId, final WebMarkupContainer wmc) {
-            super(id, markupId, ReservePlanPage.this);
-            final WebMarkupContainer table = new WebMarkupContainer("table");
-            add(table.setOutputMarkupId(true));
-            final DataView<ReservePlanBean> listView = new DataView<ReservePlanBean>("rows", provider, 10) {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                protected void populateItem(Item<ReservePlanBean> item) {
-                    final ReservePlanBean reservePlanBean = item.getModelObject();
-
-
-                    item.add(new Label("name", reservePlanBean.getName()));
-                    item.add(new Label("description", reservePlanBean.getDescription()));
-
-                    addDownLoadLink(item, "reservePlanApplyId", reservePlanBean.getReservePlanApplyId());
-                    addDownLoadLink(item, "reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId());
-                    addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
-                    addDownLoadLink(item, "reviewCommentId", reservePlanBean.getReviewCommentId());
-                    addDownLoadLink(item, "comprehensivePlanId", reservePlanBean.getComprehensivePlanId());
-
-                    addPlanBeanListLink(item, wmc, "specialPlanBeanList", reservePlanBean);
-
-                    addPlanBeanListLink(item, wmc, "spotPlanBeanList", reservePlanBean);
-
-                    addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
-                }
-            };
-            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
-            };
-            table.add(pagingNavigator);
-            table.add(listView);
-            add(createQuery(table, provider, tabPanel, wmc));
-        }
+    protected void addButtonOnClick(AjaxRequestTarget target) {
     }
 
     private void addDeleteLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean, final WebMarkupContainer table) {
@@ -204,45 +149,6 @@ public class ReservePlanPage extends BasePanel {
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
-    }
-
-    private void addPlanBeanListLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean) {
-        AjaxLink comprehensivePlanIdAjaxLink = new AjaxLink(linkName) {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                tabPanel.getModelObject();
-                if (tabPanel.getModelObject().size() == 1) {
-                    tabPanel.add(new AjaxTab(Model.of("预案编辑")) {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public WebMarkupContainer getLazyPanel(String panelId) {
-                            try {
-                                // sleep the thread for a half second to simulate a long load
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                error(e.getMessage());
-                            }
-                            reservePlanEditPage = new ReservePlanEditPage(createPage.newChildId(), wmc, reservePlanBean);
-                            createPage.add(reservePlanEditPage);
-                            fragment = new Fragment(panelId, "panel-2", ReservePlanPage.this);
-                            fragment.add(createPage);
-                            return fragment;
-                        }
-                    });
-                } else {
-                    reservePlanEditPage = new ReservePlanEditPage(createPage.newChildId(), wmc, reservePlanBean);
-                    createPage.removeAll();
-                    createPage.add(reservePlanEditPage);
-                    fragment.removeAll();
-                    fragment.add(createPage);
-                    target.add(fragment);
-                }
-                tabPanel.setActiveTab(1);
-                target.add(tabPanel);
-            }
-        };
-        item.add(comprehensivePlanIdAjaxLink.setOutputMarkupId(true));
     }
 
     private void addDownLoadLink(Item item, String downLoadLinkName, String documentId) {
