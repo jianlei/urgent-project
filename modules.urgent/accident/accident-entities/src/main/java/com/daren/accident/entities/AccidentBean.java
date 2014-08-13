@@ -58,7 +58,7 @@ public class AccidentBean extends PersistentEntity {
         accidentUnit="";
         accidentPreliminaryAnalysis="";
         accidentSource="";
-        accidentTime="";
+        accidentTime= new Date();
         cause="";
         toll="";
         economicLosses="";

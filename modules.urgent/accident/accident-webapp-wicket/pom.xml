@@ -65,6 +65,12 @@
 
         <dependency>
             <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.wicket</artifactId>
         </dependency>
 
