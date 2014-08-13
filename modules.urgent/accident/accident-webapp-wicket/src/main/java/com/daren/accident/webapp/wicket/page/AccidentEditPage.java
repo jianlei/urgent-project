@@ -2,37 +2,46 @@ package com.daren.accident.webapp.wicket.page;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
+import com.daren.admin.api.biz.IDictBeanService;
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Dell on 14-8-12.
  */
 public class AccidentEditPage extends BasePanel {
-    AccidentBean accidentEditPageAccidentBean = new AccidentBean();
-    Form<AccidentBean> accidentBeanForm;
+
     @Inject
     private IAccidentBeanService accidentBeanService;
 
+    //注入字典业务服务
+    @Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    private IDictBeanService dictBeanService;
+
+    AccidentBean accidentEditPageAccidentBean = new AccidentBean();
+    Form<AccidentBean> accidentBeanForm;
+
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
+    private Map<String, String> accidentTypeMap;
 
     public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean bean) {
         super(id, wmc);
@@ -43,9 +52,8 @@ public class AccidentEditPage extends BasePanel {
         this.add(accidentBeanForm);
         addForm();
         initFeedBack();
+        accidentTypeMap = dictBeanService.getDictMap(IDictConstService.ACCIDENT_TYPE);
     }
-
-    protected void onFormSubmit() {}
 
     public void addForm() {
         addTextFieldsToForm();
@@ -100,18 +108,32 @@ public class AccidentEditPage extends BasePanel {
         add(feedbackPanel);
     }
 
-    private void initSelect(List<String> SEARCH_ENGINES, String name, String selected) {
+    private void initSelect( String name) {
+        IModel dropDownModel = new Model() {
+            public java.io.Serializable getObject() {
+                return new ArrayList(accidentTypeMap.keySet());
+            }
+        };
+        //下拉列表
         DropDownChoice<String> listSites = new DropDownChoice<String>(
-                name, new PropertyModel<String>(accidentEditPageAccidentBean, selected), SEARCH_ENGINES);
+                name, dropDownModel, new IChoiceRenderer() {
+            public String getDisplayValue(Object object) {
+                return accidentTypeMap.get(object);
+            }
+
+            public String getIdValue(Object object, int index) {
+                return object.toString();
+            }
+        });
         accidentBeanForm.add(listSites);
     }
 
     private void addSelectToForm() {
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentType","accidentType");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentLevel","accidentLevel");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"industryCategory","industryCategory");
-        initSelect(Arrays.asList(new String[]{"物体打击", "灼烫", "触电"}), "accidentPreliminaryAnalysis", "accidentPreliminaryAnalysis");
-        initSelect(Arrays.asList(new String[]{"1", "2", "3"}), "accidentUnit", "accidentUnit");
+        initSelect("accidentType");
+        initSelect("accidentLevel");
+        initSelect("industryCategory");
+        initSelect("accidentPreliminaryAnalysis");
+        initSelect("accidentUnit");
     }
 
     private void addTextFieldToForm(String value) {
