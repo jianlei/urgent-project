@@ -12,10 +12,42 @@
         <tr>
             <td colspan="6" align="right">
                 <input class="btn btn-inverse" type="button" value="编辑" wicket:id="edit"/>
+                <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
             </td>
         </tr>
     </table>
-    <table>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <td colspan="6" class="auto-style2">&nbsp;事故企业信息 <i class="tip-up"></i></td>
+        </tr>
+        </thead>
+        <form wicket:id="enterpriseForm">
+            <tbody>
+            <tr>
+                <td>企业名称</td>
+                <td class="td_detail">
+                    <span wicket:id="qymc"></span>
+                </td>
+                <td>企业地址</td>
+                <td>
+                    <span wicket:id="address_jy"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>生产经营内容</td>
+                <td class="td_detail">
+                    <span wicket:id="zyjyxm"></span>
+                </td>
+                <td>企业规模</td>
+                <td>
+                    <span wicket:id="qygmbm"></span>
+                </td>
+            </tr>
+            </tbody>
+        </form>
+    </table>
+    <table class="table table-striped table-bordered table-condensed">
         <thead>
         <tr>
             <td colspan="6" class="auto-style2">&nbsp;事故详细信息 <i class="tip-up"></i></td>
@@ -24,57 +56,63 @@
         <form wicket:id="accidentForm">
             <tbody>
             <tr>
+                <td>事故标题</td>
+                <td class="td_detail">
+                    <span wicket:id="accidentTitle"></span>
+                </td>
+            </tr>
+            <tr>
                 <td>事故发生时间</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="accidentTime"></span>
                 </td>
                 <td>事故类别</td>
-                <td >
+                <td>
                     <span wicket:id="accidentType"></span>
                 </td>
             </tr>
             <tr>
                 <td>事故级别</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="accidentLevel"></span>
                 </td>
                 <td>行业类别</td>
-                <td >
+                <td>
                     <span wicket:id="industryCategory"></span>
                 </td>
             </tr>
             <tr>
 
                 <td>事故发生地点</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="place"></span>
                 </td>
             </tr>
             <tr>
                 <td>事发详细地址</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="detailsPlace"></span>
                 </td>
             </tr>
             <tr>
                 <td>事故原因初步分析</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="accidentPreliminaryAnalysis"></span>
                 </td>
             </tr>
             <tr>
                 <td>直接经济损失</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="economicLosses"></span>
                 </td>
                 <td>事故现场总人数</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="accidentScene"></span>
                 </td>
             </tr>
             <tr>
                 <td>事故伤亡情况</td>
-                <td>
+                <td class="td_detail">
                     死亡：<span wicket:id="headcountDeath">0</span>人
                     重伤：<span wicket:id="headcountSerious">0</span>人
                     轻伤：<span wicket:id="headcountSlight">0</span>人
@@ -84,51 +122,51 @@
             </tr>
             <tr>
                 <td>事故现场情况、 事故简要经过</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="describe"></span>
                 </td>
             </tr>
             <tr>
                 <td>已采取措施</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="measure"></span>
                 </td>
             </tr>
             <tr>
                 <td>附件</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="attachment"></span>
                 </td>
             </tr>
             <tr>
                 <td>视频链接地址</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="videoLink"></span>
                 </td>
             </tr>
             <tr>
                 <td>经办人</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="operator"></span>
                 </td>
                 <td>经办人联系电话</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="operatorPhone"></span>
                 </td>
             </tr>
             <tr>
                 <td>现场联络员</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="liaisons"></span>
                 </td>
                 <td>现场联络员联系电话</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="liaisonsPhone"></span>
                 </td>
             </tr>
             <tr>
                 <td>签发人</td>
-                <td>
+                <td class="td_detail">
                     <span wicket:id="signer"></span>
                 </td>
             </tr>

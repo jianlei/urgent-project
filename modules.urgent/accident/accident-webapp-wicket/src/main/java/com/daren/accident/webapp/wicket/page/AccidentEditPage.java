@@ -5,8 +5,11 @@ import com.daren.accident.entities.AccidentBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -24,47 +27,39 @@ import java.util.List;
  * Created by Dell on 14-8-12.
  */
 public class AccidentEditPage extends BasePanel {
-
-    final private String selectedAccidentType = "触电";
-    final private String selectedAccidentLevel = "触电";
-    final private String selectedIndustryCategory = "触电";
-    final private String selectedAccidentPreliminaryAnalysis = "触电";
-    AccidentBean accidentBean = new AccidentBean();
+    AccidentBean accidentEditPageAccidentBean = new AccidentBean();
     Form<AccidentBean> accidentBeanForm;
     @Inject
     private IAccidentBeanService accidentBeanService;
 
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
     public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean bean) {
         super(id, wmc);
         if (bean != null) {
-            this.accidentBean = (AccidentBean) accidentBeanService.getEntity(bean.getId());
-            ;
+            this.accidentEditPageAccidentBean = (AccidentBean) accidentBeanService.getEntity(bean.getId());
         }
-        accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(accidentBean));
+        accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(accidentEditPageAccidentBean));
         this.add(accidentBeanForm);
-        //initForm(accidentBean.getId());
         addForm();
-
+        initFeedBack();
     }
 
-    public void addForm() {
-//        accidentBeanForm.setMultiPart(true);
-//        accidentBeanForm.setModelObject(accidentBean);
+    protected void onFormSubmit() {}
 
+    public void addForm() {
         addTextFieldsToForm();
         addSelectToForm();
 
         //多行文本
-
         final TextArea<String> accidentDescribe = new TextArea<String>("accidentDescribe");
         accidentBeanForm.add(accidentDescribe);
-
-        accidentBean.setAccidentTime(new Date());
+        accidentEditPageAccidentBean.setAccidentTime(new Date());
 
         //日期控件//
-        //final DateTextField
-        final DatePicker accidentTime = new DatePicker("accidentTime", new PropertyModel<Date>(accidentBean, "accidentTime"), "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
-//        final  TextField accidentTime = new TextField("accidentTime");
+        final DatePicker accidentTime = new DatePicker("accidentTime",
+                new PropertyModel<Date>(accidentEditPageAccidentBean, "accidentTime"), "yyyy-MM-dd",
+                new Options("dateFormat", Options.asString("yy-mm-dd")));
         accidentBeanForm.add(accidentTime);
 
         AjaxButton ajaxSubmitLink = new AjaxButton("save", accidentBeanForm) {
@@ -73,14 +68,10 @@ public class AccidentEditPage extends BasePanel {
                 AccidentBean bean = accidentBeanForm.getModelObject();
                 if (null != bean) {
                     try {
-                        bean.setAccidentType(selectedAccidentType);
-                        bean.setAccidentLevel(selectedAccidentLevel);
-                        bean.setIndustryCategory(selectedIndustryCategory);
-                        bean.setAccidentPreliminaryAnalysis(selectedAccidentPreliminaryAnalysis);
-                        bean.setAccidentDescribe(accidentDescribe.getModelObject());
-//                        accidentBean.setAccidentTime(accidentTime.getDefaultModelObjectAsString());
-                        accidentBeanService.saveEntity(accidentBean);
-                        target.appendJavaScript("alert('保存成功')");
+                        accidentBeanService.saveEntity(accidentEditPageAccidentBean);
+                        feedbackPanel.info("保存成功！");
+                        target.add(feedbackPanel);
+                        onSaveOnclick(bean ,target);
                     } catch (Exception e) {
                         target.appendJavaScript("alert('保存失败')");
                     }
@@ -88,26 +79,39 @@ public class AccidentEditPage extends BasePanel {
             }
         };
         accidentBeanForm.add(ajaxSubmitLink);
+
+        accidentBeanForm.add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
-    private void initForm(long accidentBeanId) {
-        if (-1 != accidentBeanId) {
-            AccidentBean accidentBean = (AccidentBean) accidentBeanService.getEntity(accidentBeanId);
-            accidentBeanForm.setModelObject(accidentBean);
-        }
+    public void onSaveOnclick(AccidentBean bean ,AjaxRequestTarget target) {
+    }
+
+    // Hook 回调函数
+    protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
     }
 
     private void initSelect(List<String> SEARCH_ENGINES, String name, String selected) {
         DropDownChoice<String> listSites = new DropDownChoice<String>(
-                name, new PropertyModel<String>(accidentBean, selected), SEARCH_ENGINES);
+                name, new PropertyModel<String>(accidentEditPageAccidentBean, selected), SEARCH_ENGINES);
         accidentBeanForm.add(listSites);
     }
 
     private void addSelectToForm() {
-        /*initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentType","selectedAccidentType");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentLevel","selectedAccidentLevel");
-        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"industryCategory","selectedIndustryCategory");*/
+        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentType","accidentType");
+        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"accidentLevel","accidentLevel");
+        initSelect(Arrays.asList(new String[] {"物体打击", "灼烫", "触电" }),"industryCategory","industryCategory");
         initSelect(Arrays.asList(new String[]{"物体打击", "灼烫", "触电"}), "accidentPreliminaryAnalysis", "accidentPreliminaryAnalysis");
+        initSelect(Arrays.asList(new String[]{"1", "2", "3"}), "accidentUnit", "accidentUnit");
     }
 
     private void addTextFieldToForm(String value) {
@@ -124,7 +128,6 @@ public class AccidentEditPage extends BasePanel {
         addTextFieldToForm("videoLink");
         addTextFieldToForm("attachment");
         addTextFieldToForm("measure");
-//        addTextFieldToForm("describe");
         addTextFieldToForm("headcountEvacuees");
         addTextFieldToForm("headcountTrappedOrMissing");
         addTextFieldToForm("headcountSlight");
@@ -132,12 +135,7 @@ public class AccidentEditPage extends BasePanel {
         addTextFieldToForm("headcountDeath");
         addTextFieldToForm("accidentScene");
         addTextFieldToForm("economicLosses");
-//        addTextFieldToForm("accidentPreliminaryAnalysis");
-//        addTextFieldToForm("detailsPlace");
         addTextFieldToForm("place");
-//        addTextFieldToForm("industryCategory");
-//        addTextFieldToForm("accidentLevel");
-        //addTextFieldToForm("accidentType");
-//        addTextFieldToForm("accidentTime");
+        addTextFieldToForm("accidentTitle");
     }
 }

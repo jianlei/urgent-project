@@ -7,22 +7,36 @@
 </wicket:head>
 <body>
 <wicket:panel>
-    <div class="alert alert-info">当前位置<b class="tip"/>应急管理<b class="tip"/>事故详细信息</div>
+    <div class="alert alert-info">当前位置<b class="tip"/>应急管理<b class="tip"/>事故编辑</div>
+    <div>
+        <span wicket:id="feedBack"/>
+    </div>
     <form wicket:id="accidentForm">
         <table class="table table-striped table-bordered table-condensed">
             <tr>
                 <td colspan="6" align="right">
                     <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
                 </td>
             </tr>
         </table>
         <table class="table table-striped table-bordered table-condensed">
             <thead>
             <tr>
-                <td colspan="6" class="auto-style2">&nbsp;事故详细信息 <i class="tip-up"></i></td>
+                <td colspan="6" class="auto-style2">&nbsp;事故编辑 <i class="tip-up"></i></td>
             </tr>
             </thead>
 
+            <tr>
+                <td>事故标题</td>
+                <td class="td_detail">
+                    <input wicket:id="accidentTitle" type="text"/>
+                </td>
+                <td>事故企业名称</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentUnit"></select>
+                </td>
+            </tr>
             <tr>
                 <td>事故发生时间</td>
                 <td class="td_detail">
@@ -30,17 +44,17 @@
                 </td>
                 <td>事故类别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="accidentType"></select>-->
+                    <select wicket:id="accidentType"></select>
                 </td>
             </tr>
             <tr>
                 <td>事故级别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="accidentLevel"></select>-->
+                    <select wicket:id="accidentLevel"></select>
                 </td>
                 <td>行业类别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="industryCategory"></select>-->
+                    <select wicket:id="industryCategory"></select>
                 </td>
             </tr>
             <tr>

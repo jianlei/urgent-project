@@ -52,6 +52,36 @@ public class AccidentBean extends PersistentEntity {
     private String signer;//签发人
 
     public AccidentBean() {
+        place="";
+        accidentTitle="";
+        detailsPlace="";
+        accidentUnit="";
+        accidentPreliminaryAnalysis="";
+        accidentSource="";
+        accidentTime= new Date();
+        cause="";
+        toll="";
+        economicLosses="";
+        accidentScene="";
+        headcountDeath="";
+        headcountSerious="";
+        headcountSlight="";
+        headcountTrappedOrMissing="";
+        headcountEvacuees="";
+        lng="";
+        lat="";
+        accidentType="";
+        industryCategory="";
+        accidentLevel="";
+        accidentDescribe="";
+        measure="";
+        attachment="";
+        videoLink="";
+        operator="";
+        operatorPhone="";
+        liaisons="";
+        liaisonsPhone="";
+        signer="";
     }
 
     public String getAccidentTitle() {
