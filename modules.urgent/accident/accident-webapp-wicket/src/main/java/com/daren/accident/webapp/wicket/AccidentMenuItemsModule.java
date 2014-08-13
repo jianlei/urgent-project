@@ -1,5 +1,6 @@
 package com.daren.accident.webapp.wicket;
 
+import com.daren.accident.webapp.wicket.page.AccidentTabPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.accident.webapp.wicket.page.AccidentPage;
 import org.apache.wicket.Page;
@@ -44,6 +45,6 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new AccidentPage(id, wmc);
+        return new AccidentTabPage(id, wmc);
     }
 }

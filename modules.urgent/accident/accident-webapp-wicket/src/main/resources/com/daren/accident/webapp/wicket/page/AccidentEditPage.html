@@ -24,23 +24,33 @@
             </thead>
 
             <tr>
+                <td>事故标题</td>
+                <td class="td_detail">
+                    <input wicket:id="accidentTitle" type="text"/>
+                </td>
+                <td>事故企业名称</td>
+                <td class="td_detail">
+                    <select wicket:id="accidentUnit"></select>
+                </td>
+            </tr>
+            <tr>
                 <td>事故发生时间</td>
                 <td class="td_detail">
                     <input wicket:id="accidentTime" type="text"/>
                 </td>
                 <td>事故类别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="accidentType"></select>-->
+                    <select wicket:id="accidentType"></select>
                 </td>
             </tr>
             <tr>
                 <td>事故级别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="accidentLevel"></select>-->
+                    <select wicket:id="accidentLevel"></select>
                 </td>
                 <td>行业类别</td>
                 <td class="td_detail">
-                    <!--<select wicket:id="industryCategory"></select>-->
+                    <select wicket:id="industryCategory"></select>
                 </td>
             </tr>
             <tr>
