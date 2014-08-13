@@ -40,9 +40,18 @@ public class HomePanel extends BasePanel {
                 List<RescueBean> list = rescueBeanService.getAllEntity();
                 Gson gson = new Gson();
                 String string = gson.toJson(list);
-                ajaxRequestTarget.prependJavaScript("parseGson(" + string + ")");
+                ajaxRequestTarget.prependJavaScript("parseRescue(" + string + ")");
             }
         };
         this.add(ajaxLinkRescue);
+
+        //专家标注
+        AjaxLink ajaxLinkExperts = new AjaxLink("expertsButton") {
+            @Override
+            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+
+            }
+        };
+        this.add(ajaxLinkExperts);
     }
 }

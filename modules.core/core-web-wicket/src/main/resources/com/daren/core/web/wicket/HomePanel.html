@@ -3,8 +3,6 @@
 <wicket:head>
     <meta charset="utf-8"/>
     <title>后台管理系统</title>
-    <!--<script type="text/javascript" src="cus/Scripts/jquery-1.7.2.js"></script>-->
-    <!--<script type="text/javascript" src="cus/Scripts/map.js"></script>-->
     <script type="text/javascript">
         var markers = [];
         var map;
@@ -14,7 +12,7 @@
             map.centerAndZoom("四平市", 15);
             map.enableScrollWheelZoom();
         });
-        function parseGson(gson) {
+        function parseRescue(gson) {
             map.clearOverlays();
             var jsonObj = eval(gson);
             for (var i = 0; i < jsonObj.length; i++) {
@@ -37,8 +35,9 @@
 <body>
 <wicket:panel>
     <div id="toolBar"
-         style="border:solid 1px;width:100%;height:38px;overflow: hidden;margin:0;z-index: 90;text-align: ">
+         style="border:solid 1px;width:100%;height:38px;overflow: hidden;margin:0;z-index: 90;padding: 9px 0 0 10px;">
         <input class="btn btn-inverse" wicket:id="rescueButton" type="button" value="救援队标注"/>
+        <input class="btn btn-inverse" wicket:id="expertsButton" type="button" value="专家标注"/>
     </div>
     <div style="height:2px;"></div>
     <div id="allmap" style="border:solid 1px;width: 100%;overflow: hidden;margin:0;z-index: 90;"></div>
