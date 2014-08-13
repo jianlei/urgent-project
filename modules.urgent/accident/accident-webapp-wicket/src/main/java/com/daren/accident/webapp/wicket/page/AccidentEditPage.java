@@ -5,8 +5,11 @@ import com.daren.accident.entities.AccidentBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -29,6 +32,8 @@ public class AccidentEditPage extends BasePanel {
     @Inject
     private IAccidentBeanService accidentBeanService;
 
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
     public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean bean) {
         super(id, wmc);
         if (bean != null) {
@@ -37,6 +42,7 @@ public class AccidentEditPage extends BasePanel {
         accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(accidentEditPageAccidentBean));
         this.add(accidentBeanForm);
         addForm();
+        initFeedBack();
     }
 
     protected void onFormSubmit() {}
@@ -63,8 +69,9 @@ public class AccidentEditPage extends BasePanel {
                 if (null != bean) {
                     try {
                         accidentBeanService.saveEntity(accidentEditPageAccidentBean);
-                        AccidentEditPage.this.onFormSubmit();
-                        target.appendJavaScript("alert('保存成功')");
+                        feedbackPanel.info("保存成功！");
+                        target.add(feedbackPanel);
+                        onSaveOnclick(bean ,target);
                     } catch (Exception e) {
                         target.appendJavaScript("alert('保存失败')");
                     }
@@ -72,6 +79,25 @@ public class AccidentEditPage extends BasePanel {
             }
         };
         accidentBeanForm.add(ajaxSubmitLink);
+
+        accidentBeanForm.add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
+    }
+
+    public void onSaveOnclick(AccidentBean bean ,AjaxRequestTarget target) {
+    }
+
+    // Hook 回调函数
+    protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
     }
 
     private void initSelect(List<String> SEARCH_ENGINES, String name, String selected) {

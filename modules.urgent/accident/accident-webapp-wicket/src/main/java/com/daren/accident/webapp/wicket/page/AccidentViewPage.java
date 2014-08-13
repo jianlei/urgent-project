@@ -7,6 +7,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -52,13 +53,25 @@ public class AccidentViewPage extends BasePanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 AccidentBean accidentBean = (AccidentBean) form.getDefaultModelObject();
                 if (null != accidentBean) {
+                    onEditOnClick(accidentBean,target);
                 }
             }
         };
         add(ajaxSubmitLink);
+
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
     protected void onEditOnClick( AccidentBean accidentBean,AjaxRequestTarget target) {
+    }
+
+    // Hook 回调函数
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
     private void addEnterpriseForm(final AccidentBean accidentBean) {

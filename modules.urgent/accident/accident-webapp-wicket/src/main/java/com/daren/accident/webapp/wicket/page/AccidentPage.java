@@ -76,6 +76,7 @@ public class AccidentPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                addButtonOnClick(null,target);
             }
         };
         myform.add(addButton);
@@ -116,7 +117,7 @@ public class AccidentPage extends BasePanel {
 
     protected void accidentTitleLinkOnClick(AccidentBean accidentBean,AjaxRequestTarget target) {}
 
-    protected void addButtonOnClick(AccidentBean accidentBean) {}
+    protected void addButtonOnClick(AccidentBean accidentBean,AjaxRequestTarget target) {}
 
     private void addDeleteLink(Item<AccidentBean> item, String linkName, final AccidentBean accidentBean, final WebMarkupContainer table) {
         AjaxLink ajaxLink = new AjaxLink(linkName) {
