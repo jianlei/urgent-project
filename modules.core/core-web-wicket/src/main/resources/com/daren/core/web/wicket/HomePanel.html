@@ -7,63 +7,38 @@
     <!--<script type="text/javascript" src="cus/Scripts/map.js"></script>-->
     <script type="text/javascript">
         var markers = [];
+        var map;
         jQuery(document).ready(function () {
             $("#allmap").height($(".Conframe").height() - 38);
-            var map = new BMap.Map("allmap");
+            map = new BMap.Map("allmap");
             map.centerAndZoom("四平市", 15);
             map.enableScrollWheelZoom();
-            var contextMenu = new BMap.ContextMenu();
-            var txtMenuItem = [
-                {
-                    text: '放大',
-                    callback: function () {
-                        map.zoomIn()
-                    }
-                },
-                {
-                    text: '缩小',
-                    callback: function () {
-                        map.zoomOut()
-                    }
-                },
-                {
-                    text: '放置到最大级',
-                    callback: function () {
-                        map.setZoom(18)
-                    }
-                },
-                {
-                    text: '在此添加标注',
-                    callback: function (p) {
-                        map.clearOverlays();
-                        var markerPoint = new BMap.Marker(p), px = map.pointToPixel(p);
-                        var point = new BMap.Point(markerPoint.getPosition().lng, markerPoint.getPosition().lat);
-                        var json = {w: 21, h: 35, l: 0, t: 0, x: 6, lb: 5};
-                        var iconImg = new BMap.Icon("http://localhost:8181/cus/img/dkgreen.png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)});
-                        var marker = new BMap.Marker(point, {icon: iconImg});
-                        map.addOverlay(marker);
-                        markers.push(marker);
-                    }
-                }
-            ];
-            for (var i = 0; i < txtMenuItem.length; i++) {
-                contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text, txtMenuItem[i].callback, 100));
-                if (i == 1 || i == 3) {
-                    contextMenu.addSeparator();
-                }
-            }
-            map.addContextMenu(contextMenu);
         });
-        function abc() {
-
+        function parseGson(gson) {
+            map.clearOverlays();
+            var jsonObj = eval(gson);
+            for (var i = 0; i < jsonObj.length; i++) {
+                var point = new BMap.Point(jsonObj[i].longitude, jsonObj[i].latitude);
+                var json = {w: 21, h: 35, l: 0, t: 0, x: 6, lb: 5};
+                var iconImg = new BMap.Icon("http://localhost:8181/cus/img/dkgreen.png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)});
+                var marker = new BMap.Marker(point, {icon: iconImg});
+                map.addOverlay(marker);              // 将标注添加到地图中
+                markers.push(marker);
+                //创建信息窗口
+                var infoWindow = new BMap.InfoWindow("救援队名称：" + jsonObj[i].name + "</br>负&nbsp;&nbsp;&nbsp;责&nbsp;&nbsp;&nbsp;人：" + jsonObj[i].head + "</br>负责人电话：" + jsonObj[i].headPhone + "</br>值班&nbsp;&nbsp;&nbsp;电话：" + jsonObj[i].telephone);
+                marker.addEventListener("click", function () {
+                    this.openInfoWindow(infoWindow);
+                });
+            }
         }
     </script>
 
 </wicket:head>
 <body>
 <wicket:panel>
-    <div id="toolBar" style="border:solid 1px;width: 100%;height:38px;overflow: hidden;margin:0;z-index: 90;">
-        111111111
+    <div id="toolBar"
+         style="border:solid 1px;width:100%;height:38px;overflow: hidden;margin:0;z-index: 90;text-align: ">
+        <input class="btn btn-inverse" wicket:id="rescueButton" type="button" value="救援队标注"/>
     </div>
     <div style="height:2px;"></div>
     <div id="allmap" style="border:solid 1px;width: 100%;overflow: hidden;margin:0;z-index: 90;"></div>
