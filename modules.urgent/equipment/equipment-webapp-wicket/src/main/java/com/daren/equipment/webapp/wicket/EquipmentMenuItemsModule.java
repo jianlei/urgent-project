@@ -2,6 +2,7 @@ package com.daren.equipment.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.equipment.webapp.wicket.page.EquipmentPage;
+import com.daren.equipment.webapp.wicket.page.EquipmentTabPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -47,6 +48,6 @@ public class EquipmentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new EquipmentPage(id, wmc);
+        return new EquipmentTabPage(id, wmc);
     }
 }
