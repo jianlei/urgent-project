@@ -5,6 +5,7 @@ import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.api.dao.IEnterpriseBeanDao;
 import com.daren.enterprise.entities.EnterpriseBean;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,6 +30,17 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
         return enterpriseBeanDao.find("select a from EnterpriseBean a where a.qymc LIKE ?1", "%" + enterpriseBean.getQymc() + "%");
     }
 
+    @Override
+    public  HashMap<String ,String > getAllBeansToHashMap() {
+        HashMap<String ,String > hashMap = new HashMap<>();
+        List<EnterpriseBean> list = enterpriseBeanDao.getAll(EnterpriseBean.class.getName());
+        if(null != list && list.size() > 0){
+            for(EnterpriseBean bean : list){
+                hashMap.put(bean.getId()+"",bean.getQymc());
+            }
+        }
+        return hashMap;
+    }
 }
 
 

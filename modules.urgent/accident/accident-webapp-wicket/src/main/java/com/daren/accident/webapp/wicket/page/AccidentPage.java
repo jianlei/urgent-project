@@ -76,7 +76,7 @@ public class AccidentPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                addButtonOnClick(null,target);
+                addButtonOnClick(new AccidentBean(),target);
             }
         };
         myform.add(addButton);
