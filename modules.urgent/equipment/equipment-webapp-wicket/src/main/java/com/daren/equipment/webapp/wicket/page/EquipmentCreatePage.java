@@ -1,5 +1,7 @@
 package com.daren.equipment.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
@@ -14,6 +16,8 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -44,6 +48,7 @@ public class EquipmentCreatePage extends BasePanel {
         initForm(equipmentBean);
         initFeedBack();
         addForm(id, wmc);
+        addSelectToForm();
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
@@ -91,6 +96,26 @@ public class EquipmentCreatePage extends BasePanel {
         add(feedbackPanel);
     }
 
+    //通过字典初始化下拉列表
+    private void initSelect(String name,String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,dictConst);
+        equipmentBeanForm.add(listSites);
+    }
+    //通过Map初始化下拉列表
+    private void initSelect(String name,Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,typeMap);
+        equipmentBeanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("property", IDictConstService.EQUIPMENT_PROPERTY);
+        initSelect("registrationType", IDictConstService.REGISTRATION_TYPE);
+        initSelect("equipmentSources", IDictConstService.EQUIPMENT_SOURCES);
+        initSelect("equipmentType", IDictConstService.REGISTRATION_TYPE);
+    }
+
     private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
         equipmentBeanForm.add(textField);
@@ -98,12 +123,12 @@ public class EquipmentCreatePage extends BasePanel {
 
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
-        addTextFieldToForm("property");
-        addTextFieldToForm("registrationType");
+//        addTextFieldToForm("property");
+//        addTextFieldToForm("registrationType");
         addTextFieldToForm("rescueId");
         addTextFieldToForm("unitName");
-        addTextFieldToForm("equipmentSources");
-        addTextFieldToForm("equipmentType");
+//        addTextFieldToForm("equipmentSources");
+//        addTextFieldToForm("equipmentType");
         addTextFieldToForm("parametersSpecifications");
         addTextFieldToForm("measuringUnit");
         addTextFieldToForm("amount");
