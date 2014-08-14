@@ -1,21 +1,21 @@
 package com.daren.equipment.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
@@ -33,12 +33,10 @@ import java.util.List;
 
 public class EquipmentPage extends BasePanel {
 
+    EquipmentDataProvider provider = new EquipmentDataProvider();
     @Inject
     private IEquipmentBeanService equipmentBeanService;
 
-    EquipmentDataProvider provider = new EquipmentDataProvider();
-    
-    
 
     public EquipmentPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
@@ -70,6 +68,7 @@ public class EquipmentPage extends BasePanel {
                         listener.onPrecondition("if(!confirm('确定要删除么?')){return false;}");
                         attributes.getAjaxCallListeners().add(listener);
                     }
+
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         equipmentBeanService.deleteEntity(equipmentBean.getId());
@@ -83,20 +82,20 @@ public class EquipmentPage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
 
-        createQuery(table, provider,id,wmc);
+        createQuery(table, provider, id, wmc);
     }
 
     private AjaxLink getToCreatePageLink(String wicketId, final EquipmentBean equipmentBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(equipmentBean,target);
+                createButtonOnClick(equipmentBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(EquipmentBean equipmentBean,AjaxRequestTarget target) {
+    protected void createButtonOnClick(EquipmentBean equipmentBean, AjaxRequestTarget target) {
 
     }
 

@@ -2,8 +2,8 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;

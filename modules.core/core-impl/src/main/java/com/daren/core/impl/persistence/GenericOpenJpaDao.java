@@ -8,6 +8,10 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
@@ -58,6 +62,56 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
         final Query query = entityManager.createQuery("select c from " + className + " c ");
         final List<T> resultList = query.getResultList();
         return resultList;
+    }
+
+    /**
+     * JPA 分页查询
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @param className
+     * @return
+     */
+    @Override
+    public List getAll(int pageNumber, int pageSize, String className) {
+        Class entityClass = null;
+        try {
+            entityClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        Long count = getTotalCount(className);
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(entityClass);
+        Root from = criteriaQuery.from(entityClass);
+        CriteriaQuery select = criteriaQuery.select(from);
+
+        TypedQuery typedQuery = entityManager.createQuery(select);
+        while (pageNumber < count.intValue()) {
+            typedQuery.setFirstResult(pageNumber - 1);
+            typedQuery.setMaxResults(pageSize);
+            System.out.println("Current page: " + typedQuery.getResultList());
+            pageNumber += pageSize;
+        }
+        return typedQuery.getResultList();
+    }
+
+    /**
+     * 获得结果集的总数
+     *
+     * @param className
+     * @return
+     */
+    private Long getTotalCount(String className) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+        try {
+            countQuery.select(criteriaBuilder.count(countQuery.from(Class.forName(className))));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Long count = entityManager.createQuery(countQuery).getSingleResult();
+        return count;
     }
 
     @Override

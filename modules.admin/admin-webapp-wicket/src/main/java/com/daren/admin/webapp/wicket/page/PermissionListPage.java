@@ -3,7 +3,7 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IPermissionBeanService;
 import com.daren.admin.entities.PermissionBean;
 import com.daren.admin.webapp.wicket.data.PermissionTreeProvider;
-import com.daren.admin.webapp.wicket.table.IrisTableTree;
+import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;

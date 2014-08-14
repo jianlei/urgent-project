@@ -1,4 +1,4 @@
-package com.daren.core.web.wicket.navigator;
+package com.daren.core.web.component.navigator;
 
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.markup.html.basic.Label;
@@ -6,7 +6,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
 import org.apache.wicket.markup.html.navigation.paging.IPagingLabelProvider;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
-import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 /**
@@ -44,7 +43,7 @@ public class DarenNavigator extends AjaxPagingNavigator {
     }
 
     public DarenNavigator(String arg0, final IPageable arg1,
-                     IPagingLabelProvider arg2, final Integer total) {
+                          IPagingLabelProvider arg2, final Integer total) {
         super(arg0, arg1, arg2);
         Link totallink = new Link("totallink") {
             private static final long serialVersionUID = 1;

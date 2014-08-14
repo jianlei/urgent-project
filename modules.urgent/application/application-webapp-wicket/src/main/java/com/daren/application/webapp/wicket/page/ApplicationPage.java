@@ -1,11 +1,12 @@
 package com.daren.application.webapp.wicket.page;
 
-import com.daren.application.entities.ApplicationBean;
-import com.daren.core.web.wicket.BasePanel;
 import com.daren.application.api.biz.IApplicationBeanService;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
+import com.daren.application.entities.ApplicationBean;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -30,8 +31,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.googlecode.wicket.jquery.core.Options;
-
 /**
  * @类描述：品牌维护
  * @创建人：sunlf
@@ -43,10 +42,9 @@ import com.googlecode.wicket.jquery.core.Options;
 
 public class ApplicationPage extends BasePanel {
 
+    final RepeatingView createPage = new RepeatingView("createPage");
     private final TabbedPanel tabPanel;
     ApplicationDataProvider provider = new ApplicationDataProvider();
-    final RepeatingView createPage = new RepeatingView("createPage");
-
     @Inject
     private IApplicationBeanService applicationBeanService;
 

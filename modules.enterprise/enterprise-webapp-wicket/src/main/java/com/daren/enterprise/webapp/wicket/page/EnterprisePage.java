@@ -1,9 +1,7 @@
 package com.daren.enterprise.webapp.wicket.page;
 
-import java.util.List;
-
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -21,6 +19,7 @@ import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 /**
@@ -34,10 +33,9 @@ import javax.inject.Inject;
 
 public class EnterprisePage extends BasePanel {
 
+    EnterpriseDataProvider provider = new EnterpriseDataProvider();
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
-
-    EnterpriseDataProvider provider = new EnterpriseDataProvider();
 
 
     public EnterprisePage(final String id, final WebMarkupContainer wmc) {
@@ -91,13 +89,13 @@ public class EnterprisePage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(enterpriseBean,target);
+                createButtonOnClick(enterpriseBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(EnterpriseBean  enterpriseBean,AjaxRequestTarget target) {
+    protected void createButtonOnClick(EnterpriseBean enterpriseBean, AjaxRequestTarget target) {
 
     }
 
