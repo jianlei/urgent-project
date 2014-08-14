@@ -34,6 +34,6 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 1;
     }
 }

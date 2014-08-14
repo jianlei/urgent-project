@@ -24,7 +24,7 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 2;
     }
 
     @Override

@@ -26,7 +26,7 @@ public class MajoHazardSourceMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 4;
     }
 
     @Override

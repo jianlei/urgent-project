@@ -24,7 +24,7 @@ public class SafetySupervisionExpertMenuItemsModule implements IMenuItemsModule 
 
     @Override
     public int getIndex() {
-        return 0;
+        return 1    ;
     }
 
     @Override
