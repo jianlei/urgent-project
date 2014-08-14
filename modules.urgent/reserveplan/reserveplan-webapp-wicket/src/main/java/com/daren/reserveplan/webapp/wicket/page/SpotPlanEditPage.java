@@ -88,7 +88,7 @@ public class SpotPlanEditPage extends BasePanel {
         table.add(spotPlanBeanDataView);
     }
 
-    private void initForm( final ReservePlanBean reservePlanBean) {
+    private void initForm(final ReservePlanBean reservePlanBean) {
         //添加表单
         final Form spotPlanForm = new Form("spotPlanForm", new CompoundPropertyModel(new SpotPlanBean()));
         spotPlanForm.setMultiPart(true);
@@ -118,6 +118,12 @@ public class SpotPlanEditPage extends BasePanel {
             }
         };
         add(ajaxSubmitLinkCreate);
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
     private String saveDocument(FileUploadField uploadFieldApply) {
@@ -229,5 +235,8 @@ public class SpotPlanEditPage extends BasePanel {
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

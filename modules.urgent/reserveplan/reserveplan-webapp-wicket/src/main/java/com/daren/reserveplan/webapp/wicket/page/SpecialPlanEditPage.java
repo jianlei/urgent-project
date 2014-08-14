@@ -118,6 +118,12 @@ public class SpecialPlanEditPage extends BasePanel {
             }
         };
         add(ajaxSubmitLinkCreate);
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
     private String saveDocument(FileUploadField uploadFieldApply) {
@@ -230,5 +236,8 @@ public class SpecialPlanEditPage extends BasePanel {
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

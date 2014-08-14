@@ -82,11 +82,8 @@ public class ReservePlanPage extends BasePanel {
                 addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
                 addDownLoadLink(item, "reviewCommentId", reservePlanBean.getReviewCommentId());
                 addDownLoadLink(item, "comprehensivePlanId", reservePlanBean.getComprehensivePlanId());
-
-                    /*addPlanBeanListLink(item, wmc, "specialPlanBeanList", reservePlanBean);
-
-                    addPlanBeanListLink(item, wmc, "spotPlanBeanList", reservePlanBean);*/
-
+                addOpenSpecialPageLink(item, wmc, "specialPlanBeanList", reservePlanBean);
+                addOpenSpotPageLink(item, wmc, "spotPlanBeanList", reservePlanBean);
                 addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
             }
         };
@@ -96,7 +93,6 @@ public class ReservePlanPage extends BasePanel {
         table.add(listView);
         initTable(table);
     }
-    
 
     /**
      * 处理查询页面
@@ -130,6 +126,33 @@ public class ReservePlanPage extends BasePanel {
     }
 
     protected void addButtonOnClick(AjaxRequestTarget target) {
+    }
+
+
+    private void addOpenSpotPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                spotPageLinkOnClick(reservePlanBean,target);
+            }
+        };
+        item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void spotPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
+    }
+
+    private void addOpenSpecialPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                specialPageLinkOnClick(reservePlanBean,target);
+            }
+        };
+        item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void specialPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
     }
 
     private void addDeleteLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean, final WebMarkupContainer table) {
