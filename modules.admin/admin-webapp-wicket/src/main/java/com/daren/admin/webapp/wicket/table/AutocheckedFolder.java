@@ -23,7 +23,10 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.content.CheckedFol
 import org.apache.wicket.extensions.markup.html.repeater.tree.nested.BranchItem;
 import org.apache.wicket.extensions.model.AbstractCheckBoxModel;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -71,10 +74,18 @@ public class AutocheckedFolder<T> extends CheckedFolder<T> {
                 + nodeChecked + ");");
     }
 
+
     @Override
     public void renderHead(IHeaderResponse response) {
-        /*PackageResourceReference scriptFile = new PackageResourceReference(this.getClass(), "autocheckedFolder.js");
-		response.render(JavaScriptHeaderItem.forReference(scriptFile));*/
+//        super.renderHead(response);
+        PackageResourceReference scriptFile = new PackageResourceReference(AutocheckedFolder.class, "autocheckedFolder.js");
+        response.render(JavaScriptHeaderItem.forReference(scriptFile));
+//
+    }
+
+    @Override
+    public void renderHead(HtmlHeaderContainer container) {
+        super.renderHead(container);
     }
 
     protected void addRemoveSubNodes(T node, Boolean nodeStatus) {

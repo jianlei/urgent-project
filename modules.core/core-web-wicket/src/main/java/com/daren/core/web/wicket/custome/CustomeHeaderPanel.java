@@ -46,7 +46,7 @@ public class CustomeHeaderPanel extends Panel {
 
             @Override
             public void onClose(AjaxRequestTarget target, DialogButton button) {
-                target.add(this);
+
             }
         };
         add(dialog);
