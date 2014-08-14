@@ -26,7 +26,7 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 3;
+        return 1;
     }
 
     @Override

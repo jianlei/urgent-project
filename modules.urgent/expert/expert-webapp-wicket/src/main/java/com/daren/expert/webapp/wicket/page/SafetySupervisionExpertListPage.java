@@ -160,8 +160,22 @@ public class SafetySupervisionExpertListPage extends BasePanel {
                 protected void populateItem(Item<SafetySupervisionExpertBean> item) {
                     final SafetySupervisionExpertBean row = item.getModelObject();
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("contactInformation", row.getContactInformation()));
+                    item.add(new Label("date", row.getDate()));
+                    item.add(new Label("sex", row.getSex()));
+                    item.add(new Label("skillTitle", row.getSkillTitle()));
+                    item.add(new Label("degree", row.getDegree()));
+                    item.add(new Label("nation", row.getNation()));
                     item.add(new Label("type", row.getType()));
+                    item.add(new Label("city", row.getCity()));
+                    item.add(new Label("address", row.getAddress()));
+                    item.add(new Label("tel", row.getTel()));
+                    item.add(new Label("phone", row.getPhone()));
+                    item.add(new Label("eMail", row.geteMail()));
+                    item.add(new Label("language", row.getLanguage()));
+                    item.add(new Label("domain", row.getDomain()));
+                    item.add(new Label("direction", row.getDirection()));
+                    item.add(new Label("longitude", row.getLongitude()));
+                    item.add(new Label("latitude", row.getLatitude()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
