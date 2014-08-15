@@ -8,7 +8,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -82,14 +82,12 @@ public class HazardPage extends BasePanel {
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
         table.add(pagingNavigator);
         table.add(listView);
-
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxLink getToCreatePageLink(String wicketId, final HazardBean hazardBean) {
-        AjaxLink ajaxLink = new AjaxLink(wicketId) {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
+    private AjaxButton getToCreatePageLink(String wicketId, final HazardBean hazardBean) {
+        AjaxButton ajaxLink = new AjaxButton(wicketId) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createButtonOnClick(hazardBean, target);
             }
         };
