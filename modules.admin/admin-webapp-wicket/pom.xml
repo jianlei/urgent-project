@@ -12,7 +12,8 @@
     <groupId>com.daren.admin</groupId>
     <artifactId>com.daren.admin.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Admin - Wicket Web Application</name>
+    <name>系统管理 - Wicket Web Application</name>
+    <!--<name>Urgent :: Admin - Wicket Web Application</name>-->
     <description>Admin - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
@@ -134,8 +135,6 @@
         <dependency>
             <groupId>com.vaynberg.wicket.select2</groupId>
             <artifactId>wicket-select2</artifactId>
-            <version>2.3</version>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>

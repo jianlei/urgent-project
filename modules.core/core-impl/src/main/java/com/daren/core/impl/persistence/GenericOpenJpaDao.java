@@ -85,14 +85,9 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root from = criteriaQuery.from(entityClass);
         CriteriaQuery select = criteriaQuery.select(from);
-
         TypedQuery typedQuery = entityManager.createQuery(select);
-        while (pageNumber < count.intValue()) {
-            typedQuery.setFirstResult(pageNumber - 1);
-            typedQuery.setMaxResults(pageSize);
-            System.out.println("Current page: " + typedQuery.getResultList());
-            pageNumber += pageSize;
-        }
+        typedQuery.setFirstResult(pageNumber * pageSize);
+        typedQuery.setMaxResults(pageSize);
         return typedQuery.getResultList();
     }
 
@@ -214,6 +209,25 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
     @Override
     public List find(String hql, Object... values) {
         return createQuery(hql, values).getResultList();
+    }
+
+    /**
+     * @param hql
+     * @param pageNumber 从0开始的页号
+     * @param pageSize
+     * @param values
+     * @return
+     */
+    @Override
+    public List findbyPage(String hql, int pageNumber, int pageSize, Object... values) {
+        Query queryObject = createQuery(hql, values);
+        /*List result=queryObject.getResultList();//获得结果集个数
+        int count=result.size();
+        if(count==0)
+            return result;*/
+        queryObject.setFirstResult(pageNumber * pageSize);
+        queryObject.setMaxResults(pageSize);
+        return queryObject.getResultList();
     }
 
     /**

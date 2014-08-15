@@ -107,6 +107,8 @@ public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
 
     List find(String hql, Object... values);
 
+    public List findbyPage(String hql, int pageNumber, int pageSize, Object... values);
+
 
     <T> T findUnique(String hql, Object... values);
 

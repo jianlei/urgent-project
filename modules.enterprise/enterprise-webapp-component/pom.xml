@@ -9,10 +9,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>com.daren.enterprise</groupId>
-    <artifactId>com.daren.enterprise.webapp.wicket</artifactId>
+    <artifactId>com.daren.enterprise.webapp.component</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Enterprise - Wicket Web Application</name>
-    <description>Enterprise - Webapp Wicket</description>
+    <name>Urgent :: Enterprise - Component</name>
+    <description>Enterprise - Webapp Component</description>
     <packaging>bundle</packaging>
 
     <properties>
@@ -143,34 +143,25 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.component</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.admin</groupId>
-            <artifactId>com.daren.admin.api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.vaynberg.wicket.select2</groupId>
+            <artifactId>wicket-select2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.daren.admin</groupId>
-            <artifactId>com.daren.admin.core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.admin</groupId>
-            <artifactId>com.daren.admin.entities</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.admin</groupId>
-            <artifactId>com.daren.admin.persist.openjpa</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.component</artifactId>
-        </dependency>
+
 
     </dependencies>
     <build>

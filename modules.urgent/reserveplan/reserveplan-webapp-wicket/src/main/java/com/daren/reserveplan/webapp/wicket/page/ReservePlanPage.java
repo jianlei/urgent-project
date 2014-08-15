@@ -1,42 +1,33 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
-import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
-import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.DownloadLink;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.Files;
-import com.googlecode.wicket.jquery.core.Options;
 
 import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,13 +42,11 @@ import java.util.List;
 
 public class ReservePlanPage extends BasePanel {
 
+    ReservePlanDataProvider provider = new ReservePlanDataProvider();
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
-
     @Inject
     private IUploadDocumentService uploadDocumentService;
-
-    ReservePlanDataProvider provider = new ReservePlanDataProvider();
 
     public ReservePlanPage(String id,final WebMarkupContainer wmc) {
         super(id, wmc);

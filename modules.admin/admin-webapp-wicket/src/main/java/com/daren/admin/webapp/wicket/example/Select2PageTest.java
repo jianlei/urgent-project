@@ -1,15 +1,15 @@
 package com.daren.admin.webapp.wicket.example;
 
-import com.daren.admin.webapp.wicket.data.Country;
+import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.model.PropertyModel;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,73 +24,54 @@ import java.util.List;
  * 修改备注:  [说明本次修改内容]
  */
 public class Select2PageTest extends BasePanel {
-    private Country country = Country.US;
-//    private List<Country> countries = new ArrayList<Country>(Arrays.asList(new Country[]{Country.US, Country.CA}));
+    public static final int PAGE_SIZE = 10;
+    @Inject
+    IUserBeanService userBeanService;
+    List<UserBean> result = new ArrayList<UserBean>();
+
 
     public Select2PageTest(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        add(new Label("country", new PropertyModel<Object>(this, "country")));
-
         Form<?> form = new Form<Void>("single");
         add(form);
 
-        Select2Choice<Country> country = new Select2Choice<Country>("country", new PropertyModel<Country>(this,
-                "country"), new CountriesProvider());
-        country.getSettings().setMinimumInputLength(1);
-        form.add(country);
+        Select2Choice<UserBean> user = new Select2Choice<UserBean>("country", null, new UserProvider());
+        user.getSettings().setMinimumInputLength(2);
+        form.add(user);
     }
 
-    private static List<Country> queryMatches(String term, int page, int pageSize) {
-
-        List<Country> result = new ArrayList<Country>();
-
-        term = term.toUpperCase();
-
-        final int offset = page * pageSize;
-
-        int matched = 0;
-        for (Country country : Country.values()) {
-            if (result.size() == pageSize) {
-                break;
-            }
-
-            if (country.getDisplayName().toUpperCase().contains(term)) {
-                matched++;
-                if (matched > offset) {
-                    result.add(country);
-                }
-            }
-        }
+    private List<UserBean> queryMatches(String term, int page, int pageSize) {
+        result = userBeanService.queryUser(term, page, pageSize);
         return result;
     }
 
-    public class CountriesProvider extends TextChoiceProvider<Country> {
+    public class UserProvider extends TextChoiceProvider<UserBean> {
 
         @Override
-        protected String getDisplayText(Country choice) {
-            return choice.getDisplayName();
+        protected String getDisplayText(UserBean choice) {
+            return choice.getName();
         }
 
         @Override
-        protected Object getId(Country choice) {
-            return choice.name();
+        protected Object getId(UserBean choice) {
+            return choice.getId();
         }
 
         @Override
-        public void query(String term, int page, Response<Country> response) {
-            response.addAll(queryMatches(term, page, 10));
-            response.setHasMore(response.size() == 10);
-
+        public void query(String term, int page, Response<UserBean> response) {
+            response.addAll(queryMatches(term, page, PAGE_SIZE));
+            response.setHasMore(response.size() == PAGE_SIZE);
         }
 
         @Override
-        public Collection<Country> toChoices(Collection<String> ids) {
-            ArrayList<Country> countries = new ArrayList<Country>();
+        public Collection<UserBean> toChoices(Collection<String> ids) {
+            ArrayList<UserBean> userBeans = new ArrayList<UserBean>();
             for (String id : ids) {
-                countries.add(Country.valueOf(id));
+                userBeans.add((UserBean) userBeanService.getEntity(new Long(id)));
             }
-            return countries;
+            return userBeans;
         }
+
 
     }
 }
