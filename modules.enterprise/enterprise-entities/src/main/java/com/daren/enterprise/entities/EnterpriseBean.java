@@ -51,8 +51,8 @@ public class EnterpriseBean extends PersistentEntity {
     String qylxfs;//企业联系方式
     String mailaddress;//电子邮箱
     String dlwz;//地理位置（经度+维度）
-    String jd;//地理位置（经度）
-    String wd;//地理位置（维度）
+    String lng;//地理位置（经度）
+    String lat;//地理位置（维度）
     String zdxfdw_bj;//重点消防单位标记，0否，1是
     String zybbj;//是否有职业危害因素,1是，0否
     String aqjgszqk;//是否有专门安全管理部门，1是，0否
@@ -99,8 +99,8 @@ public class EnterpriseBean extends PersistentEntity {
         qylxfs = "";
         mailaddress = "";
         dlwz = "";
-        jd = "";
-        wd = "";
+        lng = "";
+        lat = "";
         zdxfdw_bj = "";
         zybbj = "";
         aqjgszqk = "";
@@ -370,20 +370,20 @@ public class EnterpriseBean extends PersistentEntity {
         this.dlwz = dlwz;
     }
 
-    public String getJd() {
-        return jd;
+    public String getLng() {
+        return lng;
     }
 
-    public void setJd(String jd) {
-        this.jd = jd;
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
-    public String getWd() {
-        return wd;
+    public String getLat() {
+        return lat;
     }
 
-    public void setWd(String wd) {
-        this.wd = wd;
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
     public String getZdxfdw_bj() {

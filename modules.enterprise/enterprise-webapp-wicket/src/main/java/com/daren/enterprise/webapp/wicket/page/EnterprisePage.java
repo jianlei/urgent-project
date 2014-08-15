@@ -6,6 +6,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -39,6 +40,7 @@ public class EnterprisePage extends BasePanel {
 
     EnterpriseDataProvider provider = new EnterpriseDataProvider();
 
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
 
     public EnterprisePage(final String id, final WebMarkupContainer wmc) {
 
@@ -73,8 +75,16 @@ public class EnterprisePage extends BasePanel {
 
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            enterpriseBeanService.deleteEntity(enterpriseBean.getId());
-                            target.add(table);
+                            try {
+                                enterpriseBeanService.deleteEntity(enterpriseBean.getId());
+                                target.add(table);
+                                feedbackPanel.info("删除成功！");
+                                target.add(feedbackPanel);
+                            }catch (Exception e){
+                                feedbackPanel.info("删除失败！");
+                                target.add(feedbackPanel);
+                            }
+
                         }
                     };
                     item.add(alink.setOutputMarkupId(true));
@@ -85,7 +95,15 @@ public class EnterprisePage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
         createQuery(table, provider, id, wmc);
+        initFeedBack();
     }
+
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
+    }
+
 
     private AjaxLink getToCreatePageLink(String wicketId, final EnterpriseBean enterpriseBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
