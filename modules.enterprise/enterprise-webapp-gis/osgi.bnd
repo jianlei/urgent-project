@@ -3,7 +3,7 @@
 #-----------------------------------------------------------------
 
 #Bundle-Activator: ${bundle.namespace}.internal.ExampleActivator
-Import-Package: com.daren.rescue.entities,com.daren.core.api.persistence,*
+Import-Package: com.daren.hazard.entities,com.daren.rescue.entities,com.daren.expert.entities,com.daren.core.api.persistence,*
 #-wab:src/main/webapp
 #打包类库
 #-wablib: {maven-dependencies}

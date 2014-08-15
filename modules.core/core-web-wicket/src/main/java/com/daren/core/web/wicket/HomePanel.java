@@ -1,25 +1,8 @@
 package com.daren.core.web.wicket;
 
-import com.daren.equipment.api.biz.IEquipmentBeanService;
-import com.daren.equipment.entities.EquipmentBean;
-import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
-import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
-import com.daren.expert.entities.EnterpriseExpertBean;
-import com.daren.expert.entities.SafetySupervisionExpertBean;
-import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
-import com.daren.rescue.api.biz.IRescueBeanService;
-import com.daren.rescue.entities.RescueBean;
-import com.google.gson.Gson;
-import org.apache.aries.blueprint.annotation.Reference;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
-
-import javax.inject.Inject;
-import java.util.List;
 
 /**
  * 项目名称:  urgent-project
@@ -32,7 +15,7 @@ import java.util.List;
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
 public class HomePanel extends BasePanel {
-    //注入服务
+    /*//注入服务
     @Inject
     @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
     private IRescueBeanService rescueBeanService;
@@ -47,13 +30,13 @@ public class HomePanel extends BasePanel {
     private IEquipmentBeanService equipmentBeanService;
     @Inject
     @Reference(id = "majorHazardSourceBeanService", serviceInterface = IMajorHazardSourceBeanService.class)
-    private IMajorHazardSourceBeanService majorHazardSourceBeanService;
+    private IMajorHazardSourceBeanService majorHazardSourceBeanService;*/
 
     //ajax target container
     public HomePanel(String id, WebMarkupContainer wmc) {
         super(id, wmc);
 
-        //救援队标注
+        /*//救援队标注
         AjaxLink ajaxLinkRescue = new AjaxLink("rescueButton") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
@@ -102,6 +85,6 @@ public class HomePanel extends BasePanel {
                 ajaxRequestTarget.prependJavaScript("parseEquipment(" + string + ")");
             }
         };
-        this.add(ajaxLinkEquipment);
+        this.add(ajaxLinkEquipment);*/
     }
 }
