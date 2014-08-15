@@ -1,7 +1,7 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
-import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.ISpotPlanBeanService;
@@ -40,13 +40,17 @@ import java.util.List;
  */
 public class SpotPlanEditPage extends BasePanel {
 
-    final WebMarkupContainer table = new WebMarkupContainer("table");
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    SpotPlanDataProvider provider = new SpotPlanDataProvider();
     @Inject
     private IUploadDocumentService uploadDocumentService;
+
     @Inject
     private ISpotPlanBeanService spotPlanService;
+
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
+    SpotPlanDataProvider provider = new SpotPlanDataProvider();
+
+    final WebMarkupContainer table = new WebMarkupContainer("table");
 
     public SpotPlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id, wmc);
@@ -114,6 +118,12 @@ public class SpotPlanEditPage extends BasePanel {
             }
         };
         add(ajaxSubmitLinkCreate);
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
     private String saveDocument(FileUploadField uploadFieldApply) {
@@ -136,6 +146,27 @@ public class SpotPlanEditPage extends BasePanel {
             e.printStackTrace();
         }
         return documentBean.getId() + "";
+    }
+
+
+    class SpotPlanDataProvider extends ListDataProvider<SpotPlanBean> {
+        private SpotPlanBean spotPlanBean = null;
+
+        public void setSpotPlanBean(ReservePlanBean reservePlanBean) {
+            if (null != reservePlanBean) {
+                this.spotPlanBean = new SpotPlanBean();
+                this.spotPlanBean.setReservePlanId(reservePlanBean.getId());
+            }
+        }
+
+        @Override
+        protected List<SpotPlanBean> getData() {
+            if (spotPlanBean == null) {
+                return new ArrayList<>();
+            } else {
+                return spotPlanService.queryByReservePlanId(spotPlanBean);
+            }
+        }
     }
 
     private void addDownLoadLink(Item item, String downLoadLinkName, final String fileName, final String filePath) {
@@ -206,23 +237,6 @@ public class SpotPlanEditPage extends BasePanel {
         item.add(ajaxLink.setOutputMarkupId(true));
     }
 
-    class SpotPlanDataProvider extends ListDataProvider<SpotPlanBean> {
-        private SpotPlanBean spotPlanBean = null;
-
-        public void setSpotPlanBean(ReservePlanBean reservePlanBean) {
-            if (null != reservePlanBean) {
-                this.spotPlanBean = new SpotPlanBean();
-                this.spotPlanBean.setReservePlanId(reservePlanBean.getId());
-            }
-        }
-
-        @Override
-        protected List<SpotPlanBean> getData() {
-            if (spotPlanBean == null) {
-                return new ArrayList<>();
-            } else {
-                return spotPlanService.queryByReservePlanId(spotPlanBean);
-            }
-        }
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

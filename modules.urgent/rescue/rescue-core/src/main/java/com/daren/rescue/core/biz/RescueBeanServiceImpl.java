@@ -5,6 +5,7 @@ import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.api.dao.IRescueBeanDao;
 import com.daren.rescue.entities.RescueBean;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,6 +28,18 @@ public class RescueBeanServiceImpl extends GenericBizServiceImpl implements IRes
     @Override
     public List<RescueBean> query(RescueBean dictBean) {
         return rescueBeanDao.find("select r from RescueBean r where r.name=?1", dictBean.getName());
+    }
+
+    @Override
+    public HashMap<String ,String > getAllBeansToHashMap() {
+        HashMap<String ,String > hashMap = new HashMap<>();
+        List<RescueBean> list = rescueBeanDao.getAll(RescueBean.class.getName());
+        if(null != list && list.size() > 0){
+            for(RescueBean bean : list){
+                hashMap.put(bean.getId()+"",bean.getName());
+            }
+        }
+        return hashMap;
     }
 }
 

@@ -1,33 +1,42 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
-import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
+import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
+import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.DownloadLink;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.Files;
+import com.googlecode.wicket.jquery.core.Options;
 
 import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,18 +51,19 @@ import java.util.List;
 
 public class ReservePlanPage extends BasePanel {
 
-    ReservePlanDataProvider provider = new ReservePlanDataProvider();
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
+
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public ReservePlanPage(String id, final WebMarkupContainer wmc) {
+    ReservePlanDataProvider provider = new ReservePlanDataProvider();
+
+    public ReservePlanPage(String id,final WebMarkupContainer wmc) {
         super(id, wmc);
         initForm(wmc);
     }
-
-    private void initForm(final WebMarkupContainer wmc) {
+    private void initForm(final WebMarkupContainer wmc){
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         final DataView<ReservePlanBean> listView = new DataView<ReservePlanBean>("rows", provider, 10) {
@@ -72,11 +82,8 @@ public class ReservePlanPage extends BasePanel {
                 addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
                 addDownLoadLink(item, "reviewCommentId", reservePlanBean.getReviewCommentId());
                 addDownLoadLink(item, "comprehensivePlanId", reservePlanBean.getComprehensivePlanId());
-
-                    /*addPlanBeanListLink(item, wmc, "specialPlanBeanList", reservePlanBean);
-
-                    addPlanBeanListLink(item, wmc, "spotPlanBeanList", reservePlanBean);*/
-
+                addOpenSpecialPageLink(item, wmc, "specialPlanBeanList", reservePlanBean);
+                addOpenSpotPageLink(item, wmc, "spotPlanBeanList", reservePlanBean);
                 addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
             }
         };
@@ -86,7 +93,6 @@ public class ReservePlanPage extends BasePanel {
         table.add(listView);
         initTable(table);
     }
-
 
     /**
      * 处理查询页面
@@ -120,6 +126,33 @@ public class ReservePlanPage extends BasePanel {
     }
 
     protected void addButtonOnClick(AjaxRequestTarget target) {
+    }
+
+
+    private void addOpenSpotPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                spotPageLinkOnClick(reservePlanBean,target);
+            }
+        };
+        item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void spotPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
+    }
+
+    private void addOpenSpecialPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                specialPageLinkOnClick(reservePlanBean,target);
+            }
+        };
+        item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    protected void specialPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
     }
 
     private void addDeleteLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean, final WebMarkupContainer table) {

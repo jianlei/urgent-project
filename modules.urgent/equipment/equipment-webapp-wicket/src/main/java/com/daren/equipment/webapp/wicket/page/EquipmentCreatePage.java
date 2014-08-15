@@ -5,6 +5,7 @@ import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
+import com.daren.rescue.api.biz.IRescueBeanService;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -33,6 +34,9 @@ public class EquipmentCreatePage extends BasePanel {
 
     @Inject
     private IEquipmentBeanService equipmentBeanService;
+
+    @Inject
+    private IRescueBeanService rescueBeanService;
 
     Form<EquipmentBean> equipmentBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new EquipmentBean()));
 
@@ -113,8 +117,10 @@ public class EquipmentCreatePage extends BasePanel {
         initSelect("property", IDictConstService.EQUIPMENT_PROPERTY);
         initSelect("registrationType", IDictConstService.REGISTRATION_TYPE);
         initSelect("equipmentSources", IDictConstService.EQUIPMENT_SOURCES);
-        initSelect("equipmentType", IDictConstService.REGISTRATION_TYPE);
+        initSelect("equipmentType", IDictConstService.EQUIPMENT_TYPE);
+        initSelect("rescueId", rescueBeanService.getAllBeansToHashMap());
     }
+
 
     private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
@@ -125,7 +131,7 @@ public class EquipmentCreatePage extends BasePanel {
         addTextFieldToForm("name");
 //        addTextFieldToForm("property");
 //        addTextFieldToForm("registrationType");
-        addTextFieldToForm("rescueId");
+//        addTextFieldToForm("rescueId");
         addTextFieldToForm("unitName");
 //        addTextFieldToForm("equipmentSources");
 //        addTextFieldToForm("equipmentType");

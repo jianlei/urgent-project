@@ -7,6 +7,7 @@ import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -45,15 +46,8 @@ public class ReservePlanEditPage extends BasePanel {
         super(id, wmc);
         initForm(reservePlanBean);
         initFeedBack();
-        initPlanPanel(id,wmc,reservePlanBean);
     }
 
-    private void initPlanPanel(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean){
-        specialPlanPanel.add(new SpecialPlanEditPage(specialPlanPanel.newChildId(),wmc,reservePlanBean));
-        spotPlanPanel.add(new SpotPlanEditPage(spotPlanPanel.newChildId(),wmc,reservePlanBean));
-        add(specialPlanPanel);
-        add(spotPlanPanel);
-    }
 
     private void initFeedBack() {
         feedbackPanel.setOutputMarkupId(true);
@@ -100,6 +94,13 @@ public class ReservePlanEditPage extends BasePanel {
             }
         };
         add(ajaxSubmitLinkCreate);
+
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
     private String saveDocument(FileUploadField uploadFieldApply) {
@@ -122,5 +123,7 @@ public class ReservePlanEditPage extends BasePanel {
             e.printStackTrace();
         }
         return documentBean.getId() + "";
+    }
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

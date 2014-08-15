@@ -98,6 +98,7 @@ public class AccidentTabPage extends BasePanel {
                             if (getActiveTab("事故详细信息") > 0) {
                                 tabPanel.getModelObject().remove(getActiveTab("事故详细信息"));
                                 viewAjaxTab = null;
+                                viewPage.removeAll();
                             }
                             target.add(tabPanel);
                         }
@@ -121,6 +122,7 @@ public class AccidentTabPage extends BasePanel {
                     if (getActiveTab("事故详细信息") > 0) {
                         tabPanel.getModelObject().remove(getActiveTab("事故详细信息"));
                         viewAjaxTab = null;
+                        viewPage.removeAll();
                     }
                     target.add(tabPanel);
                 }
@@ -164,6 +166,7 @@ public class AccidentTabPage extends BasePanel {
                             if (getActiveTab("事故编辑") > 0) {
                                 tabPanel.getModelObject().remove(getActiveTab("事故编辑"));
                                 createAjaxTab = null;
+                                createPage.removeAll();
                             }
                             target.add(tabPanel);
                         }
@@ -187,6 +190,7 @@ public class AccidentTabPage extends BasePanel {
                     if (getActiveTab("事故编辑") > 0) {
                         tabPanel.getModelObject().remove(getActiveTab("事故编辑"));
                         createAjaxTab = null;
+                        createPage.removeAll();
                     }
                     target.add(tabPanel);
                 }

@@ -111,6 +111,7 @@ public class EquipmentTabPage extends BasePanel {
                     if (getActiveTab("物资装备编辑") > 0){
                         tabPanel.getModelObject().remove(getActiveTab("物资装备编辑"));
                         createAjaxTab = null;
+                        createPage.removeAll();
                     }
                     target.add(tabPanel);
                 }

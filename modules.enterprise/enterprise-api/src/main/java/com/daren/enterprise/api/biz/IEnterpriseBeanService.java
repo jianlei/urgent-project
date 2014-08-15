@@ -4,6 +4,7 @@ package com.daren.enterprise.api.biz;
 import com.daren.core.api.biz.IBizService;
 import com.daren.enterprise.entities.EnterpriseBean;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,4 +13,5 @@ import java.util.List;
 public interface IEnterpriseBeanService extends IBizService {
 
     List<EnterpriseBean> queryEnterprise(EnterpriseBean enterpriseBean);
+    HashMap<String ,String > getAllBeansToHashMap();
 }

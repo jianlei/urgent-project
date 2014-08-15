@@ -1,8 +1,11 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -23,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -52,6 +56,7 @@ public class EnterpriseCreatePage extends BasePanel {
         initForm(enterpriseBean);
         initFeedBack();
         addForm(id, wmc);
+        addSelectToForm();
     }
 
     private void addForm(final String id, final WebMarkupContainer wmc) {
@@ -60,6 +65,12 @@ public class EnterpriseCreatePage extends BasePanel {
         this.add(enterpriseBeanForm);
 
         addTextFieldsToForm();
+
+        //日期控件//
+        final DatePicker datePicker = new DatePicker("cl_sj",
+                new PropertyModel<Date>(enterpriseBean, "cl_sj"), "yyyy-MM-dd",
+                new Options("dateFormat", Options.asString("yy-mm-dd")));
+        enterpriseBeanForm.add(datePicker);
 
         AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", enterpriseBeanForm) {
             @Override
@@ -99,6 +110,27 @@ public class EnterpriseCreatePage extends BasePanel {
         enterpriseBeanForm.setModelObject(enterpriseBean);
     }
 
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        enterpriseBeanForm.add(listSites);
+    }
+
+    //通过Map初始化下拉列表
+    private void initSelect(String name, Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        enterpriseBeanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("aqjgszqk", IDictConstService.AQJGSZQK);
+        initSelect("zybbj", IDictConstService.ZYBBJ);
+        initSelect("zdxfdw_bj", IDictConstService.ZDXFDW_BJ);
+        initSelect("yazlqy_bj", IDictConstService.YAZLQY_BJ);
+    }
+
     private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
         enterpriseBeanForm.add(textField);
@@ -107,7 +139,7 @@ public class EnterpriseCreatePage extends BasePanel {
     private void addTextFieldsToForm() {
         addTextFieldToForm("qymc");
         addTextFieldToForm("frdb");
-        addTextFieldToForm("cl_sj");
+//        addTextFieldToForm("cl_sj");
         addTextFieldToForm("address_zc");
         addTextFieldToForm("address_jy");
         addTextFieldToForm("postcode");
@@ -135,11 +167,12 @@ public class EnterpriseCreatePage extends BasePanel {
         addTextFieldToForm("jgfl");
         addTextFieldToForm("sndxssr");
         addTextFieldToForm("aqscfy");
-        addTextFieldToForm("yazlqy_bj");
-        addTextFieldToForm("zdxfdw_bj");
-        addTextFieldToForm("zybbj");
-        addTextFieldToForm("aqjgszqk");
-        addTextFieldToForm("dlwz");
+//        addTextFieldToForm("yazlqy_bj");
+//        addTextFieldToForm("zdxfdw_bj");
+//        addTextFieldToForm("zybbj");
+//        addTextFieldToForm("aqjgszqk");
+        addTextFieldToForm("lng");
+        addTextFieldToForm("lat");
     }
 
 }

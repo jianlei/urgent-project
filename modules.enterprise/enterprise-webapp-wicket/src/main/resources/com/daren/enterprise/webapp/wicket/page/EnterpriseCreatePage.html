@@ -7,198 +7,219 @@
 </wicket:head>
 <body>
 <wicket:panel>
-    <div class="alert alert-info">当前位置<b class="tip"/>信息管理<b class="tip"/>企业详细信息</div>
-    <div>
-        <span wicket:id="feedBack"/>
-    </div>
-    <table class="table table-striped table-bordered table-condensed">
-        <tr>
-            <td colspan="6" align="right">
-                <input class="btn btn-inverse" type="button" value="保存"  wicket:id="save"/>
-                <input class="btn btn-inverse" type="button" value="关闭"  wicket:id="cancel"/>
-            </td>
-        </tr>
-    </table>
-    <form wicket:id="enterpriseForm">
-        <table class="table table-striped table-bordered table-condensed">
+<div class="alert alert-info">当前位置<b class="tip"/>信息管理<b class="tip"/>企业详细信息</div>
+<div>
+    <span wicket:id="feedBack"/>
+</div>
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <td colspan="6" align="right">
+            <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+            <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+        </td>
+    </tr>
+</table>
+<form wicket:id="enterpriseForm">
+<table class="table table-striped table-bordered table-condensed">
 
-            <thead>
-            <tr>
-                <td colspan="6" class="auto-style2">&nbsp;企业基本信息 <i class="tip-up"></i></td>
-            </tr>
-            </thead>
+    <thead>
+    <tr>
+        <td colspan="6" class="auto-style2">&nbsp;企业基本信息 <i class="tip-up"></i></td>
+    </tr>
+    </thead>
 
-            <!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
-            <tbody>
-            <tr>
-                <td class="tdl">企业名称</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="qymc"/>
-                </td>
-                <td class="tdl">企业法人代表</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="frdb"/>
-                </td>
-                <td class="tdl">成立时间</td>
-                <td>
-                    <div class="input-append">
-                        <input class="span2 datepicker" size="16" type="text" wicket:id="cl_sj"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">注册地址</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="address_zc"/>
-                </td>
-                <td class="tdl">经营地址</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="address_jy"/>
-                </td>
-                <td class="tdl">邮编</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="postcode"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">企业联系方式</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="qylxfs"/>
-                </td>
-                <td class="tdl">电子邮箱</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="mailaddress"/>
-                </td>
-                <td class="tdl">生产经营内容</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zyjyxm"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">主要原料</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="zyyl"/>
-                </td>
-                <td class="tdl">主要产品</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zycp"/>
-                </td>
-                <td class="tdl">监管机构代码</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="jgjgdm"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">组织机构</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="zzjgdm"/>
-                </td>
-                <td class="tdl">隶属关系</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="sdlx"/>
-                </td>
-                <td class="tdl">登记注册类型</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="jjlxbm"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">从业人数</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="cyrs"/>
-                </td>
-                <td class="tdl">注册安全工程师人数</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zcaqgcsrs"/>
-                </td>
-                <td class="tdl">专职安全管理人数</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="aqrs"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">兼职安全管理人员数</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="jzaqrs"/>
-                </td>
-                <td class="tdl">行业门类</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="hyml_dm"/>
-                </td>
-                <td class="tdl">行业大类</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="hylbbm"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">企业是否有下级单位</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="xjqybj"/>
-                </td>
-                <td class="tdl">上级单位</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="sjqyid"/>
-                </td>
-                <td class="tdl">行业中小类</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="hyzxl_dm"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">企业规模</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="qygmbm"/>
-                </td>
-                <td class="tdl">规模情况</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="gmqk"/>
-                </td>
-                <td class="tdl">注册资产(万元)</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zczc"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">监管分类</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="jgfl"/>
-                </td>
-                <td class="tdl">上年销售收入（万元）</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="sndxssr"/>
-                </td>
-                <td class="tdl">安全生产费用（万元）</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="aqscfy"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">液氨制冷企业标记</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="yazlqy_bj"/>
-                </td>
-                <td class="tdl">重点消防单位标记</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zdxfdw_bj"/>
-                </td>
-                <td class="tdl">是否有职业危害因素</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="zybbj"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdl">是否有专门安全管理部门</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="aqjgszqk"/>
-                </td>
-                <td class="tdl">地理位置</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="dlwz"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
+    <!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
+    <tbody>
+    <tr>
+        <td class="tdl">企业名称</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="qymc"/>
+        </td>
+        <td class="tdl">企业法人代表</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="frdb"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="tdl">成立时间</td>
+        <td>
+            <div class="input-append">
+                <input class="span2 datepicker" size="16" type="text" wicket:id="cl_sj"/>
+            </div>
+        </td>
+        <td class="tdl">注册地址</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="address_zc"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">经营地址</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="address_jy"/>
+        </td>
+        <td class="tdl">邮编</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="postcode"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">企业联系方式</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="qylxfs"/>
+        </td>
+        <td class="tdl">电子邮箱</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="mailaddress"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="tdl">生产经营内容</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="zyjyxm"/>
+        </td>
+        <td class="tdl">主要原料</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="zyyl"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">主要产品</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="zycp"/>
+        </td>
+        <td class="tdl">监管机构代码</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="jgjgdm"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">组织机构</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="zzjgdm"/>
+        </td>
+        <td class="tdl">隶属关系</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="sdlx"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="tdl">登记注册类型</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="jjlxbm"/>
+        </td>
+        <td class="tdl">从业人数</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="cyrs"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">注册安全工程师人数</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="zcaqgcsrs"/>
+        </td>
+        <td class="tdl">专职安全管理人数</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="aqrs"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">兼职安全管理人员数</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="jzaqrs"/>
+        </td>
+        <td class="tdl">行业门类</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="hyml_dm"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="tdl">行业大类</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="hylbbm"/>
+        </td>
+        <td class="tdl">企业是否有下级单位</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="xjqybj"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">上级单位</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="sjqyid"/>
+        </td>
+        <td class="tdl">行业中小类</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="hyzxl_dm"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">企业规模</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="qygmbm"/>
+        </td>
+        <td class="tdl">规模情况</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="gmqk"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">监管分类</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="jgfl"/>
+        </td>
+        <td class="tdl">注册资产(万元)</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="zczc"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">上年销售收入（万元）</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="sndxssr"/>
+        </td>
+        <td class="tdl">安全生产费用（万元）</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="aqscfy"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">液氨制冷企业标记</td>
+        <td class="detail">
+            <select class="ipt" wicket:id="yazlqy_bj"/>
+        </td>
+        <td class="tdl">重点消防单位标记</td>
+        <td class="td_detail">
+            <select class="ipt" wicket:id="zdxfdw_bj"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="tdl">是否有职业危害因素</td>
+        <td class="td_detail">
+            <select class="ipt" wicket:id="zybbj"/>
+        </td>
+        <td class="tdl">是否有专门安全管理部门</td>
+        <td class="td_detail">
+            <select class="ipt" wicket:id="aqjgszqk"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdl">经度</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="lng"/>
+        </td>
+        <td class="tdl">纬度</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="lat"/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</form>
 </wicket:panel>
 </body>
 </html>
