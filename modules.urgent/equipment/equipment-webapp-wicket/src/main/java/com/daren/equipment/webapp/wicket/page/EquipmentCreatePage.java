@@ -6,6 +6,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
+import com.daren.rescue.api.biz.IRescueBeanService;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -19,6 +20,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -37,6 +39,8 @@ public class EquipmentCreatePage extends BasePanel {
     Form<EquipmentBean> equipmentBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new EquipmentBean()));
     EquipmentBean equipmentBean = new EquipmentBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    @Inject
+    private IRescueBeanService rescueBeanService;
     @Inject
     private IEquipmentBeanService equipmentBeanService;
 
@@ -127,7 +131,9 @@ public class EquipmentCreatePage extends BasePanel {
         initSelect("property", IDictConstService.EQUIPMENT_PROPERTY);
         initSelect("registrationType", IDictConstService.REGISTRATION_TYPE);
         initSelect("equipmentSources", IDictConstService.EQUIPMENT_SOURCES);
-        initSelect("equipmentType", IDictConstService.REGISTRATION_TYPE);
+        initSelect("equipmentType", IDictConstService.EQUIPMENT_TYPE);
+        initSelect("rescueId", new HashMap<String, String>());
+//        initSelect("rescueId", rescueBeanService.getAllBeansToHashMap());
     }
 
     private void addTextFieldToForm(String value) {
@@ -142,8 +148,12 @@ public class EquipmentCreatePage extends BasePanel {
 
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
-        addTextFieldToForm("rescueId");
+//        addTextFieldToForm("property");
+//        addTextFieldToForm("registrationType");
+//        addTextFieldToForm("rescueId");
         addTextFieldToForm("unitName");
+//        addTextFieldToForm("equipmentSources");
+//        addTextFieldToForm("equipmentType");
         addTextFieldToForm("parametersSpecifications");
         addTextFieldToForm("measuringUnit");
         addTextFieldToForm("amount");
