@@ -1,11 +1,10 @@
 package com.daren.enterprise.webapp.wicket.page;
 
-import java.util.List;
-
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -21,6 +20,7 @@ import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 /**
@@ -34,11 +34,10 @@ import javax.inject.Inject;
 
 public class EnterprisePage extends BasePanel {
 
+    EnterpriseDataProvider provider = new EnterpriseDataProvider();
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
-
-    EnterpriseDataProvider provider = new EnterpriseDataProvider();
-
 
     public EnterprisePage(final String id, final WebMarkupContainer wmc) {
 
@@ -54,14 +53,13 @@ public class EnterprisePage extends BasePanel {
             protected void populateItem(Item<EnterpriseBean> item) {
                 {
                     final EnterpriseBean enterpriseBean = item.getModelObject();
-                    item.add(getToCreatePageLink("check_QYMC", enterpriseBean).add(new Label("QYMC", enterpriseBean.getQymc()))
-                    );
+                    item.add(new Label("QYMC", enterpriseBean.getQymc()));
                     item.add(new Label("JGFL", enterpriseBean.getJgfl()));
                     item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
                     item.add(new Label("MAILADDRESS", enterpriseBean.getMailaddress()));
                     item.add(new Label("ADDRESS_JY", enterpriseBean.getAddress_jy()));
 
-
+                    item.add(getToCreatePageLink("check_QYMC", enterpriseBean));
                     AjaxLink alink = new AjaxLink("del") {
                         @Override
                         protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -73,8 +71,16 @@ public class EnterprisePage extends BasePanel {
 
                         @Override
                         public void onClick(AjaxRequestTarget target) {
-                            enterpriseBeanService.deleteEntity(enterpriseBean.getId());
-                            target.add(table);
+                            try {
+                                enterpriseBeanService.deleteEntity(enterpriseBean.getId());
+                                target.add(table);
+                                feedbackPanel.info("删除成功！");
+                                target.add(feedbackPanel);
+                            } catch (Exception e) {
+                                feedbackPanel.info("删除失败！");
+                                target.add(feedbackPanel);
+                            }
+
                         }
                     };
                     item.add(alink.setOutputMarkupId(true));
@@ -85,19 +91,27 @@ public class EnterprisePage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
         createQuery(table, provider, id, wmc);
+        initFeedBack();
     }
+
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
+    }
+
 
     private AjaxLink getToCreatePageLink(String wicketId, final EnterpriseBean enterpriseBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(enterpriseBean,target);
+                createButtonOnClick(enterpriseBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(EnterpriseBean  enterpriseBean,AjaxRequestTarget target) {
+    protected void createButtonOnClick(EnterpriseBean enterpriseBean, AjaxRequestTarget target) {
 
     }
 

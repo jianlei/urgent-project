@@ -4,7 +4,7 @@ import com.daren.admin.api.biz.IAreaBeanService;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
-import com.daren.admin.webapp.wicket.table.IrisTableTree;
+import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;

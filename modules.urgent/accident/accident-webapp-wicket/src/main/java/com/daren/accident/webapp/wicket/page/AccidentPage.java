@@ -2,33 +2,24 @@ package com.daren.accident.webapp.wicket.page;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
+import com.daren.core.util.DateUtil;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
-import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
-import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.event.IEvent;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
-import com.googlecode.wicket.jquery.core.Options;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,10 +34,9 @@ import java.util.List;
 
 public class AccidentPage extends BasePanel {
 
+    AccidentDataProvider provider = new AccidentDataProvider();
     @Inject
     private IAccidentBeanService accidentBeanService;
-
-    AccidentDataProvider provider = new AccidentDataProvider();
 
     public AccidentPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
@@ -76,7 +66,7 @@ public class AccidentPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                addButtonOnClick(null,target);
+                addButtonOnClick(new AccidentBean(),target);
             }
         };
         myform.add(addButton);
@@ -104,7 +94,7 @@ public class AccidentPage extends BasePanel {
                 item.add(ajaxLink);
                 item.add(new Label("accidentLevel", accidentBean.getAccidentLevel()));
                 item.add(new Label("accidentType", accidentBean.getAccidentType()));
-                item.add(new Label("accidentTime", accidentBean.getAccidentTime()));
+                item.add(new Label("accidentTime", DateUtil.convertDateToString(accidentBean.getAccidentTime(),DateUtil.longSdf) ));
                 addDeleteLink(item, "delete", accidentBean, table);
             }
         };

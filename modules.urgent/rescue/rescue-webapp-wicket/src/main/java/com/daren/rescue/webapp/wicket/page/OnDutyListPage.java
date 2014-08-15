@@ -1,8 +1,8 @@
 package com.daren.rescue.webapp.wicket.page;
 
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.rescue.api.biz.IOnDutyBeanService;
 import com.daren.rescue.entities.OnDutyBean;
 import com.daren.rescue.entities.RescueBean;

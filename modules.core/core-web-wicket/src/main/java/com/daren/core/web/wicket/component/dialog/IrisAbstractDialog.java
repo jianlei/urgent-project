@@ -37,6 +37,8 @@ public class IrisAbstractDialog<T extends Serializable> extends AbstractDialog {
         super.onConfigure(behavior);
         behavior.setOption("autoOpen", true);
         behavior.setOption("closeOnEscape", false);
+       /* behavior.setOption("width", 600);
+        behavior.setOption("height", 800);*/
     }
 
     /**

@@ -6,6 +6,7 @@ import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -33,7 +34,8 @@ public class AccidentEditPage extends BasePanel {
     private IAccidentBeanService accidentBeanService;
 
     @Inject
-    private IDictBeanService dictBeanService;
+    private IEnterpriseBeanService enterpriseBeanService;
+
 
     AccidentBean accidentEditPageAccidentBean = new AccidentBean();
 
@@ -44,7 +46,7 @@ public class AccidentEditPage extends BasePanel {
     public AccidentEditPage(final String id, final WebMarkupContainer wmc, AccidentBean bean) {
         super(id, wmc);
         if (bean != null) {
-            this.accidentEditPageAccidentBean = (AccidentBean) accidentBeanService.getEntity(bean.getId());
+            this.accidentEditPageAccidentBean = bean;
         }
         accidentBeanForm = new Form("accidentForm", new CompoundPropertyModel(accidentEditPageAccidentBean));
         this.add(accidentBeanForm);
@@ -70,17 +72,14 @@ public class AccidentEditPage extends BasePanel {
         AjaxButton ajaxSubmitLink = new AjaxButton("save", accidentBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                AccidentBean bean = accidentBeanForm.getModelObject();
-                if (null != bean) {
-                    try {
-                        accidentBeanService.saveEntity(accidentEditPageAccidentBean);
-                        feedbackPanel.info("保存成功！");
-                        target.add(feedbackPanel);
-                        onSaveOnclick(bean ,target);
-                    } catch (Exception e) {
-                        feedbackPanel.info("保存失败！");
-                        target.add(feedbackPanel);
-                    }
+                try {
+                    accidentBeanService.saveEntity(accidentEditPageAccidentBean);
+                    feedbackPanel.info("保存成功！");
+                    target.add(feedbackPanel);
+                    onSaveOnclick(accidentEditPageAccidentBean, target);
+                } catch (Exception e) {
+                    feedbackPanel.info("保存失败！");
+                    target.add(feedbackPanel);
                 }
             }
         };
@@ -94,7 +93,7 @@ public class AccidentEditPage extends BasePanel {
         });
     }
 
-    public void onSaveOnclick(AccidentBean bean ,AjaxRequestTarget target) {
+    public void onSaveOnclick(AccidentBean bean, AjaxRequestTarget target) {
     }
 
     // Hook 回调函数
@@ -105,25 +104,27 @@ public class AccidentEditPage extends BasePanel {
         feedbackPanel.setOutputMarkupId(true);
         add(feedbackPanel);
     }
+
     //通过字典初始化下拉列表
-    private void initSelect(String name,String dictConst) {
+    private void initSelect(String name, String dictConst) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,dictConst);
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
         accidentBeanForm.add(listSites);
     }
+
     //通过Map初始化下拉列表
-    private void initSelect(String name,Map<String, String> typeMap) {
+    private void initSelect(String name, Map<String, String> typeMap) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,typeMap);
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
         accidentBeanForm.add(listSites);
     }
 
     private void addSelectToForm() {
-        initSelect("accidentType",IDictConstService.ACCIDENT_TYPE);
-        initSelect("accidentLevel",IDictConstService.ACCIDENT_LEVEL);
-        initSelect("industryCategory",IDictConstService.INDUSTRY_CATEGORY);
-        initSelect("accidentPreliminaryAnalysis",IDictConstService.ACCIDENT_PRELIMINARY_ANALYSIS);
-        initSelect("accidentUnit",new HashMap<String,String>());
+        initSelect("accidentType", IDictConstService.ACCIDENT_TYPE);
+        initSelect("accidentLevel", IDictConstService.ACCIDENT_LEVEL);
+        initSelect("industryCategory", IDictConstService.INDUSTRY_CATEGORY);
+        initSelect("accidentPreliminaryAnalysis", IDictConstService.ACCIDENT_PRELIMINARY_ANALYSIS);
+        initSelect("accidentUnit", enterpriseBeanService.getAllBeansToHashMap());
     }
 
     private void addTextFieldToForm(String value) {

@@ -24,6 +24,16 @@ public interface IUserBeanService extends IBizService {
 
     List<UserBean> queryUser(UserBean userBean);
 
+    /**
+     * 分页查询用户
+     *
+     * @param userName   用户名
+     * @param pageNumber 页数
+     * @param pageSize   每页大小
+     * @return 用户结果集
+     */
+    public List<UserBean> queryUser(String userName, int pageNumber, int pageSize);
+
     List<UserBean> query(UserBean userBean);
 
     /**

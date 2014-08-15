@@ -76,7 +76,7 @@ public class AccidentViewPage extends BasePanel {
 
     private void addEnterpriseForm(final AccidentBean accidentBean) {
         EnterpriseBean enterpriseBean = new EnterpriseBean();
-        if (null != accidentBean && !"".equals(accidentBean.getAccidentUnit())) {
+        if (null != accidentBean && null != accidentBean.getAccidentUnit() && !"".equals(accidentBean.getAccidentUnit())) {
             enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(Long.parseLong(accidentBean.getAccidentUnit()));
         }
         if (null == enterpriseBean) {

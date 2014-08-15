@@ -1,8 +1,8 @@
 package com.daren.regulation.webapp.wicket.page;
 
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
 import com.daren.regulation.entities.RegulationBean;

@@ -14,14 +14,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-CheckAncestorsAndChildren = {
+var CheckAncestorsAndChildren = {
     checkChildren: function (elementId, nodeChecked) {
-        $('#' + elementId).closest('.tree-node').siblings('.tree-subtree')
-            .find('input[type=checkbox]').prop('checked', nodeChecked);
+        jQuery('#' + elementId).closest('.tree-node').siblings('.tree-subtree').find('input[type=checkbox]').prop('checked', nodeChecked);
     },
     checkAncestors: function (elementId, nodeChecked) {
-        $('#' + elementId).parents('.tree-branch').each(function () {
-            var curCheck = $(this).children('.tree-node').find('input[type=checkbox]');
+        jQuery('#' + elementId).parents('.tree-branch').each(function () {
+            var curCheck = jQuery(this).children('.tree-node').find('input[type=checkbox]');
 
             if (nodeChecked) {
                 curCheck.prop('checked', nodeChecked)
@@ -29,7 +28,7 @@ CheckAncestorsAndChildren = {
             }
 
             var checkedChildren =
-                $(this).children('.tree-subtree').find(':checked').size();
+                jQuery(this).children('.tree-subtree').find(':checked').size();
 
             if (checkedChildren == 0)
                 curCheck.prop('checked', nodeChecked)

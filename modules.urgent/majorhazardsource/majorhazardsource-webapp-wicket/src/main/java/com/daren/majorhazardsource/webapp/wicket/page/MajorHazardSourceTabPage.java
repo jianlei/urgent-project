@@ -111,6 +111,7 @@ public class MajorHazardSourceTabPage extends BasePanel {
                     if (getActiveTab("重大危险源编辑") > 0){
                         tabPanel.getModelObject().remove(getActiveTab("重大危险源编辑"));
                         createAjaxTab = null;
+                        createPage.removeAll();
                     }
                     target.add(tabPanel);
                 }

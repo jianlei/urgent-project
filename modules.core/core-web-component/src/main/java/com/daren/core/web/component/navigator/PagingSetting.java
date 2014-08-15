@@ -1,4 +1,4 @@
-package com.daren.core.web.wicket.navigator;
+package com.daren.core.web.component.navigator;
 
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
 import org.apache.wicket.markup.html.navigation.paging.IPagingLabelProvider;

@@ -1,6 +1,6 @@
-package com.daren.admin.webapp.wicket.table;
+package com.daren.core.web.component.table;
 
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxNavigationToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;

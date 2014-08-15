@@ -1,4 +1,4 @@
-package com.daren.admin.webapp.wicket.table;
+package com.daren.core.web.component.table;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
