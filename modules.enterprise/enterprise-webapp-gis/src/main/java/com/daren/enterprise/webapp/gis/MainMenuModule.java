@@ -1,4 +1,4 @@
-package com.daren.enterprise.webapp.wicket;
+package com.daren.enterprise.webapp.gis;
 
 import com.daren.core.web.api.module.IMenuModule;
 
@@ -14,12 +14,12 @@ import com.daren.core.web.api.module.IMenuModule;
 public class MainMenuModule implements IMenuModule {
     @Override
     public String getTargetTag() {
-        return "enterprise.module.bundles";
+        return "gis.module.bundles";
     }
 
     @Override
     public String getName() {
-        return "信息管理";
+        return "GIS管理";
     }
 
     @Override
@@ -34,6 +34,6 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 0;
     }
 }
