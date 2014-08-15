@@ -4,25 +4,33 @@ Login page
 
 /* logo page */
 .login {
-    background-color: #444 !important;
+    background-color: #02346e !important;
+    background-image: url(../image/login_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
 }
 
 .login .logo {
-    width: 247px;
-    margin: 0 auto;
-    margin-top: 60px;
-    padding: 15px;
+    width: 608px;
+    margin-top: 0px;
     text-align: center;
+    height: 343px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
 }
 
 .login .content {
-    background-color: #fff;
-    width: 291px;
-    margin: 0 auto;
+    width: 300px;
     margin-bottom: 0px;
-    padding: 30px;
-    padding-top: 20px;
-    padding-bottom: 15px;
+    background-image: url(../image/login_txt_bg.png);
+    height: 398px;
+    margin-top: 0;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 60px;
+    padding-left: 308px;
+    background-repeat: no-repeat;
 }
 
 .login .content h3 {
@@ -45,16 +53,17 @@ Login page
 }
 
 .login .content .m-wrap {
-    width: 249px;
+    width: 160px;
     border-left: 0 !important;
+    background-color: #FFF;
 }
 
 .login .content .input-icon {
-    border-left: 2px solid #d33727 !important;
+    border-left: 2px solid #045ab1 !important;
 }
 
 .login .content .control-group {
-    margin-bottom: 20px !important;
+    margin-top: 10px !important;
 }
 
 .login .content .input-icon .m-wrap {
@@ -75,13 +84,7 @@ Login page
 }
 
 .login .content .form-actions {
-    background-color: #fff;
     clear: both;
-    border: 0px;
-    border-bottom: 1px solid #eee;
-    padding: 0px 30px 25px 30px;
-    margin-left: -30px;
-    margin-right: -30px;
 }
 
 .login .content .forget-form .form-actions {
@@ -97,7 +100,6 @@ Login page
 }
 
 .login .content .form-actions .checkbox {
-    margin-top: 8px;
     display: inline-block;
 }
 
@@ -149,6 +151,7 @@ Login page
 
     .login .content .m-wrap {
         width: 180px;
+        background-color: #FFF;
     }
 
     .login .checkbox {

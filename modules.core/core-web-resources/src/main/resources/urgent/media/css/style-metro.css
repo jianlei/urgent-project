@@ -73,9 +73,11 @@ select:focus {
 
 /*  Red */
 .btn.red {
+    width: 84px;
+    height: 30px;
     color: white;
     text-shadow: none;
-    background-color: #d33727;
+    background-color: #086ac1;
 }
 
 .btn.red:hover,
@@ -84,7 +86,7 @@ select:focus {
 .btn.red.active,
 .btn.red[disabled],
 .btn.red.disabled {
-    background-color: #bb2413 !important;
+    background-color: #023f86 !important;
     color: #fff !important;
 }
 
@@ -334,7 +336,7 @@ Dropdowns
 }
 
 .dropdown-menu li > a {
-   padding: 6px 0 6px 13px;
+    padding: 6px 0 6px 13px;
     color: #333;
     text-decoration: none;
     display: block;
