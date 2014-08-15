@@ -249,6 +249,7 @@
         <feature>jedis</feature>
         <bundle>mvn:com.google.code.gson/gson/${gson.version}</bundle>
         <feature>jsr303</feature>
+        <feature>cxf-jaxrs</feature>
         <feature>jquery-ui</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
         <bundle start-level="85">wrap:mvn:com.vaynberg.wicket.select2/wicket-select2/2.3</bundle>
