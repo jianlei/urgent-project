@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UtftIQUkGmWx0El7xx2d2wib"></script>
+    <script type="text/javascript">
+        var markers = [];
+        var map;
+        var infowindow;
+        jQuery(document).ready(function () {
+            $("#allmap").height($(".Conframe").height() - 38);
+            map = new BMap.Map("allmap");
+            map.centerAndZoom("四平市", 15);
+            map.enableScrollWheelZoom();
+        });
+        //救援队
+        function parseRescue(gson) {
+            map.clearOverlays();
+            markers.splice(0);
+            var jsonRescue = eval(gson);
+            for (var i = 0; i < jsonRescue.length; i++) {
+                var _lng = jsonRescue[i].longitude;
+                var _lat = jsonRescue[i].latitude;
+                addpointpandto(_lng, _lat, jsonRescue[i].name, jsonRescue[i].headPhone, "dkgreen", "救援队");
+            }
+
+        }
+        //企业专家
+        function parseExpert(jsonEnterprise, jsonSafety) {
+            map.clearOverlays();
+            markers.splice(0);
+            var enterpriseObj = eval(jsonEnterprise);
+            for (var i = 0; i < enterpriseObj.length; i++) {
+                var _lng = enterpriseObj[i].longitude;
+                var _lat = enterpriseObj[i].latitude;
+                addpointpandto(_lng, _lat, enterpriseObj[i].name, enterpriseObj[i].phone, "dkgreen", "企业专家");
+            }
+
+            var safetyObj = eval(jsonSafety);
+            for (var i = 0; i < safetyObj.length; i++) {
+                var _lng = safetyObj[i].longitude;
+                var _lat = safetyObj[i].latitude;
+                addpointpandto(_lng, _lat, safetyObj[i].name, safetyObj[i].phone, "dkgreen", "行管专家");
+            }
+        }
+
+        //物资标注
+        function parseEquipment(gson) {
+            map.clearOverlays();
+            markers.splice(0);
+            var jsonEquipmentj = eval(gson);
+            for (var i = 0; i < jsonEquipmentj.length; i++) {
+                var _lng = jsonEquipmentj[i].lng;
+                var _lat = jsonEquipmentj[i].lat;
+                addpointpandto(_lng, _lat, jsonEquipmentj[i].name, jsonEquipmentj[i].mobilePhone, "dkgreen", "物资装备");
+            }
+        }
+
+        //重大危险标注
+        function parseMajor(gson) {
+            map.clearOverlays();
+            markers.splice(0);
+            var jsonMajor = eval(gson);
+            for (var i = 0; i < jsonMajor.length; i++) {
+                var _lng = jsonMajor[i].lng;
+                var _lat = jsonMajor[i].lat;
+                addpointpandto(_lng, _lat, jsonMajor[i].name, "", "dkgreen", "重大危险源");
+            }
+        }
+
+        function createIcon(json, _icon) {
+            var icon = new BMap.Icon("http://localhost:8181/cus/img/" + _icon + ".png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)})
+            return icon;
+        }
+        function addpointpandto(_lng, _lat, name, phone, _icon, type) {
+            var point = new BMap.Point(_lng, _lat);
+            var jsonicon = {w: 21, h: 35, l: 0, t: 0, x: 6, lb: 5};
+            var iconImg = createIcon(jsonicon, _icon);
+            var marker = new BMap.Marker(point, {icon: iconImg});
+            map.addOverlay(marker);
+            markers.push(marker);
+            marker.addEventListener("mouseover", function () {
+                openInfoW(_lng, _lat, name, phone, type, marker);
+            });
+        }
+        function openInfoW(_lng, _lat, name, phone, type, marker) {
+            infowindow = new BMap.InfoWindow(getIWContent(_lng, _lat, name, phone, type));
+            marker.openInfoWindow(infowindow);
+        }
+        //--获取位置点的信息窗口内容
+        function getIWContent(_lng, _lat, name, phone, type) {
+            var content = "<div><div class=\"infow_title\">经纬度：" + _lng + "----" + _lat + "<div>";
+            content += "<div class=\"infow_content\">" + type + "名称：" + name + "</div>";
+            content += "<div class=\"infow_content\">" + type + "电话：" + phone;
+            content += "</div></div>";
+            infocontent = content;
+            return infocontent;
+        }
+    </script>
+
+</wicket:head>
+<body>
+<wicket:panel>
+    <div id="toolBar"
+         style="border:solid 1px;width:100%;height:38px;overflow: hidden;margin:0;z-index: 90;padding: 9px 0 0 10px;">
+        <input class="btn btn-inverse" wicket:id="rescueButton" type="button" value="救援队标注"/>
+        <input class="btn btn-inverse" wicket:id="expertsButton" type="button" value="专家标注"/>
+        <input class="btn btn-inverse" wicket:id="majorButton" type="button" value="重大危险标注"/>
+        <input class="btn btn-inverse" wicket:id="equipmentButton" type="button" value="物资标注"/>
+    </div>
+    <div style="height:2px;"></div>
+    <div id="allmap" style="border:solid 1px;width: 100%;overflow: hidden;margin:0;z-index: 90;"></div>
+</wicket:panel>
+</body>
+</html>

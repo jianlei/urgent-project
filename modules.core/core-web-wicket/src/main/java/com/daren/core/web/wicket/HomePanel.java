@@ -1,25 +1,8 @@
 package com.daren.core.web.wicket;
 
-import com.daren.equipment.api.biz.IEquipmentBeanService;
-import com.daren.equipment.entities.EquipmentBean;
-import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
-import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
-import com.daren.expert.entities.EnterpriseExpertBean;
-import com.daren.expert.entities.SafetySupervisionExpertBean;
-import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
-import com.daren.rescue.api.biz.IRescueBeanService;
-import com.daren.rescue.entities.RescueBean;
-import com.google.gson.Gson;
-import org.apache.aries.blueprint.annotation.Reference;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
-
-import javax.inject.Inject;
-import java.util.List;
 
 /**
  * 项目名称:  urgent-project
@@ -32,76 +15,13 @@ import java.util.List;
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
 public class HomePanel extends BasePanel {
-   /* //注入服务
-    @Inject
-    @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
-    private IRescueBeanService rescueBeanService;
-    @Inject
-    @Reference(id = "enterpriseExpertBeanService", serviceInterface = IEnterpriseExpertBeanService.class)
-    private IEnterpriseExpertBeanService enterpriseExpertBeanService;
-    @Inject
-    @Reference(id = "equipmentBeanService", serviceInterface = ISafetySupervisionExpertBeanService.class)
-    private ISafetySupervisionExpertBeanService safetySupervisionExpertBeanService;
-    @Inject
-    @Reference(id = "equipmentBeanService", serviceInterface = IEquipmentBeanService.class)
-    private IEquipmentBeanService equipmentBeanService;
-    @Inject
-    @Reference(id = "majorHazardSourceBeanService", serviceInterface = IMajorHazardSourceBeanService.class)
-    private IMajorHazardSourceBeanService majorHazardSourceBeanService;
-*/
     //ajax target container
     public HomePanel(String id, WebMarkupContainer wmc) {
+        /**
+         * test forward link
+         */
         super(id, wmc);
-/*
-        //救援队标注
-        AjaxLink ajaxLinkRescue = new AjaxLink("rescueButton") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<RescueBean> list = rescueBeanService.getAllEntity();
-                Gson gson = new Gson();
-                String string = gson.toJson(list);
-                ajaxRequestTarget.prependJavaScript("parseRescue(" + string + ")");
-            }
-        };
-        this.add(ajaxLinkRescue);
 
-        //专家标注
-        AjaxLink ajaxLinkExperts = new AjaxLink("expertsButton") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<EnterpriseExpertBean> listEnt = enterpriseExpertBeanService.getAllEntity();
-                List<SafetySupervisionExpertBean> listSafe = safetySupervisionExpertBeanService.getAllEntity();
-                Gson gsonEnt = new Gson();
-                String strEnt = gsonEnt.toJson(listEnt);
-                Gson gsonSafe = new Gson();
-                String strSafe = gsonSafe.toJson(listSafe);
-                ajaxRequestTarget.prependJavaScript("parseExpert(" + strEnt + "," + strSafe + ")");
-            }
-        };
-        this.add(ajaxLinkExperts);
-
-        //重大危险标注
-        AjaxLink ajaxLinkMajor = new AjaxLink("majorButton") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<MajorHazardSourceBean> list = majorHazardSourceBeanService.getAllEntity();
-                Gson gson = new Gson();
-                String string = gson.toJson(list);
-                ajaxRequestTarget.prependJavaScript("parseMajor(" + string + ")");
-            }
-        };
-        this.add(ajaxLinkMajor);
-
-        //物资标注
-        AjaxLink ajaxLinkEquipment = new AjaxLink("equipmentButton") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<EquipmentBean> list = equipmentBeanService.getAllEntity();
-                Gson gson = new Gson();
-                String string = gson.toJson(list);
-                ajaxRequestTarget.prependJavaScript("parseEquipment(" + string + ")");
-            }
-        };
-        this.add(ajaxLinkEquipment);*/
+//        add(new Include("footer", "cus/Template/FooterPage.html"));
     }
 }
