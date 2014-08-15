@@ -7,6 +7,7 @@ import com.daren.enterprise.entities.EnterpriseBean;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：品牌服务实现类
@@ -31,15 +32,20 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
     }
 
     @Override
-    public  HashMap<String ,String > getAllBeansToHashMap() {
-        HashMap<String ,String > hashMap = new HashMap<>();
+    public Map<String, String> getAllBeansToHashMap() {
+        Map<String, String> hashMap = new HashMap<>();
         List<EnterpriseBean> list = enterpriseBeanDao.getAll(EnterpriseBean.class.getName());
-        if(null != list && list.size() > 0){
-            for(EnterpriseBean bean : list){
-                hashMap.put(bean.getId()+"",bean.getQymc());
+        if (null != list && list.size() > 0) {
+            for (EnterpriseBean bean : list) {
+                hashMap.put(bean.getId() + "", bean.getQymc());
             }
         }
         return hashMap;
+    }
+
+    @Override
+    public List<EnterpriseBean> findByName(String term, int page, int page_size) {
+        return enterpriseBeanDao.findbyPage("select a from EnterpriseBean a where a.qymc LIKE ?1", page, page_size, "%" + term + "%");
     }
 }
 

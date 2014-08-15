@@ -2,7 +2,7 @@ package com.daren.admin.webapp.wicket.example;
 
 import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
-import com.daren.admin.webapp.wicket.table.SingleSelectNestedTree;
+import com.daren.core.web.component.table.SingleSelectNestedTree;
 import com.daren.core.web.wicket.BasePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;

@@ -1,4 +1,4 @@
-package com.daren.admin.webapp.wicket.table;
+package com.daren.core.web.component.table;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.navigation.paging.IPageableItems;

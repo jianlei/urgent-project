@@ -1,6 +1,6 @@
 package com.daren.core.web.wicket;
 
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;

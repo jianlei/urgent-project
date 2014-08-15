@@ -1,7 +1,7 @@
 package com.daren.majorhazardsource.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
 import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -83,20 +83,20 @@ public class MajorHazardSourcePage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
 
-        createQuery(table, provider,id,wmc);
+        createQuery(table, provider, id, wmc);
     }
 
     private AjaxLink getToCreatePageLink(String wicketId, final MajorHazardSourceBean majorHazardSourceBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(majorHazardSourceBean,target);
+                createButtonOnClick(majorHazardSourceBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(MajorHazardSourceBean majorHazardSourceBean,AjaxRequestTarget target) {
+    protected void createButtonOnClick(MajorHazardSourceBean majorHazardSourceBean, AjaxRequestTarget target) {
 
     }
 

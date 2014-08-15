@@ -1,8 +1,8 @@
 package com.daren.regulation.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.regulation.api.biz.IRegulationBeanService;
 import com.daren.regulation.entities.RegulationBean;
 import com.googlecode.wicket.jquery.core.Options;
@@ -146,9 +146,9 @@ public class RegulationListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
+        final WebMarkupContainer table;
         private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container, dialogWrapper;
-        final WebMarkupContainer table;
 
         public MainFragment(String id, String markupId) {
             super(id, markupId, RegulationListPage.this);

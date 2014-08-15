@@ -1,7 +1,7 @@
 package com.daren.expert.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;

@@ -24,10 +24,10 @@
     </service>
 
     <!-- 发布日志子菜单模块 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+    <!--<service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.LogMenuItemsModule">
         </bean>
-    </service>
+    </service>-->
 
     <!-- 发布权限管理子菜单模块 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
@@ -41,9 +41,9 @@
     </service>
 
     <!-- 发布机构管理子菜单模块 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+    <!--<service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.OfficeMenuItemsModule"/>
-    </service>
+    </service>-->
 
     <!-- 发布区域管理子菜单模块 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">

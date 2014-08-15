@@ -1,8 +1,8 @@
 package com.daren.drill.webapp.wicket.page;
 
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.drill.api.biz.IUploadDocumentService;
 import com.daren.drill.entities.DocmentBean;
 import com.daren.drill.entities.UrgentDrillBean;

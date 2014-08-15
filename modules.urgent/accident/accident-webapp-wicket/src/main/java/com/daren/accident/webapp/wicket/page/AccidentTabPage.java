@@ -1,29 +1,15 @@
 package com.daren.accident.webapp.wicket.page;
 
-import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
-import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
 import java.util.ArrayList;
@@ -41,10 +27,9 @@ import java.util.List;
 
 public class AccidentTabPage extends BasePanel {
 
-    private final TabbedPanel tabPanel;
-
     final RepeatingView createPage = new RepeatingView("createPage");
     final RepeatingView viewPage = new RepeatingView("viewPage");
+    private final TabbedPanel tabPanel;
     AjaxTab viewAjaxTab;
     AjaxTab createAjaxTab;
     Fragment viewFragment;
@@ -83,7 +68,7 @@ public class AccidentTabPage extends BasePanel {
         AccidentPage accidentPage = new AccidentPage(id, wmc) {
             @Override
             protected void accidentTitleLinkOnClick(AccidentBean accidentBean, AjaxRequestTarget target) {
-                initAccidentViewPage(id, wmc, accidentBean, target,true);
+                initAccidentViewPage(id, wmc, accidentBean, target, true);
             }
 
             @Override
@@ -95,7 +80,7 @@ public class AccidentTabPage extends BasePanel {
         return accidentPage;
     }
 
-    private void initAccidentViewPage(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean, AjaxRequestTarget target,boolean goPage) {
+    private void initAccidentViewPage(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean, AjaxRequestTarget target, boolean goPage) {
         if (null == viewAjaxTab) {
             viewAjaxTab = new AjaxTab(Model.of("事故详细信息")) {
                 private static final long serialVersionUID = 1L;
@@ -105,11 +90,12 @@ public class AccidentTabPage extends BasePanel {
                     accidentViewPage = new AccidentViewPage(viewPage.newChildId(), wmc, accidentBean) {
                         @Override
                         protected void onEditOnClick(AccidentBean bean, AjaxRequestTarget target) {
-                            initAccidentEditPage(createPage.newChildId(),wmc,bean,target,true);
+                            initAccidentEditPage(createPage.newChildId(), wmc, bean, target, true);
                         }
+
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
-                            if (getActiveTab("事故详细信息") > 0){
+                            if (getActiveTab("事故详细信息") > 0) {
                                 tabPanel.getModelObject().remove(getActiveTab("事故详细信息"));
                                 viewAjaxTab = null;
                                 viewPage.removeAll();
@@ -125,14 +111,15 @@ public class AccidentTabPage extends BasePanel {
             };
             tabPanel.add(viewAjaxTab);
         } else {
-            accidentViewPage = new AccidentViewPage(viewPage.newChildId(), wmc, accidentBean){
+            accidentViewPage = new AccidentViewPage(viewPage.newChildId(), wmc, accidentBean) {
                 @Override
                 protected void onEditOnClick(AccidentBean bean, AjaxRequestTarget target) {
-                    initAccidentEditPage(createPage.newChildId(),wmc,bean,target,true);
+                    initAccidentEditPage(createPage.newChildId(), wmc, bean, target, true);
                 }
+
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
-                    if (getActiveTab("事故详细信息") > 0){
+                    if (getActiveTab("事故详细信息") > 0) {
                         tabPanel.getModelObject().remove(getActiveTab("事故详细信息"));
                         viewAjaxTab = null;
                         viewPage.removeAll();
@@ -147,13 +134,13 @@ public class AccidentTabPage extends BasePanel {
             target.add(viewFragment);
         }
         target.add(tabPanel);
-        if(goPage){
+        if (goPage) {
             tabPanel.setActiveTab(getActiveTab("事故详细信息"));
         }
     }
 
-    private int getActiveTab(String title){
-        for (int i = 0; i <tabPanel.getModelObject().size(); i++) {
+    private int getActiveTab(String title) {
+        for (int i = 0; i < tabPanel.getModelObject().size(); i++) {
             if (tabPanel.getModelObject().get(i).getTitle().getObject().equals(title)) {
                 return i;
             }
@@ -161,7 +148,7 @@ public class AccidentTabPage extends BasePanel {
         return 0;
     }
 
-    private void initAccidentEditPage(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean, AjaxRequestTarget target,boolean goPage) {
+    private void initAccidentEditPage(final String id, final WebMarkupContainer wmc, final AccidentBean accidentBean, AjaxRequestTarget target, boolean goPage) {
         if (null == createAjaxTab) {
             createAjaxTab = new AjaxTab(Model.of("事故编辑")) {
                 private static final long serialVersionUID = 1L;
@@ -171,12 +158,12 @@ public class AccidentTabPage extends BasePanel {
                     accidentEditPage = new AccidentEditPage(createPage.newChildId(), wmc, accidentBean) {
                         @Override
                         public void onSaveOnclick(AccidentBean bean, AjaxRequestTarget target) {
-                            initAccidentViewPage(id, wmc, bean, target,false);
+                            initAccidentViewPage(id, wmc, bean, target, false);
                         }
 
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
-                            if (getActiveTab("事故编辑") > 0){
+                            if (getActiveTab("事故编辑") > 0) {
                                 tabPanel.getModelObject().remove(getActiveTab("事故编辑"));
                                 createAjaxTab = null;
                                 createPage.removeAll();
@@ -195,11 +182,12 @@ public class AccidentTabPage extends BasePanel {
             accidentEditPage = new AccidentEditPage(createPage.newChildId(), wmc, accidentBean) {
                 @Override
                 public void onSaveOnclick(AccidentBean bean, AjaxRequestTarget target) {
-                    initAccidentViewPage(id, wmc, bean, target,false);
+                    initAccidentViewPage(id, wmc, bean, target, false);
                 }
+
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
-                    if (getActiveTab("事故编辑") > 0){
+                    if (getActiveTab("事故编辑") > 0) {
                         tabPanel.getModelObject().remove(getActiveTab("事故编辑"));
                         createAjaxTab = null;
                         createPage.removeAll();
@@ -214,7 +202,7 @@ public class AccidentTabPage extends BasePanel {
             target.add(createFragment);
         }
         target.add(tabPanel);
-        if(goPage){
+        if (goPage) {
             tabPanel.setActiveTab(getActiveTab("事故编辑"));
         }
     }

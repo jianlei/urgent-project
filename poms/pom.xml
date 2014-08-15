@@ -66,6 +66,7 @@
         <commons-pool2.version>2.2</commons-pool2.version>
         <gson.version>2.2.4</gson.version>
         <poi.version>3.10-FINAL</poi.version>
+        <select2.version>2.3</select2.version>
     </properties>
     <build>
         <pluginManagement>
@@ -329,6 +330,7 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.7.0</version>
+                <scope>provided</scope>
             </dependency>
 
             <dependency>
@@ -570,10 +572,18 @@
                 <version>${ariesBlueprintAnnotationApiVersion}</version>
                 <scope>provided</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.aries.blueprint</groupId>
                 <artifactId>org.apache.aries.blueprint.annotation.impl</artifactId>
                 <version>${ariesBlueprintAnnotationImplVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.vaynberg.wicket.select2</groupId>
+                <artifactId>wicket-select2</artifactId>
+                <version>${select2.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -741,16 +751,11 @@
                 <version>1.7_6</version>
                 <scope>provided</scope>
             </dependency>
-
             <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>3.0-FINAL</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>1.7.0</version>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.8</version>
+                <scope>provided</scope>
             </dependency>
 
 

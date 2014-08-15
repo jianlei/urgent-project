@@ -1,7 +1,7 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.ISpecialPlanBeanService;
@@ -40,17 +40,13 @@ import java.util.List;
  */
 public class SpecialPlanEditPage extends BasePanel {
 
+    final WebMarkupContainer table = new WebMarkupContainer("table");
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    SpecialPlanDataProvider provider = new SpecialPlanDataProvider();
     @Inject
     private IUploadDocumentService uploadDocumentService;
-
     @Inject
     private ISpecialPlanBeanService specialPlanService;
-
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-
-    SpecialPlanDataProvider provider = new SpecialPlanDataProvider();
-
-    final WebMarkupContainer table = new WebMarkupContainer("table");
 
     public SpecialPlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id, wmc);
@@ -148,28 +144,6 @@ public class SpecialPlanEditPage extends BasePanel {
         return documentBean.getId() + "";
     }
 
-
-    class SpecialPlanDataProvider extends ListDataProvider<SpecialPlanBean> {
-        private SpecialPlanBean specialPlanBean = null;
-
-        public void setSpecialPlanBean(ReservePlanBean reservePlanBean) {
-            if (null != reservePlanBean) {
-                this.specialPlanBean = new SpecialPlanBean();
-                this.specialPlanBean.setReservePlanId(reservePlanBean.getId());
-            }
-        }
-
-        @Override
-        protected List<SpecialPlanBean> getData() {
-            if (specialPlanBean == null){
-                return new ArrayList<>();
-            }
-            else {
-                return specialPlanService.queryByReservePlanId(specialPlanBean);
-            }
-        }
-    }
-
     private void addDownLoadLink(Item item, String downLoadLinkName, final String fileName, final String filePath) {
         DownloadLink downloadLink = new DownloadLink(downLoadLinkName, new AbstractReadOnlyModel<java.io.File>() {
             private static final long serialVersionUID = 1L;
@@ -219,7 +193,7 @@ public class SpecialPlanEditPage extends BasePanel {
         }
     }
 
-    private void addDeleteLink(Item<SpecialPlanBean> item,String linkName, final SpecialPlanBean specialPlanBean, final WebMarkupContainer table) {
+    private void addDeleteLink(Item<SpecialPlanBean> item, String linkName, final SpecialPlanBean specialPlanBean, final WebMarkupContainer table) {
         AjaxLink ajaxLink = new AjaxLink(linkName) {
             @Override
             protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -239,5 +213,25 @@ public class SpecialPlanEditPage extends BasePanel {
     }
 
     protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+    class SpecialPlanDataProvider extends ListDataProvider<SpecialPlanBean> {
+        private SpecialPlanBean specialPlanBean = null;
+
+        public void setSpecialPlanBean(ReservePlanBean reservePlanBean) {
+            if (null != reservePlanBean) {
+                this.specialPlanBean = new SpecialPlanBean();
+                this.specialPlanBean.setReservePlanId(reservePlanBean.getId());
+            }
+        }
+
+        @Override
+        protected List<SpecialPlanBean> getData() {
+            if (specialPlanBean == null) {
+                return new ArrayList<>();
+            } else {
+                return specialPlanService.queryByReservePlanId(specialPlanBean);
+            }
+        }
     }
 }

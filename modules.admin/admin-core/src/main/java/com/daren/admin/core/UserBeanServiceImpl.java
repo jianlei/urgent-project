@@ -63,6 +63,12 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     }
 
     @Override
+    public List<UserBean> queryUser(String userName, int pageNumber, int pageSize) {
+
+        return userBeanDao.findbyPage("select a from UserBean a where a.name LIKE ?1", pageNumber, pageSize, "%" + userName + "%");
+    }
+
+    @Override
     public List<UserBean> query(UserBean userBean) {
         return queryUser(userBean);
     }

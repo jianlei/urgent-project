@@ -36,6 +36,7 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
         this.form = new Form<Integer>("form");
         this.add(this.form);
 
+
         // Slider //
         this.form.add(new PasswordTextField("oldPassword"));
         this.form.add(new PasswordTextField("newPassword"));
@@ -76,6 +77,26 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
     @Override
     public void onError(AjaxRequestTarget target) {
         target.add(this.feedback);
+    }
+
+    @Override
+    public void onClick(AjaxRequestTarget target, DialogButton button) {
+        super.onClick(target, button); // calling super will close the dialog (if not overridden)
+
+        if (button != null && button.match(LBL_CANCEL)) /* or button.equals(this.btnCancel) */ {
+            this.onCancel(target); // to declare
+        }
+    }
+
+    @Override
+    public void onClose(AjaxRequestTarget target, DialogButton button) {
+        if (button != null && button.match(LBL_CANCEL)) /* or button.equals(this.btnCancel) */ {
+            this.onCancel(target); // to declare
+        }
+    }
+
+    private void onCancel(AjaxRequestTarget target) {
+        target.add(this.form);
     }
 
 
