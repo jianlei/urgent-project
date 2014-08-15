@@ -50,14 +50,14 @@ public class HazardPage extends BasePanel {
             @Override
             protected void populateItem(Item<HazardBean> item) {
                 final HazardBean hazardBean = item.getModelObject();
-                item.add(getToCreatePageLink("check_name", hazardBean).add(new Label("name", hazardBean.getName()))
-                );
+                item.add(new Label("name", hazardBean.getName()));
                 item.add(new Label("expertName", hazardBean.getExpertName()));
                 item.add(new Label("estimate", hazardBean.getEstimate()));
                 item.add(new Label("lng", hazardBean.getLng()));
                 item.add(new Label("lat", hazardBean.getLat()));
                 item.add(new Label("accidentRate", hazardBean.getAccidentRate()));
 
+                item.add(getToCreatePageLink("check_name", hazardBean));
 
                 AjaxLink alink = new AjaxLink("del") {
                     @Override

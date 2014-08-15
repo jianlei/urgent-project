@@ -54,17 +54,17 @@ public class HazardTabPage extends BasePanel {
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initMajorHazardSourcePage(id, wmc);
+                return initHazardPage(id, wmc);
             }
         });
         return tabs;
     }
 
-    private HazardPage initMajorHazardSourcePage(final String id, final WebMarkupContainer wmc) {
+    private HazardPage initHazardPage(final String id, final WebMarkupContainer wmc) {
         HazardPage hazardPage = new HazardPage(id, wmc) {
             @Override
-            protected void createButtonOnClick(HazardBean majorHazardSourceBean, AjaxRequestTarget target) {
-                initMajorHazardSourceCreatePage(id,wmc,majorHazardSourceBean,target,true);
+            protected void createButtonOnClick(HazardBean hazardBean, AjaxRequestTarget target) {
+                initHazardCreatePage(id, wmc, hazardBean, target, true);
             }
         };
         return hazardPage;
@@ -79,7 +79,7 @@ public class HazardTabPage extends BasePanel {
         return 0;
     }
 
-    private void initMajorHazardSourceCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean hazardBean, AjaxRequestTarget target,boolean goPage) {
+    private void initHazardCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean hazardBean, AjaxRequestTarget target, boolean goPage) {
         if (null == createAjaxTab) {
             createAjaxTab = new AjaxTab(Model.of("重大危险源编辑")) {
                 private static final long serialVersionUID = 1L;

@@ -123,13 +123,42 @@ public class HazardCreatePage extends BasePanel {
     }
 
     private void addTextFieldsToForm() {
-        addTextFieldToForm("name");
-        addTextFieldToForm("enterpriseBeanId");
-        addTextFieldToForm("expertName");
         addHiddenFieldToForm("lng");
         addHiddenFieldToForm("lat");
-        addTextFieldToForm("accidentRate");
         addTextFieldToForm("estimate");
+        addTextFieldToForm("name");
+        addTextFieldToForm("expertName");
+        addTextFieldToForm("accidentRate");
+        addTextFieldToForm("enterpriseBeanId");
+        addTextFieldToForm("place");
+        addTextFieldToForm("startTime");
+        addTextFieldToForm("level");
+        addTextFieldToForm("describe");
+        addTextFieldToForm("inChemical");
+        addTextFieldToForm("distanceOtherHazard");
+        addTextFieldToForm("scope500MHaveMans");
+        addTextFieldToForm("lastThreeYearAccident");
+        addTextFieldToForm("roadConditions");
+        addTextFieldToForm("zbqkd");
+        addTextFieldToForm("sfwhqyd");
+        addTextFieldToForm("jbqyzjzxjld");
+        addTextFieldToForm("zbqklxd");
+        addTextFieldToForm("zbqkn");
+        addTextFieldToForm("sfwhqydn");
+        addTextFieldToForm("jbqyzjzxjln");
+        addTextFieldToForm("zbqklxn");
+        addTextFieldToForm("zbqkx");
+        addTextFieldToForm("sfwhqyx");
+        addTextFieldToForm("jbqyzjzxjlx");
+        addTextFieldToForm("zbqklxx");
+        addTextFieldToForm("zbqkb");
+        addTextFieldToForm("sfwhqyb");
+        addTextFieldToForm("jbqyzjzxjlb");
+        addTextFieldToForm("zbqklxb");
+        addTextFieldToForm("yxfw");
+        addTextFieldToForm("jbqk");
+        addTextFieldToForm("zlcs");
+        addTextFieldToForm("remark");
     }
 
     private void createDialog(AjaxRequestTarget target, final String title) {

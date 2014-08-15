@@ -60,13 +60,16 @@
         </thead>
         <tbody>
         <tr wicket:id="rows">
-            <td><a href="#" wicket:id="check_name"><span wicket:id="name"></span></a></td>
+            <td><span wicket:id="name"></span></td>
             <td wicket:id="expertName">无</td>
             <td wicket:id="estimate">无</td>
             <td wicket:id="lng">无</td>
             <td wicket:id="lat">无</td>
             <td wicket:id="accidentRate">无</td>
-            <td><a href="#" class="btn btn-mini btn-danger" wicket:id="del">删除</a></td>
+            <td>
+                <a href="#" wicket:id="check_name">修改</a>
+                <a href="#" wicket:id="del">删除</a>
+            </td>
         </tr>
         <tr class="tr_pagenumber">
             <td align="center" colspan="100" wicket:id="navigator"></td>

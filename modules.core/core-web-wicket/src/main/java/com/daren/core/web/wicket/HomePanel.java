@@ -32,7 +32,7 @@ import java.util.List;
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
 public class HomePanel extends BasePanel {
-    //注入服务
+   /* //注入服务
     @Inject
     @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
     private IRescueBeanService rescueBeanService;
@@ -48,11 +48,11 @@ public class HomePanel extends BasePanel {
     @Inject
     @Reference(id = "majorHazardSourceBeanService", serviceInterface = IMajorHazardSourceBeanService.class)
     private IMajorHazardSourceBeanService majorHazardSourceBeanService;
-
+*/
     //ajax target container
     public HomePanel(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-
+/*
         //救援队标注
         AjaxLink ajaxLinkRescue = new AjaxLink("rescueButton") {
             @Override
@@ -102,6 +102,6 @@ public class HomePanel extends BasePanel {
                 ajaxRequestTarget.prependJavaScript("parseEquipment(" + string + ")");
             }
         };
-        this.add(ajaxLinkEquipment);
+        this.add(ajaxLinkEquipment);*/
     }
 }
