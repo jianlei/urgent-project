@@ -118,7 +118,8 @@ public class EquipmentCreatePage extends BasePanel {
         initSelect("registrationType", IDictConstService.REGISTRATION_TYPE);
         initSelect("equipmentSources", IDictConstService.EQUIPMENT_SOURCES);
         initSelect("equipmentType", IDictConstService.EQUIPMENT_TYPE);
-        initSelect("rescueId", rescueBeanService.getAllBeansToHashMap());
+        initSelect("rescueId",new HashMap<String,String>());
+//        initSelect("rescueId", rescueBeanService.getAllBeansToHashMap());
     }
 
 
