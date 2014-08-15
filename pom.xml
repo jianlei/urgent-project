@@ -86,7 +86,7 @@
         <module>modules.urgent/expert</module>
         <module>modules.urgent/reserveplan</module>
         <module>modules.urgent/application</module>
-        <module>modules.urgent/majorhazardsource</module>
+        <module>modules.urgent/hazard</module>
         <module>modules.urgent/drill</module>
         <module>modules.urgent/equipment</module>
         <module>modules.urgent/accident</module>
