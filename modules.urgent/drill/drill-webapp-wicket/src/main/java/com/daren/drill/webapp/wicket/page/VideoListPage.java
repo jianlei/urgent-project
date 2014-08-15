@@ -1,17 +1,19 @@
 package com.daren.drill.webapp.wicket.page;
 
-import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.drill.api.biz.IUploadVideoService;
+import com.daren.drill.entities.UrgentDrillBean;
 import com.daren.drill.entities.VideoBean;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.time.Duration;
 
@@ -29,12 +31,15 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class VideoListPage extends BasePanel {
+public class VideoListPage extends IrisAbstractDialog<UrgentDrillBean> {
     @Inject
+    @Reference(id = "uploadVideoService", serviceInterface = IUploadVideoService.class)
     private IUploadVideoService uploadVideoService;
 
-    public VideoListPage(final String id, final WebMarkupContainer wmc, final long entityId) {
-        super(id, wmc);
+    public VideoListPage(String id, String title, IModel<UrgentDrillBean> model) {
+        super(id, title, model);
+        UrgentDrillBean regulationBean = (UrgentDrillBean) model.getObject();
+        long entityId = regulationBean.getId();
         List<VideoBean> list = uploadVideoService.getVideoBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
@@ -42,20 +47,20 @@ public class VideoListPage extends BasePanel {
         PageableListView<VideoBean> lv = new PageableListView<VideoBean>("rows", list, 10) {
             @Override
             protected void populateItem(ListItem<VideoBean> item) {
-                final VideoBean videoBean = item.getModelObject();
-                item.add(new Label("col1", videoBean.getName()));
-                item.add(new Label("col2", videoBean.getDescription()));
+                final VideoBean docmentBean = item.getModelObject();
+                item.add(new Label("name", docmentBean.getName()));
+                item.add(new Label("description", docmentBean.getDescription()));
 
-                //下载视频
-                DownloadLink alinkdownVideo = new DownloadLink("downVideo", new AbstractReadOnlyModel<File>() {
+                //下载文档
+                DownloadLink alinkdownDocument = new DownloadLink("downVideo", new AbstractReadOnlyModel<File>() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
                     public File getObject() {
                         File tempFile = null;
                         try {
-                            tempFile = new File(videoBean.getName());
-                            FileInputStream fileInputStream = new FileInputStream(videoBean.getFilePath());
+                            tempFile = new File(docmentBean.getName());
+                            FileInputStream fileInputStream = new FileInputStream(docmentBean.getFilePath());
                             DataInputStream data = new DataInputStream(fileInputStream);
                             Files.writeTo(tempFile, data);
                         } catch (Exception e) {
@@ -64,24 +69,13 @@ public class VideoListPage extends BasePanel {
                         return tempFile;
                     }
                 }).setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
-                item.add(alinkdownVideo.setOutputMarkupId(true));
+                item.add(alinkdownDocument.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
         };
         table.add(pagingNavigator);
         table.setVersioned(false);
         table.add(lv);
-
-        //返回按钮
-        AjaxLink ajaxLinkReturn = new AjaxLink("return") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                wmc.removeAll();
-                wmc.addOrReplace(new UrgentDrillPage(id, wmc));
-                ajaxRequestTarget.add(wmc);
-            }
-        };
-        this.add(ajaxLinkReturn);
     }
 }

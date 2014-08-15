@@ -2,20 +2,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
-    <title></title>
-    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
-    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.filtermenu.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.columnmenu.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.groupable.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.pager.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.reorderable.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.grid.min.js"></script>
 </wicket:head>
 <body>
 <wicket:panel>
-    <input class="btn btn-inverse" type="button" value="返回" wicket:id="return"/>
-    <br/><br/>
     <table class="table table-striped table-bordered table-condensed" wicket:id="table">
         <thead>
         <tr class="tr_detail">
@@ -26,8 +15,8 @@
         </thead>
         <tbody>
         <tr wicket:id="rows">
-            <td wicket:id="col1">视频名称</td>
-            <td wicket:id="col2">描述</td>
+            <td wicket:id="name">视频名称</td>
+            <td wicket:id="description">描述</td>
             <td>
                 <a href="#" wicket:id="downVideo">下载</a>
             </td>

@@ -13,6 +13,27 @@
             <!--<property name="persistEntityService" ref="persistEntityService" />-->
         </bean>
     </service>
+    <service interface="com.daren.reserveplan.api.dao.ISpotPlanBeanDao">
+        <bean class="com.daren.reserveplan.persist.openjpa.SpotPlanBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="reserveplan-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+    <service interface="com.daren.reserveplan.api.dao.IComprehensivePlanBeanDao">
+        <bean class="com.daren.reserveplan.persist.openjpa.ComprehensivePlanBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="reserveplan-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
+    <service interface="com.daren.reserveplan.api.dao.ISpecialPlanBeanDao">
+        <bean class="com.daren.reserveplan.persist.openjpa.SpecialPlanBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="reserveplan-cm"/>
+            <tx:transaction method="*" value="Required"/>
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
+        </bean>
+    </service>
 
 </blueprint>
 

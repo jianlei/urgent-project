@@ -4,7 +4,6 @@ import com.daren.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * 应急演练管理
@@ -13,15 +12,15 @@ import java.util.Date;
 @Entity
 @Table(name = "urg_dri_urgentdrill")
 public class UrgentDrillBean extends PersistentEntity {
-    private Long enterpriseId;      //企业ID
+    private long enterpriseId;      //企业ID
     private String name;             //演练名称
     private String description;     //描述
 
-    public Long getEnterpriseId() {
+    public long getEnterpriseId() {
         return enterpriseId;
     }
 
-    public void setEnterpriseId(Long enterpriseId) {
+    public void setEnterpriseId(long enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
 

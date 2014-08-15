@@ -1,5 +1,6 @@
 package com.daren.accident.webapp.wicket;
 
+import com.daren.accident.webapp.wicket.page.AccidentTabPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.accident.webapp.wicket.page.AccidentPage;
 import org.apache.wicket.Page;
@@ -25,7 +26,7 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 1;
     }
 
     @Override
@@ -37,7 +38,6 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
     public String getIcon() {
         return "";  //To change body of implemented methods use File | Settings | File Templates.
     }
-
     @Override
     public String getTag() {
         return "plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
@@ -45,6 +45,6 @@ public class AccidentMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new AccidentPage(id, wmc);
+        return new AccidentTabPage(id, wmc);
     }
 }

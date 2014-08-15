@@ -7,32 +7,51 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by dell on 14-1-16.
  */
 @Entity
-@Table(name = "biz_res_reserveplan")
+@Table(name = "biz_plan_reserve")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class ReservePlanBean extends PersistentEntity {
 
-    private String name;
-    private String password;
-    private String email;
+    private String name;//预案名称
+    private String description;//描述
+    private String reservePlanApplyId;//应急预案申请表文档ID
+    private String reservePlanRegisterId;//应急预案注册表文档ID
+    private String reviewCommentId;//评审意见文档ID
+    private String reviewExpertId;//评审意见文档ID
+    private String reservePlanDocumentId;//应急预案文档原件ID
+    private List expertList;//专家列表
+    private List<SpotPlanBean> spotPlanBeanList;//现场预案集合
+    private List<SpecialPlanBean> specialPlanBeanList;//专项预案集合
+    private String comprehensivePlanId;//综合预案文档ID
 
     public ReservePlanBean() {
-
-
+        name="";
+        description="";
+        reservePlanApplyId="";
+        reservePlanRegisterId="";
+        reviewCommentId="";
+        reservePlanDocumentId="";
+        comprehensivePlanId = "";
+        reviewExpertId = "";
+        expertList = new ArrayList();
+        spotPlanBeanList = new ArrayList<>();
+        specialPlanBeanList = new ArrayList<>();
     }
 
-    public String getEmail() {
-        return email;
+    public String getReviewExpertId() {
+        return reviewExpertId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setReviewExpertId(String reviewExpertId) {
+        this.reviewExpertId = reviewExpertId;
     }
 
     public String getName() {
@@ -43,15 +62,75 @@ public class ReservePlanBean extends PersistentEntity {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public static void main(String[] args) throws Exception {
+    public String getReservePlanApplyId() {
+        return reservePlanApplyId;
+    }
 
+    public void setReservePlanApplyId(String reservePlanApplyId) {
+        this.reservePlanApplyId = reservePlanApplyId;
+    }
+
+    public List getExpertList() {
+        return expertList;
+    }
+
+    public void setExpertList(List expertList) {
+        this.expertList = expertList;
+    }
+
+    public List<SpotPlanBean> getSpotPlanBeanList() {
+        return spotPlanBeanList;
+    }
+
+    public void setSpotPlanBeanList(List<SpotPlanBean> spotPlanBeanList) {
+        this.spotPlanBeanList = spotPlanBeanList;
+    }
+
+    public List<SpecialPlanBean> getSpecialPlanBeanList() {
+        return specialPlanBeanList;
+    }
+
+    public void setSpecialPlanBeanList(List<SpecialPlanBean> specialPlanBeanList) {
+        this.specialPlanBeanList = specialPlanBeanList;
+    }
+
+    public String getReservePlanRegisterId() {
+        return reservePlanRegisterId;
+    }
+
+    public void setReservePlanRegisterId(String reservePlanRegisterId) {
+        this.reservePlanRegisterId = reservePlanRegisterId;
+    }
+
+    public String getReviewCommentId() {
+        return reviewCommentId;
+    }
+
+    public void setReviewCommentId(String reviewCommentId) {
+        this.reviewCommentId = reviewCommentId;
+    }
+
+    public String getReservePlanDocumentId() {
+        return reservePlanDocumentId;
+    }
+
+    public void setReservePlanDocumentId(String reservePlanDocumentId) {
+        this.reservePlanDocumentId = reservePlanDocumentId;
+    }
+
+    public String getComprehensivePlanId() {
+        return comprehensivePlanId;
+    }
+
+    public void setComprehensivePlanId(String comprehensivePlanId) {
+        this.comprehensivePlanId = comprehensivePlanId;
     }
 }

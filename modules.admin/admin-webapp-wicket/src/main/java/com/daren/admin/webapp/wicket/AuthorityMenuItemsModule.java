@@ -1,6 +1,6 @@
 package com.daren.admin.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.page.Page2;
+import com.daren.admin.webapp.wicket.page.PermissionListPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -45,6 +45,6 @@ public class AuthorityMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new Page2(id, wmc);
+        return new PermissionListPage(id, wmc);
     }
 }

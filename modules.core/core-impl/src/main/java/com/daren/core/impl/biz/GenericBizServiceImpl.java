@@ -16,9 +16,9 @@ import java.util.List;
  * @修改备注：
  */
 public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IBizService {
+    protected final Logger log = Logger.getLogger(getClass());
     private T dao;
     private String entityClassName;
-    protected final Logger log = Logger.getLogger(getClass());
 
     @Override
     public void deleteEntity(long entityId) {
@@ -34,6 +34,11 @@ public abstract class GenericBizServiceImpl<T extends IGenericDao> implements IB
     @Override
     public Object saveEntityAndReturn(PersistentEntity entity) {
         return dao.save(entity);
+    }
+
+    @Override
+    public List getAllEntity(int pageNumber, int pageSize) {
+        return dao.getAll(pageNumber, pageSize, entityClassName);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.daren.drill.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.drill.webapp.wicket.page.UrgentDrillPage;
+import com.daren.drill.webapp.wicket.page.UrgentDrillListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -24,7 +24,7 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 2;
     }
 
     @Override
@@ -44,6 +44,6 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new UrgentDrillPage(id, wmc);
+        return new UrgentDrillListPage(id, wmc);
     }
 }

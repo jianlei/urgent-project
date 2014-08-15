@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"/>资源管理<b class="tip"/>救援队管理</div>
+    <form method="post" wicket:id="dictForm">
+        <span wicket:id="feedback"/>
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;救援队详细信息 <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tdl">救援队名称</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="name"/>
+                </td>
+                <td class="tdl">负责人</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="head"/>
+                </td>
+                <td class="tdl">负责人电话</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="headPhone"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">值班电话</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="telephone"/>
+                </td>
+                <td class="tdl">总人数</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="totalNumber"/>
+                </td>
+                <td class="tdl">地址</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="address"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">标注地址</td>
+                <td class="td_detail">
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="longitude"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="latitude"/>
+                </td>
+                <td class="tdl">主要装备描述</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="equipment"/>
+                </td>
+                <td class="tdl">专长描述</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="expertise"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">备注</td>
+                <td class="td_detail">
+                    <input class="ipt" wicket:id="remarks"/>
+                </td>
+                <td class="tdl"></td>
+                <td class="td_detail"></td>
+                <td class="tdl"></td>
+                <td class="td_detail"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
+</wicket:panel>
+</body>
+</html>

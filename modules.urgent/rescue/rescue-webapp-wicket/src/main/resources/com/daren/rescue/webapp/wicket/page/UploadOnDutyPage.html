@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+</wicket:head>
+
+<body>
+<wicket:panel>
+    <form wicket:id="form">
+        <span wicket:id="feedback"/>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td>上传值班表</td>
+                <td><input type="file" wicket:id="filePath"/></td>
+            </tr>
+        </table>
+    </form>
+    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+</wicket:panel>
+</body>
+</html>

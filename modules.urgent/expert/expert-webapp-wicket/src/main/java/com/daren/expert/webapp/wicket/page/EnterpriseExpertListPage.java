@@ -1,10 +1,11 @@
 package com.daren.expert.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
 import com.daren.expert.entities.EnterpriseExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -34,8 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 企业专家管理
- * Created by 张清欣 on 14-8-5.
+ * @类描述：企业专家管理
+ * @创建人：张清欣
+ * @创建时间：2014-07-28 下午16:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 public class EnterpriseExpertListPage extends BasePanel {
 
@@ -136,7 +141,7 @@ public class EnterpriseExpertListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
-        private final FeedbackPanel feedbackPanel;
+        private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
@@ -145,7 +150,7 @@ public class EnterpriseExpertListPage extends BasePanel {
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
             //add feedback
-            feedbackPanel = new FeedbackPanel("feedback");
+            feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -158,9 +163,23 @@ public class EnterpriseExpertListPage extends BasePanel {
                 @Override
                 protected void populateItem(Item<EnterpriseExpertBean> item) {
                     final EnterpriseExpertBean row = item.getModelObject();
-                    item.add(new Label("col1", row.getName()));
-                    item.add(new Label("col2", row.getContactInformation()));
-                    item.add(new Label("col3", row.getType()));
+                    item.add(new Label("name", row.getName()));
+                    item.add(new Label("date", row.getDate()));
+                    item.add(new Label("sex", row.getSex()));
+                    item.add(new Label("skillTitle", row.getSkillTitle()));
+                    item.add(new Label("degree", row.getDegree()));
+                    item.add(new Label("nation", row.getNation()));
+                    item.add(new Label("type", row.getType()));
+                    item.add(new Label("city", row.getCity()));
+                    item.add(new Label("address", row.getAddress()));
+                    item.add(new Label("tel", row.getTel()));
+                    item.add(new Label("phone", row.getPhone()));
+                    item.add(new Label("eMail", row.geteMail()));
+                    item.add(new Label("language", row.getLanguage()));
+                    item.add(new Label("domain", row.getDomain()));
+                    item.add(new Label("direction", row.getDirection()));
+                    item.add(new Label("longitude", row.getLongitude()));
+                    item.add(new Label("latitude", row.getLatitude()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
@@ -170,7 +189,7 @@ public class EnterpriseExpertListPage extends BasePanel {
             table.add(listView);
 
             //增加分页指示器
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
 

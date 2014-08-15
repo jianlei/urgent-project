@@ -4,13 +4,13 @@ import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -30,21 +30,27 @@ import javax.inject.Inject;
  */
 public class DictAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
+    private boolean isAdd;
     @Inject
     @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
     private IDictBeanService dictBeanService;
-    private FeedbackPanel feedbackPanel; //信息显示
+    private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public DictAddPage(String id, String type, IModel<DictBean> model) {
         super(id, model);
         this.type = type;
 
         if (model.getObject() == null)
-            //new model
+        //new model
+        {
+            isAdd = true;
             initForm(Model.of(new DictBean()));
-        else
-            //edit model
+        } else
+        //edit model
+        {
+            isAdd = false;
             initForm(model);
+        }
 
 
     }
@@ -56,7 +62,7 @@ public class DictAddPage extends Panel {
     private void initForm(IModel<DictBean> model) {
         final Form<DictBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
-        feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
 
         dictForm.add(new TextField("label").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
@@ -71,7 +77,9 @@ public class DictAddPage extends Panel {
                 try {
                     DictBean dictBean = (DictBean) form.getModelObject();
                     dictBeanService.saveEntity(dictBean);
-                    dictForm.setModelObject(new DictBean());
+                    if (isAdd) {
+                        dictForm.setModelObject(new DictBean());
+                    }
                     feedbackPanel.info(type + dictBean.getType() + "成功！");
                     target.add(dictForm);
                 } catch (Exception e) {

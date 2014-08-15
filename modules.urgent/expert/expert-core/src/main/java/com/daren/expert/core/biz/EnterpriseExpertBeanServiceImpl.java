@@ -26,7 +26,7 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
 
     @Override
     public List<EnterpriseExpertBean> query(EnterpriseExpertBean dictBean) {
-        return enterpriseExpertBeanDao.find("select a from EnterpriseExpertBean a where a.name like :1");
+        return enterpriseExpertBeanDao.find("select e from EnterpriseExpertBean e where e.name=?1 ", dictBean.getName());
     }
 }
 

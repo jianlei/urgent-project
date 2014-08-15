@@ -18,7 +18,7 @@ public class AdminMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 40;
+        return 100;
     }
 
     @Override

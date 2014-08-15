@@ -8,8 +8,13 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +64,51 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
         return resultList;
     }
 
+    /**
+     * JPA 分页查询
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @param className
+     * @return
+     */
+    @Override
+    public List getAll(int pageNumber, int pageSize, String className) {
+        Class entityClass = null;
+        try {
+            entityClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        Long count = getTotalCount(className);
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(entityClass);
+        Root from = criteriaQuery.from(entityClass);
+        CriteriaQuery select = criteriaQuery.select(from);
+        TypedQuery typedQuery = entityManager.createQuery(select);
+        typedQuery.setFirstResult(pageNumber * pageSize);
+        typedQuery.setMaxResults(pageSize);
+        return typedQuery.getResultList();
+    }
+
+    /**
+     * 获得结果集的总数
+     *
+     * @param className
+     * @return
+     */
+    private Long getTotalCount(String className) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+        try {
+            countQuery.select(criteriaBuilder.count(countQuery.from(Class.forName(className))));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Long count = entityManager.createQuery(countQuery).getSingleResult();
+        return count;
+    }
+
     @Override
     public List<T> getAllDistinct(String className) {
         final Query query = entityManager.createQuery("select Distinct c from " + className + " c ");
@@ -91,8 +141,26 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
     public T save(T object) {
         if (object.getId() == 0)//do not persist
             entityManager.persist(object);
-        else
+        else {
+            object.setUpdateDate(new Date());
             entityManager.merge(object);
+        }
+
+        entityManager.flush();
+        return object;
+    }
+
+    @Override
+    public T save(T object, String userName) {
+        if (object.getId() == 0)//do not persist
+        {
+            object.setCreateBy(userName);
+            entityManager.persist(object);
+        } else {
+            object.setUpdateBy(userName);
+            object.setUpdateDate(new Date());
+            entityManager.merge(object);
+        }
         entityManager.flush();
         return object;
     }
@@ -141,6 +209,25 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
     @Override
     public List find(String hql, Object... values) {
         return createQuery(hql, values).getResultList();
+    }
+
+    /**
+     * @param hql
+     * @param pageNumber 从0开始的页号
+     * @param pageSize
+     * @param values
+     * @return
+     */
+    @Override
+    public List findbyPage(String hql, int pageNumber, int pageSize, Object... values) {
+        Query queryObject = createQuery(hql, values);
+        /*List result=queryObject.getResultList();//获得结果集个数
+        int count=result.size();
+        if(count==0)
+            return result;*/
+        queryObject.setFirstResult(pageNumber * pageSize);
+        queryObject.setMaxResults(pageSize);
+        return queryObject.getResultList();
     }
 
     /**

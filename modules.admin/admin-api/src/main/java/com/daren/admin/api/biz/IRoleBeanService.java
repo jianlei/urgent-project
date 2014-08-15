@@ -24,10 +24,27 @@ public interface IRoleBeanService extends IBizService {
     List<String> getRoleNameList();
 
     /**
+     * 根据用户获得角色名称列表
+     *
+     * @return
+     */
+    List<String> getRoleNameList(UserBean userBean);
+
+    /**
      * 根据角色保存该角色关联的用户列表
      *
      * @param roleBean
      * @param userSelect
      */
     void saveRoleUser(RoleBean roleBean, List<UserBean> userSelect);
+
+    List<RoleBean> query(RoleBean roleBean);
+
+    /**
+     * 通过role获得UserLIst
+     *
+     * @param roleBean
+     * @return
+     */
+    List<UserBean> getUserList(RoleBean roleBean);
 }

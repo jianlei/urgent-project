@@ -15,13 +15,7 @@ import java.util.Map;
  * @修改备注：
  */
 public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
-    /**
-     * Generic method used to get all objects of a particular type. This
-     * is the same as lookup up all rows in a table.
-     *
-     * @return List of populated objects
-     */
-    List<T> getAll(String className);
+
 
     /**
      * Gets all records without duplicates.
@@ -67,6 +61,14 @@ public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
      */
     T save(T object);
 
+    /**
+     * Generic method to save an object - handles both update and insert.
+     *
+     * @param object   the object to save
+     * @param userName 操作人员的名字
+     * @return the persisted object
+     */
+    T save(T object, String userName);
 
     /**
      * Generic method to delete an object
@@ -105,8 +107,20 @@ public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
 
     List find(String hql, Object... values);
 
+    public List findbyPage(String hql, int pageNumber, int pageSize, Object... values);
+
 
     <T> T findUnique(String hql, Object... values);
 
     int update(String qlString, Object... parameter);
+
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<T> getAll(String className);
+
+    List getAll(int pageNumber, int pageSize, String entityClassName);
 }

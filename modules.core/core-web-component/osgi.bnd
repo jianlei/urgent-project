@@ -1,0 +1,6 @@
+#-----------------------------------------------------------------
+# Use this file to add customized Bnd instructions for the bundle
+#-----------------------------------------------------------------
+
+Bundle-Activator: ${bundle.namespace}.InitActivator
+Import-Package:org.ops4j.pax.wicket.util.proxy,com.daren.admin.entities,com.daren.core.api.persistence,*

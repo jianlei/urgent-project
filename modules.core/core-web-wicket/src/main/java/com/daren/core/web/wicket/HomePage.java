@@ -1,6 +1,6 @@
 package com.daren.core.web.wicket;
 
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -25,63 +25,59 @@ import java.util.List;
 public class HomePage extends WebPage {
 
 
-
-        public HomePage()
-        {
+    public HomePage() {
         /*final WebMarkupContainer wmc=new WebMarkupContainer("container");
         add(wmc.setOutputMarkupId(true));*/
-            WebMarkupContainer table = new WebMarkupContainer("table");
-            add(table.setOutputMarkupId(true));
+        WebMarkupContainer table = new WebMarkupContainer("table");
+        add(table.setOutputMarkupId(true));
 
-            List<String[]> rows = new ArrayList<String[]>();
-            for (int i = 0; i < 50; i++)
-            {
-                rows.add(new String[] { "Foo" + i, "Bar" + i, "fizzbuzz" + i });
-            }
 
-            PageableListView<String[]> lv = new PageableListView <String[]>("rows", rows,10)
-            {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                protected void populateItem(ListItem<String[]> item)
-                {
-                    final String[] row = item.getModelObject();
-
-                    item.add(new Label("col1", row[0]));
-                    item.add(new Label("col2", row[1]));
-                    item.add(new Label("col3", row[2]));
-
-                    AjaxLink alink=  new AjaxLink("label") {
-                        @Override
-                        protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
-                        {
-                            super.updateAjaxAttributes(attributes);
-                            AjaxCallListener listener = new AjaxCallListener();
-                            listener.onPrecondition("if(!confirm('Do you really want to delete?')){return false;}");
-                            attributes.getAjaxCallListeners().add(listener);
-                        }
-                        @Override
-                        public void onClick(AjaxRequestTarget target) {
-                            System.out.println("AJAX WORKS");
-                            target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
-                                    + "/libya.protests/index.html?hpt="+row[0]
-     /* you probably want to encode this first */+"')");
-                            String asda = row[0];
-//                        target.add(this); // update the link component
-                        }
-                    };
-//                    alink.add(new Label("linklabel", "Yes ajax works!"));
-                    item.add(alink.setOutputMarkupId(true));
-                }
-            };
-            CustomePagingNavigator pagingNavigator= new CustomePagingNavigator("navigator", lv){
-
-            };
-            table.add(pagingNavigator);
-            table.setVersioned(false);
-            table.add(lv);
+        List<String[]> rows = new ArrayList<String[]>();
+        for (int i = 0; i < 50; i++) {
+            rows.add(new String[]{"Foo" + i, "Bar" + i, "fizzbuzz" + i});
         }
+
+        PageableListView<String[]> lv = new PageableListView<String[]>("rows", rows, 10) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                final String[] row = item.getModelObject();
+
+                item.add(new Label("col1", row[0]));
+                item.add(new Label("col2", row[1]));
+                item.add(new Label("col3", row[2]));
+
+                AjaxLink alink = new AjaxLink("label") {
+                    @Override
+                    protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+                        super.updateAjaxAttributes(attributes);
+                        AjaxCallListener listener = new AjaxCallListener();
+                        listener.onPrecondition("if(!confirm('Do you really want to delete?')){return false;}");
+                        attributes.getAjaxCallListeners().add(listener);
+                    }
+
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        System.out.println("AJAX WORKS");
+                        target.appendJavaScript("window.open('http://www.cnn.com/2011/WORLD/africa/02/23"
+                                + "/libya.protests/index.html?hpt=" + row[0]
+     /* you probably want to encode this first */ + "')");
+                        String asda = row[0];
+//                        target.add(this); // update the link component
+                    }
+                };
+//                    alink.add(new Label("linklabel", "Yes ajax works!"));
+                item.add(alink.setOutputMarkupId(true));
+            }
+        };
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
+
+        };
+        table.add(pagingNavigator);
+        table.setVersioned(false);
+        table.add(lv);
+    }
         /*// FeedbackPanel //
         final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
         this.add(feedback);
@@ -103,8 +99,8 @@ public class HomePage extends WebPage {
             private static final long serialVersionUID = 1L;
 
             *//**
-         * Triggered when a toolbar button is clicked.
-         *//*
+     * Triggered when a toolbar button is clicked.
+     *//*
             @Override
             public void onClick(AjaxRequestTarget target, String button, List<String> values)
             {
@@ -113,8 +109,8 @@ public class HomePage extends WebPage {
             }
 
             *//**
-         * Triggered when a column button is clicked.
-         *//*
+     * Triggered when a column button is clicked.
+     *//*
             @Override
             public void onClick(AjaxRequestTarget target, ColumnButton button, String value)
             {
@@ -187,5 +183,6 @@ public class HomePage extends WebPage {
        *//* AuthenticatedWebApplication app = (AuthenticatedWebApplication) AuthenticatedWebApplication.get();
         if (!AuthenticatedWebSession.get().isSignedIn())
             app.restartResponseAtSignInPage();*//*
-    }*/}
+    }*/
+}
 

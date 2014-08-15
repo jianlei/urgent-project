@@ -4,7 +4,9 @@ import com.daren.core.api.persistence.PersistentEntity;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**
@@ -20,9 +22,10 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class RoleBean extends PersistentEntity {
+    @NotNull(message = "'角色名称'是必填项")
     private String name;    // 角色名称
     private String remark;  //角色备注
-
+    @XmlTransient
     private List<UserBean> userList = Lists.newArrayList(); // 拥有用户列表
     private List<PermissionBean> permissionList = Lists.newArrayList(); // 拥有菜单列表
 

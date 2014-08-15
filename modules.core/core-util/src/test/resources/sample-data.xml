@@ -15,6 +15,8 @@
         <column>password</column>
         <column>phone</column>
         <column>version_</column>
+        <column>company_id</column>
+        <column>office_id</column>
         <row>
             <value>1</value>
             <null/>
@@ -22,46 +24,16 @@
             <null/>
             <null/>
             <null/>
-            <value><![CDATA[2014-04-27 11:45:30.0]]></value>
+            <value><![CDATA[2014-08-09 11:45:43.0]]></value>
             <value>0:0:0:0:0:0:0:1</value>
             <value>test</value>
             <null/>
             <value>系统管理员</value>
             <value>test</value>
             <null/>
-            <value>10</value>
-        </row>
-        <row>
-            <value>401</value>
-            <null/>
-            <value><![CDATA[2014-04-26 18:21:21.0]]></value>
+            <value>27</value>
             <null/>
             <null/>
-            <value>D</value>
-            <null/>
-            <null/>
-            <value>dSD</value>
-            <null/>
-            <value>sds</value>
-            <value>Dd</value>
-            <null/>
-            <value>1</value>
-        </row>
-        <row>
-            <value>403</value>
-            <null/>
-            <value><![CDATA[2014-04-26 18:22:31.0]]></value>
-            <null/>
-            <null/>
-            <null/>
-            <null/>
-            <null/>
-            <value>test@liferay.com</value>
-            <null/>
-            <value>12</value>
-            <value>hanling</value>
-            <null/>
-            <value>1</value>
         </row>
         <row>
             <value>6</value>
@@ -78,6 +50,8 @@
             <value>admin</value>
             <null/>
             <value>2</value>
+            <null/>
+            <null/>
         </row>
         <row>
             <value>7</value>
@@ -94,6 +68,8 @@
             <value>admin</value>
             <null/>
             <value>2</value>
+            <null/>
+            <null/>
         </row>
         <row>
             <value>8</value>
@@ -110,6 +86,8 @@
             <value>admin</value>
             <null/>
             <value>2</value>
+            <null/>
+            <null/>
         </row>
         <row>
             <value>9</value>
@@ -126,6 +104,8 @@
             <value>admin</value>
             <null/>
             <value>2</value>
+            <null/>
+            <null/>
         </row>
         <row>
             <value>10</value>
@@ -142,6 +122,44 @@
             <value>admin</value>
             <null/>
             <value>2</value>
+            <null/>
+            <null/>
+        </row>
+        <row>
+            <value>401</value>
+            <null/>
+            <value><![CDATA[2014-04-26 18:21:21.0]]></value>
+            <null/>
+            <null/>
+            <value>D</value>
+            <null/>
+            <null/>
+            <value>dSD</value>
+            <null/>
+            <value>sds</value>
+            <value>Dd</value>
+            <null/>
+            <value>1</value>
+            <null/>
+            <null/>
+        </row>
+        <row>
+            <value>403</value>
+            <null/>
+            <value><![CDATA[2014-04-26 18:22:31.0]]></value>
+            <null/>
+            <null/>
+            <null/>
+            <null/>
+            <null/>
+            <value>test@liferay.com</value>
+            <null/>
+            <value>12</value>
+            <value>hanling</value>
+            <null/>
+            <value>1</value>
+            <null/>
+            <null/>
         </row>
     </table>
     <table name="sys_role">
@@ -178,16 +196,16 @@
         <column>user_id</column>
         <column>role_id</column>
         <row>
+            <null/>
+            <null/>
+        </row>
+        <row>
             <value>1</value>
             <value>1</value>
         </row>
         <row>
             <value>1</value>
             <value>2</value>
-        </row>
-        <row>
-            <null/>
-            <null/>
         </row>
     </table>
     <table name="sys_permission">
@@ -219,7 +237,7 @@
             <null/>
             <null/>
             <null/>
-            <value>0</value>
+            <null/>
         </row>
         <row>
             <value>2</value>
@@ -265,8 +283,8 @@
             <value>新增</value>
             <value>0,1,2,3</value>
             <value>sys:user:add</value>
-            <null/>
-            <null/>
+            <value>0</value>
+            <value>1</value>
             <value>3</value>
         </row>
         <row>
@@ -281,8 +299,8 @@
             <value>修改</value>
             <value>0,1,2,3</value>
             <value>sys:user:edit</value>
-            <null/>
-            <null/>
+            <value>1</value>
+            <value>1</value>
             <value>3</value>
         </row>
         <row>
@@ -297,9 +315,169 @@
             <value>删除</value>
             <value>0,1,2,3</value>
             <value>sys:user:delete</value>
-            <null/>
-            <null/>
+            <value>2</value>
+            <value>1</value>
             <value>3</value>
+        </row>
+        <row>
+            <value>1403</value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:08:26.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:08:26.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>发放</value>
+            <null/>
+            <value>地方12</value>
+            <value>1</value>
+            <value>2</value>
+            <null/>
+        </row>
+        <row>
+            <value>1407</value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:49:30.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:49:30.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>sdf</value>
+            <null/>
+            <value>121</value>
+            <value>12</value>
+            <value>1</value>
+            <value>1405</value>
+        </row>
+        <row>
+            <value>1408</value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:59:52.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 22:59:52.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>sdf</value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>1</value>
+            <value>1406</value>
+        </row>
+        <row>
+            <value>1409</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:02:29.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:02:29.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>地方</value>
+            <null/>
+            <value>短发</value>
+            <value>1</value>
+            <value>1</value>
+            <value>1404</value>
+        </row>
+        <row>
+            <value>1411</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:06:46.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:06:46.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>sd</value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>1</value>
+            <value>1410</value>
+        </row>
+        <row>
+            <value>1412</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:07:25.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:07:25.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>sd</value>
+            <null/>
+            <value>1</value>
+            <value>1</value>
+            <value>1</value>
+            <value>1410</value>
+        </row>
+        <row>
+            <value>1414</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:08:30.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:08:30.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>12</value>
+            <null/>
+            <null/>
+            <value>12</value>
+            <value>1</value>
+            <value>1413</value>
+        </row>
+        <row>
+            <value>1416</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:16:16.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:16:16.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>是的</value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>1</value>
+            <value>1415</value>
+        </row>
+        <row>
+            <value>1417</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:18:46.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:18:46.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>二</value>
+            <null/>
+            <value>222</value>
+            <value>1</value>
+            <value>1</value>
+            <value>1403</value>
+        </row>
+        <row>
+            <value>1418</value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:18:59.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-08 23:18:59.0]]></value>
+            <null/>
+            <null/>
+            <value>1</value>
+            <value>短发</value>
+            <null/>
+            <value>1111</value>
+            <value>1</value>
+            <value>1</value>
+            <value>1403</value>
         </row>
     </table>
     <table name="sys_role_permission">
@@ -328,6 +506,227 @@
         <row>
             <value>1</value>
             <value>6</value>
+        </row>
+    </table>
+    <table name="sys_area">
+        <column>id</column>
+        <column>createBy</column>
+        <column>creationDate</column>
+        <column>updateBy</column>
+        <column>updateDate</column>
+        <column>code</column>
+        <column>name</column>
+        <column>parentIds</column>
+        <column>type</column>
+        <column>version_</column>
+        <column>parent_id</column>
+        <row>
+            <value>1503</value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:03:12.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:03:12.0]]></value>
+            <value>12</value>
+            <value>wwe</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1502</value>
+        </row>
+        <row>
+            <value>1504</value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:03:38.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:03:38.0]]></value>
+            <value>1090</value>
+            <value>1212</value>
+            <null/>
+            <value>2</value>
+            <value>2</value>
+            <value>1502</value>
+        </row>
+        <row>
+            <value>1601</value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:05:24.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 01:05:24.0]]></value>
+            <value>we</value>
+            <value>we</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1504</value>
+        </row>
+        <row>
+            <value>1701</value>
+            <null/>
+            <value><![CDATA[2014-08-09 11:58:18.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 11:58:18.0]]></value>
+            <value>220000</value>
+            <value>吉林省</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <null/>
+        </row>
+        <row>
+            <value>1702</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:00:13.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:00:13.0]]></value>
+            <value>220100</value>
+            <value>长春市</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1701</value>
+        </row>
+        <row>
+            <value>1703</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:00:43.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:00:43.0]]></value>
+            <value>220200</value>
+            <value>吉林市</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1701</value>
+        </row>
+        <row>
+            <value>1704</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:07.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:07.0]]></value>
+            <value>220300</value>
+            <value>四平市</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1701</value>
+        </row>
+        <row>
+            <value>1705</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:25.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:25.0]]></value>
+            <value>220400</value>
+            <value>辽源市</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1701</value>
+        </row>
+        <row>
+            <value>1706</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:59.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:01:59.0]]></value>
+            <value>220500</value>
+            <value>通化市</value>
+            <null/>
+            <value>2</value>
+            <value>1</value>
+            <value>1701</value>
+        </row>
+        <row>
+            <value>1707</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:05:16.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:05:16.0]]></value>
+            <value>220301</value>
+            <value>市辖区</value>
+            <null/>
+            <value>4</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1708</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:06:15.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:06:15.0]]></value>
+            <value>220302</value>
+            <value>铁西区</value>
+            <null/>
+            <value>4</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1709</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:06:40.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:06:40.0]]></value>
+            <value>220303</value>
+            <value>铁东区</value>
+            <null/>
+            <value>4</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1710</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:02.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:02.0]]></value>
+            <value>220322</value>
+            <value>梨树县</value>
+            <null/>
+            <value>4</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1711</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:28.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:28.0]]></value>
+            <value>220323</value>
+            <value>伊通满族自治县</value>
+            <null/>
+            <value>4</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1712</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:49.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:07:49.0]]></value>
+            <value>220381</value>
+            <value>公主岭市</value>
+            <null/>
+            <value>3</value>
+            <value>1</value>
+            <value>1704</value>
+        </row>
+        <row>
+            <value>1713</value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:08:10.0]]></value>
+            <null/>
+            <value><![CDATA[2014-08-09 12:08:10.0]]></value>
+            <value>220382</value>
+            <value>双辽市</value>
+            <null/>
+            <value>3</value>
+            <value>1</value>
+            <value>1704</value>
         </row>
     </table>
 </dataset>

@@ -1,12 +1,14 @@
 package com.daren.core.web.wicket.custome;
 
 import com.daren.admin.entities.UserBean;
+import com.daren.core.web.api.provider.IAboutDialogProvider;
 import com.daren.core.web.wicket.PermissionConstant;
 import com.daren.core.web.wicket.security.ChangePassword;
 import com.daren.core.web.wicket.security.PasswordInfo;
 import com.daren.core.web.wicket.security.SignInPage;
 import com.daren.core.web.wicket.security.SignOutPage;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -15,10 +17,18 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import javax.inject.Inject;
+
+
 /**
  * Created by dell on 14-3-23.
  */
 public class CustomeHeaderPanel extends Panel {
+
+    @Inject
+    @Reference(id = "aboutDialogProvider", serviceInterface = IAboutDialogProvider.class)
+    private IAboutDialogProvider aboutDialogProvider;
+
     public CustomeHeaderPanel(String id) {
         super(id);
 
@@ -36,22 +46,17 @@ public class CustomeHeaderPanel extends Panel {
 
             @Override
             public void onClose(AjaxRequestTarget target, DialogButton button) {
-                target.add(this);
+
             }
         };
         add(dialog);
 
-        add(new AjaxLink("changePassword") {
+        add(getChangePwdButton(dialog));
 
-            private static final long serialVersionUID = 1L;
+        add(new AjaxLink("about") {
 
             @Override
             public void onClick(AjaxRequestTarget target) {
-
-                dialog.setTitle(target, "修改密码");
-                dialog.setModelObject(new PasswordInfo()); //Provides a new model object to the dialog
-
-                dialog.open(target); //Important: onOpen() event has been overridden in UserDialog to re-attach the inner form, in order to reflect the updated model
 
             }
         });
@@ -75,5 +80,22 @@ public class CustomeHeaderPanel extends Panel {
         }
         Label userNameLabel = new Label("userName", userName);
         add(userNameLabel);
+    }
+
+    private AjaxLink getChangePwdButton(final ChangePassword dialog) {
+        return new AjaxLink("changePassword") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+
+                dialog.setTitle(target, "修改密码");
+                dialog.setModelObject(new PasswordInfo()); //Provides a new model object to the dialog
+
+                dialog.open(target); //Important: onOpen() event has been overridden in UserDialog to re-attach the inner form, in order to reflect the updated model
+
+            }
+        };
     }
 }

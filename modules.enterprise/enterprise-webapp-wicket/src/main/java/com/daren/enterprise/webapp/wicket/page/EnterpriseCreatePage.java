@@ -1,10 +1,15 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -21,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -38,10 +44,19 @@ public class EnterpriseCreatePage extends BasePanel {
     private IEnterpriseBeanService enterpriseBeanService;
     Form<EnterpriseBean> enterpriseBeanForm = new Form("enterpriseForm", new CompoundPropertyModel(new EnterpriseBean()));
 
-    public EnterpriseCreatePage(final String id, final WebMarkupContainer wmc, long enterpriseBeanId) {
+    EnterpriseBean enterpriseBean = new EnterpriseBean();
+
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
+    public EnterpriseCreatePage(final String id, final WebMarkupContainer wmc, EnterpriseBean bean) {
         super(id, wmc);
-        initForm(enterpriseBeanId);
-        addForm(id,wmc);
+        if (null != bean) {
+            enterpriseBean = bean;
+        }
+        initForm(enterpriseBean);
+        initFeedBack();
+        addForm(id, wmc);
+        addSelectToForm();
     }
 
     private void addForm(final String id, final WebMarkupContainer wmc) {
@@ -51,33 +66,69 @@ public class EnterpriseCreatePage extends BasePanel {
 
         addTextFieldsToForm();
 
+        //日期控件//
+        final DatePicker datePicker = new DatePicker("cl_sj",
+                new PropertyModel<Date>(enterpriseBean, "cl_sj"), "yyyy-MM-dd",
+                new Options("dateFormat", Options.asString("yy-mm-dd")));
+        enterpriseBeanForm.add(datePicker);
+
         AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", enterpriseBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                EnterpriseBean enterpriseBean = (EnterpriseBean) form.getDefaultModelObject();
+                EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanForm.getDefaultModelObject();
                 if (null != enterpriseBean) {
                     try {
                         enterpriseBean.setUpdateDate(new Date());
                         enterpriseBeanService.saveEntity(enterpriseBean);
-                        target.appendJavaScript("alert('保存成功')");
-                        wmc.removeAll();
-                        wmc.addOrReplace(new EnterprisePage(id, wmc));
-                        target.add(wmc);
+                        feedbackPanel.info("保存成功！");
+                        target.add(feedbackPanel);
                     } catch (Exception e) {
-                        //log.error("保存企业信息异常，" +e.toString());
-                        target.appendJavaScript("alert('保存失败')");
+                        feedbackPanel.info("保存失败！");
+                        target.add(feedbackPanel);
                     }
                 }
             }
         };
         add(ajaxSubmitLink);
+        add(new AjaxLink("cancel") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                onDeleteTabs(target);
+            }
+        });
     }
 
-    private void initForm(long enterpriseBeanId) {
-        if (-1 != enterpriseBeanId) {
-            EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseBeanId);
-            enterpriseBeanForm.setModelObject(enterpriseBean);
-        }
+    protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+    private void initFeedBack() {
+        feedbackPanel.setOutputMarkupId(true);
+        add(feedbackPanel);
+    }
+
+    private void initForm(EnterpriseBean bean) {
+        enterpriseBeanForm.setModelObject(enterpriseBean);
+    }
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        enterpriseBeanForm.add(listSites);
+    }
+
+    //通过Map初始化下拉列表
+    private void initSelect(String name, Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        enterpriseBeanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("aqjgszqk", IDictConstService.AQJGSZQK);
+        initSelect("zybbj", IDictConstService.ZYBBJ);
+        initSelect("zdxfdw_bj", IDictConstService.ZDXFDW_BJ);
+        initSelect("yazlqy_bj", IDictConstService.YAZLQY_BJ);
     }
 
     private void addTextFieldToForm(String value) {
@@ -88,7 +139,7 @@ public class EnterpriseCreatePage extends BasePanel {
     private void addTextFieldsToForm() {
         addTextFieldToForm("qymc");
         addTextFieldToForm("frdb");
-        addTextFieldToForm("cl_sj");
+//        addTextFieldToForm("cl_sj");
         addTextFieldToForm("address_zc");
         addTextFieldToForm("address_jy");
         addTextFieldToForm("postcode");
@@ -116,11 +167,12 @@ public class EnterpriseCreatePage extends BasePanel {
         addTextFieldToForm("jgfl");
         addTextFieldToForm("sndxssr");
         addTextFieldToForm("aqscfy");
-        addTextFieldToForm("yazlqy_bj");
-        addTextFieldToForm("zdxfdw_bj");
-        addTextFieldToForm("zybbj");
-        addTextFieldToForm("aqjgszqk");
-        addTextFieldToForm("dlwz");
+//        addTextFieldToForm("yazlqy_bj");
+//        addTextFieldToForm("zdxfdw_bj");
+//        addTextFieldToForm("zybbj");
+//        addTextFieldToForm("aqjgszqk");
+        addTextFieldToForm("lng");
+        addTextFieldToForm("lat");
     }
 
 }

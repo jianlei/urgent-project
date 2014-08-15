@@ -1,44 +1,38 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IUserBeanService;
-import com.daren.admin.entities.UserBean;
-import com.daren.admin.webapp.wicket.data.Product;
-import com.daren.admin.webapp.wicket.data.ProductDataProvider;
+import com.daren.admin.api.biz.IDictBeanService;
+import com.daren.admin.entities.DictBean;
+import com.daren.admin.webapp.wicket.data.Foo;
+import com.daren.admin.webapp.wicket.data.FooTreeProvider;
+import com.daren.admin.webapp.wicket.theme.BasicTheme;
+import com.daren.core.web.component.table.IrisAjaxNavigationToolbar;
+import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
-import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.jquery.core.ajax.IJQueryAjaxAware;
-import com.googlecode.wicket.jquery.core.ajax.JQueryAjaxBehavior;
-import com.googlecode.wicket.jquery.core.settings.IJQueryLibrarySettings;
-import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
-import com.googlecode.wicket.kendo.ui.datatable.DataTable;
-import com.googlecode.wicket.kendo.ui.datatable.ToolbarAjaxBehavior;
-import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.CurrencyPropertyColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
-import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
-import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
-import org.apache.wicket.Application;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.PriorityHeaderItem;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.extensions.markup.html.repeater.tree.table.TreeColumn;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * 项目名称:  urgent-project
- * 类描述:
+ * 类描述:    功能测试页
  * 创建人:    sunlf
  * 创建时间:  2014/7/5 20:36
  * 修改人:    sunlf
@@ -47,116 +41,124 @@ import java.util.List;
  */
 public class Page2 extends BasePanel {
     @Inject
-    @Reference(id = "userLoginService", serviceInterface = IUserBeanService.class)
-    private static IUserBeanService userBeanService;
-
-    public void setUserBeanService(IUserBeanService userBeanService) {
-        this.userBeanService = userBeanService;
-    }
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    private IDictBeanService dictBeanService;
 
     public Page2(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback");
-        this.add(feedback);
 
-        // Form //
-        /*final Form<?> form = new Form<Void>("form");
-        this.add(form);*/
-
-        // DataTable //
-        IDataProvider<UserBean> provider = newDataProvider();
-        List<IColumn> columns = newColumnList();
-
-        Options options = new Options();
-        options.set("height", 430);
-        options.set("pageable", "{ pageSizes: [ 25, 50, 100 ] }");
-        //options.set("sortable", true); // already set, as provider IS-A ISortStateLocator
-        options.set("groupable", false);
-        options.set("columnMenu", false);
-        options.set("selectable",true);
-        options.set("toolbar", "[ { name: 'view', text: 'View' }, { name: 'save', text: 'Save' } ]");
-        final DataTable<UserBean> table = new DataTable<UserBean>("datatable", columns, provider, 25, options){
-            @Override
-            public void onClick(AjaxRequestTarget target, String button, List<String> values)
-            {
-                this.info(button + " " + values);
-                target.add(feedback);
-            }
-
-            /**
-             * Triggered when a column button is clicked.
-             */
-            @Override
-            public void onClick(AjaxRequestTarget target, ColumnButton button, String value)
-            {
-                this.info(button.getName() + " #" + value);
-                target.add(feedback);
-            }
-
-            @Override
-            protected JQueryAjaxBehavior newToolbarAjaxBehavior(IJQueryAjaxAware source)
-            {
-                return new ToolbarAjaxBehavior(source, "id");
-            }
+        IrisTableTree<Foo, Void> tree = new IrisTableTree<Foo, Void>(
+                "tree", treeColumns(), new FooTreeProvider(), 5) {
         };
+        /*tree.add(new WindowsTheme());
+        tree.getTable().addTopToolbar(new HeadersToolbar<Void>(tree.getTable(), null));
+        tree.getTable().addBottomToolbar(
+                new IrisAjaxNavigationToolbar(tree.getTable()));*/
+        tree.getTable().setOutputMarkupId(true);
+        tree.add(new BasicTheme());
+        add(tree);
+
+        DataTablePage<DictBean, Void> table = new DataTablePage<DictBean, Void>("table11", columns(),
+                new DictDataProvider(), 10);
+        table.addTopToolbar(new HeadersToolbar<Void>(table, null));
+        table.addBottomToolbar(new IrisAjaxNavigationToolbar(table));
+        table.setOutputMarkupId(true);
+
+        table.add(new BasicTheme());
         add(table);
 
-        // Button //
-        /*add(new AjaxButton("refresh") {
 
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form)
-            {
-                table.refresh(target);
-            }
-        });*/
     }
 
-    private static IDataProvider<UserBean> newDataProvider()
-    {
-        return new ListDataProvider<UserBean>(){
-            @Override
-            protected List<UserBean> getData() {
-                return userBeanService.getAllUser();
-            }
-        };
+    protected Item<Foo> mynewRowItem(String id, int index, IModel<Foo> model) {
+        Item<Foo> item = new Item<Foo>(id, index, model);
+
+        return item;
     }
 
-    private static List<IColumn> newColumnList()
-    {
-        List<IColumn> columns = new ArrayList<IColumn>();
-
-        columns.add(new PropertyColumn("ID", "id", 50));
-        columns.add(new PropertyColumn("姓名", "name"));
-        columns.add(new PropertyColumn("邮箱", "email"));
-//        columns.add(new CurrencyPropertyColumn("Price", "price", 70));
-//		columns.add(new DatePropertyColumn("Date", "date"));
-        columns.add(new PropertyColumn("登录名", "loginName"));
-        columns.add(new CommandsColumn("", 100) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public List<ColumnButton> newButtons()
-            {
-                return Arrays.asList(new ColumnButton("edit", Model.of("Edit"), "id"));
-            }
-        });
+    private List<? extends IColumn<Foo, Void>> treeColumns() {
+        List<IColumn<Foo, Void>> columns = new ArrayList<IColumn<Foo, Void>>();
+        columns.add(new TreeColumn<Foo, Void>(Model.of("name"), null));
+//        columns.add(new PropertyColumn<Foo, Void>(Model.of("Name"), null));
+//        columns.add(new PropertyColumn<Foo, Void>(Model.of("Name"), null));
+        columns.add(new PropertyColumn<Foo, Void>(Model.of("Name"), null));
 
         return columns;
     }
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        /*IJavaScriptLibrarySettings settings = (IJQueryLibrarySettings) Application.get().getJavaScriptLibrarySettings();
+    private List<? extends IColumn<DictBean, Void>> columns() {
+        List<IColumn<DictBean, Void>> columns = new ArrayList<IColumn<DictBean, Void>>();
+//        columns.add(new TreeColumn<Foo, Void>(Model.of("name"), null));
+        columns.add(new PropertyColumn<DictBean, Void>(Model.of("标签名"), "label"));
+        columns.add(new PropertyColumn<DictBean, Void>(Model.of("数据值"), "value"));
+        columns.add(new PropertyColumn<DictBean, Void>(Model.of("类型"), "type"));
+        columns.add(new AbstractColumn<DictBean, Void>(Model.of("操作")) {
 
-        // jQuery UI resource reference //
-        if (settings.getJQueryUIReference() != null)
-        {
-            response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(settings.getJQueryUIReference())));
-        }*/
+            @Override
+            public void populateItem(Item<ICellPopulator<DictBean>> cellItem, String componentId, IModel<DictBean> rowModel) {
+                cellItem.add(new AttributeModifier("style", new
+                        Model<String>("width:20px;")));
+                cellItem.add(new MyFragment(componentId, "action", Page2.this, rowModel));
+            }
+        });
+        return columns;
     }
+
+    private class DictDataProvider implements IDataProvider<DictBean> {
+        private List<DictBean> dictBeans;
+
+        private List<DictBean> refresh() {
+            dictBeans = dictBeanService.getAllEntity();
+            return dictBeans;
+        }
+
+        @Override
+        public Iterator iterator(long first, long count) {
+            return dictBeans.subList((int) first, (int) (first + count)).iterator();
+        }
+
+        @Override
+        public long size() {
+            return refresh().size();
+        }
+
+
+        @Override
+        public IModel<DictBean> model(DictBean dictBean) {
+            return Model.of(dictBean);
+        }
+
+        @Override
+        public void detach() {
+
+        }
+    }
+
+
+    private class MyFragment extends Fragment {
+        public MyFragment(String componentId, IModel<DictBean> rowModel) {
+            super("do", componentId, Page2.this, rowModel);
+
+        }
+
+        public MyFragment(String aDo, String componentId, Page2 components, IModel<DictBean> rowModel) {
+            super(aDo, componentId, components, rowModel);
+            add(new AjaxLink<DictBean>("edit") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+
+                }
+            });
+
+            add(new AjaxLink<DictBean>("delete") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+
+                }
+            });
+        }
+
+
+    }
+
 }

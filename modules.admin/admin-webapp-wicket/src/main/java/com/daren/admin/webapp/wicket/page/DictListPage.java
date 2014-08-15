@@ -2,9 +2,10 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -141,7 +142,7 @@ public class DictListPage extends BasePanel {
 
     //列表显示
     public class MainFragment extends Fragment {
-        private final FeedbackPanel feedbackPanel;
+        private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
@@ -150,7 +151,7 @@ public class DictListPage extends BasePanel {
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
             //add feedback
-            feedbackPanel = new FeedbackPanel("feedback");
+            feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -178,7 +179,7 @@ public class DictListPage extends BasePanel {
             table.add(listView);
 
             //增加分页指示器
-            CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", listView) {
+            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
             };
             table.add(pagingNavigator);
 

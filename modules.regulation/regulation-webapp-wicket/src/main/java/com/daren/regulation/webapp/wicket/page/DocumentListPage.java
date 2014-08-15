@@ -1,17 +1,18 @@
 package com.daren.regulation.webapp.wicket.page;
 
-import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.navigator.CustomePagingNavigator;
+
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import com.daren.regulation.entities.RegulationBean;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.time.Duration;
 
@@ -29,12 +30,14 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class DocumentListPage extends BasePanel {
+public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public DocumentListPage(final String id, final WebMarkupContainer wmc, final long entityId) {
-        super(id, wmc);
+    public DocumentListPage(String id, String title, IModel<RegulationBean> model) {
+        super(id, title, model);
+        RegulationBean regulationBean = (RegulationBean) model.getObject();
+        long entityId = regulationBean.getId();
         List<DocmentBean> list = uploadDocumentService.getDocmentBeanListByAttach(entityId);
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
@@ -43,8 +46,8 @@ public class DocumentListPage extends BasePanel {
             @Override
             protected void populateItem(ListItem<DocmentBean> item) {
                 final DocmentBean docmentBean = item.getModelObject();
-                item.add(new Label("col1", docmentBean.getName()));
-                item.add(new Label("col2", docmentBean.getDescription()));
+                item.add(new Label("name", docmentBean.getName()));
+                item.add(new Label("description", docmentBean.getDescription()));
 
                 //下载文档
                 DownloadLink alinkdownDocument = new DownloadLink("downDocument", new AbstractReadOnlyModel<File>() {
@@ -67,21 +70,10 @@ public class DocumentListPage extends BasePanel {
                 item.add(alinkdownDocument.setOutputMarkupId(true));
             }
         };
-        CustomePagingNavigator pagingNavigator = new CustomePagingNavigator("navigator", lv) {
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
         };
         table.add(pagingNavigator);
         table.setVersioned(false);
         table.add(lv);
-
-        //返回按钮
-        AjaxLink ajaxLinkReturn = new AjaxLink("return") {
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                wmc.removeAll();
-                wmc.addOrReplace(new RegulationPage(id, wmc));
-                ajaxRequestTarget.add(wmc);
-            }
-        };
-        this.add(ajaxLinkReturn);
     }
 }
