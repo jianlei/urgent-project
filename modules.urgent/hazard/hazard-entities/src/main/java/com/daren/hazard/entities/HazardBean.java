@@ -48,16 +48,26 @@ public class HazardBean extends PersistentEntity {
      */
     private int enterpriseBeanId;
 
+    private String place;//所在地址
+    private String startTime;//投用时间
+    private String level;//重大危险源级别
+    private String describe;//主要装置，设置，规模
+    private String inChemical;//是否在化工园区
+    private String distanceOtherHazard;//距离其他重危目标距离
+    private String scope500MHaveMans;//范围500米内人数估算值
+
+
+
+    public HazardBean() {
+
+    }
+
     public int getEnterpriseBeanId() {
         return enterpriseBeanId;
     }
 
     public void setEnterpriseBeanId(int enterpriseBeanId) {
         this.enterpriseBeanId = enterpriseBeanId;
-    }
-
-    public HazardBean() {
-
     }
 
     public String getLng() {
