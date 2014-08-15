@@ -45,20 +45,16 @@
 
             </tr>
             <tr>
-                <td class="tdl">经度</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="lng"/>
-                </td>
-                <td class="tdl">纬度</td>
+                <td class="tdl">标注地址</td>
                 <td class="td_detail">
-                    <input class="ipt" wicket:id="lat"/>
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="lng"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="lat"/>
                 </td>
                 <td class="tdl">可能发生事故几率</td>
                 <td class="td_detail">
                     <input class="ipt" wicket:id="accidentRate"/>
                 </td>
-            </tr>
-            <tr>
                 <td class="tdl">评估意见</td>
                 <td class="td_detail">
                     <input class="ipt" wicket:id="estimate"/>
@@ -66,8 +62,10 @@
             </tr>
             </tbody>
         </table>
-
     </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
 </wicket:panel>
 </body>
 </html>

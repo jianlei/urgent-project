@@ -3,6 +3,7 @@ package com.daren.equipment.webapp.wicket.page;
 import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -10,13 +11,14 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -30,15 +32,13 @@ import java.util.Map;
  */
 
 public class EquipmentCreatePage extends BasePanel {
-
+    final WebMarkupContainer dialogWrapper;
+    IrisAbstractDialog dialog;
+    Form<EquipmentBean> equipmentBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new EquipmentBean()));
+    EquipmentBean equipmentBean = new EquipmentBean();
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IEquipmentBeanService equipmentBeanService;
-
-    Form<EquipmentBean> equipmentBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new EquipmentBean()));
-
-    EquipmentBean equipmentBean = new EquipmentBean();
-
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
 
     public EquipmentCreatePage(final String id, final WebMarkupContainer wmc, final EquipmentBean bean) {
         super(id, wmc);
@@ -49,6 +49,19 @@ public class EquipmentCreatePage extends BasePanel {
         initFeedBack();
         addForm(id, wmc);
         addSelectToForm();
+
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog"));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
@@ -57,7 +70,7 @@ public class EquipmentCreatePage extends BasePanel {
         this.add(equipmentBeanForm);
 
         addTextFieldsToForm();
-
+        equipmentBeanForm.add(initGisButton());
         AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", equipmentBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -97,15 +110,16 @@ public class EquipmentCreatePage extends BasePanel {
     }
 
     //通过字典初始化下拉列表
-    private void initSelect(String name,String dictConst) {
+    private void initSelect(String name, String dictConst) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,dictConst);
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
         equipmentBeanForm.add(listSites);
     }
+
     //通过Map初始化下拉列表
-    private void initSelect(String name,Map<String, String> typeMap) {
+    private void initSelect(String name, Map<String, String> typeMap) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name,typeMap);
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
         equipmentBeanForm.add(listSites);
     }
 
@@ -121,14 +135,15 @@ public class EquipmentCreatePage extends BasePanel {
         equipmentBeanForm.add(textField);
     }
 
+    private void addHiddenFieldToForm(String value) {
+        HiddenField hiddenField = new HiddenField(value);
+        equipmentBeanForm.add(hiddenField);
+    }
+
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
-//        addTextFieldToForm("property");
-//        addTextFieldToForm("registrationType");
         addTextFieldToForm("rescueId");
         addTextFieldToForm("unitName");
-//        addTextFieldToForm("equipmentSources");
-//        addTextFieldToForm("equipmentType");
         addTextFieldToForm("parametersSpecifications");
         addTextFieldToForm("measuringUnit");
         addTextFieldToForm("amount");
@@ -148,6 +163,31 @@ public class EquipmentCreatePage extends BasePanel {
         addTextFieldToForm("storagePlace");
         addTextFieldToForm("img");
         addTextFieldToForm("remark");
+        addHiddenFieldToForm("lng");
+        addHiddenFieldToForm("lat");
     }
 
+    private void createDialog(AjaxRequestTarget target, final String title) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new MapPage("dialog", title, null) {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
+    }
+
+    private AjaxLink initGisButton() {
+        AjaxLink alink = new AjaxLink("gisSrc") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "标注地址");
+            }
+        };
+        return alink;
+    }
 }

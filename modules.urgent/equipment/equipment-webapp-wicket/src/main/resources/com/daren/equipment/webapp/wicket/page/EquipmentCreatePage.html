@@ -96,13 +96,21 @@
             <tr>
                 <td class="tdl"> 装备图片</td>
                 <td class="detail"><input class="ipt" wicket:id="img"/></td>
+                <td class="tdl">标注地址</td>
+                <td class="td_detail">
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="lng"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="lat"/>
+                </td>
                 <td class="tdl"> 备注</td>
                 <td class="detail"><input class="ipt" wicket:id="remark"/></td>
             </tr>
             </tbody>
         </table>
-
     </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
 </wicket:panel>
 </body>
 </html>
