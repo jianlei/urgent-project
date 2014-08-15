@@ -2,6 +2,7 @@ package com.daren.majorhazardsource.webapp.wicket.page;
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -15,5 +16,12 @@ import org.apache.wicket.model.IModel;
 public class MapPage extends IrisAbstractDialog<MajorHazardSourceBean> {
     public MapPage(String id, String title, IModel<MajorHazardSourceBean> model) {
         super(id, title, model);
+    }
+
+    @Override
+    public void onConfigure(JQueryBehavior behavior) {
+        super.onConfigure(behavior);
+        behavior.setOption("width", 600);
+        behavior.setOption("height", 500);
     }
 }

@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<div id="allmap" style="border:solid 1px; width:100%; height:500px;border:solid 1px red;"></div>
+<div id="allmap" style="border:solid 1px; width:100%; height:360px;border:solid 1px red;"></div>
 <script type="text/javascript">
     var map;
     jQuery(document).ready(function () {
@@ -47,8 +47,8 @@
                         var marker = new BMap.Marker(point, {icon: iconImg});
                         map.addOverlay(marker);
                         markers.push(marker);
-                        parent.$("#longitude").val(markerPoint.getPosition().lng);
-                        parent.$("#latitude").val(markerPoint.getPosition().lat);
+                        parent.document.getElementById('longitude').value = markerPoint.getPosition().lng;
+                        parent.document.getElementById('latitude').value = markerPoint.getPosition().lat;
                     }
                 }
             ];
