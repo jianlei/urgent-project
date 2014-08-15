@@ -2,6 +2,7 @@ package com.daren.accident.webapp.wicket.page;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.navigator.CustomerPagingNavigator;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -104,7 +105,7 @@ public class AccidentPage extends BasePanel {
                 item.add(ajaxLink);
                 item.add(new Label("accidentLevel", accidentBean.getAccidentLevel()));
                 item.add(new Label("accidentType", accidentBean.getAccidentType()));
-                item.add(new Label("accidentTime", accidentBean.getAccidentTime()));
+                item.add(new Label("accidentTime", DateUtil.convertDateToString(accidentBean.getAccidentTime(),DateUtil.longSdf) ));
                 addDeleteLink(item, "delete", accidentBean, table);
             }
         };
