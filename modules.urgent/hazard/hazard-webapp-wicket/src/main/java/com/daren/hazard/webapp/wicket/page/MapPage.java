@@ -1,7 +1,7 @@
-package com.daren.majorhazardsource.webapp.wicket.page;
+package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
+import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import org.apache.wicket.model.IModel;
 
@@ -13,8 +13,8 @@ import org.apache.wicket.model.IModel;
  * @修改时间：
  * @修改备注：
  */
-public class MapPage extends IrisAbstractDialog<MajorHazardSourceBean> {
-    public MapPage(String id, String title, IModel<MajorHazardSourceBean> model) {
+public class MapPage extends IrisAbstractDialog<HazardBean> {
+    public MapPage(String id, String title, IModel<HazardBean> model) {
         super(id, title, model);
     }
 
