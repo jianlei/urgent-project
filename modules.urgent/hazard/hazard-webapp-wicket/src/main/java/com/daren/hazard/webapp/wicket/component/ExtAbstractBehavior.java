@@ -1,4 +1,4 @@
-package com.daren.majorhazardsource.webapp.wicket.component;
+package com.daren.hazard.webapp.wicket.component;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;

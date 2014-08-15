@@ -14,7 +14,7 @@
     <artifactId>modules.urgent.hazard</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - Major Hazard Source</name>
+    <name>Urgent :: Modules - 重大危险源</name>
 
     <packaging>pom</packaging>
 

@@ -1,9 +1,9 @@
-package com.daren.majorhazardsource.core.biz;
+package com.daren.hazard.core.biz;
 
 import com.daren.core.impl.biz.GenericBizServiceImpl;
-import com.daren.majorhazardsource.api.biz.IHazardBeanService;
-import com.daren.majorhazardsource.api.dao.IHazardBeanDao;
-import com.daren.majorhazardsource.entities.HazardBean;
+import com.daren.hazard.api.biz.IHazardBeanService;
+import com.daren.hazard.api.dao.IHazardBeanDao;
+import com.daren.hazard.entities.HazardBean;
 
 import java.util.List;
 

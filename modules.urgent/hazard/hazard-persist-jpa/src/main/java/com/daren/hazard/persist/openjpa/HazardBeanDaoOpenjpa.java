@@ -1,8 +1,8 @@
-package com.daren.majorhazardsource.persist.openjpa;
+package com.daren.hazard.persist.openjpa;
 
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
-import com.daren.majorhazardsource.api.dao.IHazardBeanDao;
-import com.daren.majorhazardsource.entities.HazardBean;
+import com.daren.hazard.api.dao.IHazardBeanDao;
+import com.daren.hazard.entities.HazardBean;
 
 
 /**

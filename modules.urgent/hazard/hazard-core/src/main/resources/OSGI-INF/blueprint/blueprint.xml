@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <service id="hazardService" interface="com.daren.majorhazardsource.api.biz.IHazardBeanService">
-        <bean class="com.daren.majorhazardsource.core.biz.HazardBeanServiceImpl">
+    <service id="hazardService" interface="com.daren.hazard.api.biz.IHazardBeanService">
+        <bean class="com.daren.hazard.core.biz.HazardBeanServiceImpl">
             <property name="hazardBeanDao" ref="hazardBeanDao"/>
                 </bean>
     </service>
-    <reference id="hazardBeanDao" interface="com.daren.majorhazardsource.api.dao.IHazardBeanDao"/>
+    <reference id="hazardBeanDao" interface="com.daren.hazard.api.dao.IHazardBeanDao"/>
 </blueprint>
 

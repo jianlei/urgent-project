@@ -1,4 +1,4 @@
-package com.daren.majorhazardsource.entities;
+package com.daren.hazard.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
 

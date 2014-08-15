@@ -1,7 +1,7 @@
-package com.daren.majorhazardsource.webapp.wicket;
+package com.daren.hazard.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.majorhazardsource.webapp.wicket.page.HazardTabPage;
+import com.daren.hazard.webapp.wicket.page.HazardTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 

@@ -1,9 +1,9 @@
-package com.daren.majorhazardsource.webapp.wicket.page;
+package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.majorhazardsource.api.biz.IHazardBeanService;
-import com.daren.majorhazardsource.entities.HazardBean;
+import com.daren.hazard.api.biz.IHazardBeanService;
+import com.daren.hazard.entities.HazardBean;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;

@@ -1,7 +1,7 @@
-package com.daren.majorhazardsource.api.dao;
+package com.daren.hazard.api.dao;
 
 import com.daren.core.api.persistence.IGenericDao;
-import com.daren.majorhazardsource.entities.HazardBean;
+import com.daren.hazard.entities.HazardBean;
 
 /**
  * Created by dell on 14-1-16.

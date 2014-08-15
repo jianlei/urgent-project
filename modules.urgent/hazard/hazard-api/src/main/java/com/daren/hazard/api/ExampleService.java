@@ -1,4 +1,4 @@
-package com.daren.majorhazardsource.api;
+package com.daren.hazard.api;
 
 /**
  * Public API representing an example OSGi service

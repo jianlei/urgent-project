@@ -1,6 +1,6 @@
-package com.daren.majorhazardsource.api.internal;
+package com.daren.hazard.api.internal;
 
-import com.daren.majorhazardsource.api.ExampleService;
+import com.daren.hazard.api.ExampleService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 

@@ -1,7 +1,7 @@
-package com.daren.majorhazardsource.webapp.wicket.page;
+package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.majorhazardsource.entities.HazardBean;
+import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;

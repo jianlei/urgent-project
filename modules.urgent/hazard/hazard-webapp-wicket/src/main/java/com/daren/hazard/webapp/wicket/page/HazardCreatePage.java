@@ -1,11 +1,9 @@
-package com.daren.majorhazardsource.webapp.wicket.page;
+package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.majorhazardsource.api.biz.IHazardBeanService;
-import com.daren.majorhazardsource.entities.HazardBean;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
-import com.daren.majorhazardsource.api.biz.IMajorHazardSourceBeanService;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
+import com.daren.hazard.api.biz.IHazardBeanService;
+import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -33,19 +31,19 @@ import java.util.Date;
 public class HazardCreatePage extends BasePanel {
 
     @Inject
-    private IHazardBeanService majorHazardSourceService;
+    private IHazardBeanService hazardBeanService;
 
-    Form<HazardBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
+    Form<HazardBean> hazardBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
 
     HazardBean hazardBean = new HazardBean();
 
     final WebMarkupContainer dialogWrapper;
     IrisAbstractDialog dialog;
-    Form<MajorHazardSourceBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new MajorHazardSourceBean()));
-    MajorHazardSourceBean majorHazardSourceBean = new MajorHazardSourceBean();
+    Form<HazardBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
+    HazardBean majorHazardSourceBean = new HazardBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
-    private IMajorHazardSourceBeanService majorHazardSourceService;
+    private IHazardBeanService majorHazardSourceService;
 
     public HazardCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean bean) {
         super(id, wmc);
