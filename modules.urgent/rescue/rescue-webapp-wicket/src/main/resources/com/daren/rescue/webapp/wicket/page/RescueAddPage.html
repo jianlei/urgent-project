@@ -2,10 +2,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
-
+    <title></title>
 </wicket:head>
+<body>
 <wicket:panel>
-    <body>
     <div class="alert alert-info">当前位置<b class="tip"/>资源管理<b class="tip"/>救援队管理</div>
     <form method="post" wicket:id="dictForm">
         <span wicket:id="feedback"/>
@@ -48,8 +48,8 @@
                 <td class="tdl">标注地址</td>
                 <td class="td_detail">
                     <a href="#" wicket:id="gisSrc">请点击标注</a>
-                    <input class="ipt" type="text" id="longitude" wicket:id="longitude"/>
-                    <input class="ipt" type="text" id="latitude" wicket:id="latitude"/>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="longitude"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="latitude"/>
                 </td>
                 <td class="tdl">主要装备描述</td>
                 <td class="td_detail">
@@ -84,6 +84,6 @@
     <div wicket:id="dialogWrapper">
         <div wicket:id="dialog"></div>
     </div>
-    </body>
 </wicket:panel>
+</body>
 </html>

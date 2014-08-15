@@ -11,6 +11,7 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -79,8 +80,8 @@ public class RescueAddPage extends Panel {
         dictForm.add(new TextField("telephone").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("totalNumber").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("address").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("longitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("latitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        dictForm.add(new HiddenField("longitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        dictForm.add(new HiddenField("latitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("equipment").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("expertise").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("remarks").setOutputMarkupId(true).add(new ValidationStyleBehavior()));

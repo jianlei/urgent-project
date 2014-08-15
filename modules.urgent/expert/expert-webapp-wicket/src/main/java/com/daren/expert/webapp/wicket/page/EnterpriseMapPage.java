@@ -2,6 +2,7 @@ package com.daren.expert.webapp.wicket.page;
 
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.expert.entities.EnterpriseExpertBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -15,5 +16,12 @@ import org.apache.wicket.model.IModel;
 public class EnterpriseMapPage extends IrisAbstractDialog<EnterpriseExpertBean> {
     public EnterpriseMapPage(String id, String title, IModel<EnterpriseExpertBean> model) {
         super(id, title, model);
+    }
+
+    @Override
+    public void onConfigure(JQueryBehavior behavior) {
+        super.onConfigure(behavior);
+        behavior.setOption("width", 600);
+        behavior.setOption("height", 500);
     }
 }
