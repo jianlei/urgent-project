@@ -4,6 +4,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.hazard.api.biz.IHazardBeanService;
 import com.daren.hazard.entities.HazardBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -74,7 +75,7 @@ public class HazardCreatePage extends BasePanel {
 
         addTextFieldsToForm();
         majorHazardSourceBeanForm.add(initGisButton());
-        AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", majorHazardSourceBeanForm) {
+        AjaxButton ajaxSubmitLink = new AjaxButton("save", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 HazardBean hazardBean = (HazardBean) majorHazardSourceBeanForm.getDefaultModelObject();
@@ -91,10 +92,10 @@ public class HazardCreatePage extends BasePanel {
                 }
             }
         };
-        add(ajaxSubmitLink);
-        add(new AjaxLink("cancel") {
+        majorHazardSourceBeanForm.add(ajaxSubmitLink);
+        majorHazardSourceBeanForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

@@ -6,6 +6,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -72,7 +73,7 @@ public class EnterpriseCreatePage extends BasePanel {
                 new Options("dateFormat", Options.asString("yy-mm-dd")));
         enterpriseBeanForm.add(datePicker);
 
-        AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", enterpriseBeanForm) {
+        AjaxButton ajaxButton = new AjaxButton("save", enterpriseBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanForm.getDefaultModelObject();
@@ -89,10 +90,10 @@ public class EnterpriseCreatePage extends BasePanel {
                 }
             }
         };
-        add(ajaxSubmitLink);
-        add(new AjaxLink("cancel") {
+        enterpriseBeanForm.add(ajaxButton);
+        enterpriseBeanForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

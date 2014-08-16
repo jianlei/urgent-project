@@ -4,6 +4,7 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.drill.api.biz.IUploadDocumentService;
 import com.daren.drill.entities.UrgentDrillBean;
 import com.daren.drill.entities.VideoBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -45,7 +46,7 @@ public class UploadVideoPage extends IrisAbstractDialog<UrgentDrillBean> {
         form.add(new TextField("description"));
 
         //保存按钮
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 VideoBean videoBean1 = (VideoBean) form.getDefaultModelObject();
@@ -70,6 +71,6 @@ public class UploadVideoPage extends IrisAbstractDialog<UrgentDrillBean> {
                 super.onSubmit(target, form);
             }
         };
-        add(ajaxSubmitLinkCreate);
+        form.add(ajaxSubmitLinkCreate);
     }
 }

@@ -4,8 +4,8 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
 import com.daren.regulation.entities.RegulationBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
@@ -43,7 +43,7 @@ public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
         form.add(new TextField("description"));
 
         //保存按钮
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 DocmentBean docmentBean1 = (DocmentBean) form.getDefaultModelObject();
@@ -68,6 +68,6 @@ public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
                 super.onSubmit(target, form);
             }
         };
-        add(ajaxSubmitLinkCreate);
+        form.add(ajaxSubmitLinkCreate);
     }
 }

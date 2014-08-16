@@ -7,6 +7,7 @@ import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.ISpotPlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
 import com.daren.reserveplan.entities.SpotPlanBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -98,7 +99,7 @@ public class SpotPlanEditPage extends BasePanel {
         spotPlanForm.add(new TextField("type"));
         spotPlanForm.add(fileUploadFieldSpecial);
 
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", spotPlanForm) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", spotPlanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 SpotPlanBean spotPlanBean = (SpotPlanBean) form.getDefaultModelObject();
@@ -113,10 +114,10 @@ public class SpotPlanEditPage extends BasePanel {
                 target.add(spotPlanForm);
             }
         };
-        add(ajaxSubmitLinkCreate);
-        add(new AjaxLink("cancel") {
+        spotPlanForm.add(ajaxSubmitLinkCreate);
+        spotPlanForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

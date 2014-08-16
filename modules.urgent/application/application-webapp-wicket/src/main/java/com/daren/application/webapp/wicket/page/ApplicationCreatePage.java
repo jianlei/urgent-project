@@ -6,6 +6,7 @@ import com.daren.application.entities.ApplicationBean;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -46,7 +47,7 @@ public class ApplicationCreatePage extends BasePanel {
         form.add(fileUploadField);
         form.add(new TextField("description"));
 
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 DocumentBean documentBean1 = (DocumentBean) form.getDefaultModelObject();
@@ -84,6 +85,16 @@ public class ApplicationCreatePage extends BasePanel {
                 target.appendJavaScript("alert('保存成功')");
             }
         };
-        add(ajaxSubmitLinkCreate);
+        form.add(ajaxSubmitLinkCreate);
+
+//        form.add(new AjaxButton("cancel") {
+//            @Override
+//            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+//                onDeleteTabs(target);
+//            }
+//        });
+    }
+    // Hook 回调函数
+    protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

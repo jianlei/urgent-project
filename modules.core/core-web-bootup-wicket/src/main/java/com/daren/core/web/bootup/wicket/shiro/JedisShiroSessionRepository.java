@@ -99,6 +99,8 @@ public class JedisShiroSessionRepository implements
         } catch (JedisException e) {
             logger.error("获取id为" + id
                     + "的session失败", e);
+        } catch (Exception e) {
+            logger.error("登录异常", e);
         } finally {
             this.returnResource(jedis);
         }

@@ -5,6 +5,7 @@ import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -78,7 +79,7 @@ public class ReservePlanEditPage extends BasePanel {
         form.add(new TextField("description"));
         form.add(new TextField("name"));
 
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 ReservePlanBean reservePlanBean = (ReservePlanBean) form.getDefaultModelObject();
@@ -93,11 +94,11 @@ public class ReservePlanEditPage extends BasePanel {
                 target.add(feedbackPanel);
             }
         };
-        add(ajaxSubmitLinkCreate);
+        form.add(ajaxSubmitLinkCreate);
 
-        add(new AjaxLink("cancel") {
+        form.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });
