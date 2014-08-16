@@ -175,7 +175,7 @@ public class UserListPage extends BasePanel {
 
                 @Override
                 public void onClose(AjaxRequestTarget target, DialogButton button) {
-                    target.add(this);
+                    // target.add(this);
                 }
             };
             container.add(dialog.setOutputMarkupId(true));

@@ -1,6 +1,5 @@
 package com.daren.enterprise.webapp.gis.page;
 
-import com.daren.core.web.wicket.BasePanel;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
@@ -13,9 +12,16 @@ import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.google.gson.Gson;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -29,7 +35,7 @@ import java.util.List;
  * 修改时间:  2014/7/5 14:29
  * 修改备注:  [说明本次修改内容]
  */
-public class GisPanel extends BasePanel {
+public class GisPanel extends Panel implements IHeaderContributor {
     //注入服务
     @Inject
     @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
@@ -49,7 +55,8 @@ public class GisPanel extends BasePanel {
 
     //ajax target container
     public GisPanel(String id, WebMarkupContainer wmc) {
-        super(id, wmc);
+        super(id);
+        // wmc.removeAll();
 
         //救援队标注
         AjaxLink ajaxLinkRescue = new AjaxLink("rescueButton") {
@@ -100,6 +107,32 @@ public class GisPanel extends BasePanel {
                 ajaxRequestTarget.prependJavaScript("parseEquipment(" + string + ")");
             }
         };
+
         this.add(ajaxLinkEquipment);
+
+        //调用OnDomReadyHeader方法
+        this.add(new Behavior() {
+            @Override
+            public void renderHead(Component component, IHeaderResponse response) {
+                response.render(OnDomReadyHeaderItem.forScript("loadScript();"));
+            }
+        });
     }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+    }
+
+    @Override
+    public void renderHead(HtmlHeaderContainer container) {
+        super.renderHead(container);
+//        IRequestTarget target = RequestCycle.get().getActiveRequestHandler().
+    }
+
+    public void renderHead(IHeaderResponse response) {
+//        response.render(getHead).renderOnDomReadyJavascript("alert('hello');");
+    }
+
+
 }

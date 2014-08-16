@@ -7,8 +7,10 @@ import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,8 +26,8 @@ import java.util.List;
  */
 public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
     private static final long serialVersionUID = 1L;
-    protected final DialogButton btnSubmit = new DialogButton("Save", JQueryIcon.CHECK);
-    protected final DialogButton btnCancel = new DialogButton(LBL_CANCEL, JQueryIcon.CANCEL);
+    protected final DialogButton btnSubmit = new DialogButton("确认", JQueryIcon.CHECK);
+    protected final DialogButton btnCancel = new DialogButton("取消", JQueryIcon.CANCEL);
 
     private Form<?> form;
     private FeedbackPanel feedback;
@@ -38,9 +40,15 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
 
 
         // Slider //
-        this.form.add(new PasswordTextField("oldPassword"));
-        this.form.add(new PasswordTextField("newPassword"));
-        this.form.add(new PasswordTextField("repeatPassword"));
+        PasswordTextField newPassword = new PasswordTextField("newPassword");
+        this.form.add(newPassword.setLabel(Model.of("'密码'")));
+        PasswordTextField repeatPassword = new PasswordTextField("repeatPassword");
+        repeatPassword.setLabel(Model.of("'确认密码'"));
+        this.form.add(repeatPassword);
+
+        //密码相同的校验
+        EqualPasswordInputValidator equalPasswordInputValidator = new EqualPasswordInputValidator(newPassword, repeatPassword);
+        this.form.add(equalPasswordInputValidator);
 
         // FeedbackPanel //
         this.feedback = new JQueryFeedbackPanel("feedback");

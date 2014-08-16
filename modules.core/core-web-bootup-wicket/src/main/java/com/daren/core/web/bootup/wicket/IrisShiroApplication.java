@@ -55,6 +55,12 @@ public class IrisShiroApplication extends WebApplication {
     // Constructors
     // --------------------------------------------------------------------------
 
+    //切换到开发模式
+   /* @Override
+    public RuntimeConfigurationType getConfigurationType() {
+        return RuntimeConfigurationType.DEPLOYMENT;
+    }*/
+
     public void setHomePageProvider(IHomePageProvider homePageProvider) {
         this.homePageProvider = homePageProvider;
 
@@ -79,6 +85,8 @@ public class IrisShiroApplication extends WebApplication {
         // restarted
         getExceptionSettings().setAjaxErrorHandlingStrategy(
                 IExceptionSettings.AjaxErrorStrategy.REDIRECT_TO_ERROR_PAGE);
+        //设置debug输出
+//        getDebugSettings().setAjaxDebugModeEnabled(false);
         //避免将Wicket 标签输出到客户端
         getMarkupSettings().setStripWicketTags(true);
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
