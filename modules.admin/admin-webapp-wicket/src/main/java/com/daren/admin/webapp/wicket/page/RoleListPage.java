@@ -6,6 +6,7 @@ import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
@@ -14,8 +15,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -90,12 +89,18 @@ public class RoleListPage extends BasePanel {
      *
      * @return
      */
-    private IndicatingAjaxLink initAddButton() {
+    private AjaxButton initAddButton() {
         //新增
-        IndicatingAjaxLink addButton = new IndicatingAjaxLink("add") {
+        AjaxButton addButton = new AjaxButton("add") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                createNewTab(target, CONST_ADD, null);
+
             }
         };
         return addButton;
@@ -187,10 +192,11 @@ public class RoleListPage extends BasePanel {
             textField.setRequired(false);
             userForm.add(textField.setOutputMarkupId(true));
 
-            //find button
-            userForm.add(initFindButton(provider, userForm));
             //add button
             userForm.add(initAddButton());
+            //find button
+            userForm.add(initFindButton(provider, userForm));
+
 
             add(userForm);
         }
@@ -253,9 +259,9 @@ public class RoleListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final DictDataProvider provider, Form form) {
+        private AjaxButton initFindButton(final DictDataProvider provider, Form form) {
 
-            return new IndicatingAjaxButton("find", form) {
+            return new AjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                     RoleBean userBean = (RoleBean) form.getModelObject();

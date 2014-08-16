@@ -7,6 +7,7 @@ import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
@@ -17,8 +18,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -94,15 +93,18 @@ public class UserListPage extends BasePanel {
      *
      * @return
      */
-    private IndicatingAjaxLink initAddButton() {
-        //新增
-        IndicatingAjaxLink addButton = new IndicatingAjaxLink("add") {
+    private AjaxButton initAddButton() {
+        return new AjaxButton("add") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createNewTab(target, CONST_ADD, null);
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
             }
         };
-        return addButton;
     }
 
     /**
@@ -305,9 +307,9 @@ public class UserListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final UserDataProvider provider, Form form) {
+        private AjaxButton initFindButton(final UserDataProvider provider, Form form) {
 
-            return new IndicatingAjaxButton("find", form) {
+            return new AjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                     UserBean userBean = (UserBean) form.getModelObject();

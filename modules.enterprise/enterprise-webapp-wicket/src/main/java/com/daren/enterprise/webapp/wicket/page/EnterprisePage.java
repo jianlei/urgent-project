@@ -9,7 +9,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -60,6 +60,7 @@ public class EnterprisePage extends BasePanel {
                     item.add(new Label("ADDRESS_JY", enterpriseBean.getAddress_jy()));
 
                     item.add(getToCreatePageLink("check_QYMC", enterpriseBean));
+
                     AjaxLink alink = new AjaxLink("del") {
                         @Override
                         protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -101,6 +102,16 @@ public class EnterprisePage extends BasePanel {
     }
 
 
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final EnterpriseBean enterpriseBean) {
+        AjaxButton ajaxButton = new AjaxButton(wicketId) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createButtonOnClick(enterpriseBean, target);
+            }
+        };
+        return ajaxButton;
+    }
+
     private AjaxLink getToCreatePageLink(String wicketId, final EnterpriseBean enterpriseBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
@@ -110,6 +121,7 @@ public class EnterprisePage extends BasePanel {
         };
         return ajaxLink;
     }
+
 
     protected void createButtonOnClick(EnterpriseBean enterpriseBean, AjaxRequestTarget target) {
 
@@ -122,15 +134,15 @@ public class EnterprisePage extends BasePanel {
      */
     private void createQuery(final WebMarkupContainer table, final EnterpriseDataProvider provider, final String id, final WebMarkupContainer wmc) {
         //处理查询
-        Form<EnterpriseBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new EnterpriseBean()));
+        Form<EnterpriseBean> enterpriseBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new EnterpriseBean()));
         TextField textField = new TextField("qymc");
 
-        majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorHazardSourceBeanForm.add(getToCreatePageLink("create", null));
-        add(majorHazardSourceBeanForm.setOutputMarkupId(true));
+        enterpriseBeanForm.add(textField.setOutputMarkupId(true));
+        enterpriseBeanForm.add(getToCreatePageAjaxButton("create", null));
+        add(enterpriseBeanForm.setOutputMarkupId(true));
 
 
-        AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
+        AjaxButton findButton = new AjaxButton("find", enterpriseBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 EnterpriseBean enterpriseBean = (EnterpriseBean) form.getModelObject();
@@ -138,7 +150,7 @@ public class EnterprisePage extends BasePanel {
                 target.add(table);
             }
         };
-        majorHazardSourceBeanForm.add(findButton);
+        enterpriseBeanForm.add(findButton);
     }
 
 

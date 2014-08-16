@@ -6,6 +6,7 @@ import com.daren.admin.webapp.wicket.data.PermissionTreeProvider;
 import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
@@ -150,11 +151,16 @@ public class PermissionListPage extends BasePanel {
      *
      * @return
      */
-    private IndicatingAjaxLink initAddButton() {
+    private AjaxButton initAddButton() {
         //新增
-        IndicatingAjaxLink addButton = new IndicatingAjaxLink("add") {
+        AjaxButton addButton = new AjaxButton("add") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createNewTab(target, CONST_ADD, null);
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
             }
         };

@@ -273,6 +273,27 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.hazard</groupId>
+                <artifactId>com.daren.hazard.core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.hazard</groupId>
+                <artifactId>com.daren.hazard.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.hazard</groupId>
+                <artifactId>com.daren.hazard.persist.openjpa</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.entities</artifactId>
                 <version>${project.version}</version>

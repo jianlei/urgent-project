@@ -158,6 +158,21 @@
             <artifactId>com.daren.hazard.api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.hazard</groupId>
+            <artifactId>com.daren.hazard.core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.hazard</groupId>
+            <artifactId>com.daren.hazard.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.hazard</groupId>
+            <artifactId>com.daren.hazard.persist.openjpa</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

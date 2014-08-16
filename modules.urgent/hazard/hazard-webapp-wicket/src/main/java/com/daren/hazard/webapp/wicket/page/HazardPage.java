@@ -85,9 +85,19 @@ public class HazardPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxButton getToCreatePageLink(String wicketId, final HazardBean hazardBean) {
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final HazardBean hazardBean) {
         AjaxButton ajaxLink = new AjaxButton(wicketId) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createButtonOnClick(hazardBean, target);
+            }
+        };
+        return ajaxLink;
+    }
+
+    private AjaxLink getToCreatePageLink(String wicketId, final HazardBean hazardBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
                 createButtonOnClick(hazardBean, target);
             }
         };
@@ -109,7 +119,7 @@ public class HazardPage extends BasePanel {
         TextField textField = new TextField("name");
 
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorHazardSourceBeanForm.add(getToCreatePageLink("create", null));
+        majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
 
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {

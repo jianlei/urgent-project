@@ -7,13 +7,13 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -119,7 +119,8 @@ public class ApplicationPage extends BasePanel {
                             } catch (InterruptedException e) {
                                 error(e.getMessage());
                             }
-                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(), wmc, null);
+                            ApplicationCreatePage applicationCreatePage = new ApplicationCreatePage(createPage.newChildId(), wmc, null){
+                            };
                             createPage.add(applicationCreatePage);
                             Fragment fragment = new Fragment(panelId, "panel-2", ApplicationPage.this);
                             fragment.add(createPage);
@@ -135,6 +136,15 @@ public class ApplicationPage extends BasePanel {
         myform.add(addButton);
         myform.add(refreshButton);
         return myform;
+    }
+
+    private int getActiveTab(String title) {
+        for (int i = 0; i < tabPanel.getModelObject().size(); i++) {
+            if (tabPanel.getModelObject().get(i).getTitle().getObject().equals(title)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public class MainFragment extends Fragment {

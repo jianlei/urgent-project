@@ -2,10 +2,9 @@ package com.daren.drill.webapp.wicket.page;
 
 import com.daren.drill.api.biz.IUrgentDrillBeanService;
 import com.daren.drill.entities.UrgentDrillBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -84,9 +83,9 @@ public class UrgentDrillAddPage extends Panel {
             }
         });
 
-        dictForm.add(new AjaxLink("cancel") {
+        dictForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

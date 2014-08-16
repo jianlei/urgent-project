@@ -9,13 +9,7 @@
 <body>
 <wicket:panel>
     <div class="alert alert-info">当前位置<b class="tip"/>应急管理<b class="tip"/>预案申请表编辑</div>
-    <table class="table table-striped table-bordered table-condensed">
-        <tr>
-            <td colspan="6" align="right">
-                <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
-            </td>
-        </tr>
-    </table>
+
     <form wicket:id="applicationCreateForm">
         <table class="table table-striped table-bordered table-condensed">
             <thead>
@@ -40,6 +34,14 @@
                 </td>
             </tr>
             </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <!--<input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>-->
+                </td>
+            </tr>
         </table>
     </form>
 </wicket:panel>

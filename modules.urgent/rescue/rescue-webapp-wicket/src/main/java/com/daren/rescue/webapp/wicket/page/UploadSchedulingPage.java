@@ -4,6 +4,7 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.rescue.api.biz.ISchedulingBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.daren.rescue.entities.SchedulingBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -59,7 +60,7 @@ public class UploadSchedulingPage extends IrisAbstractDialog<RescueBean> {
         form.add(feedbackPanel.setOutputMarkupId(true));
 
         //保存按钮
-        AjaxSubmitLink ajaxSubmitLinkCreate = new AjaxSubmitLink("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
@@ -92,31 +93,31 @@ public class UploadSchedulingPage extends IrisAbstractDialog<RescueBean> {
                                     if (c1 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setDate(stringToDate(getValue(c1)));//日期
+                                    onDutyBeanFile.setDate(stringToDate(getExcelValue(c1)));//日期
 
                                     HSSFCell c2 = hssfRow.getCell((short) 1);
                                     if (c2 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setPerson(getValue(c2));
+                                    onDutyBeanFile.setPerson(getExcelValue(c2));
 
                                     HSSFCell c3 = hssfRow.getCell((short) 2);
                                     if (c3 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setTel(getValue(c3));
+                                    onDutyBeanFile.setTel(getExcelValue(c3));
 
                                     HSSFCell c4 = hssfRow.getCell((short) 3);
                                     if (c4 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setExpertise(getValue(c4));
+                                    onDutyBeanFile.setExpertise(getExcelValue(c4));
 
                                     HSSFCell c5 = hssfRow.getCell((short) 4);
                                     if (c5 == null) {
                                         continue;
                                     }
-                                    onDutyBeanFile.setRemarks(getValue(c5));
+                                    onDutyBeanFile.setRemarks(getExcelValue(c5));
                                     onDutyBeanFile.setAttach(regulationBean.getId());
                                     schedulingBeanService.saveEntity(onDutyBeanFile);
                                     super.onSubmit(target, form);
@@ -136,7 +137,7 @@ public class UploadSchedulingPage extends IrisAbstractDialog<RescueBean> {
                 }
             }
         };
-        add(ajaxSubmitLinkCreate);
+        form.add(ajaxSubmitLinkCreate);
     }
 
     /**
@@ -144,7 +145,7 @@ public class UploadSchedulingPage extends IrisAbstractDialog<RescueBean> {
      *
      * @return Excel中每一个格子中的值
      */
-    private String getValue(HSSFCell hssfCell) {
+    private String getExcelValue(HSSFCell hssfCell) {
         String strCell = "";
         switch (hssfCell.getCellType()) {
             case HSSFCell.CELL_TYPE_STRING:

@@ -7,7 +7,7 @@ import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.EnterpriseExpertBean;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.daren.hazard.api.biz.IHazardBeanService;
-import com.daren.majorhazardsource.entities.MajorHazardSourceBean;
+import com.daren.hazard.entities.HazardBean;
 import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.google.gson.Gson;
@@ -89,7 +89,7 @@ public class GisPanel extends Panel implements IHeaderContributor {
         AjaxLink ajaxLinkMajor = new AjaxLink("majorButton") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<MajorHazardSourceBean> list = hazardBeanService.getAllEntity();
+                List<HazardBean> list = hazardBeanService.getAllEntity();
                 Gson gson = new Gson();
                 String string = gson.toJson(list);
                 ajaxRequestTarget.prependJavaScript("parseMajor(" + string + ")");
