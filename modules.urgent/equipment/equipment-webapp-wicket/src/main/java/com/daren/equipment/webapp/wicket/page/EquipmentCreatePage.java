@@ -7,6 +7,7 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.daren.rescue.api.biz.IRescueBeanService;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -75,7 +76,7 @@ public class EquipmentCreatePage extends BasePanel {
 
         addTextFieldsToForm();
         equipmentBeanForm.add(initGisButton());
-        AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("save", equipmentBeanForm) {
+        AjaxButton ajaxSubmitLink = new AjaxButton("save", equipmentBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 EquipmentBean equipmentBean = (EquipmentBean) equipmentBeanForm.getDefaultModelObject();
@@ -92,10 +93,10 @@ public class EquipmentCreatePage extends BasePanel {
                 }
             }
         };
-        add(ajaxSubmitLink);
-        add(new AjaxLink("cancel") {
+        equipmentBeanForm.add(ajaxSubmitLink);
+        equipmentBeanForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

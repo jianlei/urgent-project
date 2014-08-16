@@ -85,10 +85,10 @@ public class EquipmentPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxLink getToCreatePageLink(String wicketId, final EquipmentBean equipmentBean) {
-        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+    private AjaxButton getToCreatePageLink(String wicketId, final EquipmentBean equipmentBean) {
+        AjaxButton ajaxLink = new AjaxButton(wicketId) {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createButtonOnClick(equipmentBean, target);
             }
         };

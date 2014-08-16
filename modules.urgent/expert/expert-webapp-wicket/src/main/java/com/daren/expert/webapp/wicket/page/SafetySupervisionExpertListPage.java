@@ -5,6 +5,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
@@ -85,11 +86,11 @@ public class SafetySupervisionExpertListPage extends BasePanel {
      *
      * @return
      */
-    private IndicatingAjaxLink initAddButton() {
+    private AjaxButton initAddButton() {
         //新增
-        IndicatingAjaxLink addButton = new IndicatingAjaxLink("add") {
+        AjaxButton addButton = new AjaxButton("add") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
             }
         };
@@ -260,9 +261,9 @@ public class SafetySupervisionExpertListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final DictDataProvider provider, Form form) {
+        private AjaxButton initFindButton(final DictDataProvider provider, Form form) {
 
-            return new IndicatingAjaxButton("find", form) {
+            return new AjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                     SafetySupervisionExpertBean dictBean = (SafetySupervisionExpertBean) form.getModelObject();

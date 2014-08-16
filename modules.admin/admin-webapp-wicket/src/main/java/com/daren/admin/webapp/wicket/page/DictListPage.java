@@ -5,6 +5,7 @@ import com.daren.admin.entities.DictBean;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
@@ -90,12 +91,18 @@ public class DictListPage extends BasePanel {
      *
      * @return
      */
-    private IndicatingAjaxLink initAddButton() {
+    private AjaxButton initAddButton(Form form) {
         //新增
-        IndicatingAjaxLink addButton = new IndicatingAjaxLink("add") {
+        AjaxButton addButton = new AjaxButton("add",form) {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                createNewTab(target, CONST_ADD, null);
+
             }
         };
         return addButton;
@@ -192,7 +199,7 @@ public class DictListPage extends BasePanel {
             //find button
             dictForm.add(initFindButton(provider, dictForm));
             //add button
-            dictForm.add(initAddButton());
+            dictForm.add(initAddButton(dictForm));
 
             add(dictForm);
         }
@@ -255,9 +262,9 @@ public class DictListPage extends BasePanel {
          * @param form
          * @return
          */
-        private IndicatingAjaxButton initFindButton(final DictDataProvider provider, Form form) {
+        private AjaxButton initFindButton(final DictDataProvider provider, Form form) {
 
-            return new IndicatingAjaxButton("find", form) {
+            return new AjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                     DictBean dictBean = (DictBean) form.getModelObject();

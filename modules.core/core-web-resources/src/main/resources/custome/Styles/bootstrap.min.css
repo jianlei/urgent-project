@@ -4109,11 +4109,11 @@ a.label:hover, a.badge:hover {
 }
 
 .label-warning, .badge-warning {
-    background-color: #2d6987
+    background-color: #1c94c4
 }
 
 .label-warning[href], .badge-warning[href] {
-    background-color: #2d6987
+    background-color: #1c94c4
 }
 
 .label-success, .badge-success {
@@ -4129,15 +4129,15 @@ a.label:hover, a.badge:hover {
 }
 
 .label-info[href], .badge-info[href] {
-    background-color: #2d6987
+    background-color: #1c94c4
 }
 
 .label-inverse, .badge-inverse {
-    background-color: #2d6987
+    background-color: #1c94c4
 }
 
 .label-inverse[href], .badge-inverse[href] {
-    background-color: #2d6987
+    background-color: #1c94c4
 }
 
 @-webkit-keyframes progress-bar-stripes {
