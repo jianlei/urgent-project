@@ -155,13 +155,11 @@
                 </td>
             </tr>
             <tr>
-                <td>经度</td>
+                <td class="tdl">标注地址</td>
                 <td class="td_detail">
-                    <input wicket wicket:id="lng"/>
-                </td>
-                <td>纬度</td>
-                <td class="td_detail">
-                    <input wicket wicket:id="lat"/>
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="lng"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="lat"/>
                 </td>
             </tr>
             <tr>
@@ -173,6 +171,9 @@
 
         </table>
     </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
 </wicket:panel>
 </body>
 </html>

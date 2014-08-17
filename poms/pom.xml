@@ -294,6 +294,35 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.accident</groupId>
+                <artifactId>com.daren.accident.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.accident</groupId>
+                <artifactId>com.daren.accident.core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.accident</groupId>
+                <artifactId>com.daren.accident.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.accident</groupId>
+                <artifactId>com.daren.accident.persist.openjpa</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.entities</artifactId>
                 <version>${project.version}</version>

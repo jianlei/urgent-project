@@ -173,6 +173,26 @@
             <artifactId>com.daren.hazard.persist.openjpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.persist.openjpa</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

@@ -7,16 +7,10 @@
         var markers = [];
         var map;
         var infowindow;
-        /*jQuery(document).ready(function () {
-         $("#allmap").height($(".Conframe").height() - 38);
-            map = new BMap.Map("allmap");
-            map.centerAndZoom("四平市", 15);
-            map.enableScrollWheelZoom();
-         });*/
 
-        jQuery(function () {
-            loadScript();
-        });
+        /*jQuery(function () {
+         loadScript();
+         });*/
         function loadScript() {
             var script = document.createElement("script");
             script.type = "text/javascript";
@@ -28,8 +22,11 @@
             map = new BMap.Map("allmap");
             map.centerAndZoom("四平市", 15);
             map.enableScrollWheelZoom();
+            setInterval(accident, 10000);
         }
-
+        function accident() {
+            document.getElementById("accidentButton").click();
+        }
         //救援队
         function parseRescue(gson) {
             map.clearOverlays();
@@ -81,8 +78,19 @@
             for (var i = 0; i < jsonMajor.length; i++) {
                 var _lng = jsonMajor[i].lng;
                 var _lat = jsonMajor[i].lat;
-                alert("lng:" + _lng + "---lat:" + _lat);
                 addpointpandto(_lng, _lat, jsonMajor[i].name, "", "label_zdwxy.png", "重大危险源");
+            }
+        }
+
+        //事故标注
+        function parseAccident(gson) {
+            map.clearOverlays();
+            markers.splice(0);
+            var jsonAccident = eval(gson);
+            for (var i = 0; i < jsonAccident.length; i++) {
+                var _lng = jsonAccident[i].lng;
+                var _lat = jsonAccident[i].lat;
+                addpointpandto(_lng, _lat, jsonAccident[i].accidentTitle, "", "label_bj.gif", "事故");
             }
         }
 
@@ -125,6 +133,8 @@
         <input class="btn btn-inverse" wicket:id="expertsButton" type="button" value="专家标注"/>
         <input class="btn btn-inverse" wicket:id="majorButton" type="button" value="重大危险标注"/>
         <input class="btn btn-inverse" wicket:id="equipmentButton" type="button" value="物资标注"/>
+        <input class="btn btn-inverse" wicket:id="accidentButton" id="accidentButton" type="button" value="事故标注"
+               style="display: none;"/>
     </div>
     <div style="height:2px;"></div>
     <div id="allmap"
