@@ -21,7 +21,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -241,7 +240,7 @@ public class RoleListPage extends BasePanel {
                     try {
                         roleBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
-                        target.addChildren(getPage(), FeedbackPanel.class);
+                        target.addChildren(getPage(), JQueryFeedbackPanel.class);
                         target.add(container);
                     } catch (Exception e) {
                         feedbackPanel.error("删除失败！");

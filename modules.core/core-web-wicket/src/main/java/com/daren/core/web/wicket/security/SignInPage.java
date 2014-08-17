@@ -3,6 +3,7 @@ package com.daren.core.web.wicket.security;
 
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -15,7 +16,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -33,7 +33,7 @@ public class SignInPage extends WebPage {
 
         form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean));
 
-        final FeedbackPanel feedback = new FeedbackPanel("errors");
+        final JQueryFeedbackPanel feedback = new JQueryFeedbackPanel("errors");
         form.add(feedback.setOutputMarkupId(true));
 
         AjaxButton findButton = new AjaxButton("submit", form) {

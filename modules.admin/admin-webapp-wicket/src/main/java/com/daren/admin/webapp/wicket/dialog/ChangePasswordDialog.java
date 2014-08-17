@@ -9,7 +9,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
@@ -31,7 +30,7 @@ public abstract class ChangePasswordDialog extends AbstractFormDialog<UserBean> 
     protected final DialogButton btnCancel = new DialogButton(LBL_CANCEL, JQueryIcon.CANCEL);
 
     private Form<?> form;
-    private FeedbackPanel feedback;
+    private JQueryFeedbackPanel feedback;
 
 
     public ChangePasswordDialog(String id, String title) {

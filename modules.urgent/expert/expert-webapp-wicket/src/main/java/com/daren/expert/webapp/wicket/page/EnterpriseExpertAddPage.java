@@ -7,16 +7,15 @@ import com.daren.expert.entities.EnterpriseExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -35,7 +34,7 @@ public class EnterpriseExpertAddPage extends Panel {
     @Inject
     @Reference(id = "enterpriseExpertBeanService", serviceInterface = IEnterpriseExpertBeanService.class)
     private IEnterpriseExpertBeanService enterpriseExpertBeanService;
-    private FeedbackPanel feedbackPanel; //信息显示
+    private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public EnterpriseExpertAddPage(String id, String type, IModel<EnterpriseExpertBean> model) {
         super(id, model);
@@ -67,7 +66,7 @@ public class EnterpriseExpertAddPage extends Panel {
 
     private void initForm(IModel<EnterpriseExpertBean> model) {
         final Form<EnterpriseExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
-        feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
         dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         //日期控件//
@@ -100,10 +99,10 @@ public class EnterpriseExpertAddPage extends Panel {
                     if (isAdd) {
                         dictForm.setModelObject(new EnterpriseExpertBean());
                     }
-                    feedbackPanel.info(type + dictBean.getType() + "成功！");
+                    feedbackPanel.info("保存成功！");
                     target.add(form);
                 } catch (Exception e) {
-                    feedbackPanel.error(type + "失败！");
+                    feedbackPanel.error("保存失败！");
                     e.printStackTrace();
                 }
             }

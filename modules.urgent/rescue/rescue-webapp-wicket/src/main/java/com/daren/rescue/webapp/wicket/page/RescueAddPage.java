@@ -5,6 +5,7 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -13,7 +14,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -38,7 +38,7 @@ public class RescueAddPage extends Panel {
     @Inject
     @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
     private IRescueBeanService rescueBeanService;
-    private FeedbackPanel feedbackPanel; //信息显示
+    private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public RescueAddPage(String id, String type, IModel<RescueBean> model) {
         super(id, model);
@@ -72,7 +72,7 @@ public class RescueAddPage extends Panel {
 
     private void initForm(IModel<RescueBean> model) {
         final Form<RescueBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
-        feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
         dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("head").setOutputMarkupId(true).add(new ValidationStyleBehavior()));

@@ -5,17 +5,16 @@ import com.daren.rescue.api.biz.IOnDutyBeanService;
 import com.daren.rescue.entities.OnDutyBean;
 import com.daren.rescue.entities.RescueBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.File;
@@ -45,7 +44,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
     @Reference(id = "onDutyBeanService", serviceInterface = IOnDutyBeanService.class)
     private IOnDutyBeanService onDutyBeanService;
 
-    private FeedbackPanel feedbackPanel; //信息显示
+    private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public UploadOnDutyPage(String id, String title, IModel<RescueBean> model) {
         super(id, title, model);
@@ -56,7 +55,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
-        feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
 
         //保存按钮
