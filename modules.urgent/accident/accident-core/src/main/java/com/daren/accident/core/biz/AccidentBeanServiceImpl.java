@@ -5,6 +5,8 @@ import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
 
+import java.util.List;
+
 /**
  * @类描述：品牌服务实现类
  * @创建人：wangkr
@@ -20,6 +22,11 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
     public void setAccidentBeanDao(IAccidentBeanDao accidentBeanDao) {
         this.accidentBeanDao = accidentBeanDao;
         super.init(accidentBeanDao, AccidentBean.class.getName());
+    }
+
+    @Override
+    public List<AccidentBean> queryAccidentByAccidentLevel() {
+        return accidentBeanDao.find("select a from AccidentBean a where a.accidentLevel ='1' ");
     }
 }
 
