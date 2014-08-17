@@ -155,6 +155,14 @@
                 </td>
             </tr>
             <tr>
+                <td class="tdl">标注地址</td>
+                <td class="td_detail">
+                    <a href="#" wicket:id="gisSrc">请点击标注</a>
+                    <input class="ipt" type="hidden" id="longitude" wicket:id="lng"/>
+                    <input class="ipt" type="hidden" id="latitude" wicket:id="lat"/>
+                </td>
+            </tr>
+            <tr>
                 <td>签发人</td>
                 <td class="td_detail">
                     <input wicket wicket:id="signer"/>
@@ -163,6 +171,9 @@
 
         </table>
     </form>
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"></div>
+    </div>
 </wicket:panel>
 </body>
 </html>
