@@ -238,7 +238,7 @@ public class EnterpriseExpertListPage extends BasePanel {
                 protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
                     super.updateAjaxAttributes(attributes);
                     AjaxCallListener listener = new AjaxCallListener();
-                    listener.onPrecondition("if(!confirm('Do you really want to delete?')){return false;}");
+                    listener.onPrecondition("if(!confirm('确定要删除吗')){return false;}");
                     attributes.getAjaxCallListeners().add(listener);
                 }
 
