@@ -85,11 +85,21 @@ public class EquipmentPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final EquipmentBean equipmentBean) {
+        AjaxButton ajaxLink = new AjaxButton(wicketId) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createButtonOnClick(equipmentBean, target);
+            }
+        };
+        return ajaxLink;
+    }
+
     private AjaxLink getToCreatePageLink(String wicketId, final EquipmentBean equipmentBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(equipmentBean, target);
+                createButtonOnClick(equipmentBean,target);
             }
         };
         return ajaxLink;
@@ -110,7 +120,7 @@ public class EquipmentPage extends BasePanel {
         TextField textField = new TextField("name");
 
         equipmentBeanForm.add(textField.setOutputMarkupId(true));
-        equipmentBeanForm.add(getToCreatePageLink("create", null));
+        equipmentBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(equipmentBeanForm.setOutputMarkupId(true));
 
         AjaxButton findButton = new AjaxButton("find", equipmentBeanForm) {

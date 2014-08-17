@@ -85,6 +85,26 @@ public abstract class ChangePasswordDialog extends AbstractFormDialog<UserBean> 
         target.add(this.feedback);
     }
 
+    @Override
+    public void onClose(AjaxRequestTarget target, DialogButton button) {
+        if (button != null && button.match(LBL_CANCEL)) /* or button.equals(this.btnCancel) */ {
+            this.onCancel(target); // to declare
+        }
+    }
+
+    @Override
+    public void onClick(AjaxRequestTarget target, DialogButton button) {
+        super.onClick(target, button); // calling super will close the dialog (if not overridden)
+
+        if (button != null && button.match(LBL_CANCEL)) /* or button.equals(this.btnCancel) */ {
+            this.onCancel(target); // to declare
+        }
+    }
+
+    private void onCancel(AjaxRequestTarget target) {
+        target.add(this.form);
+    }
+
     /*@Override
     public boolean getDefaultFormProcessing() {
         return false;

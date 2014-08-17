@@ -40,11 +40,8 @@ public class HazardCreatePage extends BasePanel {
 
     final WebMarkupContainer dialogWrapper;
     IrisAbstractDialog dialog;
-    Form<HazardBean> majorHazardSourceBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
-    HazardBean majorHazardSourceBean = new HazardBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    @Inject
-    private IHazardBeanService majorHazardSourceService;
+
 
     public HazardCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean bean) {
         super(id, wmc);
@@ -70,19 +67,19 @@ public class HazardCreatePage extends BasePanel {
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
 
-        majorHazardSourceBeanForm.setMultiPart(true);
-        this.add(majorHazardSourceBeanForm);
+        hazardBeanForm.setMultiPart(true);
+        this.add(hazardBeanForm);
 
         addTextFieldsToForm();
-        majorHazardSourceBeanForm.add(initGisButton());
-        AjaxButton ajaxSubmitLink = new AjaxButton("save", majorHazardSourceBeanForm) {
+        hazardBeanForm.add(initGisButton());
+        AjaxButton ajaxSubmitLink = new AjaxButton("save", hazardBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                HazardBean hazardBean = (HazardBean) majorHazardSourceBeanForm.getDefaultModelObject();
+                HazardBean hazardBean = (HazardBean) hazardBeanForm.getDefaultModelObject();
                 if (null != hazardBean) {
                     try {
                         hazardBean.setUpdateDate(new Date());
-                        majorHazardSourceService.saveEntity(hazardBean);
+                        hazardBeanService.saveEntity(hazardBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
                     } catch (Exception e) {
@@ -92,8 +89,8 @@ public class HazardCreatePage extends BasePanel {
                 }
             }
         };
-        majorHazardSourceBeanForm.add(ajaxSubmitLink);
-        majorHazardSourceBeanForm.add(new AjaxButton("cancel") {
+        hazardBeanForm.add(ajaxSubmitLink);
+        hazardBeanForm.add(new AjaxButton("cancel") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
@@ -105,7 +102,7 @@ public class HazardCreatePage extends BasePanel {
     }
 
     private void initForm(HazardBean bean) {
-        majorHazardSourceBeanForm.setModelObject(bean);
+        hazardBeanForm.setModelObject(bean);
     }
 
     private void initFeedBack() {
@@ -115,12 +112,12 @@ public class HazardCreatePage extends BasePanel {
 
     private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
-        majorHazardSourceBeanForm.add(textField);
+        hazardBeanForm.add(textField);
     }
 
     private void addHiddenFieldToForm(String value) {
         HiddenField hiddenField = new HiddenField(value);
-        majorHazardSourceBeanForm.add(hiddenField);
+        hazardBeanForm.add(hiddenField);
     }
 
     private void addTextFieldsToForm() {

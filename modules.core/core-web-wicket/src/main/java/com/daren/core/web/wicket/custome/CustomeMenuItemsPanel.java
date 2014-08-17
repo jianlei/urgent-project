@@ -20,6 +20,8 @@ import java.util.List;
  * Created by dell on 14-3-23.
  */
 public class CustomeMenuItemsPanel extends Panel {
+    static boolean isload = false;
+    IMenuItemsModule menuItemsModule;
 
     public CustomeMenuItemsPanel(String id, final IMenuModule menus, final WebMarkupContainer wmc, final int index) {
         super(id);
@@ -36,16 +38,21 @@ public class CustomeMenuItemsPanel extends Panel {
                     public void onClick(AjaxRequestTarget target) {
                         wmc.removeAll();
                         //使用延迟加载panel
-                        wmc.addOrReplace(new AjaxLazyLoadPanel("panel") {
-                                             @Override
-                                             public Component getLazyLoadComponent(String markupId) {
-                                                 return ((IMenuItemsModule) item.getModelObject()).getPanel(markupId, wmc);
-                                             }
-                                         }
-
-                        );
+                        AjaxLazyLoadPanel components = new AjaxLazyLoadPanel("panel") {
+                            @Override
+                            public Component getLazyLoadComponent(String markupId) {
+                                menuItemsModule = ((IMenuItemsModule) item.getModelObject());
+                                return menuItemsModule.getPanel(markupId, wmc);
+                            }
+                        };
+                        wmc.addOrReplace(components);
                         //                         setResponsePage();
-
+                        /*if(menuItemsModule.getName().equals("GIS地图")){
+                            if(isload){
+                                target.appendJavaScript("window.location.reload()");
+                                isload=true;
+                            }
+                        }*/
                         target.add(wmc);
                     }
                    /* @Override

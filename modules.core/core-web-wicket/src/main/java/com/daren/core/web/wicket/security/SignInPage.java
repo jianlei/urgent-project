@@ -15,13 +15,13 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.io.IClusterable;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 public class SignInPage extends WebPage {
@@ -33,25 +33,29 @@ public class SignInPage extends WebPage {
 
         form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean));
 
+        final FeedbackPanel feedback = new FeedbackPanel("errors");
+        form.add(feedback.setOutputMarkupId(true));
+
         AjaxButton findButton = new AjaxButton("submit", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 loginBean = (LoginBean) form.getModelObject();
                 if (login(loginBean.getUsername(), loginBean.getPassword(), true, SecurityUtils.getSubject().getSession().getHost(), loginBean.getValidateCode()))
                     onSignInSucceeded();
+                else
+                    target.add(feedback);
             }
 
             @Override
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 if (target != null)
-                    target.add(form);
+                    target.add(feedback);
             }
         };
 
         form.add(findButton);
 
-        /*final FeedbackPanel feedback = new FeedbackPanel("errors");
-        form.add(feedback.setOutputMarkupId(true));*/
+
         TextField txtUserName = new TextField("username");
         form.add(txtUserName.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 //        txtUserName.setLabel(new Model("用户名"));
@@ -113,8 +117,8 @@ public class SignInPage extends WebPage {
         } catch (final CaptchaException ae) {
             error("验证码错误.");
         } catch (final AuthenticationException ae) {
-            ae.printStackTrace();
             error("无效用户名或密码.");
+//            ae.printStackTrace();
         } catch (final Exception ex) {
             error("登录失败");
         }
@@ -134,11 +138,11 @@ public class SignInPage extends WebPage {
 
 class LoginBean implements IClusterable {
     @NotNull(message = "'用户名'是必填项")
-    @Size(min = 4, max = 10)
+//    @Size(min = 4, max = 10)
     private String username;
 
-    @NotNull
-    @Size(min = 4, max = 10)
+    @NotNull(message = "'密码'是必填项")
+//    @Size(min = 4, max = 10)
     private String password;
     /**
      * True if the user should be remembered via form persistence (cookies)

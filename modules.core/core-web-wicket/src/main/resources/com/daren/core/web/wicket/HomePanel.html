@@ -3,6 +3,42 @@
 <head>
     <meta charset="utf-8"/>
     <title>后台管理系统123</title>
+    <script>
+        //影藏菜单
+        var l = $('.left_c');
+        var r = $('.right_c');
+        var c = $('.Conframe');
+        jQuery('.nav-tip').click(function () {
+            if (l.css('left') == '8px') {
+                l.animate({
+                    left: -300
+                }, 500);
+                r.animate({
+                    left: 21
+                }, 500);
+                c.animate({
+                    left: 29
+                }, 500);
+                jQuery(this).animate({
+                    "background-position-x": "-12"
+                }, 300);
+            } else {
+                l.animate({
+                    left: 8
+                }, 500);
+                r.animate({
+                    left: 260
+                }, 500);
+                c.animate({
+                    left: 268
+                }, 500);
+                jQuery(this).animate({
+                    "background-position-x": "0"
+                }, 300);
+            }
+            ;
+        })
+    </script>
 </head>
 <body>
 <wicket:panel>

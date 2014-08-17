@@ -5,11 +5,11 @@ import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -116,9 +116,9 @@ public class SafetySupervisionExpertAddPage extends Panel {
             }
         });
 
-        dictForm.add(new AjaxLink("cancel") {
+        dictForm.add(new AjaxButton("cancel") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
             }
         });

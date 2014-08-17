@@ -1,6 +1,7 @@
 package com.daren.admin.webapp.wicket;
 
 import com.daren.admin.webapp.wicket.example.Select2PageTest;
+import com.daren.admin.webapp.wicket.page.UserListPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -44,6 +45,6 @@ public class UserMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new Select2PageTest(id, wmc);
+        return new UserListPage(id, wmc);
     }
 }
