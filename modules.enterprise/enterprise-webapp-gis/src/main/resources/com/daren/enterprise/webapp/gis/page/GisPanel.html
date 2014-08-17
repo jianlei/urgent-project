@@ -29,7 +29,7 @@
         }
         //救援队
         function parseRescue(gson) {
-            map.clearOverlays();
+            //map.clearOverlays();
             markers.splice(0);
             var jsonRescue = eval(gson);
             for (var i = 0; i < jsonRescue.length; i++) {
@@ -41,7 +41,7 @@
         }
         //企业专家
         function parseExpert(jsonEnterprise, jsonSafety) {
-            map.clearOverlays();
+            //map.clearOverlays();
             markers.splice(0);
             var enterpriseObj = eval(jsonEnterprise);
             for (var i = 0; i < enterpriseObj.length; i++) {
@@ -60,7 +60,7 @@
 
         //物资标注
         function parseEquipment(gson) {
-            map.clearOverlays();
+            //map.clearOverlays();
             markers.splice(0);
             var jsonEquipmentj = eval(gson);
             for (var i = 0; i < jsonEquipmentj.length; i++) {
@@ -72,7 +72,7 @@
 
         //重大危险标注
         function parseMajor(gson) {
-            map.clearOverlays();
+            //map.clearOverlays();
             markers.splice(0);
             var jsonMajor = eval(gson);
             for (var i = 0; i < jsonMajor.length; i++) {
@@ -84,7 +84,7 @@
 
         //事故标注
         function parseAccident(gson) {
-            map.clearOverlays();
+            //map.clearOverlays();
             markers.splice(0);
             var jsonAccident = eval(gson);
             for (var i = 0; i < jsonAccident.length; i++) {

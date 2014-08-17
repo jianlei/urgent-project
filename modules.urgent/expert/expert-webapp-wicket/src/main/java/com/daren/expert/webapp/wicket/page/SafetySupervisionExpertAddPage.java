@@ -7,6 +7,7 @@ import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -15,7 +16,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -34,7 +34,7 @@ public class SafetySupervisionExpertAddPage extends Panel {
     @Inject
     @Reference(id = "safetySupervisionExpertBeanService", serviceInterface = ISafetySupervisionExpertBeanService.class)
     private ISafetySupervisionExpertBeanService safetySupervisionExpertBeanService;
-    private FeedbackPanel feedbackPanel; //信息显示
+    private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public SafetySupervisionExpertAddPage(String id, String type, IModel<SafetySupervisionExpertBean> model) {
         super(id, model);
@@ -68,7 +68,7 @@ public class SafetySupervisionExpertAddPage extends Panel {
     private void initForm(IModel<SafetySupervisionExpertBean> model) {
         final Form<SafetySupervisionExpertBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
 
-        feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
         dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         //日期控件//
@@ -101,11 +101,11 @@ public class SafetySupervisionExpertAddPage extends Panel {
                     if (isAdd) {
                         dictForm.setModelObject(new SafetySupervisionExpertBean());
                     }
-                    feedbackPanel.info(type + dictBean.getType() + "成功！");
+                    feedbackPanel.info("保存成功！");
 
                     target.add(form);
                 } catch (Exception e) {
-                    feedbackPanel.error(type + "失败！");
+                    feedbackPanel.error("保存失败！");
                     e.printStackTrace();
                 }
             }

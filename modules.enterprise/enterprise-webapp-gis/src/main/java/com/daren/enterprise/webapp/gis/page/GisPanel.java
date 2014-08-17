@@ -118,7 +118,7 @@ public class GisPanel extends Panel implements IHeaderContributor {
         AjaxLink ajaxLinkAccident = new AjaxLink("accidentButton") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                List<AccidentBean> list = accidentBeanService.getAllEntity();
+                List<AccidentBean> list = accidentBeanService.queryAccidentByAccidentLevel();
                 Gson gson = new Gson();
                 String string = gson.toJson(list);
                 ajaxRequestTarget.prependJavaScript("parseAccident(" + string + ")");

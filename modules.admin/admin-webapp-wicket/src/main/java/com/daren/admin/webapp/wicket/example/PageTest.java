@@ -4,6 +4,7 @@ import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
 import com.daren.core.web.component.table.AutocheckedFolder;
 import com.daren.core.web.wicket.BasePanel;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,7 +13,6 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.tree.DefaultNestedTree;
 import org.apache.wicket.extensions.markup.html.repeater.tree.theme.WindowsTheme;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.util.SetModel;
 
@@ -33,7 +33,7 @@ public class PageTest extends BasePanel {
 
     public PageTest(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        final FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
+        final JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedback");
         add(feedbackPanel.setOutputMarkupId(true));
         theme = new WindowsTheme();
 

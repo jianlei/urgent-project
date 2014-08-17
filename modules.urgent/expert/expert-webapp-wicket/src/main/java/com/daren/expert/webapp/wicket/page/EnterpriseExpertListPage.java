@@ -1,5 +1,6 @@
 package com.daren.expert.webapp.wicket.page;
 
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
@@ -14,15 +15,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -165,7 +163,7 @@ public class EnterpriseExpertListPage extends BasePanel {
                 protected void populateItem(Item<EnterpriseExpertBean> item) {
                     final EnterpriseExpertBean row = item.getModelObject();
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("date", row.getDate()));
+                    item.add(new Label("date", DateUtil.convertDateToString(row.getDate(), DateUtil.shortSdf)));
                     item.add(new Label("sex", row.getSex()));
                     item.add(new Label("skillTitle", row.getSkillTitle()));
                     item.add(new Label("degree", row.getDegree()));
@@ -247,7 +245,7 @@ public class EnterpriseExpertListPage extends BasePanel {
                     try {
                         enterpriseExpertBeanService.deleteEntity(row.getId());
                         feedbackPanel.info("删除成功！");
-                        target.addChildren(getPage(), FeedbackPanel.class);
+                        target.addChildren(getPage(), JQueryFeedbackPanel.class);
                         target.add(container);
                     } catch (Exception e) {
                         feedbackPanel.error("删除失败！");
