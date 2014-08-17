@@ -78,7 +78,6 @@
             for (var i = 0; i < jsonMajor.length; i++) {
                 var _lng = jsonMajor[i].lng;
                 var _lat = jsonMajor[i].lat;
-                alert("lng:" + _lng + "---lat:" + _lat);
                 addpointpandto(_lng, _lat, jsonMajor[i].name, "", "label_zdwxy.png", "重大危险源");
             }
         }
@@ -91,8 +90,7 @@
             for (var i = 0; i < jsonAccident.length; i++) {
                 var _lng = jsonAccident[i].lng;
                 var _lat = jsonAccident[i].lat;
-                alert("lng:" + _lng + "---lat:" + _lat);
-                addpointpandto(_lng, _lat, jsonAccident[i].name, "", "label_bj.png", "事故");
+                addpointpandto(_lng, _lat, jsonAccident[i].accidentTitle, "", "label_bj.gif", "事故");
             }
         }
 
