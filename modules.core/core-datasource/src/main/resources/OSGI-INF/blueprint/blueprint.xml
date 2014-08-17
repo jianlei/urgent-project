@@ -18,10 +18,10 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            default-activation="eager">
 
-    <!--<bean id="derbyXADataSource" class="org.apache.derby.jdbc.EmbeddedXADataSource">
+    <bean id="derbyXADataSource" class="org.apache.derby.jdbc.EmbeddedXADataSource">
         <property name="databaseName" value="tradedb"/>
-        &lt;!&ndash; This creates the database on the fly. See the persistence.xml  under ariestrader-entities for property
-          configuration. The DB is created from persistence entities, this is not recommended for production use.  &ndash;&gt;
+        <!-- This creates the database on the fly. See the persistence.xml  under ariestrader-entities for property
+          configuration. The DB is created from persistence entities, this is not recommended for production use.  -->
         <property name="createDatabase" value="create"/>
     </bean>
 
@@ -34,7 +34,7 @@
 
     <bean id="derbyDataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
         <property name="databaseName" value="tradedb"/>
-        &lt;!&ndash; This creates the database on the fly. &ndash;&gt;
+        <!-- This creates the database on the fly. -->
         <property name="createDatabase" value="create"/>
     </bean>
 
@@ -42,9 +42,8 @@
         <service-properties>
             <entry key="osgi.jndi.service.name" value="jdbc/NoTxTradeDataSource"/>
         </service-properties>
-    </service>-->
+    </service>
 
-    <!--mysql data source-->
     <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
         <property name="url" value="jdbc:mysql://localhost:3306/urgent"/>
         <property name="user" value="root"/>
@@ -54,19 +53,6 @@
     <service interface="javax.sql.DataSource" ref="dataSource">
         <service-properties>
             <entry key="osgi.jndi.service.name" value="jdbc/mysqlds"/>
-        </service-properties>
-    </service>
-    <!--ms sql server 数据源-->
-    <bean id="ms-dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-        <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=URGENT"/>
-        <property name="username" value="sa"/>
-        <property name="password" value="hanling"/>
-    </bean>
-
-    <service interface="javax.sql.DataSource" ref="ms-dataSource">
-        <service-properties>
-            <entry key="osgi.jndi.service.name" value="jdbc/mssqlds"/>
         </service-properties>
     </service>
 

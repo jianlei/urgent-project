@@ -1,6 +1,7 @@
 package com.daren.enterprise.webapp.gis.page;
 
-import com.daren.core.web.wicket.BasePanel;
+import com.daren.accident.api.biz.IAccidentBeanService;
+import com.daren.accident.entities.AccidentBean;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.daren.expert.api.biz.IEnterpriseExpertBeanService;
@@ -53,6 +54,9 @@ public class GisPanel extends Panel implements IHeaderContributor {
     @Inject
     @Reference(id = "hazardBeanService", serviceInterface = IHazardBeanService.class)
     private IHazardBeanService hazardBeanService;
+    @Inject
+    @Reference(id = "accidentBeanService", serviceInterface = IAccidentBeanService.class)
+    private IAccidentBeanService accidentBeanService;
 
     //ajax target container
     public GisPanel(String id, WebMarkupContainer wmc) {
@@ -108,8 +112,19 @@ public class GisPanel extends Panel implements IHeaderContributor {
                 ajaxRequestTarget.prependJavaScript("parseEquipment(" + string + ")");
             }
         };
-
         this.add(ajaxLinkEquipment);
+
+        //事故标注
+        AjaxLink ajaxLinkAccident = new AjaxLink("accidentButton") {
+            @Override
+            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                List<AccidentBean> list = accidentBeanService.getAllEntity();
+                Gson gson = new Gson();
+                String string = gson.toJson(list);
+                ajaxRequestTarget.prependJavaScript("parseAccident(" + string + ")");
+            }
+        };
+        this.add(ajaxLinkAccident);
 
         //调用OnDomReadyHeader方法
         this.add(new Behavior() {

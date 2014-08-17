@@ -22,10 +22,10 @@
             map = new BMap.Map("allmap");
             map.centerAndZoom("四平市", 15);
             map.enableScrollWheelZoom();
-            setInterval(a, 10000);
+            setInterval(accident, 10000);
         }
-        function a() {
-//            document.getElementById("rescueButton").click();
+        function accident() {
+            document.getElementById("accidentButton").click();
         }
         //救援队
         function parseRescue(gson) {
@@ -83,6 +83,19 @@
             }
         }
 
+        //事故标注
+        function parseAccident(gson) {
+            map.clearOverlays();
+            markers.splice(0);
+            var jsonAccident = eval(gson);
+            for (var i = 0; i < jsonAccident.length; i++) {
+                var _lng = jsonAccident[i].lng;
+                var _lat = jsonAccident[i].lat;
+                alert("lng:" + _lng + "---lat:" + _lat);
+                addpointpandto(_lng, _lat, jsonAccident[i].name, "", "label_bj.png", "事故");
+            }
+        }
+
         function createIcon(json, _icon) {
             var icon = new BMap.Icon("http://localhost:8181/cus/img/" + _icon, new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)})
             return icon;
@@ -122,6 +135,8 @@
         <input class="btn btn-inverse" wicket:id="expertsButton" type="button" value="专家标注"/>
         <input class="btn btn-inverse" wicket:id="majorButton" type="button" value="重大危险标注"/>
         <input class="btn btn-inverse" wicket:id="equipmentButton" type="button" value="物资标注"/>
+        <input class="btn btn-inverse" wicket:id="accidentButton" id="accidentButton" type="button" value="事故标注"
+               style="display: none;"/>
     </div>
     <div style="height:2px;"></div>
     <div id="allmap"
