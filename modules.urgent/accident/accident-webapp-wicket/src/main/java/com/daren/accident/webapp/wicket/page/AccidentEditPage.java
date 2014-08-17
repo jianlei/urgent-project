@@ -145,5 +145,7 @@ public class AccidentEditPage extends BasePanel {
         addTextFieldToForm("economicLosses");
         addTextFieldToForm("place");
         addTextFieldToForm("accidentTitle");
+        addTextFieldToForm("lng");
+        addTextFieldToForm("lat");
     }
 }
