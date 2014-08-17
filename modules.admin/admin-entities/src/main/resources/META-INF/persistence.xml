@@ -40,7 +40,7 @@
     <persistence-unit transaction-type="JTA" name="admin-cm">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <!--<jta-data-source>osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/TradeDataSource)</jta-data-source>-->
-        <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mssqlds)
+        <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
         </non-jta-data-source>
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
         <class>com.daren.core.api.persistence.PersistentEntity</class>
@@ -62,7 +62,7 @@
             to create a database to run the sample. This is not something that should be used in production.
             See also the create=true line in the ariestrader-derby-ds blueprint meta data -->
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-            <property name="openjpa.jdbc.DBDictionary" value="sqlserver"/>
+            <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
             <property name="openjpa.Log" value="SQL=Trace"/>
             <property name="openjpa.ConnectionFactoryProperties" value="PrintParameters=true"/>
             <!--<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />-->

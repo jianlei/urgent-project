@@ -9,10 +9,7 @@ import com.daren.core.web.wicket.security.SignInPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.wicket.Application;
-import org.apache.wicket.DefaultPageManagerProvider;
-import org.apache.wicket.Page;
-import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.*;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.markup.html.pages.ExceptionErrorPage;
@@ -56,10 +53,10 @@ public class IrisShiroApplication extends WebApplication {
     // --------------------------------------------------------------------------
 
     //切换到开发模式
-   /* @Override
+    @Override
     public RuntimeConfigurationType getConfigurationType() {
         return RuntimeConfigurationType.DEPLOYMENT;
-    }*/
+    }
 
     public void setHomePageProvider(IHomePageProvider homePageProvider) {
         this.homePageProvider = homePageProvider;
@@ -86,7 +83,7 @@ public class IrisShiroApplication extends WebApplication {
         getExceptionSettings().setAjaxErrorHandlingStrategy(
                 IExceptionSettings.AjaxErrorStrategy.REDIRECT_TO_ERROR_PAGE);
         //设置debug输出
-//        getDebugSettings().setAjaxDebugModeEnabled(false);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
         //避免将Wicket 标签输出到客户端
         getMarkupSettings().setStripWicketTags(true);
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");

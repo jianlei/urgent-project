@@ -18,6 +18,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -46,6 +47,7 @@ import java.util.List;
  * 修改时间:  2014/8/5 13:34
  * 修改备注:  [说明本次修改内容]
  */
+@AuthorizeInstantiation("ADMIN")
 public class UserListPage extends BasePanel {
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "用户管理";

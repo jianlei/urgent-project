@@ -110,7 +110,7 @@ public class PermissionBean extends PersistentEntity {
         this.permission = permission;
     }
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @OrderBy(value = "sort")
     public List<PermissionBean> getChildList() {
         return childList;
