@@ -9,7 +9,6 @@ import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -75,5 +74,10 @@ public class IrisDropDownChoice<T> extends DropDownChoice {
         this.setChoices(dropDownModel);
         this.setChoiceRenderer(choiceRenderer);
         this.setOutputMarkupId(true);
+    }
+
+    @Override
+    protected String getNullKeyDisplayValue() {
+        return "请选择";
     }
 }
