@@ -13,8 +13,12 @@ import com.daren.rescue.api.biz.IRescueBeanService;
 import com.daren.rescue.entities.RescueBean;
 import com.google.gson.Gson;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 
 import javax.inject.Inject;
@@ -101,5 +105,12 @@ public class GisPanel extends BasePanel {
             }
         };
         this.add(ajaxLinkEquipment);
+
+        this.add(new Behavior() {
+            @Override
+            public void renderHead(Component component, IHeaderResponse response) {
+                response.render(OnDomReadyHeaderItem.forScript("loadScript();"));
+            }
+        });
     }
 }

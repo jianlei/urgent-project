@@ -7,16 +7,10 @@
         var markers = [];
         var map;
         var infowindow;
-        /*jQuery(document).ready(function () {
-         $("#allmap").height($(".Conframe").height() - 38);
-            map = new BMap.Map("allmap");
-            map.centerAndZoom("四平市", 15);
-            map.enableScrollWheelZoom();
-         });*/
 
-        jQuery(function () {
-            loadScript();
-        });
+        /*jQuery(function () {
+         loadScript();
+         });*/
         function loadScript() {
             var script = document.createElement("script");
             script.type = "text/javascript";
@@ -28,8 +22,11 @@
             map = new BMap.Map("allmap");
             map.centerAndZoom("四平市", 15);
             map.enableScrollWheelZoom();
+            setInterval(a, 10000);
         }
-
+        function a() {
+//            document.getElementById("rescueButton").click();
+        }
         //救援队
         function parseRescue(gson) {
             map.clearOverlays();
