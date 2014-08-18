@@ -10,7 +10,6 @@ import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -96,7 +95,7 @@ public class UserAddPage extends Panel {
 //      userForm.add(new TextField("loginDate").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
         //获得全部的角色列表
-        List<String> RoleNameList = roleBeanService.getRoleNameList();
+        final List<String> RoleNameList = roleBeanService.getRoleNameList();
 
         if (!isAdd) {
             List<String> roles = (roleBeanService.getRoleNameList((UserBean) model.getObject()));
@@ -116,7 +115,7 @@ public class UserAddPage extends Panel {
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());
-                        roleChoice.setChoices(new Model<ArrayList<String>>());
+                        roleChoice.setChoices(RoleNameList);
                     }
                     feedbackPanel.info(type + userBean.getName() + "成功！");
                     target.add(userForm);
