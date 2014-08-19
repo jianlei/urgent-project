@@ -26,7 +26,7 @@ public class IrisDataTable<T, S> extends DataTable {
      */
     public IrisDataTable(String id, final List<? extends IColumn<T, S>> columns, ISortableDataProvider dataProvider, long rowsPerPage) {
         super(id, columns, dataProvider, rowsPerPage);
-//        this.addTopToolbar(new IrisHeadersToolbar<S>(this, dataProvider));
+        this.addTopToolbar(new IrisHeadersToolbar<S>(this, dataProvider));
         this.addBottomToolbar(new IrisAjaxNavigationToolbar(this));
         this.addBottomToolbar(new NoRecordsToolbar(this, Model.of("未找到记录")));
     }

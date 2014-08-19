@@ -11,6 +11,8 @@ import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
@@ -18,6 +20,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -188,6 +191,14 @@ public class DictListPage extends BasePanel {
             columns.add(new PropertyColumn<DictBean, String>(Model.of("类型"), "type"));
             columns.add(new PropertyColumn<DictBean, String>(Model.of("描述"), "description"));
             columns.add(new PropertyColumn<DictBean, String>(Model.of("排序"), "sort"));
+            columns.add(new AbstractColumn<DictBean, String>(new Model<>("操作")){
+
+                @Override
+                public void populateItem(Item<ICellPopulator<DictBean>> cellItem, String componentId, final IModel<DictBean> rowModel) {
+                    cellItem.add(initEditButton(componentId,rowModel.getObject()));
+//                    cellItem.add(initDeleteButton(componentId,rowModel.getObject()));
+                }
+            });
             return columns;
 
         }
@@ -198,14 +209,15 @@ public class DictListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initEditButton(final DictBean row) {
+        private AjaxLink initEditButton(String componentId,final DictBean row) {
             //修改功能
-            AjaxLink alink = new AjaxLink("edit") {
+            AjaxLink alink = new AjaxLink(componentId,Model.of("eidt")) {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     createNewTab(target, CONST_EDIT, row);
                 }
             };
+
             return alink;
         }
 
@@ -215,9 +227,9 @@ public class DictListPage extends BasePanel {
          * @param row 数据
          * @return link
          */
-        private AjaxLink initDeleteButton(final DictBean row) {
+        private AjaxLink initDeleteButton(String componentId,final DictBean row) {
             //删除功能
-            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("delete") {
+            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink(componentId) {
                @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {

@@ -56,8 +56,7 @@
         <bundle>mvn:com.daren.core/com.daren.core.util/${parent.version}</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ognl/3.0.6_1</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javassist/3.12.1.GA_3</bundle>
-        <configfile finalname="/etc/CouchdbConfig.cfg">mvn:com.daren.core/karaf-features/${project.version}/cfg
-        </configfile>
+        <configfile finalname="/etc/CouchdbConfig.cfg">mvn:com.daren.core/karaf-features/${project.version}/cfg</configfile>
     </feature>
     <feature name="jsr303">
         <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0</bundle>
