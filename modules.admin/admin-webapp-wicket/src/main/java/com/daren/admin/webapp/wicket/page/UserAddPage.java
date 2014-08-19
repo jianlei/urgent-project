@@ -48,7 +48,6 @@ public class UserAddPage extends Panel {
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     //存储已有的角色列表
     private ArrayList<String> roleSelect = new ArrayList<String>();
-    ;
 
     public UserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
@@ -61,8 +60,6 @@ public class UserAddPage extends Panel {
             isAdd = false;//edit model
             initForm(model);
         }
-
-
     }
 
     // Hook 回调函数

@@ -2,34 +2,31 @@ package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
-import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
+import com.daren.core.web.component.table.IrisDataTable;
 import com.daren.core.web.wicket.BasePanel;
-import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
-import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -47,7 +44,7 @@ public class DictListPage extends BasePanel {
     private final static String CONST_LIST = "字典管理";
     private final static String CONST_ADD = "添加字典";
     private final static String CONST_EDIT = "编辑字典";
-    private final TabbedPanel tabPanel;
+
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
     //注入字典业务服务
@@ -58,30 +55,14 @@ public class DictListPage extends BasePanel {
     //构造函数
     public DictListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        Options options = new Options();
-        tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
-        this.add(tabPanel);
+        super.tabTitle=CONST_LIST;  //主tab的标题
+     }
+
+    @Override
+    public Fragment createMainFragment(String id, String markupId) {
+        return new MainFragment(id,markupId);
     }
 
-    /**
-     * 添加tabs
-     *
-     * @return
-     */
-    private List<? extends ITab> newTabList() {
-        List<ITab> tabs = new ArrayList<ITab>();
-        // tab #1 //
-        tabs.add(new AbstractTab(Model.of(CONST_LIST)) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "mainPanel");
-            }
-        });
-
-        return tabs;
-    }
 
     /**
      * 初始化新增按钮
@@ -158,34 +139,31 @@ public class DictListPage extends BasePanel {
             feedbackPanel = new JQueryFeedbackPanel("feedback");
             container.add(feedbackPanel.setOutputMarkupId(true));
             //add table
-            final WebMarkupContainer table = new WebMarkupContainer("table");
-            container.add(table.setOutputMarkupId(true));
+            /*final WebMarkupContainer table = new WebMarkupContainer("table");
+            container.add(table.setOutputMarkupId(true));*/
 
-            //add listview
-            final DataView<DictBean> listView = new DataView<DictBean>("rows", provider, numPerPage) {
+            //add dataTable
+            final IrisDataTable<DictBean,String> dataTable = new IrisDataTable<DictBean,String>("table",initColumns(), provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
 
-                @Override
+
+                /*@Override
                 protected void populateItem(Item<DictBean> item) {
                     final DictBean row = item.getModelObject();
 
-                    item.add(new Label("label", row.getLabel()));//标签名
-                    item.add(new Label("value", row.getValue()));//数据值
-                    item.add(new Label("type", row.getType()));//类型
-                    item.add(new Label("description", row.getDescription()));//描述
-                    item.add(new Label("sort", row.getSort()));//排序
+
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
-                    item.add(initUpdateButton(row));
-                }
+                    item.add(initEditButton(row));
+                }*/
             };
-            table.add(listView);
+            container.add(dataTable);
 
-            //增加分页指示器
-            CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
+            /*//增加分页指示器
+            IrisAjaxNavigationToolbar pagingNavigator = new IrisAjaxNavigationToolbar("navigator",table) {
             };
-            table.add(pagingNavigator);
+            table.add(pagingNavigator);*/
 
             //增加form
             Form<DictBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new DictBean()));
@@ -201,13 +179,26 @@ public class DictListPage extends BasePanel {
             add(dictForm);
         }
 
+         
+
+        private List<? extends IColumn<DictBean, String>> initColumns() {
+            List<IColumn<DictBean, String>> columns = new ArrayList<IColumn<DictBean, String>>();
+            columns.add(new PropertyColumn<DictBean, String>(Model.of("标签名"), "label"));
+            columns.add(new PropertyColumn<DictBean, String>(Model.of("数据值"), "value"));
+            columns.add(new PropertyColumn<DictBean, String>(Model.of("类型"), "type"));
+            columns.add(new PropertyColumn<DictBean, String>(Model.of("描述"), "description"));
+            columns.add(new PropertyColumn<DictBean, String>(Model.of("排序"), "sort"));
+            return columns;
+
+        }
+
         /**
-         * 初始化更新按钮
+         * 初始化编辑按钮
          *
          * @param row 数据
          * @return link
          */
-        private AjaxLink initUpdateButton(final DictBean row) {
+        private AjaxLink initEditButton(final DictBean row) {
             //修改功能
             AjaxLink alink = new AjaxLink("edit") {
                 @Override
@@ -226,17 +217,8 @@ public class DictListPage extends BasePanel {
          */
         private AjaxLink initDeleteButton(final DictBean row) {
             //删除功能
-            AjaxLink alink = new AjaxLink("delete") {
-                @Override
-                protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                    super.updateAjaxAttributes(attributes);
-                    AjaxCallListener listener = new AjaxCallListener();
-
-                    listener.onPrecondition("if(!confirm('" + getString("urgent.delete.confirm") + "')){return false;}");
-                    attributes.getAjaxCallListeners().add(listener);
-                }
-
-                @Override
+            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("delete") {
+               @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
                         dictBeanService.deleteEntity(row.getId());
@@ -280,21 +262,53 @@ public class DictListPage extends BasePanel {
     /**
      * //查询数据提供者
      */
-    class DictDataProvider extends ListDataProvider<DictBean> {
+    class DictDataProvider extends SortableDataProvider {
+        List<DictBean> newList;
         private DictBean dictBean = null;
 
         public void setDictBean(DictBean dictBean) {
             this.dictBean = dictBean;
         }
 
-        @Override
+
         protected List<DictBean> getData() {
             //类型为空时候，返回全部记录
-            if (dictBean == null || dictBean.getType().equals(""))
-                return dictBeanService.getAllEntity();
-            else {
-                return dictBeanService.query(dictBean);
+            if (dictBean == null || dictBean.getType().equals("")){
+                newList=dictBeanService.getAllEntity();
             }
+
+            else {
+                 newList=dictBeanService.query(dictBean);
+            }
+            return newList;
+        }
+
+        @Override
+        public Iterator iterator(long first, long count) {
+
+            getData();
+            // Sort the data
+            int _first=new Long(first).intValue();
+            int _count=new Long(count).intValue();
+
+            // Return the data for the current page - this can be determined only after sorting
+            return newList.subList(_first, _first +_count).iterator();
+        }
+
+        @Override
+        public long size() {
+            getData();
+            return newList.size();
+        }
+
+        @Override
+        public IModel model(final Object object) {
+            return new AbstractReadOnlyModel<DictBean>() {
+                @Override
+                public DictBean getObject() {
+                    return (DictBean) object;
+                }
+            };
         }
     }
 }
