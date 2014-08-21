@@ -95,7 +95,7 @@
         }
 
         function createIcon(json, _icon) {
-            var icon = new BMap.Icon("http://localhost:9191/cus/img/" + _icon, new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)})
+            var icon = new BMap.Icon("http://localhost:8181/cus/img/" + _icon, new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)})
             return icon;
         }
         function addpointpandto(_lng, _lat, name, phone, _icon, type) {
@@ -108,11 +108,18 @@
             marker.addEventListener("mouseover", function () {
                 openInfoW(_lng, _lat, name, phone, type, marker);
             });
+            marker.addEventListener("mouseout", function () {
+                closeInfoW();
+            });
         }
         function openInfoW(_lng, _lat, name, phone, type, marker) {
             infowindow = new BMap.InfoWindow(getIWContent(_lng, _lat, name, phone, type));
             marker.openInfoWindow(infowindow);
         }
+        function closeInfoW() {
+            infowindow.close();
+        }
+
         //--获取位置点的信息窗口内容
         function getIWContent(_lng, _lat, name, phone, type) {
             var content = "<div><div class=\"infow_title\">经纬度：" + _lng + "----" + _lat + "<div>";
