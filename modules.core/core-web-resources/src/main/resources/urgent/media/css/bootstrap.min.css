@@ -5039,7 +5039,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
 }
 
 .label-inverse, .badge-inverse {
-    background-color: #333
+    background-color: #1e7ac9
 }
 
 .label-inverse[href], .badge-inverse[href] {
