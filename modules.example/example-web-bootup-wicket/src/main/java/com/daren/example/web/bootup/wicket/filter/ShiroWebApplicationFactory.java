@@ -1,6 +1,6 @@
 package com.daren.example.web.bootup.wicket.filter;
 
-import com.daren.core.web.bootup.wicket.IrisShiroApplication;
+import com.daren.example.web.bootup.wicket.IrisShiroApplication;
 import org.apache.shiro.web.servlet.ShiroFilter;
 import org.ops4j.pax.wicket.api.SuperFilter;
 import org.ops4j.pax.wicket.api.WebApplicationFactory;

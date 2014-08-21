@@ -115,7 +115,10 @@
                 </executions>
             </plugin>
 
-
+            <plugin>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

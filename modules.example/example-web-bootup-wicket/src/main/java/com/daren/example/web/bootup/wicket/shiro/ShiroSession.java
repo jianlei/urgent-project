@@ -23,40 +23,25 @@ public class ShiroSession extends SimpleSession {
     private static final int STATUS_BIT_MASK = 1 << bitIndexCounter++;
     private static final int USERNAME_BIT_MASK = 1 << bitIndexCounter++;
     private static final int REMEMBER_ME_BIT_MASK = 1 << bitIndexCounter++;
-
-
-    public static enum OnlineStatus {
-        on_line("在线"), hidden("隐身"), force_logout("强制退出");
-        private final String info;
-
-        private OnlineStatus(String info) {
-            this.info = info;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-    }
-
     //当前登录的用户Id
     private Long userId = 0L;
-
     private String username;
-
     /**
      * 用户浏览器类型
      */
     private String userAgent;
-
     /**
      * 在线状态
      */
     private OnlineStatus status = OnlineStatus.on_line;
-
     /**
      * 用户登录时系统IP
      */
     private String systemHost;
+    /**
+     * 属性是否改变 优化session数据同步
+     */
+    private transient boolean attributeChanged = false;
 
 
     public ShiroSession() {
@@ -67,6 +52,21 @@ public class ShiroSession extends SimpleSession {
         super(host);
     }
 
+    /**
+     * Returns {@code true} if the given {@code bitMask} argument indicates that the specified field has been
+     * serialized and therefore should be read during deserialization, {@code false} otherwise.
+     *
+     * @param bitMask      the aggregate bitmask for all fields that have been serialized.  Individual bits represent
+     *                     the fields that have been serialized.  A bit set to 1 means that corresponding field has
+     *                     been serialized, 0 means it hasn't been serialized.
+     * @param fieldBitMask the field bit mask constant identifying which bit to inspect (corresponds to a class attribute).
+     * @return {@code true} if the given {@code bitMask} argument indicates that the specified field has been
+     * serialized and therefore should be read during deserialization, {@code false} otherwise.
+     * @since 1.0
+     */
+    private static boolean isFieldPresent(short bitMask, int fieldBitMask) {
+        return (bitMask & fieldBitMask) != 0;
+    }
 
     public Long getUserId() {
         return userId;
@@ -107,11 +107,6 @@ public class ShiroSession extends SimpleSession {
     public void setSystemHost(String systemHost) {
         this.systemHost = systemHost;
     }
-
-    /**
-     * 属性是否改变 优化session数据同步
-     */
-    private transient boolean attributeChanged = false;
 
     public void markAttributeChanged() {
         this.attributeChanged = true;
@@ -207,20 +202,17 @@ public class ShiroSession extends SimpleSession {
         return (short) bitMask;
     }
 
-    /**
-     * Returns {@code true} if the given {@code bitMask} argument indicates that the specified field has been
-     * serialized and therefore should be read during deserialization, {@code false} otherwise.
-     *
-     * @param bitMask      the aggregate bitmask for all fields that have been serialized.  Individual bits represent
-     *                     the fields that have been serialized.  A bit set to 1 means that corresponding field has
-     *                     been serialized, 0 means it hasn't been serialized.
-     * @param fieldBitMask the field bit mask constant identifying which bit to inspect (corresponds to a class attribute).
-     * @return {@code true} if the given {@code bitMask} argument indicates that the specified field has been
-     * serialized and therefore should be read during deserialization, {@code false} otherwise.
-     * @since 1.0
-     */
-    private static boolean isFieldPresent(short bitMask, int fieldBitMask) {
-        return (bitMask & fieldBitMask) != 0;
+    public static enum OnlineStatus {
+        on_line("在线"), hidden("隐身"), force_logout("强制退出");
+        private final String info;
+
+        private OnlineStatus(String info) {
+            this.info = info;
+        }
+
+        public String getInfo() {
+            return info;
+        }
     }
 
 }

@@ -27,8 +27,7 @@
         <module>example-persist-jpa</module>
         <module>example-entities</module>
         <module>example-webapp-wicket</module>
-        <module>example-webapp-component</module>
-        <module>example-webapp-gis</module>
+        <module>example-web-bootup-wicket</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -92,6 +92,7 @@
         <module>modules.urgent/accident</module>
         <module>modules.regulation</module>
         <module>modules.common</module>
+        <module>modules.example</module>
         <module>modules.urgent/rescue</module>
     </modules>
 

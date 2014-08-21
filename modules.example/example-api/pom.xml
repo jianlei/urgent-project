@@ -18,8 +18,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: example - API</name>
-    <description>example API</description>
+    <name>Urgent :: Example - API</name>
+    <description>Example API</description>
 
     <packaging>bundle</packaging>
 

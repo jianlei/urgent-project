@@ -7,8 +7,8 @@
     <!--<script type="text/javascript" src="cus/Scripts/tb.js"></script>-->
 </wicket:head>
 <body>
-<wicket:extend>
-
+<wicket:panel>
+    <div wicket:id="tabs"></div>
     <wicket:fragment wicket:id="mainPanel" id="mainPanel">
         <div class="alert alert-info">当前位置<b class="tip"/>系统管理<b class="tip"/>字典管理</div>
         <form method="post" wicket:id="form">
@@ -42,7 +42,7 @@
             <span wicket:id="feedback"/>
 
             <table class="table table-striped table-bordered table-condensed" wicket:id="table">
-                <!--<thead>
+                <thead>
                 <tr class="tr_detail">
                     <th>标签名</th>
                     <th>数据值</th>
@@ -59,10 +59,10 @@
                     <td><span wicket:id="type"></span></td>
                     <td><span wicket:id="description"></span></td>
                     <td><span wicket:id="sort"></span></td>
-                    &lt;!&ndash;<td ><a wicket:id="col4">delete</a> </td>&ndash;&gt;
+                    <!--<td ><a wicket:id="col4">delete</a> </td>-->
                     <td>
-                        <a href="#" wicket:id="edit">&lt;!&ndash;<span wicket:id="linklabel"></span>&ndash;&gt;修改</a>
-                        <a href="#" wicket:id="delete">&lt;!&ndash;<span wicket:id="linklabel"></span>&ndash;&gt;删除</a>
+                        <a href="#" wicket:id="edit"><!--<span wicket:id="linklabel"></span>-->修改</a>
+                        <a href="#" wicket:id="delete"><!--<span wicket:id="linklabel"></span>-->删除</a>
                     </td>
 
                 </tr>
@@ -71,7 +71,7 @@
                 <tr class="tr_pagenumber">
                     <td align="center" colspan="100" wicket:id="navigator"></td>
                 </tr>
-                </tbody>-->
+                </tbody>
             </table>
             <!--<div wicket:id="infoDialog">[info]</div>-->
         </div>
@@ -81,6 +81,6 @@
         <div wicket:id="repeatingView"></div>
     </wicket:fragment>
 
-    </wicket:extend>
+</wicket:panel>
 </body>
 </html>
