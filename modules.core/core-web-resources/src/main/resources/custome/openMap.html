@@ -41,13 +41,13 @@
                     callback: function (p) {
                         map.clearOverlays();
                         var markerPoint = new BMap.Marker(p), px = map.pointToPixel(p);
-                        var point = new BMap.Point(markerPoint.getPosition().lng, markerPoint.getPosition().lat);
+                        var point = new BMap.Point(markerPoint.getPosition().jd, markerPoint.getPosition().wd);
                         var json = {w: 21, h: 35, l: 0, t: 0, x: 6, lb: 5};
                         var iconImg = new BMap.Icon("http://localhost:9191/cus/img/dkgreen.png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)});
                         var marker = new BMap.Marker(point, {icon: iconImg});
                         map.addOverlay(marker);
-                        parent.document.getElementById('longitude').value = markerPoint.getPosition().lng;
-                        parent.document.getElementById('latitude').value = markerPoint.getPosition().lat;
+                        parent.document.getElementById('longitude').value = markerPoint.getPosition().jd;
+                        parent.document.getElementById('latitude').value = markerPoint.getPosition().wd;
                     }
                 }
             ];

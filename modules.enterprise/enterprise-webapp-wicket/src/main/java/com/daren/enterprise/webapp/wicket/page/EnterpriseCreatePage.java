@@ -10,23 +10,14 @@ import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.util.convert.converter.DateConverter;
 
 import javax.inject.Inject;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -68,8 +59,8 @@ public class EnterpriseCreatePage extends BasePanel {
         addTextFieldsToForm();
 
         //日期控件//
-        final DatePicker datePicker = new DatePicker("cl_sj",
-                new PropertyModel<Date>(enterpriseBean, "cl_sj"), "yyyy-MM-dd",
+        final DatePicker datePicker = new DatePicker("clsj",
+                new PropertyModel<Date>(enterpriseBean, "clsj"), "yyyy-MM-dd",
                 new Options("dateFormat", Options.asString("yy-mm-dd")));
         enterpriseBeanForm.add(datePicker);
 
@@ -128,8 +119,8 @@ public class EnterpriseCreatePage extends BasePanel {
     private void addSelectToForm() {
         initSelect("aqjgszqk", IDictConstService.AQJGSZQK);
         initSelect("zybbj", IDictConstService.ZYBBJ);
-        initSelect("zdxfdw_bj", IDictConstService.ZDXFDW_BJ);
-        initSelect("yazlqy_bj", IDictConstService.YAZLQY_BJ);
+        initSelect("zdxfdwbj", IDictConstService.ZDXFDW_BJ);
+        initSelect("yazlqybj", IDictConstService.YAZLQY_BJ);
     }
 
     private void addTextFieldToForm(String value) {
@@ -141,8 +132,8 @@ public class EnterpriseCreatePage extends BasePanel {
         addTextFieldToForm("qymc");
         addTextFieldToForm("frdb");
 //        addTextFieldToForm("cl_sj");
-        addTextFieldToForm("address_zc");
-        addTextFieldToForm("address_jy");
+        addTextFieldToForm("addresszc");
+        addTextFieldToForm("addressjy");
         addTextFieldToForm("postcode");
         addTextFieldToForm("qylxfs");
         addTextFieldToForm("mailaddress");
@@ -157,11 +148,11 @@ public class EnterpriseCreatePage extends BasePanel {
         addTextFieldToForm("zcaqgcsrs");
         addTextFieldToForm("aqrs");
         addTextFieldToForm("jzaqrs");
-        addTextFieldToForm("hyml_dm");
+        addTextFieldToForm("hymldm");
         addTextFieldToForm("hylbbm");
         addTextFieldToForm("xjqybj");
         addTextFieldToForm("sjqyid");
-        addTextFieldToForm("hyzxl_dm");
+        addTextFieldToForm("hyzxldm");
         addTextFieldToForm("qygmbm");
         addTextFieldToForm("gmqk");
         addTextFieldToForm("zczc");
@@ -172,8 +163,8 @@ public class EnterpriseCreatePage extends BasePanel {
 //        addTextFieldToForm("zdxfdw_bj");
 //        addTextFieldToForm("zybbj");
 //        addTextFieldToForm("aqjgszqk");
-        addTextFieldToForm("lng");
-        addTextFieldToForm("lat");
+        addTextFieldToForm("jd");
+        addTextFieldToForm("wd");
     }
 
 }

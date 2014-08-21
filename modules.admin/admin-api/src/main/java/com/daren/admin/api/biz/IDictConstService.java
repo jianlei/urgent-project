@@ -17,5 +17,4 @@ public interface IDictConstService {
     public final static String ZYBBJ = "ZYBBJ"; //企业是否有职业危害因素
     public final static String ZDXFDW_BJ = "ZDXFDW_BJ"; //企业是否重点消防单位标记
     public final static String YAZLQY_BJ = "YAZLQY_BJ"; //企业是否液氨制冷企业标记
-
 }

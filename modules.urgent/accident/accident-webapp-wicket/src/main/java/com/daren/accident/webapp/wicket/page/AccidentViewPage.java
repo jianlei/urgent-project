@@ -12,11 +12,9 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Created by Dell on 14-8-12.
@@ -53,7 +51,7 @@ public class AccidentViewPage extends BasePanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 AccidentBean accidentBean = (AccidentBean) form.getDefaultModelObject();
                 if (null != accidentBean) {
-                    onEditOnClick(accidentBean,target);
+                    onEditOnClick(accidentBean, target);
                 }
             }
         };
@@ -67,7 +65,7 @@ public class AccidentViewPage extends BasePanel {
         });
     }
 
-    protected void onEditOnClick( AccidentBean accidentBean,AjaxRequestTarget target) {
+    protected void onEditOnClick(AccidentBean accidentBean, AjaxRequestTarget target) {
     }
 
     // Hook 回调函数
@@ -103,7 +101,7 @@ public class AccidentViewPage extends BasePanel {
     private void addLabelToForm(EnterpriseBean enterpriseBean) {
 
         addLabelToForm("qymc", enterpriseBean.getQymc(), enterpriseForm);
-        addLabelToForm("address_jy", enterpriseBean.getAddress_jy(), enterpriseForm);
+        addLabelToForm("address_jy", enterpriseBean.getAddressjy(), enterpriseForm);
         addLabelToForm("zyjyxm", enterpriseBean.getZyjyxm(), enterpriseForm);
         addLabelToForm("qygmbm", enterpriseBean.getQygmbm(), enterpriseForm);
     }

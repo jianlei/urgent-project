@@ -64,8 +64,8 @@
             markers.splice(0);
             var jsonEquipmentj = eval(gson);
             for (var i = 0; i < jsonEquipmentj.length; i++) {
-                var _lng = jsonEquipmentj[i].lng;
-                var _lat = jsonEquipmentj[i].lat;
+                var _lng = jsonEquipmentj[i].jd;
+                var _lat = jsonEquipmentj[i].wd;
                 addpointpandto(_lng, _lat, jsonEquipmentj[i].name, jsonEquipmentj[i].mobilePhone, "label_wz.png", "物资装备");
             }
         }
@@ -76,8 +76,8 @@
             markers.splice(0);
             var jsonMajor = eval(gson);
             for (var i = 0; i < jsonMajor.length; i++) {
-                var _lng = jsonMajor[i].lng;
-                var _lat = jsonMajor[i].lat;
+                var _lng = jsonMajor[i].jd;
+                var _lat = jsonMajor[i].wd;
                 addpointpandto(_lng, _lat, jsonMajor[i].name, "", "label_zdwxy.png", "重大危险源");
             }
         }
@@ -88,8 +88,8 @@
             markers.splice(0);
             var jsonAccident = eval(gson);
             for (var i = 0; i < jsonAccident.length; i++) {
-                var _lng = jsonAccident[i].lng;
-                var _lat = jsonAccident[i].lat;
+                var _lng = jsonAccident[i].jd;
+                var _lat = jsonAccident[i].wd;
                 addpointpandto(_lng, _lat, jsonAccident[i].accidentTitle, "", "label_bj.gif", "事故");
             }
         }

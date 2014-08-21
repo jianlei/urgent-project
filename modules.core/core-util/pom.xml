@@ -117,6 +117,12 @@
                         <table>
                             <name>sys_area</name>
                         </table>
+                        <table>
+                            <name>urg_ent_enterprise</name>
+                        </table>
+                        <table>
+                            <name>urg_ent_organization</name>
+                        </table>
                     </tables>
                     <skip>${skipTests}</skip>
                     <transaction>true</transaction>

@@ -8,8 +8,6 @@ import com.daren.reserveplan.entities.ReservePlanBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -78,6 +76,9 @@ public class ReservePlanEditPage extends BasePanel {
 
         form.add(new TextField("description"));
         form.add(new TextField("name"));
+        form.add(new TextField("mark"));
+        form.add(new TextField("level"));
+        form.add(new TextField("type"));
 
         AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override
@@ -125,6 +126,7 @@ public class ReservePlanEditPage extends BasePanel {
         }
         return documentBean.getId() + "";
     }
+
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 }

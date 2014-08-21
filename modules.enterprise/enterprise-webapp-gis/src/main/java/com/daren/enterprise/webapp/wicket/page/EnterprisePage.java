@@ -57,7 +57,7 @@ public class EnterprisePage extends BasePanel {
                     item.add(new Label("JGFL", enterpriseBean.getJgfl()));
                     item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
                     item.add(new Label("MAILADDRESS", enterpriseBean.getMailaddress()));
-                    item.add(new Label("ADDRESS_JY", enterpriseBean.getAddress_jy()));
+                    item.add(new Label("ADDRESS_JY", enterpriseBean.getAddressjy()));
 
                     item.add(getToCreatePageLink("check_QYMC", enterpriseBean));
                     AjaxLink alink = new AjaxLink("del") {

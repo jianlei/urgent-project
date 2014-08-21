@@ -21,7 +21,7 @@ public class EnterpriseBean extends PersistentEntity {
 
     String qyid;//企业id
     String qymc;//企业名称
-    Date cl_sj;//成立时间
+    Date clsj;//成立时间
     String frdb;//法人代表姓名
     String zzjgdm;//组织机构代码
     String sdlx;//隶属关系代码，参照t_dm_gy_lsgx
@@ -30,9 +30,9 @@ public class EnterpriseBean extends PersistentEntity {
     long zcaqgcsrs;//注册安全工程师人数
     long aqrs;//专职安全管理人数
     long jzaqrs;//兼职安全管理人员数
-    String hyml_dm;//行业门类代码，参照t_dm_gy_hyml
+    String hymldm;//行业门类代码，参照t_dm_gy_hyml
     String hylbbm;//行业大类代码，参照t_dm_gy_hydl
-    String hyzxl_dm;//行业中小类代码，参照t_dm_gy_hyzxl
+    String hyzxldm;//行业中小类代码，参照t_dm_gy_hyzxl
     String xjqybj;//企业是否有下级单位（1：是；0：否）
     String sjqyid;//上级单位id
     String qygmbm;//企业规模代码，参照t_dm_gy_qygm
@@ -41,35 +41,36 @@ public class EnterpriseBean extends PersistentEntity {
     String jgfl;//监管分类，参照t_dm_yh_jgfl
     double sndxssr;//上年度销售收入（万元）
     double aqscfy;//安全生产费用（万元）
-    String yazlqy_bj;//液氨制冷企业标记1是，0否
-    String xzqh_sheng;//行政区划省，参照t_dm_gy_xzqhszxs
-    String xzqh_ds;//行政区划地市，参照t_dm_gy_xzqhds
-    String xzqh_xq;//行政区划区县，参照t_dm_gy_xzqhxq
-    String address_zc;//注册地址
-    String address_jy;//经营地址
+    String yazlqybj;//液氨制冷企业标记1是，0否
+    String xzqhsheng;//行政区划省，参照t_dm_gy_xzqhszxs
+    String xzqhds;//行政区划地市，参照t_dm_gy_xzqhds
+    String xzqhxq;//行政区划区县，参照t_dm_gy_xzqhxq
+    String addresszc;//注册地址
+    String addressjy;//经营地址
     String postcode;//邮编
     String qylxfs;//企业联系方式
     String mailaddress;//电子邮箱
     String dlwz;//地理位置（经度+维度）
-    String lng;//地理位置（经度）
-    String lat;//地理位置（维度）
-    String zdxfdw_bj;//重点消防单位标记，0否，1是
+    String jd;//地理位置（经度）
+    String wd;//地理位置（维度）
+    String zdxfdwbj;//重点消防单位标记，0否，1是
     String zybbj;//是否有职业危害因素,1是，0否
     String aqjgszqk;//是否有专门安全管理部门，1是，0否
     String zyjyxm;//生产经营内容
     String zyyl;//主要原料
     String zycp;//主要产品
     String jgjgdm;//监管机构代码
-    String lrry_jg;//开户人员所在部门或科室代码
+    String lrryjg;//开户人员所在部门或科室代码
     String username;//企业登录用户名
     String userpwd;//企业登录密码（md5）
-    String zf_bj;//作废标记，1为作废，0为启用
+    String zfbj;//作废标记，1为作废，0为启用
+    String isMark;//孙平加的不知道干啥的
 
     public EnterpriseBean() {
         setCreationDate(new Date());
         qyid = "";
         qymc = "";
-        cl_sj = new Date();
+        clsj = new Date();
         frdb = "";
         zzjgdm = "";
         sdlx = "";
@@ -78,9 +79,9 @@ public class EnterpriseBean extends PersistentEntity {
         zcaqgcsrs = 0;
         aqrs = 0;
         jzaqrs = 0;
-        hyml_dm = "";
+        hymldm = "";
         hylbbm = "";
-        hyzxl_dm = "";
+        hyzxldm = "";
         xjqybj = "";
         sjqyid = "";
         qygmbm = "";
@@ -89,29 +90,38 @@ public class EnterpriseBean extends PersistentEntity {
         jgfl = "";
         sndxssr = 0;
         aqscfy = 0;
-        yazlqy_bj = "";
-        xzqh_sheng = "";
-        xzqh_ds = "";
-        xzqh_xq = "";
-        address_zc = "";
-        address_jy = "";
+        yazlqybj = "";
+        xzqhsheng = "";
+        xzqhds = "";
+        xzqhxq = "";
+        addresszc = "";
+        addressjy = "";
         postcode = "";
         qylxfs = "";
         mailaddress = "";
         dlwz = "";
-        lng = "";
-        lat = "";
-        zdxfdw_bj = "";
+        jd = "";
+        wd = "";
+        zdxfdwbj = "";
         zybbj = "";
         aqjgszqk = "";
         zyjyxm = "";
         zyyl = "";
         zycp = "";
         jgjgdm = "";
-        lrry_jg = "";
+        lrryjg = "";
         username = "";
         userpwd = "";
-        zf_bj = "";
+        zfbj = "";
+        isMark = "";
+    }
+
+    public String getIsMark() {
+        return isMark;
+    }
+
+    public void setIsMark(String isMark) {
+        this.isMark = isMark;
     }
 
     public String getQyid() {
@@ -130,12 +140,12 @@ public class EnterpriseBean extends PersistentEntity {
         this.qymc = qymc;
     }
 
-    public Date getCl_sj() {
-        return cl_sj;
+    public Date getClsj() {
+        return clsj;
     }
 
-    public void setCl_sj(Date cl_sj) {
-        this.cl_sj = cl_sj;
+    public void setClsj(Date clsj) {
+        this.clsj = clsj;
     }
 
     public String getFrdb() {
@@ -202,12 +212,12 @@ public class EnterpriseBean extends PersistentEntity {
         this.jzaqrs = jzaqrs;
     }
 
-    public String getHyml_dm() {
-        return hyml_dm;
+    public String getHymldm() {
+        return hymldm;
     }
 
-    public void setHyml_dm(String hyml_dm) {
-        this.hyml_dm = hyml_dm;
+    public void setHymldm(String hymldm) {
+        this.hymldm = hymldm;
     }
 
     public String getHylbbm() {
@@ -218,12 +228,12 @@ public class EnterpriseBean extends PersistentEntity {
         this.hylbbm = hylbbm;
     }
 
-    public String getHyzxl_dm() {
-        return hyzxl_dm;
+    public String getHyzxldm() {
+        return hyzxldm;
     }
 
-    public void setHyzxl_dm(String hyzxl_dm) {
-        this.hyzxl_dm = hyzxl_dm;
+    public void setHyzxldm(String hyzxldm) {
+        this.hyzxldm = hyzxldm;
     }
 
     public String getXjqybj() {
@@ -290,52 +300,52 @@ public class EnterpriseBean extends PersistentEntity {
         this.aqscfy = aqscfy;
     }
 
-    public String getYazlqy_bj() {
-        return yazlqy_bj;
+    public String getYazlqybj() {
+        return yazlqybj;
     }
 
-    public void setYazlqy_bj(String yazlqy_bj) {
-        this.yazlqy_bj = yazlqy_bj;
+    public void setYazlqybj(String yazlqybj) {
+        this.yazlqybj = yazlqybj;
     }
 
-    public String getXzqh_sheng() {
-        return xzqh_sheng;
+    public String getXzqhsheng() {
+        return xzqhsheng;
     }
 
-    public void setXzqh_sheng(String xzqh_sheng) {
-        this.xzqh_sheng = xzqh_sheng;
+    public void setXzqhsheng(String xzqhsheng) {
+        this.xzqhsheng = xzqhsheng;
     }
 
-    public String getXzqh_ds() {
-        return xzqh_ds;
+    public String getXzqhds() {
+        return xzqhds;
     }
 
-    public void setXzqh_ds(String xzqh_ds) {
-        this.xzqh_ds = xzqh_ds;
+    public void setXzqhds(String xzqhds) {
+        this.xzqhds = xzqhds;
     }
 
-    public String getXzqh_xq() {
-        return xzqh_xq;
+    public String getXzqhxq() {
+        return xzqhxq;
     }
 
-    public void setXzqh_xq(String xzqh_xq) {
-        this.xzqh_xq = xzqh_xq;
+    public void setXzqhxq(String xzqhxq) {
+        this.xzqhxq = xzqhxq;
     }
 
-    public String getAddress_zc() {
-        return address_zc;
+    public String getAddresszc() {
+        return addresszc;
     }
 
-    public void setAddress_zc(String address_zc) {
-        this.address_zc = address_zc;
+    public void setAddresszc(String addresszc) {
+        this.addresszc = addresszc;
     }
 
-    public String getAddress_jy() {
-        return address_jy;
+    public String getAddressjy() {
+        return addressjy;
     }
 
-    public void setAddress_jy(String address_jy) {
-        this.address_jy = address_jy;
+    public void setAddressjy(String addressjy) {
+        this.addressjy = addressjy;
     }
 
     public String getPostcode() {
@@ -370,28 +380,28 @@ public class EnterpriseBean extends PersistentEntity {
         this.dlwz = dlwz;
     }
 
-    public String getLng() {
-        return lng;
+    public String getJd() {
+        return jd;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public String getLat() {
-        return lat;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 
-    public String getZdxfdw_bj() {
-        return zdxfdw_bj;
+    public String getZdxfdwbj() {
+        return zdxfdwbj;
     }
 
-    public void setZdxfdw_bj(String zdxfdw_bj) {
-        this.zdxfdw_bj = zdxfdw_bj;
+    public void setZdxfdwbj(String zdxfdwbj) {
+        this.zdxfdwbj = zdxfdwbj;
     }
 
     public String getZybbj() {
@@ -442,12 +452,12 @@ public class EnterpriseBean extends PersistentEntity {
         this.jgjgdm = jgjgdm;
     }
 
-    public String getLrry_jg() {
-        return lrry_jg;
+    public String getLrryjg() {
+        return lrryjg;
     }
 
-    public void setLrry_jg(String lrry_jg) {
-        this.lrry_jg = lrry_jg;
+    public void setLrryjg(String lrryjg) {
+        this.lrryjg = lrryjg;
     }
 
     public String getUsername() {
@@ -466,11 +476,11 @@ public class EnterpriseBean extends PersistentEntity {
         this.userpwd = userpwd;
     }
 
-    public String getZf_bj() {
-        return zf_bj;
+    public String getZfbj() {
+        return zfbj;
     }
 
-    public void setZf_bj(String zf_bj) {
-        this.zf_bj = zf_bj;
+    public void setZfbj(String zfbj) {
+        this.zfbj = zfbj;
     }
 }

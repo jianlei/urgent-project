@@ -1,5 +1,7 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
@@ -13,7 +15,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -35,6 +36,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Dell on 14-8-11.
@@ -44,6 +46,7 @@ public class SpecialPlanEditPage extends BasePanel {
     final WebMarkupContainer table = new WebMarkupContainer("table");
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     SpecialPlanDataProvider provider = new SpecialPlanDataProvider();
+    Form specialPlanForm;
     @Inject
     private IUploadDocumentService uploadDocumentService;
     @Inject
@@ -54,6 +57,7 @@ public class SpecialPlanEditPage extends BasePanel {
         initForm(reservePlanBean);
         initFeedBack();
         initTable(reservePlanBean);
+        addSelectToForm();
     }
 
     private void initFeedBack() {
@@ -61,7 +65,7 @@ public class SpecialPlanEditPage extends BasePanel {
         add(feedbackPanel);
     }
 
-    private void initTable( final ReservePlanBean reservePlanBean){
+    private void initTable(final ReservePlanBean reservePlanBean) {
 
         add(table.setOutputMarkupId(true));
         provider.setSpecialPlanBean(reservePlanBean);
@@ -76,7 +80,7 @@ public class SpecialPlanEditPage extends BasePanel {
                 specialPlanItem.add(new Label("specialPlanType", specialPlanBean.getType()));
 
                 addDownLoadLink(specialPlanItem, "specialPlanDocumentId", specialPlanBean.getSpecialPlanDocumentId());
-                addDeleteLink(specialPlanItem,"delete", specialPlanBean, table);
+                addDeleteLink(specialPlanItem, "delete", specialPlanBean, table);
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("specialPlanNavigator", specialPlanBeanDataView) {
@@ -87,7 +91,7 @@ public class SpecialPlanEditPage extends BasePanel {
 
     private void initForm(final ReservePlanBean reservePlanBean) {
         //添加表单
-        final Form specialPlanForm = new Form("specialPlanForm", new CompoundPropertyModel(new SpecialPlanBean()));
+        specialPlanForm = new Form("specialPlanForm", new CompoundPropertyModel(new SpecialPlanBean()));
         specialPlanForm.setMultiPart(true);
         this.add(specialPlanForm);
 
@@ -96,7 +100,6 @@ public class SpecialPlanEditPage extends BasePanel {
 
         specialPlanForm.add(new TextField("description"));
         specialPlanForm.add(new TextField("name"));
-        specialPlanForm.add(new TextField("type"));
         specialPlanForm.add(fileUploadFieldSpecial);
 
         AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", specialPlanForm) {
@@ -234,5 +237,23 @@ public class SpecialPlanEditPage extends BasePanel {
                 return specialPlanService.queryByReservePlanId(specialPlanBean);
             }
         }
+    }
+
+    //通过Map初始化下拉列表
+    private void initSelect(String name, Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        specialPlanForm.add(listSites);
+    }
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        specialPlanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("type", IDictConstService.ACCIDENT_TYPE);
     }
 }

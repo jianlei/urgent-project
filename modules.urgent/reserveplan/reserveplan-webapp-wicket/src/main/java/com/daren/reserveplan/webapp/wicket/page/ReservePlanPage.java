@@ -1,5 +1,6 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
@@ -48,11 +49,12 @@ public class ReservePlanPage extends BasePanel {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public ReservePlanPage(String id,final WebMarkupContainer wmc) {
+    public ReservePlanPage(String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         initForm(wmc);
     }
-    private void initForm(final WebMarkupContainer wmc){
+
+    private void initForm(final WebMarkupContainer wmc) {
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         final DataView<ReservePlanBean> listView = new DataView<ReservePlanBean>("rows", provider, 10) {
@@ -64,8 +66,9 @@ public class ReservePlanPage extends BasePanel {
 
 
                 item.add(new Label("name", reservePlanBean.getName()));
-                item.add(new Label("description", reservePlanBean.getDescription()));
-
+                item.add(new Label("approveType", reservePlanBean.getApproveType()));
+                item.add(new Label("version", reservePlanBean.getVersion()));
+                item.add(new Label("approveTime", DateUtil.convertDateToString(reservePlanBean.getApproveTime(), DateUtil.shortSdf)));
                 addDownLoadLink(item, "reservePlanApplyId", reservePlanBean.getReservePlanApplyId());
                 addDownLoadLink(item, "reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId());
                 addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
@@ -74,6 +77,8 @@ public class ReservePlanPage extends BasePanel {
                 addOpenSpecialPageLink(item, wmc, "specialPlanBeanList", reservePlanBean);
                 addOpenSpotPageLink(item, wmc, "spotPlanBeanList", reservePlanBean);
                 addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
+                addEditLink(item, "edit", reservePlanBean);
+
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
@@ -106,7 +111,7 @@ public class ReservePlanPage extends BasePanel {
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                addButtonOnClick(target);
+                addButtonOnClick(target, new ReservePlanBean());
             }
         };
         reservePlanBeanForm.add(addButton);
@@ -114,34 +119,34 @@ public class ReservePlanPage extends BasePanel {
         add(reservePlanBeanForm);
     }
 
-    protected void addButtonOnClick(AjaxRequestTarget target) {
+    protected void addButtonOnClick(AjaxRequestTarget target, ReservePlanBean reservePlanBean) {
     }
 
 
-    private void addOpenSpotPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+    private void addOpenSpotPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean) {
         AjaxLink ajaxLink = new AjaxLink(linkName) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                spotPageLinkOnClick(reservePlanBean,target);
+                spotPageLinkOnClick(reservePlanBean, target);
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
     }
 
-    protected void spotPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
+    protected void spotPageLinkOnClick(ReservePlanBean reservePlanBean, AjaxRequestTarget target) {
     }
 
-    private void addOpenSpecialPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean){
+    private void addOpenSpecialPageLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean) {
         AjaxLink ajaxLink = new AjaxLink(linkName) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                specialPageLinkOnClick(reservePlanBean,target);
+                specialPageLinkOnClick(reservePlanBean, target);
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
     }
 
-    protected void specialPageLinkOnClick(ReservePlanBean reservePlanBean,AjaxRequestTarget target) {
+    protected void specialPageLinkOnClick(ReservePlanBean reservePlanBean, AjaxRequestTarget target) {
     }
 
     private void addDeleteLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean, final WebMarkupContainer table) {
@@ -158,6 +163,16 @@ public class ReservePlanPage extends BasePanel {
             public void onClick(AjaxRequestTarget target) {
                 reservePlanBeanService.deleteEntity(reservePlanBean.getId());
                 target.add(table);
+            }
+        };
+        item.add(ajaxLink.setOutputMarkupId(true));
+    }
+
+    private void addEditLink(Item<ReservePlanBean> item, String linkName, final ReservePlanBean reservePlanBean) {
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                addButtonOnClick(target, reservePlanBean);
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));

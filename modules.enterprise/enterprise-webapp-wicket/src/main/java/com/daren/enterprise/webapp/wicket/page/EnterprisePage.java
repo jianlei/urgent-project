@@ -4,12 +4,12 @@ import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -57,7 +57,7 @@ public class EnterprisePage extends BasePanel {
                     item.add(new Label("JGFL", enterpriseBean.getJgfl()));
                     item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
                     item.add(new Label("MAILADDRESS", enterpriseBean.getMailaddress()));
-                    item.add(new Label("ADDRESS_JY", enterpriseBean.getAddress_jy()));
+                    item.add(new Label("ADDRESS_JY", enterpriseBean.getAddressjy()));
 
                     item.add(getToCreatePageLink("check_QYMC", enterpriseBean));
 

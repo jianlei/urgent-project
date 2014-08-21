@@ -8,6 +8,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,6 +23,12 @@ public class ReservePlanBean extends PersistentEntity {
 
     private String name;//预案名称
     private String description;//描述
+    private String mark;//标识
+    private String level;//级别
+    private String type;//类型
+    private String approveType;//审批状态
+    private Date approveTime;//审批时间
+
     private String reservePlanApplyId;//应急预案申请表文档ID
     private String reservePlanRegisterId;//应急预案注册表文档ID
     private String reviewCommentId;//评审意见文档ID
@@ -33,17 +40,62 @@ public class ReservePlanBean extends PersistentEntity {
     private String comprehensivePlanId;//综合预案文档ID
 
     public ReservePlanBean() {
-        name="";
-        description="";
-        reservePlanApplyId="";
-        reservePlanRegisterId="";
-        reviewCommentId="";
-        reservePlanDocumentId="";
+        name = "";
+        description = "";
+        mark = "";
+        level = "";
+        approveType = "审批通过";
+        type = "";
+        approveTime = new Date();
+        reservePlanApplyId = "";
+        reservePlanRegisterId = "";
+        reviewCommentId = "";
+        reservePlanDocumentId = "";
         comprehensivePlanId = "";
         reviewExpertId = "";
         expertList = new ArrayList();
         spotPlanBeanList = new ArrayList<>();
         specialPlanBeanList = new ArrayList<>();
+    }
+
+    public String getApproveType() {
+        return approveType;
+    }
+
+    public void setApproveType(String approveType) {
+        this.approveType = approveType;
+    }
+
+    public Date getApproveTime() {
+        return approveTime;
+    }
+
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getReviewExpertId() {
