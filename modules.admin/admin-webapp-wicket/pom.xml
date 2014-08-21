@@ -39,6 +39,12 @@
             <artifactId>wicket-devutils</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-atmosphere</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-auth-roles</artifactId>
