@@ -1,0 +1,2 @@
+1.component bundle 增加 IrisDeleteAjaxLink
+2.重构basePanel

@@ -56,14 +56,12 @@
         <bundle>mvn:com.daren.core/com.daren.core.util/${parent.version}</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ognl/3.0.6_1</bundle>
         <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javassist/3.12.1.GA_3</bundle>
-        <configfile finalname="/etc/CouchdbConfig.cfg">mvn:com.daren.core/karaf-features/${project.version}/cfg
-        </configfile>
+        <configfile finalname="/etc/CouchdbConfig.cfg">mvn:com.daren.core/karaf-features/${project.version}/cfg</configfile>
     </feature>
     <feature name="jsr303">
         <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0</bundle>
         <bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.scripting-api-1.0/2.4.0</bundle>
-        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.hibernate-validator/4.1.0.Final_3
-        </bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.hibernate-validator/4.1.0.Final_3</bundle>
         <!--<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.hibernate-validator/4.1.0.Final_3</bundle>-->
         <!--<bundle>mvn:org.hibernate/hibernate-validator/4.3.0.Final</bundle>-->
         <!--<bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr303-api-1.0.0/2.4.0</bundle>-->
@@ -253,7 +251,7 @@
         <feature>jedis</feature>
         <bundle>mvn:com.google.code.gson/gson/${gson.version}</bundle>
         <feature>jsr303</feature>
-        <feature>cxf-jaxrs</feature>
+        <!--<feature>cxf-jaxrs</feature>-->
         <feature>jquery-ui</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
         <bundle start-level="85">wrap:mvn:com.vaynberg.wicket.select2/wicket-select2/2.3</bundle>

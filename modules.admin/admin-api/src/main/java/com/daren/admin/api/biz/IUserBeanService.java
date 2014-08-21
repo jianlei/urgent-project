@@ -4,8 +4,6 @@ package com.daren.admin.api.biz;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.api.biz.IBizService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
 import java.util.List;
 
 /**
@@ -18,8 +16,8 @@ public interface IUserBeanService extends IBizService {
 
     public void saveUser(UserBean user);
 
-    @GET
-    @Produces("application/json;charset=utf-8")
+   /* @GET
+    @Produces("application/json;charset=utf-8")*/
     public List<UserBean> getAllUser();
 
     List<UserBean> queryUser(UserBean userBean);

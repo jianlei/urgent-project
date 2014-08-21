@@ -1,6 +1,7 @@
 package com.daren.core.web.wicket;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 
@@ -14,13 +15,13 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
  * 修改备注:  [说明本次修改内容]
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
-public class HomePanel extends BasePanel {
+public class HomePanel extends Panel {
     //ajax target container
     public HomePanel(String id, WebMarkupContainer wmc) {
         /**
          * test forward link
          */
-        super(id, wmc);
+        super(id);
 
 //        add(new Include("footer", "cus/Template/FooterPage.html"));
     }

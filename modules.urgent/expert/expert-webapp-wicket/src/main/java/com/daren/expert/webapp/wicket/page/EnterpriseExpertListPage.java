@@ -177,8 +177,8 @@ public class EnterpriseExpertListPage extends BasePanel {
                     item.add(new Label("language", row.getLanguage()));
                     item.add(new Label("domain", row.getDomain()));
                     item.add(new Label("direction", row.getDirection()));
-                    item.add(new Label("longitude", row.getLongitude()));
-                    item.add(new Label("latitude", row.getLatitude()));
+//                    item.add(new Label("longitude", row.getLongitude()));
+//                    item.add(new Label("latitude", row.getLatitude()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button

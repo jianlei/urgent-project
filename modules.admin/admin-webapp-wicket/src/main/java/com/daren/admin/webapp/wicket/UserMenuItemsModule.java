@@ -1,6 +1,5 @@
 package com.daren.admin.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.example.Select2PageTest;
 import com.daren.admin.webapp.wicket.page.UserListPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;

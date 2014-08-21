@@ -35,7 +35,7 @@
     <artifactId>urgent-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>com.daren.middleware.urgent-project (OSGi Project)</name>
+    <name>com.daren.urgent-project (OSGi Project)</name>
 
     <!--
      | describe your project here
@@ -92,6 +92,7 @@
         <module>modules.urgent/accident</module>
         <module>modules.regulation</module>
         <module>modules.common</module>
+        <module>modules.example</module>
         <module>modules.urgent/rescue</module>
     </modules>
 

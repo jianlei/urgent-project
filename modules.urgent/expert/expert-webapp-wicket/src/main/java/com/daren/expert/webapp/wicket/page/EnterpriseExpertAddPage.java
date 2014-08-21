@@ -13,6 +13,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -22,6 +23,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 14-8-5.
@@ -73,9 +76,20 @@ public class EnterpriseExpertAddPage extends Panel {
         final DatePicker accidentTime = new DatePicker("date", "yyyy-MM-dd",
                 new Options("dateFormat", Options.asString("yy-mm-dd")));
         dictForm.add(accidentTime);
-        dictForm.add(new TextField("sex").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        List sexList = new ArrayList();
+        sexList.add("男");
+        sexList.add("女");
+        DropDownChoice downChoice = new DropDownChoice("sex", sexList);
+        dictForm.add(downChoice.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("skillTitle").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("degree").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        List degreeList = new ArrayList();
+        degreeList.add("专科");
+        degreeList.add("本科");
+        degreeList.add("研究生");
+        degreeList.add("博士");
+        degreeList.add("博士后");
+        DropDownChoice degreeChoice = new DropDownChoice("degree", degreeList);
+        dictForm.add(degreeChoice.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("nation").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("type").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("city").setOutputMarkupId(true).add(new ValidationStyleBehavior()));

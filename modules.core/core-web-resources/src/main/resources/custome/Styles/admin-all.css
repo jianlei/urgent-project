@@ -108,7 +108,7 @@
     top: 105px;
     left: 8px;
     overflow: hidden;
-    bottom: 34px;
+    bottom: 10px;
     background-color: #e9f4ff;
     border-top-width: 1px;
     border-right-width: 1px;
@@ -258,7 +258,7 @@ table thead tr td {
     position: relative;
     background: #e9f4ff;
     position: absolute;
-    bottom: 34px;
+    bottom: 10px;
     left: 260px;
     top: 105px;
     border-top: 1px solid #155293;
@@ -287,7 +287,7 @@ table thead tr td {
     top: 113px;
     overflow: auto;
     right: 8px;
-    bottom: 42px;
+    bottom: 18px;
     /*z-index: 1;*/
     padding: 8px;
 }
@@ -309,5 +309,5 @@ table thead tr td {
     width: 100%;
     text-align: center;
     color: #FFFFFF;
-    padding: 8px 0;
+    padding: 5px 0;
 }
