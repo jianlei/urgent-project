@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="monitorService" interface="com.daren.monitor.api.biz.IMonitorBeanService">
+        <bean class="com.daren.monitor.core.biz.MonitorBeanServiceImpl">
+            <property name="monitorBeanDao" ref="monitorBeanDao"/>
+        </bean>
+    </service>
+    <reference id="monitorBeanDao" interface="com.daren.monitor.api.dao.IMonitorBeanDao"/>
+</blueprint>
+
