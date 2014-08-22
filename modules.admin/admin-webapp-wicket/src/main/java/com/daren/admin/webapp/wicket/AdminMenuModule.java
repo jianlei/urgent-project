@@ -1,5 +1,6 @@
 package com.daren.admin.webapp.wicket;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuModule;
 
 /**
@@ -11,6 +12,11 @@ import com.daren.core.web.api.module.IMenuModule;
  * @修改备注：
  */
 public class AdminMenuModule implements IMenuModule {
+    @Override
+    public String getProjectName() {
+        return IConst.URGENT_WICKET_APPLICATION_NAME;
+    }
+
     @Override
     public String getTargetTag() {
         return new String("admin.module.bundles");

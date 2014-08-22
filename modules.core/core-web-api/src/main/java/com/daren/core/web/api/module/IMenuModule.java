@@ -9,6 +9,11 @@ package com.daren.core.web.api.module;
  */
 public interface IMenuModule extends IModule {
 
+    /**
+     * wicket application name
+     * @return
+     */
+    public String getProjectName();
 
     /**
      * 获取可以附加到这个菜单下的item的tag

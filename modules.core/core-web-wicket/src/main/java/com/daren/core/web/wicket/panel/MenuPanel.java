@@ -13,7 +13,7 @@ import java.util.List;
 public class MenuPanel extends Panel {
     public MenuPanel(String id) {
         super(id);
-        List<IMenuModule> menuList = MenuModuleManager.getInstall().getMenuModuleList();
+        List<IMenuModule> menuList = MenuModuleManager.getInstall().getMenuModuleMap(getApplication().getName());
         RepeatingView listItems = new RepeatingView("menuItems");
         if (menuList != null) {
 

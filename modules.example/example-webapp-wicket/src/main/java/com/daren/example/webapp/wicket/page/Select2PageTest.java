@@ -1,4 +1,4 @@
-package com.daren.admin.webapp.wicket.example;
+package com.daren.example.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;

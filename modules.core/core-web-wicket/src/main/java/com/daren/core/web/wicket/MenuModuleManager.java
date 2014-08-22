@@ -4,10 +4,7 @@ import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,13 +15,17 @@ import java.util.List;
  */
 public class MenuModuleManager {
 
+    private static MenuModuleManager install;
+    //比较菜单的显示顺序
+    private static Comparator<IModule> COMPARATOR = new Comparator<IModule>() {
+        // This is where the sorting happens.
+        public int compare(IModule o1, IModule o2) {
+            return o1.getIndex() - o2.getIndex();
+        }
+    };
     //菜单集合
     private List<IMenuItemsModule> menuItemModuleList = new ArrayList<IMenuItemsModule>();
-
-    private List<IMenuModule> menuModuleList = new ArrayList<IMenuModule>();
-
-
-    private static MenuModuleManager install;
+    private Map<String, List<IMenuModule>> menuModuleMap = new HashMap<>();
 
     private MenuModuleManager() {
 
@@ -37,21 +38,44 @@ public class MenuModuleManager {
         return install;
     }
 
-    public List<IMenuModule> getMenuModuleList() {
-        Collections.sort(menuModuleList, COMPARATOR);
-        return menuModuleList;
+    public List<IMenuModule> getMenuModuleMap(String key) {
+        List<IMenuModule> list = menuModuleMap.get(key);
+        if(list!=null)
+            Collections.sort(list, COMPARATOR);
+        return list;
     }
 
     public List<IMenuItemsModule> getMenuItemModuleList() {
         return menuItemModuleList;
     }
 
+    /**
+     * 根据project name添加
+     *
+     * @param menusModule
+     */
     public void add(IMenuModule menusModule) {
-        menuModuleList.add(menusModule);
+        List<IMenuModule> list;
+        String name = menusModule.getProjectName();
+        if (menuModuleMap.containsKey(name)) {
+            list = menuModuleMap.get(name);
+            list.add(menusModule);
+        } else {
+            list = new ArrayList<>();
+            list.add(menusModule);
+            menuModuleMap.put(name, list);
+        }
+
     }
 
     public void remove(IMenuModule menusModule) {
-        menuModuleList.remove(menusModule);
+        List<IMenuModule> list;
+        String name = menusModule.getProjectName();
+        list = menuModuleMap.get(name);
+        list.remove(menusModule);
+        if (list.size() == 0) {
+            menuModuleMap.remove(name);
+        }
     }
 
     public void add(IMenuItemsModule menuItemModule) {
@@ -62,50 +86,35 @@ public class MenuModuleManager {
         menuItemModuleList.remove(menuItemModule);
     }
 
-
     /**
      * 通过tag获取对应的菜单模块
-     *
-     * @param tags
+     * @param tag
      * @return
      */
-    public List<IModule> findMenusByTag(String... tags) {
+    public List<IModule> findMenusByTag(String tag) {
         List<IModule> modules = new ArrayList<IModule>();
 
         //获取对应的tag的菜单
         if (menuItemModuleList != null) {
             for (IMenuItemsModule menusModule : menuItemModuleList) {
-                for (String tag : tags) {
                     if (tag.equals(menusModule.getTag())) {
                         modules.add(menusModule);
                     }
-                }
             }
         }
 
         //获取对应的tag的菜单目录
-        if (menuModuleList != null) {
+        /*if (menuModuleMap != null) {
+            List<IMenuModule> menuModuleList = menuModuleMap.get(key);
             for (IMenuModule directoryMenusModule : menuModuleList) {
-
-                for (String tag : tags) {
                     if (tag.equals(directoryMenusModule.getTag())) {
                         modules.add(directoryMenusModule);
                     }
-                }
-
-            }
-        }
+             }
+        }*/
         Collections.sort(modules, COMPARATOR);
         return modules;
     }
-
-    //比较菜单的显示顺序
-    private static Comparator<IModule> COMPARATOR = new Comparator<IModule>() {
-        // This is where the sorting happens.
-        public int compare(IModule o1, IModule o2) {
-            return o1.getIndex() - o2.getIndex();
-        }
-    };
 
 
 }

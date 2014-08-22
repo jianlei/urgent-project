@@ -14,8 +14,7 @@ import java.util.List;
 public class CustomeMenuPanel extends Panel {
     public CustomeMenuPanel(String id, WebMarkupContainer wmc) {
         super(id);
-
-        List<IMenuModule> menuList = MenuModuleManager.getInstall().getMenuModuleList();
+        List<IMenuModule> menuList = MenuModuleManager.getInstall().getMenuModuleMap(getApplication().getName());
         RepeatingView listItems = new RepeatingView("menuItems");
         if (menuList != null) {
             int i = 0;

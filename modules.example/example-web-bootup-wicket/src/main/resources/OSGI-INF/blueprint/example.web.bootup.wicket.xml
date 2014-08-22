@@ -14,7 +14,7 @@
 
     <service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
         <service-properties>
-            <entry key="pax.wicket.applicationname" value="example.simple.default"/>
+            <entry key="pax.wicket.applicationname" value="daren.project.example"/>
             <entry key="pax.wicket.mountpoint" value="/example"/>
         </service-properties>
         <bean class="com.daren.example.web.bootup.wicket.filter.ShiroWebApplicationFactory">
@@ -85,14 +85,16 @@
     </bean>-->
 
     <bean id="shiroCacheManager" class="com.daren.example.web.bootup.wicket.shiro.ShiroCacheManager">
-        <!--<property name="cacheManager" ref="cacheManager"/>-->
-        <!--<property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache-example.xml"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
+        <!--<property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache.xml"/>-->
     </bean>
+
+    <reference id="cacheManager" interface="com.daren.core.api.cache.ICacheManager"/>
 
 
     <service interface="org.ops4j.pax.wicket.api.FilterFactory">
         <service-properties>
-            <entry key="pax.wicket.applicationname" value="example.simple.default"/>
+            <entry key="pax.wicket.applicationname" value="daren.project.example"/>
             <entry key="pax.wicket.filter.priority" value="2"/>
         </service-properties>
         <bean class="com.daren.example.web.bootup.wicket.filter.ShiroFilterFactory">

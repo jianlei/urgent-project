@@ -1,6 +1,7 @@
 package com.daren.example.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
+import com.daren.example.webapp.wicket.page.Select2PageTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -13,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class ExampleMenuItemsModule implements IMenuItemsModule {
+public class Select2MenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -23,12 +24,12 @@ public class ExampleMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 20;
     }
 
     @Override
     public String getName() {
-        return "企业信息管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Select2例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -43,7 +44,6 @@ public class ExampleMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-//        return new EnterpriseTabPage(id, wmc);
-        return null;
+        return new Select2PageTest(id, wmc);
     }
 }
