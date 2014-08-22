@@ -2,6 +2,8 @@ package com.daren.monitor.webapp.wicket.page;
 
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.monitor.api.biz.IMonitorBeanService;
 import com.daren.monitor.entities.MonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -38,6 +40,9 @@ public class MonitorPage extends BasePanel {
     @Inject
     private IMonitorBeanService monitorBeanService;
 
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
+
     public MonitorPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -54,7 +59,9 @@ public class MonitorPage extends BasePanel {
                 item.add(new Label("ipAddress", monitorBean.getIpAddress()));
                 item.add(new Label("port", monitorBean.getPort()));
                 item.add(new Label("channel", monitorBean.getChannel()));
-                item.add(new Label("affiliation", monitorBean.getAffiliation()));
+                long enterpriseId=new Long(monitorBean.getAffiliation());
+                EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
+                item.add(new Label("affiliation", enterpriseBean.getQymc()));//企业名称
                 item.add(getToCreatePageLink("check_name", monitorBean));
 
                 AjaxLink alink = new AjaxLink("del") {

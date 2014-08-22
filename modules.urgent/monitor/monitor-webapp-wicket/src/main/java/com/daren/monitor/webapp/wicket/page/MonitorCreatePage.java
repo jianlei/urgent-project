@@ -4,6 +4,8 @@ import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect3Choice;
 import com.daren.monitor.api.biz.IMonitorBeanService;
 import com.daren.monitor.entities.MonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -14,9 +16,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.Map;
 
 
@@ -31,23 +33,24 @@ import java.util.Map;
 
 public class MonitorCreatePage extends BasePanel {
 
-    @Inject
-    private IMonitorBeanService monitorBeanService;
-
-    @Inject
-    private IEnterpriseBeanService enterpriseBeanService;
-
-    Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(new MonitorBean()));
-
     MonitorBean monitorBean = new MonitorBean();
+    Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(monitorBean));
+    EnterpriseBean enterpriseBean=new EnterpriseBean();
+    EnterpriseSelect3Choice<MonitorBean> listSites;
     IrisAbstractDialog dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    @Inject
+    private IMonitorBeanService monitorBeanService;
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
 
 
     public MonitorCreatePage(final String id, final WebMarkupContainer wmc, final MonitorBean bean) {
         super(id, wmc);
         if (null != bean) {
             monitorBean = bean;
+            long enterpriseId=new Long(monitorBean.getAffiliation());
+            enterpriseBean= (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
         }
         initForm(monitorBean);
         initFeedBack();
@@ -67,7 +70,7 @@ public class MonitorCreatePage extends BasePanel {
                 MonitorBean monitorBean = (MonitorBean) monitorBeanForm.getDefaultModelObject();
                 if (null != monitorBean) {
                     try {
-                        monitorBean.setUpdateDate(new Date());
+                        //monitorBean.setUpdateDate(new Date());
                         monitorBeanService.saveEntity(monitorBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
@@ -120,9 +123,24 @@ public class MonitorCreatePage extends BasePanel {
     }
 
     //通过字典初始化下拉列表
-    private void initSelect(String name, String dictConst) {
+    private void initSelect(String name) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        listSites = new EnterpriseSelect3Choice<MonitorBean>(name,Model.of(monitorBean)){
+            @Override
+            public void setId(MonitorBean bean, String input) {
+                bean.setAffiliation(input);
+            }
+
+            @Override
+            public String getId(MonitorBean choice) {
+                return choice.getAffiliation();
+            }
+
+            @Override
+            public String getDisplayText(MonitorBean choice) {
+                return enterpriseBean.getQymc();//企业名称
+            }
+        };
         monitorBeanForm.add(listSites);
     }
 
@@ -134,6 +152,6 @@ public class MonitorCreatePage extends BasePanel {
     }
 
     private void addSelectToForm() {
-        initSelect("affiliation", enterpriseBeanService.getAllBeansToHashMap());
+        initSelect("affiliation");
     }
 }

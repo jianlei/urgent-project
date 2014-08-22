@@ -3,8 +3,10 @@ package com.daren.enterprise.webapp.component.data;
 import com.daren.core.util.JNDIHelper;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import org.json.JSONException;
+import org.json.JSONWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
  * 修改时间:  2014/8/15 11:19
  * 修改备注:  [说明本次修改内容]
  */
-public class EnterpriseProvider extends TextChoiceProvider<EnterpriseBean> {
+public class EnterpriseProvider extends ChoiceProvider<EnterpriseBean> {
     IEnterpriseBeanService enterpriseBeanService;
     int PAGE_SIZE = 10;
 
@@ -32,12 +34,14 @@ public class EnterpriseProvider extends TextChoiceProvider<EnterpriseBean> {
         }
     }
 
-    @Override
+
+
+
     protected String getDisplayText(EnterpriseBean choice) {
-        return choice.getQyid();
+        return choice.getQymc();
     }
 
-    @Override
+
     protected Object getId(EnterpriseBean choice) {
         return choice.getId();
     }
@@ -46,6 +50,11 @@ public class EnterpriseProvider extends TextChoiceProvider<EnterpriseBean> {
     public void query(String term, int page, Response<EnterpriseBean> response) {
         response.addAll(queryMatches(term, page, PAGE_SIZE));
         response.setHasMore(response.size() == PAGE_SIZE);
+    }
+
+    @Override
+    public void toJson(EnterpriseBean choice, JSONWriter writer) throws JSONException {
+        writer.key("id").value(getId(choice)).key("text").value(getDisplayText(choice));
     }
 
     private List<EnterpriseBean> queryMatches(String term, int page, int page_size) {
@@ -60,6 +69,7 @@ public class EnterpriseProvider extends TextChoiceProvider<EnterpriseBean> {
         }
         return beans;
     }
+
 
 
 }

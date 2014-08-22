@@ -417,6 +417,21 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.webapp.component</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.daren.enterprise</groupId>
                 <artifactId>com.daren.enterprise.entities</artifactId>
