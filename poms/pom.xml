@@ -246,6 +246,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.Rescue</groupId>
+                <artifactId>com.daren.Rescue.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.core</artifactId>
                 <version>1.0-SNAPSHOT</version>
@@ -395,6 +402,31 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.7.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.persist.openjpa</artifactId>
+                <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
 
