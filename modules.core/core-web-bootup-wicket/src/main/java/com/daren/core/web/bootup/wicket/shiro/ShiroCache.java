@@ -88,7 +88,7 @@ public class ShiroCache<K, V> implements Cache<K, V> {
         return result;
     }
 
-    //自定义relm中的授权/认证的类名加上授权/认证英文名字
+    //自定义realm中的授权/认证的类名加上授权/认证英文名字
     public String getName() {
         if (name == null)
             return "";

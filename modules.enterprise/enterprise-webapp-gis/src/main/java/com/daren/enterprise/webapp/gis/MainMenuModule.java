@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.gis;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuModule;
 
 /**
@@ -12,6 +13,11 @@ import com.daren.core.web.api.module.IMenuModule;
  * 修改备注:  [说明本次修改内容]
  */
 public class MainMenuModule implements IMenuModule {
+    @Override
+    public String getProjectName() {
+        return IConst.URGENT_WICKET_APPLICATION_NAME;
+    }
+
     @Override
     public String getTargetTag() {
         return "gis.module.bundles";

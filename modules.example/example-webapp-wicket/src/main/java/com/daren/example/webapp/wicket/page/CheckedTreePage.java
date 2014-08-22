@@ -1,9 +1,9 @@
-package com.daren.admin.webapp.wicket.example;
+package com.daren.example.webapp.wicket.page;
 
 import com.daren.admin.entities.AreaBean;
-import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
 import com.daren.core.web.component.table.SingleSelectNestedTree;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.example.webapp.wicket.data.AreaTreeProvider;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
