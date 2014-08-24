@@ -4,6 +4,7 @@ import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.monitor.api.biz.IMonitorBeanService;
 import com.daren.monitor.entities.MonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -134,6 +135,7 @@ public class MonitorCreatePage extends BasePanel {
     }
 
     private void addSelectToForm() {
-        initSelect("affiliation", enterpriseBeanService.getAllBeansToHashMap());
+        EnterpriseSelect2Choice enterpriseSelect2Choice = new EnterpriseSelect2Choice("affiliation");
+        monitorBeanForm.add(enterpriseSelect2Choice);
     }
 }
