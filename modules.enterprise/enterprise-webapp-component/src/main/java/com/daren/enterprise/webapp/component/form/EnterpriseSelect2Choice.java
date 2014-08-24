@@ -13,15 +13,17 @@ import org.apache.wicket.model.IModel;
  * 修改时间:  2014/8/15 11:10
  * 修改备注:  [说明本次修改内容]
  */
-public class EnterpriseSelect2Choice<EnterpriseBean> extends Select2Choice {
+public class EnterpriseSelect2Choice<T> extends Select2Choice {
 
 
     public EnterpriseSelect2Choice(String id) {
-        this(id, null);
+        super(id);
     }
 
     public EnterpriseSelect2Choice(String id, IModel model) {
         super(id, model, new EnterpriseProvider());
         getSettings().setMinimumInputLength(2);
     }
+
+
 }

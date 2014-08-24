@@ -19,3 +19,4 @@ urgent-project
 12.core-util的CouchdbConfig實現了osgi的configAdmin（blueprint） <br/>
 13.mvn install:install-file -Dfile=d:\kaptcha-2.3.2.jar -DgroupId=com.google.code -DartifactId=kaptcha -Dversion=2.3.2 -Dpackaging=jar
 14.osgi service事务控制，在blueprint里的bean定义中加入<tx:transaction method="*" value="Required"/>
+15.安装redis为window服务：redis-server --service-install redis.windows.conf
