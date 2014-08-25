@@ -43,7 +43,7 @@ public class EnterpriseProvider extends ChoiceProvider<EnterpriseBean> {
 
 
     protected Object getId(EnterpriseBean choice) {
-        return choice.getId();
+        return choice.getQyid();
     }
 
     @Override

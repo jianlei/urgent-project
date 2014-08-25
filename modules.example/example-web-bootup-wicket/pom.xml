@@ -151,7 +151,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
+            <artifactId>shiro-cas</artifactId>
         </dependency>
 
         <dependency>
