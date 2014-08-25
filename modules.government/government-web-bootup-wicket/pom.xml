@@ -5,26 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <relativePath>../../poms/compiled/</relativePath>
-        <groupId>com.daren.platform.urgent-project.build</groupId>
-        <artifactId>compiled-bundle-settings</artifactId>
+        <groupId>com.daren.government</groupId>
+        <artifactId>modules.government</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.core</groupId>
-    <artifactId>com.daren.core.web.bootup.wicket</artifactId>
+    <groupId>com.daren.government</groupId>
+    <artifactId>com.daren.government.web.bootup.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.core.web.bootup.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.government.web.bootup.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
-    <name>Urgent :: Core - Web Wicket Bootup</name>
-    <description>Core - Web Wicket Bootup</description>
+    <name>Urgent :: Example - Web Wicket Bootup</name>
+    <description>Example - Web Wicket Bootup</description>
 
     <dependencies>
         <dependency>
@@ -72,13 +71,8 @@
         </dependency>
 
         <dependency>
-        <groupId>com.daren.core</groupId>
-        <artifactId>com.daren.core.impl</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.security</artifactId>
+            <artifactId>com.daren.core.impl</artifactId>
         </dependency>
 
         <dependency>
@@ -157,7 +151,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
+            <artifactId>shiro-cas</artifactId>
         </dependency>
 
         <dependency>
