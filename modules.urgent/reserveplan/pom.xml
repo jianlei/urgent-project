@@ -14,7 +14,7 @@
     <artifactId>modules.urgent.reserveplan</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - Reserveplan</name>
+    <name>Urgent :: Modules - 企业预案管理</name>
 
     <packaging>pom</packaging>
 
