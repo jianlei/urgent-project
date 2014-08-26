@@ -725,7 +725,7 @@ function rightTab(){
             $('#zj_btn').bind({//专家
                 click: function() {
                     isClickBtn = true;
-                    alert("专家搜索");
+                    zjbz();
                 },
                 mouseenter: function() {
                     $("#zj_btn").attr("src","../../cus/gis/css/images/zjed.png");
@@ -746,7 +746,7 @@ function rightTab(){
             $('#wz_btn').bind({//物资
                 click: function() {
                     isClickBtn = true;
-                    alert("物资搜索");
+                    wzbj();
                 },
                 mouseenter: function() {
                     $("#wz_btn").attr("src","../../cus/gis/css/images/wzed.png");
