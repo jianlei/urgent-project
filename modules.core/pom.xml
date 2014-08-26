@@ -28,6 +28,7 @@
         <module>core-util</module>
         <module>core-web-api</module>
         <module>core-web-validation</module>
+        <module>core-web-security</module>
         <module>core-web-bootup-wicket</module>
         <module>core-web-resources</module>
         <module>core-web-wicket</module>

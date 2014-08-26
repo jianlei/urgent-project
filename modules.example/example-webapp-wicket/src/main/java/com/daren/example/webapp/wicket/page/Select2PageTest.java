@@ -3,8 +3,9 @@ package com.daren.example.webapp.wicket.page;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -35,7 +36,7 @@ public class Select2PageTest extends BasePanel {
         Form<?> form = new Form<Void>("single");
         add(form);
 
-        Select2Choice<UserBean> user = new Select2Choice<UserBean>("country", null, new UserProvider());
+        EnterpriseSelect2Choice<EnterpriseBean> user = new EnterpriseSelect2Choice<EnterpriseBean>("country");
         user.getSettings().setMinimumInputLength(2);
         form.add(user);
     }

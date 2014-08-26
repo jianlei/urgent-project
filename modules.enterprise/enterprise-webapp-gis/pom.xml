@@ -194,58 +194,75 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.accident</groupId>
-            <artifactId>com.daren.accident.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.equipment</groupId>
-            <artifactId>com.daren.equipment.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.equipment</groupId>
-            <artifactId>com.daren.equipment.entities</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.equipment</groupId>
-            <artifactId>com.daren.equipment.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.equipment</groupId>
-            <artifactId>com.daren.equipment.entities</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.expert</groupId>
-            <artifactId>com.daren.expert.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.expert</groupId>
-            <artifactId>com.daren.expert.entities</artifactId>
+            <groupId>com.daren.rescue</groupId>
+            <artifactId>com.daren.rescue.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.daren.rescue</groupId>
-            <artifactId>com.daren.rescue.api</artifactId>
+            <artifactId>com.daren.rescue.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.daren.rescue</groupId>
             <artifactId>com.daren.rescue.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.tycho</groupId>
-            <artifactId>org.eclipse.osgi</artifactId>
+            <groupId>com.daren.rescue</groupId>
+            <artifactId>com.daren.rescue.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.osgi</groupId>
-            <artifactId>services</artifactId>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+         <dependency>
+            <groupId>com.daren.equipment</groupId>
+            <artifactId>com.daren.equipment.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.equipment</groupId>
+            <artifactId>com.daren.equipment.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.equipment</groupId>
+            <artifactId>com.daren.equipment.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.equipment</groupId>
+            <artifactId>com.daren.equipment.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

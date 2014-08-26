@@ -20,7 +20,7 @@
 
     </properties>
     <modules>
-        <module>middleware-couchdb</module>
+        <!--<module>middleware-couchdb</module>-->
         <module>middleware-workflow</module>
     </modules>
     <dependencyManagement>
