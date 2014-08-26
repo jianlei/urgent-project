@@ -14,7 +14,7 @@
     <artifactId>modules.urgent.expert</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - Expert</name>
+    <name>Urgent :: Modules - 专家管理</name>
 
     <packaging>pom</packaging>
 

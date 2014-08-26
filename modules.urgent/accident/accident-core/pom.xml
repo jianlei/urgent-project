@@ -24,43 +24,46 @@
     <packaging>bundle</packaging>
 
     <dependencies>
+
         <dependency>
             <groupId>com.daren.accident</groupId>
             <artifactId>com.daren.accident.api</artifactId>
-            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.daren.accident</groupId>
             <artifactId>com.daren.accident.persist.openjpa</artifactId>
-            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.daren.accident</groupId>
             <artifactId>com.daren.accident.entities</artifactId>
-            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.impl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa</artifactId>
-            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
         </dependency>
+
+
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
-            <version>0.0.6_1</version>
-            <scope>provided</scope>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
         </dependency>
     </dependencies>
 

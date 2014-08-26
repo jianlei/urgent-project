@@ -14,7 +14,7 @@
     <artifactId>modules.urgent.drill</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - Drill</name>
+    <name>Urgent :: Modules - 应急演练</name>
 
     <packaging>pom</packaging>
 
