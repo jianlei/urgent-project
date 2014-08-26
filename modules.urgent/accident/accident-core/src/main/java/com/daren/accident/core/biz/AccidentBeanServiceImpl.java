@@ -1,10 +1,12 @@
 package com.daren.accident.core.biz;
 
-import com.daren.accident.entities.AccidentBean;
-import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
+import com.daren.accident.entities.AccidentBean;
+import com.daren.core.impl.biz.GenericBizServiceImpl;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -27,6 +29,22 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
     @Override
     public List<AccidentBean> queryAccidentByAccidentLevel() {
         return accidentBeanDao.find("select a from AccidentBean a where a.accidentLevel ='1' ");
+    }
+
+    @Override
+    @POST
+    @Path("/add")
+    @Consumes("application/json;charset=utf-8")
+    public Response addAccident(AccidentBean bean) {
+        accidentBeanDao.save(bean);
+        return Response.status(200).build();
+    }
+
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/")
+    public List<AccidentBean> getAllAccident() {
+        return accidentBeanDao.getAll(AccidentBean.class.getName());
     }
 }
 

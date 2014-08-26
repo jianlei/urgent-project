@@ -15,4 +15,10 @@
         <bean class="com.daren.enterprise.webapp.wicket.EnterpriseMenuItemsModule">
         </bean>
     </service>
+
+    <!-- 发布菜单目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.enterprise.webapp.wicket.OrganizationMenuItemsModule">
+        </bean>
+    </service>
 </blueprint>

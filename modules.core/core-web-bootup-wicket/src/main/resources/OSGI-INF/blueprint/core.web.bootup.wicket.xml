@@ -23,7 +23,7 @@
     </service>
 
 
-    <bean id="shiroRealm" class="com.daren.core.web.bootup.wicket.shiro.ShiroRealm"/>
+    <bean id="shiroRealm" class="com.daren.core.web.bootup.wicket.ShiroRealm"/>
 
     <bean id="webSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
           destroy-method="destroy">
@@ -39,7 +39,7 @@
 
     <!-- 发布session工厂 -->
 
-    <bean id="SessionFactory" class="com.daren.core.web.bootup.wicket.shiro.ShiroSessionFactory">
+    <bean id="SessionFactory" class="com.daren.core.security.shiro.ShiroSessionFactory">
 
     </bean>
 
@@ -65,21 +65,21 @@
         <argument index="2" value="6379" type="int"/>
     </bean>
 
-    <bean id="jedisShiroSessionRepository" class="com.daren.core.web.bootup.wicket.shiro.JedisShiroSessionRepository">
+    <bean id="jedisShiroSessionRepository" class="com.daren.core.security.shiro.JedisShiroSessionRepository">
         <property name="jedisPool" ref="shardedJedisPool"/>
     </bean>
 
     <service ref="jedisShiroSessionRepository"
-             interface="com.daren.core.web.bootup.wicket.shiro.ShiroSessionRepository">
+             interface="com.daren.core.security.shiro.ShiroSessionRepository">
 
     </service>
 
-    <bean id="customShiroSessionDAO" class="com.daren.core.web.bootup.wicket.shiro.CustomShiroSessionDAO">
+    <bean id="customShiroSessionDAO" class="com.daren.core.security.shiro.CustomShiroSessionDAO">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
 
     <!-- 用户授权信息Cache, 采用EhCache -->
-    <bean id="shiroCacheManager" class="com.daren.core.web.bootup.wicket.shiro.ShiroCacheManager">
+    <bean id="shiroCacheManager" class="com.daren.core.security.shiro.ShiroCacheManager">
         <property name="cacheManager" ref="cacheManager"/>
         <!--<property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache.xml"/>-->
     </bean>

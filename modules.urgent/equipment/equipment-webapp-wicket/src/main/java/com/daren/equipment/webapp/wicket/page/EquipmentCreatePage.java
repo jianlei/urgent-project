@@ -2,8 +2,8 @@ package com.daren.equipment.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.form.IrisDropDownChoice;
+import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.equipment.api.biz.IEquipmentBeanService;
 import com.daren.equipment.entities.EquipmentBean;
 import com.daren.rescue.api.biz.IRescueBeanService;
@@ -11,7 +11,6 @@ import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -36,7 +35,7 @@ import java.util.Map;
 
 public class EquipmentCreatePage extends BasePanel {
     final WebMarkupContainer dialogWrapper;
-    IrisAbstractDialog dialog;
+    WindowMapPage dialog;
     Form<EquipmentBean> equipmentBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new EquipmentBean()));
     EquipmentBean equipmentBean = new EquipmentBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
@@ -174,15 +173,15 @@ public class EquipmentCreatePage extends BasePanel {
         addTextFieldToForm("storagePlace");
         addTextFieldToForm("img");
         addTextFieldToForm("remark");
-        addHiddenFieldToForm("lng");
-        addHiddenFieldToForm("lat");
+        addHiddenFieldToForm("jd");
+        addHiddenFieldToForm("wd");
     }
 
     private void createDialog(AjaxRequestTarget target, final String title) {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new MapPage("dialog", title, null) {
+        dialog = new WindowMapPage("dialog", title) {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
 

@@ -16,8 +16,7 @@ public interface IUserBeanService extends IBizService {
 
     public void saveUser(UserBean user);
 
-   /* @GET
-    @Produces("application/json;charset=utf-8")*/
+
     public List<UserBean> getAllUser();
 
     List<UserBean> queryUser(UserBean userBean);

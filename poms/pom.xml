@@ -56,7 +56,7 @@
         <jsr339.version>2.2.0</jsr339.version>
         <ognl.version>3.0.6_1</ognl.version>
         <javassist.version>3.12.1.GA_3</javassist.version>
-        <activiti.version>5.15.1</activiti.version>
+        <activiti.version>5.16.1</activiti.version>
         <cxf.version>2.7.10</cxf.version>
         <guava.version>15.0</guava.version>
         <jquery-ui.version>6.16.0</jquery-ui.version>
@@ -239,13 +239,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.daren.core</groupId>
-                <artifactId>com.daren.core.web.component</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>com.daren.Rescue</groupId>
                 <artifactId>com.daren.Rescue.api</artifactId>
                 <version>${project.version}</version>
@@ -303,6 +296,62 @@
             <dependency>
                 <groupId>com.daren.accident</groupId>
                 <artifactId>com.daren.accident.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.expert</groupId>
+                <artifactId>com.daren.expert.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.expert</groupId>
+                <artifactId>com.daren.expert.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.rescue</groupId>
+                <artifactId>com.daren.rescue.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.rescue</groupId>
+                <artifactId>com.daren.rescue.entities</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -377,6 +426,14 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.security</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.daren.core</groupId>
                 <artifactId>com.daren.core.impl</artifactId>
@@ -422,13 +479,6 @@
             <dependency>
                 <groupId>com.daren.enterprise</groupId>
                 <artifactId>com.daren.enterprise.core</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.daren.core</groupId>
-                <artifactId>com.daren.core.web.component</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -882,6 +932,13 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>1.8</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20090211</version>
                 <scope>provided</scope>
             </dependency>
 

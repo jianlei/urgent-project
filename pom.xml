@@ -95,6 +95,7 @@
         <module>modules.urgent/monitor</module>
         <module>modules.regulation</module>
         <module>modules.common</module>
+        <module>modules.government</module>
         <module>modules.example</module>
 
     </modules>

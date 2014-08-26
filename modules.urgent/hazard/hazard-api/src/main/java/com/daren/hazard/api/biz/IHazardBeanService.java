@@ -4,6 +4,8 @@ package com.daren.hazard.api.biz;
 import com.daren.core.api.biz.IBizService;
 import com.daren.hazard.entities.HazardBean;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
 import java.util.List;
 
 /**
@@ -11,5 +13,7 @@ import java.util.List;
  */
 public interface IHazardBeanService extends IBizService {
 
+    @GET
+    @Produces("application/json;charset=utf-8")
     List<HazardBean> queryHazardSource(HazardBean hazardBean);
 }

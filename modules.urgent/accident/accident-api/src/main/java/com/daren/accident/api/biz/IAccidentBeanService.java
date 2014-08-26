@@ -4,6 +4,7 @@ package com.daren.accident.api.biz;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.core.api.biz.IBizService;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -11,4 +12,5 @@ import java.util.List;
  */
 public interface IAccidentBeanService extends IBizService {
     List<AccidentBean> queryAccidentByAccidentLevel();
+    public Response addAccident(AccidentBean bean);
 }
