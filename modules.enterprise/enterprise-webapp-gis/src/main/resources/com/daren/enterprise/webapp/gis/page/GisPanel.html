@@ -88,14 +88,14 @@
                 markers.splice(0);
                 var enterpriseObj = eval(jsonEnterprise);
                 for (var i = 0; i < enterpriseObj.length; i++) {
-                    var _lng = enterpriseObj[i].longitude;
-                    var _lat = enterpriseObj[i].latitude;
+                    var _lng = enterpriseObj[i].jd;
+                    var _lat = enterpriseObj[i].wd;
                 }
 
                 var safetyObj = eval(jsonSafety);
                 for (var i = 0; i < safetyObj.length; i++) {
-                    var _lng = safetyObj[i].longitude;
-                    var _lat = safetyObj[i].latitude;
+                    var _lng = safetyObj[i].jd;
+                    var _lat = safetyObj[i].wd;
                 }
             }
 

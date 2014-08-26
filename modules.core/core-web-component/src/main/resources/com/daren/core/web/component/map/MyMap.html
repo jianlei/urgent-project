@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script type="text/javascript">
+        var map;
+        function loadScript() {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=UtftIQUkGmWx0El7xx2d2wib&callback=initialize";
+            document.body.appendChild(script);
+        }
+        function initialize() {
+            setTimeout(function () {
+                map = new BMap.Map("allmap");
+                map.centerAndZoom("四平市", 15);
+                map.enableScrollWheelZoom();
+                var contextMenu = new BMap.ContextMenu();
+                var txtMenuItem = [
+                    {
+                        text: '放大',
+                        callback: function () {
+                            map.zoomIn()
+                        }
+                    },
+                    {
+                        text: '缩小',
+                        callback: function () {
+                            map.zoomOut()
+                        }
+                    },
+                    {
+                        text: '放置到最大级',
+                        callback: function () {
+                            map.setZoom(18)
+                        }
+                    },
+                    {
+                        text: '在此添加标注',
+                        callback: function (p) {
+                            map.clearOverlays();
+                            var markerPoint = new BMap.Marker(p), px = map.pointToPixel(p);
+                            var point = new BMap.Point(markerPoint.getPosition().lng, markerPoint.getPosition().lat);
+                            var json = {w: 21, h: 35, l: 0, t: 0, x: 6, lb: 5};
+                            var iconImg = new BMap.Icon("../../cus/img/dkgreen.png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)});
+                            var marker = new BMap.Marker(point, {icon: iconImg});
+                            map.addOverlay(marker);
+                            parent.document.getElementById('jd').value = markerPoint.getPosition().lng;
+                            parent.document.getElementById('wd').value = markerPoint.getPosition().lat;
+                        }
+                    }
+                ];
+                for (var i = 0; i < txtMenuItem.length; i++) {
+                    contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text, txtMenuItem[i].callback, 100));
+                    if (i == 1 || i == 3) {
+                        contextMenu.addSeparator();
+                    }
+                }
+                map.addContextMenu(contextMenu);
+            }, 500);
+        }
+    </script>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div id="allmap"
+         style="border:solid 1px;width: 100%;height:500px;border:solid 1px red; overflow: hidden;margin:0;z-index: 90;"></div>
+</wicket:panel>
+</body>
+</html>

@@ -32,8 +32,8 @@ public class EnterpriseExpertBean extends PersistentEntity {
     private String language;    //外语语种
     private String domain;  //技术领域
     private String direction;   //研究方向
-    private String longitude;   //经度
-    private String latitude;    //纬度
+    private String jd;   //经度
+    private String wd;    //纬度
 
     public long getAttach() {
         return attach;
@@ -163,19 +163,19 @@ public class EnterpriseExpertBean extends PersistentEntity {
         this.direction = direction;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String getJd() {
+        return jd;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 }

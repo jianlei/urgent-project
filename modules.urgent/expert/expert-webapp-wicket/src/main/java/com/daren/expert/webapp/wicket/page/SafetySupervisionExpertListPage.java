@@ -173,8 +173,8 @@ public class SafetySupervisionExpertListPage extends BasePanel {
                     item.add(new Label("language", row.getLanguage()));
                     item.add(new Label("domain", row.getDomain()));
                     item.add(new Label("direction", row.getDirection()));
-//                    item.add(new Label("longitude", row.getLongitude()));
-//                    item.add(new Label("latitude", row.getLatitude()));
+//                    item.add(new Label("jd", row.getLongitude()));
+//                    item.add(new Label("wd", row.getLatitude()));
                     //add delete button
                     item.add(initDeleteButton(row));
                     //add update button
