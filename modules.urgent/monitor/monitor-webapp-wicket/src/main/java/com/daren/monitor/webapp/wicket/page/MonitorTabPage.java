@@ -27,9 +27,8 @@ import java.util.List;
 
 public class MonitorTabPage extends BasePanel {
 
-    private final TabbedPanel tabPanel;
-
     final RepeatingView createPage = new RepeatingView("createPage");
+    private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     Fragment createFragment;
     MonitorCreatePage monitorCreatePage;
