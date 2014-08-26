@@ -11,9 +11,9 @@ import java.util.List;
  * @类描述：企业专家服务实现类
  * @创建人：张清欣
  * @创建时间：2014-04-04 下午2:42
- * @修改人：
- * @修改时间：
- * @修改备注：
+ * @修改人：dlw
+ * @修改时间：8-26
+ * @修改备注：创建getExpertList()方法
  */
 
 public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl implements IEnterpriseExpertBeanService {
@@ -27,6 +27,15 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
     @Override
     public List<EnterpriseExpertBean> query(EnterpriseExpertBean dictBean) {
         return enterpriseExpertBeanDao.find("select e from EnterpriseExpertBean e where e.name=?1 ", dictBean.getName());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<EnterpriseExpertBean> getExpertList() {
+        return enterpriseExpertBeanDao.getAll(EnterpriseExpertBean.class.getName());
     }
 }
 

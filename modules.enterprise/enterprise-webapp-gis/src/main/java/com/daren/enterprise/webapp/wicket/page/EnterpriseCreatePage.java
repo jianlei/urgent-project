@@ -162,8 +162,8 @@ public class EnterpriseCreatePage extends BasePanel {
 //        addTextFieldToForm("zdxfdw_bj");
 //        addTextFieldToForm("zybbj");
 //        addTextFieldToForm("aqjgszqk");
-        addTextFieldToForm("lng");
-        addTextFieldToForm("lat");
+        addTextFieldToForm("jd");
+        addTextFieldToForm("wd");
     }
 
 }

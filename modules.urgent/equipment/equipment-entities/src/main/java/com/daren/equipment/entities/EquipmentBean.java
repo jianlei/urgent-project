@@ -44,53 +44,53 @@ public class EquipmentBean extends PersistentEntity {
     private String storagePlace;//存放场所
     private String img;//装备图片
     private String remark;//备注
-    private String lng;//经度
-    private String lat;//维度
+    private String jd;//经度
+    private String wd;//维度
 
 
     public EquipmentBean() {
-        name="";
-        property="";
-        registrationType="";
-        rescueId="";
-        unitName="";
-        equipmentSources="";
-        equipmentType="";
-        parametersSpecifications="";
-        measuringUnit="";
-        amount="";
-        regularMaintenanceInterval="";
-        durableYears="";
-        lastMaintenanceDate="";
-        manufacturer="";
-        manufactureDate="";
-        purchaseDate="";
-        unitFax="";
-        principal="";
-        officePhone="";
-        homePhone="";
-        mobilePhone="";
-        describeOrPurposes="";
-        warehouse="";
-        storagePlace="";
-        img="";
-        remark="";
+        name = "";
+        property = "";
+        registrationType = "";
+        rescueId = "";
+        unitName = "";
+        equipmentSources = "";
+        equipmentType = "";
+        parametersSpecifications = "";
+        measuringUnit = "";
+        amount = "";
+        regularMaintenanceInterval = "";
+        durableYears = "";
+        lastMaintenanceDate = "";
+        manufacturer = "";
+        manufactureDate = "";
+        purchaseDate = "";
+        unitFax = "";
+        principal = "";
+        officePhone = "";
+        homePhone = "";
+        mobilePhone = "";
+        describeOrPurposes = "";
+        warehouse = "";
+        storagePlace = "";
+        img = "";
+        remark = "";
     }
 
-    public String getLng() {
-        return lng;
+    public String getJd() {
+        return jd;
     }
 
-    public String getLat() {
-        return lat;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 
     public String getName() {
