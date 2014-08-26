@@ -301,6 +301,62 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.equipment</groupId>
+                <artifactId>com.daren.equipment.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.expert</groupId>
+                <artifactId>com.daren.expert.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.expert</groupId>
+                <artifactId>com.daren.expert.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.rescue</groupId>
+                <artifactId>com.daren.rescue.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.rescue</groupId>
+                <artifactId>com.daren.rescue.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.accident</groupId>
                 <artifactId>com.daren.accident.core</artifactId>
                 <version>${project.version}</version>

@@ -1,0 +1,722 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>实时预览Demo</title>
+    <style type="text/css">
+        div,td,input
+        {
+        	font-size:12px;
+        }
+        .ptzBtn
+        {
+        	width:32px;
+        }
+        #Select1
+        {
+            width: 67px;
+        }
+        #SelectWnd
+        {
+            width: 70px;
+        }
+    </style>
+    
+    <SCRIPT>
+	var LocString=String(window.document.location.href);
+	function GetQueryString(str){
+		var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(LocString),tmp;
+		if(tmp=rs)return tmp[2];
+		return "没有这个参数";
+	}
+    /*****实时预览******/
+    function StartPlayView()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        //strIP = document.getElementById("TextIP").value;
+        strIP = GetQueryString("TextIP");
+        strPort = document.getElementById("TextPort").value;
+        //strName1 = document.getElementById("TextName1").value;
+        strName1 = GetQueryString("TextName1");
+        //strPwd1 = document.getElementById("Textpwd1").value;
+        strPwd1 = GetQueryString("TextPwd1");
+        ChanNum1 = document.getElementById("SelectChan1").value;
+	cameraID1 = document.getElementById("TextCameraID1").value;
+        strName2 = document.getElementById("TextName2").value;
+        strPwd2 = document.getElementById("Textpwd2").value;
+        ChanNum2 = document.getElementById("SelectChan2").value;
+	cameraID2 = document.getElementById("TextCameraID2").value;
+	//var streamSvrIp = document.getElementById("streamSvrIp").value;
+	var streamSvrIp = GetQueryString("streamSvrIp");
+	var streamSvrPort = document.getElementById("streamSvrPort").value;
+        var deviceCode = document.getElementById("deviceCode").value;
+	var pagIP = document.getElementById("pagIP").value;
+	var pagPort = document.getElementById("pagPort").value;
+        if(deviceCode && pagIP && pagPort){
+		if(streamSvrIp && streamSvrPort){
+			strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID2 + "</CameraID><DeviceIP>" + pagIP + "</DeviceIP><DevicePort>" + pagPort + "</DevicePort><DeviceType>10001</DeviceType><RegistType>4</RegistType><DeviceID>" + deviceCode+ "</DeviceID><User>"+ strName2 +"</User><Password>" + strPwd2 + "</Password><ChannelNum>"+ ChanNum2 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>" + streamSvrIp + "</SrvIp><Port>" + streamSvrPort + "</Port></Transmit></Transmits></Parament>";
+		}else{
+			alert("请填写流媒体服务器信息，E家设备预览必须经过流媒体服务器！");
+     			return;
+		}
+	}else{
+	if(streamSvrIp && streamSvrPort){
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>"+streamSvrIp+"</SrvIp><Port>"+streamSvrPort+"</Port></Transmit></Transmits></Parament>";
+	}else{
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits></Transmits></Parament>";
+	}
+}
+        OCXobj.StartTask_Preview_InWnd(strXML,0);
+    }
+    /*****指定窗口实时预览******/
+    function StartPlayView_InWnd()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        strIP = document.getElementById("TextIP").value;
+        strPort = document.getElementById("TextPort").value;
+        strName1 = document.getElementById("TextName1").value;
+        strPwd1 = document.getElementById("Textpwd1").value;
+        ChanNum1 = document.getElementById("SelectChan1").value;
+	cameraID1 = document.getElementById("TextCameraID1").value;
+        strName2 = document.getElementById("TextName2").value;
+        strPwd2 = document.getElementById("Textpwd2").value;
+        ChanNum2 = document.getElementById("SelectChan2").value;
+	cameraID2 = document.getElementById("TextCameraID2").value;
+        WndIndex = document.getElementById("SelectWnd").value;
+	var streamSvrIp = document.getElementById("streamSvrIp").value;
+	var streamSvrPort = document.getElementById("streamSvrPort").value;
+        var deviceCode = document.getElementById("deviceCode").value;
+	var pagIP = document.getElementById("pagIP").value;
+	var pagPort = document.getElementById("pagPort").value;
+        if(deviceCode && pagIP && pagPort){
+		if(streamSvrIp && streamSvrPort){
+			strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID2 + "</CameraID><DeviceIP>" + pagIP + "</DeviceIP><DevicePort>" + pagPort + "</DevicePort><DeviceType>10001</DeviceType><RegistType>4</RegistType><DeviceID>" + deviceCode+ "</DeviceID><User>"+ strName2 +"</User><Password>" + strPwd2 + "</Password><ChannelNum>"+ ChanNum2 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>" + streamSvrIp + "</SrvIp><Port>" + streamSvrPort + "</Port></Transmit></Transmits></Parament>";
+		}else{
+			alert("请填写流媒体服务器信息，E家设备预览必须经过流媒体服务器！");
+     			return;
+		}
+	}else{
+	if(streamSvrIp && streamSvrPort){
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>"+streamSvrIp+"</SrvIp><Port>"+streamSvrPort+"</Port></Transmit></Transmits></Parament>";
+	}else{
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits></Transmits></Parament>";
+		}
+}
+        OCXobj.StartTask_Preview_InWnd(strXML,parseInt(WndIndex));
+    }
+    /*****空闲窗口实时预览******/
+    function StartPlayView_Free()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        strIP = document.getElementById("TextIP").value;
+        strPort = document.getElementById("TextPort").value;
+        strName1 = document.getElementById("TextName1").value;
+        strPwd1 = document.getElementById("Textpwd1").value;
+        ChanNum1 = document.getElementById("SelectChan1").value;
+	cameraID1 = document.getElementById("TextCameraID1").value;
+        strName2 = document.getElementById("TextName2").value;
+        strPwd2 = document.getElementById("Textpwd2").value;
+        ChanNum2 = document.getElementById("SelectChan2").value;
+	cameraID2 = document.getElementById("TextCameraID2").value;
+	var streamSvrIp = document.getElementById("streamSvrIp").value;
+	var streamSvrPort = document.getElementById("streamSvrPort").value;
+        var deviceCode = document.getElementById("deviceCode").value;
+	var pagIP = document.getElementById("pagIP").value;
+	var pagPort = document.getElementById("pagPort").value;
+        if(deviceCode && pagIP && pagPort){
+		if(streamSvrIp && streamSvrPort){
+			strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID2 + "</CameraID><DeviceIP>" + pagIP + "</DeviceIP><DevicePort>" + pagPort + "</DevicePort><DeviceType>10001</DeviceType><RegistType>4</RegistType><DeviceID>" + deviceCode+ "</DeviceID><User>"+ strName2 +"</User><Password>" + strPwd2 + "</Password><ChannelNum>"+ ChanNum2 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>" + streamSvrIp + "</SrvIp><Port>" + streamSvrPort + "</Port></Transmit></Transmits></Parament>";
+		}else{
+			alert("请填写流媒体服务器信息，E家设备预览必须经过流媒体服务器！");
+     			return;
+		}
+	}else{
+	if(streamSvrIp && streamSvrPort){
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits><Transmit><SrvIp>"+streamSvrIp+"</SrvIp><Port>"+streamSvrPort+"</Port></Transmit></Transmits></Parament>";
+	}else{
+	strXML = "<?xml version='1.0'?><Parament><CameraID>" + cameraID1 + "</CameraID><DeviceIP>" + strIP + "</DeviceIP><DevicePort>" + strPort + "</DevicePort><User>"+ strName1 +"</User><Password>" + strPwd1 + "</Password><ChannelNum>"+ ChanNum1 +"</ChannelNum><ProtocolType>0</ProtocolType><StreamType>0</StreamType><Transmits></Transmits></Parament>";
+		}
+}
+        OCXobj.StartTask_Preview_FreeWnd(strXML);
+    }
+    /*****停止所有预览******/
+    function StopPlayView()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StopAllPreview();
+    }
+    /*****设置抓图格式为JPG******/
+    function CatchPicJPG()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.SetCapturParam("C:\\pic",0);
+    }
+    /*****设置抓图格式为BMP******/
+    function CatchPicBMP()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.SetCapturParam("C:\\pic",1);
+    }
+    /*****云台：左上******/
+    function PTZLeftUp()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(25,3);
+    }
+    /*****云台：上******/
+    function PTZUp()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(21,3);
+    }
+    /*****云台：右上******/
+    function PTZRightUp()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(26,3);
+    }
+    /*****云台：左******/
+    function PTZLeft()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(23,3);
+    }
+    /*****云台：自转******/
+    function PTZAuto()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(29,3);
+    }
+    /*****云台：右******/
+    function PTZRight()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(24,3);
+    }
+    /*****云台：左下******/
+    function PTZLeftDown()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(27,3);
+    }
+    /*****云台：下******/
+    function PTZDown()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(22,3);
+    }
+    /*****云台：右下******/
+    function PTZRightDown()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(28,3);
+    }
+    /*****云台：停止******/
+    function PTZStop()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(-21,3);
+    }
+    /*****云台：焦距+******/
+    function PTZAddTimes()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(11,3);
+    }
+    /*****云台：焦距-******/
+    function PTZMinusTimes()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(12,3);
+    }
+    /*****云台：焦点+******/
+    function PTZFarFocus()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(13,3);
+    }
+    /*****云台：焦点-******/
+    function PTZNearFocus()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(14,3);
+    }
+    /*****云台：光圈+******/
+    function PTZLargeAperture()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(15,3);
+    }
+    /*****云台：光圈-******/
+    function PTZSmallAperture()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        OCXobj.StartTask_PTZ(16,3);
+    }
+    /*****云台：调用预置点******/
+    function GetPt()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        ptNum = document.getElementById("SelectGetpt").value;
+        var ret = OCXobj.PTZCtrlGotoPreset(ptNum); 
+             
+    }
+    /*****云台：设置预置点******/
+    function SetPt()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        ptNum = document.getElementById("SelectSetpt").value;
+       
+        var ret = OCXobj.PTZCtrlSetPreset(parseInt(ptNum));
+            
+    }
+    /*****获取视频参数******/
+    function GetVideoEffect()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        retXML = OCXobj.GetVideoEffect();
+        var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc.async="false";
+        xmlDoc.loadXML(retXML);
+        document.getElementById("TextBright").value = xmlDoc.documentElement.childNodes[0].childNodes[0].nodeValue;
+        document.getElementById("TextConstrast").value = xmlDoc.documentElement.childNodes[1].childNodes[0].nodeValue;
+        document.getElementById("TextSaturation").value = xmlDoc.documentElement.childNodes[2].childNodes[0].nodeValue;
+        document.getElementById("TextHue").value = xmlDoc.documentElement.childNodes[3].childNodes[0].nodeValue;
+    }
+    /*****设置视频参数******/
+    function SetVideoEffect()
+    {
+        var OCXobj = document.getElementById("PlayViewOCX");
+        BrightValue = document.getElementById("TextBright").value;
+        ContrastValue = document.getElementById("TextConstrast").value;
+        SaturationValue = document.getElementById("TextSaturation").value;
+        HueValue = document.getElementById("TextHue").value;
+        OCXobj.SetVideoEffect(parseInt(BrightValue),parseInt(ContrastValue),parseInt(SaturationValue),parseInt(HueValue));
+    }
+
+    function init(){
+	var OCXobj = document.getElementById("PlayViewOCX");
+	OCXobj.SetOcxMode(0);
+	if(document.getElementById("ptzSvrIp").value != ""){
+		SetPtzServer();
+	}
+    }
+
+    function SetPtzServer(){
+	var OCXobj = document.getElementById("PlayViewOCX");
+	var XmlDoc = new ActiveXObject("MSXML2.DOMDocument");
+	var Instruction = XmlDoc.createProcessingInstruction("xml",
+		"version='1.0' encoding='utf-8'");
+	XmlDoc.appendChild(Instruction);
+	var Root = XmlDoc.createNode(1, "PTZServe", "");
+
+	Element = XmlDoc.createElement("ServIP");
+	Element.text = document.getElementById("ptzSvrIp").value;
+	Root.appendChild(Element);
+
+	Element = XmlDoc.createElement("ServPort");
+	Element.text = document.getElementById("ptzSvrPort").value;
+	Root.appendChild(Element);
+
+	Element = XmlDoc.createElement("Priority");
+	Element.text = "50";
+	Root.appendChild(Element);
+
+	Element = XmlDoc.createElement("UserName");
+	Element.text = "admin";
+	Root.appendChild(Element);
+
+	Element = XmlDoc.createElement("UserID");
+	Element.text = "1";
+	Root.appendChild(Element);
+
+	XmlDoc.appendChild(Root);
+	OCXobj.SetPtzServer(XmlDoc.xml);    
+	alert("云台代理服务器设置成功！");
+    }
+    
+    </SCRIPT>
+    
+<!-- 以下是事件触发函数接口 -->  
+<script language="javascript" for="PlayViewOCX" event="FireWindowsNumber(iSel)">   
+	szMsg = "窗口分割消息,窗口数" + iSel;  
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireSelectWindow(iSel)"> 
+	szMsg = "窗口选择消息,窗口" + iSel;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStartRealPlay(iSel)">
+	szMsg = "开始预览消息" + iSel;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStopRealPlay(iSel)">   
+	szMsg = "停止预览消息" + iSel ;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStopPreviewAll()">   
+	szMsg = "停止所有预览消息" ;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireOpenSound(iSel)">   
+	szMsg = "打开声音消息" ;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireCloseSound(iSel)">   
+	szMsg = "关闭声音消息" ;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireChangeWindow(iFrom,iTo)">   
+	szMsg = "互换窗口消息"+ "从" +iFrom+"到"+iTo;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FirePTZCtrl(iWindowID,iCtrlID,iSpeed)">   
+	szMsg = "云台控制消息:"+ "窗口:" +iWindowID+"控制:"+iCtrlID+"速度:"+ iSpeed;  
+	
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStartRecord(iWindowID)">   
+	szMsg = "开始录像"+ iWindowID;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStopRecord(iWindowID)">   
+	szMsg = "停止录像"+ iWindowID;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireCatchPic(szPath,iWindowID)">   
+	szMsg = "抓图"+ "路径" +szPath+"窗口"+iWindowID;  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStartPlayBack(lWindowID)">  
+
+</script>
+
+<script language="javascript" for="PlayViewOCX" event="FireStopPlayBack(lWindowID)">  
+
+</script>
+
+</head>
+<body onLoad="init();">
+<div style="display:none;width:530px">
+	<div style="width:250px;float:left;overflow:hidden">
+		<table width="250px" height="220px" style="border: thin solid #C0C0C0">
+			<tr><th colspan=2>按IP地址添加的设备：</th>
+			</tr>
+					<tr>
+					<td width="35%">设备IP：</td>
+					<td width="65%"><input id="TextIP" style="width:130px" type="text" value="58.244.242.6" /></td>
+				</tr>
+				<tr>
+				<td width="35%">设备端口：</td>
+					<td width="65%"><input id="TextPort" style="width:130px" type="text" value="8000" /></td>
+				</tr>
+				<tr>
+					<td width="35%">用户名：</td>
+					<td width="65%"><input id="TextName1" style="width:130px" type="text" value="admin" /></td>
+				</tr>
+				<tr>
+					<td width="35%">密码：</td>
+					<td width="65%"><input id="TextPwd1" style="width:130px" type="password" value="12345"/></td>
+				</tr>
+
+				<tr>
+					<td width="35%">监控点ID：</td>
+					<td width="65%"><input id="TextCameraID1" style="width:130px" type="text" value="" /></td>
+				</tr>
+			<tr><td height="25px"></td><td></td></tr>
+				</table>
+	</div>
+	<div style="width:250px;float:left;overflow:hidden">
+		<table width="250px" height="220px" style="border: thin solid #C0C0C0">
+			<tr><th colspan=2>按编号添加的设备：</th>
+					<tr>
+					<td width="35%">设备编号：</td>
+					<td width="65%"><input id="deviceCode" style="width:130px" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td width="35%">用户名：</td>
+					<td width="65%"><input id="TextName2" style="width:130px" type="text" value="admin" /></td>
+				</tr>
+				<tr>
+					<td width="35%">密码：</td>
+					<td width="65%"><input id="TextPwd2" style="width:130px" type="password" /></td>
+				</tr>
+				<tr>
+					<td width="35%">PagIP：</td>
+					<td width="65%"><input id="pagIP" style="width:130px" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td width="35%">PagPort：</td>
+					<td width="65%"><input id="pagPort" style="width:130px" type="text" value="7302" /></td>
+				</tr>
+				<tr>
+					<td width="35%">通道列表：</td>
+					<td width="65%"><select style="width:130px" id="SelectChan2" name="D1">
+					<option value = "0">0</option>
+					<option value = "1">1</option>
+					<option value = "2">2</option>
+					<option value = "3">3</option>
+					<option value = "4">4</option>
+					<option value = "5">5</option>
+					<option value = "6">6</option>
+					<option value = "7">7</option>
+					<option value = "8">8</option>
+					<option value = "9">9</option>
+					<option value = "10">10</option>
+					<option value = "11">11</option>
+					<option value = "12">12</option>
+					<option value = "13">13</option>
+					<option value = "14">14</option>
+					<option value = "15">15</option>
+				</select></td>
+				</tr>
+				<tr>
+					<td width="35%">监控点ID：</td>
+					<td width="65%"><input id="TextCameraID2" style="width:130px" type="text" value="" /></td>
+				</tr>
+				</table></div>
+	<div style="width:250px;float:left;overflow:hidden">
+		<table width="250px" height="220px" style="border: thin solid #C0C0C0">
+			<tr><th colspan=2>流媒体服务器设置：</th>
+			</tr>
+				<tr>
+					<td width="35%">流媒体IP：</td>
+					<td width="65%"><input id="streamSvrIp" style="width:130px" type="text" value="222.163.103.198" /></td>
+				</tr>
+				<tr>
+					<td width="35%">流媒体Port：</td>
+					<td width="65%"><input id="streamSvrPort" style="width:130px" type="text" value="554" /></td>
+				</tr>
+			<tr><td height="25px" colspan=2><FONT color=red>预览按编号添加的设备时，必须设置流媒体服务器；不设置，则表示直连设备取流。</FONT></td></tr>
+			<tr><td height="25px"></td><td></td></tr>
+			<tr><td height="25px"></td><td></td></tr>
+			<tr><td height="25px"></td><td></td></tr>
+			<tr><td height="20px"></td><td></td></tr>
+				</table></div>
+	<div style="width:250px;float:left;overflow:hidden">
+		<table width="250px" height="220px" style="border: thin solid #C0C0C0">
+			<tr><th colspan=2>云台代理服务器设置：</th>
+			</tr>
+				<tr>
+					<td width="40%">云台服务器IP：</td>
+					<td width="60%"><input id="ptzSvrIp" style="width:130px" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td width="40%">云台服务器Port：</td>
+					<td width="60%"><input id="ptzSvrPort" style="width:130px" type="text" value="7000" /></td>
+				</tr>
+				<tr>
+					<td width="40%"></td>
+					<td width="60%"><input type="button" value="设置云台服务器" onclick="SetPtzServer()" /></td>
+				</tr>
+			<tr><td height="25px" colspan=2><FONT color=red>如果需要对监控点进行云台控制，必须设置云台代理服务器，在所有预览之前设置一次即可。</FONT></td></tr>
+			<tr><td height="25px"></td><td></td></tr>
+			<tr><td height="25px"></td><td></td></tr>
+			<tr><td height="8px"></td><td></td></tr>
+		</table>
+	</div>
+</div>
+	<div style="width:550px;float:left;overflow:hidden;border: thin solid #C0C0C0">
+		<table width="100%">
+			<tr>
+				<td width="50%" align="center">
+					<table width="100%">
+						<tr>
+							<td width="35%">通道列表：</td>
+							<td width="65%"><select style="width:130px" id="SelectChan1" name="D1">
+							<option value = "0">0</option>
+							<option value = "1">1</option>
+							<option value = "2">2</option>
+							<option value = "3">3</option>
+							<option value = "4">4</option>
+							<option value = "5">5</option>
+							<option value = "6">6</option>
+							<option value = "7">7</option>
+							<option value = "8">8</option>
+							<option value = "9">9</option>
+							<option value = "10">10</option>
+							<option value = "11">11</option>
+							<option value = "12">12</option>
+							<option value = "13">13</option>
+							<option value = "14">14</option>
+							<option value = "15">15</option>
+						</select></td>
+						</tr>
+					</table>
+				</td>
+				<td width="50%" align="center"><input type="button" value="开始预览" onclick="StartPlayView()" /></td>
+			</tr>
+		</table>
+	</div>
+	
+    <div style="width:530px">
+        <div style="display:none;width:250px;float:left;overflow:hidden">
+            &nbsp;<br />
+            <table width="100%" style="border: thin solid #C0C0C0" >
+                <tr>
+                    <td width="50%" align="center"><input type="button" value="空闲预览" onclick="StartPlayView_Free()" /></td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="button" value="指定预览" onclick="StartPlayView_InWnd()" /></td>
+                    <td align="center">
+                        <select id="SelectWnd" name="D2">
+                            <option value = "0">0</option>
+                            <option value = "1">1</option>
+                            <option value = "2">2</option>
+                            <option value = "3">3</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="button" value="停止预览" onclick = "StopPlayView()" /></td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">设置抓图格式：</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="button" value="BMP格式"onclick = "CatchPicBMP()" /></td>
+                    <td align="center"><input type="button" value="JPG格式" onclick = "CatchPicJPG()" /></td>
+                </tr>
+            </table>
+            <br />
+            <div style="display:none;text-align:left;background-color: #C0C0C0">云台控制</div>
+            <br />
+            <table width="100%" style="display:none;border: thin solid #C0C0C0">
+                <tr>
+                    <td width="40%">
+                        <table width="100%" >
+                            <tr>
+                                <td width="33%" align="center"><input type="button" class="ptzBtn" value="左上" onclick="PTZLeftUp()" /></td>
+                                <td width="33%" align="center"><input type="button" class="ptzBtn" value="上" onclick="PTZUp()" /></td>
+                                <td width="34%" align="center"><input type="button" class="ptzBtn" value="右上" onclick="PTZRightUp()" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><input type="button" class="ptzBtn" value="左" onclick="PTZLeft()" /></td>
+                                <td align="center"><input type="button" class="ptzBtn" value="自转" onclick="PTZAuto()" /></td>
+                                <td align="center"><input type="button" class="ptzBtn" value="右" onclick="PTZRightUp()" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><input type="button" class="ptzBtn" value="左下" onclick="PTZRightDown()" /></td>
+                                <td align="center"><input type="button" class="ptzBtn" value="下" onclick="PTZDown()" /></td>
+                                <td align="center"><input type="button" class="ptzBtn" value="右下" onclick="PTZRightDown()"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="20%"><input type="button" class="ptzBtn" value="停止" onclick="PTZStop()" /></td>
+                    <td width="40%">
+                        <table width="100%" >
+                            <tr>
+                                <td width="33%" align="center"><input type="button" value="+" onclick="PTZAddTimes()" /></td>
+                                <td width="33%" align="center">焦距</td>
+                                <td width="34%" align="center"><input type="button" value="-" onclick="PTZMinusTimes()" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><input type="button" value="+" onclick="PTZFarFocus()" /></td>
+                                <td align="center">焦点</td>
+                                <td align="center"><input type="button" value="-" onclick="PTZNearFocus()" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><input type="button" value="+" onclick="PTZLargeAperture()" /></td>
+                                <td align="center">光圈</td>
+                                <td align="center"><input type="button" value="-" onclick="PTZSmallAperture()" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" style="display:none;border: thin solid #C0C0C0">
+            <tr>
+            <td width="40%"><input type="button" value="调用预置点" onclick="GetPt()" /></td>
+            <td width="60%"><select style="width:130px" id="SelectGetpt">
+                <option value = "0">0</option>
+                <option value = "1">1</option>
+                <option value = "2">2</option>
+                <option value = "3">3</option>
+                <option value = "4">4</option>
+                <option value = "5">5</option>
+                <option value = "6">6</option>
+                <option value = "7">7</option>
+                <option value = "8">8</option>
+                <option value = "9">9</option>
+                <option value = "10">10</option>
+                <option value = "11">11</option>
+                <option value = "12">12</option>
+                <option value = "13">13</option>
+                <option value = "14">14</option>
+                <option value = "15">15</option>
+            </select></td>
+            </tr>
+            <tr>
+            <td width="40%"><input type="button" value="设置预置点" onclick="SetPt()" /></td>
+            <td width="60%"><select style="width:130px" id="SelectSetpt">
+                <option value = "0">0</option>
+                <option value = "1">1</option>
+                <option value = "2">2</option>
+                <option value = "3">3</option>
+                <option value = "4">4</option>
+                <option value = "5">5</option>
+                <option value = "6">6</option>
+                <option value = "7">7</option>
+                <option value = "8">8</option>
+                <option value = "9">9</option>
+                <option value = "10">10</option>
+                <option value = "11">11</option>
+                <option value = "12">12</option>
+                <option value = "13">13</option>
+                <option value = "14">14</option>
+                <option value = "15">15</option>
+            </select></td>
+            </tr>
+            </table>
+            <br />
+            <div style="display:none;text-align:left;background-color: #C0C0C0">图像参数</div>
+            <br />
+            <table width="100%" style="display:none;border: thin solid #C0C0C0">
+                <tr>
+                    <td width="80%">
+                        <table width="100%" >
+                            <tr>
+                                <td width="25%" align="center">亮度</td>
+                                <td width="75%" align="center"><input id="TextBright" type="text" style="width:130px" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">对比度</td>
+                                <td align="center"><input id="TextConstrast" type="text" style="width:130px" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">饱和度</td>
+                                <td align="center"><input id="TextSaturation" type="text" style="width:130px" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">色调</td>
+                                <td align="center"><input id="TextHue" type="text" style="width:130px" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="20%"><input type="button" value="获取" onclick="GetVideoEffect()" /><br/><input type="button" value="设置" onclick="SetVideoEffect()" /></td>
+                </tr>
+            </table>
+        </div>
+            
+        <div style="width:550px;float:left;overflow:hidden">
+            &nbsp;&nbsp;&nbsp;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- 添加预览控件（需要先在windows下注册） -->
+            <object classid="clsid:D5E14042-7BF6-4E24-8B01-2F453E8154D7" id="PlayViewOCX"  width="550" height="300" name="ocx" >
+            </object>
+        </div>
+    </div>
+</body>
+</html>
+
+
