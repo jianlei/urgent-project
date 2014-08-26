@@ -1,7 +1,7 @@
 package com.daren.expert.webapp.wicket.page;
 
+import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.expert.api.biz.ISafetySupervisionExpertBeanService;
 import com.daren.expert.entities.SafetySupervisionExpertBean;
 import com.googlecode.wicket.jquery.core.Options;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
 public class SafetySupervisionExpertAddPage extends Panel {
     final WebMarkupContainer dialogWrapper;
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
-    IrisAbstractDialog dialog;
+    WindowMapPage dialog;
     private boolean isAdd;
     @Inject
     @Reference(id = "safetySupervisionExpertBeanService", serviceInterface = ISafetySupervisionExpertBeanService.class)
@@ -88,8 +88,8 @@ public class SafetySupervisionExpertAddPage extends Panel {
         dictForm.add(new TextField("language").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("domain").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("direction").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new HiddenField("longitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new HiddenField("latitude").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        dictForm.add(new HiddenField("jd").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        dictForm.add(new HiddenField("wd").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new AjaxButton("save", dictForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -132,7 +132,7 @@ public class SafetySupervisionExpertAddPage extends Panel {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new EnterpriseMapPage("dialog", title, null) {
+        dialog = new WindowMapPage("dialog", title) {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
 

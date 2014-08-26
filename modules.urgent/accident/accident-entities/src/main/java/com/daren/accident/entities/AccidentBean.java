@@ -36,8 +36,8 @@ public class AccidentBean extends PersistentEntity {
     private String headcountSlight;//事故伤亡人数-轻伤
     private String headcountTrappedOrMissing;//事故伤亡人数-被困或下落不明
     private String headcountEvacuees;//事故伤亡人数-被疏散人数
-    private String lng;//经度
-    private String lat;//纬度
+    private String jd;//经度
+    private String wd;//纬度
     private String accidentType;//事故类别
     private String industryCategory;//行业类别
     private String accidentLevel;//事故级别
@@ -52,36 +52,36 @@ public class AccidentBean extends PersistentEntity {
     private String signer;//签发人
 
     public AccidentBean() {
-        place="";
-        accidentTitle="";
-        detailsPlace="";
-        accidentUnit="";
-        accidentPreliminaryAnalysis="";
-        accidentSource="";
-        accidentTime= new Date();
-        cause="";
-        toll="";
-        economicLosses="";
-        accidentScene="";
-        headcountDeath="";
-        headcountSerious="";
-        headcountSlight="";
-        headcountTrappedOrMissing="";
-        headcountEvacuees="";
-        lng="";
-        lat="";
-        accidentType="";
-        industryCategory="";
-        accidentLevel="";
-        accidentDescribe="";
-        measure="";
-        attachment="";
-        videoLink="";
-        operator="";
-        operatorPhone="";
-        liaisons="";
-        liaisonsPhone="";
-        signer="";
+        place = "";
+        accidentTitle = "";
+        detailsPlace = "";
+        accidentUnit = "";
+        accidentPreliminaryAnalysis = "";
+        accidentSource = "";
+        accidentTime = new Date();
+        cause = "";
+        toll = "";
+        economicLosses = "";
+        accidentScene = "";
+        headcountDeath = "";
+        headcountSerious = "";
+        headcountSlight = "";
+        headcountTrappedOrMissing = "";
+        headcountEvacuees = "";
+        jd = "";
+        wd = "";
+        accidentType = "";
+        industryCategory = "";
+        accidentLevel = "";
+        accidentDescribe = "";
+        measure = "";
+        attachment = "";
+        videoLink = "";
+        operator = "";
+        operatorPhone = "";
+        liaisons = "";
+        liaisonsPhone = "";
+        signer = "";
     }
 
     public String getAccidentTitle() {
@@ -212,20 +212,20 @@ public class AccidentBean extends PersistentEntity {
         this.headcountEvacuees = headcountEvacuees;
     }
 
-    public String getLng() {
-        return lng;
+    public String getJd() {
+        return jd;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public String getLat() {
-        return lat;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 
     public String getAccidentType() {

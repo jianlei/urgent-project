@@ -29,8 +29,8 @@ public class RescueBean extends PersistentEntity {
     private String telephone;   //值班电话
     private long totalNumber;   //总人数
     private String address; //地址
-    private String longitude;   //经度
-    private String latitude;    //纬度
+    private String jd;   //经度
+    private String wd;    //纬度
     private String equipment;   //主要装备描述
     private String expertise;   //专长描述
     private String remarks;  //备注
@@ -59,20 +59,20 @@ public class RescueBean extends PersistentEntity {
         this.address = address;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String getJd() {
+        return jd;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 
     public String getHead() {

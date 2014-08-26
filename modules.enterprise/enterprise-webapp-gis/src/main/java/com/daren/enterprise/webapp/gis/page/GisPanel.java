@@ -22,7 +22,6 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import javax.inject.Inject;
@@ -133,20 +132,5 @@ public class GisPanel extends Panel implements IHeaderContributor {
                 response.render(OnDomReadyHeaderItem.forScript("loadScript();"));
             }
         });
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-    }
-
-    @Override
-    public void renderHead(HtmlHeaderContainer container) {
-        super.renderHead(container);
-//        IRequestTarget target = RequestCycle.get().getActiveRequestHandler().
-    }
-
-    public void renderHead(IHeaderResponse response) {
-//        response.render(getHead).renderOnDomReadyJavascript("alert('hello');");
     }
 }

@@ -4,8 +4,8 @@ import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.form.IrisDropDownChoice;
+import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -34,7 +34,7 @@ public class AccidentEditPage extends BasePanel {
     final WebMarkupContainer dialogWrapper;
     AccidentBean accidentEditPageAccidentBean = new AccidentBean();
     Form<AccidentBean> accidentBeanForm;
-    IrisAbstractDialog dialog;
+    WindowMapPage dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IAccidentBeanService accidentBeanService;
@@ -166,15 +166,15 @@ public class AccidentEditPage extends BasePanel {
         addTextFieldToForm("economicLosses");
         addTextFieldToForm("place");
         addTextFieldToForm("accidentTitle");
-        addHiddenFieldToForm("lng");
-        addHiddenFieldToForm("lat");
+        addHiddenFieldToForm("jd");
+        addHiddenFieldToForm("wd");
     }
 
     private void createDialog(AjaxRequestTarget target, final String title) {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new MapPage("dialog", title, null) {
+        dialog = new WindowMapPage("dialog", title) {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
 

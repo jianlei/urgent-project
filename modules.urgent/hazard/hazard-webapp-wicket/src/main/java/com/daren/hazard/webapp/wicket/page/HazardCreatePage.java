@@ -1,14 +1,13 @@
 package com.daren.hazard.webapp.wicket.page;
 
+import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.hazard.api.biz.IHazardBeanService;
 import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -31,16 +30,14 @@ import java.util.Date;
 
 public class HazardCreatePage extends BasePanel {
 
-    @Inject
-    private IHazardBeanService hazardBeanService;
-
+    final WebMarkupContainer dialogWrapper;
     Form<HazardBean> hazardBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
 
     HazardBean hazardBean = new HazardBean();
-
-    final WebMarkupContainer dialogWrapper;
-    IrisAbstractDialog dialog;
+    WindowMapPage dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    @Inject
+    private IHazardBeanService hazardBeanService;
 
 
     public HazardCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean bean) {
@@ -121,8 +118,8 @@ public class HazardCreatePage extends BasePanel {
     }
 
     private void addTextFieldsToForm() {
-        addHiddenFieldToForm("lng");
-        addHiddenFieldToForm("lat");
+        addHiddenFieldToForm("jd");
+        addHiddenFieldToForm("wd");
         addTextFieldToForm("estimate");
         addTextFieldToForm("name");
         addTextFieldToForm("expertName");
@@ -163,7 +160,7 @@ public class HazardCreatePage extends BasePanel {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new MapPage("dialog", title, null) {
+        dialog = new WindowMapPage("dialog", title) {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
 

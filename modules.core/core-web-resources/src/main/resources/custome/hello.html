@@ -50,8 +50,8 @@
                         var marker = new BMap.Marker(point, {icon: iconImg});
                         map.addOverlay(marker);
                         markers.push(marker);
-                        parent.$("#longitude").val(markerPoint.getPosition().jd);
-                        parent.$("#latitude").val(markerPoint.getPosition().wd);
+                        parent.$("#jd").val(markerPoint.getPosition().jd);
+                        parent.$("#wd").val(markerPoint.getPosition().wd);
                     }
                 }
             ];
