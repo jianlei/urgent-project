@@ -24,8 +24,8 @@
 
 
     <bean id="shiroRealm" class="com.daren.example.web.bootup.wicket.shiro.ShiroRealm">
-        <property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
-        <property name="casService" value="https://localhost:9191/example"/>
+        <!--<property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
+        <property name="casService" value="https://localhost:9191/example"/>-->
     </bean>
 
     <bean id="webSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"

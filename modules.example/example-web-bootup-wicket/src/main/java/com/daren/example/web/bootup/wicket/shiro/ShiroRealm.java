@@ -15,7 +15,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.cas.CasRealm;
+import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 
@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Minto van der Sluis (misl)
  */
-public class ShiroRealm extends CasRealm {
+public class ShiroRealm extends AuthorizingRealm {
     private IUserLoginService userLoginService;
 
     // --------------------------------------------------------------------------
