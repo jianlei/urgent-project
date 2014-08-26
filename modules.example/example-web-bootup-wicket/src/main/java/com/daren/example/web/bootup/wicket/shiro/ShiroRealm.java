@@ -35,7 +35,7 @@ public class ShiroRealm extends AuthorizingRealm {
     // --------------------------------------------------------------------------
 
     public ShiroRealm() {
-        setName("memoryRealm");
+        setName("exampleMemoryRealm");
         CredentialsMatcher cm = new SimpleCredentialsMatcher();
         setCredentialsMatcher(cm);
 
