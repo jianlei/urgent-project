@@ -78,7 +78,7 @@ public class ReservePlanEditPage extends BasePanel {
         form.add(new TextField("name"));
         form.add(new TextField("mark"));
         form.add(new TextField("level"));
-        form.add(new TextField("type"));
+//        form.add(new TextField("type"));
 
         AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override

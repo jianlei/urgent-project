@@ -90,6 +90,7 @@
         <module>modules.urgent/drill</module>
         <module>modules.urgent/rescue</module>
         <module>modules.urgent/equipment</module>
+        <module>modules.urgent/digitalplan</module>
         <module>modules.urgent/accident</module>
         <module>modules.urgent/monitor</module>
         <module>modules.regulation</module>
