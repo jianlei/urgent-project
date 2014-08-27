@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -18,12 +19,14 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class AccidentBean extends PersistentEntity {
-
-
+    @NotNull(message = "'事故发生地点'是必填项")
     private String place;//事故发生地点
+    @NotNull(message = "'事故标题'是必填项")
     private String accidentTitle;//事故标题
+    @NotNull(message = "'详细地点'是必填项")
     private String detailsPlace;//详细地点
-    private String accidentUnit;//事故单位
+    @NotNull(message = "'事故单位'是必填项")
+    private String accidentUnit;//事故单位 uuid
     private String accidentPreliminaryAnalysis;//事故原因初步分析
     private String accidentSource;//事故源
     private Date accidentTime;//事故发生时间
@@ -36,16 +39,24 @@ public class AccidentBean extends PersistentEntity {
     private String headcountSlight;//事故伤亡人数-轻伤
     private String headcountTrappedOrMissing;//事故伤亡人数-被困或下落不明
     private String headcountEvacuees;//事故伤亡人数-被疏散人数
+    @NotNull(message = "'经度'是必填项")
+    private String lng;//经度
+    @NotNull(message = "'纬度'是必填项")
+    private String lat;//纬度
+    @NotNull(message = "'事故类别'是必填项")
     private String jd;//经度
     private String wd;//纬度
     private String accidentType;//事故类别
     private String industryCategory;//行业类别
+    @NotNull(message = "'事故级别'是必填项")
     private String accidentLevel;//事故级别
     private String accidentDescribe;//事故现场情况、事故简要经过
     private String measure;//已采取措施
     private String attachment;//附件
     private String videoLink;//视频链接地址
+    @NotNull(message = "'经办人'是必填项")
     private String operator;//经办人
+    @NotNull(message = "'经办人电话'是必填项")
     private String operatorPhone;//经办人电话
     private String liaisons;//现场联络人
     private String liaisonsPhone;//现场联络人电话

@@ -23,6 +23,13 @@ public class HazardBeanServiceImpl extends GenericBizServiceImpl implements IHaz
         this.hazardBeanDao = hazardBeanDao;
         super.init(hazardBeanDao, HazardBean.class.getName());
     }
+
+    @Override
+    public  List<HazardBean> getHazardList(){
+        return hazardBeanDao.getAll(HazardBean.class.getName());
+    }
+
+
     @Override
     public List<HazardBean> queryHazardSource(HazardBean hazardBean) {
         return hazardBeanDao.find("select a from HazardBean a where a.name LIKE ?1", "%" + hazardBean.getName() + "%");

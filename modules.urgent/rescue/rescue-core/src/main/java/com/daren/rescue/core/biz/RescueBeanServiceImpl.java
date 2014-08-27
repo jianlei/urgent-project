@@ -41,6 +41,12 @@ public class RescueBeanServiceImpl extends GenericBizServiceImpl implements IRes
         }
         return hashMap;
     }
+
+
+    @Override
+    public List<RescueBean> getRescueList() {
+        return rescueBeanDao.getAll(RescueBean.class.getName());
+    }
 }
 
 

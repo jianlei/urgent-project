@@ -4,6 +4,7 @@ import com.daren.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "urg_exp_enterprise")
+@XmlRootElement
 public class EnterpriseExpertBean extends PersistentEntity {
     private long attach;    //专家归属（专家是哪个企业的）
     private String name;    //专家姓名

@@ -28,8 +28,8 @@
     <groupId>com.daren.government</groupId>
     <artifactId>com.daren.government.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Enterprise - Persist JPA Container Managed</name>
-    <description>Urgent Enterprise Persist JPA Container Managed Module</description>
+    <name>Urgent :: Government - Persist JPA Container Managed</name>
+    <description>Urgent Government Persist JPA Container Managed Module</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

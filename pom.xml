@@ -97,6 +97,7 @@
         <module>modules.common</module>
         <module>modules.government</module>
         <module>modules.example</module>
+        <module>modules.gis</module>
 
     </modules>
 
