@@ -1,10 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <service id="enterpriseService" interface="com.daren.enterprise.api.biz.IEnterpriseBeanService">
-        <bean class="com.daren.enterprise.core.biz.EnterpriseBeanServiceImpl">
-            <property name="enterpriseBeanDao" ref="enterpriseBeanDao"/>
-                </bean>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+    <service id="enterpriseService" interface="com.daren.enterprise.api.biz.IEnterpriseBeanService"
+             ref="enterpriseBeanServiceImpl">
     </service>
+
+    <bean id="enterpriseBeanServiceImpl" class="com.daren.enterprise.core.biz.EnterpriseBeanServiceImpl">
+        <property name="enterpriseBeanDao" ref="enterpriseBeanDao"/>
+    </bean>
+
     <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="enterpriseBeanService" address="/enterprise">
+        <jaxrs:serviceBeans>
+            <ref component-id="enterpriseBeanServiceImpl"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 </blueprint>
 
