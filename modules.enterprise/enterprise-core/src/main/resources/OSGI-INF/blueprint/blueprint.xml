@@ -6,5 +6,12 @@
                 </bean>
     </service>
     <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>
+    <!-- 监管机构服务 -->
+    <service id="organizationBeanService" interface="com.daren.enterprise.api.biz.IOrganizationBeanService">
+        <bean class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
+            <property name="organizationBeanDao" ref="organizationBeanDao"/>
+        </bean>
+    </service>
+    <reference id="organizationBeanDao" interface="com.daren.enterprise.api.dao.IOrganizationBeanDao"/>
 </blueprint>
 
