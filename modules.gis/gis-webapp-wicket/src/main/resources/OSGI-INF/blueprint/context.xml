@@ -3,15 +3,15 @@
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
         >
 
-    <!-- 发布菜单目录 -->
+    <!--&lt;!&ndash; 发布菜单目录 &ndash;&gt;
     <service interface="com.daren.core.web.api.module.IMenuModule">
         <bean class="com.daren.enterprise.webapp.gis.MainMenuModule">
         </bean>
     </service>
 
-    <!-- 发布菜单目录 -->
+    &lt;!&ndash; 发布菜单目录 &ndash;&gt;
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.enterprise.webapp.gis.GisMenuItemsModule">
         </bean>
-    </service>
+    </service>-->
 </blueprint>

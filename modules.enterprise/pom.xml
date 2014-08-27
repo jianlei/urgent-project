@@ -28,7 +28,6 @@
         <module>enterprise-entities</module>
         <module>enterprise-webapp-wicket</module>
         <module>enterprise-webapp-component</module>
-        <module>enterprise-webapp-gis</module>
     </modules>
     <dependencyManagement>
         <dependencies>

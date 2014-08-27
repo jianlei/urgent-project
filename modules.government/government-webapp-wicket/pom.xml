@@ -11,8 +11,8 @@
     <groupId>com.daren.government</groupId>
     <artifactId>com.daren.government.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Example - Wicket Web Application</name>
-    <description>Example - Webapp Wicket</description>
+    <name>Urgent :: Government - Wicket Web Application</name>
+    <description>Government - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
