@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
-<!-- http://wenku.baidu.com/link?url=CSmUZGJB3_OKOsGLty7pP2G9703gGBV8rimJIWK0b8WYSMRlrLLwSJ2sGQslxmd_ji7sA4o2o7rSdpxusJ3eujhX9JnHiiWJBkurOOLqxqq -->
 <wicket:head>
     <title></title>
-    <script language="javascript" for=WebOffice event="OnMenuClick(vIndex,vCaption)">
+    <script type="text/javascript" event='NotifyCtrlReady' for='WebOffice1'>
+        document.all.WebOffice1.FullScreen = 0;
     </script>
-
+    <script type="text/javascript">
+        /*jQuery(document).ready(function () {
+         alert(1);
+         loadOffice();
+         setTimeout(function () {
+         alert(3);
+         var script = document.createElement("script");
+         script.type = "text/javascript";
+         script.for = 'WebOffice';
+         script.event = 'NotifyCtrlReady';
+         document.body.appendChild(script);
+         try{
+         var webObj=document.getElementById("WebOffice");
+         alert(webObj);
+         webObj.HideMenuItem(0x01 + 0x8000); //Hide it
+         }catch(e){
+         alert("异常\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+         }
+         }, 1000);
+         });*/
+    </script>
 </wicket:head>
 <body>
 <wicket:panel>
-    <form id="webform" name="webform" method="post" action="">
-        <OBJECT id="WebOffice" width="100%" height="500"
-                classid="clsid:23739A7E-5741-4D1C-88D5-D50B18F7C347"
-                codebase="../../cus/bundle/iWebOffice2003.ocx#version=8,2,0,0" >
-            <PARAM name="WebUrl" value="http://www.goldgrid.com/iWebOffice/OfficeServer.asp">
-            <PARAM name="RecordID" value="65422345798561232">
-            <PARAM name="UserName" value="goldgrid">
-            <PARAM name="EditType" value="1,1">
-            <PARAM name="ExtParam" value="">
-            <PARAM name="Print" value="1">
-        </OBJECT>
-        <script type="text/javascript">
-            jQuery(function (){
-                try{
-                    //以下属性必须设置，初始化iWebOffice
-                    webform.WebOffice.AppendMenu("1","打印文档");
-                    webform.WebOffice.AppendMenu("2","显示痕迹");
-                    webform.WebOffice.ShowMenu="1";
-                    webform.WebOffice.Print="1";
-                    webform.WebOffice.ShowToolBar=2;    //  0|2
-                    webform.WebOffice.ShowWindow = true;
-                    webform.WebOffice.WebOpenLocal()
-                } catch(e){
-                    alert(e.description);
-                }
-            });
-        </script>
-    </form>
+
+    <OBJECT id="WebOffice1" width="100%" height="500" style="z-index: 99999;"
+            classid="clsid:E77E049B-23FC-4DB8-B756-60529A35FAD5"
+            codebase="../../cus/bundle/WebOffice6.cab#Version=6,0,4,4">
+    </OBJECT>
+    123123123123123123123
 </wicket:panel>
 </body>
 </html>
