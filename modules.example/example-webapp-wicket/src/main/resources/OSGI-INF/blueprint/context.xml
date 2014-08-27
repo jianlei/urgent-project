@@ -27,4 +27,10 @@
         <bean class="com.daren.example.webapp.wicket.SingleCheckMenuItemsModule">
         </bean>
     </service>
+
+    <!-- 发布Office目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.OfficeMenuItemModule">
+        </bean>
+    </service>
 </blueprint>
