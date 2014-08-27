@@ -15,5 +15,7 @@ public interface IHazardBeanService extends IBizService {
 
     @GET
     @Produces("application/json;charset=utf-8")
+    List<HazardBean> getHazardList();
+
     List<HazardBean> queryHazardSource(HazardBean hazardBean);
 }

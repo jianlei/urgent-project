@@ -1,4 +1,6 @@
-﻿
+﻿/**
+ * dlw
+ */
 //--地图全局变量
 var infocontent = " ";
 
@@ -334,7 +336,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     moveMapByBound();
 }
 //添加普通标注
-function addGeneralPoint(_lng,_lat,lid,_icon,responseJson) {
+function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height) {
 
     var point = new BMap.Point(_lng,_lat);
     var jsonicon ={w:21,h:35,l:0,t:0,x:6,lb:5};
@@ -345,14 +347,14 @@ function addGeneralPoint(_lng,_lat,lid,_icon,responseJson) {
     markers.push(marker);
     marker.addEventListener("click",function(){
         map.centerAndZoom(point,seenView);
-        var content = getIWContent(responseJson);
+       // var content = getIWContent(responseJson);
         //样式3
         var infowindow = new BMapLib.SearchInfoWindow(map, content, {
-            title: "详情", //标题
+            title: title, //标题
             //width: 590, //宽度
             //height: 250, //高度
-            width: 320, //宽度
-            height: 180, //高度
+            width: width, //宽度
+            height: height, //高度
             panel : "panel", //检索结果面板
             enableAutoPan : true, //自动平移
             searchTypes :[
@@ -371,6 +373,7 @@ function openInfoW(responseJson,marker) {
         infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
     }
 }
+
 //--获取位置点的信息窗口内容
 function getIWContent(responseJson) {
     var content = "<div style='padding-top:10px'>物资名称:<span style='color:green;'>"+responseJson.community_name+"</span></br>";
@@ -378,18 +381,7 @@ function getIWContent(responseJson) {
     content += "</div>";
     return content;
 }
-//鼠标右件清空
-function clearAll() {
-    for(var i = 0; i < overlays.length; i++){
-        map.removeOverlay(overlays[i]);
-    }
-    for(var i = 0;i<markers.length;i++) {
-        if(i>current_danger_point_number){
-            map.removeOverlay(markers[i]);
-        }
-    }
-    overlays.length = 0
-}
+
 //注定义图片
 function createIcon(json,_icon){
     var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
@@ -407,6 +399,26 @@ function moveMapByBound() {
         map.zoomTo(18);
 
 }
+
+//鼠标右件清空
+function clearAll() {
+    for(var i = 0; i < overlays.length; i++){
+        map.removeOverlay(overlays[i]);
+    }
+    for(var i = 0;i<markers.length;i++) {
+        if(i>current_danger_point_number){
+            map.removeOverlay(markers[i]);
+        }
+    }
+    overlays.length = 0
+}
+
+//清空所有覆盖物
+function clearallmarker() {
+    map.clearOverlays();
+    markers.splice(0);
+    overlays.splice(0);
+}
 //地图右侧侧拉按钮
 function showPanel(){
     if (isPanelShow == false) {
@@ -423,6 +435,7 @@ function showPanel(){
         $("#showPanelBtn").html("显示绘制结果信息<br/><");
     }
 }
+
 //个性化检索
 function searchAll(seachvalue){
     if(seachvalue!=""){
@@ -491,6 +504,7 @@ function goConfirm(parm,_lng,_lat){
         map.centerAndZoom(cityname,lev);
     }
 }
+
 //右上角标签
 function rightTab(){
     // 定义一个控件类，即function
@@ -669,7 +683,7 @@ function rightTab(){
             $('#zdwx_btn').bind({//重大危险
                 click: function() {
                     isClickBtn = true;
-                    alert("重大危险收索");
+                    zdwxy();
                 },
                 mouseenter: function() {
                     $("#zdwx_btn").attr("src","../../cus/gis/css/images/zdwxed.png");
@@ -690,7 +704,7 @@ function rightTab(){
             $('#jyd_btn').bind({//救援队
                 click: function() {
                     isClickBtn = true;
-                    alert("救援队搜索");
+                    jydbz();
                 },
                 mouseenter: function() {
                     $("#jyd_btn").attr("src","../../cus/gis/css/images/jyded.png");
@@ -711,7 +725,7 @@ function rightTab(){
             $('#zj_btn').bind({//专家
                 click: function() {
                     isClickBtn = true;
-                    alert("专家搜索");
+                    zjbz();
                 },
                 mouseenter: function() {
                     $("#zj_btn").attr("src","../../cus/gis/css/images/zjed.png");
@@ -732,7 +746,7 @@ function rightTab(){
             $('#wz_btn').bind({//物资
                 click: function() {
                     isClickBtn = true;
-                    alert("物资搜索");
+                    wzbj();
                 },
                 mouseenter: function() {
                     $("#wz_btn").attr("src","../../cus/gis/css/images/wzed.png");

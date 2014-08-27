@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class HazardBean extends PersistentEntity {
 
-    private String lng;//经度
-    private String lat;//纬度
+    private String jd;//经度
+    private String wd;//纬度
     private String estimate;//评估
     private String name;//危险源名称
     private String expertName;//专家名称
@@ -65,20 +65,20 @@ public class HazardBean extends PersistentEntity {
 
     }
 
-    public String getLng() {
-        return lng;
+    public String getJd() {
+        return jd;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setJd(String jd) {
+        this.jd = jd;
     }
 
-    public String getLat() {
-        return lat;
+    public String getWd() {
+        return wd;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
+    public void setWd(String wd) {
+        this.wd = wd;
     }
 
     public String getEstimate() {

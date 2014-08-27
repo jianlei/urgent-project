@@ -17,12 +17,12 @@ public final class ExampleActivator
      */
     public void start(BundleContext bc)
             throws Exception {
-        System.out.println("STARTING com.daren.cloud");
+        System.out.println("STARTING com.daren.enterprise");
 
         Dictionary props = new Properties();
         // add specific service properties here...
 
-        System.out.println("REGISTER com.daren.admin.api.ExampleService");
+        System.out.println("REGISTER com.daren.enterprise.api.ExampleService");
 
         // Register our example service implementation in the OSGi service registry
         bc.registerService(ExampleService.class.getName(), new ExampleServiceImpl(), props);
@@ -33,7 +33,7 @@ public final class ExampleActivator
      */
     public void stop(BundleContext bc)
             throws Exception {
-        System.out.println("STOPPING com.daren.cloud");
+        System.out.println("STOPPING com.daren.enterprise");
 
         // no need to unregister our service - the OSGi framework handles it for us
     }

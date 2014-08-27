@@ -45,6 +45,11 @@
             <groupId>com.daren.rescue</groupId>
             <artifactId>com.daren.rescue.entities</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
+        </dependency>
     </dependencies>
     <build>
 

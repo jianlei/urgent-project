@@ -4,11 +4,11 @@ import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.hazard.api.biz.IHazardBeanService;
 import com.daren.hazard.entities.HazardBean;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -53,8 +53,8 @@ public class HazardPage extends BasePanel {
                 item.add(new Label("name", hazardBean.getName()));
                 item.add(new Label("expertName", hazardBean.getExpertName()));
                 item.add(new Label("estimate", hazardBean.getEstimate()));
-                item.add(new Label("lng", hazardBean.getLng()));
-                item.add(new Label("lat", hazardBean.getLat()));
+                item.add(new Label("jd", hazardBean.getJd()));
+                item.add(new Label("wd", hazardBean.getWd()));
                 item.add(new Label("accidentRate", hazardBean.getAccidentRate()));
 
                 item.add(getToCreatePageLink("check_name", hazardBean));

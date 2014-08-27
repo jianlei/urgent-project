@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        >
+
+    <!--&lt;!&ndash; 发布菜单目录 &ndash;&gt;
+    <service interface="com.daren.core.web.api.module.IMenuModule">
+        <bean class="com.daren.enterprise.webapp.gis.MainMenuModule">
+        </bean>
+    </service>
+
+    &lt;!&ndash; 发布菜单目录 &ndash;&gt;
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.enterprise.webapp.gis.GisMenuItemsModule">
+        </bean>
+    </service>-->
+</blueprint>
