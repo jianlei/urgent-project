@@ -61,6 +61,7 @@ public class AccidentBean extends PersistentEntity {
     private String liaisons;//现场联络人
     private String liaisonsPhone;//现场联络人电话
     private String signer;//签发人
+    private int status=0;//事故处理状态，默认为处理中:0，前台处理后为1
 
     public AccidentBean() {
         place = "";
