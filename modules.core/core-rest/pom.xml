@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.daren.rescue</groupId>
-        <artifactId>modules.urgent.rescue</artifactId>
+        <relativePath>../../poms/compiled/</relativePath>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.rescue</groupId>
-    <artifactId>com.daren.rescue.core</artifactId>
+    <!--need to change after copy-->
+    <groupId>com.daren.core</groupId>
+    <artifactId>com.daren.core.rest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <bundle.symbolicName>com.daren.rescue.core</bundle.symbolicName>
-        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
-    </properties>
-
-    <name>Urgent :: Rescue - Core</name>
-    <description>Urgent rescue Core Module</description>
-
     <packaging>bundle</packaging>
+    <!--need to change after copy-->
+    <properties>
+        <bundle.symbolicName>com.daren.core.impl.rest</bundle.symbolicName>
+        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <name>Urgent :: Core - est</name>
+    <description>Core est</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.rescue</groupId>
-            <artifactId>com.daren.rescue.api</artifactId>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.rescue</groupId>
-            <artifactId>com.daren.rescue.persist.openjpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.rescue</groupId>
-            <artifactId>com.daren.rescue.entities</artifactId>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
         </dependency>
 
         <dependency>
@@ -46,26 +44,26 @@
 
         <dependency>
             <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.impl</artifactId>
+            <artifactId>com.daren.core.util</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.aries.blueprint</groupId>
-            <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.rest</artifactId>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
         </dependency>
+
 
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

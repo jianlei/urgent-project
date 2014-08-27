@@ -206,6 +206,15 @@
         <bundle>mvn:org.activiti/activiti-osgi/${activiti.version}</bundle>
     </feature>
 
+    <feature name="jackson">
+        <bundle>mvn:org.codehaus.jackson/jackson-core-asl/1.9.8</bundle>
+        <bundle>mvn:org.codehaus.jackson/jackson-mapper-asl/1.9.8</bundle>
+        <bundle>mvn:org.codehaus.jackson/jackson-jaxrs/1.9.8</bundle>
+        <bundle>mvn:org.codehaus.jackson/jackson-xc/1.9.8</bundle>
+        <!--<bundle>mvn:de.undercouch/bson4jackson/1.3.0</bundle>-->
+        <bundle>mvn:commons-codec/commons-codec/1.7</bundle>
+    </feature>
+
     <feature name="urgent-workflow" version="1.0">
         <feature>activiti</feature>
         <feature>mysql-driver</feature>
@@ -251,12 +260,13 @@
         <feature>jedis</feature>
         <bundle>mvn:com.google.code.gson/gson/${gson.version}</bundle>
         <feature>jsr303</feature>
-        <!--<feature>cxf-jaxrs</feature>-->
+        <feature>cxf-jaxrs</feature>
+        <feature>jackson</feature>
         <feature>jquery-ui</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
         <bundle start-level="85">wrap:mvn:com.vaynberg.wicket.select2/wicket-select2/2.3</bundle>
         <bundle>mvn:commons-codec/commons-codec/1.8</bundle>
-        <bundle>wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.1 </bundle>
+        <!--<bundle>wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.1 </bundle>-->
     </feature>
     <!--osgi:install -s 'wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.0'-->
     <!--feature:repo-add mvn:com.daren.tools/karaf-features/1.0/xml/features-->

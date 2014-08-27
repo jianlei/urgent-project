@@ -1,10 +1,8 @@
 package com.daren.example.webapp.wicket;
 
-import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.core.web.api.module.IMenuModule;
-import com.daren.example.webapp.wicket.page.Select2PageTest;
-import com.daren.example.webapp.wicket.page.TestOfficePage;
+import com.daren.example.webapp.wicket.page.IframeOfficePage;
+import com.daren.example.webapp.wicket.page.OfficeTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -45,6 +43,6 @@ public class OfficeMenuItemModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new TestOfficePage(id, wmc);
+        return new OfficeTest(id, wmc);
     }
 }
