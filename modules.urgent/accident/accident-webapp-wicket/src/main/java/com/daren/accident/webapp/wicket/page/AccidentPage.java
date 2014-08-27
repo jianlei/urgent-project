@@ -2,6 +2,8 @@ package com.daren.accident.webapp.wicket.page;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
+import com.daren.admin.api.biz.IDictBeanService;
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -21,6 +23,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -38,9 +41,19 @@ public class AccidentPage extends BasePanel {
     @Inject
     private IAccidentBeanService accidentBeanService;
 
+    @Inject
+    private IDictBeanService iDictBeanService;
+
+    //列表回显示使用
+    Map<String, String> accidentLevelMap;
+    Map<String, String> accidentTypeMap;
+
+
     public AccidentPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         initDataView();
+        accidentLevelMap = iDictBeanService.getDictMap(IDictConstService.ACCIDENT_LEVEL);
+        accidentTypeMap = iDictBeanService.getDictMap(IDictConstService.ACCIDENT_TYPE);
     }
 
     /**
@@ -61,12 +74,24 @@ public class AccidentPage extends BasePanel {
                 provider.setAccidentBean(userBean);
                 target.add(table);
             }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                AccidentBean userBean = (AccidentBean) form.getModelObject();
+                provider.setAccidentBean(userBean);
+                target.add(table);
+            }
         };
 
         AjaxButton addButton = new AjaxButton("add") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 addButtonOnClick(new AccidentBean(),target);
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                addButtonOnClick(new AccidentBean(), target);
             }
         };
         myform.add(addButton);
@@ -90,10 +115,10 @@ public class AccidentPage extends BasePanel {
                         accidentTitleLinkOnClick(accidentBean,target);
                     }
                 };
-                ajaxLink.add(new Label("accidentTitle", accidentBean.getAccidentTitle()));
+                item.add(new Label("accidentTitle", accidentBean.getAccidentTitle()));
                 item.add(ajaxLink);
-                item.add(new Label("accidentLevel", accidentBean.getAccidentLevel()));
-                item.add(new Label("accidentType", accidentBean.getAccidentType()));
+                item.add(new Label("accidentLevel", accidentLevelMap.get(accidentBean.getAccidentLevel())));
+                item.add(new Label("accidentType", accidentTypeMap.get(accidentBean.getAccidentType())));
                 item.add(new Label("accidentTime", DateUtil.convertDateToString(accidentBean.getAccidentTime(),DateUtil.longSdf) ));
                 addDeleteLink(item, "delete", accidentBean, table);
             }

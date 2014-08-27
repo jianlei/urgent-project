@@ -5,6 +5,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect3Choice;
 import com.daren.monitor.api.biz.IMonitorBeanService;
 import com.daren.monitor.entities.MonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -15,11 +16,10 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 import java.util.Map;
-
-//import com.daren.enterprise.webapp.component.form.EnterpriseSelect3Choice;
 
 
 /**
@@ -36,7 +36,7 @@ public class MonitorCreatePage extends BasePanel {
     MonitorBean monitorBean = new MonitorBean();
     Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(monitorBean));
     EnterpriseBean enterpriseBean = new EnterpriseBean();
-    //    EnterpriseSelect3Choice<MonitorBean> listSites;
+    EnterpriseSelect3Choice<MonitorBean> listSites;
     IrisAbstractDialog dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
@@ -123,9 +123,9 @@ public class MonitorCreatePage extends BasePanel {
     }
 
     //通过字典初始化下拉列表
-    /*private void initSelect(String name) {
+    private void initSelect(String name) {
         //下拉列表
-        listSites = new EnterpriseSelect3Choice<MonitorBean>(name,Model.of(monitorBean)){
+        listSites = new EnterpriseSelect3Choice<MonitorBean>(name, Model.of(monitorBean)) {
             @Override
             public void setId(MonitorBean bean, String input) {
                 bean.setAffiliation(input);
@@ -142,7 +142,7 @@ public class MonitorCreatePage extends BasePanel {
             }
         };
         monitorBeanForm.add(listSites);
-    }*/
+    }
 
     //通过Map初始化下拉列表
     private void initSelect(String name, Map<String, String> typeMap) {
@@ -152,7 +152,6 @@ public class MonitorCreatePage extends BasePanel {
     }
 
     private void addSelectToForm() {
-        //initSelect("affiliation");
-        initSelect("affiliation", enterpriseBeanService.getAllBeansToHashMap());
+        initSelect("affiliation");
     }
 }

@@ -1,22 +1,25 @@
 package com.daren.digitalplan.webapp.wicket.page;
 
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.digitalplan.api.biz.IDigitalPlanBeanService;
 import com.daren.digitalplan.entities.DigitalPlanBean;
+import com.daren.file.api.biz.IUploadDocumentService;
+import com.daren.file.entities.DocumentBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -33,12 +36,13 @@ public class DigitalPlanCreatePage extends BasePanel {
     @Inject
     private IDigitalPlanBeanService digitalplanBeanService;
 
-    Form<DigitalPlanBean> digitalplanBeanForm = new Form("majorDigitalPlanSourceForm", new CompoundPropertyModel(new DigitalPlanBean()));
+    @Inject
+    private IUploadDocumentService uploadDocumentService;
+
+    Form<DigitalPlanBean> digitalplanBeanForm = new Form("digitalPlanForm", new CompoundPropertyModel(new DigitalPlanBean()));
 
     DigitalPlanBean digitalplanBean = new DigitalPlanBean();
 
-    final WebMarkupContainer dialogWrapper;
-    IrisAbstractDialog dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
 
 
@@ -50,18 +54,6 @@ public class DigitalPlanCreatePage extends BasePanel {
         initForm(digitalplanBean);
         initFeedBack();
         addForm(id, wmc);
-        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
-            @Override
-            protected void onBeforeRender() {
-                if (dialog == null) {
-                    addOrReplace(new Label("dialog"));
-                } else {
-                    addOrReplace(dialog);
-                }
-                super.onBeforeRender();
-            }
-        };
-        this.add(dialogWrapper.setOutputMarkupId(true));
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
@@ -70,7 +62,10 @@ public class DigitalPlanCreatePage extends BasePanel {
         this.add(digitalplanBeanForm);
 
         addTextFieldsToForm();
-        digitalplanBeanForm.add(initGisButton());
+
+        final FileUploadField uploadFieldDigitalPlan = new FileUploadField("digitalPlanId");
+        digitalplanBeanForm.add(uploadFieldDigitalPlan);
+
         AjaxButton ajaxSubmitLink = new AjaxButton("save", digitalplanBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -78,6 +73,7 @@ public class DigitalPlanCreatePage extends BasePanel {
                 if (null != digitalplanBean) {
                     try {
                         digitalplanBean.setUpdateDate(new Date());
+                        digitalplanBean.setDigitalPlanId(saveDocument(uploadFieldDigitalPlan));
                         digitalplanBeanService.saveEntity(digitalplanBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
@@ -114,72 +110,33 @@ public class DigitalPlanCreatePage extends BasePanel {
         digitalplanBeanForm.add(textField);
     }
 
-    private void addHiddenFieldToForm(String value) {
-        HiddenField hiddenField = new HiddenField(value);
-        digitalplanBeanForm.add(hiddenField);
-    }
-
     private void addTextFieldsToForm() {
-        addHiddenFieldToForm("lng");
-        addHiddenFieldToForm("lat");
-        addTextFieldToForm("estimate");
         addTextFieldToForm("name");
-        addTextFieldToForm("expertName");
-        addTextFieldToForm("accidentRate");
-        addTextFieldToForm("enterpriseBeanId");
-        addTextFieldToForm("place");
-        addTextFieldToForm("startTime");
+        addTextFieldToForm("description");
         addTextFieldToForm("level");
-        addTextFieldToForm("describe");
-        addTextFieldToForm("inChemical");
-        addTextFieldToForm("distanceOtherDigitalPlan");
-        addTextFieldToForm("scope500MHaveMans");
-        addTextFieldToForm("lastThreeYearAccident");
-        addTextFieldToForm("roadConditions");
-        addTextFieldToForm("zbqkd");
-        addTextFieldToForm("sfwhqyd");
-        addTextFieldToForm("jbqyzjzxjld");
-        addTextFieldToForm("zbqklxd");
-        addTextFieldToForm("zbqkn");
-        addTextFieldToForm("sfwhqydn");
-        addTextFieldToForm("jbqyzjzxjln");
-        addTextFieldToForm("zbqklxn");
-        addTextFieldToForm("zbqkx");
-        addTextFieldToForm("sfwhqyx");
-        addTextFieldToForm("jbqyzjzxjlx");
-        addTextFieldToForm("zbqklxx");
-        addTextFieldToForm("zbqkb");
-        addTextFieldToForm("sfwhqyb");
-        addTextFieldToForm("jbqyzjzxjlb");
-        addTextFieldToForm("zbqklxb");
-        addTextFieldToForm("yxfw");
-        addTextFieldToForm("jbqk");
-        addTextFieldToForm("zlcs");
-        addTextFieldToForm("remark");
+        addTextFieldToForm("type");
     }
 
-    private void createDialog(AjaxRequestTarget target, final String title) {
-        if (dialog != null) {
-            dialogWrapper.removeAll();
+
+    private String saveDocument(FileUploadField uploadFieldApply) {
+        DocumentBean documentBean = new DocumentBean();
+        List<FileUpload> fileUploadList = uploadFieldApply.getFileUploads();
+        try {
+            if (null != fileUploadList && fileUploadList.size() > 0) {
+                for (FileUpload fileUpload : fileUploadList) {
+                    String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                    File file = new File(path);
+                    fileUpload.writeTo(file);
+                    documentBean.setFilePath(path);
+                    documentBean.setName(fileUpload.getClientFileName());
+                    documentBean.setSize(fileUpload.getSize());
+                    documentBean.setType(fileUpload.getContentType());
+                    uploadDocumentService.saveEntity(documentBean);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        dialog = new MapPage("dialog", title, null) {
-            @Override
-            public void updateTarget(AjaxRequestTarget target) {
-
-            }
-        };
-        target.add(dialogWrapper);
-        dialog.open(target);
+        return documentBean.getId() + "";
     }
-
-    private AjaxLink initGisButton() {
-        AjaxLink alink = new AjaxLink("gisSrc") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "标注地址");
-            }
-        };
-        return alink;
-    }
-
 }

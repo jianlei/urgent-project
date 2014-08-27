@@ -1,5 +1,6 @@
 package com.daren.digitalplan.webapp.wicket.page;
 
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.digitalplan.api.biz.IDigitalPlanBeanService;
@@ -51,11 +52,11 @@ public class DigitalPlanPage extends BasePanel {
             protected void populateItem(Item<DigitalPlanBean> item) {
                 final DigitalPlanBean digitalplanBean = item.getModelObject();
                 item.add(new Label("name", digitalplanBean.getName()));
-                item.add(new Label("expertName", digitalplanBean.getExpertName()));
-                item.add(new Label("estimate", digitalplanBean.getEstimate()));
-                item.add(new Label("lng", digitalplanBean.getLng()));
-                item.add(new Label("lat", digitalplanBean.getLat()));
-                item.add(new Label("accidentRate", digitalplanBean.getAccidentRate()));
+                item.add(new Label("description", digitalplanBean.getDescription()));
+                item.add(new Label("level", digitalplanBean.getLevel()));
+                item.add(new Label("type", digitalplanBean.getType()));
+                item.add(new Label("approveType", digitalplanBean.getApproveType()));
+                item.add(new Label("approveTime", DateUtil.convertDateToString(digitalplanBean.getApproveTime(), DateUtil.shortSdf)));
 
                 item.add(getToCreatePageLink("check_name", digitalplanBean));
 

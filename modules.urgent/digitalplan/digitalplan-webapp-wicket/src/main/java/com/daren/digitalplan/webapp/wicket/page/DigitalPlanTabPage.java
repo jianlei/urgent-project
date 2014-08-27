@@ -49,7 +49,7 @@ public class DigitalPlanTabPage extends BasePanel {
      */
     private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList();
-        tabs.add(new AbstractTab(Model.of("重大危险源管理")) {
+        tabs.add(new AbstractTab(Model.of("安监局应急预案管理")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -81,7 +81,7 @@ public class DigitalPlanTabPage extends BasePanel {
 
     private void initDigitalPlanCreatePage(final String id, final WebMarkupContainer wmc, final DigitalPlanBean digitalplanBean, AjaxRequestTarget target, boolean goPage) {
         if (null == createAjaxTab) {
-            createAjaxTab = new AjaxTab(Model.of("重大危险源编辑")) {
+            createAjaxTab = new AjaxTab(Model.of("安监局应急预案编辑")) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -89,8 +89,8 @@ public class DigitalPlanTabPage extends BasePanel {
                     digitalplanCreatePage = new DigitalPlanCreatePage(createPage.newChildId(), wmc, digitalplanBean) {
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
-                            if (getActiveTab("重大危险源编辑") > 0) {
-                                tabPanel.getModelObject().remove(getActiveTab("重大危险源编辑"));
+                            if (getActiveTab("安监局应急预案编辑") > 0) {
+                                tabPanel.getModelObject().remove(getActiveTab("安监局应急预案编辑"));
                                 createAjaxTab = null;
                                 createPage.removeAll();
                             }
@@ -108,8 +108,8 @@ public class DigitalPlanTabPage extends BasePanel {
             digitalplanCreatePage = new DigitalPlanCreatePage(createPage.newChildId(), wmc, digitalplanBean) {
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
-                    if (getActiveTab("重大危险源编辑") > 0) {
-                        tabPanel.getModelObject().remove(getActiveTab("重大危险源编辑"));
+                    if (getActiveTab("安监局应急预案编辑") > 0) {
+                        tabPanel.getModelObject().remove(getActiveTab("安监局应急预案编辑"));
                         createAjaxTab = null;
                         createPage.removeAll();
                     }
@@ -124,7 +124,7 @@ public class DigitalPlanTabPage extends BasePanel {
         }
         target.add(tabPanel);
         if (goPage) {
-            tabPanel.setActiveTab(getActiveTab("重大危险源编辑"));
+            tabPanel.setActiveTab(getActiveTab("安监局应急预案编辑"));
         }
     }
 }

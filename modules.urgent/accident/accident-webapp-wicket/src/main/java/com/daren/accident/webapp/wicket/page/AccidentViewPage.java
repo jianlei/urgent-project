@@ -101,7 +101,7 @@ public class AccidentViewPage extends BasePanel {
     private void addLabelToForm(EnterpriseBean enterpriseBean) {
 
         addLabelToForm("qymc", enterpriseBean.getQymc(), enterpriseForm);
-        addLabelToForm("address_jy", enterpriseBean.getAddressjy(), enterpriseForm);
+        addLabelToForm("addressjy", enterpriseBean.getAddressjy(), enterpriseForm);
         addLabelToForm("zyjyxm", enterpriseBean.getZyjyxm(), enterpriseForm);
         addLabelToForm("qygmbm", enterpriseBean.getQygmbm(), enterpriseForm);
     }
