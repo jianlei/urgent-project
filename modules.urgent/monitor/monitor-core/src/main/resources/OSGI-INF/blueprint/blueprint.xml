@@ -1,10 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <service id="monitorService" interface="com.daren.monitor.api.biz.IMonitorBeanService">
-        <bean class="com.daren.monitor.core.biz.MonitorBeanServiceImpl">
-            <property name="monitorBeanDao" ref="monitorBeanDao"/>
-        </bean>
-    </service>
-    <reference id="monitorBeanDao" interface="com.daren.monitor.api.dao.IMonitorBeanDao"/>
-</blueprint>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+    <service id="monitorService" interface="com.daren.monitor.api.biz.IMonitorBeanService"
+             ref="monitorBeanServiceImpl ">
+    </service>
+    <bean id="monitorBeanServiceImpl" class="com.daren.monitor.core.biz.MonitorBeanServiceImpl">
+        <property name="monitorBeanDao" ref="monitorBeanDao"/>
+    </bean>
+    <reference id="monitorBeanDao" interface="com.daren.monitor.api.dao.IMonitorBeanDao"/>
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="enterpriseBeanService" address="/enterprise">
+        <jaxrs:serviceBeans>
+            <ref component-id="enterpriseBeanServiceImpl"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+</blueprint>

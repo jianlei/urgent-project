@@ -26,6 +26,8 @@ public class MonitorBean extends PersistentEntity {
     private String connectionProtocol;//连接协议
     private String serial;//编号
     private String affiliation;//所属企业
+    private String admin;//访问权限用户名
+    private String password;//访问权限密码
 
     public MonitorBean() {
         name = "";
@@ -36,6 +38,24 @@ public class MonitorBean extends PersistentEntity {
         connectionProtocol = "";
         serial = "";
         affiliation = "";
+        admin = "";
+        password = "";
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {

@@ -96,32 +96,35 @@
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <tables>
-                        <!--<table>
-                            <name>SYSBizTran</name>
-                        </table>-->
+                        <!-- <table>
+                             <name>SYSBizTran</name>
+                         </table>
+                         <table>
+                             <name>sys_user</name>
+                         </table>
+                         <table>
+                             <name>sys_role</name>
+                         </table>
+                         <table>
+                             <name>sys_user_role</name>
+                         </table>
+                         <table>
+                             <name>sys_permission</name>
+                         </table>
+                         <table>
+                             <name>sys_role_permission</name>
+                         </table>
+                         <table>
+                             <name>sys_area</name>
+                         </table>
+                         <table>
+                             <name>urg_ent_enterprise</name>
+                         </table>
+                         <table>
+                             <name>urg_ent_organization</name>
+                         </table>-->
                         <table>
-                            <name>sys_user</name>
-                        </table>
-                        <table>
-                            <name>sys_role</name>
-                        </table>
-                        <table>
-                            <name>sys_user_role</name>
-                        </table>
-                        <table>
-                            <name>sys_permission</name>
-                        </table>
-                        <table>
-                            <name>sys_role_permission</name>
-                        </table>
-                        <table>
-                            <name>sys_area</name>
-                        </table>
-                        <table>
-                            <name>urg_ent_enterprise</name>
-                        </table>
-                        <table>
-                            <name>urg_ent_organization</name>
+                            <name>urg_monitor</name>
                         </table>
                     </tables>
                     <skip>${skipTests}</skip>
