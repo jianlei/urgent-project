@@ -41,6 +41,6 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
     @Override
     public List<OrganizationBean> findByName(String term, int page, int page_size) {
         return organizationBeanDao.findbyPage(
-                "select t from OrganizationBean t where t.mc like ?1",page,page_size,"'"+term+"'");
+                "select t from OrganizationBean t where t.mc like '%"+term+"%'",page,page_size);
     }
 }

@@ -36,7 +36,6 @@ public abstract class OrganizationSelectChoice <M extends PersistentEntity>
 
     @Override
     protected void convertInput() {
-
         String input = getWebRequest().getRequestParameters().getParameterValue(getInputName()).toString();
         if (Strings.isEmpty(input)) {
             setConvertedInput(null);

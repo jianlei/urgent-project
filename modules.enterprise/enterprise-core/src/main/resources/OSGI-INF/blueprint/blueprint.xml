@@ -10,6 +10,11 @@
     <service id="enterpriseService" interface="com.daren.enterprise.api.biz.IEnterpriseBeanService"
              ref="enterpriseBeanServiceImpl">
     </service>
+
+    <bean id="enterpriseBeanServiceImpl" class="com.daren.enterprise.core.biz.EnterpriseBeanServiceImpl">
+        <property name="enterpriseBeanDao" ref="enterpriseBeanDao"/>
+    </bean>
+
     <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>
 
     <cxf:bus>
@@ -53,6 +58,7 @@
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
         <property name="mapper" ref="jacksonMapper"/>
     </bean>
+
     <!-- 监管机构服务 -->
     <service id="organizationBeanService" interface="com.daren.enterprise.api.biz.IOrganizationBeanService">
         <bean class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
