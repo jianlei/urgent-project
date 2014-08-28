@@ -71,7 +71,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
                     }
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "F:\\saveFilePath\\值班表.xls";
+                            String path = "D:\\saveFilePath\\值班表.xls";
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             InputStream is = new FileInputStream(path);
@@ -140,6 +140,23 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
         form.add(ajaxSubmitLinkCreate);
     }
 
+    public static Date stringToDate(String date) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat df = DateFormat.getInstance();
+            Calendar calendar = df.getCalendar();
+            calendar.setTime(format.parse(date));
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 得到Excel表中的值
      *
@@ -172,22 +189,5 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
             return "";
         }
         return strCell;
-    }
-
-    public static Date stringToDate(String date) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            DateFormat df = DateFormat.getInstance();
-            Calendar calendar = df.getCalendar();
-            calendar.setTime(format.parse(date));
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-            return calendar.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

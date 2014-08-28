@@ -8,7 +8,6 @@ import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -37,8 +36,8 @@ public class ApplicationCreatePage extends BasePanel {
     @Inject
     private IUploadDocumentService uploadDocumentService;
 
-    public ApplicationCreatePage(final String id,final WebMarkupContainer wmc,final ApplicationBean applicationBean) {
-        super(id,wmc);
+    public ApplicationCreatePage(final String id, final WebMarkupContainer wmc, final ApplicationBean applicationBean) {
+        super(id, wmc);
         final DocumentBean documentBean = new DocumentBean();
         final FileUploadField fileUploadField = new FileUploadField("filePath");
         Form form = new Form("applicationCreateForm", new CompoundPropertyModel(documentBean));
@@ -55,7 +54,7 @@ public class ApplicationCreatePage extends BasePanel {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                            String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             documentBean1.setFilePath(path);
@@ -67,13 +66,13 @@ public class ApplicationCreatePage extends BasePanel {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(applicationBean == null){
+                if (applicationBean == null) {
                     ApplicationBean applicationBeanLocal = new ApplicationBean();
                     applicationBeanLocal.setName(documentBean1.getName());
-                    applicationBeanLocal = (ApplicationBean)applicationBeanService.saveEntityAndReturn(applicationBeanLocal);
+                    applicationBeanLocal = (ApplicationBean) applicationBeanService.saveEntityAndReturn(applicationBeanLocal);
                     documentBean1.setAttach(applicationBeanLocal.getId());
                     uploadDocumentService.saveEntity(documentBean1);
-                }else{
+                } else {
                     applicationBean.setName(documentBean1.getName());
                     applicationBeanService.saveEntity(applicationBean);
                     documentBean1.setAttach(applicationBean.getId());
@@ -94,6 +93,7 @@ public class ApplicationCreatePage extends BasePanel {
 //            }
 //        });
     }
+
     // Hook 回调函数
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }

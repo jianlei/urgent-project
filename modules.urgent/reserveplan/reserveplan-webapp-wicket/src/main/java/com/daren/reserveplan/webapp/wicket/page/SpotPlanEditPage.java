@@ -43,9 +43,9 @@ import java.util.List;
 public class SpotPlanEditPage extends BasePanel {
 
     final WebMarkupContainer table = new WebMarkupContainer("table");
+    final Form spotPlanForm = new Form("spotPlanForm", new CompoundPropertyModel(new SpotPlanBean()));
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     SpotPlanDataProvider provider = new SpotPlanDataProvider();
-    final Form spotPlanForm = new Form("spotPlanForm", new CompoundPropertyModel(new SpotPlanBean()));
     @Inject
     private IUploadDocumentService uploadDocumentService;
     @Inject
@@ -134,7 +134,7 @@ public class SpotPlanEditPage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);
@@ -221,6 +221,17 @@ public class SpotPlanEditPage extends BasePanel {
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        spotPlanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("type", IDictConstService.ACCIDENT_TYPE);
+    }
+
     class SpotPlanDataProvider extends ListDataProvider<SpotPlanBean> {
         private SpotPlanBean spotPlanBean = null;
 
@@ -239,16 +250,5 @@ public class SpotPlanEditPage extends BasePanel {
                 return spotPlanService.queryByReservePlanId(spotPlanBean);
             }
         }
-    }
-
-    //通过字典初始化下拉列表
-    private void initSelect(String name, String dictConst) {
-        //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
-        spotPlanForm.add(listSites);
-    }
-
-    private void addSelectToForm() {
-        initSelect("type", IDictConstService.ACCIDENT_TYPE);
     }
 }

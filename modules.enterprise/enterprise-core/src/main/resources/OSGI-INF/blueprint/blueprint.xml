@@ -58,5 +58,13 @@
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
         <property name="mapper" ref="jacksonMapper"/>
     </bean>
+
+    <!-- 监管机构服务 -->
+    <service id="organizationBeanService" interface="com.daren.enterprise.api.biz.IOrganizationBeanService">
+        <bean class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
+            <property name="organizationBeanDao" ref="organizationBeanDao"/>
+        </bean>
+    </service>
+    <reference id="organizationBeanDao" interface="com.daren.enterprise.api.dao.IOrganizationBeanDao"/>
 </blueprint>
 
