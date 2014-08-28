@@ -21,9 +21,9 @@
         </cxf:features>
     </cxf:bus>
 
-    <jaxrs:server id="enterpriseBeanService" address="/enterprise">
+    <jaxrs:server id="monitorService" address="/monitor">
         <jaxrs:serviceBeans>
-            <ref component-id="enterpriseBeanServiceImpl"/>
+            <ref component-id="monitorBeanServiceImpl"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 </blueprint>

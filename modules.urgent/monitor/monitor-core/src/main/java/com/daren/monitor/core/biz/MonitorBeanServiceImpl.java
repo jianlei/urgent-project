@@ -28,6 +28,11 @@ public class MonitorBeanServiceImpl extends GenericBizServiceImpl implements IMo
     public List<MonitorBean> queryMonitor(MonitorBean monitorBean) {
         return monitorBeanDao.find("select a from MonitorBean a where a.name LIKE ?1", "%" + monitorBean.getName() + "%");
     }
+
+    @Override
+    public List<MonitorBean> getMonitorBeanListByEnterpriseId(String enterpriseId) {
+        return monitorBeanDao.find("select a from MonitorBean a where a.affiliation LIKE ?1", "%" + enterpriseId + "%");
+    }
 }
 
 
