@@ -3,7 +3,8 @@
 <wicket:head>
     <title></title>
     <script type="text/javascript" event='NotifyCtrlReady' for='WebOffice1'>
-        document.all.WebOffice1.FullScreen = 0;
+        alert(jQuery("#WebOffice1"));
+        var webObj=jQuery("#WebOffice1");
     </script>
     <script type="text/javascript">
         /*jQuery(document).ready(function () {
@@ -29,12 +30,10 @@
 </wicket:head>
 <body>
 <wicket:panel>
-
     <OBJECT id="WebOffice1" width="100%" height="500" style="z-index: 99999;"
             classid="clsid:E77E049B-23FC-4DB8-B756-60529A35FAD5"
             codebase="../../cus/bundle/WebOffice6.cab#Version=6,0,4,4">
     </OBJECT>
-    123123123123123123123
 </wicket:panel>
 </body>
 </html>
