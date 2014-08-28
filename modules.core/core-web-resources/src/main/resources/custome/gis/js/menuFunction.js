@@ -12,7 +12,7 @@ var markers_wzbj = [];
 /**
  * 重大隐患定时器
  */
-/*$(function () {
+$(function () {
 //每10秒执行，无限次，并命名计时器名称为C
 //若时间间隔抵到，但函式程序仍未完成则需等待执行函式完成后再继续计时
     $('body').everyTime('3das','C',function(){
@@ -27,7 +27,6 @@ var markers_wzbj = [];
         var responseJson ={};
 
        for(var i = 0;i<markers.length;i++) {
-           alert(markers[i].getIcon());
             var lng =  markers[i].getPosition().lng;
             var lat  = markers[i].getPosition().lat;
             if(_lng === lng && _lat === lat){
@@ -41,7 +40,7 @@ var markers_wzbj = [];
         }
 
     },0,true);
-});*/
+});
 
 /**
  * 重大危险源
@@ -57,45 +56,50 @@ function zdwxy(){
                 for(var i=0;i<responseJson.length;i++){
                     var response =responseJson[i];
                     var content = "<div style='float:left;width:240px;padding-top:10px'>危险源名称: <span style='color:green;'>"+response.name+"</span></br>";
-
                         content += "危险源级别: <span style='color:green;'>" + response.level + "</span></br>";
-
-
                         content += "原因: <span style='color:green;'>"+response.createBy+"</span></br>";
-
-
                         content += "时间: <span style='color:green;'>"+response.creationDate+"</span></br>";
-
-
                         content += "所在地址: <span style='color:green;'>"+response.place+"</span></br>";
-
                         content += "投用时间: <span style='color:green;'>"+response.startTime+"</span></br>";
-
                         content += "主要装置: <span style='color:green;'>"+response.describe+"</span></br>";
-
                         content += "是否在化工园区: <span style='color:green;'>"+response.inChemical+"</span></br>";
-
                         content += "距离其他重危目标距离: <span style='color:green;'>"+response.distanceOtherHazard+"</span></br>";
-
                         content += "道路情况: <span style='color:green;'>"+response.roadConditions+"</span></br>";
-
+                        content += "近三年事故: <span style='color:green;'>"+response.lastThreeYearAccident+"</span></br>";
+                        content += "专家名称: <span style='color:green;'>"+response.expertName+"</span></br>";
+                        content += "可能发生的事故率: <span style='color:green;'>"+response.accidentRate+"</span></br>";
+                        content += "范围500米内人数估算值: <span style='color:green;'>"+response.scope500MHaveMans+"</span></br>";
+                        content += "评估: <span style='color:green;'>"+response.estimate+"</span></br>";
+                        content += "影响范围: <span style='color:green;'>"+response.yxfw+"</span></br>";
+                        content += "基本情况: <span style='color:green;'>"+response.jbqk+"</span></br>";
+                        content += "治理措施: <span style='color:green;'>"+response.zlcs+"</span></br>";
+                        content += "备注: <span style='color:green;'>"+response.remark+"</span></br>";
                     content += "</div>";
 
                     content+='<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+                    content += "周边情况（东）: <span style='color:green;'>"+response.zbqkd+"</span></br>";
+                    content += "是否危化企业（东）: <span style='color:green;'>"+response.sfwhqyd+"</span></br>";
+                    content += "剧本企业最近直线距离（东）: <span style='color:green;'>"+response.jbqyzjzxjld+"</span></br>";
+                    content += "情况类型（东）: <span style='color:green;'>"+response.zbqklxd+"</span></br>";
 
-                            content += "近三年事故: <span style='color:green;'>"+response.lastThreeYearAccident+"</span></br>";
+                    content += "周边情况（南）: <span style='color:green;'>"+response.zbqkn+"</span></br>";
+                    content += "是否危化企业（南）: <span style='color:green;'>"+response.sfwhqydn+"</span></br>";
+                    content += "剧本企业最近直线距离（南）: <span style='color:green;'>"+response.jbqyzjzxjln+"</span></br>";
+                    content += "情况类型（南）: <span style='color:green;'>"+response.zbqklxn+"</span></br>";
 
-                            content += "专家名称: <span style='color:green;'>"+response.expertName+"</span></br>";
+                    content += "周边情况（西）: <span style='color:green;'>"+response.zbqkx+"</span></br>";
+                    content += "是否危化企业（西）: <span style='color:green;'>"+response.sfwhqyx+"</span></br>";
+                    content += "剧本企业最近直线距离（西）: <span style='color:green;'>"+response.jbqyzjzxjlx+"</span></br>";
+                    content += "情况类型（西）: <span style='color:green;'>"+response.zbqklxx+"</span></br>";
 
-                            content += "可能发生的事故率: <span style='color:green;'>"+response.accidentRate+"</span></br>";
-
-                            content += "范围500米内人数估算值: <span style='color:green;'>"+response.scope500MHaveMans+"</span></br>";
-
-                            content += "评估: <span style='color:green;'>"+response.estimate+"</span></br>";
+                    content += "周边情况（北）: <span style='color:green;'>"+response.zbqkb+"</span></br>";
+                    content += "是否危化企业（北）: <span style='color:green;'>"+response.sfwhqyb+"</span></br>";
+                    content += "剧本企业最近直线距离（北）: <span style='color:green;'>"+response.jbqyzjzxjlb+"</span></br>";
+                    content += "情况类型（北）: <span style='color:green;'>"+response.zbqklxb+"</span></br>";
 
                     content+= '</div>';
 
-                    addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",500,300,markers_zdwxy);
+                    addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",500,400,markers_zdwxy);
                     if(i==responseJson.length-1){
                         moveMapByBound();
                     }

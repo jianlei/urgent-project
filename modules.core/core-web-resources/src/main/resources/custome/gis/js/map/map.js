@@ -346,33 +346,41 @@ function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_
     map.addOverlay(marker);
     //markers.push(marker);
     markers_collecton.push(marker);
-    marker.addEventListener("click",function(){
-        map.centerAndZoom(point,seenView);
-       // var content = getIWContent(responseJson);
-        //样式3
-        var infowindow = new BMapLib.SearchInfoWindow(map, content, {
-            title: title, //标题
-            //width: 590, //宽度
-            //height: 250, //高度
-            width: width, //宽度
-            height: height, //高度
-            panel : "panel", //检索结果面板
-            enableAutoPan : true, //自动平移
-            searchTypes :[
-            ]
-        });
-        infowindow.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
-       // openInfoW(responseJson,marker);
+    marker.addEventListener("mouseover",function(){
+        openInfoW(_lng,_lat,title,width,height,content);
+    });
+    marker.addEventListener("mouseout",function(){
+        closeInfoW();
     });
 }
 //打开标注窗口
-function openInfoW(responseJson,marker) {
+/*function openInfoW(responseJson,marker) {
     infowindow = new BMap.InfoWindow(getIWContent(responseJson));
     marker.openInfoWindow(infowindow);
     //图片加载完毕重绘infowindow
     document.getElementById('imgDemo').onload = function (){
         infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
     }
+}*/
+function openInfoW(_lng,_lat,title,width,height,content) {
+    //样式3
+    infowindow = new BMapLib.SearchInfoWindow(map, content, {
+        title: title, //标题
+        //width: 590, //宽度
+        //height: 250, //高度
+        width: width, //宽度
+        height: height, //高度
+        panel : "panel", //检索结果面板
+        enableAutoPan : true, //自动平移
+        searchTypes :[
+        ]
+    });
+   /* var point = new BMap.Point(_lng,_lat);
+    map.centerAndZoom(point,seenView);*/
+    infowindow.open(new BMap.Point(_lng,_lat));
+}
+function closeInfoW() {
+    infowindow.close();
 }
 
 //--获取位置点的信息窗口内容
@@ -388,6 +396,7 @@ function createIcon(json,_icon){
     var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
     return icon;
 }
+
 //重新定义所有标注在可视范围内
 function moveMapByBound() {
     var bound = [];
@@ -423,6 +432,18 @@ function clearAll() {
             map.removeOverlay(markers[i]);
         }
     }
+    for(var i = 0;i<markers_zdwxy.length;i++) {
+        map.removeOverlay(markers_zdwxy[i]);
+    }
+    for(var i = 0;i<markers_jydbz.length;i++) {
+        map.removeOverlay(markers_jydbz[i]);
+    }
+    for(var i = 0;i<markers_zjbz.length;i++) {
+        map.removeOverlay(markers_zjbz[i]);
+    }
+    for(var i = 0;i<markers_wzbj.length;i++) {
+        map.removeOverlay(markers_wzbj[i]);
+    }
     overlays.length = 0
 }
 
@@ -430,7 +451,11 @@ function clearAll() {
 function clearallmarker() {
     map.clearOverlays();
     markers.splice(0);
-    overlays.splice(0);
+    overlays.splice(0);//清空地图圆圈
+    markers_zdwxy.splice(0);//清空重大危险源
+    markers_jydbz.splice(0);//清空救援队
+    markers_zjbz.splice(0);//清空专家
+    markers_wzbj.splice(0);//清空物资
 }
 //地图右侧侧拉按钮
 function showPanel(){
