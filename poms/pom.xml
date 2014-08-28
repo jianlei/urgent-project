@@ -226,6 +226,12 @@
                 <scope>provided</scope>
             </dependency>
             <!--osgi standard end-->
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+            </dependency>
             <!--Urgent Admin Module begin-->
             <dependency>
                 <groupId>com.daren.admin</groupId>

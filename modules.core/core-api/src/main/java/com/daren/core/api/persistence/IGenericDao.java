@@ -107,6 +107,16 @@ public interface IGenericDao<T, PK extends Serializable> extends IDaoService {
 
     List find(String hql, Object... values);
 
+    /**
+     * 支持原生的sql查询
+     * @param sql sql语句
+     * @param cls 需要返回结果的类
+     * @param parms 参数
+     * @return
+     */
+
+    List findByNativeSql(String sql, Class cls,Object... parms);
+
     public List findbyPage(String hql, int pageNumber, int pageSize, Object... values);
 
 
