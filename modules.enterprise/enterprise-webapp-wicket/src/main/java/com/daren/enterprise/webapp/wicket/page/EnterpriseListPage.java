@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
@@ -32,14 +33,14 @@ import java.util.List;
  * @修改备注：
  */
 
-public class EnterprisePage extends BasePanel {
+public class EnterpriseListPage extends BasePanel {
 
     EnterpriseDataProvider provider = new EnterpriseDataProvider();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
 
-    public EnterprisePage(final String id, final WebMarkupContainer wmc) {
+    public EnterpriseListPage(final String id, final WebMarkupContainer wmc) {
 
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
@@ -102,10 +103,10 @@ public class EnterprisePage extends BasePanel {
     }
 
 
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final EnterpriseBean enterpriseBean) {
-        AjaxButton ajaxButton = new AjaxButton(wicketId) {
+    private AjaxLink getToCreatePageAjaxButton(String wicketId, final EnterpriseBean enterpriseBean) {
+        IrisIndicatingAjaxLink ajaxButton = new IrisIndicatingAjaxLink(wicketId) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            public void onClick(AjaxRequestTarget target) {
                 createButtonOnClick(enterpriseBean, target);
             }
         };

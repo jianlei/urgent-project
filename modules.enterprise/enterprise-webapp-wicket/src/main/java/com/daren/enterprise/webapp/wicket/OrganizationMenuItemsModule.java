@@ -1,7 +1,6 @@
 package com.daren.enterprise.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.enterprise.webapp.wicket.page.EnterpriseTabPage;
 import com.daren.enterprise.webapp.wicket.page.OrganizationTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;

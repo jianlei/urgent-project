@@ -33,17 +33,13 @@ import java.util.List;
 
 public class DigitalPlanCreatePage extends BasePanel {
 
+    Form<DigitalPlanBean> digitalplanBeanForm = new Form("digitalPlanForm", new CompoundPropertyModel(new DigitalPlanBean()));
+    DigitalPlanBean digitalplanBean = new DigitalPlanBean();
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IDigitalPlanBeanService digitalplanBeanService;
-
     @Inject
     private IUploadDocumentService uploadDocumentService;
-
-    Form<DigitalPlanBean> digitalplanBeanForm = new Form("digitalPlanForm", new CompoundPropertyModel(new DigitalPlanBean()));
-
-    DigitalPlanBean digitalplanBean = new DigitalPlanBean();
-
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
 
 
     public DigitalPlanCreatePage(final String id, final WebMarkupContainer wmc, final DigitalPlanBean bean) {
@@ -124,7 +120,7 @@ public class DigitalPlanCreatePage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);

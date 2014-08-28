@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -19,7 +20,9 @@ import java.util.Date;
 @XmlRootElement
 public class EnterpriseBean extends PersistentEntity {
 
+    @NotNull(message = "'企业代码'是必填项")
     String qyid;//企业id
+    @NotNull(message = "'企业名称'是必填项")
     String qymc;//企业名称
     Date clsj;//成立时间
     String frdb;//法人代表姓名

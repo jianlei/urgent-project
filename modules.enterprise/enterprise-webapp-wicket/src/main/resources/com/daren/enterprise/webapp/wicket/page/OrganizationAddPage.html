@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+</wicket:head>
+<body>
+<wicket:panel>
+<div class="alert alert-info">当前位置<b class="tip"/>信息管理<b class="tip"/>监管机构详细信息</div>
+<div>
+    <span wicket:id="feedBack"/>
+</div>
+
+<form wicket:id="organizationForm">
+<table class="table table-striped table-bordered table-condensed">
+
+<thead>
+<tr>
+    <td colspan="6" class="auto-style2">&nbsp;监管机构详细信息 <i class="tip-up"></i></td>
+</tr>
+</thead>
+
+<!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
+<tbody>
+<tr>
+    <td class="tdl">机关代码</td>
+    <td class="detail">
+        <input class="ipt" wicket:id="jgdm"/>
+    </td>
+    <td class="tdl">上级机关代码</td>
+    <td class="detail">
+        <input class="ipt" wicket:id="sjjgdm"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdl">机关名称</td>
+    <td class="detail">
+        <input class="ipt" wicket:id="mc"/>
+    </td>
+    <td class="tdl">机关简称</td>
+    <td class="detail">
+        <input class="ipt" wicket:id="mcj"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdl">机关部门标记</td>
+    <td class="detail">
+        <select class="ipt" wicket:id="jgbmbj"></select>
+    </td>
+    <td class="tdl">机构类型</td>
+    <td class="detail">
+        <select class="ipt" wicket:id="jglxbj"></select>
+    </td>
+</tr>
+<tr>
+    <td class="tdl">创建时间</td>
+    <td>
+        <div class="input-append">
+            <input class="span2 datepicker" size="16" type="text" wicket:id="createtime"/>
+        </div>
+    </td>
+    <td class="tdl">区划代码</td>
+    <td class="detail">
+        <input class="ipt" wicket:id="xzqh_dm"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdl">是否有效</td>
+    <td>
+        <div class="input-append">
+            <select class="ipt" wicket:id="zfbj"></select>
+        </div>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="6" align="right">
+        <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+        <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+    </td>
+</tr>
+</tbody>
+</table>
+</form>
+</wicket:panel>
+</body>
+</html>

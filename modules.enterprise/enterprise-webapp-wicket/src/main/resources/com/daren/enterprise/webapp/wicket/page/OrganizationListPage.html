@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+
+<wicket:head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+</wicket:head>
+
+<body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"/>信息管理<b class="tip"/>监管机构管理</div>
+    <form wicket:id="formQuery">
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tdl" width="16">监管机构名称</td>
+                <td class="detail">
+                    <input id="formid123" class="ipt" wicket:id="mc"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" wicket:id="find" type="button" value="查询"/>
+                    <!-- <input class="btn btn-inverse" type="button" value="清空"/>-->
+                    <input class="btn btn-inverse" wicket:id="create" type="button" value="新建"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div>
+        <span wicket:id="feedBack"/>
+    </div>
+    <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+        <thead>
+        <tr class="tr_detail">
+            <th>机关名称</th>
+            <th>机关简称</th>
+            <th>机构代码</th>
+            <th>机构类型</th>
+            <th>机关部门标记</th>
+            <th>区划代码</th>
+            <th>创建时间</th>
+            <th>是否有效</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr wicket:id="rows">
+            <td><span wicket:id="MC"></span></td>
+            <td wicket:id="MCJ">无</td>
+            <td wicket:id="JGDM">无</td>
+            <td wicket:id="JGLXBJ">无</td>
+            <td wicket:id="JGBMBJ">无</td>
+            <td wicket:id="XZQH_DM">无</td>
+            <td wicket:id="CREATETIME">无</td>
+            <td wicket:id="ZFBJ">无</td>
+            <td>
+                <a href="#" wicket:id="check_MC">修改</a>
+                <a href="#" wicket:id="del">删除</a>
+            </td>
+            <!--<td><a href="#" wicket:id="label">&lt;!&ndash;<span wicket:id="linklabel"></span>&ndash;&gt;kj</a></td>
+            -->
+        </tr>
+        <tr class="tr_pagenumber">
+            <td align="center" colspan="100" wicket:id="navigator"></td>
+        </tr>
+        </tbody>
+    </table>
+</wicket:panel>
+</body>
+</html>

@@ -27,12 +27,11 @@ import java.util.List;
 
 public class EnterpriseTabPage extends BasePanel {
 
-    private final TabbedPanel tabPanel;
-
     final RepeatingView createPage = new RepeatingView("createPage");
+    private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     Fragment createFragment;
-    EnterpriseCreatePage enterpriseCreatePage;
+    EnterpriseAddPage enterpriseCreatePage;
 
     public EnterpriseTabPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
@@ -60,8 +59,8 @@ public class EnterpriseTabPage extends BasePanel {
         return tabs;
     }
 
-    private EnterprisePage initEnterprisePage(final String id, final WebMarkupContainer wmc) {
-        EnterprisePage enterprisePage = new EnterprisePage(id, wmc) {
+    private EnterpriseListPage initEnterprisePage(final String id, final WebMarkupContainer wmc) {
+        EnterpriseListPage enterprisePage = new EnterpriseListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(EnterpriseBean enterpriseBean, AjaxRequestTarget target) {
                 initEnterpriseCreatePage(id,wmc,enterpriseBean,target,true);
@@ -86,7 +85,7 @@ public class EnterpriseTabPage extends BasePanel {
 
                 @Override
                 public WebMarkupContainer getLazyPanel(String panelId) {
-                    enterpriseCreatePage = new EnterpriseCreatePage(createPage.newChildId(), wmc, enterpriseBean) {
+                    enterpriseCreatePage = new EnterpriseAddPage(createPage.newChildId(), wmc, enterpriseBean) {
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
                             if (getActiveTab("企业信息编辑") > 0){
@@ -105,7 +104,7 @@ public class EnterpriseTabPage extends BasePanel {
             };
             tabPanel.add(createAjaxTab);
         } else {
-            enterpriseCreatePage = new EnterpriseCreatePage(createPage.newChildId(), wmc, enterpriseBean) {
+            enterpriseCreatePage = new EnterpriseAddPage(createPage.newChildId(), wmc, enterpriseBean) {
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
                     if (getActiveTab("企业信息编辑") > 0){
