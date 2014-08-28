@@ -41,14 +41,26 @@
         <thead>
         <tr class="tr_detail">
             <th>机关名称</th>
+            <th>机关简称</th>
+            <th>机构代码</th>
+            <th>机构类型</th>
+            <th>机关部门标记</th>
+            <th>区划代码</th>
             <th>创建时间</th>
+            <th>是否有效</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
         <tr wicket:id="rows">
             <td><span wicket:id="MC"></span></td>
+            <td wicket:id="MCJ">无</td>
+            <td wicket:id="JGDM">无</td>
+            <td wicket:id="JGLXBJ">无</td>
+            <td wicket:id="JGBMBJ">无</td>
+            <td wicket:id="XZQH_DM">无</td>
             <td wicket:id="CREATETIME">无</td>
+            <td wicket:id="ZFBJ">无</td>
             <td>
                 <a href="#" wicket:id="check_MC">修改</a>
                 <a href="#" wicket:id="del">删除</a>

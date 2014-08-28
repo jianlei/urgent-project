@@ -1,25 +1,18 @@
 package com.daren.enterprise.webapp.wicket.page;
 
-import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.OrganizationBean;
-import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
-import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
+import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
+import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.Model;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,148 +25,102 @@ import java.util.List;
  */
 public class OrganizationTabPage extends BasePanel {
 
-    OrganizationDataProvider provider = new OrganizationDataProvider();
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    @Inject
-    private IOrganizationBeanService organizationBeanService;
+    final RepeatingView createPage = new RepeatingView("createPage");
+    private final TabbedPanel tabPanel;
+    AjaxTab createAjaxTab;
+    Fragment createFragment;
+    OrganizationAddPage organizationCreatePage;
 
-    public OrganizationTabPage(final String id, final WebMarkupContainer wmc){
-
+    public OrganizationTabPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        final WebMarkupContainer table = new WebMarkupContainer("table");      //布局容器
-        add(table.setOutputMarkupId(true));
-        //循环读取数据并赋值
-        DataView<OrganizationBean> listView = new DataView<OrganizationBean>("rows", provider, 10) {
+        //增加tabs支持
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        this.add(tabPanel);
+        createPage.setOutputMarkupId(true);
+    }
+
+    /**
+     * 添加tabs
+     *
+     * @return
+     */
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+        List<ITab> tabs = new ArrayList();
+        tabs.add(new AbstractTab(Model.of("监管机构管理")) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(Item<OrganizationBean> item) {
-                {
-                    final OrganizationBean organizationBean = item.getModelObject();
-                    item.add(new Label("MC", organizationBean.getMc()));
-                    item.add(new Label("CREATETIME", organizationBean.getCreatetime()));
-                    //item.add(new Label("QYLXFS", organizationBean.getQylxfs()));
-                    //item.add(new Label("MAILADDRESS", organizationBean.getMailaddress()));
-                    //item.add(new Label("ADDRESS_JY", organizationBean.getAddressjy()));
-                    item.add(getToCreatePageLink("check_MC", organizationBean));
+            public WebMarkupContainer getPanel(String panelId) {
+                return initOrganizationPage(id, wmc);
+            }
+        });
+        return tabs;
+    }
 
-                    AjaxLink alink = new AjaxLink("del") {
-                        @Override
-                        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                            super.updateAjaxAttributes(attributes);
-                            AjaxCallListener listener = new AjaxCallListener();
-                            listener.onPrecondition("if(!confirm('确定要删除么?')){return false;}");
-                            attributes.getAjaxCallListeners().add(listener);
-                        }
+    private OrganizationListPage initOrganizationPage(final String id, final WebMarkupContainer wmc) {
+        OrganizationListPage organizationListPage = new OrganizationListPage(id, wmc) {
+            @Override
+            protected void createButtonOnClick(OrganizationBean organizationBean, AjaxRequestTarget target) {
+                initOrganizationCreatePage(id,wmc,organizationBean,target,true);
+            }
+        };
+        return organizationListPage;
+    }
 
+    private int getActiveTab(String title){
+        for (int i = 0; i <tabPanel.getModelObject().size(); i++) {
+            if (tabPanel.getModelObject().get(i).getTitle().getObject().equals(title)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private void initOrganizationCreatePage(final String id, final WebMarkupContainer wmc, final OrganizationBean organizationBean, AjaxRequestTarget target,boolean goPage) {
+        if (null == createAjaxTab) {
+            createAjaxTab = new AjaxTab(Model.of("监管机构编辑")) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public WebMarkupContainer getLazyPanel(String panelId) {
+                    organizationCreatePage = new OrganizationAddPage(createPage.newChildId(), wmc, organizationBean) {
                         @Override
-                        public void onClick(AjaxRequestTarget target) {
-                            try {
-                                organizationBeanService.deleteEntity(organizationBean.getId());
-                                target.add(table);
-                                feedbackPanel.info("删除成功！");
-                                target.add(feedbackPanel);
-                            } catch (Exception e) {
-                                feedbackPanel.info("删除失败！");
-                                target.add(feedbackPanel);
+                        protected void onDeleteTabs(AjaxRequestTarget target) {
+                            if (getActiveTab("监管机构编辑") > 0){
+                                tabPanel.getModelObject().remove(getActiveTab("监管机构编辑"));
+                                createAjaxTab = null;
+                                createPage.removeAll();
                             }
-
+                            target.add(tabPanel);
                         }
                     };
-                    item.add(alink.setOutputMarkupId(true));
+                    createPage.add(organizationCreatePage);
+                    createFragment = new Fragment(panelId, "panel-3", OrganizationTabPage.this);
+                    createFragment.add(createPage);
+                    return createFragment;
                 }
-            }
-        };
-        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
-        table.add(pagingNavigator);
-        table.add(listView);
-        createQuery(table, provider, id, wmc);
-        initFeedBack();
-    }
-    private void initFeedBack() {
-        feedbackPanel.setOutputMarkupId(true);
-        add(feedbackPanel);
-    }
-
-    /**
-     * 创建按钮
-     * @param wicketId
-     * @param organizationBean
-     * @return
-     */
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final OrganizationBean organizationBean) {
-        AjaxButton ajaxButton = new AjaxButton(wicketId) {
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                createButtonOnClick(organizationBean, target);
-            }
-        };
-        return ajaxButton;
-    }
-
-    /**
-     * 创建的ajax方法
-     * @param wicketId
-     * @param organizationBean
-     * @return
-     */
-    private AjaxLink getToCreatePageLink(String wicketId, final OrganizationBean organizationBean) {
-        AjaxLink ajaxLink = new AjaxLink(wicketId) {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(organizationBean, target);
-            }
-        };
-        return ajaxLink;
-    }
-
-    protected void createButtonOnClick(OrganizationBean organizationBean, AjaxRequestTarget target) {
-
-    }
-
-    /**
-     * 处理查询页面
-     *
-     * @param table
-     */
-    private void createQuery(final WebMarkupContainer table, final OrganizationDataProvider provider, final String id, final WebMarkupContainer wmc) {
-        //处理查询
-        Form<OrganizationBean> organizationBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new OrganizationBean()));
-        TextField textField = new TextField("mc");
-
-        organizationBeanForm.add(textField.setOutputMarkupId(true));
-        organizationBeanForm.add(getToCreatePageAjaxButton("create", null));
-        add(organizationBeanForm.setOutputMarkupId(true));
-
-
-        AjaxButton findButton = new AjaxButton("find", organizationBeanForm) {
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                OrganizationBean organizationBean = (OrganizationBean) form.getModelObject();
-                provider.setOrganizationBean(organizationBean);
-                target.add(table);
-            }
-        };
-        organizationBeanForm.add(findButton);
-    }
-    /**
-     * 查询list
-     */
-    class OrganizationDataProvider extends ListDataProvider<OrganizationBean> {
-        private OrganizationBean organizationBean = null;
-
-        public void setOrganizationBean(OrganizationBean organizationBean) {
-            this.organizationBean = organizationBean;
+            };
+            tabPanel.add(createAjaxTab);
+        } else {
+            organizationCreatePage = new OrganizationAddPage(createPage.newChildId(), wmc, organizationBean) {
+                @Override
+                protected void onDeleteTabs(AjaxRequestTarget target) {
+                    if (getActiveTab("监管机构编辑") > 0){
+                        tabPanel.getModelObject().remove(getActiveTab("监管机构编辑"));
+                        createAjaxTab = null;
+                    }
+                    target.add(tabPanel);
+                }
+            };
+            createPage.removeAll();
+            createPage.add(organizationCreatePage);
+            createFragment.removeAll();
+            createFragment.add(createPage);
+            target.add(createFragment);
         }
-
-        @Override
-        protected List<OrganizationBean> getData() {
-            //判断名称查询条件是否为空
-            if (organizationBean == null || null == organizationBean.getMc() || "".equals(organizationBean.getMc().trim()))
-                return organizationBeanService.getAllEntity();
-            else {
-                return organizationBeanService.queryOrganization(organizationBean);
-            }
+        target.add(tabPanel);
+        if(goPage){
+            tabPanel.setActiveTab(getActiveTab("监管机构编辑"));
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.daren.enterprise.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
@@ -68,7 +69,6 @@ public class EnterpriseAddPage extends BasePanel {
                 EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanForm.getDefaultModelObject();
                 if (null != enterpriseBean) {
                     try {
-                        enterpriseBean.setUpdateDate(new Date());
                         enterpriseBeanService.saveEntity(enterpriseBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
@@ -78,11 +78,16 @@ public class EnterpriseAddPage extends BasePanel {
                     }
                 }
             }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                target.add(feedbackPanel);
+            }
         };
         enterpriseBeanForm.add(ajaxButton);
-        enterpriseBeanForm.add(new AjaxButton("cancel") {
+        enterpriseBeanForm.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            public void onClick(AjaxRequestTarget target) {
                 onDeleteTabs(target);
             }
         });

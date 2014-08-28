@@ -18,6 +18,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
 
     public void setOrganizationBeanDao(IOrganizationBeanDao organizationBeanDao) {
         this.organizationBeanDao = organizationBeanDao;
+        super.init(organizationBeanDao, OrganizationBean.class.getName());
     }
 
     @Override

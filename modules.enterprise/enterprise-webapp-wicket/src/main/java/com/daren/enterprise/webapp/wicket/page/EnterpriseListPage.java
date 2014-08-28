@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
@@ -102,10 +103,10 @@ public class EnterpriseListPage extends BasePanel {
     }
 
 
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final EnterpriseBean enterpriseBean) {
-        AjaxButton ajaxButton = new AjaxButton(wicketId) {
+    private AjaxLink getToCreatePageAjaxButton(String wicketId, final EnterpriseBean enterpriseBean) {
+        IrisIndicatingAjaxLink ajaxButton = new IrisIndicatingAjaxLink(wicketId) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            public void onClick(AjaxRequestTarget target) {
                 createButtonOnClick(enterpriseBean, target);
             }
         };

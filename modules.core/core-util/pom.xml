@@ -96,9 +96,9 @@
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <tables>
-                        <!--<table>
+                        <table>
                             <name>SYSBizTran</name>
-                        </table>-->
+                        </table>
                         <table>
                             <name>sys_user</name>
                         </table>
@@ -122,6 +122,9 @@
                         </table>
                         <table>
                             <name>urg_ent_organization</name>
+                        </table>
+                        <table>
+                            <name>sys_dict</name>
                         </table>
                     </tables>
                     <skip>${skipTests}</skip>
