@@ -1,6 +1,7 @@
 package com.daren.enterprise.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
@@ -58,7 +59,9 @@ public class OrganizationAddPage extends BasePanel {
                 new PropertyModel<Date>(organizationBean, "createtime"), "yyyy-mm-dd",
                 new Options("dateFormat", Options.asString("yyyy-mm-dd")));
         organizationBeanForm.add(datePicker);
-
+        /**
+         * 保存
+         */
         AjaxButton ajaxButton = new AjaxButton("save", organizationBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -75,11 +78,16 @@ public class OrganizationAddPage extends BasePanel {
                     }
                 }
             }
+            //验证字段
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                target.add(feedbackPanel);
+            }
         };
         organizationBeanForm.add(ajaxButton);
-        organizationBeanForm.add(new AjaxButton("cancel") {
+        organizationBeanForm.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            public void onClick(AjaxRequestTarget target) {
                 onDeleteTabs(target);
             }
         });
