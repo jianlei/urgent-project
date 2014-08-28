@@ -31,15 +31,13 @@ import java.util.List;
  */
 
 public class ReservePlanEditPage extends BasePanel {
-    @Inject
-    private IReservePlanBeanService reservePlanBeanService;
-
-    @Inject
-    private IUploadDocumentService uploadDocumentService;
-
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     final RepeatingView spotPlanPanel = new RepeatingView("spotPlanPanel");
     final RepeatingView specialPlanPanel = new RepeatingView("specialPlanPanel");
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    @Inject
+    private IReservePlanBeanService reservePlanBeanService;
+    @Inject
+    private IUploadDocumentService uploadDocumentService;
 
     public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id, wmc);
@@ -78,7 +76,7 @@ public class ReservePlanEditPage extends BasePanel {
         form.add(new TextField("name"));
         form.add(new TextField("mark"));
         form.add(new TextField("level"));
-        form.add(new TextField("type"));
+//        form.add(new TextField("type"));
 
         AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
             @Override

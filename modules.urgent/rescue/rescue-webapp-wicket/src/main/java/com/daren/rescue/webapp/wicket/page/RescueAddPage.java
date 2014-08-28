@@ -39,6 +39,7 @@ public class RescueAddPage extends Panel {
     @Reference(id = "rescueBeanService", serviceInterface = IRescueBeanService.class)
     private IRescueBeanService rescueBeanService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
+    private RescueBean rescueBean=new  RescueBean();
 
     public RescueAddPage(String id, String type, IModel<RescueBean> model) {
         super(id, model);
@@ -46,7 +47,7 @@ public class RescueAddPage extends Panel {
 
         if (model.getObject() == null) {
             isAdd = true;
-            initForm(Model.of(new RescueBean()));
+            initForm(Model.of(rescueBean));
         } else {
             isAdd = false;
             initForm(model);
@@ -74,10 +75,14 @@ public class RescueAddPage extends Panel {
         final Form<RescueBean> dictForm = new Form("dictForm", new CompoundPropertyModel(model));
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         dictForm.add(feedbackPanel.setOutputMarkupId(true));
-        dictForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        TextField name = new TextField("name");
+
+        dictForm.add(name.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("head").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("headPhone").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        dictForm.add(new TextField("telephone").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        TextField telephone = new TextField("telephone");
+        telephone.setConvertEmptyInputStringToNull(false);
+        dictForm.add(telephone.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("totalNumber").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new TextField("address").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         dictForm.add(new HiddenField("jd").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
@@ -91,7 +96,7 @@ public class RescueAddPage extends Panel {
                 try {
                     RescueBean dictBean = (RescueBean) form.getModelObject();
                     dictBean.setEnterpriseId(1l);
-                    rescueBeanService.saveEntity(dictBean);
+                        rescueBeanService.saveEntity(dictBean);
                     if (isAdd) {
                         dictForm.setModelObject(new RescueBean());
                     }

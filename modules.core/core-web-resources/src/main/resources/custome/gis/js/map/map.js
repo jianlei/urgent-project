@@ -498,10 +498,21 @@ function goConfirm(parm,_lng,_lat){
 
         moveMapByBound();
     }else{
-        map.clearOverlays();
-        markers = [];
+        /*map.clearOverlays();
+        markers = [];*/
         overlays = [];
-        map.centerAndZoom(cityname,lev);
+        for(var i = 0; i < overlays.length; i++){
+            map.removeOverlay(overlays[i]);
+        }
+        for(var i = 0;i<markers.length;i++) {
+            if(_lng == lng && _lat == lat){
+                map.removeOverlay(markers[i]);
+            }
+            if(markers.length==1){
+                map.centerAndZoom(cityname,lev);
+            }
+        }
+
     }
 }
 
