@@ -1,3 +1,14 @@
+//重大危险源标注集合
+var markers_zdwxy = [];
+//救援队标注集合
+var markers_jydbz = [];
+//专家标注集合
+var markers_zjbz = [];
+//物资标注集合
+var markers_wzbj = [];
+
+
+
 /**
  * 重大隐患定时器
  */
@@ -40,7 +51,7 @@ function zdwxy(){
     $.getJSON(
         "../../cxf/hazard",{"rand":Math.random()},function(json){
             if(json!=null){
-                clearallmarker();
+               // clearallmarker();
                 //var responseJson = json.hazardBean;
                 var responseJson = json;
                 for(var i=0;i<responseJson.length;i++){
@@ -84,7 +95,7 @@ function zdwxy(){
 
                     content+= '</div>';
 
-                    addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",500,300);
+                    addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",500,300,markers_zdwxy);
                     if(i==responseJson.length-1){
                         moveMapByBound();
                     }
@@ -103,7 +114,7 @@ function jydbz(){
     $.getJSON(
         "../../cxf/rescue",{"rand":Math.random()},function(json){
             if(json!=null){
-                clearallmarker();
+               // clearallmarker();
                 //var responseJson = json.rescueBean;
                 var responseJson = json;
                 for(var i=0;i<responseJson.length;i++) {
@@ -122,7 +133,7 @@ function jydbz(){
                         content += "备注: <span style='color:green;'>" + response.remarks + "</span></br>";
                     content += '</div>';
 
-                    addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170);
+                    addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170,markers_jydbz);
                     if (i == responseJson.length - 1) {
                         moveMapByBound();
                     }
@@ -141,7 +152,7 @@ function zjbz(){
     $.getJSON(
         "../../cxf/expert",{"rand":Math.random()},function(json){
             if(json!=null){
-                clearallmarker();
+                //clearallmarker();
                // var responseJson = json.enterpriseExpertBean;
                 var responseJson = json;
                 for(var i=0;i<responseJson.length;i++) {
@@ -166,7 +177,7 @@ function zjbz(){
                         content += "研究方向: <span style='color:green;'>" + response.direction + "</span></br>";
                     content += '</div>';
 
-                    addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200);
+                    addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200,markers_zjbz);
                     if (i == responseJson.length - 1) {
                         moveMapByBound();
                     }
@@ -185,7 +196,7 @@ function wzbj(){
     $.getJSON(
         "../../cxf/equipment",{"rand":Math.random()},function(json){
             if(json!=null){
-                clearallmarker();
+               // clearallmarker();
                // var responseJson = json.equipmentBean;
                 var responseJson = json;
                 for(var i=0;i<responseJson.length;i++){
@@ -221,7 +232,7 @@ function wzbj(){
                         content += "备注: <span style='color:green;'>" + response.remark + "</span></br>";
                     content += '</div>';
 
-                    addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280);
+                    addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj);
                     if (i == responseJson.length - 1) {
                         moveMapByBound();
                     }

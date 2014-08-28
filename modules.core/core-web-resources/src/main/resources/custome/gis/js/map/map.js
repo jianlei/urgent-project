@@ -336,7 +336,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     moveMapByBound();
 }
 //添加普通标注
-function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height) {
+function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton) {
 
     var point = new BMap.Point(_lng,_lat);
     var jsonicon ={w:21,h:35,l:0,t:0,x:6,lb:5};
@@ -344,7 +344,8 @@ function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height) {
     var marker = new BMap.Marker(point,{icon:iconImg});
 
     map.addOverlay(marker);
-    markers.push(marker);
+    //markers.push(marker);
+    markers_collecton.push(marker);
     marker.addEventListener("click",function(){
         map.centerAndZoom(point,seenView);
        // var content = getIWContent(responseJson);
@@ -392,6 +393,18 @@ function moveMapByBound() {
     var bound = [];
     for(var i = 0;i<markers.length;i++) {
         bound.push(markers[i].getPosition());
+    }
+    for(var i = 0;i<markers_zdwxy.length;i++) {
+        bound.push(markers_zdwxy[i].getPosition());
+    }
+    for(var i = 0;i<markers_jydbz.length;i++) {
+        bound.push(markers_jydbz[i].getPosition());
+    }
+    for(var i = 0;i<markers_zjbz.length;i++) {
+        bound.push(markers_zjbz[i].getPosition());
+    }
+    for(var i = 0;i<markers_wzbj.length;i++) {
+        bound.push(markers_wzbj[i].getPosition());
     }
     map.setViewport(bound);
 
