@@ -7,7 +7,6 @@ import com.daren.drill.entities.UrgentDrillBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
@@ -54,7 +53,7 @@ public class UploadImagePage extends IrisAbstractDialog<UrgentDrillBean> {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                            String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             imageBean1.setFilePath(path);

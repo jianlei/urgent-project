@@ -51,7 +51,7 @@ public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                            String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             docmentBean1.setFilePath(path);

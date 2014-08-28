@@ -109,7 +109,7 @@ public class ReservePlanEditPage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);
