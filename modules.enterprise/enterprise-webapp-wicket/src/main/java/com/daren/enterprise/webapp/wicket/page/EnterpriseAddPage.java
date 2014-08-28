@@ -5,6 +5,7 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAj
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -38,6 +39,8 @@ public class EnterpriseAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
+    @Inject
+    private IOrganizationBeanService organizationBeanService;
 
     public EnterpriseAddPage(final String id, final WebMarkupContainer wmc, EnterpriseBean bean) {
         super(id, wmc);
@@ -66,7 +69,7 @@ public class EnterpriseAddPage extends BasePanel {
         AjaxButton ajaxButton = new AjaxButton("save", enterpriseBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanForm.getDefaultModelObject();
+                EnterpriseBean enterpriseBean = (EnterpriseBean) form.getModelObject();
                 if (null != enterpriseBean) {
                     try {
                         enterpriseBeanService.saveEntity(enterpriseBean);
@@ -124,6 +127,10 @@ public class EnterpriseAddPage extends BasePanel {
         initSelect("zybbj", IDictConstService.ZYBBJ);
         initSelect("zdxfdwbj", IDictConstService.ZDXFDW_BJ);
         initSelect("yazlqybj", IDictConstService.YAZLQY_BJ);
+        initSelect("xjqybj", IDictConstService.ENTERPRISE_XJQYBJ);
+        initSelect("gmqk", IDictConstService.ENTERPRISE_GMQK);
+        initSelect("jgfl", IDictConstService.ENTERPRISE_JGFL);
+        initSelect("jgjgdm", organizationBeanService.getAllBeansToHashMap());
     }
 
     private void addTextFieldToForm(String value) {
@@ -143,7 +150,7 @@ public class EnterpriseAddPage extends BasePanel {
         addTextFieldToForm("zyjyxm");
         addTextFieldToForm("zyyl");
         addTextFieldToForm("zycp");
-        addTextFieldToForm("jgjgdm");
+        //addTextFieldToForm("jgjgdm");
         addTextFieldToForm("zzjgdm");
         addTextFieldToForm("sdlx");
         addTextFieldToForm("jjlxbm");
@@ -153,13 +160,13 @@ public class EnterpriseAddPage extends BasePanel {
         addTextFieldToForm("jzaqrs");
         addTextFieldToForm("hymldm");
         addTextFieldToForm("hylbbm");
-        addTextFieldToForm("xjqybj");
+        //addTextFieldToForm("xjqybj");
         addTextFieldToForm("sjqyid");
         addTextFieldToForm("hyzxldm");
         addTextFieldToForm("qygmbm");
-        addTextFieldToForm("gmqk");
+        //addTextFieldToForm("gmqk");
         addTextFieldToForm("zczc");
-        addTextFieldToForm("jgfl");
+        //addTextFieldToForm("jgfl");
         addTextFieldToForm("sndxssr");
         addTextFieldToForm("aqscfy");
 //        addTextFieldToForm("yazlqy_bj");

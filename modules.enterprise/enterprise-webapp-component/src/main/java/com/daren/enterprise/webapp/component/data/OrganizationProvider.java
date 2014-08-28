@@ -39,7 +39,7 @@ public class OrganizationProvider  extends ChoiceProvider<OrganizationBean> {
 
 
     protected Object getId(OrganizationBean choice) {
-        return choice.getId();
+        return choice.getJgdm();
     }
 
     @Override
