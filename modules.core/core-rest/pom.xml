@@ -19,7 +19,7 @@
     <packaging>bundle</packaging>
     <!--need to change after copy-->
     <properties>
-        <bundle.symbolicName>com.daren.core.impl.rest</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.core.rest</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
