@@ -35,7 +35,7 @@ public class MonitorCreatePage extends BasePanel {
 
     MonitorBean monitorBean = new MonitorBean();
     Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(monitorBean));
-    EnterpriseBean enterpriseBean=new EnterpriseBean();
+    EnterpriseBean enterpriseBean = new EnterpriseBean();
     EnterpriseSelect3Choice<MonitorBean> listSites;
     IrisAbstractDialog dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
@@ -49,8 +49,8 @@ public class MonitorCreatePage extends BasePanel {
         super(id, wmc);
         if (null != bean) {
             monitorBean = bean;
-            long enterpriseId=new Long(monitorBean.getAffiliation());
-            enterpriseBean= (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
+            long enterpriseId = new Long(monitorBean.getAffiliation());
+            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
         }
         initForm(monitorBean);
         initFeedBack();
@@ -125,7 +125,7 @@ public class MonitorCreatePage extends BasePanel {
     //通过字典初始化下拉列表
     private void initSelect(String name) {
         //下拉列表
-        listSites = new EnterpriseSelect3Choice<MonitorBean>(name,Model.of(monitorBean)){
+        listSites = new EnterpriseSelect3Choice<MonitorBean>(name, Model.of(monitorBean)) {
             @Override
             public void setId(MonitorBean bean, String input) {
                 bean.setAffiliation(input);

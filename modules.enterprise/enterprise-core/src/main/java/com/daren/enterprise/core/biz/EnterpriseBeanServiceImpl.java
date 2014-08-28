@@ -47,6 +47,11 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
     public List<EnterpriseBean> findByName(String term, int page, int page_size) {
         return enterpriseBeanDao.findbyPage("select a from EnterpriseBean a where a.qymc LIKE ?1", page, page_size, "%" + term + "%");
     }
+
+    @Override
+    public EnterpriseBean getEnterpriseBeanByUUId(String uuId) {
+        return enterpriseBeanDao.findUnique("select a from EnterpriseBean a where a.qyid LIKE ?1", "%" + uuId + "%");
+    }
 }
 
 
