@@ -37,6 +37,12 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
     public List<EnterpriseExpertBean> getExpertList() {
         return enterpriseExpertBeanDao.getAll(EnterpriseExpertBean.class.getName());
     }
+
+    @Override
+    public List<EnterpriseExpertBean> getEnterpriseExpertByScope(String lng, String lat) {
+        return enterpriseExpertBeanDao.findByNativeSql("SELECT *  FROM urg_exp_enterprise  AS t where" +
+                " (6371 * ACOS( COS( RADIANS(?2) ) * COS( RADIANS( wd) ) * COS( RADIANS(t.jd) - RADIANS(?1) ) + SIN( RADIANS(?2) ) * SIN( RADIANS(t.wd) ) ) ) < 500 ", EnterpriseExpertBean.class, lng, lat);
+    }
 }
 
 

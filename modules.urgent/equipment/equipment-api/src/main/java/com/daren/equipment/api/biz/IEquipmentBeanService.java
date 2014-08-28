@@ -5,6 +5,7 @@ import com.daren.core.api.biz.IBizService;
 import com.daren.equipment.entities.EquipmentBean;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 
@@ -22,4 +23,9 @@ public interface IEquipmentBeanService extends IBizService {
     @GET
     @Produces("application/json;charset=utf-8")
     List<EquipmentBean> getEquipmentList();
+
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/scope/{lng}/{lat}")
+    List<EquipmentBean> getRescueBeanByScope(String lng, String lat);
 }
