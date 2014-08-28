@@ -59,9 +59,11 @@ public class MonitorPage extends BasePanel {
                 item.add(new Label("ipAddress", monitorBean.getIpAddress()));
                 item.add(new Label("port", monitorBean.getPort()));
                 item.add(new Label("channel", monitorBean.getChannel()));
-                long enterpriseId=new Long(monitorBean.getAffiliation());
+                long enterpriseId = new Long(monitorBean.getAffiliation());
                 EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
                 item.add(new Label("affiliation", enterpriseBean.getQymc()));//企业名称
+                item.add(new Label("admin", monitorBean.getAdmin()));//企业名称
+                item.add(new Label("password", monitorBean.getPassword()));//企业名称
                 item.add(getToCreatePageLink("check_name", monitorBean));
 
                 AjaxLink alink = new AjaxLink("del") {

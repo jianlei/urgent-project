@@ -100,6 +100,7 @@
                             <name>SYSBizTran</name>
                         </table>
                         <table>
+                            <name>urg_monitor</name>
                             <name>sys_user</name>
                         </table>
                         <table>

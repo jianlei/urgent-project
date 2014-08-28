@@ -132,7 +132,7 @@ public class SpecialPlanEditPage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "F:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);
@@ -219,6 +219,24 @@ public class SpecialPlanEditPage extends BasePanel {
     protected void onDeleteTabs(AjaxRequestTarget target) {
     }
 
+    //通过Map初始化下拉列表
+    private void initSelect(String name, Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        specialPlanForm.add(listSites);
+    }
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        specialPlanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("type", IDictConstService.ACCIDENT_TYPE);
+    }
+
     class SpecialPlanDataProvider extends ListDataProvider<SpecialPlanBean> {
         private SpecialPlanBean specialPlanBean = null;
 
@@ -237,23 +255,5 @@ public class SpecialPlanEditPage extends BasePanel {
                 return specialPlanService.queryByReservePlanId(specialPlanBean);
             }
         }
-    }
-
-    //通过Map初始化下拉列表
-    private void initSelect(String name, Map<String, String> typeMap) {
-        //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
-        specialPlanForm.add(listSites);
-    }
-
-    //通过字典初始化下拉列表
-    private void initSelect(String name, String dictConst) {
-        //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
-        specialPlanForm.add(listSites);
-    }
-
-    private void addSelectToForm() {
-        initSelect("type", IDictConstService.ACCIDENT_TYPE);
     }
 }

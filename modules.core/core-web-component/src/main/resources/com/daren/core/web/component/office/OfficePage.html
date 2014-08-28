@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
+<wicket:head>
+    <title></title>
+
+</wicket:head>
+<body>
+<wicket:panel>
+    <script event="NotifyCtrlReady" for="WebOffice1">
+        var webObj = document.getElementById("WebOffice1");
+        document.all.WebOffice1.LoadOriginalFile("E:\\项目\\jetty安装文档.doc", "doc");
+    </script>
+    <script>
+        function loadScript(filePath) {
+            document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+        }
+    </script>
+    <OBJECT id="WebOffice1" width="100%" height="500" style="z-index: 99999;"
+            classid="clsid:E77E049B-23FC-4DB8-B756-60529A35FAD5"
+            codebase="../../cus/bundle/WebOffice6.cab#Version=6,0,4,4">
+    </OBJECT>
+</wicket:panel>
+</body>
+</html>
