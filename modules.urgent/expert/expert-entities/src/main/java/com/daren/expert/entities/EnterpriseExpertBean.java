@@ -11,29 +11,35 @@ import java.util.Date;
 /**
  * 企业专家
  * Created by 张清欣 on 14-7-28.
+ * @修改人：dlw
+ * @修改时间：2014-08-27 上午10:17
+ * @修改备注：增加属性="" 不然前台页面的做大量判断
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 @Entity
 @Table(name = "urg_exp_enterprise")
 @XmlRootElement
 public class EnterpriseExpertBean extends PersistentEntity {
     private long attach;    //专家归属（专家是哪个企业的）
-    private String name;    //专家姓名
+    private String name ="";    //专家姓名
     private Date date;  //出生日期
-    private String sex; //性别
-    private String skillTitle;  //技术职称
-    private String degree;  //学位
-    private String nation;  //民族
-    private String type;    //专家类别
-    private String city;    //所在城市
-    private String address; //通信地址
-    private String tel; //单位电话
-    private String phone;   //手机
-    private String eMail;   //邮箱
-    private String language;    //外语语种
-    private String domain;  //技术领域
-    private String direction;   //研究方向
-    private String jd;   //经度
-    private String wd;    //纬度
+    private String sex  =""; //性别
+    private String skillTitle  ="";  //技术职称
+    private String degree  ="";  //学位
+    private String nation ="";  //民族
+    private String type ="";    //专家类别
+    private String city ="";    //所在城市
+    private String address =""; //通信地址
+    private String tel =""; //单位电话
+    private String phone ="";   //手机
+    private String eMail ="";   //邮箱
+    private String language ="";    //外语语种
+    private String domain ="";  //技术领域
+    private String direction ="";   //研究方向
+    private String jd ="";   //经度
+    private String wd ="";    //纬度
 
     public long getAttach() {
         return attach;

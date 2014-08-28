@@ -3,6 +3,7 @@ package com.daren.accident.webapp.wicket.page;
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
@@ -93,12 +94,17 @@ public class AccidentEditPage extends BasePanel {
                     target.add(feedbackPanel);
                 }
             }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                target.add(feedbackPanel);
+            }
         };
         accidentBeanForm.add(ajaxSubmitLink);
 
-        accidentBeanForm.add(new AjaxButton("cancel") {
+        accidentBeanForm.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            public void onClick(AjaxRequestTarget target) {
                 onDeleteTabs(target);
             }
         });

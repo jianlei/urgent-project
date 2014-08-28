@@ -30,3 +30,4 @@ karaf@root()> feature:install cave-server
 *** Do NOT deploy to your live server(s) without changing this.  ***
 *** See Application#getConfigurationType() for more information. ***
 ********************************************************************
+5.先install core，然后install admin。

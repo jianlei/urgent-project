@@ -9,4 +9,5 @@ import com.daren.core.api.persistence.IGenericDao;
 
 public interface IAccidentBeanDao extends IGenericDao<AccidentBean, Long> {
 
+
 }

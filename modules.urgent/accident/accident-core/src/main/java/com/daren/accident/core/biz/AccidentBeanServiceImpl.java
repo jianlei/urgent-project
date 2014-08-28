@@ -2,6 +2,7 @@ package com.daren.accident.core.biz;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
+import com.daren.accident.core.model.AccidentJson;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
@@ -17,7 +18,6 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-
 public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IAccidentBeanService {
     private IAccidentBeanDao accidentBeanDao;
 
@@ -37,14 +37,39 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
     @Consumes("application/json;charset=utf-8")
     public Response addAccident(AccidentBean bean) {
         accidentBeanDao.save(bean);
-        return Response.status(200).build();
+        return Response.ok().build();
     }
 
+    /**
+     * 获得未处理的事故列表.status=1
+     * @return
+     */
     @GET
     @Produces("application/json;charset=utf-8")
     @Path("/")
     public List<AccidentBean> getAllAccident() {
-        return accidentBeanDao.getAll(AccidentBean.class.getName());
+        return accidentBeanDao.find("select a from AccidentBean a where a.status =0");
+    }
+
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/all")
+    public List<AccidentJson> getAccidentList() {
+        return accidentBeanDao.findByNativeSql("select a.place,b.qymc from urg_accident a,urg_ent_enterprise b where a.status =0 and a.accidentUnit=b.qyid", AccidentJson.class);
+    }
+
+    /**
+     * 更新事故状态
+     * @param id
+     * @return
+     */
+    @GET
+    @Path("/{id}")
+    public Response updateAccidentStatus(@PathParam("id") String id) {
+        AccidentBean accidentBean= accidentBeanDao.get(AccidentBean.class.getName(),new Long(id));
+        accidentBean.setStatus(1);
+        accidentBeanDao.save(accidentBean);
+        return Response.ok().build();
     }
 }
 

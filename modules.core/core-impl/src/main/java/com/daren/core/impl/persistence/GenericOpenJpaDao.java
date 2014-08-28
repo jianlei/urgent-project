@@ -212,6 +212,29 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
     }
 
     /**
+     * 支持原生的sql查询
+     * @param sql sql语句
+     * @param cls 需要返回结果的类
+     * @param parms 参数
+     * @return
+     */
+    @Override
+    public List findByNativeSql(String sql,Class cls, Object... parms) {
+        return createNativeQuery(sql,cls, parms).getResultList();
+    }
+
+    private Query createNativeQuery(String sql,Class cls, Object[] parameter) {
+        Query queryObject = entityManager.createNativeQuery(sql,cls);
+        if (parameter != null) {
+            for (int i = 0; i < parameter.length; i++) {
+                queryObject.setParameter(i + 1, parameter[i]);
+            }
+        }
+
+        return queryObject;
+    }
+
+    /**
      * @param hql
      * @param pageNumber 从0开始的页号
      * @param pageSize
@@ -235,6 +258,7 @@ public class GenericOpenJpaDao<T extends PersistentEntity, PK extends Serializab
      */
 
     protected Query createQuery(String queryString, Object... parameter) {
+
         Query queryObject = entityManager.createQuery(queryString);
         if (parameter != null) {
             for (int i = 0; i < parameter.length; i++) {

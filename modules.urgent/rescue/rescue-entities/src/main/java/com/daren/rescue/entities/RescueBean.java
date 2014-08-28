@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -13,6 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @类描述：救援队管理
  * @创建人：张清欣
  * @创建时间：2014-08-08 上午10:25
+ * @修改人：dlw
+ * @修改时间：2014-08-27 上午10:17
+ * @修改备注：增加属性="" 不然前台页面的做大量判断
  * @修改人：
  * @修改时间：
  * @修改备注：
@@ -23,17 +27,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="RescueBean")
 public class RescueBean extends PersistentEntity {
     private long enterpriseId;  //企业ID
-    private String name;    //救援队名称
-    private String head;    //负责人
-    private String headPhone;   //负责人电话
-    private String telephone;   //值班电话
-    private long totalNumber;   //总人数
-    private String address; //地址
-    private String jd;   //经度
-    private String wd;    //纬度
-    private String equipment;   //主要装备描述
-    private String expertise;   //专长描述
-    private String remarks;  //备注
+    private String name ="";    //救援队名称
+    private String head ="";    //负责人
+    private String headPhone ="";   //负责人电话
+    private String telephone ="";   //值班电话
+    private long totalNumber;   //总人数\
+    private String address =""; //地址
+    private String jd ="";   //经度
+    private String wd ="";    //纬度
+    private String equipment ="";   //主要装备描述
+    private String expertise ="";   //专长描述
+    private String remarks ="";  //备注
 
     public long getEnterpriseId() {
         return enterpriseId;
@@ -123,6 +127,7 @@ public class RescueBean extends PersistentEntity {
         this.expertise = expertise;
     }
 
+    @XmlAttribute
     public String getRemarks() {
         return remarks;
     }

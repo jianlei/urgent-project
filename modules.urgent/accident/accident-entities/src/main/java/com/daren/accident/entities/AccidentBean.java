@@ -40,12 +40,10 @@ public class AccidentBean extends PersistentEntity {
     private String headcountTrappedOrMissing;//事故伤亡人数-被困或下落不明
     private String headcountEvacuees;//事故伤亡人数-被疏散人数
     @NotNull(message = "'经度'是必填项")
-    private String lng;//经度
-    @NotNull(message = "'纬度'是必填项")
-    private String lat;//纬度
-    @NotNull(message = "'事故类别'是必填项")
     private String jd;//经度
+    @NotNull(message = "'纬度'是必填项")
     private String wd;//纬度
+    @NotNull(message = "'事故类别'是必填项")
     private String accidentType;//事故类别
     private String industryCategory;//行业类别
     @NotNull(message = "'事故级别'是必填项")
@@ -94,6 +92,14 @@ public class AccidentBean extends PersistentEntity {
         liaisons = "";
         liaisonsPhone = "";
         signer = "";
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getAccidentTitle() {

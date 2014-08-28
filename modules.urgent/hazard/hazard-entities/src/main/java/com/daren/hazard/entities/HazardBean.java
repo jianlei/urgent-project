@@ -11,6 +11,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by dell on 14-1-16.
+ * @修改人：dlw
+ * @修改时间：2014-08-27 上午10:17
+ * @修改备注：增加属性="" 不然前台页面的做大量判断
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 @Entity
 @Table(name = "urg_hazard")
@@ -18,47 +24,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class HazardBean extends PersistentEntity {
 
-    private String jd;//经度
-    private String wd;//纬度
-    private String estimate;//评估
-    private String name;//危险源名称
-    private String expertName;//专家名称
+    private String jd="";//经度
+    private String wd="";//纬度
+    private String estimate="";//评估
+    private String name="";//危险源名称
+    private String expertName="";//专家名称
     private int accidentRate;//可能发生的事故率
     private int enterpriseBeanId;//企业ID
-    private String place;//所在地址
-    private String startTime;//投用时间
-    private String level;//重大危险源级别
-    private String describe;//主要装置，设置，规模
-    private String inChemical;//是否在化工园区
-    private String distanceOtherHazard;//距离其他重危目标距离
-    private String scope500MHaveMans;//范围500米内人数估算值
-    private String lastThreeYearAccident;//近三年事故
-    private String roadConditions;//道路情况
+    private String place="";//所在地址
+    private String startTime="";//投用时间
+    private String level="";//重大危险源级别
+    private String describe="";//主要装置，设置，规模
+    private String inChemical="";//是否在化工园区
+    private String distanceOtherHazard="";//距离其他重危目标距离
+    private String scope500MHaveMans="";//范围500米内人数估算值
+    private String lastThreeYearAccident="";//近三年事故
+    private String roadConditions="";//道路情况
 
-    private String zbqkd;//周边情况（东）
-    private String sfwhqyd;//是否危化企业（东）
-    private String jbqyzjzxjld;//剧本企业最近直线距离（东）
-    private String zbqklxd;//情况类型（东）
+    private String zbqkd="";//周边情况（东）
+    private String sfwhqyd="";//是否危化企业（东）
+    private String jbqyzjzxjld="";//剧本企业最近直线距离（东）
+    private String zbqklxd="";//情况类型（东）
 
-    private String zbqkn;//周边情况（南）
-    private String sfwhqydn;//是否危化企业（南）
-    private String jbqyzjzxjln;//剧本企业最近直线距离（南）
-    private String zbqklxn;//情况类型（南）
+    private String zbqkn="";//周边情况（南）
+    private String sfwhqydn="";//是否危化企业（南）
+    private String jbqyzjzxjln="";//剧本企业最近直线距离（南）
+    private String zbqklxn="";//情况类型（南）
 
-    private String zbqkx;//周边情况（西）
-    private String sfwhqyx;//是否危化企业（西）
-    private String jbqyzjzxjlx;//剧本企业最近直线距离（西）
-    private String zbqklxx;//情况类型（西）
+    private String zbqkx="";//周边情况（西）
+    private String sfwhqyx="";//是否危化企业（西）
+    private String jbqyzjzxjlx="";//剧本企业最近直线距离（西）
+    private String zbqklxx="";//情况类型（西）
 
-    private String zbqkb;//周边情况（北）
-    private String sfwhqyb;//是否危化企业（北）
-    private String jbqyzjzxjlb;//剧本企业最近直线距离（北）
-    private String zbqklxb;//情况类型（北）
+    private String zbqkb="";//周边情况（北）
+    private String sfwhqyb="";//是否危化企业（北）
+    private String jbqyzjzxjlb="";//剧本企业最近直线距离（北）
+    private String zbqklxb="";//情况类型（北）
 
-    private String yxfw;//影响范围
-    private String jbqk;//基本情况
-    private String zlcs;//治理措施
-    private String remark;//备注
+    private String yxfw="";//影响范围
+    private String jbqk="";//基本情况
+    private String zlcs="";//治理措施
+    private String remark="";//备注
 
 
     public HazardBean() {
