@@ -79,10 +79,10 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     var infowindow_width =820;
     var infowindow_height=360;
 
-    var streamSvrIp ="222.163.103.198";
-    var TextIP ="58.244.242.6";
-    var TextName1 ="admin";
-    var TextPwd1 ="12345";
+    var streamSvrIp ="";
+    var TextIP =responseJson.videoLink;
+    var TextName1 ="";
+    var TextPwd1 ="";
     /**
      var _lng =124.384483;
      var _lat =43.151036;
