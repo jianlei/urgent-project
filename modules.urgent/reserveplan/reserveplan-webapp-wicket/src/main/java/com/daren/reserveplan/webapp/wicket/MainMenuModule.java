@@ -20,12 +20,12 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public String getTargetTag() {
-        return "plan.module.bundles";
+        return "planning.module.bundles";
     }
 
     @Override
     public String getName() {
-        return "应急管理";
+        return "预案管理";
     }
 
     @Override
@@ -40,6 +40,6 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 20;
+        return 17;
     }
 }

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "urg_res_rescue")
 @Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement
+@XmlRootElement(name="RescueBean")
 public class RescueBean extends PersistentEntity {
     private long enterpriseId;  //企业ID
     private String name;    //救援队名称

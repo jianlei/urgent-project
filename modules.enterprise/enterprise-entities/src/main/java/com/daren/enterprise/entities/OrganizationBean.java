@@ -26,11 +26,14 @@ public class OrganizationBean extends PersistentEntity {
     @NotNull(message = "'机关代码'是必填项")
     private String jgdm;//业务主键 机关代码
     private String sjjgdm;//上级机关代码
-    @NotNull(message = "'机关代码'是必填项")
+    @NotNull(message = "'机关名称'是必填项")
     private String mc;//机关名称
     private String mcj;//机关简称
+    @NotNull(message = "'作废标记'是必选项")
     private String zfbj;//作废标记，0 有效，1 作废
+    @NotNull(message = "'机关部门标记'是必选项")
     private String jgbmbj;//机关部门标记 ，‘1’为部门，‘0’为机关';
+    @NotNull(message = "'机构类型标记'是必选项")
     private String jglxbj;//机构类型标记，1 综合，2 行业，5 消防 6 质检 7公安
     private String createtime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//创建时间
     private String xzqh_dm;//区划代码

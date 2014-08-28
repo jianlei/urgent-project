@@ -1,9 +1,7 @@
 package com.daren.reserveplan.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.reserveplan.webapp.wicket.page.ReservePlanPage;
 import com.daren.reserveplan.webapp.wicket.page.ReservePlanTabPage;
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -31,7 +29,7 @@ public class ReservePlanMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "预案管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "企业预案管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ReservePlanMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "planning.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

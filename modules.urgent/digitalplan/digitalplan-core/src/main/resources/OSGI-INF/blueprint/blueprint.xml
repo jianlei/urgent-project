@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="digitalPlanService" interface="com.daren.digitalplan.api.biz.IDigitalPlanBeanService">
+        <bean class="com.daren.digitalplan.core.biz.DigitalPlanBeanServiceImpl">
+            <property name="digitalPlanBeanDao" ref="digitalPlanBeanDao"/>
+        </bean>
+    </service>
+    <reference id="digitalPlanBeanDao" interface="com.daren.digitalplan.api.dao.IDigitalPlanBeanDao"/>
+</blueprint>
+

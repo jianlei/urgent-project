@@ -69,6 +69,7 @@
         <gson.version>2.2.4</gson.version>
         <poi.version>3.10-FINAL</poi.version>
         <select2.version>2.3</select2.version>
+        <jackson.version>1.9.8</jackson.version>
     </properties>
     <build>
         <pluginManagement>
@@ -393,6 +394,14 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.enterprise</groupId>
+                <artifactId>com.daren.enterprise.webapp.component</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!--Urgent Admin Module begin-->
             <!--Urgent File begin-->
             <dependency>
@@ -513,6 +522,13 @@
             <dependency>
                 <groupId>com.daren.core</groupId>
                 <artifactId>com.daren.core.util</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.rest</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -943,7 +959,33 @@
                 <scope>provided</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>${jackson.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jackson.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-jaxrs</artifactId>
+                <version>${jackson.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-xc</artifactId>
+                <version>${jackson.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

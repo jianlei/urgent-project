@@ -1,5 +1,7 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
@@ -13,7 +15,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -44,6 +45,7 @@ public class SpotPlanEditPage extends BasePanel {
     final WebMarkupContainer table = new WebMarkupContainer("table");
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     SpotPlanDataProvider provider = new SpotPlanDataProvider();
+    final Form spotPlanForm = new Form("spotPlanForm", new CompoundPropertyModel(new SpotPlanBean()));
     @Inject
     private IUploadDocumentService uploadDocumentService;
     @Inject
@@ -54,6 +56,7 @@ public class SpotPlanEditPage extends BasePanel {
         initForm(reservePlanBean);
         initFeedBack();
         initTable(reservePlanBean);
+
     }
 
     private void initFeedBack() {
@@ -86,8 +89,10 @@ public class SpotPlanEditPage extends BasePanel {
     }
 
     private void initForm(final ReservePlanBean reservePlanBean) {
+        addSelectToForm();
+
         //添加表单
-        final Form spotPlanForm = new Form("spotPlanForm", new CompoundPropertyModel(new SpotPlanBean()));
+
         spotPlanForm.setMultiPart(true);
         this.add(spotPlanForm);
 
@@ -234,5 +239,16 @@ public class SpotPlanEditPage extends BasePanel {
                 return spotPlanService.queryByReservePlanId(spotPlanBean);
             }
         }
+    }
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        spotPlanForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("type", IDictConstService.ACCIDENT_TYPE);
     }
 }

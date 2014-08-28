@@ -33,6 +33,7 @@
         <module>core-web-resources</module>
         <module>core-web-wicket</module>
         <module>core-web-component</module>
+        <module>core-rest</module>
     </modules>
     <dependencyManagement>
         <dependencies>
