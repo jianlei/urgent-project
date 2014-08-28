@@ -98,9 +98,16 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     marker.addEventListener("click",function(){
         if( /msie/.test(navigator.userAgent.toLowerCase())){
                 //信息窗口的内容定义
-                var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">' +
-                    '隐患：类型<br/>企业：xxxxx大牛企业<br/>地址：北京市海淀区上地十街10号<br/>电话：(010)59928888<br/>简介：百度大厦位于北京市海淀区西二旗地铁站附近，为百度公司综合研发及办公总部。' +
-                    '<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0)"/></div>'+
+                var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
+                    content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
+                    content+=  '事故类别:'+responseJson.accidentType+'<br/>';
+                    content+=  '事故级别:'+responseJson.accidentLevel+'<br/>';
+                    content+=  '事故发生地点：'+responseJson.place+'<br/>';
+                    content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
+                    content+=  '事故单位：'+responseJson.qymc+'<br/>';
+                    content+=  '经办人:'+responseJson.operator+'<br/>';
+                    content+=  '经办人电话:'+responseJson.operatorPhone+'<br/>';
+                    content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0)"/></div>'+
                     '<div class="demo">'+
                     '<div class="plus-tag-add">' +
                     '<form id="" action="" class="login">' +
@@ -333,7 +340,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
         		return;
         	}
     });
-    moveMapByBound();
+   // moveMapByBound();
 }
 //添加普通标注
 function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton) {
