@@ -24,7 +24,11 @@ public interface IEnterpriseBeanService extends IBizService {
 
     @GET
     @Produces("application/json;charset=utf-8")
-    @Path("/{id}")
+    @Path("/id/{id}")
     public EnterpriseBean getEnterpriseBeanByUUId(@PathParam("id") String uuId);
 
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/name/{qymc}")
+    public EnterpriseBean getEnterpriseBeanByQymc(@PathParam("qymc") String qymc);
 }
