@@ -1,4 +1,4 @@
-package com.daren.example.webapp.wicket.page;
+package com.daren.core.web.component.office;
 
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
@@ -15,18 +15,19 @@ public class WindowOfficePage extends OfficeDialog {
     WebMarkupContainer wmc = new WebMarkupContainer("allmapwmc");
     RepeatingView allmap = new RepeatingView("allmap");
 
-    public WindowOfficePage(String id, String title) {
+    public WindowOfficePage(String id, String title, String filePath) {
         super(id, title);
         allmap.setOutputMarkupId(true);
         wmc.setOutputMarkupId(true);
         wmc.add(allmap);
         this.add(wmc);
-        allmap.add(new IframeOfficePage(allmap.newChildId()));
+        allmap.add(new OfficePage(allmap.newChildId()));
+
         //调用OnDomReadyHeader方法
         this.add(new Behavior() {
             @Override
             public void renderHead(Component component, IHeaderResponse response) {
-                response.render(OnDomReadyHeaderItem.forScript("loadScript('D:\\\\金融 工作收入证明.doc');"));
+                response.render(OnDomReadyHeaderItem.forScript("loadScript();"));
             }
         });
     }
