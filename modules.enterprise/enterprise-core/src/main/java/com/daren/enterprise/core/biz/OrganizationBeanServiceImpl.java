@@ -5,6 +5,7 @@ import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.api.dao.IOrganizationBeanDao;
 import com.daren.enterprise.entities.OrganizationBean;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,14 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
 
     @Override
     public Map<String, String> getAllBeansToHashMap() {
-        return null;
+        Map<String, String> hashMap = new HashMap<>();
+        List<OrganizationBean> list = organizationBeanDao.getAll(OrganizationBean.class.getName());
+        if (null != list && list.size() > 0) {
+            for (OrganizationBean bean : list) {
+                hashMap.put(bean.getJgdm() + "", bean.getMc());
+            }
+        }
+        return hashMap;
     }
 
     /**
