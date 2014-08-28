@@ -6,39 +6,53 @@ var markers_jydbz = [];
 var markers_zjbz = [];
 //物资标注集合
 var markers_wzbj = [];
-
+var contain_danger_point=false;
 
 
 /**
  * 重大隐患定时器
  */
 $(function () {
-//每10秒执行，无限次，并命名计时器名称为C
-//若时间间隔抵到，但函式程序仍未完成则需等待执行函式完成后再继续计时
-    $('body').everyTime('3das','C',function(){
+    //每10秒执行，无限次，并命名计时器名称为C
+    //若时间间隔抵到，但函式程序仍未完成则需等待执行函式完成后再继续计时
+    $('body').everyTime('1das','AccidentFucntion',function(){
         //执行一个会超过20秒以上的程式
-        console.log("正在收索重大隐患中.............");
-        //循环添加危险点
-       //clearallmarker();
-       var _lng =124.384483;
-        var _lat =43.151036;
-        var _icon="dkred";
-        var lid=0;
-        var responseJson ={};
+        $.getJSON(
+            "../../cxf/accident/all",{"rand":Math.random()},function(json){
+                if(json!=null){
+                    var responseJson = json;
+                    contain_danger_point==false;
+                    for(var k=0;k<responseJson.length;k++) {
+                        var response = responseJson[k];
+                        //clearallmarker();
+                        var _lng =response.jd;
+                        var _lat =response.wd;
+                        if(_lng!="" && _lat!=""){
+                            if(markers.length==0){
+                                //添加危险点
+                                addDangerPoint(_lng,_lat,mk,"dkred",response);
+                                moveMapByBound();
+                            }else{
+                                for(var mk = 0;mk<markers.length;mk++) {
+                                    var lng =  markers[mk].getPosition().lng;
+                                    var lat  = markers[mk].getPosition().lat;
+                                    if(_lng == lng && _lat == lat){
+                                        contain_danger_point=true;
+                                    }
+                                    if(mk==responseJson.length-1){
+                                        if(contain_danger_point==false){
+                                            //添加危险点
+                                            addDangerPoint(_lng,_lat,mk,"dkred",response);
+                                            moveMapByBound();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-       for(var i = 0;i<markers.length;i++) {
-            var lng =  markers[i].getPosition().lng;
-            var lat  = markers[i].getPosition().lat;
-            if(_lng === lng && _lat === lat){
-                //map.removeOverlay(markers[i]);
-            }else{
-                addDangerPoint(_lng,_lat,lid,_icon,responseJson);
-            }
-           if(i==responseJson.length-1){
-               moveMapByBound();
-           }
-        }
-
+                }
+            });
     },0,true);
 });
 

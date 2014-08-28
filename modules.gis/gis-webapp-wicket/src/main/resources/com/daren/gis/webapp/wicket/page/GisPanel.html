@@ -61,15 +61,6 @@
                 //
                 immediately();
                 if(initialize(0,0,cityname,lev,"map")){//初始化地图
-                    setTimeout(function(){
-                        //循环添加危险点
-                        var _lng =124.384483;
-                        var _lat =43.151036;
-                        var _icon="dkred";
-                        var lid=0;
-                        var responseJson ={};
-                        addDangerPoint(_lng,_lat,lid,_icon,responseJson);
-                    }, 1000);
                 };
             }
         //救援队
