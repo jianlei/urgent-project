@@ -55,7 +55,7 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
     @Produces("application/json;charset=utf-8")
     @Path("/all")
     public List<AccidentJson> getAccidentList() {
-        return accidentBeanDao.findByNativeSql("select b.qymc,a.place,a.jd,a.wd,a.accidentTitle,a.place,a.detailsPlace,a.accidentType,a.accidentLevel,a.operator,a.operatorPhone,a.videoLink from urg_accident a,urg_ent_enterprise b where a.status =0 and a.accidentUnit=b.id", AccidentJson.class);
+        return accidentBeanDao.findByNativeSql("select b.qymc,a.accidentUnit,a.place,a.jd,a.wd,a.accidentTitle,a.place,a.detailsPlace,a.accidentType,a.accidentLevel,a.operator,a.operatorPhone,a.videoLink from urg_accident a,urg_ent_enterprise b where a.status =0 and a.accidentUnit=b.id", AccidentJson.class);
     }
 
     /**

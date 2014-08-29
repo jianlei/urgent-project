@@ -26,14 +26,15 @@ var trackcurrnetindex=-1;
 
 var geocoder;
 
-var cityname ="四平市";
-var lev =13;
-var seenView = 18;
-var current_danger_point_number=-1;
-var overlays = [];
-var isPanelShow = false;
-var isClickBtn = false;
-
+var cityname ="四平市";//初始化城市
+var lev =13;//初始化城市视野级别
+var seenView = 18;//查看视野级别
+var current_danger_point_number=-1;//当前危险点个数 默认-1
+var overlays = [];//圆圈收索结果集
+var isPanelShow = false;//true 显示右侧面板 false 隐藏
+var isClickBtn = false;//true 单击右侧按钮 false 为单击
+var playStatus=true;//true 播放  false 禁止播放
+var ref = "";
 var searchAjax=function(){};
 var setSelectTips=function(){};
 var hasTips=function(){};
@@ -80,7 +81,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     var infowindow_height=360;
 
     var streamSvrIp ="";
-    var TextIP =responseJson.videoLink;
+    var TextIP ="";
     var TextName1 ="";
     var TextPwd1 ="";
     /**
@@ -97,243 +98,252 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     current_danger_point_number++;
     marker.addEventListener("click",function(){
         if( /msie/.test(navigator.userAgent.toLowerCase())){
-                //信息窗口的内容定义
-                var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
-                    content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
-                    content+=  '事故类别:'+responseJson.accidentType+'<br/>';
-                    content+=  '事故级别:'+responseJson.accidentLevel+'<br/>';
-                    content+=  '事故发生地点：'+responseJson.place+'<br/>';
-                    content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
-                    content+=  '事故单位：'+responseJson.qymc+'<br/>';
-                    content+=  '经办人:'+responseJson.operator+'<br/>';
-                    content+=  '经办人电话:'+responseJson.operatorPhone+'<br/>';
-                    content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0)"/></div>'+
-                    '<div class="demo">'+
-                    '<div class="plus-tag-add">' +
-                    '<form id="" action="" class="login">' +
-                    '<ul class="Form FancyForm">' +
-                    '<li>' +
-                    '<a href="javascript:void(0);">推荐解决方案</a>' +
-                    '</li>' +
-                    '</ul>' +
-                    '</form>' +
-                    '</div>' +
+                $.getJSON(
+                     "../../cxf/monitor/"+responseJson.accidentUnit+"",{"rand":Math.random()},function(json) {
+                     if (json != null) {
+                        TextIP=json[0].ipAddress;
+                        TextName1 =json[0].admin;
+                        TextPwd1 =json[0].password;
+                         //信息窗口的内容定义
+                         var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
+                         content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
+                         content+=  '事故类别:'+responseJson.accidentType+'<br/>';
+                         content+=  '事故级别:'+responseJson.accidentLevel+'<br/>';
+                         content+=  '事故发生地点：'+responseJson.place+'<br/>';
+                         content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
+                         content+=  '事故单位：'+responseJson.qymc+'<br/>';
+                         content+=  '经办人:'+responseJson.operator+'<br/>';
+                         content+=  '经办人电话:'+responseJson.operatorPhone+'<br/>';
+                         content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0)"/></div>'+
+                             '<div class="demo">'+
+                             '<div class="plus-tag-add">' +
+                             '<form id="" action="" class="login">' +
+                             '<ul class="Form FancyForm">' +
+                             '<li>' +
+                             '<a href="javascript:void(0);">推荐解决方案</a>' +
+                             '</li>' +
+                             '</ul>' +
+                             '</form>' +
+                             '</div>' +
 
-                    '<div id="mycard-plus" style="display:none;">' +
-                    '<div class="default-tag tagbtn">' +
-                    '<div class="clearfix">' +
-                    '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
-                    '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
-                    '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
-                    '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
-                    '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
-                    '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +
-                    '</div>' +
-                    '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
-                    '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +
-                    '</div>' +
-                    '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
-                    '</div>' +
-                    '</div>'+
-                    '</div>';
-                if(TextIP!=null && TextIP!=""){
-                    content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
-                        '<iframe align="center" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
-                        '</div>';
-                }else{
-                    infowindow_width=infowindow_width-550;
-                }
+                             '<div id="mycard-plus" style="display:none;">' +
+                             '<div class="default-tag tagbtn">' +
+                             '<div class="clearfix">' +
+                             '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
+                             '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
+                             '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
+                             '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
+                             '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
+                             '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +
+                             '</div>' +
+                             '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
+                             '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +
+                             '</div>' +
+                             '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
+                             '</div>' +
+                             '</div>'+
+                             '</div>';
+                         if(TextIP!=""){
+                             content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
+                                 '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
+                                 '</div>';
+                         }else{
+                             infowindow_width=infowindow_width-550;
+                         }
 
-                //样式3
-                var infowindow = new BMapLib.SearchInfoWindow(map, content, {
-                    title: "隐患详情", //标题
-                    //width: 590, //宽度
-                    //height: 250, //高度
-                    width: 820, //宽度
-                    height: 360, //高度
-                    panel : "panel", //检索结果面板
-                    enableAutoPan : true, //自动平移
-                    searchTypes :[
-                    ]
-                });
-                infowindow.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
+                         //样式3
+                         var infowindow = new BMapLib.SearchInfoWindow(map, content, {
+                             title: "隐患详情", //标题
+                             //width: 590, //宽度
+                             //height: 250, //高度
+                             width: 820, //宽度
+                             height: 360, //高度
+                             panel : "panel", //检索结果面板
+                             enableAutoPan : true, //自动平移
+                             searchTypes :[
+                             ]
+                         });
+                         infowindow.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
 
-                //标签脚本
-                $(function(){
+                         //标签脚本
+                         $(function(){
 
-                    var a=$(".plus-tag");
+                             var a=$(".plus-tag");
 
-                    hasTips=function(b){
-                        var d=$("a",a),c=false;
-                        d.each(function(){
-                            if($(this).attr("title")==b){
-                                c=true;
-                                return false
-                            }
-                        });
-                        return c
-                    };
+                             hasTips=function(b){
+                                 var d=$("a",a),c=false;
+                                 d.each(function(){
+                                     if($(this).attr("title")==b){
+                                         c=true;
+                                         return false
+                                     }
+                                 });
+                                 return c
+                             };
 
-                    isMaxTips=function(){
-                        return
-                        $("a",a).length>=G_tocard_maxTips
-                    };
+                             isMaxTips=function(){
+                                 return
+                                 $("a",a).length>=G_tocard_maxTips
+                             };
 
-                    setTips=function(c,d){
-                        if(hasTips(c)){
-                            return false
-                        }if(isMaxTips()){
-                            alert("最多添加"+G_tocard_maxTips+"个标签！");
-                            return false
-                        }
-                      /*  var	printer_btn_sec = document.createElement("img");
-                        printer_btn_sec.style.width="16px";
-                        printer_btn_sec.style.height="16px";
-                        printer_btn_sec.src="../../cus/gis/css/images/printer.png";
-                        printer_btn_sec.title=c;
-                        printer_btn_sec.onclick = function(){
-                            window.location.href("董龙文2014年第32周工作总结及下周工作计划（8 月 11 日- 8 月 15 日）.doc");
-                            delTips(c,d);//移除右下角方案标签
-                            $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
-                                if(printer_btn_sec.attr("title")==b){
-                                    printer_btn_sec.remove();
-                                    return false
-                                }
-                            });
-                        };
+                             setTips=function(c,d){
+                                 if(hasTips(c)){
+                                     return false
+                                 }if(isMaxTips()){
+                                     alert("最多添加"+G_tocard_maxTips+"个标签！");
+                                     return false
+                                 }
+                                 /*  var	printer_btn_sec = document.createElement("img");
+                                  printer_btn_sec.style.width="16px";
+                                  printer_btn_sec.style.height="16px";
+                                  printer_btn_sec.src="../../cus/gis/css/images/printer.png";
+                                  printer_btn_sec.title=c;
+                                  printer_btn_sec.onclick = function(){
+                                  window.location.href("董龙文2014年第32周工作总结及下周工作计划（8 月 11 日- 8 月 15 日）.doc");
+                                  delTips(c,d);//移除右下角方案标签
+                                  $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
+                                  if(printer_btn_sec.attr("title")==b){
+                                  printer_btn_sec.remove();
+                                  return false
+                                  }
+                                  });
+                                  };
 
-                        $("#myTags").append(printer_btn_sec);
-                        $("#myTags").append("	");*/
-                        var b=d?'value="'+d+'"':"";
-                        a.append($("<a "+b+' title="'+c+'" href="javascript:void(0);" ><span>'+c+"</span><em></em></a>"));
-                        searchAjax(c,d,true);
-                        //绑定添加tips删除
-                        $("a em",a).bind("click",function(){
-                            var c=$(this).parents("a"),b=c.attr("title"),d=c.attr("value");
-                            delTips(b,d)
-                        });
-                        //显示打印图片
-                        if($("#printer_btn").css("display") == 'none' ){
-                           $("#printer_btn").show();
-                            //div.style.border="1py solid red" ;    // 设置框粗细
-                            $("#myTags").css({"border":"1px solid red"});
-                        }
-                        return true
-                    };
+                                  $("#myTags").append(printer_btn_sec);
+                                  $("#myTags").append("	");*/
+                                 var b=d?'value="'+d+'"':"";
+                                 a.append($("<a "+b+' title="'+c+'" href="javascript:void(0);" ><span>'+c+"</span><em></em></a>"));
+                                 searchAjax(c,d,true);
+                                 //绑定添加tips删除
+                                 $("a em",a).bind("click",function(){
+                                     var c=$(this).parents("a"),b=c.attr("title"),d=c.attr("value");
+                                     delTips(b,d)
+                                 });
+                                 //显示打印图片
+                                 if($("#printer_btn").css("display") == 'none' ){
+                                     $("#printer_btn").show();
+                                     //div.style.border="1py solid red" ;    // 设置框粗细
+                                     $("#myTags").css({"border":"1px solid red"});
+                                 }
+                                 return true
+                             };
 
-                    delTips=function(b,c){
-                        if(!hasTips(b)){
-                            return false
-                        }
-                        $("a",a).each(function(){
-                            var d=$(this);
-                            if(d.attr("title")==b){
-                                d.remove();
-                                return false
-                            }
-                        });
-                       /* $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
-                            var d=$(this);
-                            if(d.attr("title")==b){
-                                d.remove();
-                                return false
-                            }
-                        });*/
-                        searchAjax(b,c,false);
-                        return true
-                    };
+                             delTips=function(b,c){
+                                 if(!hasTips(b)){
+                                     return false
+                                 }
+                                 $("a",a).each(function(){
+                                     var d=$(this);
+                                     if(d.attr("title")==b){
+                                         d.remove();
+                                         return false
+                                     }
+                                 });
+                                 /* $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
+                                  var d=$(this);
+                                  if(d.attr("title")==b){
+                                  d.remove();
+                                  return false
+                                  }
+                                  });*/
+                                 searchAjax(b,c,false);
+                                 return true
+                             };
 
-                    getTips=function(){
-                        var b=[];
-                        $("a",a).each(function(){
-                            b.push($(this).attr("title"))
-                        });
-                        return b
-                    };
+                             getTips=function(){
+                                 var b=[];
+                                 $("a",a).each(function(){
+                                     b.push($(this).attr("title"))
+                                 });
+                                 return b
+                             };
 
-                    getTipsId=function(){
-                        var b=[];
-                        $("a",a).each(function(){
-                            b.push($(this).attr("value"))
-                        });
-                        return b
-                    };
+                             getTipsId=function(){
+                                 var b=[];
+                                 $("a",a).each(function(){
+                                     b.push($(this).attr("value"))
+                                 });
+                                 return b
+                             };
 
-                    getTipsIdAndTag=function(){
-                        var b=[];
-                        $("a",a).each(function(){
-                            b.push($(this).attr("value")+"##"+$(this).attr("title"))
-                        });
-                        return b
-                    }
+                             getTipsIdAndTag=function(){
+                                 var b=[];
+                                 $("a",a).each(function(){
+                                     b.push($(this).attr("value")+"##"+$(this).attr("title"))
+                                 });
+                                 return b
+                             }
 
-                });
-                // 更新选中标签标签
-                $(function(){
-                    setSelectTips();
-                    //$('.plus-tag').append($('.plus-tag a'));
-                });
-                var searchAjax = function(name, id, isAdd){
-                    setSelectTips();
-                };
-                // 推荐标签
-                $(function(){
-                    var str = ['推荐解决方案', '推荐解决方案']
-                    $('.plus-tag-add a').click(function(){
-                        var $this = $(this),
-                            $con = $('#mycard-plus');
+                         });
+                         // 更新选中标签标签
+                         $(function(){
+                             setSelectTips();
+                             //$('.plus-tag').append($('.plus-tag a'));
+                         });
+                         var searchAjax = function(name, id, isAdd){
+                             setSelectTips();
+                         };
+                         // 推荐标签
+                         $(function(){
+                             var str = ['推荐解决方案', '推荐解决方案']
+                             $('.plus-tag-add a').click(function(){
+                                 var $this = $(this),
+                                     $con = $('#mycard-plus');
 
-                        if($this.hasClass('plus')){
-                            $this.removeClass('plus').text(str[0]);
-                            $con.hide();
-                        }else{
-                            $this.addClass('plus').text(str[1]);
-                            $con.show();
-                        }
-                    });
-                    $('.default-tag a').bind('click', function(){
-                        var $this = $(this),
-                            name = $this.attr('title'),
-                            id = $this.attr('value');
-                        setTips(name, id);
-                    });
-                    // 更新高亮显示
-                    setSelectTips = function(){
-                        var arrName = getTips();
-                        if(arrName.length){
-                            $('#myTags').show();
-                        }else{
-                            $('#myTags').hide();
-                        }
-                        $('.default-tag a').removeClass('selected');
-                        $.each(arrName, function(index,name){
-                            $('.default-tag a').each(function(){
-                                var $this = $(this);
-                                if($this.attr('title') == name){
-                                    $this.addClass('selected');
-                                    return false;
-                                }
-                            })
-                        });
-                    }
+                                 if($this.hasClass('plus')){
+                                     $this.removeClass('plus').text(str[0]);
+                                     $con.hide();
+                                 }else{
+                                     $this.addClass('plus').text(str[1]);
+                                     $con.show();
+                                 }
+                             });
+                             $('.default-tag a').bind('click', function(){
+                                 var $this = $(this),
+                                     name = $this.attr('title'),
+                                     id = $this.attr('value');
+                                 setTips(name, id);
+                             });
+                             // 更新高亮显示
+                             setSelectTips = function(){
+                                 var arrName = getTips();
+                                 if(arrName.length){
+                                     $('#myTags').show();
+                                 }else{
+                                     $('#myTags').hide();
+                                 }
+                                 $('.default-tag a').removeClass('selected');
+                                 $.each(arrName, function(index,name){
+                                     $('.default-tag a').each(function(){
+                                         var $this = $(this);
+                                         if($this.attr('title') == name){
+                                             $this.addClass('selected');
+                                             return false;
+                                         }
+                                     })
+                                 });
+                             }
 
-                });
-                // 更换链接
-                (function(){
-                    var $b = $('#change-tips'),
-                        $d = $('.default-tag div'),
-                        len = $d.length,
-                        t = 'nowtips';
-                    $b.click(function(){
-                        var i = $d.index($('.default-tag .nowtips'));
-                        i = (i+1 < len) ? (i+1) : 0;
-                        $d.hide().removeClass(t);
-                        $d.eq(i).show().addClass(t);
-                    });
-                    $d.eq(0).addClass(t);
-                })();
+                         });
+                         // 更换链接
+                         (function(){
+                             var $b = $('#change-tips'),
+                                 $d = $('.default-tag div'),
+                                 len = $d.length,
+                                 t = 'nowtips';
+                             $b.click(function(){
+                                 var i = $d.index($('.default-tag .nowtips'));
+                                 i = (i+1 < len) ? (i+1) : 0;
+                                 $d.hide().removeClass(t);
+                                 $d.eq(i).show().addClass(t);
+                             });
+                             $d.eq(0).addClass(t);
+                         })();
 
-                map.centerAndZoom(point,seenView);
+                         map.centerAndZoom(point,seenView);
+
+                     }
+                 });
                 return;
             }else{
         		alert("请选择IE浏览器!否则影响监控视频观看!");
@@ -441,17 +451,21 @@ function clearAll() {
     }
     for(var i = 0;i<markers_zdwxy.length;i++) {
         map.removeOverlay(markers_zdwxy[i]);
+        markers_zdwxy.remove(i);
     }
     for(var i = 0;i<markers_jydbz.length;i++) {
         map.removeOverlay(markers_jydbz[i]);
+        markers_jydbz.remove(i);
     }
     for(var i = 0;i<markers_zjbz.length;i++) {
         map.removeOverlay(markers_zjbz[i]);
+        markers_zjbz.remove(i);
     }
     for(var i = 0;i<markers_wzbj.length;i++) {
         map.removeOverlay(markers_wzbj[i]);
+        markers_wzbj.remove(i);
     }
-    overlays.length = 0
+    overlays.length = 0;
 }
 
 //清空所有覆盖物
@@ -520,6 +534,7 @@ function gotoprint(){
 //显示推荐方案
 function goConfirm(parm,_lng,_lat){
     if(parm){
+        playStatus=false;
         $(".demo").show();
         //查询周围物资 500米半径圆
         var point = new BMap.Point(_lng,_lat);
@@ -532,24 +547,28 @@ function goConfirm(parm,_lng,_lat){
 
         alert("根据当前危险点位置的经纬度查询搜索500内的物质 并且标注");
 
-        responseJson ={"community_name":"吉林省达仁科技官方圈子","community_remak":"sdfsdfsd水电费水电费"};
+        var responseJson ={"community_name":"吉林省达仁科技官方圈子","community_remak":"sdfsdfsd水电费水电费"};
         //var _lng  = 124.424072;
         var _lng  = 124.383333;
         var _lat  = 43.15072;
         //var _lat  = 43.140839;
         var lid  = 0;
         var _icon  = "dkred";
-        addGeneralPoint(_lng,_lat,lid,_icon,responseJson);
-
+        var content = "<div style='float:left;width:240px;padding-top:10px'>ssdfs: <span style='color:green;'>aasdasdasd</span></br>";
+        content += "</div>";
+        addGeneralPoint(_lng,_lat,lid,_icon,content,"详情",500,400,markers_zdwxy);
         moveMapByBound();
     }else{
+        playStatus=false;
         /*map.clearOverlays();
         markers = [];*/
         overlays = [];
         for(var i = 0; i < overlays.length; i++){
             map.removeOverlay(overlays[i]);
         }
-        for(var i = 0;i<markers.length;i++) {
+        for(var di = 0;di<markers.length;di++) {
+            var lng =  markers[di].getPosition().lng;
+            var lat  = markers[di].getPosition().lat;
             if(_lng == lng && _lat == lat){
                 map.removeOverlay(markers[i]);
             }
@@ -557,8 +576,8 @@ function goConfirm(parm,_lng,_lat){
                 map.centerAndZoom(cityname,lev);
             }
         }
-
     }
+    PlayStop();//停止预警声音
 }
 
 //右上角标签
@@ -956,3 +975,39 @@ function rightTab(){
     }
     map.addContextMenu(contextMenu);
 }
+
+
+//地图警告音
+$(function() {
+    $("#jplayer").jPlayer({
+        swfPath: "../../cus/gis/js/jq/Jplayer.swf",
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                mp3: "../../cus/gis/js/jq/message.mp3"
+            });
+        },
+        supplied: "mp3"
+    });
+});
+function PlaySound() {
+    $("#jplayer").jPlayer('play');
+    ref = setInterval("$('#jplayer').jPlayer('play')", 5000);
+    return true;
+}
+function PlayStop() {
+    clearInterval(ref);
+    ref = "";
+    return true;
+}
+
+Array.prototype.remove=function(index){
+    if(isNaN(index)||index>=this.length){
+        return false;
+    }
+    for(var i=0,n=0;i<this.length;i++){
+        if(this[i]!=this[index]){
+            this[n++]=this[i];
+        }
+    }
+    this.length-=1;
+};

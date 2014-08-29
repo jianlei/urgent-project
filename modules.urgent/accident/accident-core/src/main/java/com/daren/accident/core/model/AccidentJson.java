@@ -117,4 +117,6 @@ public class AccidentJson {
     public void setOperatorPhone(String operatorPhone) {
         this.operatorPhone = operatorPhone;
     }
+
+
 }

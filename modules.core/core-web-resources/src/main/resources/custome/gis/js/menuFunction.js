@@ -32,6 +32,7 @@ $(function () {
                                 //添加危险点
                                 addDangerPoint(_lng,_lat,mk,"dkred",response);
                                 moveMapByBound();
+                                PlaySound();
                             }else{
                                 for(var mk = 0;mk<markers.length;mk++) {
                                     var lng =  markers[mk].getPosition().lng;
@@ -39,11 +40,17 @@ $(function () {
                                     if(_lng == lng && _lat == lat){
                                         contain_danger_point=true;
                                     }
+                                    if(contain_danger_point==false){
+                                        playStatus=true;
+                                        //添加危险点
+                                        addDangerPoint(_lng,_lat,mk,"dkred",response);
+                                    }
                                     if(mk==responseJson.length-1){
                                         if(contain_danger_point==false){
-                                            //添加危险点
-                                            addDangerPoint(_lng,_lat,mk,"dkred",response);
                                             moveMapByBound();
+                                        }
+                                        if(playStatus){
+                                            PlaySound();
                                         }
                                     }
                                 }
@@ -251,6 +258,28 @@ function wzbj(){
                     content += '</div>';
 
                     addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj);
+                    if (i == responseJson.length - 1) {
+                        moveMapByBound();
+                    }
+                }
+            }else{
+                alert("没有检索到物资!");
+            }
+        });
+}
+
+/**
+ * 根据lng lat范围内检索
+ * dlw
+ */
+function scope(lng,lat){
+    $.getJSON(
+        "../../cxf/expert/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+            if(json!=null){
+                var responseJson = json;
+                for(var i=0;i<responseJson.length;i++){
+                    var response = responseJson[i];
+
                     if (i == responseJson.length - 1) {
                         moveMapByBound();
                     }
