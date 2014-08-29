@@ -50,7 +50,7 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
 
     @Override
     public EnterpriseBean getEnterpriseBeanByUUId(String uuId) {
-        return enterpriseBeanDao.findUnique("select a from EnterpriseBean a where a.qyid LIKE ?1", "%" + uuId + "%");
+        return enterpriseBeanDao.findUnique("select a from EnterpriseBean a where a.qyid = ?1", "%" + uuId + "%");
     }
 
     @Override
