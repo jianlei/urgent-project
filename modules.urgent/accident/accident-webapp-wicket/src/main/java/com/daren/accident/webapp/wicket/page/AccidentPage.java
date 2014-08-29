@@ -2,7 +2,6 @@ package com.daren.accident.webapp.wicket.page;
 
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.entities.AccidentBean;
-import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
@@ -38,22 +37,18 @@ import java.util.Map;
 public class AccidentPage extends BasePanel {
 
     AccidentDataProvider provider = new AccidentDataProvider();
-    @Inject
-    private IAccidentBeanService accidentBeanService;
-
-    @Inject
-    private IDictBeanService iDictBeanService;
-
     //列表回显示使用
     Map<String, String> accidentLevelMap;
     Map<String, String> accidentTypeMap;
+    @Inject
+    private IAccidentBeanService accidentBeanService;
 
 
     public AccidentPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         initDataView();
-        accidentLevelMap = iDictBeanService.getDictMap(IDictConstService.ACCIDENT_LEVEL);
-        accidentTypeMap = iDictBeanService.getDictMap(IDictConstService.ACCIDENT_TYPE);
+        accidentLevelMap = dictBeanService.getDictMap(IDictConstService.ACCIDENT_LEVEL);
+        accidentTypeMap = dictBeanService.getDictMap(IDictConstService.ACCIDENT_TYPE);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -23,6 +24,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：监管机构
@@ -37,13 +39,18 @@ public class OrganizationListPage extends BasePanel {
     OrganizationDataProvider provider = new OrganizationDataProvider();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
-    @Reference(id = "areaBeanService", serviceInterface = IOrganizationBeanService.class)
+    @Reference(id = "organizationBeanService", serviceInterface = IOrganizationBeanService.class)
     private IOrganizationBeanService organizationBeanService;
+
+
 
     public OrganizationListPage(final String id, final WebMarkupContainer wmc){
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");      //布局容器
         add(table.setOutputMarkupId(true));
+
+        //机关部门标记
+        final Map<String,String> map =dictBeanService.getDictMap( IDictConstService.ORGANIZATION_JGBMBJ);
         //循环读取数据并赋值
         DataView<OrganizationBean> listView = new DataView<OrganizationBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
@@ -56,15 +63,15 @@ public class OrganizationListPage extends BasePanel {
                     item.add(new Label("MCJ", organizationBean.getMcj()));
                     item.add(new Label("JGDM", organizationBean.getJgdm()));
                     item.add(new Label("JGLXBJ", returnJglx(organizationBean.getJglxbj())));
-                    String jgbmbj = organizationBean.getJgbmbj();
+                    /*String jgbmbj = organizationBean.getJgbmbj();
                     if("0".equals(jgbmbj)){
                         jgbmbj = "机关";
                     }else if("1".equals(jgbmbj)){
                         jgbmbj = "部门";
                     }else{
                         jgbmbj = "";
-                    }
-                    item.add(new Label("JGBMBJ", jgbmbj));
+                    }*/
+                    item.add(new Label("JGBMBJ", map.get(organizationBean.getJgbmbj())));
                     item.add(new Label("XZQH_DM", organizationBean.getXzqh_dm()));
                     item.add(new Label("CREATETIME", organizationBean.getCreatetime()));
                     String zfbj = organizationBean.getZfbj();

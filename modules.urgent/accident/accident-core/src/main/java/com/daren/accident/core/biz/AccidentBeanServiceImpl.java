@@ -8,6 +8,7 @@ import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,8 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
     @Path("/add")
     @Consumes("application/json;charset=utf-8")
     public Response addAccident(AccidentBean bean) {
+        //统一事故发生时间
+        bean.setAccidentTime(new Date());
         accidentBeanDao.save(bean);
         return Response.ok().build();
     }
