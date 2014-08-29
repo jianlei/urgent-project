@@ -47,6 +47,11 @@
             <artifactId>gson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+        </dependency>
+
         <!--<dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-client-and-server-validation</artifactId>

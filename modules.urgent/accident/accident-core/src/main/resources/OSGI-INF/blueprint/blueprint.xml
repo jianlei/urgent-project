@@ -12,9 +12,11 @@
 
     <bean id="accidentBeanService" class="com.daren.accident.core.biz.AccidentBeanServiceImpl">
         <property name="accidentBeanDao" ref="accidentBeanDao"/>
+        <property name="dictBeanService" ref="dictBeanService"/>
     </bean>
 
     <reference id="accidentBeanDao" interface="com.daren.accident.api.dao.IAccidentBeanDao"/>
+    <reference id="dictBeanService" interface="com.daren.admin.api.biz.IDictBeanService"/>
 
     <cxf:bus>
         <cxf:features>
