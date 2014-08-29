@@ -28,6 +28,11 @@ public class ReservePlanBeanServiceImpl extends GenericBizServiceImpl implements
     public List<ReservePlanBean> queryByName(ReservePlanBean reservePlanBean) {
         return reservePlanBeanDao.find("select a from ReservePlanBean a where a.name LIKE ?1", "%" + reservePlanBean.getName() + "%");
     }
+
+    @Override
+    public List<ReservePlanBean> getReservePlanByEnterpriseId(String enterpriseId) {
+        return reservePlanBeanDao.find("select a from ReservePlanBean a where a.enterpriseId = ?1", enterpriseId);
+    }
 }
 
 

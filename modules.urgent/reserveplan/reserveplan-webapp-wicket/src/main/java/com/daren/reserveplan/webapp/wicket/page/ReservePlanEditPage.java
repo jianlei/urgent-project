@@ -1,6 +1,8 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
@@ -20,6 +22,7 @@ import org.apache.wicket.util.file.File;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：预案管理
@@ -34,15 +37,20 @@ public class ReservePlanEditPage extends BasePanel {
     final RepeatingView spotPlanPanel = new RepeatingView("spotPlanPanel");
     final RepeatingView specialPlanPanel = new RepeatingView("specialPlanPanel");
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    Form reserveForm = new Form("createForm", new CompoundPropertyModel(new ReservePlanBean()));
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
     @Inject
     private IUploadDocumentService uploadDocumentService;
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
+
 
     public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
         super(id, wmc);
         initForm(reservePlanBean);
         initFeedBack();
+        addSelectToForm();
     }
 
 
@@ -53,12 +61,12 @@ public class ReservePlanEditPage extends BasePanel {
 
     private void initForm(final ReservePlanBean reservePlanBean) {
         //添加表单
-        Form form = new Form("createForm", new CompoundPropertyModel(new ReservePlanBean()));
-        form.setMultiPart(true);
-        this.add(form);
+
+        reserveForm.setMultiPart(true);
+        this.add(reserveForm);
         //初始化FORM对象
         if (null != reservePlanBean) {
-            form.setModelObject(reservePlanBean);
+            reserveForm.setModelObject(reservePlanBean);
         }
         //添加上传控件
         final FileUploadField uploadFieldApply = new FileUploadField("reservePlanApplyId");
@@ -66,19 +74,19 @@ public class ReservePlanEditPage extends BasePanel {
         final FileUploadField uploadFieldReview = new FileUploadField("reviewCommentId");
         final FileUploadField uploadFieldExpert = new FileUploadField("reviewExpertId");
         final FileUploadField uploadFieldComprehensive = new FileUploadField("comprehensivePlanId");
-        form.add(uploadFieldApply);
-        form.add(uploadFieldRegister);
-        form.add(uploadFieldReview);
-        form.add(uploadFieldExpert);
-        form.add(uploadFieldComprehensive);
+        reserveForm.add(uploadFieldApply);
+        reserveForm.add(uploadFieldRegister);
+        reserveForm.add(uploadFieldReview);
+        reserveForm.add(uploadFieldExpert);
+        reserveForm.add(uploadFieldComprehensive);
 
-        form.add(new TextField("description"));
-        form.add(new TextField("name"));
-        form.add(new TextField("mark"));
-        form.add(new TextField("level"));
+        reserveForm.add(new TextField("description"));
+        reserveForm.add(new TextField("name"));
+        reserveForm.add(new TextField("mark"));
+        reserveForm.add(new TextField("level"));
 //        form.add(new TextField("type"));
 
-        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {
+        AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", reserveForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 ReservePlanBean reservePlanBean = (ReservePlanBean) form.getDefaultModelObject();
@@ -93,9 +101,9 @@ public class ReservePlanEditPage extends BasePanel {
                 target.add(feedbackPanel);
             }
         };
-        form.add(ajaxSubmitLinkCreate);
+        reserveForm.add(ajaxSubmitLinkCreate);
 
-        form.add(new AjaxButton("cancel") {
+        reserveForm.add(new AjaxButton("cancel") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
@@ -126,5 +134,24 @@ public class ReservePlanEditPage extends BasePanel {
     }
 
     protected void onDeleteTabs(AjaxRequestTarget target) {
+    }
+
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        reserveForm.add(listSites);
+    }
+
+    //通过Map初始化下拉列表
+    private void initSelect(String name, Map<String, String> typeMap) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        reserveForm.add(listSites);
+    }
+
+    private void addSelectToForm() {
+        initSelect("enterpriseId", enterpriseBeanService.getAllBeansToHashMap());
     }
 }
