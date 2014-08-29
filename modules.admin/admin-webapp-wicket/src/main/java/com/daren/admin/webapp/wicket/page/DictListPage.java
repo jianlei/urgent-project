@@ -1,6 +1,5 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -9,7 +8,6 @@ import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
-import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -28,7 +26,6 @@ import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +47,10 @@ public class DictListPage extends BasePanel {
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
-    //注入字典业务服务
+    /*//注入字典业务服务
     @Inject
     @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    private IDictBeanService dictBeanService;
+    private IDictBeanService dictBeanService;*/
 
     //构造函数
     public DictListPage(String id, WebMarkupContainer wmc) {

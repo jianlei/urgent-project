@@ -1,6 +1,5 @@
 package com.daren.admin.webapp.wicket.page;
 
-import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.DictBean;
 import com.daren.admin.webapp.wicket.data.Foo;
 import com.daren.admin.webapp.wicket.data.FooTreeProvider;
@@ -8,7 +7,6 @@ import com.daren.admin.webapp.wicket.theme.BasicTheme;
 import com.daren.core.web.component.table.IrisAjaxNavigationToolbar;
 import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
-import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -25,7 +23,6 @@ import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,9 +37,9 @@ import java.util.List;
  * 修改备注:  [说明本次修改内容]
  */
 public class Page2 extends BasePanel {
-    @Inject
+    /*@Inject
     @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    private IDictBeanService dictBeanService;
+    private IDictBeanService dictBeanService;*/
 
     public Page2(String id, WebMarkupContainer wmc) {
         super(id, wmc);

@@ -1,7 +1,6 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IAreaBeanService;
-import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
 import com.daren.core.web.component.table.IrisTableTree;
@@ -65,10 +64,10 @@ public class AreaListPage extends BasePanel {
     @Reference(id = "areaBeanService", serviceInterface = IAreaBeanService.class)
     private IAreaBeanService areaBeanService;
 
-    //注入字典业务服务
+    /*//注入字典业务服务
     @Inject
     @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    private IDictBeanService dictBeanService;
+    private IDictBeanService dictBeanService;*/
 
     //构造函数
     public AreaListPage(String id, WebMarkupContainer wmc) {
