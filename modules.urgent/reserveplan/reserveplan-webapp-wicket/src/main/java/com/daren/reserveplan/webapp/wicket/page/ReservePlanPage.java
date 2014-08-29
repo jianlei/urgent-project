@@ -3,6 +3,7 @@ package com.daren.reserveplan.webapp.wicket.page;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -44,13 +46,18 @@ import java.util.List;
 public class ReservePlanPage extends BasePanel {
 
     ReservePlanDataProvider provider = new ReservePlanDataProvider();
+    Map<String, String> enterpriseNameMap;
+
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
     @Inject
     private IUploadDocumentService uploadDocumentService;
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
 
     public ReservePlanPage(String id, final WebMarkupContainer wmc) {
         super(id, wmc);
+        enterpriseNameMap = enterpriseBeanService.getAllBeansToHashMap();
         initForm(wmc);
     }
 
@@ -68,17 +75,15 @@ public class ReservePlanPage extends BasePanel {
                 item.add(new Label("name", reservePlanBean.getName()));
                 item.add(new Label("approveType", reservePlanBean.getApproveType()));
                 item.add(new Label("version", reservePlanBean.getVersion()));
+                item.add(new Label("enterpriseId", enterpriseNameMap.get(reservePlanBean.getEnterpriseId())));
                 item.add(new Label("approveTime", DateUtil.convertDateToString(reservePlanBean.getApproveTime(), DateUtil.shortSdf)));
                 addDownLoadLink(item, "reservePlanApplyId", reservePlanBean.getReservePlanApplyId());
                 addDownLoadLink(item, "reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId());
                 addDownLoadLink(item, "reviewExpertId", reservePlanBean.getReviewExpertId());
                 addDownLoadLink(item, "reviewCommentId", reservePlanBean.getReviewCommentId());
                 addDownLoadLink(item, "comprehensivePlanId", reservePlanBean.getComprehensivePlanId());
-                addOpenSpecialPageLink(item, wmc, "specialPlanBeanList", reservePlanBean);
-                addOpenSpotPageLink(item, wmc, "spotPlanBeanList", reservePlanBean);
-                addDeleteLink(item, wmc, "spotPlanBeanList", reservePlanBean, table);
+                addDeleteLink(item, wmc, "delete", reservePlanBean, table);
                 addEditLink(item, "edit", reservePlanBean);
-
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView) {
@@ -150,7 +155,7 @@ public class ReservePlanPage extends BasePanel {
     }
 
     private void addDeleteLink(Item<ReservePlanBean> item, final WebMarkupContainer wmc, String linkName, final ReservePlanBean reservePlanBean, final WebMarkupContainer table) {
-        AjaxLink ajaxLink = new AjaxLink("delete") {
+        AjaxLink ajaxLink = new AjaxLink(linkName) {
             @Override
             protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
                 super.updateAjaxAttributes(attributes);

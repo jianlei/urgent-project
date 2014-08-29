@@ -25,10 +25,9 @@ public class HazardBeanServiceImpl extends GenericBizServiceImpl implements IHaz
     }
 
     @Override
-    public  List<HazardBean> getHazardList(){
+    public List<HazardBean> getHazardList() {
         return hazardBeanDao.getAll(HazardBean.class.getName());
     }
-
 
     @Override
     public List<HazardBean> queryHazardSource(HazardBean hazardBean) {
