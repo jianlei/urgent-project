@@ -142,27 +142,7 @@ function jydbz(){
                // clearallmarker();
                 //var responseJson = json.rescueBean;
                 var responseJson = json;
-                for(var i=0;i<responseJson.length;i++) {
-                    var response = responseJson[i];
-                    var content = "<div style='float:left;width:240px;padding-top:10px'>救援队名称: <span style='color:green;'>" + response.name + "</span></br>";
-                        content += "负责人: <span style='color:green;'>" + response.head + "</span></br>";
-                        content += "负责人电话: <span style='color:green;'>" + response.headPhone + "</span></br>";
-                        content += "值班电话: <span style='color:green;'>" + response.telephone + "</span></br>";
-                        content += "总人数: <span style='color:green;'>" + response.totalNumber + "</span></br>";
-                    content += "</div>";
-
-                    content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
-                        content += "地址: <span style='color:green;'>" + response.address + "</span></br>";
-                        content += "主要装备描述: <span style='color:green;'>" + response.equipment + "</span></br>";
-                        content += "专长描述: <span style='color:green;'>" + response.expertise + "</span></br>";
-                        content += "备注: <span style='color:green;'>" + response.remarks + "</span></br>";
-                    content += '</div>';
-
-                    addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170,markers_jydbz);
-                    if (i == responseJson.length - 1) {
-                        moveMapByBound();
-                    }
-                }
+                jydStr(responseJson);
             }else{
                 alert("没有检索到救援队!");
             }
@@ -180,33 +160,7 @@ function zjbz(){
                 //clearallmarker();
                // var responseJson = json.enterpriseExpertBean;
                 var responseJson = json;
-                for(var i=0;i<responseJson.length;i++) {
-                    var response = responseJson[i];
-                    var content = "<div style='float:left;width:240px;padding-top:10px'>专家姓名: <span style='color:green;'>" + response.name + "</span></br>";
-                        content += "出生日期: <span style='color:green;'>" + response.date + "</span></br>";
-                        content += "性别: <span style='color:green;'>" + response.sex + "</span></br>";
-                        content += "技术职称: <span style='color:green;'>" + response.skillTitle + "</span></br>";
-                        content += "学位: <span style='color:green;'>" + response.degree + "</span></br>";
-                        content += "民族: <span style='color:green;'>" + response.nation + "</span></br>";
-                        content += "专家类别: <span style='color:green;'>" + response.type + "</span></br>";
-                        content += "所在城市: <span style='color:green;'>" + response.city + "</span></br>";
-                    content += "</div>";
-
-                    content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
-                        content += "通信地址: <span style='color:green;'>" + response.address + "</span></br>";
-                        content += "单位电话: <span style='color:green;'>" + response.tel + "</span></br>";
-                        content += "手机: <span style='color:green;'>" + response.phone + "</span></br>";
-                        content += "邮箱: <span style='color:green;'>" + response.eMail + "</span></br>";
-                        content += "外语语种: <span style='color:green;'>" + response.language + "</span></br>";
-                        content += "技术领域: <span style='color:green;'>" + response.domain + "</span></br>";
-                        content += "研究方向: <span style='color:green;'>" + response.direction + "</span></br>";
-                    content += '</div>';
-
-                    addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200,markers_zjbz);
-                    if (i == responseJson.length - 1) {
-                        moveMapByBound();
-                    }
-                }
+                zjStr(responseJson);
             }else{
                 alert("没有检索到专家!");
             }
@@ -224,44 +178,7 @@ function wzbj(){
                // clearallmarker();
                // var responseJson = json.equipmentBean;
                 var responseJson = json;
-                for(var i=0;i<responseJson.length;i++){
-                    var response = responseJson[i];
-                    var content = "<div style='float:left;width:240px;padding-top:10px'>物资装备名称: <span style='color:green;'>" + response.name + "</span></br>";
-                        content += "属性: <span style='color:green;'>" + response.property + "</span></br>";
-                        content += "登记类型: <span style='color:green;'>" + response.registrationType + "</span></br>";
-                        content += "所属救援队: <span style='color:green;'>" + response.rescueId + "</span></br>";
-                        content += "所属单位: <span style='color:green;'>" + response.unitName + "</span></br>";
-                        content += "装备来源: <span style='color:green;'>" + response.equipmentSources + "</span></br>";
-                        content += "物资类型: <span style='color:green;'>" + response.equipmentType + "</span></br>";
-                        content += "参数规格: <span style='color:green;'>" + response.parametersSpecifications + "</span></br>";
-                        content += "计量单位: <span style='color:green;'>" + response.measuringUnit + "</span></br>";
-                        content += "数量: <span style='color:green;'>" + response.amount + "</span></br>";
-                        content += "定期保修间隔: <span style='color:green;'>" + response.regularMaintenanceInterval + "</span></br>";
-                        content += "使用年限: <span style='color:green;'>" + response.durableYears + "</span></br>";
-                        content += "上一次保养日期: <span style='color:green;'>" + response.lastMaintenanceDate + "</span></br>";
-                        content += "生产厂家: <span style='color:green;'>" + response.manufacturer + "</span></br>";
-                        content += "生产日期: <span style='color:green;'>" + response.manufactureDate + "</span></br>";
-                        content += "购买日期: <span style='color:green;'>" + response.purchaseDate + "</span></br>";
-                    content += "</div>";
-
-                    content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
-                        content += "单位传真: <span style='color:green;'>" + response.unitFax + "</span></br>";
-                        content += "主要负责人: <span style='color:green;'>" + response.principal + "</span></br>";
-                        content += "办公电话: <span style='color:green;'>" + response.officePhone + "</span></br>";
-                        content += "家庭电话: <span style='color:green;'>" + response.homePhone + "</span></br>";
-                        content += "移动电话: <span style='color:green;'>" + response.mobilePhone + "</span></br>";
-                        content += "装备描述或装备用途: <span style='color:green;'>" + response.describeOrPurposes + "</span></br>";
-                        content += "存放的仓库名: <span style='color:green;'>" + response.warehouse + "</span></br>";
-                        content += "存放场所: <span style='color:green;'>" + response.storagePlace + "</span></br>";
-                        content += "装备图片: <span style='color:green;'>" + response.img + "</span></br>";
-                        content += "备注: <span style='color:green;'>" + response.remark + "</span></br>";
-                    content += '</div>';
-
-                    addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj);
-                    if (i == responseJson.length - 1) {
-                        moveMapByBound();
-                    }
-                }
+                wzStr(responseJson);
             }else{
                 alert("没有检索到物资!");
             }
@@ -277,15 +194,132 @@ function scope(lng,lat){
         "../../cxf/expert/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
             if(json!=null){
                 var responseJson = json;
-                for(var i=0;i<responseJson.length;i++){
-                    var response = responseJson[i];
-
-                    if (i == responseJson.length - 1) {
-                        moveMapByBound();
-                    }
-                }
-            }else{
-                alert("没有检索到物资!");
+                zjStr(responseJson);
             }
         });
+   $.getJSON(
+            "../../cxf/rescue/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+            if(json!=null){
+                var responseJson = json;
+                jydStr(responseJson);
+            }
+        });
+    $.getJSON(
+            "../../cxf/equipment/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+            if(json!=null){
+                var responseJson = json;
+                wzStr(responseJson);
+            }
+        });
+}
+
+/**
+ *专家标注
+ * @param responseJson
+ */
+function zjStr(responseJson){
+    for(var i=0;i<responseJson.length;i++){
+        var response = responseJson[i];
+        var content = "<div style='float:left;width:240px;padding-top:10px'>专家姓名: <span style='color:green;'>" + response.name + "</span></br>";
+        content += "出生日期: <span style='color:green;'>" + response.date + "</span></br>";
+        content += "性别: <span style='color:green;'>" + response.sex + "</span></br>";
+        content += "技术职称: <span style='color:green;'>" + response.skillTitle + "</span></br>";
+        content += "学位: <span style='color:green;'>" + response.degree + "</span></br>";
+        content += "民族: <span style='color:green;'>" + response.nation + "</span></br>";
+        content += "专家类别: <span style='color:green;'>" + response.type + "</span></br>";
+        content += "所在城市: <span style='color:green;'>" + response.city + "</span></br>";
+        content += "</div>";
+
+        content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+        content += "通信地址: <span style='color:green;'>" + response.address + "</span></br>";
+        content += "单位电话: <span style='color:green;'>" + response.tel + "</span></br>";
+        content += "手机: <span style='color:green;'>" + response.phone + "</span></br>";
+        content += "邮箱: <span style='color:green;'>" + response.eMail + "</span></br>";
+        content += "外语语种: <span style='color:green;'>" + response.language + "</span></br>";
+        content += "技术领域: <span style='color:green;'>" + response.domain + "</span></br>";
+        content += "研究方向: <span style='color:green;'>" + response.direction + "</span></br>";
+        content += '</div>';
+
+        addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200,markers_zjbz);
+        if (i == responseJson.length - 1) {
+            moveMapByBound();
+        }
+        /*if (i == responseJson.length - 1) {
+         moveMapByBound();
+         }*/
+    }
+}
+
+
+/**
+ *救援队标注
+ * @param responseJson
+ */
+function jydStr(responseJson){
+    for(var i=0;i<responseJson.length;i++){
+        var response = responseJson[i];
+        var content = "<div style='float:left;width:240px;padding-top:10px'>救援队名称: <span style='color:green;'>" + response.name + "</span></br>";
+        content += "负责人: <span style='color:green;'>" + response.head + "</span></br>";
+        content += "负责人电话: <span style='color:green;'>" + response.headPhone + "</span></br>";
+        content += "值班电话: <span style='color:green;'>" + response.telephone + "</span></br>";
+        content += "总人数: <span style='color:green;'>" + response.totalNumber + "</span></br>";
+        content += "</div>";
+
+        content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+        content += "地址: <span style='color:green;'>" + response.address + "</span></br>";
+        content += "主要装备描述: <span style='color:green;'>" + response.equipment + "</span></br>";
+        content += "专长描述: <span style='color:green;'>" + response.expertise + "</span></br>";
+        content += "备注: <span style='color:green;'>" + response.remarks + "</span></br>";
+        content += '</div>';
+
+        addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170,markers_jydbz);
+        if (i == responseJson.length - 1) {
+            moveMapByBound();
+        }
+    }
+}
+
+/**
+ * 物资标注
+ * @param responseJson
+ */
+function wzStr(responseJson){
+    for(var i=0;i<responseJson.length;i++){
+        var response = responseJson[i];
+        var content = "<div style='float:left;width:240px;padding-top:10px'>物资装备名称: <span style='color:green;'>" + response.name + "</span></br>";
+        content += "属性: <span style='color:green;'>" + response.property + "</span></br>";
+        content += "登记类型: <span style='color:green;'>" + response.registrationType + "</span></br>";
+        content += "所属救援队: <span style='color:green;'>" + response.rescueId + "</span></br>";
+        content += "所属单位: <span style='color:green;'>" + response.unitName + "</span></br>";
+        content += "装备来源: <span style='color:green;'>" + response.equipmentSources + "</span></br>";
+        content += "物资类型: <span style='color:green;'>" + response.equipmentType + "</span></br>";
+        content += "参数规格: <span style='color:green;'>" + response.parametersSpecifications + "</span></br>";
+        content += "计量单位: <span style='color:green;'>" + response.measuringUnit + "</span></br>";
+        content += "数量: <span style='color:green;'>" + response.amount + "</span></br>";
+        content += "定期保修间隔: <span style='color:green;'>" + response.regularMaintenanceInterval + "</span></br>";
+        content += "使用年限: <span style='color:green;'>" + response.durableYears + "</span></br>";
+        content += "上一次保养日期: <span style='color:green;'>" + response.lastMaintenanceDate + "</span></br>";
+        content += "生产厂家: <span style='color:green;'>" + response.manufacturer + "</span></br>";
+        content += "生产日期: <span style='color:green;'>" + response.manufactureDate + "</span></br>";
+        content += "购买日期: <span style='color:green;'>" + response.purchaseDate + "</span></br>";
+        content += "</div>";
+
+        content += '<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+        content += "单位传真: <span style='color:green;'>" + response.unitFax + "</span></br>";
+        content += "主要负责人: <span style='color:green;'>" + response.principal + "</span></br>";
+        content += "办公电话: <span style='color:green;'>" + response.officePhone + "</span></br>";
+        content += "家庭电话: <span style='color:green;'>" + response.homePhone + "</span></br>";
+        content += "移动电话: <span style='color:green;'>" + response.mobilePhone + "</span></br>";
+        content += "装备描述或装备用途: <span style='color:green;'>" + response.describeOrPurposes + "</span></br>";
+        content += "存放的仓库名: <span style='color:green;'>" + response.warehouse + "</span></br>";
+        content += "存放场所: <span style='color:green;'>" + response.storagePlace + "</span></br>";
+        content += "装备图片: <span style='color:green;'>" + response.img + "</span></br>";
+        content += "备注: <span style='color:green;'>" + response.remark + "</span></br>";
+        content += '</div>';
+
+        addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj);
+        if (i == responseJson.length - 1) {
+            moveMapByBound();
+        }
+    }
 }

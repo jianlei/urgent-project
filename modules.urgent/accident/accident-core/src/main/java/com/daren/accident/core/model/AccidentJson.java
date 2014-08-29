@@ -21,6 +21,7 @@ public class AccidentJson {
     private String videoLink;//视频链接地址
     private String operator;//经办人
     private String operatorPhone;//经办人电话
+    private long id;//查询摄像头id
 
     public String getQymc() {
         return qymc;
@@ -118,5 +119,11 @@ public class AccidentJson {
         this.operatorPhone = operatorPhone;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 }

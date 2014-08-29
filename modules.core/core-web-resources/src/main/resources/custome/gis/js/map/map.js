@@ -99,7 +99,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
     marker.addEventListener("click",function(){
         if( /msie/.test(navigator.userAgent.toLowerCase())){
                 $.getJSON(
-                     "../../cxf/monitor/"+responseJson.accidentUnit+"",{"rand":Math.random()},function(json) {
+                     "../../cxf/monitor/"+responseJson.id+"",{"rand":Math.random()},function(json) {
                      if (json != null) {
                         TextIP=json[0].ipAddress;
                         TextName1 =json[0].admin;
@@ -114,7 +114,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
                          content+=  '事故单位：'+responseJson.qymc+'<br/>';
                          content+=  '经办人:'+responseJson.operator+'<br/>';
                          content+=  '经办人电话:'+responseJson.operatorPhone+'<br/>';
-                         content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0)"/></div>'+
+                         content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0,'+responseJson.id+')"/></div>'+
                              '<div class="demo">'+
                              '<div class="plus-tag-add">' +
                              '<form id="" action="" class="login">' +
@@ -532,11 +532,11 @@ function gotoprint(){
 }
 
 //显示推荐方案
-function goConfirm(parm,_lng,_lat){
+function goConfirm(parm,_lng,_lat,id){
     if(parm){
         playStatus=false;
         $(".demo").show();
-        //查询周围物资 500米半径圆
+      //查询周围物资 500米半径圆
         var point = new BMap.Point(_lng,_lat);
         var circleFinveMiter = new BMap.Circle(point,500);
         circleFinveMiter.setStrokeColor("red");
@@ -544,7 +544,7 @@ function goConfirm(parm,_lng,_lat){
         map.addOverlay(circleFinveMiter);
         overlays.push(circleFinveMiter);
         //根据当前危险点位置的经纬度查询搜索500内的物质 并且标注
-
+        /*
         alert("根据当前危险点位置的经纬度查询搜索500内的物质 并且标注");
 
         var responseJson ={"community_name":"吉林省达仁科技官方圈子","community_remak":"sdfsdfsd水电费水电费"};
@@ -556,7 +556,9 @@ function goConfirm(parm,_lng,_lat){
         var _icon  = "dkred";
         var content = "<div style='float:left;width:240px;padding-top:10px'>ssdfs: <span style='color:green;'>aasdasdasd</span></br>";
         content += "</div>";
-        addGeneralPoint(_lng,_lat,lid,_icon,content,"详情",500,400,markers_zdwxy);
+        addGeneralPoint(_lng,_lat,lid,_icon,content,"详情",500,400,markers_zdwxy);*/
+
+        scope(_lng,_lat);
         moveMapByBound();
     }else{
         playStatus=false;
@@ -570,12 +572,19 @@ function goConfirm(parm,_lng,_lat){
             var lng =  markers[di].getPosition().lng;
             var lat  = markers[di].getPosition().lat;
             if(_lng == lng && _lat == lat){
-                map.removeOverlay(markers[i]);
+                map.removeOverlay(markers[di]);
+                markers.remove(di);
+                closeInfoW();
             }
-            if(markers.length==1){
+            if(markers.length-1==di){
                 map.centerAndZoom(cityname,lev);
             }
         }
+        //改变显示状态
+        $.getJSON(
+                "../../cxf/accident/"+id+"",{"rand":Math.random()},function(json){
+
+        });
     }
     PlayStop();//停止预警声音
 }
