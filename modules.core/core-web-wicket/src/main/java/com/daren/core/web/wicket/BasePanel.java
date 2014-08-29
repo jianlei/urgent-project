@@ -1,8 +1,12 @@
 package com.daren.core.web.wicket;
 
+import com.daren.admin.api.biz.IDictBeanService;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
+
+import javax.inject.Inject;
 
 /**
  * 项目名称:  urgent-project
@@ -16,6 +20,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 public abstract class BasePanel extends Panel {
     public final Logger log = Logger.getLogger(getClass());
+    @Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    protected IDictBeanService dictBeanService;
     //ajax target container
     protected WebMarkupContainer webMarkupContainer;
 

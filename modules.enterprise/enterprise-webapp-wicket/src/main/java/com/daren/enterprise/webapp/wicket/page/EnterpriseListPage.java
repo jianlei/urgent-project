@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -7,6 +8,7 @@ import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -22,6 +24,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,17 +37,30 @@ import java.util.List;
  */
 
 public class EnterpriseListPage extends BasePanel {
-
     EnterpriseDataProvider provider = new EnterpriseDataProvider();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
+    @Reference(id = "enterpriseBeanService", serviceInterface = IEnterpriseBeanService.class)
     private IEnterpriseBeanService enterpriseBeanService;
+
+    //注入字典业务服务
+   /* @Inject
+    @Reference(id = "areaBeanService", serviceInterface = IOrganizationBeanService.class)
+    private IOrganizationBeanService organizationBeanService;*/
+    /*@Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    private IDictBeanService dictBeanService;*/
+
+ //   final Map<String,String> map;
+
 
     public EnterpriseListPage(final String id, final WebMarkupContainer wmc) {
 
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
+
+         final Map<String,String> map =dictBeanService.getDictMap(IDictConstService.ENTERPRISE_JGFL);
 
 
         DataView<EnterpriseBean> listView = new DataView<EnterpriseBean>("rows", provider, 10) {
@@ -53,9 +69,10 @@ public class EnterpriseListPage extends BasePanel {
             @Override
             protected void populateItem(Item<EnterpriseBean> item) {
                 {
+
                     final EnterpriseBean enterpriseBean = item.getModelObject();
                     item.add(new Label("QYMC", enterpriseBean.getQymc()));
-                    item.add(new Label("JGFL", enterpriseBean.getJgfl()));
+                    item.add(new Label("JGFL", map.get(enterpriseBean.getJgfl())));
                     item.add(new Label("QYLXFS", enterpriseBean.getQylxfs()));
                     item.add(new Label("MAILADDRESS", enterpriseBean.getMailaddress()));
                     item.add(new Label("ADDRESS_JY", enterpriseBean.getAddressjy()));
