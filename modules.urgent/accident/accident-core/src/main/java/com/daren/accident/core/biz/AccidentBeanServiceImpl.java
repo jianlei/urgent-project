@@ -3,6 +3,7 @@ package com.daren.accident.core.biz;
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
 import com.daren.accident.core.model.AccidentJson;
+import com.daren.accident.core.model.ResourceJson;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.biz.IDictConstService;
@@ -100,6 +101,19 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
         AccidentBean accidentBean= accidentBeanDao.get(AccidentBean.class.getName(),new Long(id));
         accidentBean.setStatus(1);
         accidentBeanDao.save(accidentBean);
+        return Response.ok().build();
+    }
+
+    /**
+     * 打印物资
+     * @param resourceJson
+     * @return
+     */
+    @POST
+    @Path("/print")
+    @Consumes("application/json;charset=utf-8")
+    public Response printAccidentResource(ResourceJson resourceJson) {
+        ResourceJson resource=resourceJson;
         return Response.ok().build();
     }
 }

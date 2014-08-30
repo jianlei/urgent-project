@@ -15,7 +15,7 @@ import com.daren.core.web.api.module.IMenuModule;
 public class MainMenuModule implements IMenuModule {
     @Override
     public String getProjectName() {
-        return IConst.URGENT_WICKET_APPLICATION_NAME;
+        return IConst.SYSTEM_WICKET_APPLICATION_NAME;
     }
 
     @Override

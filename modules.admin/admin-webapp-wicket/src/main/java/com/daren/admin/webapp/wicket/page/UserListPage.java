@@ -4,6 +4,7 @@ import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.admin.webapp.wicket.dialog.ChangePasswordDialog;
 import com.daren.core.util.DateUtil;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
@@ -15,8 +16,6 @@ import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
@@ -275,16 +274,7 @@ public class UserListPage extends BasePanel {
          */
         private AjaxLink initDeleteButton(final UserBean row) {
             //删除功能
-            AjaxLink alink = new AjaxLink("delete") {
-                @Override
-                protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                    super.updateAjaxAttributes(attributes);
-                    AjaxCallListener listener = new AjaxCallListener();
-
-                    listener.onPrecondition("if(!confirm('" + getString("urgent.delete.confirm") + "')){return false;}");
-                    attributes.getAjaxCallListeners().add(listener);
-                }
-
+            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("delete") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {
