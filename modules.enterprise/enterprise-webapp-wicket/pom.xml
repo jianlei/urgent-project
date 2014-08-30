@@ -180,6 +180,11 @@
             <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

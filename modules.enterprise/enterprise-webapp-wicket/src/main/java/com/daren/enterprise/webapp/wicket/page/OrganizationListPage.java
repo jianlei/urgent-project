@@ -1,6 +1,7 @@
 package com.daren.enterprise.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -23,6 +24,7 @@ import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +52,10 @@ public class OrganizationListPage extends BasePanel {
         add(table.setOutputMarkupId(true));
 
         //机关部门标记
-        final Map<String,String> map =dictBeanService.getDictMap( IDictConstService.ORGANIZATION_JGBMBJ);
+        final Map<String,String> jgbmbj_map =dictBeanService.getDictMap( IDictConstService.ORGANIZATION_JGBMBJ);
+        final Map<String,String> zfbj_map =dictBeanService.getDictMap( IDictConstService.ORGANIZATION_ZFBJ);
+        final Map<String,String> jglxbj_map =dictBeanService.getDictMap( IDictConstService.ORGANIZATION_JGLXBJ);
+
         //循环读取数据并赋值
         DataView<OrganizationBean> listView = new DataView<OrganizationBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
@@ -62,27 +67,11 @@ public class OrganizationListPage extends BasePanel {
                     item.add(new Label("MC", organizationBean.getMc()));
                     item.add(new Label("MCJ", organizationBean.getMcj()));
                     item.add(new Label("JGDM", organizationBean.getJgdm()));
-                    item.add(new Label("JGLXBJ", returnJglx(organizationBean.getJglxbj())));
-                    /*String jgbmbj = organizationBean.getJgbmbj();
-                    if("0".equals(jgbmbj)){
-                        jgbmbj = "机关";
-                    }else if("1".equals(jgbmbj)){
-                        jgbmbj = "部门";
-                    }else{
-                        jgbmbj = "";
-                    }*/
-                    item.add(new Label("JGBMBJ", map.get(organizationBean.getJgbmbj())));
+                    item.add(new Label("JGLXBJ", jglxbj_map.get(organizationBean.getJglxbj())));
+                    item.add(new Label("JGBMBJ", jgbmbj_map.get(organizationBean.getJgbmbj())));
                     item.add(new Label("XZQH_DM", organizationBean.getXzqh_dm()));
-                    item.add(new Label("CREATETIME", organizationBean.getCreatetime()));
-                    String zfbj = organizationBean.getZfbj();
-                    if("0".equals(zfbj)){
-                        zfbj = "有效";
-                    }else if("1".equals(zfbj)){
-                        zfbj = "无效";
-                    }else{
-                        zfbj = "";
-                    }
-                    item.add(new Label("ZFBJ", zfbj));
+                    item.add(new Label("CREATETIME",  new SimpleDateFormat("yyyy-MM-dd").format(DateUtil.convertStringToDate(organizationBean.getCreatetime(), "yyyy-MM-dd"))));
+                    item.add(new Label("ZFBJ", zfbj_map.get(organizationBean.getZfbj())));
                     item.add(getToCreatePageLink("check_MC", organizationBean));
 
                     AjaxLink alink = new AjaxLink("del") {
@@ -117,42 +106,6 @@ public class OrganizationListPage extends BasePanel {
         table.add(listView);
         createQuery(table, provider, id, wmc);
         initFeedBack();
-    }
-
-    /**
-     * 把监管类型的值转换成对应的文字描述
-     * @param jglxbj
-     * @return
-     */
-    private String returnJglx(String jglxbj){
-        String retStr = "";
-        if(jglxbj!=null&&!"".equals(jglxbj)){
-            try{
-                Integer inte = Integer.parseInt(jglxbj);
-                switch (inte){
-                    case 1:
-                        retStr = "综合";
-                        break;
-                    case 2:
-                        retStr = "行业";
-                        break;
-                    case 5:
-                        retStr = "消防";
-                        break;
-                    case 6:
-                        retStr = "质检";
-                        break;
-                    case 7:
-                        retStr = "公安";
-                        break;
-                    default:
-                        break;
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-        return retStr;
     }
 
     private void initFeedBack() {
