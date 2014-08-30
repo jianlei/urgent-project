@@ -34,7 +34,6 @@ public class Select2PageTest extends BasePanel {
 
     private OrganizationBean organizationBean = new OrganizationBean();
     private List<UserBean> result = new ArrayList<UserBean>();
-    private List<OrganizationBean> orgResult = new ArrayList<OrganizationBean>();
 
     public Select2PageTest(String id, WebMarkupContainer wmc) {
         super(id, wmc);

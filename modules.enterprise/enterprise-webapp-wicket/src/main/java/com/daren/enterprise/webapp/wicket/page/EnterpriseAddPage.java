@@ -5,8 +5,10 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAj
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
-import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.entities.OrganizationBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
+import com.daren.enterprise.webapp.component.form.OrganizationSelectChoice;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
@@ -16,6 +18,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
@@ -37,10 +40,9 @@ public class EnterpriseAddPage extends BasePanel {
     Form<EnterpriseBean> enterpriseBeanForm = new Form("enterpriseForm", new CompoundPropertyModel(new EnterpriseBean()));
     EnterpriseBean enterpriseBean = new EnterpriseBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
-    @Inject
-    private IOrganizationBeanService organizationBeanService;
 
     public EnterpriseAddPage(final String id, final WebMarkupContainer wmc, EnterpriseBean bean) {
         super(id, wmc);
@@ -50,16 +52,51 @@ public class EnterpriseAddPage extends BasePanel {
         initForm(enterpriseBean);
         initFeedBack();
         addForm(id, wmc);
+        EnterpriseSelect2Choice<EnterpriseBean> user = new EnterpriseSelect2Choice<EnterpriseBean>("country");
+        user.getSettings().setMinimumInputLength(2);
+        form.add(user);
         addSelectToForm();
+    }
+
+    private void initSelect(String name){
+        OrganizationSelectChoice<EnterpriseBean> listSites = new OrganizationSelectChoice<EnterpriseBean>(name, Model.of(enterpriseBean)) {
+/*            @Override
+            public void setId(OrganizationBean bean, String input) {
+                bean.getJgdm();
+            }
+            @Override
+            public String getId(OrganizationBean choice) {
+                return choice.getJgdm();
+            }
+            @Override
+            public String getDisplayText(OrganizationBean choice) {
+                return organizationBean.getMc();//监管机构名称
+            }*/
+
+            @Override
+            public String getId(EnterpriseBean choice) {
+                return choice.getJgjgdm();
+            }
+
+            @Override
+            public String getDisplayText(EnterpriseBean choice) {
+                return choice.getQyid();
+            }
+
+            @Override
+            public void setId(EnterpriseBean bean, String input) {
+                bean.setJgjgdm(input);
+            }
+        };
+        listSites.getSettings().setMinimumInputLength(2);
+        enterpriseBeanForm.add(listSites);
     }
 
     private void addForm(final String id, final WebMarkupContainer wmc) {
 
         enterpriseBeanForm.setMultiPart(true);
         this.add(enterpriseBeanForm);
-
         addTextFieldsToForm();
-
         //日期控件//
         final DatePicker datePicker = new DatePicker("clsj",
                 new PropertyModel<Date>(enterpriseBean, "clsj"), "yyyy-MM-dd",
@@ -81,7 +118,6 @@ public class EnterpriseAddPage extends BasePanel {
                     }
                 }
             }
-
             @Override
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 target.add(feedbackPanel);
@@ -129,8 +165,9 @@ public class EnterpriseAddPage extends BasePanel {
         initSelect("yazlqybj", IDictConstService.YAZLQY_BJ);
         initSelect("xjqybj", IDictConstService.ENTERPRISE_XJQYBJ);
         initSelect("gmqk", IDictConstService.ENTERPRISE_GMQK);
+        //initSelect("jgjgdm", organizationBeanService.getAllBeansToHashMap());
         initSelect("jgfl", IDictConstService.ENTERPRISE_JGFL);
-        initSelect("jgjgdm", organizationBeanService.getAllBeansToHashMap());
+        initSelect("jgjgdm");
     }
 
     private void addTextFieldToForm(String value) {
