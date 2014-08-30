@@ -20,7 +20,6 @@
             width: 70px;
         }
     </style>
-    
     <SCRIPT>
 	var LocString=String(window.document.location.href);
 	function GetQueryString(str){
@@ -35,10 +34,10 @@
         //strIP = document.getElementById("TextIP").value;
         strIP = GetQueryString("TextIP");
         strPort = document.getElementById("TextPort").value;
-        strName1 = document.getElementById("TextName1").value;
-        //strName1 = GetQueryString("TextName1");
-        strPwd1 = document.getElementById("Textpwd1").value;
-        //strPwd1 = GetQueryString("TextPwd1");
+       // strName1 = document.getElementById("TextName1").value;
+        strName1 = GetQueryString("TextName1");
+        //strPwd1 = document.getElementById("Textpwd1").value;
+        strPwd1 = GetQueryString("TextPwd1");
         ChanNum1 = document.getElementById("SelectChan1").value;
 	cameraID1 = document.getElementById("TextCameraID1").value;
         strName2 = document.getElementById("TextName2").value;
@@ -553,7 +552,7 @@
 						</tr>
 					</table>
 				</td>
-				<td width="50%" align="center"><input type="button" value="开始预览" onclick="StartPlayView()" /></td>
+				<td width="50%" align="center"><input type="button" id = "map_video_show" value="开始预览" onclick="StartPlayView()" /></td>
 			</tr>
 		</table>
 	</div>

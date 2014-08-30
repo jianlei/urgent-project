@@ -6,6 +6,7 @@ import com.daren.expert.entities.EnterpriseExpertBean;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface IEnterpriseExpertBeanService extends IBizService {
     @GET
     @Produces("application/json;charset=utf-8")
     @Path("/scope/{lng}/{lat}")
-    List<EnterpriseExpertBean> getEnterpriseExpertByScope(String lng, String lat);
+    List<EnterpriseExpertBean> getEnterpriseExpertByScope(@PathParam("lng")String lng,@PathParam("lat")String lat);
 }

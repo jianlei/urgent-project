@@ -45,6 +45,10 @@
             <groupId>com.daren.reserveplan</groupId>
             <artifactId>com.daren.reserveplan.entities</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
+        </dependency>
     </dependencies>
     <build>
 

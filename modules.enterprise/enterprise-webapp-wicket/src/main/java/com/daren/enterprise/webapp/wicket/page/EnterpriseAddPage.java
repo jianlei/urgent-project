@@ -113,6 +113,7 @@ public class EnterpriseAddPage extends BasePanel {
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
                     } catch (Exception e) {
+                        e.printStackTrace();
                         feedbackPanel.info("保存失败！");
                         target.add(feedbackPanel);
                     }

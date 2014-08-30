@@ -27,7 +27,9 @@ public class ReservePlanBean extends PersistentEntity {
     private String level;//级别
     private String type;//类型
     private String approveType;//审批状态
+    private String enterpriseId;//审批状态
     private Date approveTime;//审批时间
+
 
     private String reservePlanApplyId;//应急预案申请表文档ID
     private String reservePlanRegisterId;//应急预案注册表文档ID
@@ -42,6 +44,7 @@ public class ReservePlanBean extends PersistentEntity {
     public ReservePlanBean() {
         name = "";
         description = "";
+        enterpriseId = "";
         mark = "";
         level = "";
         approveType = "审批通过";
@@ -56,6 +59,14 @@ public class ReservePlanBean extends PersistentEntity {
         expertList = new ArrayList();
         spotPlanBeanList = new ArrayList<>();
         specialPlanBeanList = new ArrayList<>();
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getApproveType() {

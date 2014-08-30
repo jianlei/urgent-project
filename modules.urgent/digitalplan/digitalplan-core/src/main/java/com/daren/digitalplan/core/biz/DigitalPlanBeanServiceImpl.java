@@ -28,6 +28,11 @@ public class DigitalPlanBeanServiceImpl extends GenericBizServiceImpl implements
     public List<DigitalPlanBean> queryDigitalPlanSource(DigitalPlanBean digitalplanBean) {
         return digitalPlanBeanDao.find("select a from DigitalPlanBean a where a.name LIKE ?1", "%" + digitalplanBean.getName() + "%");
     }
+
+    @Override
+    public List<DigitalPlanBean> getAllDigitalPlanList() {
+        return digitalPlanBeanDao.find("select a from DigitalPlanBean a");
+    }
 }
 
 
