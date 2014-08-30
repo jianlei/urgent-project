@@ -600,7 +600,14 @@ function gotoprint(){
         clearPrint();
     }
     if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
-        $.getJSON("../../cxf/accident/print/"+xls+"",{"rand":Math.random()},function(json){});
+        //$.getJSON("../../cxf/accident/print/"+xls+"",{"rand":Math.random()},function(json){});
+        $.ajax({
+            type: "POST",
+            url: "../../cxf/accident/print/"+xls+"",
+            data: {},
+            dataType: "json",
+            success: function(data){ }
+        });
         clearPrint();
     }
 }
