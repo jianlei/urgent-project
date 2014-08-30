@@ -29,7 +29,7 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "政务法规管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "应急法规管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -39,7 +39,7 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "enterprise.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "government.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

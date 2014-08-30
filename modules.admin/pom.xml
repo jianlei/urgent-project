@@ -25,6 +25,7 @@
         <module>admin-persist-jpa</module>
         <module>admin-core</module>
         <module>admin-webapp-wicket</module>
+        <module>admin-web-bootup-wicket</module>
         <module>admin-resources</module>
     </modules>
     <dependencyManagement>

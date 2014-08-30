@@ -1,4 +1,4 @@
-package com.daren.government.web.bootup.wicket.shiro;
+package com.daren.admin.web.bootup.wicket.shiro;
 
 import com.daren.admin.api.biz.IUserLoginService;
 import com.daren.admin.entities.UserBean;
@@ -35,7 +35,7 @@ public class ShiroRealm extends AuthorizingRealm {
     // --------------------------------------------------------------------------
 
     public ShiroRealm() {
-        setName("exampleMemoryRealm");
+        setName("systemMemoryRealm");
         CredentialsMatcher cm = new SimpleCredentialsMatcher();
         setCredentialsMatcher(cm);
 

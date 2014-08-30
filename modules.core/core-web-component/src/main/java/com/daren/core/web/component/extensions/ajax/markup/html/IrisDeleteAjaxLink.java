@@ -27,7 +27,7 @@ public abstract class IrisDeleteAjaxLink<T> extends AjaxLink {
         super.updateAjaxAttributes(attributes);
         AjaxCallListener listener = new AjaxCallListener();
 
-        listener.onPrecondition("if(!confirm('" + getString("urgent.delete.confirm") + "')){return false;}");
+        listener.onPrecondition("if(!confirm('确认要删除吗？')){return false;}");
         attributes.getAjaxCallListeners().add(listener);
     }
 }

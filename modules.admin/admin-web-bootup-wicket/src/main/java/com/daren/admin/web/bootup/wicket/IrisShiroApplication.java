@@ -1,4 +1,4 @@
-package com.daren.government.web.bootup.wicket;
+package com.daren.admin.web.bootup.wicket;
 
 
 import com.daren.core.web.api.provider.IHomePageProvider;
@@ -69,6 +69,7 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     public Class<? extends Page> getHomePage() {
         //return homePageProvider.getPageClass();
+//        return TemplatePage.class;
         return TemplatePage.class;
     }
 
