@@ -4,15 +4,16 @@
 //--地图全局变量
 var infocontent = " ";
 
-var markers = [];
+var markers = [];//标注集合
 
-var infowindow;
+var infowindow;//普通标注窗体对象
+var infowindow_danger;//危险点的单独窗体 放在mouseon 关闭的
 
 var openWindowMarket;
 
 var geoAddress = "";
 
-var map;
+var map;//地图全局变量
 
 var image = 'beachflag.png';
 
@@ -45,6 +46,15 @@ var getTips=function(){};
 var getTipsId=function(){};
 var getTipsIdAndTag=function(){};
 var G_tocard_maxTips=30;
+//重大危险源标注集合
+var markers_zdwxy = [];
+//救援队标注集合
+var markers_jydbz = [];
+//专家标注集合
+var markers_zjbz = [];
+//物资标注集合
+var markers_wzbj = [];
+var contain_danger_point=false;
 
 //--初始化地图
 function initialize(lng,lat,cityname,lev,contenid) {
@@ -75,9 +85,9 @@ function initialize(lng,lat,cityname,lev,contenid) {
 }
 
 //添加危险点
-function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
+function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj) {
     //样式3宽高
-    var infowindow_width =820;
+    var infowindow_width =1070;
     var infowindow_height=360;
 
     var streamSvrIp ="";
@@ -112,36 +122,44 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
                          content+=  '事故发生地点：'+responseJson.place+'<br/>';
                          content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
                          content+=  '事故单位：'+responseJson.qymc+'<br/>';
-                         content+=  '经办人:'+responseJson.operator+'<br/>';
-                         content+=  '经办人电话:'+responseJson.operatorPhone+'<br/>';
-                         content+='<div> <input name="" type="button" style="margin-right:10px;" value="确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+')"/> <input name="" type="button" value="解除" onClick="goConfirm(false,0,0,'+responseJson.id+')"/></div>'+
-                             '<div class="demo">'+
-                             '<div class="plus-tag-add">' +
-                             '<form id="" action="" class="login">' +
-                             '<ul class="Form FancyForm">' +
-                             '<li>' +
-                             '<a href="javascript:void(0);">推荐解决方案</a>' +
-                             '</li>' +
-                             '</ul>' +
-                             '</form>' +
-                             '</div>' +
+                         content+=  '企业联系方式:'+responseJson.qylxfs+'<br/>';
+                         content+=  '上报人:'+responseJson.operator+'<br/>';
+                         content+=  '上报人电话:'+responseJson.operatorPhone+'<br/>';
+                         content+='<div id = "sg_btn" > <input name="" type="button" style="margin-right:10px;" value="事故确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/> <input name="" type="button" value="事故解除" onClick="goConfirm(false,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/></div>'+
 
-                             '<div id="mycard-plus" style="display:none;">' +
-                             '<div class="default-tag tagbtn">' +
-                             '<div class="clearfix">' +
-                             '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
-                             '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
-                             '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
-                             '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
-                             '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
-                             '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +
-                             '</div>' +
-                             '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
-                             '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +
+                             '</div>';
+                          content += '<div class="demo" style="float:left; ">'+
+                         '<div class="plus-tag-add">' +
+                         '<form id="" action="" class="login">' +
+                         '<ul class="Form FancyForm">' +
+                         '<li>' +
+                         '<a href="javascript:void(0);">解决方案</a>' +
+                         '</li>' +
+                         '</ul>' +
+                         '</form>' +
+                         '</div>' +
+
+                         '<div id="mycard-plus" style="display:none;">' +
+                         '<div class="default-tag tagbtn"  id="clearfix_div">' +
+                         '<div>----企业预案----------></div>'+
+                         '<div class="clearfix">';
+                         content+= content_qy;
+                         /* '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
+                          '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
+                          '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
+                          '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
+                          '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
+                          '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +*/
+                         content+= '</div>' +
+                             '<div>----安监局预案------></div>'+
+                             '<div class="clearfix">';
+                         content+= content_anj;
+                         content+= '</div>' +
+                             /* '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
+                              '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +*/
                              '</div>' +
                              '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
                              '</div>' +
-                             '</div>'+
                              '</div>';
                          if(TextIP!=""){
                              content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
@@ -151,19 +169,20 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
                              infowindow_width=infowindow_width-550;
                          }
 
+
                          //样式3
-                         var infowindow = new BMapLib.SearchInfoWindow(map, content, {
-                             title: "隐患详情", //标题
+                         infowindow_danger = new BMapLib.SearchInfoWindow(map, content, {
+                             title: "事故详情", //标题
                              //width: 590, //宽度
                              //height: 250, //高度
-                             width: 820, //宽度
-                             height: 360, //高度
+                             width: infowindow_width, //宽度
+                             height: infowindow_height, //高度
                              panel : "panel", //检索结果面板
                              enableAutoPan : true, //自动平移
                              searchTypes :[
                              ]
                          });
-                         infowindow.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
+                         infowindow_danger.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
 
                          //标签脚本
                          $(function(){
@@ -285,7 +304,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
                          };
                          // 推荐标签
                          $(function(){
-                             var str = ['推荐解决方案', '推荐解决方案']
+                             var str = ['解决方案', '解决方案']
                              $('.plus-tag-add a').click(function(){
                                  var $this = $(this),
                                      $con = $('#mycard-plus');
@@ -340,7 +359,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
                              $d.eq(0).addClass(t);
                          })();
 
-                         map.centerAndZoom(point,seenView);
+                        // map.centerAndZoom(point,seenView);
 
                      }
                  });
@@ -353,16 +372,30 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson) {
    // moveMapByBound();
 }
 //添加普通标注
-function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton) {
+function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton,d,c) {
 
     var point = new BMap.Point(_lng,_lat);
     var jsonicon ={w:21,h:35,l:0,t:0,x:6,lb:5};
     var iconImg = createIcon(jsonicon,_icon);
     var marker = new BMap.Marker(point,{icon:iconImg});
-
     map.addOverlay(marker);
     //markers.push(marker);
     markers_collecton.push(marker);
+    marker.addEventListener("click",function(){
+        if($("#printer_btn").is(":visible")){
+            var a = $(".plus-tag");
+            var b=d?'value="'+d+'"':"";
+
+            a.append($("<a "+b+' title="'+c+'" href="javascript:void(0);" ><span>'+c+"</span><em></em></a>"));
+            $("a em",a).bind("click",function(){//x绑定删除
+                $("a",a).each(function(){
+                    if($(this).val()==d){
+                        $(this).remove();
+                    }
+                });
+            });
+        }
+    });
     marker.addEventListener("mouseover",function(){
         openInfoW(_lng,_lat,title,width,height,content);
     });
@@ -441,31 +474,32 @@ function moveMapByBound() {
 
 //鼠标右件清空
 function clearAll() {
-    for(var i = 0; i < overlays.length; i++){
-        map.removeOverlay(overlays[i]);
+    for(var oi = 0; oi < overlays.length; oi++){
+        map.removeOverlay(overlays[oi]);
     }
-    for(var i = 0;i<markers.length;i++) {
-        if(i>current_danger_point_number){
-            map.removeOverlay(markers[i]);
+    for(var mi = 0;mi<markers.length;mi++) {
+        if(mi>current_danger_point_number){
+            map.removeOverlay(markers[mi]);
         }
     }
-    for(var i = 0;i<markers_zdwxy.length;i++) {
-        map.removeOverlay(markers_zdwxy[i]);
-        markers_zdwxy.remove(i);
+    for(var mzi = 0;mzi<markers_zdwxy.length;mzi++) {
+        map.removeOverlay(markers_zdwxy[mzi]);
+        markers_zdwxy.remove(mzi);
     }
-    for(var i = 0;i<markers_jydbz.length;i++) {
-        map.removeOverlay(markers_jydbz[i]);
-        markers_jydbz.remove(i);
+    for(var mji = 0;mji<markers_jydbz.length;mji++) {
+        map.removeOverlay(markers_jydbz[mji]);
+        markers_jydbz.remove(mji);
     }
-    for(var i = 0;i<markers_zjbz.length;i++) {
-        map.removeOverlay(markers_zjbz[i]);
-        markers_zjbz.remove(i);
+    for(var mzi = 0;mzi<markers_zjbz.length;mzi++) {
+        map.removeOverlay(markers_zjbz[mzi]);
+        markers_zjbz.remove(mzi);
     }
-    for(var i = 0;i<markers_wzbj.length;i++) {
-        map.removeOverlay(markers_wzbj[i]);
-        markers_wzbj.remove(i);
+    for(var mwi = 0;mwi<markers_wzbj.length;mwi++) {
+        map.removeOverlay(markers_wzbj[mwi]);
+        markers_wzbj.remove(mwi);
     }
     overlays.length = 0;
+    clearPrint();
 }
 
 //清空所有覆盖物
@@ -477,7 +511,9 @@ function clearallmarker() {
     markers_jydbz.splice(0);//清空救援队
     markers_zjbz.splice(0);//清空专家
     markers_wzbj.splice(0);//清空物资
+    clearPrint();
 }
+
 //地图右侧侧拉按钮
 function showPanel(){
     if (isPanelShow == false) {
@@ -525,16 +561,67 @@ function immediately(){
 //打印
 function gotoprint(){
    // $("#print_container").jqprint();
+    var reserve_arry = [];//企业预案
+    var digital_arry = [];//监管机构预案
+    var expert_arry = [];//专家
+    var rescue_arry = [];//救援队
+    var equipment_arry = [];//物资
+    var res_dig = {"reserve":"","digital":""};//预案 集合
+    var xls = {"expert":"","rescue":"","equipment":""};//物资专家救援队集合
     $("a",$(".plus-tag")).each(function(){
         var d=$(this);
-        alert("获取选中值:"+d.attr("value"));
+        //alert("获取选中值:"+d.attr("value"));
+        var strs= new Array(); //定义一数组
+        strs= d.attr("value").split(":"); //字符分割
+        if(strs[0]=="reserve"){
+            reserve_arry.push(strs[1]);
+        }
+        if(strs[0]=="digital"){
+            digital_arry.push(strs[1]);
+        }
+        if(strs[0]=="expert"){
+           expert_arry.push(strs[1]);
+        }
+        if(strs[0]=="rescue"){
+           rescue_arry.push(strs[1]);
+        }
+        if(strs[0]=="equipment"){
+           equipment_arry.push(strs[1]);
+        }
     });
+    res_dig.reserve = reserve_arry;
+    res_dig.digital = digital_arry;
+    xls.expert = expert_arry;
+    xls.rescue = rescue_arry;
+    xls.equipment = equipment_arry;
+    if(reserve_arry.length != 0 || digital_arry.length != 0){
+        alert("接口未知");
+        //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
+        clearPrint();
+    }
+    if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
+        $.getJSON("../../cxf/accident/print/"+xls+"",{"rand":Math.random()},function(json){});
+        clearPrint();
+    }
+}
+
+/**
+ * 右下打印角清空
+ */
+function clearPrint(){
+    var a = $(".plus-tag");
+    $("a",a).each(function(){
+        $(this).remove();
+    });
+    $("#printer_btn").hide();
+    $("#myTags").css({"border":""});
 }
 
 //显示推荐方案
-function goConfirm(parm,_lng,_lat,id){
+function goConfirm(parm,_lng,_lat,id,accident_id){
     if(parm){
         playStatus=false;
+        $("#sg_btn").hide();
         $(".demo").show();
       //查询周围物资 500米半径圆
         var point = new BMap.Point(_lng,_lat);
@@ -558,33 +645,42 @@ function goConfirm(parm,_lng,_lat,id){
         content += "</div>";
         addGeneralPoint(_lng,_lat,lid,_icon,content,"详情",500,400,markers_zdwxy);*/
 
-        scope(_lng,_lat);
-        moveMapByBound();
+        scope(_lng,_lat,id);
+       // moveMapByBound();
     }else{
         playStatus=false;
+        map.clearOverlays();
         /*map.clearOverlays();
-        markers = [];*/
+        markers = [];
         overlays = [];
+         */
         for(var i = 0; i < overlays.length; i++){
             map.removeOverlay(overlays[i]);
+            overlays.remove(i);
         }
         for(var di = 0;di<markers.length;di++) {
             var lng =  markers[di].getPosition().lng;
             var lat  = markers[di].getPosition().lat;
+
             if(_lng == lng && _lat == lat){
                 map.removeOverlay(markers[di]);
                 markers.remove(di);
-                closeInfoW();
+               // closeInfoW();
+                infowindow_danger.close();
             }
             if(markers.length-1==di){
                 map.centerAndZoom(cityname,lev);
             }
         }
+        overlays.splice(0);//清空地图圆圈
+        markers_zdwxy.splice(0);//清空重大危险源
+        markers_jydbz.splice(0);//清空救援队
+        markers_zjbz.splice(0);//清空专家
+        markers_wzbj.splice(0);//清空物资
+        current_danger_point_number=current_danger_point_number-1;
         //改变显示状态
-        $.getJSON(
-                "../../cxf/accident/"+id+"",{"rand":Math.random()},function(json){
+       $.getJSON("../../cxf/accident/"+accident_id+"",{"rand":Math.random()},function(json){ });
 
-        });
     }
     PlayStop();//停止预警声音
 }
@@ -995,17 +1091,18 @@ $(function() {
                 mp3: "../../cus/gis/js/jq/message.mp3"
             });
         },
+        ended: function (event) {
+            $(this).jPlayer("play");
+        },
         supplied: "mp3"
     });
 });
 function PlaySound() {
     $("#jplayer").jPlayer('play');
-    ref = setInterval("$('#jplayer').jPlayer('play')", 5000);
     return true;
 }
 function PlayStop() {
-    clearInterval(ref);
-    ref = "";
+    $("#jplayer").jPlayer("stop");
     return true;
 }
 

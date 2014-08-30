@@ -15,7 +15,7 @@ a:hover{color:#3366cc!important;text-decoration:none;}
 *html .clearfix{height:1%;}
 .clearfix{display:block;}/* End hide from IE-mac */
 *+html .clearfix{min-height:1%;}
-.demo{display:none;width:250px;margin:40px auto;position:relative;}
+.demo{display:none;width:250px;margin:5px auto;position:relative; }
 /* Form input */
 .Form li{font-size:21px;font-weight:300}
 .Form input[type=text],.Form input[type=password],.Form textarea{
@@ -190,7 +190,7 @@ a:hover{color:#3366cc!important;text-decoration:none;}
 .default-tag a,.default-tag a span,.plus-tag a,.plus-tag a em,.plus-tag-add a{background:url(images/tagbg.png) no-repeat;}
 .tagbtn a{color:#333333;display:block;float:left;height:22px;line-height:22px;overflow:hidden;margin:0 10px 10px 0;padding:0 10px 0 5px;white-space:nowrap;}
 /* default-tag */
-.default-tag{padding:16px 0 0 0;}
+.default-tag{padding:6px 0 0 0;}
 .default-tag a{background-position:100% 0;}
 .default-tag a:hover{background-position:100% -22px;}
 .default-tag a span{padding:0 0 0 11px;background-position:0 -60px;}
