@@ -39,6 +39,10 @@ public class RescueBean extends PersistentEntity {
     private String expertise ="";   //专长描述
     private String remarks ="";  //备注
 
+    public RescueBean(){
+
+    }
+
     public long getEnterpriseId() {
         return enterpriseId;
     }

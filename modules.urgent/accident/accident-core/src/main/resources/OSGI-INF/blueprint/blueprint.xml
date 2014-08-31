@@ -12,10 +12,16 @@
 
     <bean id="accidentBeanService" class="com.daren.accident.core.biz.AccidentBeanServiceImpl">
         <property name="accidentBeanDao" ref="accidentBeanDao"/>
+        <property name="equipmentBeanDao" ref="equipmentBeanDao"/>
+        <property name="enterpriseExpertBeanDao" ref="enterpriseExpertBeanDao"/>
+        <property name="rescueBeanDao" ref="rescueBeanDao"/>
         <property name="dictBeanService" ref="dictBeanService"/>
     </bean>
 
     <reference id="accidentBeanDao" interface="com.daren.accident.api.dao.IAccidentBeanDao"/>
+    <reference id="equipmentBeanDao" interface="com.daren.equipment.api.dao.IEquipmentBeanDao"/>
+    <reference id="enterpriseExpertBeanDao" interface="com.daren.expert.api.dao.IEnterpriseExpertBeanDao"/>
+    <reference id="rescueBeanDao" interface="com.daren.rescue.api.dao.IRescueBeanDao"/>
     <reference id="dictBeanService" interface="com.daren.admin.api.biz.IDictBeanService"/>
 
     <cxf:bus>
