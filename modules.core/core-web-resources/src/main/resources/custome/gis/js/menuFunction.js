@@ -1,13 +1,3 @@
-//重大危险源标注集合
-var markers_zdwxy = [];
-//救援队标注集合
-var markers_jydbz = [];
-//专家标注集合
-var markers_zjbz = [];
-//物资标注集合
-var markers_wzbj = [];
-var contain_danger_point=false;
-
 
 /**
  * 重大隐患定时器
@@ -29,10 +19,11 @@ $(function () {
                         var _lat =response.wd;
                         if(_lng!="" && _lat!=""){
                             if(markers.length==0){
-                                //添加危险点
+                                goToaddDangerPont(_lng,_lat,mk,"dkred",response);
+                                /*//添加危险点
                                 addDangerPoint(_lng,_lat,mk,"dkred",response);
                                 moveMapByBound();
-                                PlaySound();
+                                PlaySound();*/
                             }else{
                                 for(var mk = 0;mk<markers.length;mk++) {
                                     var lng =  markers[mk].getPosition().lng;
@@ -43,7 +34,8 @@ $(function () {
                                     if(contain_danger_point==false){
                                         playStatus=true;
                                         //添加危险点
-                                        addDangerPoint(_lng,_lat,mk,"dkred",response);
+                                       // addDangerPoint(_lng,_lat,mk,"dkred",response);
+                                        goToaddDangerPont(_lng,_lat,mk,"dkred",response);
                                     }
                                     if(mk==responseJson.length-1){
                                         if(contain_danger_point==false){
@@ -143,6 +135,7 @@ function jydbz(){
                 //var responseJson = json.rescueBean;
                 var responseJson = json;
                 jydStr(responseJson);
+                moveMapByBound();
             }else{
                 alert("没有检索到救援队!");
             }
@@ -161,6 +154,7 @@ function zjbz(){
                // var responseJson = json.enterpriseExpertBean;
                 var responseJson = json;
                 zjStr(responseJson);
+                moveMapByBound();
             }else{
                 alert("没有检索到专家!");
             }
@@ -179,6 +173,7 @@ function wzbj(){
                // var responseJson = json.equipmentBean;
                 var responseJson = json;
                 wzStr(responseJson);
+                moveMapByBound();
             }else{
                 alert("没有检索到物资!");
             }
@@ -189,7 +184,7 @@ function wzbj(){
  * 根据lng lat范围内检索
  * dlw
  */
-function scope(lng,lat){
+function scope(lng,lat,id){
     $.getJSON(
         "../../cxf/expert/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
             if(json!=null){
@@ -240,13 +235,11 @@ function zjStr(responseJson){
         content += "研究方向: <span style='color:green;'>" + response.direction + "</span></br>";
         content += '</div>';
 
-        addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200,markers_zjbz);
-        if (i == responseJson.length - 1) {
+        addGeneralPoint(response.jd, response.wd, i, "label_qyzj", content, "专家详情", 500, 200,markers_zjbz,"expert:"+response.id,response.name);
+  /*      if (i == responseJson.length - 1) {
             moveMapByBound();
-        }
-        /*if (i == responseJson.length - 1) {
-         moveMapByBound();
-         }*/
+        }*/
+
     }
 }
 
@@ -272,10 +265,10 @@ function jydStr(responseJson){
         content += "备注: <span style='color:green;'>" + response.remarks + "</span></br>";
         content += '</div>';
 
-        addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170,markers_jydbz);
-        if (i == responseJson.length - 1) {
+        addGeneralPoint(response.jd, response.wd, i, "label_jyd", content, "救援队详情", 500, 170,markers_jydbz,"rescue:"+response.id,response.name);
+       /* if (i == responseJson.length - 1) {
             moveMapByBound();
-        }
+        }*/
     }
 }
 
@@ -317,9 +310,41 @@ function wzStr(responseJson){
         content += "备注: <span style='color:green;'>" + response.remark + "</span></br>";
         content += '</div>';
 
-        addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj);
-        if (i == responseJson.length - 1) {
+        addGeneralPoint(response.jd, response.wd, i, "label_wz", content, "物资详情", 500, 280,markers_wzbj,"equipment:"+response.id,response.name);
+        /*if (i == responseJson.length - 1) {
             moveMapByBound();
-        }
+        }*/
     }
+}
+
+/**
+ * 危险点前查询解决方案
+ * @param responseJson
+ */
+function goToaddDangerPont(_lng,_lat,mk,icon,responseJson){
+    var content_qy = '';
+    var content_anj = '';
+    $.getJSON(
+            "../../cxf/reservePlan/"+responseJson.id+"",{"rand":Math.random()},function(json){
+            if(json!=null){
+                for(var i=0;i<json.length;i++) {
+                    var response = json[i];
+                    content_qy += '<a value="reserve:'+response.id+'" title="'+response.name+'" href="javascript:void(0);"><span>'+response.name+'</span><em></em></a>';
+                }
+            }
+            $.getJSON(
+                    "../../cxf/digitalPlan",{"rand":Math.random()},function(json){
+                    if(json!=null){
+                        for(var i=0;i<json.length;i++) {
+                            content_anj += '<a value="digital:'+json[i].id+'" title="'+json[i].name+'" href="javascript:void(0);"><span>'+json[i].name+'</span><em></em></a>';
+                        }
+                    }
+                    //添加危险点
+                    addDangerPoint(_lng,_lat,mk,icon,responseJson,content_qy,content_anj);
+                    $(".demo").show();
+                    moveMapByBound();
+                    PlaySound();
+              });
+
+        });
 }
