@@ -75,6 +75,37 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.daren.rescue</groupId>
+            <artifactId>com.daren.rescue.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.rescue</groupId>
+            <artifactId>com.daren.rescue.api</artifactId>
+        </dependency>
+
+        <dependency>
+        <groupId>com.daren.equipment</groupId>
+        <artifactId>com.daren.equipment.entities</artifactId>
+    </dependency>
+
+        <dependency>
+            <groupId>com.daren.equipment</groupId>
+            <artifactId>com.daren.equipment.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.expert</groupId>
+            <artifactId>com.daren.expert.api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
