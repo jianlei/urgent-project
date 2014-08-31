@@ -41,6 +41,10 @@ public class EnterpriseExpertBean extends PersistentEntity {
     private String jd ="";   //经度
     private String wd ="";    //纬度
 
+    public EnterpriseExpertBean(){
+
+    }
+
     public long getAttach() {
         return attach;
     }
@@ -184,4 +188,5 @@ public class EnterpriseExpertBean extends PersistentEntity {
     public void setWd(String wd) {
         this.wd = wd;
     }
+
 }
