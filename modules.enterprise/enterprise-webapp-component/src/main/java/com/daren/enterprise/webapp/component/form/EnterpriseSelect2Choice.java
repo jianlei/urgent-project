@@ -1,5 +1,6 @@
 package com.daren.enterprise.webapp.component.form;
 
+import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.webapp.component.data.EnterpriseProvider;
 import com.vaynberg.wicket.select2.Select2Choice;
 import org.apache.wicket.model.IModel;
@@ -13,17 +14,9 @@ import org.apache.wicket.model.IModel;
  * 修改时间:  2014/8/15 11:10
  * 修改备注:  [说明本次修改内容]
  */
-public class EnterpriseSelect2Choice<T> extends Select2Choice {
-
-
-    public EnterpriseSelect2Choice(String id) {
-        super(id);
-    }
-
+public class EnterpriseSelect2Choice extends Select2Choice<EnterpriseBean> {
     public EnterpriseSelect2Choice(String id, IModel model) {
         super(id, model, new EnterpriseProvider());
         getSettings().setMinimumInputLength(2);
     }
-
-
 }

@@ -65,7 +65,7 @@ public class EnterpriseProvider extends ChoiceProvider<EnterpriseBean> {
     public Collection<EnterpriseBean> toChoices(Collection<String> ids) {
         ArrayList<EnterpriseBean> beans = new ArrayList<EnterpriseBean>();
         for (String id : ids) {
-            beans.add((EnterpriseBean) enterpriseBeanService.getEntity(new Long(id)));
+            beans.add( enterpriseBeanService.getByQyid(id));
         }
         return beans;
     }

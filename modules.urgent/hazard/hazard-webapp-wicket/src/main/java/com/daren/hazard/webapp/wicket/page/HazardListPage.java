@@ -2,6 +2,8 @@ package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.hazard.api.biz.IHazardBeanService;
 import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -31,14 +33,18 @@ import java.util.List;
  * @修改备注：
  */
 
-public class HazardPage extends BasePanel {
+public class HazardListPage extends BasePanel {
 
     MajorHazardSourceDataProvider provider = new MajorHazardSourceDataProvider();
 
     @Inject
     private IHazardBeanService majorHazardSourceService;
 
-    public HazardPage(final String id, final WebMarkupContainer wmc) {
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
+
+
+    public HazardListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
 
@@ -51,8 +57,9 @@ public class HazardPage extends BasePanel {
             protected void populateItem(Item<HazardBean> item) {
                 final HazardBean hazardBean = item.getModelObject();
                 item.add(new Label("name", hazardBean.getName()));
-                item.add(new Label("expertName", hazardBean.getExpertName()));
-                item.add(new Label("estimate", hazardBean.getEstimate()));
+                EnterpriseBean enterpriseBean= enterpriseBeanService.getByQyid(hazardBean.getQyid());
+                item.add(new Label("qyid", enterpriseBean.getQymc()));
+//                item.add(new Label("estimate", hazardBean.getEstimate()));
                 item.add(new Label("jd", hazardBean.getJd()));
                 item.add(new Label("wd", hazardBean.getWd()));
                 item.add(new Label("accidentRate", hazardBean.getAccidentRate()));

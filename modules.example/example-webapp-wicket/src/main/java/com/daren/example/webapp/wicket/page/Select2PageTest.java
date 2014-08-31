@@ -3,7 +3,6 @@ package com.daren.example.webapp.wicket.page;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.entities.OrganizationBean;
 import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.enterprise.webapp.component.form.OrganizationSelectChoice;
@@ -40,7 +39,7 @@ public class Select2PageTest extends BasePanel {
         super(id, wmc);
         Form<?> form = new Form<Void>("single");
         add(form);
-        EnterpriseSelect2Choice<EnterpriseBean> user = new EnterpriseSelect2Choice<EnterpriseBean>("country");
+        EnterpriseSelect2Choice user = new EnterpriseSelect2Choice("country");
         user.getSettings().setMinimumInputLength(2);
         form.add(user);
         //监管机构

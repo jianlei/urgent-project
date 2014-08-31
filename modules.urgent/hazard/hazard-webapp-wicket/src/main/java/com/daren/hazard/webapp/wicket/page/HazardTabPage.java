@@ -27,12 +27,11 @@ import java.util.List;
 
 public class HazardTabPage extends BasePanel {
 
-    private final TabbedPanel tabPanel;
-
     final RepeatingView createPage = new RepeatingView("createPage");
+    private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     Fragment createFragment;
-    HazardCreatePage hazardCreatePage;
+    HazardAddPage hazardCreatePage;
 
     public HazardTabPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
@@ -60,8 +59,8 @@ public class HazardTabPage extends BasePanel {
         return tabs;
     }
 
-    private HazardPage initHazardPage(final String id, final WebMarkupContainer wmc) {
-        HazardPage hazardPage = new HazardPage(id, wmc) {
+    private HazardListPage initHazardPage(final String id, final WebMarkupContainer wmc) {
+        HazardListPage hazardPage = new HazardListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(HazardBean hazardBean, AjaxRequestTarget target) {
                 initHazardCreatePage(id, wmc, hazardBean, target, true);
@@ -86,7 +85,7 @@ public class HazardTabPage extends BasePanel {
 
                 @Override
                 public WebMarkupContainer getLazyPanel(String panelId) {
-                    hazardCreatePage = new HazardCreatePage(createPage.newChildId(), wmc, hazardBean) {
+                    hazardCreatePage = new HazardAddPage(createPage.newChildId(), wmc, hazardBean) {
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
                             if (getActiveTab("重大危险源编辑") > 0){
@@ -105,7 +104,7 @@ public class HazardTabPage extends BasePanel {
             };
             tabPanel.add(createAjaxTab);
         } else {
-            hazardCreatePage = new HazardCreatePage(createPage.newChildId(), wmc, hazardBean) {
+            hazardCreatePage = new HazardAddPage(createPage.newChildId(), wmc, hazardBean) {
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
                     if (getActiveTab("重大危险源编辑") > 0){

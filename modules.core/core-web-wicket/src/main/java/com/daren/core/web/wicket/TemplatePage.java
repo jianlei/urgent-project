@@ -2,14 +2,10 @@ package com.daren.core.web.wicket;
 
 import com.daren.core.web.wicket.custome.CustomeHeaderPanel;
 import com.daren.core.web.wicket.custome.CustomeMenuPanel;
-import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
-import org.apache.wicket.settings.IJavaScriptLibrarySettings;
+import org.apache.wicket.markup.html.link.Link;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 
@@ -25,6 +21,14 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
 public class TemplatePage extends WebPage {
     public TemplatePage() {
+        Link home=new Link("home") {
+            @Override
+            public void onClick() {
+                setResponsePage(getApplication().getHomePage());
+//                getRequestUrl();
+            }
+        };
+        this.add(home);
         final WebMarkupContainer wmc = new WebMarkupContainer("container");
         wmc.setOutputMarkupPlaceholderTag(true); //Set the flag placeholder so it can be updated via AJAX
 
@@ -42,7 +46,7 @@ public class TemplatePage extends WebPage {
        /* IJavaScriptLibrarySettings settings =Application.get().getJavaScriptLibrarySettings();
         response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(settings.getJQueryReference())));
 */
-
-
     }
+
+
 }

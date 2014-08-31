@@ -31,7 +31,7 @@ import java.util.Map;
  * @修改备注：
  */
 
-public class MonitorCreatePage extends BasePanel {
+public class MonitorAddPage extends BasePanel {
 
     MonitorBean monitorBean = new MonitorBean();
     Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(monitorBean));
@@ -45,7 +45,7 @@ public class MonitorCreatePage extends BasePanel {
     private IEnterpriseBeanService enterpriseBeanService;
 
 
-    public MonitorCreatePage(final String id, final WebMarkupContainer wmc, final MonitorBean bean) {
+    public MonitorAddPage(final String id, final WebMarkupContainer wmc, final MonitorBean bean) {
         super(id, wmc);
         if (null != bean) {
             monitorBean = bean;
