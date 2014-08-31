@@ -1,6 +1,7 @@
 package com.daren.admin.webapp.wicket.page;
 
 import com.daren.admin.entities.DictBean;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
@@ -9,8 +10,6 @@ import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
@@ -223,16 +222,7 @@ public class DictListPage extends BasePanel {
          */
         private AjaxLink initDeleteButton(final DictBean row) {
             //删除功能
-            AjaxLink alink = new AjaxLink("delete") {
-                @Override
-                protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                    super.updateAjaxAttributes(attributes);
-                    AjaxCallListener listener = new AjaxCallListener();
-
-                    listener.onPrecondition("if(!confirm('" + getString("urgent.delete.confirm") + "')){return false;}");
-                    attributes.getAjaxCallListeners().add(listener);
-                }
-
+            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("delete") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {

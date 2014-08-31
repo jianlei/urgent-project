@@ -2,6 +2,9 @@ package com.daren.hazard.webapp.wicket.page;
 
 import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.hazard.api.biz.IHazardBeanService;
 import com.daren.hazard.entities.HazardBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -14,9 +17,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
-import java.util.Date;
 
 
 /**
@@ -28,22 +31,28 @@ import java.util.Date;
  * @修改备注：
  */
 
-public class HazardCreatePage extends BasePanel {
+public class HazardAddPage extends BasePanel {
 
     final WebMarkupContainer dialogWrapper;
     Form<HazardBean> hazardBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new HazardBean()));
 
+    EnterpriseBean enterpriseBean=new EnterpriseBean();
     HazardBean hazardBean = new HazardBean();
+    EnterpriseSelect2Choice enterpriseSelect2Choice;
     WindowMapPage dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IHazardBeanService hazardBeanService;
 
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
 
-    public HazardCreatePage(final String id, final WebMarkupContainer wmc, final HazardBean bean) {
+
+    public HazardAddPage(final String id, final WebMarkupContainer wmc, final HazardBean bean) {
         super(id, wmc);
         if (null != bean) {
             hazardBean = bean;
+            enterpriseBean=enterpriseBeanService.getByQyid(hazardBean.getQyid());
         }
         initForm(hazardBean);
         initFeedBack();
@@ -67,6 +76,8 @@ public class HazardCreatePage extends BasePanel {
         hazardBeanForm.setMultiPart(true);
         this.add(hazardBeanForm);
 
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice("qyid", Model.of(enterpriseBean));
+        hazardBeanForm.add(enterpriseSelect2Choice);
         addTextFieldsToForm();
         hazardBeanForm.add(initGisButton());
         AjaxButton ajaxSubmitLink = new AjaxButton("save", hazardBeanForm) {
@@ -75,7 +86,8 @@ public class HazardCreatePage extends BasePanel {
                 HazardBean hazardBean = (HazardBean) hazardBeanForm.getDefaultModelObject();
                 if (null != hazardBean) {
                     try {
-                        hazardBean.setUpdateDate(new Date());
+                        EnterpriseBean enterpriseBean=enterpriseSelect2Choice.getModelObject();
+                        hazardBean.setQyid(enterpriseBean.getQyid());
                         hazardBeanService.saveEntity(hazardBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
@@ -124,7 +136,8 @@ public class HazardCreatePage extends BasePanel {
         addTextFieldToForm("name");
         addTextFieldToForm("expertName");
         addTextFieldToForm("accidentRate");
-        addTextFieldToForm("enterpriseBeanId");
+
+//        addTextFieldToForm("enterpriseBeanId");
         addTextFieldToForm("place");
         addTextFieldToForm("startTime");
         addTextFieldToForm("level");

@@ -402,6 +402,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.admin</groupId>
+                <artifactId>com.daren.admin.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.enterprise</groupId>
                 <artifactId>com.daren.enterprise.webapp.component</artifactId>
                 <version>${project.version}</version>

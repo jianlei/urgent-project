@@ -31,4 +31,6 @@ public interface IEnterpriseBeanService extends IBizService {
     @Produces("application/json;charset=utf-8")
     @Path("/name/{qymc}")
     public EnterpriseBean getEnterpriseBeanByQymc(@PathParam("qymc") String qymc);
+
+    EnterpriseBean getByQyid(String id);
 }

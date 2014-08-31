@@ -30,7 +30,7 @@ public class HazardBean extends PersistentEntity {
     private String name="";//危险源名称
     private String expertName="";//专家名称
     private int accidentRate;//可能发生的事故率
-    private int enterpriseBeanId;//企业ID
+    private String qyid;//企业ID
     private String place="";//所在地址
     private String startTime="";//投用时间
     private String level="";//重大危险源级别
@@ -119,12 +119,12 @@ public class HazardBean extends PersistentEntity {
         this.accidentRate = accidentRate;
     }
 
-    public int getEnterpriseBeanId() {
-        return enterpriseBeanId;
+    public String getQyid() {
+        return qyid;
     }
 
-    public void setEnterpriseBeanId(int enterpriseBeanId) {
-        this.enterpriseBeanId = enterpriseBeanId;
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
     }
 
     public String getPlace() {

@@ -31,7 +31,7 @@ public class MonitorTabPage extends BasePanel {
     private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     Fragment createFragment;
-    MonitorCreatePage monitorCreatePage;
+    MonitorAddPage monitorCreatePage;
 
     public MonitorTabPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
@@ -59,8 +59,8 @@ public class MonitorTabPage extends BasePanel {
         return tabs;
     }
 
-    private MonitorPage initMonitorPage(final String id, final WebMarkupContainer wmc) {
-        MonitorPage monitorPage = new MonitorPage(id, wmc) {
+    private MonitorListPage initMonitorPage(final String id, final WebMarkupContainer wmc) {
+        MonitorListPage monitorPage = new MonitorListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(MonitorBean monitorBean, AjaxRequestTarget target) {
                 initMonitorCreatePage(id, wmc, monitorBean, target, true);
@@ -85,7 +85,7 @@ public class MonitorTabPage extends BasePanel {
 
                 @Override
                 public WebMarkupContainer getLazyPanel(String panelId) {
-                    monitorCreatePage = new MonitorCreatePage(createPage.newChildId(), wmc, monitorBean) {
+                    monitorCreatePage = new MonitorAddPage(createPage.newChildId(), wmc, monitorBean) {
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
                             if (getActiveTab("监控设备编辑") > 0) {
@@ -104,7 +104,7 @@ public class MonitorTabPage extends BasePanel {
             };
             tabPanel.add(createAjaxTab);
         } else {
-            monitorCreatePage = new MonitorCreatePage(createPage.newChildId(), wmc, monitorBean) {
+            monitorCreatePage = new MonitorAddPage(createPage.newChildId(), wmc, monitorBean) {
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
                     if (getActiveTab("监控设备编辑") > 0) {

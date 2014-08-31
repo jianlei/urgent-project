@@ -57,4 +57,9 @@ public class EnterpriseBeanServiceImpl extends GenericBizServiceImpl implements 
     public EnterpriseBean getEnterpriseBeanByQymc(String qymc) {
         return enterpriseBeanDao.findUnique("select a from EnterpriseBean a where a.qymc LIKE ?1", "%" + qymc + "%");
     }
+
+    @Override
+    public EnterpriseBean getByQyid(String id) {
+        return enterpriseBeanDao.findUnique("select a from EnterpriseBean a where a.qyid=?1", id);
+    }
 }

@@ -3,6 +3,7 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IAreaBeanService;
 import com.daren.admin.entities.AreaBean;
 import com.daren.admin.webapp.wicket.data.AreaTreeProvider;
+import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.table.IrisTableTree;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.core.Options;
@@ -13,8 +14,6 @@ import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
@@ -245,16 +244,7 @@ public class AreaListPage extends BasePanel {
          */
         private AjaxLink initDeleteButton(final AreaBean row) {
             //删除功能
-            AjaxLink alink = new AjaxLink("delete") {
-                @Override
-                protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                    super.updateAjaxAttributes(attributes);
-                    AjaxCallListener listener = new AjaxCallListener();
-
-                    listener.onPrecondition("if(!confirm('" + getString("urgent.delete.confirm") + "')){return false;}");
-                    attributes.getAjaxCallListeners().add(listener);
-                }
-
+            IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("delete") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     try {

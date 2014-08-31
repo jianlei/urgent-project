@@ -24,8 +24,8 @@
 
 
     <bean id="shiroRealm" class="com.daren.government.web.bootup.wicket.shiro.ShiroRealm">
-        <property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
-        <property name="casService" value="https://localhost:9191/government"/>
+        <!--<property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
+        <property name="casService" value="https://localhost:9191/government"/>-->
     </bean>
 
     <bean id="webSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
@@ -42,7 +42,7 @@
 
     <!-- 发布session工厂 -->
 
-    <bean id="SessionFactory" class="com.daren.government.web.bootup.wicket.shiro.ShiroSessionFactory">
+    <bean id="SessionFactory" class="com.daren.core.security.shiro.ShiroSessionFactory">
 
     </bean>
 
@@ -68,16 +68,16 @@
         <argument index="2" value="6379" type="int"/>
     </bean>
 
-    <bean id="jedisShiroSessionRepository" class="com.daren.government.web.bootup.wicket.shiro.JedisShiroSessionRepository">
+    <bean id="jedisShiroSessionRepository" class="com.daren.core.security.shiro.JedisShiroSessionRepository">
         <property name="jedisPool" ref="shardedJedisPool"/>
     </bean>
 
     <service ref="jedisShiroSessionRepository"
-             interface="com.daren.government.web.bootup.wicket.shiro.ShiroSessionRepository">
+             interface="com.daren.core.security.shiro.ShiroSessionRepository">
 
     </service>
 
-    <bean id="customShiroSessionDAO" class="com.daren.government.web.bootup.wicket.shiro.CustomShiroSessionDAO">
+    <bean id="customShiroSessionDAO" class="com.daren.core.security.shiro.CustomShiroSessionDAO">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
 
@@ -87,7 +87,7 @@
         <property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache-government.xml"/>
     </bean>-->
 
-    <bean id="shiroCacheManager" class="com.daren.government.web.bootup.wicket.shiro.ShiroCacheManager">
+    <bean id="shiroCacheManager" class="com.daren.core.security.shiro.ShiroCacheManager">
         <property name="cacheManager" ref="cacheManager"/>
         <!--<property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache.xml"/>-->
     </bean>

@@ -69,7 +69,6 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     public Class<? extends Page> getHomePage() {
         //return homePageProvider.getPageClass();
-//        return TemplatePage.class;
         return TemplatePage.class;
     }
 

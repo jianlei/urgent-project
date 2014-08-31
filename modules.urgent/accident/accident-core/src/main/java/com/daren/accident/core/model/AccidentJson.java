@@ -22,6 +22,8 @@ public class AccidentJson {
     private String operator;//经办人
     private String operatorPhone;//经办人电话
     private long id;//查询摄像头id
+    private long accident_id;//事故id 更新状态用
+    private String qylxfs;//企业联系方式
 
     public String getQymc() {
         return qymc;
@@ -125,5 +127,21 @@ public class AccidentJson {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getAccident_id() {
+        return accident_id;
+    }
+
+    public void setAccident_id(long accident_id) {
+        this.accident_id = accident_id;
+    }
+
+    public String getQylxfs() {
+        return qylxfs;
+    }
+
+    public void setQylxfs(String qylxfs) {
+        this.qylxfs = qylxfs;
     }
 }

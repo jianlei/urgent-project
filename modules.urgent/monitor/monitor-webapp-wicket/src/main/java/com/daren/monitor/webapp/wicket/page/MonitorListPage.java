@@ -33,7 +33,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class MonitorPage extends BasePanel {
+public class MonitorListPage extends BasePanel {
 
     MajorMonitorSourceDataProvider provider = new MajorMonitorSourceDataProvider();
 
@@ -43,7 +43,7 @@ public class MonitorPage extends BasePanel {
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
 
-    public MonitorPage(final String id, final WebMarkupContainer wmc) {
+    public MonitorListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
 
@@ -62,8 +62,8 @@ public class MonitorPage extends BasePanel {
                 long enterpriseId = new Long(monitorBean.getAffiliation());
                 EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
                 item.add(new Label("affiliation", enterpriseBean.getQymc()));//企业名称
-                item.add(new Label("admin", monitorBean.getAdmin()));//企业名称
-                item.add(new Label("password", monitorBean.getPassword()));//企业名称
+                /*item.add(new Label("admin", monitorBean.getAdmin()));//企业名称
+                item.add(new Label("password", monitorBean.getPassword()));//企业名称*/
                 item.add(getToCreatePageLink("check_name", monitorBean));
 
                 AjaxLink alink = new AjaxLink("del") {

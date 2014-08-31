@@ -31,7 +31,7 @@ public class InitActivator implements BundleActivator {
     public void start(BundleContext bundleContext) throws Exception {
         InitActivator.context = bundleContext;
 //        注册一个测试filter
-//        DelegatingFilterFactory delegatingFilterFactory = new DelegatingFilterFactory(bundleContext, "daren.project.example", 2);
+//        DelegatingFilterFactory delegatingFilterFactory = new DelegatingFilterFactory(bundleContext, "daren.project.government", 2);
 //        delegatingFilterFactory.register();
     }
 
