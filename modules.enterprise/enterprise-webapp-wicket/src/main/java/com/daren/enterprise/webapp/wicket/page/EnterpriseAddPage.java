@@ -44,6 +44,7 @@ public class EnterpriseAddPage extends BasePanel {
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
 
+
     public EnterpriseAddPage(final String id, final WebMarkupContainer wmc, EnterpriseBean bean) {
         super(id, wmc);
         if (null != bean) {
@@ -52,9 +53,8 @@ public class EnterpriseAddPage extends BasePanel {
         initForm(enterpriseBean);
         initFeedBack();
         addForm(id, wmc);
-        EnterpriseSelect2Choice<EnterpriseBean> user = new EnterpriseSelect2Choice<EnterpriseBean>("country");
-        user.getSettings().setMinimumInputLength(2);
-        form.add(user);
+        EnterpriseSelect2Choice enterpriseSelect2Choice= new EnterpriseSelect2Choice ("country",Model.of(enterpriseBean));
+        enterpriseBeanForm.add(enterpriseSelect2Choice);
         addSelectToForm();
     }
 
