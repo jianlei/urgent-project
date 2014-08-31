@@ -29,6 +29,6 @@ public interface IEnterpriseExpertBeanService extends IBizService {
 
     @GET
     @Produces("application/json;charset=utf-8")
-    @Path("/scope/{lng}/{lat}")
-    List<EnterpriseExpertBean> getEnterpriseExpertByScope(@PathParam("lng")String lng,@PathParam("lat")String lat);
+    @Path("/scope/{lng}/{lat}/{distance}")
+    List<EnterpriseExpertBean> getEnterpriseExpertByScope(@PathParam("lng")String lng,@PathParam("lat")String lat,@PathParam("distance")String distance);
 }

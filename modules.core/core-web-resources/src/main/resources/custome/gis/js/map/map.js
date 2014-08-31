@@ -55,6 +55,8 @@ var markers_zjbz = [];
 //物资标注集合
 var markers_wzbj = [];
 var contain_danger_point=false;
+var distance=0.5;//默认500米范围内
+
 
 //--初始化地图
 function initialize(lng,lat,cityname,lev,contenid) {
@@ -396,12 +398,20 @@ function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_
             });
         }
     });
-    marker.addEventListener("mouseover",function(){
-        openInfoW(_lng,_lat,title,width,height,content);
-    });
-    marker.addEventListener("mouseout",function(){
-        closeInfoW();
-    });
+    if(_icon=="label_zdwxy"){
+        marker.addEventListener("click",function(){
+            openInfoW(_lng,_lat,title,width,height,content);
+        });
+    }else{
+        marker.addEventListener("mouseover",function(){
+            openInfoW(_lng,_lat,title,width,height,content);
+        });
+        marker.addEventListener("mouseout",function(){
+            closeInfoW();
+        });
+    }
+
+
 }
 //打开标注窗口
 /*function openInfoW(responseJson,marker) {
@@ -474,39 +484,23 @@ function moveMapByBound() {
 
 //鼠标右件清空
 function clearAll() {
-    for(var oi = 0; oi < overlays.length; oi++){
-        map.removeOverlay(overlays[oi]);
-    }
-    for(var mi = 0;mi<markers.length;mi++) {
-        if(mi>current_danger_point_number){
-            map.removeOverlay(markers[mi]);
-        }
-    }
-    for(var mzi = 0;mzi<markers_zdwxy.length;mzi++) {
-        map.removeOverlay(markers_zdwxy[mzi]);
-        markers_zdwxy.remove(mzi);
-    }
-    for(var mji = 0;mji<markers_jydbz.length;mji++) {
-        map.removeOverlay(markers_jydbz[mji]);
-        markers_jydbz.remove(mji);
-    }
-    for(var mzi = 0;mzi<markers_zjbz.length;mzi++) {
-        map.removeOverlay(markers_zjbz[mzi]);
-        markers_zjbz.remove(mzi);
-    }
-    for(var mwi = 0;mwi<markers_wzbj.length;mwi++) {
-        map.removeOverlay(markers_wzbj[mwi]);
-        markers_wzbj.remove(mwi);
-    }
-    overlays.length = 0;
-    clearPrint();
+    clearallmarker();
 }
 
 //清空所有覆盖物
 function clearallmarker() {
     map.clearOverlays();
-    markers.splice(0);
+    //markers.splice(0);
+    for(var mi = 0;mi<markers.length;mi++) {
+        if(mi>current_danger_point_number){
+            map.removeOverlay(markers[mi]);
+        }else{
+            map.addOverlay(markers[mi]);
+        }
+    }
+    current_danger_point_number=0
     overlays.splice(0);//清空地图圆圈
+    overlays.length = 0;
     markers_zdwxy.splice(0);//清空重大危险源
     markers_jydbz.splice(0);//清空救援队
     markers_zjbz.splice(0);//清空专家
@@ -514,6 +508,41 @@ function clearallmarker() {
     clearPrint();
 }
 
+/**
+ * 清空企业专家标注
+ */
+function clearall_zj(){
+    //清空地图已有企业专家标注
+    for(var mwi = 0;mwi<markers_zjbz.length;mwi++) {
+        map.removeOverlay(markers_zjbz[mwi]);
+        markers_zjbz.remove(mwi);
+    }
+    clearPrint();
+}
+
+/**
+ * 清空救援队标注
+ */
+function clearall_jyd(){
+    //清空地图已有救援队标注
+    for(var mwi = 0;mwi<markers_jydbz.length;mwi++) {
+        map.removeOverlay(markers_jydbz[mwi]);
+        markers_jydbz.remove(mwi);
+    }
+    clearPrint();
+}
+
+/**
+ * 清空物资标注
+ */
+function clearall_wzbj(){
+    //清空地图已有物资标注
+    for(var mwi = 0;mwi<markers_wzbj.length;mwi++) {
+        map.removeOverlay(markers_wzbj[mwi]);
+        markers_wzbj.remove(mwi);
+    }
+    clearPrint();
+}
 //地图右侧侧拉按钮
 function showPanel(){
     if (isPanelShow == false) {
@@ -628,6 +657,7 @@ function clearPrint(){
 function goConfirm(parm,_lng,_lat,id,accident_id){
     if(parm){
         playStatus=false;
+        distance=0.5;//搜索范围500米
         $("#sg_btn").hide();
         $(".demo").show();
       //查询周围物资 500米半径圆
@@ -848,7 +878,9 @@ function rightTab(){
                         $("#drag_btn").attr("src","../../cus/gis/css/images/draged.png");
                         $("#circle_btn").attr("src","../../cus/gis/css/images/circle.png");
                         //localSearch.searchNearby('火车票代售点', center,radius,{customData:{databoxId:15611}});
-                        alert("开始检索救援队!"+circle.getCenter().lng+"-------"+circle.getCenter().lat+"半径:"+Math.round(circle.getRadius()) +"米");
+                        distance=Math.round(circle.getRadius())/1000;//搜索范围500米
+                        //alert("开始检索救援队!"+circle.getCenter().lng+"-------"+circle.getCenter().lat+"半径:"+Math.round(circle.getRadius()) +"米");
+                        scope(circle.getCenter().lng,circle.getCenter().lat,0);
                     });
                 },
                 mouseenter: function() {

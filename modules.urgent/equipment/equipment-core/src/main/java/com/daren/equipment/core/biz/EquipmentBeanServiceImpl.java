@@ -37,9 +37,9 @@ public class EquipmentBeanServiceImpl extends GenericBizServiceImpl implements I
     }
 
     @Override
-    public List<EquipmentBean> getRescueBeanByScope(String lng, String lat) {
+    public List<EquipmentBean> getRescueBeanByScope(String lng, String lat,String distance) {
         return equipmentBeanDao.findByNativeSql("SELECT *  FROM urgent_equipment  AS t where" +
-                " (6371 * ACOS( COS( RADIANS(?2) ) * COS( RADIANS( wd) ) * COS( RADIANS(t.jd) - RADIANS(?1) ) + SIN( RADIANS(?2) ) * SIN( RADIANS(t.wd) ) ) ) < 500 ", EquipmentBean.class, lng, lat);
+                " (6371 * ACOS( COS( RADIANS(?2) ) * COS( RADIANS( wd) ) * COS( RADIANS(t.jd) - RADIANS(?1) ) + SIN( RADIANS(?2) ) * SIN( RADIANS(t.wd) ) ) ) < ?3 ", EquipmentBean.class, lng, lat,distance);
     }
 }
 

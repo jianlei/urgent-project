@@ -63,6 +63,7 @@ function zdwxy(){
     $.getJSON(
         "../../cxf/hazard",{"rand":Math.random()},function(json){
             if(json!=null){
+                var hazard_width=500;
                // clearallmarker();
                 //var responseJson = json.hazardBean;
                 var responseJson = json;
@@ -111,8 +112,28 @@ function zdwxy(){
                     content += "情况类型（北）: <span style='color:green;'>"+response.zbqklxb+"</span></br>";
 
                     content+= '</div>';
+                    if(response.qyid!=""){
+                        $.getJSON(
+                                "../../cxf/monitor/"+response.qyid+"",{"rand":Math.random()},function(json) {
+                                if (json != null) {
+                                    var streamSvrIp ="";
+                                    var TextIP ="";
+                                    var TextName1 ="";
+                                    var TextPwd1 ="";
+                                    TextIP = json[0].ipAddress;
+                                    TextName1 = json[0].admin;
+                                    TextPwd1 = json[0].password;
+                                    content += '<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
+                                        '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp=' + streamSvrIp + '&&TextIP=' + TextIP + '&&TextName1=' + TextName1 + '&&TextPwd1=' + TextPwd1 + '" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>' +
+                                        '</div>';
+                                    hazard_width=800;
+                                }
+                                addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy);
+                            });
+                    }else{
+                        addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy);
+                    }
 
-                    addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",500,400,markers_zdwxy);
                     if(i==responseJson.length-1){
                         moveMapByBound();
                     }
@@ -186,21 +207,21 @@ function wzbj(){
  */
 function scope(lng,lat,id){
     $.getJSON(
-        "../../cxf/expert/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+        "../../cxf/expert/scope/"+lng+"/"+lat+"/"+distance+"",{"rand":Math.random()},function(json){
             if(json!=null){
                 var responseJson = json;
                 zjStr(responseJson);
             }
         });
    $.getJSON(
-            "../../cxf/rescue/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+            "../../cxf/rescue/scope/"+lng+"/"+lat+"/"+distance+"",{"rand":Math.random()},function(json){
             if(json!=null){
                 var responseJson = json;
                 jydStr(responseJson);
             }
         });
     $.getJSON(
-            "../../cxf/equipment/scope/"+lng+"/"+lat+"",{"rand":Math.random()},function(json){
+            "../../cxf/equipment/scope/"+lng+"/"+lat+"/"+distance+"",{"rand":Math.random()},function(json){
             if(json!=null){
                 var responseJson = json;
                 wzStr(responseJson);
@@ -213,6 +234,8 @@ function scope(lng,lat,id){
  * @param responseJson
  */
 function zjStr(responseJson){
+    //清空地图已有企业专家标注
+    clearall_zj();
     for(var i=0;i<responseJson.length;i++){
         var response = responseJson[i];
         var content = "<div style='float:left;width:240px;padding-top:10px'>专家姓名: <span style='color:green;'>" + response.name + "</span></br>";
@@ -249,6 +272,8 @@ function zjStr(responseJson){
  * @param responseJson
  */
 function jydStr(responseJson){
+    //清空地图已有救援队标注
+    clearall_jyd();
     for(var i=0;i<responseJson.length;i++){
         var response = responseJson[i];
         var content = "<div style='float:left;width:240px;padding-top:10px'>救援队名称: <span style='color:green;'>" + response.name + "</span></br>";
@@ -277,6 +302,10 @@ function jydStr(responseJson){
  * @param responseJson
  */
 function wzStr(responseJson){
+    /**
+     * 清空物资标注
+     */
+    clearall_wzbj();
     for(var i=0;i<responseJson.length;i++){
         var response = responseJson[i];
         var content = "<div style='float:left;width:240px;padding-top:10px'>物资装备名称: <span style='color:green;'>" + response.name + "</span></br>";

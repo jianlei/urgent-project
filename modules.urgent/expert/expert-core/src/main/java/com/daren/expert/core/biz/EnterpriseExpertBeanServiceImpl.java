@@ -39,9 +39,9 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
     }
 
     @Override
-    public List<EnterpriseExpertBean> getEnterpriseExpertByScope(String lng, String lat) {
+    public List<EnterpriseExpertBean> getEnterpriseExpertByScope(String lng, String lat,String distance) {
         return enterpriseExpertBeanDao.findByNativeSql("SELECT *  FROM urg_exp_enterprise  AS t where" +
-                " (6371 * ACOS( COS( RADIANS(?2) ) * COS( RADIANS( wd) ) * COS( RADIANS(t.jd) - RADIANS(?1) ) + SIN( RADIANS(?2) ) * SIN( RADIANS(t.wd) ) ) ) < 500 ", EnterpriseExpertBean.class, lng, lat);
+                " (6371 * ACOS( COS( RADIANS(?2) ) * COS( RADIANS( wd) ) * COS( RADIANS(t.jd) - RADIANS(?1) ) + SIN( RADIANS(?2) ) * SIN( RADIANS(t.wd) ) ) ) < ?3", EnterpriseExpertBean.class, lng, lat,distance);
     }
 }
 

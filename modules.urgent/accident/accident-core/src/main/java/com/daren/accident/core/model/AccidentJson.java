@@ -21,7 +21,7 @@ public class AccidentJson {
     private String videoLink;//视频链接地址
     private String operator;//经办人
     private String operatorPhone;//经办人电话
-    private long id;//查询摄像头id
+    private String id;//查询摄像头id
     private long accident_id;//事故id 更新状态用
     private String qylxfs;//企业联系方式
 
@@ -121,11 +121,11 @@ public class AccidentJson {
         this.operatorPhone = operatorPhone;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

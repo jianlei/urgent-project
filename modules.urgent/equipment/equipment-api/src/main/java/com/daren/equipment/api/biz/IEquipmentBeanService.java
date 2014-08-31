@@ -27,6 +27,6 @@ public interface IEquipmentBeanService extends IBizService {
 
     @GET
     @Produces("application/json;charset=utf-8")
-    @Path("/scope/{lng}/{lat}")
-    List<EquipmentBean> getRescueBeanByScope(@PathParam("lng")String lng, @PathParam("lat")String lat);
+    @Path("/scope/{lng}/{lat}/{distance}")
+    List<EquipmentBean> getRescueBeanByScope(@PathParam("lng")String lng, @PathParam("lat")String lat,@PathParam("distance")String distance);
 }
