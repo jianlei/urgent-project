@@ -51,4 +51,9 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
         return organizationBeanDao.findbyPage(
                 "select t from OrganizationBean t where t.mc like '%"+term+"%'",page,page_size);
     }
+
+    @Override
+    public OrganizationBean getByJgdm(String id) {
+      return   organizationBeanDao.findUnique("select a from OrganizationBean a where a.jgdm=?1", id);
+    }
 }

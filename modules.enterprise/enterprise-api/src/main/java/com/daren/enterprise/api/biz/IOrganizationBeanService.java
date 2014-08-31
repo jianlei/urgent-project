@@ -32,4 +32,10 @@ public interface IOrganizationBeanService extends IBizService {
      */
     List<OrganizationBean> findByName(String term, int page, int page_size);
 
+    /**
+     * 通过机构代码获得机构
+     * @param id
+     * @return
+     */
+    OrganizationBean getByJgdm(String id);
 }

@@ -61,7 +61,7 @@ public class OrganizationProvider  extends ChoiceProvider<OrganizationBean> {
     public Collection<OrganizationBean> toChoices(Collection<String> ids) {
         ArrayList<OrganizationBean> beans = new ArrayList<OrganizationBean>();
         for (String id : ids) {
-            beans.add((OrganizationBean) organizationBeanService.getEntity(new Long(id)));
+            beans.add( organizationBeanService.getByJgdm(id));
         }
         return beans;
     }

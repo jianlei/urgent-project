@@ -5,6 +5,7 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAj
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.entities.OrganizationBean;
 import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
@@ -43,7 +44,6 @@ public class EnterpriseAddPage extends BasePanel {
     private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
-
 
     public EnterpriseAddPage(final String id, final WebMarkupContainer wmc, EnterpriseBean bean) {
         super(id, wmc);

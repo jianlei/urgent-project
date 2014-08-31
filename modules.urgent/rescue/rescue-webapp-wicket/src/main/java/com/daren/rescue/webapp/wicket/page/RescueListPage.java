@@ -189,8 +189,8 @@ public class RescueListPage extends BasePanel {
                     item.add(new Label("telephone", row.getTelephone()));
                     item.add(new Label("totalNumber", row.getTotalNumber()));
                     item.add(new Label("address", row.getAddress()));
-                    item.add(new Label("jd", row.getJd()));
-                    item.add(new Label("wd", row.getWd()));
+                    //item.add(new Label("jd", row.getJd()));
+                    //item.add(new Label("wd", row.getWd()));
                     item.add(new Label("equipment", row.getEquipment()));
                     item.add(new Label("expertise", row.getExpertise()));
                     item.add(new Label("remarks", row.getRemarks()));

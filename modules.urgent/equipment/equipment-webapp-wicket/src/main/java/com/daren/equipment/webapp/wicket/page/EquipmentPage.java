@@ -59,7 +59,7 @@ public class EquipmentPage extends BasePanel {
                 item.add(new Label("mobilePhone", equipmentBean.getMobilePhone()));
                 item.add(new Label("amount", equipmentBean.getAmount()));
 
-
+                item.add(getToCreatePageLink("edit", equipmentBean));
                 AjaxLink alink = new AjaxLink("del") {
                     @Override
                     protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {

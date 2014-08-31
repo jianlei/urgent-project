@@ -59,8 +59,7 @@ public class MonitorListPage extends BasePanel {
                 item.add(new Label("ipAddress", monitorBean.getIpAddress()));
                 item.add(new Label("port", monitorBean.getPort()));
                 item.add(new Label("channel", monitorBean.getChannel()));
-                long enterpriseId = new Long(monitorBean.getAffiliation());
-                EnterpriseBean enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
+                EnterpriseBean enterpriseBean = enterpriseBeanService.getByQyid(monitorBean.getAffiliation());
                 item.add(new Label("affiliation", enterpriseBean.getQymc()));//企业名称
                 /*item.add(new Label("admin", monitorBean.getAdmin()));//企业名称
                 item.add(new Label("password", monitorBean.getPassword()));//企业名称*/

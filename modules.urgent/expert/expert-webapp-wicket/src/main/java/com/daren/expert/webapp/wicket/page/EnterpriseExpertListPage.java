@@ -166,10 +166,10 @@ public class EnterpriseExpertListPage extends BasePanel {
                     item.add(new Label("date", DateUtil.convertDateToString(row.getDate(), DateUtil.shortSdf)));
                     item.add(new Label("sex", row.getSex()));
                     item.add(new Label("skillTitle", row.getSkillTitle()));
-                    item.add(new Label("degree", row.getDegree()));
-                    item.add(new Label("nation", row.getNation()));
+                    //item.add(new Label("degree", row.getDegree()));
+                    //item.add(new Label("nation", row.getNation()));
                     item.add(new Label("type", row.getType()));
-                    item.add(new Label("city", row.getCity()));
+                    //item.add(new Label("city", row.getCity()));
                     item.add(new Label("address", row.getAddress()));
                     item.add(new Label("tel", row.getTel()));
                     item.add(new Label("phone", row.getPhone()));
