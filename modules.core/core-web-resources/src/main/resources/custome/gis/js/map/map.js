@@ -109,267 +109,268 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
     markers.push(marker);
     current_danger_point_number++;
     marker.addEventListener("click",function(){
-        if( /msie/.test(navigator.userAgent.toLowerCase())){
-                $.getJSON(
-                     "../../cxf/monitor/"+responseJson.id+"",{"rand":Math.random()},function(json) {
-                     if (json != null) {
-                        TextIP=json[0].ipAddress;
-                        TextName1 =json[0].admin;
-                        TextPwd1 =json[0].password;
-                         //信息窗口的内容定义
-                         var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
-                         content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
-                         content+=  '事故类别:'+responseJson.accidentType+'<br/>';
-                         content+=  '事故级别:'+responseJson.accidentLevel+'<br/>';
-                         content+=  '事故发生地点：'+responseJson.place+'<br/>';
-                         content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
-                         content+=  '事故单位：'+responseJson.qymc+'<br/>';
-                         content+=  '企业联系方式:'+responseJson.qylxfs+'<br/>';
-                         content+=  '上报人:'+responseJson.operator+'<br/>';
-                         content+=  '上报人电话:'+responseJson.operatorPhone+'<br/>';
-                         content+='<div id = "sg_btn" > <input name="" type="button" style="margin-right:10px;" value="事故确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/> <input name="" type="button" value="事故解除" onClick="goConfirm(false,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/></div>'+
 
+        $.getJSON(
+             "../../cxf/monitor/"+responseJson.id+"",{"rand":Math.random()},function(json) {
+             if (json != null) {
+                TextIP=json[0].ipAddress;
+                TextName1 =json[0].admin;
+                TextPwd1 =json[0].password;
+                 //信息窗口的内容定义
+                 var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
+                 content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
+                 content+=  '事故类别:'+responseJson.accidentType+'<br/>';
+                 content+=  '事故级别:'+responseJson.accidentLevel+'<br/>';
+                 content+=  '事故发生地点：'+responseJson.place+'<br/>';
+                 content+=  '详细地点：'+responseJson.detailsPlace+'<br/>';
+                 content+=  '事故单位：'+responseJson.qymc+'<br/>';
+                 content+=  '企业联系方式:'+responseJson.qylxfs+'<br/>';
+                 content+=  '上报人:'+responseJson.operator+'<br/>';
+                 content+=  '上报人电话:'+responseJson.operatorPhone+'<br/>';
+                 content+='<div id = "sg_btn" > <input name="" type="button" style="margin-right:10px;" value="事故确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/> <input name="" type="button" value="事故解除" onClick="goConfirm(false,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/></div>'+
+
+                     '</div>';
+                  content += '<div class="demo" style="float:left; ">'+
+                 '<div class="plus-tag-add">' +
+                 '<form id="" action="" class="login">' +
+                 '<ul class="Form FancyForm">' +
+                 '<li>' +
+                 '<a href="javascript:void(0);">解决方案</a>' +
+                 '</li>' +
+                 '</ul>' +
+                 '</form>' +
+                 '</div>' +
+
+                 '<div id="mycard-plus" style="display:none;">' +
+                 '<div class="default-tag tagbtn"  id="clearfix_div">' +
+                 '<div>----企业预案----------></div>'+
+                 '<div class="clearfix">';
+                 content+= content_qy;
+                 /* '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
+                  '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
+                  '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
+                  '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
+                  '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
+                  '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +*/
+                 content+= '</div>' +
+                     '<div>----安监局预案------></div>'+
+                     '<div class="clearfix">';
+                 content+= content_anj;
+                 content+= '</div>' +
+                     /* '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
+                      '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +*/
+                     '</div>' +
+                     '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
+                     '</div>' +
+                     '</div>';
+                 if(TextIP!=""){
+                     if( /msie/.test(navigator.userAgent.toLowerCase())){
+                         content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
+                             '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
                              '</div>';
-                          content += '<div class="demo" style="float:left; ">'+
-                         '<div class="plus-tag-add">' +
-                         '<form id="" action="" class="login">' +
-                         '<ul class="Form FancyForm">' +
-                         '<li>' +
-                         '<a href="javascript:void(0);">解决方案</a>' +
-                         '</li>' +
-                         '</ul>' +
-                         '</form>' +
-                         '</div>' +
+                         infowindow_width=820;
+                     }else{
+                          alert("请选择IE浏览器!否则影响监控视频观看!");
+                      }
+                 }else{
+                     infowindow_width=infowindow_width-550;
+                 }
 
-                         '<div id="mycard-plus" style="display:none;">' +
-                         '<div class="default-tag tagbtn"  id="clearfix_div">' +
-                         '<div>----企业预案----------></div>'+
-                         '<div class="clearfix">';
-                         content+= content_qy;
-                         /* '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
-                          '<a value="2" title="移动互联网" href="javascript:void(0);"><span>移动互联网</span><em></em></a>' +
-                          '<a value="3" title="it" href="javascript:void(0);"><span>it</span><em></em></a>' +
-                          '<a value="4" title="电子商务" href="javascript:void(0);"><span>电子商务</span><em></em></a>' +
-                          '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
-                          '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +*/
-                         content+= '</div>' +
-                             '<div>----安监局预案------></div>'+
-                             '<div class="clearfix">';
-                         content+= content_anj;
-                         content+= '</div>' +
-                             /* '<div class="clearfix" style="display:none;"><a value="-1" title="媒体" href="javascript:void(0);"><span>媒体</span><em></em></a></div>' +
-                              '<div class="clearfix" style="display:none;"><a value="-1" title="网络营销" href="javascript:void(0);"><span>网络营销</span><em></em></a></div>' +*/
-                             '</div>' +
-                             '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
-                             '</div>' +
-                             '</div>';
-                         if(TextIP!=""){
-                             content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
-                                 '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
-                                 '</div>';
-                         }else{
-                             infowindow_width=infowindow_width-550;
-                         }
-
-
-                         //样式3
-                         infowindow_danger = new BMapLib.SearchInfoWindow(map, content, {
-                             title: "事故详情", //标题
-                             //width: 590, //宽度
-                             //height: 250, //高度
-                             width: infowindow_width, //宽度
-                             height: infowindow_height, //高度
-                             panel : "panel", //检索结果面板
-                             enableAutoPan : true, //自动平移
-                             searchTypes :[
-                             ]
-                         });
-                         infowindow_danger.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
-
-                         //标签脚本
-                         $(function(){
-
-                             var a=$(".plus-tag");
-
-                             hasTips=function(b){
-                                 var d=$("a",a),c=false;
-                                 d.each(function(){
-                                     if($(this).attr("title")==b){
-                                         c=true;
-                                         return false
-                                     }
-                                 });
-                                 return c
-                             };
-
-                             isMaxTips=function(){
-                                 return
-                                 $("a",a).length>=G_tocard_maxTips
-                             };
-
-                             setTips=function(c,d){
-                                 if(hasTips(c)){
-                                     return false
-                                 }if(isMaxTips()){
-                                     alert("最多添加"+G_tocard_maxTips+"个标签！");
-                                     return false
-                                 }
-                                 /*  var	printer_btn_sec = document.createElement("img");
-                                  printer_btn_sec.style.width="16px";
-                                  printer_btn_sec.style.height="16px";
-                                  printer_btn_sec.src="../../cus/gis/css/images/printer.png";
-                                  printer_btn_sec.title=c;
-                                  printer_btn_sec.onclick = function(){
-                                  window.location.href("董龙文2014年第32周工作总结及下周工作计划（8 月 11 日- 8 月 15 日）.doc");
-                                  delTips(c,d);//移除右下角方案标签
-                                  $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
-                                  if(printer_btn_sec.attr("title")==b){
-                                  printer_btn_sec.remove();
-                                  return false
-                                  }
-                                  });
-                                  };
-
-                                  $("#myTags").append(printer_btn_sec);
-                                  $("#myTags").append("	");*/
-                                 var b=d?'value="'+d+'"':"";
-                                 a.append($("<a "+b+' title="'+c+'" href="javascript:void(0);" ><span>'+c+"</span><em></em></a>"));
-                                 searchAjax(c,d,true);
-                                 //绑定添加tips删除
-                                 $("a em",a).bind("click",function(){
-                                     var c=$(this).parents("a"),b=c.attr("title"),d=c.attr("value");
-                                     delTips(b,d)
-                                 });
-                                 //显示打印图片
-                                 if($("#printer_btn").css("display") == 'none' ){
-                                     $("#printer_btn").show();
-                                     //div.style.border="1py solid red" ;    // 设置框粗细
-                                     $("#myTags").css({"border":"1px solid red"});
-                                 }
-                                 return true
-                             };
-
-                             delTips=function(b,c){
-                                 if(!hasTips(b)){
-                                     return false
-                                 }
-                                 $("a",a).each(function(){
-                                     var d=$(this);
-                                     if(d.attr("title")==b){
-                                         d.remove();
-                                         return false
-                                     }
-                                 });
-                                 /* $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
-                                  var d=$(this);
-                                  if(d.attr("title")==b){
-                                  d.remove();
-                                  return false
-                                  }
-                                  });*/
-                                 searchAjax(b,c,false);
-                                 return true
-                             };
-
-                             getTips=function(){
-                                 var b=[];
-                                 $("a",a).each(function(){
-                                     b.push($(this).attr("title"))
-                                 });
-                                 return b
-                             };
-
-                             getTipsId=function(){
-                                 var b=[];
-                                 $("a",a).each(function(){
-                                     b.push($(this).attr("value"))
-                                 });
-                                 return b
-                             };
-
-                             getTipsIdAndTag=function(){
-                                 var b=[];
-                                 $("a",a).each(function(){
-                                     b.push($(this).attr("value")+"##"+$(this).attr("title"))
-                                 });
-                                 return b
-                             }
-
-                         });
-                         // 更新选中标签标签
-                         $(function(){
-                             setSelectTips();
-                             //$('.plus-tag').append($('.plus-tag a'));
-                         });
-                         var searchAjax = function(name, id, isAdd){
-                             setSelectTips();
-                         };
-                         // 推荐标签
-                         $(function(){
-                             var str = ['解决方案', '解决方案']
-                             $('.plus-tag-add a').click(function(){
-                                 var $this = $(this),
-                                     $con = $('#mycard-plus');
-
-                                 if($this.hasClass('plus')){
-                                     $this.removeClass('plus').text(str[0]);
-                                     $con.hide();
-                                 }else{
-                                     $this.addClass('plus').text(str[1]);
-                                     $con.show();
-                                 }
-                             });
-                             $('.default-tag a').bind('click', function(){
-                                 var $this = $(this),
-                                     name = $this.attr('title'),
-                                     id = $this.attr('value');
-                                 setTips(name, id);
-                             });
-                             // 更新高亮显示
-                             setSelectTips = function(){
-                                 var arrName = getTips();
-                                 if(arrName.length){
-                                     $('#myTags').show();
-                                 }else{
-                                     $('#myTags').hide();
-                                 }
-                                 $('.default-tag a').removeClass('selected');
-                                 $.each(arrName, function(index,name){
-                                     $('.default-tag a').each(function(){
-                                         var $this = $(this);
-                                         if($this.attr('title') == name){
-                                             $this.addClass('selected');
-                                             return false;
-                                         }
-                                     })
-                                 });
-                             }
-
-                         });
-                         // 更换链接
-                         (function(){
-                             var $b = $('#change-tips'),
-                                 $d = $('.default-tag div'),
-                                 len = $d.length,
-                                 t = 'nowtips';
-                             $b.click(function(){
-                                 var i = $d.index($('.default-tag .nowtips'));
-                                 i = (i+1 < len) ? (i+1) : 0;
-                                 $d.hide().removeClass(t);
-                                 $d.eq(i).show().addClass(t);
-                             });
-                             $d.eq(0).addClass(t);
-                         })();
-
-                        // map.centerAndZoom(point,seenView);
-
-                     }
+                 //样式3
+                 infowindow_danger = new BMapLib.SearchInfoWindow(map, content, {
+                     title: "事故详情", //标题
+                     //width: 590, //宽度
+                     //height: 250, //高度
+                     width: infowindow_width, //宽度
+                     height: infowindow_height, //高度
+                     panel : "panel", //检索结果面板
+                     enableAutoPan : true, //自动平移
+                     searchTypes :[
+                     ]
                  });
-                return;
-            }else{
-        		alert("请选择IE浏览器!否则影响监控视频观看!");
-        		return;
-        	}
+                 infowindow_danger.open(new BMap.Point(marker.getPosition().lng,marker.getPosition().lat));
+
+                 //标签脚本
+                 $(function(){
+
+                     var a=$(".plus-tag");
+
+                     hasTips=function(b){
+                         var d=$("a",a),c=false;
+                         d.each(function(){
+                             if($(this).attr("title")==b){
+                                 c=true;
+                                 return false
+                             }
+                         });
+                         return c
+                     };
+
+                     isMaxTips=function(){
+                         return
+                         $("a",a).length>=G_tocard_maxTips
+                     };
+
+                     setTips=function(c,d){
+                         if(hasTips(c)){
+                             return false
+                         }if(isMaxTips()){
+                             alert("最多添加"+G_tocard_maxTips+"个标签！");
+                             return false
+                         }
+                         /*  var	printer_btn_sec = document.createElement("img");
+                          printer_btn_sec.style.width="16px";
+                          printer_btn_sec.style.height="16px";
+                          printer_btn_sec.src="../../cus/gis/css/images/printer.png";
+                          printer_btn_sec.title=c;
+                          printer_btn_sec.onclick = function(){
+                          window.location.href("董龙文2014年第32周工作总结及下周工作计划（8 月 11 日- 8 月 15 日）.doc");
+                          delTips(c,d);//移除右下角方案标签
+                          $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
+                          if(printer_btn_sec.attr("title")==b){
+                          printer_btn_sec.remove();
+                          return false
+                          }
+                          });
+                          };
+
+                          $("#myTags").append(printer_btn_sec);
+                          $("#myTags").append("	");*/
+                         var b=d?'value="'+d+'"':"";
+                         a.append($("<a "+b+' title="'+c+'" href="javascript:void(0);" ><span>'+c+"</span><em></em></a>"));
+                         searchAjax(c,d,true);
+                         //绑定添加tips删除
+                         $("a em",a).bind("click",function(){
+                             var c=$(this).parents("a"),b=c.attr("title"),d=c.attr("value");
+                             delTips(b,d)
+                         });
+                         //显示打印图片
+                         if($("#printer_btn").css("display") == 'none' ){
+                             $("#printer_btn").show();
+                             //div.style.border="1py solid red" ;    // 设置框粗细
+                             $("#myTags").css({"border":"1px solid red"});
+                         }
+                         return true
+                     };
+
+                     delTips=function(b,c){
+                         if(!hasTips(b)){
+                             return false
+                         }
+                         $("a",a).each(function(){
+                             var d=$(this);
+                             if(d.attr("title")==b){
+                                 d.remove();
+                                 return false
+                             }
+                         });
+                         /* $("img",$("#myTags")).each(function(){//移除右下角标签上打印机
+                          var d=$(this);
+                          if(d.attr("title")==b){
+                          d.remove();
+                          return false
+                          }
+                          });*/
+                         searchAjax(b,c,false);
+                         return true
+                     };
+
+                     getTips=function(){
+                         var b=[];
+                         $("a",a).each(function(){
+                             b.push($(this).attr("title"))
+                         });
+                         return b
+                     };
+
+                     getTipsId=function(){
+                         var b=[];
+                         $("a",a).each(function(){
+                             b.push($(this).attr("value"))
+                         });
+                         return b
+                     };
+
+                     getTipsIdAndTag=function(){
+                         var b=[];
+                         $("a",a).each(function(){
+                             b.push($(this).attr("value")+"##"+$(this).attr("title"))
+                         });
+                         return b
+                     }
+
+                 });
+                 // 更新选中标签标签
+                 $(function(){
+                     setSelectTips();
+                     //$('.plus-tag').append($('.plus-tag a'));
+                 });
+                 var searchAjax = function(name, id, isAdd){
+                     setSelectTips();
+                 };
+                 // 推荐标签
+                 $(function(){
+                     var str = ['解决方案', '解决方案']
+                     $('.plus-tag-add a').click(function(){
+                         var $this = $(this),
+                             $con = $('#mycard-plus');
+
+                         if($this.hasClass('plus')){
+                             $this.removeClass('plus').text(str[0]);
+                             $con.hide();
+                         }else{
+                             $this.addClass('plus').text(str[1]);
+                             $con.show();
+                         }
+                     });
+                     $('.default-tag a').bind('click', function(){
+                         var $this = $(this),
+                             name = $this.attr('title'),
+                             id = $this.attr('value');
+                         setTips(name, id);
+                     });
+                     // 更新高亮显示
+                     setSelectTips = function(){
+                         var arrName = getTips();
+                         if(arrName.length){
+                             $('#myTags').show();
+                         }else{
+                             $('#myTags').hide();
+                         }
+                         $('.default-tag a').removeClass('selected');
+                         $.each(arrName, function(index,name){
+                             $('.default-tag a').each(function(){
+                                 var $this = $(this);
+                                 if($this.attr('title') == name){
+                                     $this.addClass('selected');
+                                     return false;
+                                 }
+                             })
+                         });
+                     }
+
+                 });
+                 // 更换链接
+                 (function(){
+                     var $b = $('#change-tips'),
+                         $d = $('.default-tag div'),
+                         len = $d.length,
+                         t = 'nowtips';
+                     $b.click(function(){
+                         var i = $d.index($('.default-tag .nowtips'));
+                         i = (i+1 < len) ? (i+1) : 0;
+                         $d.hide().removeClass(t);
+                         $d.eq(i).show().addClass(t);
+                     });
+                     $d.eq(0).addClass(t);
+                 })();
+
+                // map.centerAndZoom(point,seenView);
+
+             }
+         });
+        return;
+
     });
    // moveMapByBound();
 }
@@ -599,7 +600,7 @@ function gotoprint(){
     var xls = {"expert":"","rescue":"","equipment":""};//物资专家救援队集合
     $("a",$(".plus-tag")).each(function(){
         var d=$(this);
-        //alert("获取选中值:"+d.attr("value"));
+       // alert("获取选中值:"+d.attr("value"));
         var strs= new Array(); //定义一数组
         strs= d.attr("value").split(":"); //字符分割
         if(strs[0]=="reserve"){
@@ -626,19 +627,18 @@ function gotoprint(){
     if(reserve_arry.length != 0 || digital_arry.length != 0){
         alert("接口未知");
         //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
-        clearPrint();
     }
     if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
-        //$.getJSON("../../cxf/accident/print/"+xls+"",{"rand":Math.random()},function(json){});
         $.ajax({
-            type: "POST",
-            url: "../../cxf/accident/print/"+xls+"",
-            data: {},
+            url: "http://localhost:9191/cxf/accident/print",
+            type: "post",
+            data: JSON.stringify(xls),
             dataType: "json",
+            contentType: "application/json; charset=utf-8",
             success: function(data){ }
         });
-        clearPrint();
     }
+    clearPrint();
 }
 
 /**
