@@ -27,12 +27,10 @@ import java.util.List;
 
 public class ReservePlanTabPage extends BasePanel {
 
-    private final TabbedPanel tabPanel;
-
     final RepeatingView createPage = new RepeatingView("createPage");
     final RepeatingView specialPage = new RepeatingView("specialPage");
     final RepeatingView spotPage = new RepeatingView("spotPage");
-
+    private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     AjaxTab specialAjaxTab;
     AjaxTab spotAjaxTab;
@@ -62,7 +60,7 @@ public class ReservePlanTabPage extends BasePanel {
      */
     private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList();
-        tabs.add(new AbstractTab(Model.of("预案信息管理")) {
+        tabs.add(new AbstractTab(Model.of("企业预案管理")) {
             private static final long serialVersionUID = 1L;
 
             @Override

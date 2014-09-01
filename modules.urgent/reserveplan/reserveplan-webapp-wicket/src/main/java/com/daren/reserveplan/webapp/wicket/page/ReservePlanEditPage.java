@@ -3,6 +3,8 @@ package com.daren.reserveplan.webapp.wicket.page;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
@@ -17,6 +19,7 @@ import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.File;
 
 import javax.inject.Inject;
@@ -38,6 +41,9 @@ public class ReservePlanEditPage extends BasePanel {
     final RepeatingView specialPlanPanel = new RepeatingView("specialPlanPanel");
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     Form reserveForm = new Form("createForm", new CompoundPropertyModel(new ReservePlanBean()));
+    EnterpriseBean enterpriseBean = new EnterpriseBean();
+    ReservePlanBean reservePlanBean = new ReservePlanBean();
+    EnterpriseSelect2Choice enterpriseSelect2Choice;
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
     @Inject
@@ -46,11 +52,18 @@ public class ReservePlanEditPage extends BasePanel {
     private IEnterpriseBeanService enterpriseBeanService;
 
 
-    public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean reservePlanBean) {
+    public ReservePlanEditPage(final String id, final WebMarkupContainer wmc, final ReservePlanBean bean) {
         super(id, wmc);
+        if (null != bean) {
+            reservePlanBean = bean;
+            enterpriseBean =  enterpriseBeanService.getByQyid(reservePlanBean.getEnterpriseId());
+        }
         initForm(reservePlanBean);
         initFeedBack();
-        addSelectToForm();
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("enterpriseId", Model.of(enterpriseBean));
+        enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
+        reserveForm.add(enterpriseSelect2Choice);
+        //addSelectToForm();
     }
 
 
@@ -95,6 +108,8 @@ public class ReservePlanEditPage extends BasePanel {
                 reservePlanBean.setReviewCommentId(saveDocument(uploadFieldReview));
                 reservePlanBean.setReviewExpertId(saveDocument(uploadFieldExpert));
                 reservePlanBean.setComprehensivePlanId(saveDocument(uploadFieldComprehensive));
+                enterpriseBean = enterpriseSelect2Choice.getModelObject();
+                reservePlanBean.setEnterpriseId(enterpriseBean.getQyid());
                 reservePlanBeanService.saveEntity(reservePlanBean);
                 super.onSubmit(target, form);
                 feedbackPanel.info("保存成功！");
@@ -151,7 +166,7 @@ public class ReservePlanEditPage extends BasePanel {
         reserveForm.add(listSites);
     }
 
-    private void addSelectToForm() {
+    /*private void addSelectToForm() {
         initSelect("enterpriseId", enterpriseBeanService.getAllBeansToHashMap());
-    }
+    }*/
 }
