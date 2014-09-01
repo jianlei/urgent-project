@@ -10,19 +10,7 @@
         </bean>
     </service>
 
-    <!-- 发布Select2目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.government.webapp.wicket.Select2MenuItemsModule">
-        </bean>
-    </service>
-
-    <!-- 发布checkedTree目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.government.webapp.wicket.CheckedTreeMenuItemsModule">
-        </bean>
-    </service>
-
-    <!-- 发布SingleCheck目录 -->
+     <!-- 发布SingleCheck目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.government.webapp.wicket.SingleCheckMenuItemsModule">
         </bean>
