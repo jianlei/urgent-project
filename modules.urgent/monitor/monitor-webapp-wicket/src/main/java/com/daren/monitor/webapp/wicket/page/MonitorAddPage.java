@@ -5,6 +5,7 @@ import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.monitor.api.biz.IMonitorBeanService;
 import com.daren.monitor.entities.MonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -15,6 +16,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class MonitorAddPage extends BasePanel {
     Form<MonitorBean> monitorBeanForm = new Form("monitorForm", new CompoundPropertyModel(monitorBean));
     EnterpriseBean enterpriseBean = new EnterpriseBean();
     //    EnterpriseSelect3Choice<MonitorBean> listSites;
+    EnterpriseSelect2Choice enterpriseSelect2Choice;
     IrisAbstractDialog dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
@@ -55,6 +58,9 @@ public class MonitorAddPage extends BasePanel {
         initForm(monitorBean);
         initFeedBack();
         addForm(id, wmc);
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("affiliation", Model.of(monitorBean));
+        enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
+        monitorBeanForm.add(enterpriseSelect2Choice);
         addSelectToForm();
     }
 
@@ -71,6 +77,8 @@ public class MonitorAddPage extends BasePanel {
                 if (null != monitorBean) {
                     try {
                         //monitorBean.setUpdateDate(new Date());
+                        enterpriseBean=enterpriseSelect2Choice.getModelObject();
+                        monitorBean.setAffiliation(enterpriseBean.getQyid());
                         monitorBeanService.saveEntity(monitorBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
