@@ -6,7 +6,7 @@
 </wicket:head>
 <body>
 <wicket:panel>
-    <div class="alert alert-info">当前位置<b class="tip"/>应急管理<b class="tip"/>预案申请表编辑</div>
+    <div class="alert alert-info">当前位置<b class="tip"/>企业预案管理<b class="tip"/>企业预案申请表编辑</div>
 
     <div>
         <span wicket:id="feedBack"/>
@@ -78,7 +78,8 @@
                 </td>
                 <td width="16" class="tdl">所属企业</td>
                 <td width="16" class="td_detail">
-                    <select class="ipt" wicket:id="enterpriseId"/>
+                    <input wicket:id="enterpriseId" type="hidden"
+                           style="width: 300px;"/>
                 </td>
             </tr>
 
