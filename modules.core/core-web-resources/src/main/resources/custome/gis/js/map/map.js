@@ -168,9 +168,9 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
                          content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
                              '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
                              '</div>';
-                         infowindow_width=820;
                      }else{
-                          alert("请选择IE浏览器!否则影响监控视频观看!");
+                        alert("请选择IE浏览器!否则影响监控视频观看!");
+                         infowindow_width=infowindow_width-550;
                       }
                  }else{
                      infowindow_width=infowindow_width-550;
@@ -454,7 +454,9 @@ function getIWContent(responseJson) {
 
 //注定义图片
 function createIcon(json,_icon){
-    var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+    /*var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)});
+    return icon;*/
+    var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{anchor: new BMap.Size(10, 0)})
     return icon;
 }
 
