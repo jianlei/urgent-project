@@ -150,7 +150,12 @@
                 <fieldset>
                     <legend>个性化检索</legend>
                     <input id="stylelist"  onchange="searchAll(this.value)" />
-                    <p id="desc">包括:仓储,救援队</p>
+                    <p id="desc"></p>
+                    <div>
+                        <input type="radio" name ="search_radio"  value = "1">专家</input>
+                        <input type="radio" name ="search_radio"  value = "2">救援队</input>
+                        <input type="radio" name="search_radio"  value = "3">物资</input>
+                    </div>
                 </fieldset>
             </div>
             <div style="width:20px;height:200px;margin:-100px 0 0 -10px;color:#999;position:absolute;opacity:0.5;top:50%;left:50%;" id="showOverlayInfo">此处用于展示检索信息</div>

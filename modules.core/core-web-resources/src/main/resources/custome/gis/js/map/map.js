@@ -89,7 +89,7 @@ function initialize(lng,lat,cityname,lev,contenid) {
 //添加危险点
 function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj) {
     //样式3宽高
-    var infowindow_width =1070;
+    var infowindow_width =520;
     var infowindow_height=360;
 
     var streamSvrIp ="";
@@ -113,9 +113,6 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
         $.getJSON(
              "../../cxf/monitor/"+responseJson.id+"",{"rand":Math.random()},function(json) {
              if (json != null) {
-                TextIP=json[0].ipAddress;
-                TextName1 =json[0].admin;
-                TextPwd1 =json[0].password;
                  //信息窗口的内容定义
                  var content = '<div style="float:left; width:250px;margin:0;line-height:20px;padding:2px;">';
                  content+=  '事故标题:'+responseJson.accidentTitle+'<br/>';
@@ -127,7 +124,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
                  content+=  '企业联系方式:'+responseJson.qylxfs+'<br/>';
                  content+=  '上报人:'+responseJson.operator+'<br/>';
                  content+=  '上报人电话:'+responseJson.operatorPhone+'<br/>';
-                 content+='<div id = "sg_btn" > <input name="" type="button" style="margin-right:10px;" value="事故确认" onClick="goConfirm(true,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/> <input name="" type="button" value="事故解除" onClick="goConfirm(false,'+_lng+','+_lat+','+responseJson.id+','+responseJson.accident_id+')"/></div>'+
+                 content+='<div id = "sg_btn" > <input name="" type="button" style="margin-right:10px;" value="事故确认" onClick="goConfirm(true,'+_lng+','+_lat+',\''+responseJson.id+'\','+responseJson.accident_id+')"/> <input name="" type="button" value="事故解除" onClick="goConfirm(false,'+_lng+','+_lat+',\''+responseJson.id+'\','+responseJson.accident_id+')"/></div>'+
 
                      '</div>';
                   content += '<div class="demo" style="float:left; ">'+
@@ -143,7 +140,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
 
                  '<div id="mycard-plus" style="display:none;">' +
                  '<div class="default-tag tagbtn"  id="clearfix_div">' +
-                 '<div>----企业预案----------></div>'+
+                 '<div>----企业预案------------></div>'+
                  '<div class="clearfix">';
                  content+= content_qy;
                  /* '<a value="1" title="互联网" href="javascript:void(0);"><span>互联网</span><em></em></a>' +
@@ -153,7 +150,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
                   '<a value="5" title="广告" href="javascript:void(0);"><span>广告</span><em></em></a>' +
                   '<a value="6" title="网络编辑" href="javascript:void(0);"><span>网络编辑</span><em></em></a>' +*/
                  content+= '</div>' +
-                     '<div>----安监局预案------></div>'+
+                     '<div>----安监局预案---------></div>'+
                      '<div class="clearfix">';
                  content+= content_anj;
                  content+= '</div>' +
@@ -163,17 +160,18 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
                      '<div align="right"><a href="javascript:void(0);" id="change-tips" style="color:#3366cc;display:none">换一换</a></div>' +
                      '</div>' +
                      '</div>';
-                 if(TextIP!=""){
+                 if(json.length>0){
                      if( /msie/.test(navigator.userAgent.toLowerCase())){
+                         TextIP=json[0].ipAddress;
+                         TextName1 =json[0].admin;
+                         TextPwd1 =json[0].password;
+                         infowindow_width=1070;
                          content+='<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
                              '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp='+streamSvrIp+'&&TextIP='+TextIP+'&&TextName1='+TextName1+'&&TextPwd1='+TextPwd1+'" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>'+
                              '</div>';
                      }else{
                         alert("请选择IE浏览器!否则影响监控视频观看!");
-                         infowindow_width=infowindow_width-550;
                       }
-                 }else{
-                     infowindow_width=infowindow_width-550;
                  }
 
                  //样式3
@@ -375,8 +373,7 @@ function addDangerPoint(_lng,_lat,lid,_icon,responseJson,content_qy,content_anj)
    // moveMapByBound();
 }
 //添加普通标注
-function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton,d,c) {
-
+function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_collecton,d,c,qyid) {
     var point = new BMap.Point(_lng,_lat);
     var jsonicon ={w:21,h:35,l:0,t:0,x:6,lb:5};
     var iconImg = createIcon(jsonicon,_icon);
@@ -401,7 +398,32 @@ function addGeneralPoint(_lng,_lat,lid,_icon,content,title,width,height,markers_
     });
     if(_icon=="label_zdwxy"){
         marker.addEventListener("click",function(){
-            openInfoW(_lng,_lat,title,width,height,content);
+            if(qyid!=""){
+                $.getJSON(
+                        "../../cxf/monitor/"+qyid+"",{"rand":Math.random()},function(json) {
+                        if (json != null&&json.length>0) {
+                            if( /msie/.test(navigator.userAgent.toLowerCase())) {
+                                var streamSvrIp = "";
+                                var TextIP = "";
+                                var TextName1 = "";
+                                var TextPwd1 = "";
+                                TextIP = json[0].ipAddress;
+                                TextName1 = json[0].admin;
+                                TextPwd1 = json[0].password;
+                                content += '<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
+                                    '<iframe align="center" id="iframe_viedo" width="550" height="400" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp=' + streamSvrIp + '&&TextIP=' + TextIP + '&&TextName1=' + TextName1 + '&&TextPwd1=' + TextPwd1 + '" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>' +
+                                    '</div>';
+                                width = 800;
+                                openInfoW(_lng,_lat,title,width,height,content);
+                            }else{
+                                openInfoW(_lng,_lat,title,width,height,content);
+                                alert("请选择IE浏览器!否则影响监控视频观看!");
+                            }
+                        }else{
+                            openInfoW(_lng,_lat,title,width,height,content);
+                        }
+                    });
+            }
         });
     }else{
         marker.addEventListener("mouseover",function(){
@@ -512,6 +534,18 @@ function clearallmarker() {
 }
 
 /**
+ * 清空重大危险源标注
+ */
+function clearall_zdwxy(){
+    //清空地图已有重大危险源标注
+    for(var mwi = 0;mwi<markers_zdwxy.length;mwi++) {
+        map.removeOverlay(markers_zdwxy[mwi]);
+        markers_zdwxy.remove(mwi);
+    }
+    clearPrint();
+}
+
+/**
  * 清空企业专家标注
  */
 function clearall_zj(){
@@ -550,28 +584,38 @@ function clearall_wzbj(){
 function showPanel(){
     if (isPanelShow == false) {
         isPanelShow = true;
-        $("#showPanelBtn").css("right","230");
+        $("#showPanelBtn").css({marginRight : "230px" });
         $("#panelWrap").css("width","230");
-        $("#map").css("marginRight","230");
-        $("#showPanelBtn").html("隐藏绘制结果信息<br/>>");
+        $("#map").css({marginRight : "230px" });
+        $("#showPanelBtn").html("隐藏检索结果信息<br/>>");
     } else {
         isPanelShow = false;
-        $("#showPanelBtn").css("right","0");
+        $("#showPanelBtn").css({marginRight : "0px" });
         $("#panelWrap").css("width","0");
-        $("#map").css("marginRight","0");
-        $("#showPanelBtn").html("显示绘制结果信息<br/><");
+        $("#map").css({marginRight : "0px" });
+        $("#showPanelBtn").html("显示检索结果信息<br/><");
     }
 }
 
 //个性化检索
 function searchAll(seachvalue){
     if(seachvalue!=""){
-        var result = "";
-        result = "<p>";
-        result +="检索key:"+seachvalue;
-        result += "</p>";
-        $("#showOverlayInfo").css("display","none");
-        $("#panel").html(result); //将绘制的覆盖物信息结果输出到
+        var search_radio= $('input:radio[name="search_radio"]:checked').val();
+        if(search_radio==null){
+            alert("请选中一个!");
+            return false;
+        }else{
+            if(search_radio==1){
+                alert("专家");
+                zjList_search(seachvalue);
+            }
+            if(search_radio==2){
+                alert("救援队");
+            }
+            if(search_radio==3){
+                alert("物资");
+            }
+        }
     }else{
         $("#showOverlayInfo").css("display","");
         $("#panel").html("");
