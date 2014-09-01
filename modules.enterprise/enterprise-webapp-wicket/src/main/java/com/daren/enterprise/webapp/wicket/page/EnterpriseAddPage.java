@@ -5,8 +5,10 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAj
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.entities.OrganizationBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.enterprise.webapp.component.form.OrganizationSelectChoice;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -51,8 +53,8 @@ public class EnterpriseAddPage extends BasePanel {
         initForm(enterpriseBean);
         initFeedBack();
         addForm(id, wmc);
-        /*EnterpriseSelect2Choice enterpriseSelect2Choice= new EnterpriseSelect2Choice ("jgjgdm",Model.of(enterpriseBean));
-        enterpriseBeanForm.add(enterpriseSelect2Choice);*/
+        EnterpriseSelect2Choice enterpriseSelect2Choice= new EnterpriseSelect2Choice ("country",Model.of(enterpriseBean));
+        enterpriseBeanForm.add(enterpriseSelect2Choice);
         addSelectToForm();
     }
 
