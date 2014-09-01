@@ -1,12 +1,16 @@
 package com.daren.drill.webapp.wicket.page;
 
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.component.office.WindowOfficePage;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.drill.api.biz.IUploadDocumentService;
 import com.daren.drill.entities.DocmentBean;
 import com.daren.drill.entities.UrgentDrillBean;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
@@ -32,6 +36,8 @@ import java.util.List;
  * @修改备注：
  */
 public class DocumentListPage extends IrisAbstractDialog<UrgentDrillBean> {
+    final WebMarkupContainer dialogWrapper;
+    WindowOfficePage dialog;
     @Inject
     @Reference(id = "uploadDocumentService", serviceInterface = IUploadDocumentService.class)
     private IUploadDocumentService uploadDocumentService;
@@ -63,6 +69,7 @@ public class DocumentListPage extends IrisAbstractDialog<UrgentDrillBean> {
                             FileInputStream fileInputStream = new FileInputStream(docmentBean.getFilePath());
                             DataInputStream data = new DataInputStream(fileInputStream);
                             Files.writeTo(tempFile, data);
+                            fileInputStream.close();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -70,6 +77,7 @@ public class DocumentListPage extends IrisAbstractDialog<UrgentDrillBean> {
                     }
                 }).setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
                 item.add(alinkdownDocument.setOutputMarkupId(true));
+                item.add(initPreviewButton(docmentBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", lv) {
@@ -77,5 +85,53 @@ public class DocumentListPage extends IrisAbstractDialog<UrgentDrillBean> {
         table.add(pagingNavigator);
         table.setVersioned(false);
         table.add(lv);
+
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("mydialog", ""));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
+    }
+
+    private void createDialog(AjaxRequestTarget target, final String title, final String filePath) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new WindowOfficePage("mydialog", title, filePath) {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
+    }
+
+    private AjaxLink initPreviewButton(final DocmentBean docmentBean) {
+        AjaxLink alink = new AjaxLink("previewDocument") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                FileInputStream fileInputStream = null;
+                try {
+                    File tempFile = new File(IConst.OFFICE_WEB_PATH_TEMP + docmentBean.getName());
+                    fileInputStream = new FileInputStream(docmentBean.getFilePath());
+                    DataInputStream data = new DataInputStream(fileInputStream);
+                    Files.writeTo(tempFile, data);
+                    fileInputStream.close();
+                    createDialog(target, "Office", IConst.OFFICE_WEB_PATH_READ + docmentBean.getName());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        return alink;
     }
 }

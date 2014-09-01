@@ -1,5 +1,6 @@
 package com.daren.rescue.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.rescue.api.biz.IOnDutyBeanService;
 import com.daren.rescue.entities.OnDutyBean;
@@ -71,7 +72,7 @@ public class UploadOnDutyPage extends IrisAbstractDialog<RescueBean> {
                     }
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "D:\\saveFilePath\\值班表.xls";
+                            String path = IConst.OFFICE_WEB_PATH_WRITE + "值班表.xls";
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             InputStream is = new FileInputStream(path);

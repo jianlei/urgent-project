@@ -63,6 +63,7 @@ public class VideoListPage extends IrisAbstractDialog<UrgentDrillBean> {
                             FileInputStream fileInputStream = new FileInputStream(docmentBean.getFilePath());
                             DataInputStream data = new DataInputStream(fileInputStream);
                             Files.writeTo(tempFile, data);
+                            fileInputStream.close();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

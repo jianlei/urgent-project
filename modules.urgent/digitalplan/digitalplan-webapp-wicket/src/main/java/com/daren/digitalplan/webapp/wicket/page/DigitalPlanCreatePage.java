@@ -1,5 +1,6 @@
 package com.daren.digitalplan.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.digitalplan.api.biz.IDigitalPlanBeanService;
 import com.daren.digitalplan.entities.DigitalPlanBean;
@@ -120,7 +121,7 @@ public class DigitalPlanCreatePage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = IConst.OFFICE_WEB_PATH_WRITE + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);
