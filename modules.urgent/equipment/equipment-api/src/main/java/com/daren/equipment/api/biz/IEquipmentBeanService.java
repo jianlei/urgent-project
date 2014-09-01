@@ -25,6 +25,16 @@ public interface IEquipmentBeanService extends IBizService {
     @Produces("application/json;charset=utf-8")
     List<EquipmentBean> getEquipmentList();
 
+    /**
+     * 物资like查询
+     * @创建人：dlw
+     * @修改时间：9-1
+     */
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/search/{name}")
+    List<EquipmentBean> getLikeEquipmentByName(@PathParam("name")String name);
+
     @GET
     @Produces("application/json;charset=utf-8")
     @Path("/scope/{lng}/{lat}/{distance}")
