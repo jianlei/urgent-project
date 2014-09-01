@@ -1065,7 +1065,7 @@ function rightTab(){
         map.getContainer().appendChild(div);
         $(function () {
             $("#myTags").addClass('plus-tag');    //添加css样式
-            $(".plus-tag").append($('<button id = "printer_btn" style="display:none" title="打 印" href="javascript:void(0);"><span>打 印</span><em></em></button>'));
+            $(".plus-tag").append($('<button id = "printer_btn" style="display:none" title="确 定" href="javascript:void(0);"><span>打 印</span><em></em></button>'));
             $("#myTags").addClass('tagbtn');    //添加css样式
             $("#myTags").addClass('clearfix');    //添加css样式
             $('#printer_btn').bind({
