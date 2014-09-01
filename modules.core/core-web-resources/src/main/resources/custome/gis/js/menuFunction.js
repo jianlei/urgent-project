@@ -65,7 +65,7 @@ function zdwxy(){
     $.getJSON(
         "../../cxf/hazard",{"rand":Math.random()},function(json){
             if(json!=null){
-                var hazard_width=500;
+                var hazard_width=250;
                // clearallmarker();
                 //var responseJson = json.hazardBean;
                 var responseJson = json;
@@ -93,7 +93,7 @@ function zdwxy(){
                         content += "备注: <span style='color:green;'>"+response.remark+"</span></br>";
                         content += "</div>";
 
-                        content+='<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+                      /*  content+='<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
                         content += "周边情况（东）: <span style='color:green;'>"+response.zbqkd+"</span></br>";
                         content += "是否危化企业（东）: <span style='color:green;'>"+response.sfwhqyd+"</span></br>";
                         content += "剧本企业最近直线距离（东）: <span style='color:green;'>"+response.jbqyzjzxjld+"</span></br>";
@@ -114,7 +114,7 @@ function zdwxy(){
                         content += "剧本企业最近直线距离（北）: <span style='color:green;'>"+response.jbqyzjzxjlb+"</span></br>";
                         content += "情况类型（北）: <span style='color:green;'>"+response.zbqklxb+"</span></br>";
 
-                        content+= '</div>';
+                        content+= '</div>';*/
                         addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy,0,"",response.qyid);
                         if(i==responseJson.length-1){
                             moveMapByBound();
@@ -217,6 +217,9 @@ function scope(lng,lat,id){
  * @param responseJson
  */
 function zjStr(responseJson){
+    if(!isNaN(responseJson)){
+        responseJson=search_list;
+    }
     //清空地图已有企业专家标注
     clearall_zj();
     for(var i=0;i<responseJson.length;i++){
@@ -255,6 +258,9 @@ function zjStr(responseJson){
  * @param responseJson
  */
 function jydStr(responseJson){
+    if(!isNaN(responseJson)){
+        responseJson=search_list;
+    }
     //清空地图已有救援队标注
     clearall_jyd();
     for(var i=0;i<responseJson.length;i++){
@@ -285,6 +291,9 @@ function jydStr(responseJson){
  * @param responseJson
  */
 function wzStr(responseJson){
+    if(!isNaN(responseJson)){
+        responseJson=search_list;
+    }
     /**
      * 清空物资标注
      */
@@ -377,22 +386,29 @@ function rightList_search(param,type){
         url_search = "../../cxf/equipment/search/"+param+"";
     }
     $.getJSON(url_search,{"rand":Math.random()},function(json){
-                resultList_search(json);
+                resultList_search(json,type);
         });
 }
 
 /**
- * 检索结果拼接
+ * 地图右侧检索结果拼接
  * @param param
  */
-function resultList_search(json){
+function resultList_search(json,type){
     var result = "";
     if(json!=null && json.length>0){
         result = "<p>";
+        search_list=json;
         for(var i=0;i<json.length;i++){
-            //result +='<a href="javascript:void(0);" onclick="jydStr('+json[i]+')">'+json[i].name+'</a></br>';
-            console.log("1===="+json[i]);
-            result +="<a href='javascript:void(0);' onclick='jydStr("+json[i]+")'>"+json[i].name+"</a></br>";
+            if(type==1){
+                result +="<a href='javascript:void(0);' onclick='zjStr("+i+")'>"+json[i].name+"</a></br>";
+            }
+            if(type==2){
+                result +="<a href='javascript:void(0);' onclick='jydStr("+i+")'>"+json[i].name+"</a></br>";
+            }
+            if(type==3){
+                result +="<a href='javascript:void(0);' onclick='wzStr("+i+")'>"+json[i].name+"</a></br>";
+            }
         }
         result += "</p>";
         $("#showOverlayInfo").css("display","none");

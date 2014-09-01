@@ -56,7 +56,7 @@ var markers_zjbz = [];
 var markers_wzbj = [];
 var contain_danger_point=false;
 var distance=0.5;//默认500米范围内
-
+var search_list;//检索结果拼接resultList_search(json) 存放临时search 结果
 
 //--初始化地图
 function initialize(lng,lat,cityname,lev,contenid) {
@@ -476,10 +476,10 @@ function getIWContent(responseJson) {
 
 //注定义图片
 function createIcon(json,_icon){
-    /*var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)});
-    return icon;*/
-    var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{anchor: new BMap.Size(10, 0)})
+    var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)});
     return icon;
+   /* var icon = new BMap.Icon("../../cus/gis/css/images/"+ _icon + ".png", new BMap.Size(json.w,json.h),{anchor: new BMap.Size(10, 0)})
+    return icon;*/
 }
 
 //重新定义所有标注在可视范围内
