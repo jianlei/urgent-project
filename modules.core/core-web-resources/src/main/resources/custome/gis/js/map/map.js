@@ -58,6 +58,8 @@ var contain_danger_point=false;
 var distance=0.5;//默认500米范围内
 var search_list;//检索结果拼接resultList_search(json) 存放临时search 结果
 
+var sendToServer;
+
 //--初始化地图
 function initialize(lng,lat,cityname,lev,contenid) {
     map = new BMap.Map(contenid);//在百度地图容器中创建一个地图
@@ -542,7 +544,7 @@ function clearall_zdwxy(){
         map.removeOverlay(markers_zdwxy[mwi]);
         markers_zdwxy.remove(mwi);
     }
-    clearPrint();
+   // clearPrint();
 }
 
 /**
@@ -554,7 +556,7 @@ function clearall_zj(){
         map.removeOverlay(markers_zjbz[mwi]);
         markers_zjbz.remove(mwi);
     }
-    clearPrint();
+    //clearPrint();
 }
 
 /**
@@ -566,7 +568,7 @@ function clearall_jyd(){
         map.removeOverlay(markers_jydbz[mwi]);
         markers_jydbz.remove(mwi);
     }
-    clearPrint();
+   // clearPrint();
 }
 
 /**
@@ -578,7 +580,7 @@ function clearall_wzbj(){
         map.removeOverlay(markers_wzbj[mwi]);
         markers_wzbj.remove(mwi);
     }
-    clearPrint();
+   // clearPrint();
 }
 //地图右侧侧拉按钮
 function showPanel(){
@@ -635,6 +637,12 @@ function gotoprint(){
     var equipment_arry = [];//物资
     var res_dig = {"reserve":"","digital":""};//预案 集合
     var xls = {"expert":"","rescue":"","equipment":""};//物资专家救援队集合
+
+    var reserve_str = "";//企业预案
+    var digital_str = "";//监管机构预案
+    var expert_str = "";//专家
+    var rescue_str = "";//救援队
+    var equipment_str = "";//物资
     $("a",$(".plus-tag")).each(function(){
         var d=$(this);
        // alert("获取选中值:"+d.attr("value"));
@@ -642,18 +650,23 @@ function gotoprint(){
         strs= d.attr("value").split(":"); //字符分割
         if(strs[0]=="reserve"){
             reserve_arry.push(strs[1]);
+            reserve_str+=strs[1]+"#";
         }
         if(strs[0]=="digital"){
             digital_arry.push(strs[1]);
+            digital_str+=strs[1]+"#";
         }
         if(strs[0]=="expert"){
            expert_arry.push(strs[1]);
+           expert_str+=strs[1]+"#";
         }
         if(strs[0]=="rescue"){
            rescue_arry.push(strs[1]);
+           rescue_str+=strs[1]+"#";
         }
         if(strs[0]=="equipment"){
            equipment_arry.push(strs[1]);
+           equipment_str+=strs[1]+"#";
         }
     });
     res_dig.reserve = reserve_arry;
@@ -661,10 +674,7 @@ function gotoprint(){
     xls.expert = expert_arry;
     xls.rescue = rescue_arry;
     xls.equipment = equipment_arry;
-    if(reserve_arry.length != 0 || digital_arry.length != 0){
-        alert("接口未知");
-        //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
-    }
+
     if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
         $.ajax({
             url: "http://localhost:9191/cxf/accident/print",
@@ -674,6 +684,13 @@ function gotoprint(){
             contentType: "application/json; charset=utf-8",
             success: function(data){ }
         });
+    }
+
+    var parm = "reserve:"+reserve_str+"^digital:"+digital_str+"^expert:"+expert_str+"^rescue:"+rescue_str+"^equipment:"+equipment_str;
+
+    if(reserve_arry.length != 0 || digital_arry.length != 0){
+        sendToServer("param_str",parm);
+        //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
     }
     clearPrint();
 }

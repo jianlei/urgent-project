@@ -253,6 +253,54 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.reserveplan</groupId>
+            <artifactId>com.daren.reserveplan.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.reserveplan</groupId>
+            <artifactId>com.daren.reserveplan.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.reserveplan</groupId>
+            <artifactId>com.daren.reserveplan.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.reserveplan</groupId>
+            <artifactId>com.daren.reserveplan.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.file</groupId>
+            <artifactId>com.daren.file.persist.openjpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-shiro</artifactId>
         </dependency>
