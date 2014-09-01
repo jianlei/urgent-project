@@ -542,7 +542,7 @@ function clearall_zdwxy(){
         map.removeOverlay(markers_zdwxy[mwi]);
         markers_zdwxy.remove(mwi);
     }
-    clearPrint();
+    //clearPrint();
 }
 
 /**
@@ -554,7 +554,7 @@ function clearall_zj(){
         map.removeOverlay(markers_zjbz[mwi]);
         markers_zjbz.remove(mwi);
     }
-    clearPrint();
+    //clearPrint();
 }
 
 /**
@@ -566,7 +566,7 @@ function clearall_jyd(){
         map.removeOverlay(markers_jydbz[mwi]);
         markers_jydbz.remove(mwi);
     }
-    clearPrint();
+    //clearPrint();
 }
 
 /**
@@ -578,7 +578,7 @@ function clearall_wzbj(){
         map.removeOverlay(markers_wzbj[mwi]);
         markers_wzbj.remove(mwi);
     }
-    clearPrint();
+    //clearPrint();
 }
 //地图右侧侧拉按钮
 function showPanel(){
