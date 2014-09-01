@@ -30,6 +30,16 @@ public class EnterpriseExpertBeanServiceImpl extends GenericBizServiceImpl imple
     }
 
     /**
+     * 专家like查询
+     * @param name
+     * @return
+     */
+    @Override
+    public List<EnterpriseExpertBean> getLikeEnterpriseExperByName(String name) {
+        return enterpriseExpertBeanDao.find("select e from EnterpriseExpertBean e where e.name like ?1 ","%"+name+"%");
+    }
+
+    /**
      *
      * @return
      */

@@ -60,6 +60,8 @@ $(function () {
  * dlw
  */
 function zdwxy(){
+    //清空地图已有重大危险源标注
+    clearall_zdwxy();
     $.getJSON(
         "../../cxf/hazard",{"rand":Math.random()},function(json){
             if(json!=null){
@@ -69,7 +71,8 @@ function zdwxy(){
                 var responseJson = json;
                 for(var i=0;i<responseJson.length;i++){
                     var response =responseJson[i];
-                    var content = "<div style='float:left;width:240px;padding-top:10px'>危险源名称: <span style='color:green;'>"+response.name+"</span></br>";
+                    if(response.jd!=""&& response.wd!=""){
+                        var content = "<div style='float:left;width:240px;padding-top:10px'>危险源名称: <span style='color:green;'>"+response.name+"</span></br>";
                         content += "危险源级别: <span style='color:green;'>" + response.level + "</span></br>";
                         content += "原因: <span style='color:green;'>"+response.createBy+"</span></br>";
                         content += "时间: <span style='color:green;'>"+response.creationDate+"</span></br>";
@@ -88,54 +91,34 @@ function zdwxy(){
                         content += "基本情况: <span style='color:green;'>"+response.jbqk+"</span></br>";
                         content += "治理措施: <span style='color:green;'>"+response.zlcs+"</span></br>";
                         content += "备注: <span style='color:green;'>"+response.remark+"</span></br>";
-                    content += "</div>";
+                        content += "</div>";
 
-                    content+='<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
-                    content += "周边情况（东）: <span style='color:green;'>"+response.zbqkd+"</span></br>";
-                    content += "是否危化企业（东）: <span style='color:green;'>"+response.sfwhqyd+"</span></br>";
-                    content += "剧本企业最近直线距离（东）: <span style='color:green;'>"+response.jbqyzjzxjld+"</span></br>";
-                    content += "情况类型（东）: <span style='color:green;'>"+response.zbqklxd+"</span></br>";
+                        content+='<div style="float:left;width:240px;margin:10px 0 0 5px;line-height:20px;padding:2px;">';
+                        content += "周边情况（东）: <span style='color:green;'>"+response.zbqkd+"</span></br>";
+                        content += "是否危化企业（东）: <span style='color:green;'>"+response.sfwhqyd+"</span></br>";
+                        content += "剧本企业最近直线距离（东）: <span style='color:green;'>"+response.jbqyzjzxjld+"</span></br>";
+                        content += "情况类型（东）: <span style='color:green;'>"+response.zbqklxd+"</span></br>";
 
-                    content += "周边情况（南）: <span style='color:green;'>"+response.zbqkn+"</span></br>";
-                    content += "是否危化企业（南）: <span style='color:green;'>"+response.sfwhqydn+"</span></br>";
-                    content += "剧本企业最近直线距离（南）: <span style='color:green;'>"+response.jbqyzjzxjln+"</span></br>";
-                    content += "情况类型（南）: <span style='color:green;'>"+response.zbqklxn+"</span></br>";
+                        content += "周边情况（南）: <span style='color:green;'>"+response.zbqkn+"</span></br>";
+                        content += "是否危化企业（南）: <span style='color:green;'>"+response.sfwhqydn+"</span></br>";
+                        content += "剧本企业最近直线距离（南）: <span style='color:green;'>"+response.jbqyzjzxjln+"</span></br>";
+                        content += "情况类型（南）: <span style='color:green;'>"+response.zbqklxn+"</span></br>";
 
-                    content += "周边情况（西）: <span style='color:green;'>"+response.zbqkx+"</span></br>";
-                    content += "是否危化企业（西）: <span style='color:green;'>"+response.sfwhqyx+"</span></br>";
-                    content += "剧本企业最近直线距离（西）: <span style='color:green;'>"+response.jbqyzjzxjlx+"</span></br>";
-                    content += "情况类型（西）: <span style='color:green;'>"+response.zbqklxx+"</span></br>";
+                        content += "周边情况（西）: <span style='color:green;'>"+response.zbqkx+"</span></br>";
+                        content += "是否危化企业（西）: <span style='color:green;'>"+response.sfwhqyx+"</span></br>";
+                        content += "剧本企业最近直线距离（西）: <span style='color:green;'>"+response.jbqyzjzxjlx+"</span></br>";
+                        content += "情况类型（西）: <span style='color:green;'>"+response.zbqklxx+"</span></br>";
 
-                    content += "周边情况（北）: <span style='color:green;'>"+response.zbqkb+"</span></br>";
-                    content += "是否危化企业（北）: <span style='color:green;'>"+response.sfwhqyb+"</span></br>";
-                    content += "剧本企业最近直线距离（北）: <span style='color:green;'>"+response.jbqyzjzxjlb+"</span></br>";
-                    content += "情况类型（北）: <span style='color:green;'>"+response.zbqklxb+"</span></br>";
+                        content += "周边情况（北）: <span style='color:green;'>"+response.zbqkb+"</span></br>";
+                        content += "是否危化企业（北）: <span style='color:green;'>"+response.sfwhqyb+"</span></br>";
+                        content += "剧本企业最近直线距离（北）: <span style='color:green;'>"+response.jbqyzjzxjlb+"</span></br>";
+                        content += "情况类型（北）: <span style='color:green;'>"+response.zbqklxb+"</span></br>";
 
-                    content+= '</div>';
-                    if(response.qyid!=""){
-                        $.getJSON(
-                                "../../cxf/monitor/"+response.qyid+"",{"rand":Math.random()},function(json) {
-                                if (json != null) {
-                                    var streamSvrIp ="";
-                                    var TextIP ="";
-                                    var TextName1 ="";
-                                    var TextPwd1 ="";
-                                    TextIP = json[0].ipAddress;
-                                    TextName1 = json[0].admin;
-                                    TextPwd1 = json[0].password;
-                                    content += '<div style="float:left;width:290px;margin:0;line-height:20px;padding:2px;">' +
-                                        '<iframe align="center" id="iframe_viedo" width="550" height="360" src="../../cus/gis/js/map/PlayViewDemo.htm?streamSvrIp=' + streamSvrIp + '&&TextIP=' + TextIP + '&&TextName1=' + TextName1 + '&&TextPwd1=' + TextPwd1 + '" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>' +
-                                        '</div>';
-                                    hazard_width=800;
-                                }
-                                addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy);
-                            });
-                    }else{
-                        addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy);
-                    }
-
-                    if(i==responseJson.length-1){
-                        moveMapByBound();
+                        content+= '</div>';
+                        addGeneralPoint(response.jd,response.wd,i,"label_zdwxy",content,"重大危险源详情",hazard_width,400,markers_zdwxy,0,"",response.qyid);
+                        if(i==responseJson.length-1){
+                            moveMapByBound();
+                        }
                     }
                 }
             }else{
@@ -376,4 +359,47 @@ function goToaddDangerPont(_lng,_lat,mk,icon,responseJson){
               });
 
         });
+}
+
+/**
+ * 右侧搜索
+ * //type:1专家 2救援队3物资
+ */
+function rightList_search(param,type){
+    var url_search = "";
+    if(type==1){
+        url_search = "../../cxf/expert/search/"+param+"";
+    }
+    if(type==2){
+        url_search = "../../cxf/rescue/search/"+param+"";
+    }
+    if(type==3){
+        url_search = "../../cxf/equipment/search/"+param+"";
+    }
+    $.getJSON(url_search,{"rand":Math.random()},function(json){
+                resultList_search(json);
+        });
+}
+
+/**
+ * 检索结果拼接
+ * @param param
+ */
+function resultList_search(json){
+    var result = "";
+    if(json!=null && json.length>0){
+        result = "<p>";
+        for(var i=0;i<json.length;i++){
+            //result +='<a href="javascript:void(0);" onclick="jydStr('+json[i]+')">'+json[i].name+'</a></br>';
+            console.log("1===="+json[i]);
+            result +="<a href='javascript:void(0);' onclick='jydStr("+json[i]+")'>"+json[i].name+"</a></br>";
+        }
+        result += "</p>";
+        $("#showOverlayInfo").css("display","none");
+        $("#panel").html(result); //将绘制的覆盖物信息结果输出到
+    }else{
+        $("#panel").html("<font color='red'>未检索到相关条件内容!</font>"); //将绘制的覆盖物信息结果输出到
+    }
+
+
 }

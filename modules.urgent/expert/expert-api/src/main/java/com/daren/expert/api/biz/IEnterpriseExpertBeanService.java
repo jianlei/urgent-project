@@ -19,6 +19,16 @@ public interface IEnterpriseExpertBeanService extends IBizService {
     List<EnterpriseExpertBean> query(EnterpriseExpertBean dictBean);
 
     /**
+     * 物资like查询
+     * @创建人：dlw
+     * @修改时间：9-1
+     */
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("/search/{name}")
+    List<EnterpriseExpertBean> getLikeEnterpriseExperByName(@PathParam("name")String name);
+
+    /**
      * @修改人：dlw
      * @修改时间：8-26
      * @修改备注：创建getExpertList()方法
