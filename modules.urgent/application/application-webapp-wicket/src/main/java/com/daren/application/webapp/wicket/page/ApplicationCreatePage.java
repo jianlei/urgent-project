@@ -3,6 +3,7 @@ package com.daren.application.webapp.wicket.page;
 
 import com.daren.application.api.biz.IApplicationBeanService;
 import com.daren.application.entities.ApplicationBean;
+import com.daren.core.api.IConst;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
@@ -54,7 +55,7 @@ public class ApplicationCreatePage extends BasePanel {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
+                            String path = IConst.OFFICE_WEB_PATH_WRITE + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             documentBean1.setFilePath(path);

@@ -61,6 +61,7 @@ public class DocumentListPage extends IrisAbstractDialog<RegulationBean> {
                             FileInputStream fileInputStream = new FileInputStream(docmentBean.getFilePath());
                             DataInputStream data = new DataInputStream(fileInputStream);
                             Files.writeTo(tempFile, data);
+                            fileInputStream.close();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

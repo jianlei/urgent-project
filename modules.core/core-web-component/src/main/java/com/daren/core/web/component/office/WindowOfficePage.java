@@ -15,7 +15,7 @@ public class WindowOfficePage extends OfficeDialog {
     WebMarkupContainer wmc = new WebMarkupContainer("allmapwmc");
     RepeatingView allmap = new RepeatingView("allmap");
 
-    public WindowOfficePage(String id, String title, String filePath) {
+    public WindowOfficePage(String id, String title, final String filePath) {
         super(id, title);
         allmap.setOutputMarkupId(true);
         wmc.setOutputMarkupId(true);
@@ -27,7 +27,7 @@ public class WindowOfficePage extends OfficeDialog {
         this.add(new Behavior() {
             @Override
             public void renderHead(Component component, IHeaderResponse response) {
-                response.render(OnDomReadyHeaderItem.forScript("loadScript();"));
+                response.render(OnDomReadyHeaderItem.forScript("loadScript('" + filePath + "');"));
             }
         });
     }

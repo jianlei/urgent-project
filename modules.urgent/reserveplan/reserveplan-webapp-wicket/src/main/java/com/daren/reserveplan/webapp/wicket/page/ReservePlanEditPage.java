@@ -1,5 +1,6 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
@@ -56,11 +57,11 @@ public class ReservePlanEditPage extends BasePanel {
         super(id, wmc);
         if (null != bean) {
             reservePlanBean = bean;
-            enterpriseBean =  enterpriseBeanService.getByQyid(reservePlanBean.getEnterpriseId());
+            enterpriseBean = enterpriseBeanService.getByQyid(reservePlanBean.getEnterpriseId());
         }
         initForm(reservePlanBean);
         initFeedBack();
-        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("enterpriseId", Model.of(enterpriseBean));
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice("enterpriseId", Model.of(enterpriseBean));
         enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
         reserveForm.add(enterpriseSelect2Choice);
         //addSelectToForm();
@@ -132,7 +133,7 @@ public class ReservePlanEditPage extends BasePanel {
         try {
             if (null != fileUploadList && fileUploadList.size() > 0) {
                 for (FileUpload fileUpload : fileUploadList) {
-                    String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
+                    String path = IConst.OFFICE_WEB_PATH_WRITE + fileUpload.getMD5();
                     File file = new File(path);
                     fileUpload.writeTo(file);
                     documentBean.setFilePath(path);
