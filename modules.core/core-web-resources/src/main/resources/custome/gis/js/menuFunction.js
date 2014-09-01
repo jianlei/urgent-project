@@ -363,14 +363,21 @@ function goToaddDangerPont(_lng,_lat,mk,icon,responseJson){
 
 /**
  * 右侧搜索
+ * //type:1专家 2救援队3物资
  */
-function zjList_search(param){
-    $.getJSON(
-            "../../cxf/equipment/scope/"+lng+"/"+lat+"/"+distance+"",{"rand":Math.random()},function(json){
-            if(json!=null){
-                var responseJson = json;
-                resultList_search("12121");
-            }
+function rightList_search(param,type){
+    var url_search = "";
+    if(type==1){
+        url_search = "../../cxf/expert/search/"+param+"";
+    }
+    if(type==2){
+        url_search = "../../cxf/rescue/search/"+param+"";
+    }
+    if(type==3){
+        url_search = "../../cxf/equipment/search/"+param+"";
+    }
+    $.getJSON(url_search,{"rand":Math.random()},function(json){
+                resultList_search(json);
         });
 }
 
@@ -378,11 +385,21 @@ function zjList_search(param){
  * 检索结果拼接
  * @param param
  */
-function resultList_search(param){
+function resultList_search(json){
     var result = "";
-    result = "<p>";
-    result +="检索key:"+param;
-    result += "</p>";
-    $("#showOverlayInfo").css("display","none");
-    $("#panel").html(result); //将绘制的覆盖物信息结果输出到
+    if(json!=null && json.length>0){
+        result = "<p>";
+        for(var i=0;i<json.length;i++){
+            //result +='<a href="javascript:void(0);" onclick="jydStr('+json[i]+')">'+json[i].name+'</a></br>';
+            console.log("1===="+json[i]);
+            result +="<a href='javascript:void(0);' onclick='jydStr("+json[i]+")'>"+json[i].name+"</a></br>";
+        }
+        result += "</p>";
+        $("#showOverlayInfo").css("display","none");
+        $("#panel").html(result); //将绘制的覆盖物信息结果输出到
+    }else{
+        $("#panel").html("<font color='red'>未检索到相关条件内容!</font>"); //将绘制的覆盖物信息结果输出到
+    }
+
+
 }

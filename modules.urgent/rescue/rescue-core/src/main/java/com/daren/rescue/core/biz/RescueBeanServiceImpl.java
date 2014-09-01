@@ -42,6 +42,15 @@ public class RescueBeanServiceImpl extends GenericBizServiceImpl implements IRes
         return hashMap;
     }
 
+    /**
+     * 救援队like查询
+     * @param name
+     * @return
+     */
+    @Override
+    public List<RescueBean> getLikeRescueByName(String name) {
+        return rescueBeanDao.find("select e from RescueBean e where e.name like ?1 ","%"+name+"%");
+    }
 
     @Override
     public List<RescueBean> getRescueList() {

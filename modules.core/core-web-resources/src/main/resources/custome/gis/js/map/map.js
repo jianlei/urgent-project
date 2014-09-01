@@ -602,19 +602,10 @@ function searchAll(seachvalue){
     if(seachvalue!=""){
         var search_radio= $('input:radio[name="search_radio"]:checked').val();
         if(search_radio==null){
-            alert("请选中一个!");
+            alert("请选择其中一个查询条件!");
             return false;
         }else{
-            if(search_radio==1){
-                alert("专家");
-                zjList_search(seachvalue);
-            }
-            if(search_radio==2){
-                alert("救援队");
-            }
-            if(search_radio==3){
-                alert("物资");
-            }
+            rightList_search(seachvalue,search_radio);//1专家 2救援队3物资
         }
     }else{
         $("#showOverlayInfo").css("display","");
