@@ -1,5 +1,6 @@
 package com.daren.regulation.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IUploadDocumentService;
 import com.daren.regulation.entities.DocmentBean;
@@ -51,7 +52,7 @@ public class UploadDocumentPage extends IrisAbstractDialog<RegulationBean> {
                     List<FileUpload> fileUploadList = fileUploadField.getFileUploads();
                     if (null != fileUploadList && fileUploadList.size() > 0) {
                         for (FileUpload fileUpload : fileUploadList) {
-                            String path = "D:\\saveFilePath\\" + fileUpload.getMD5();
+                            String path = IConst.OFFICE_WEB_PATH_WRITE + fileUpload.getMD5();
                             File file = new File(path);
                             fileUpload.writeTo(file);
                             docmentBean1.setFilePath(path);
