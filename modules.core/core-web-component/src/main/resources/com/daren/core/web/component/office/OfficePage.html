@@ -8,11 +8,12 @@
 <wicket:panel>
     <script event="NotifyCtrlReady" for="WebOffice1">
         var webObj = document.getElementById("WebOffice1");
-        //        document.all.WebOffice1.LoadOriginalFile("E:\\项目\\jetty安装文档.doc", "doc");
     </script>
     <script>
         function loadScript(filePath) {
             document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+            document.all.WebOffice1.HideMenuItem(1);
+            document.all.WebOffice1.HideMenuItem(2);
         }
     </script>
     <OBJECT id="WebOffice1" width="100%" height="500" style="z-index: 99999;"
