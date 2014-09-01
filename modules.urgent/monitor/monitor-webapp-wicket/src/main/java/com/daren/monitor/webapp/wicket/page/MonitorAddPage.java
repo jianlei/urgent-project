@@ -61,7 +61,7 @@ public class MonitorAddPage extends BasePanel {
         enterpriseSelect2Choice = new EnterpriseSelect2Choice ("affiliation", Model.of(enterpriseBean));
         enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
         monitorBeanForm.add(enterpriseSelect2Choice);
-        addSelectToForm();
+        //addSelectToForm();
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
