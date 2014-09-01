@@ -107,7 +107,6 @@ public class DocumentListPage extends IrisAbstractDialog<UrgentDrillBean> {
         dialog = new WindowOfficePage("mydialog", title, filePath) {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
-
             }
         };
         target.add(dialogWrapper);
