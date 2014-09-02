@@ -110,7 +110,7 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
         Map<String,String> map_level=dictBeanService.getDictMap(IDictConstService.ACCIDENT_LEVEL);
 
 
-        List<AccidentJson> list=accidentBeanDao.findByNativeSql("select b.qymc,b.qyid as id,b.qylxfs,a.id as accident_id,a.place,a.jd,a.wd,a.accidentTitle,a.place,a.detailsPlace,a.accidentType,a.accidentLevel,a.operator,a.operatorPhone,a.videoLink " +
+        List<AccidentJson> list=accidentBeanDao.findByNativeSql("select b.qymc,b.qyid as id,b.qylxfs,a.id as accident_id,a.place,b.jd,b.wd,a.accidentTitle,a.place,a.detailsPlace,a.accidentType,a.accidentLevel,a.operator,a.operatorPhone,a.videoLink " +
                 "from urg_accident a,urg_ent_enterprise b where a.status =0 and a.accidentUnit=b.qyid", AccidentJson.class);
 
         for(AccidentJson json:list){
