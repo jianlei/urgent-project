@@ -39,4 +39,10 @@
         <bean class="com.daren.example.webapp.wicket.JScriptMenuItemModule">
         </bean>
     </service>
+
+    <!-- 发布Ajax目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.AjaxMenuItemModule">
+        </bean>
+    </service>
 </blueprint>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
+<wicket:head>
+    <title></title>
+
+    <style>
+        p {
+            color: red;
+            margin: 5px;
+            cursor: pointer;
+        }
+        p.hilite {
+            background: yellow;
+        }
+    </style>
+
+</wicket:head>
+<body>
+<wicket:panel>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('#canvas').click(function() {
+                var testArray = [1, 2, 3, 4, 5];
+
+                jQuery.ajax({
+                    url : jQuery('#canvas').attr('my:canvas.callback'),
+                    type : 'post',
+                    cache : false,
+
+                    data : JSON.stringify(testArray),
+                    contentType : 'application/json',
+                    dataType : 'json',
+                    complete : function(xhr, status) {
+                        alert("completed: "+xhr.responseText)
+                    }
+                });
+            });
+        });
+    </script>
+    <div wicket:id="feedback"/>
+    First name: <input type="text" id="fname" />
+    Last name: <input type="text" id="lname" />
+    <p
+            class="drawing_canvas"
+            wicket:id="drawingCanvas">
+    </p>
+    <!--<p id="clickme">点击提交</p>-->
+    说明：本例子演示了如何在jscript中通过jquey 标准的ajax调用函数，传递json参数到wicket，并调用wicket代码
+    <a href="http://davidtanzer.net/jquery_wicket">refer</a>
+</wicket:panel>
+</body>
+</html>

@@ -2,20 +2,7 @@
 <html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
 <wicket:head>
     <title></title>
-    <script>
-        $(document).ready(function () {
 
-
-
-
-            $("p").hover(function () {
-                $(this).addClass("hilite");
-            }, function () {
-                $(this).removeClass("hilite");
-            });
-
-        });
-    </script>
     <style>
         p {
             color: red;
@@ -31,9 +18,26 @@
 <body>
 <wicket:panel>
     <script>
+        jQuery(document).ready(function () {
+
+
+
+
+            jQuery("p").hover(function () {
+                jQuery(this).addClass("hilite");
+            }, function () {
+                jQuery(this).removeClass("hilite");
+            });
+
+        });
+    </script>
+    <script>
         var sendToServer;
+        var xls = {"expert":["1","2","3"],"rescue":"34,5,6","equipment":""};//物资专家救援队集合
+//        var ts=[1, 2, 3, 4, 5];
+//        var str=jQuery.parseJSON(xls);
         jQuery("#clickme").click(function () {
-            sendToServer(jQuery("#fname").val(),jQuery("#lname").val());
+            sendToServer(JSON.stringify(xls),jQuery("#lname").val());
         });
     </script>
     <div wicket:id="feedback"/>

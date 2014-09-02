@@ -688,8 +688,9 @@ function gotoprint(){
 
     var parm = "reserve:"+reserve_str+"^digital:"+digital_str+"^expert:"+expert_str+"^rescue:"+rescue_str+"^equipment:"+equipment_str;
 
-    if(reserve_arry.length != 0 || digital_arry.length != 0){
-        sendToServer("param_str",parm);
+    if(reserve_arry.length != 0 || digital_arry.length != 0) {
+            var result = JSON.stringify(res_dig);
+            sendToServer(result,parm);
         //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
     }
     clearPrint();
