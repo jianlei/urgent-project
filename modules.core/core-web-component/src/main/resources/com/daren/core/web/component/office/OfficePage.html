@@ -11,7 +11,11 @@
     </script>
     <script>
         function loadScript(filePath) {
-            document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+            if (filePath.indexOf("xls") == -1) {
+                document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+            } else {
+                document.all.WebOffice1.LoadOriginalFile(filePath, "xls");
+            }
             document.all.WebOffice1.HideMenuItem(1);
             document.all.WebOffice1.HideMenuItem(2);
         }

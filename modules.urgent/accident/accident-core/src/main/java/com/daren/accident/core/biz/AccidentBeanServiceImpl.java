@@ -3,12 +3,12 @@ package com.daren.accident.core.biz;
 import com.daren.accident.api.biz.IAccidentBeanService;
 import com.daren.accident.api.dao.IAccidentBeanDao;
 import com.daren.accident.core.model.AccidentJson;
-import com.daren.accident.core.model.ResourceJson;
 import com.daren.accident.core.util.ColumnStaticValue;
 import com.daren.accident.core.util.ExportExcel;
 import com.daren.accident.entities.AccidentBean;
 import com.daren.admin.api.biz.IDictBeanService;
 import com.daren.admin.api.biz.IDictConstService;
+import com.daren.core.api.IConst;
 import com.daren.core.api.persistence.IGenericDao;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.equipment.api.dao.IEquipmentBeanDao;
@@ -143,32 +143,25 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
 
     /**
      * 打印物资
-     * @param resourceJson
-     * @return
      */
-    @POST
-    @Path("/print")
-    @Consumes("application/json;charset=utf-8")
-    public Response printAccidentResource(ResourceJson resourceJson) {
+    public String printAccidentResource(String[] equipment, String[] expert, String[] rescue) {
         HSSFWorkbook wb = new HSSFWorkbook();
         ExportExcel exportExcel = new ExportExcel(wb);
-        String[] equipment = resourceJson.getEquipment();   //物资
+
         if(equipment!=null && equipment.length>0){
             geneExportExcel(wb,exportExcel,equipment,EquipmentBean.class.getName(),ColumnStaticValue.EQU_SHEET_NAME,
                     ColumnStaticValue.equStrArr,ColumnStaticValue.EQU_HDADER_NAME,equipmentBeanDao);
         }
-        String[] expert = resourceJson.getExpert();         //专家
         if(expert!=null && expert.length>0){
             geneExportExcel(wb,exportExcel,expert,EnterpriseExpertBean.class.getName(),ColumnStaticValue.EXP_SHEET_NAME,
                     ColumnStaticValue.expStrArr,ColumnStaticValue.EXP_HEADER_NAME,enterpriseExpertBeanDao);
         }
-        String[] rescue = resourceJson.getRescue();         //救援队
         if(rescue!=null && rescue.length>0){
             geneExportExcel(wb,exportExcel,expert,RescueBean.class.getName(),ColumnStaticValue.RES_SHEET_NAME,
                     ColumnStaticValue.resStrArr,ColumnStaticValue.RES_HEADER_NAME,rescueBeanDao);
         }
-        genetateFile(exportExcel.outputExcel(),ColumnStaticValue.FILE_URI);
-        return Response.ok().build();
+        genetateFile(exportExcel.outputExcel(), IConst.OFFICE_WEB_PATH_WRITE + "comprehensive.xls");
+        return "comprehensive.xls";
     }
 
     /**

@@ -209,7 +209,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.wicketstuff</groupId>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.accident</groupId>
+            <artifactId>com.daren.accident.core</artifactId>
+        </dependency>
+
+        <dependency>
+        <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-shiro</artifactId>
         </dependency>
 

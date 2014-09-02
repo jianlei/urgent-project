@@ -1,12 +1,16 @@
 package com.daren.gis.webapp.wicket.page;
 
+import com.daren.accident.api.biz.IAccidentBeanService;
+import com.daren.core.api.IConst;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.digitalplan.api.biz.IDigitalPlanBeanService;
 import com.daren.digitalplan.entities.DigitalPlanBean;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
+import com.daren.gis.webapp.wicket.page.model.ResourceJson;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
+import com.google.gson.Gson;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
@@ -37,7 +41,7 @@ public class GisPanel extends BasePanel implements IHeaderContributor {
     DocumentListPage dialog;
     String AJAX_PARAM1_NAME="type";
     String AJAX_PARAM2_NAME="docId";
-    List<DocumentBean> list = new ArrayList<DocumentBean>();
+
     //注入服务
     @Inject
     @Reference(id = "reservePlanBeanService", serviceInterface = IReservePlanBeanService.class)
@@ -48,6 +52,9 @@ public class GisPanel extends BasePanel implements IHeaderContributor {
     @Inject
     @Reference(id = "digitalPlanBeanService", serviceInterface = IDigitalPlanBeanService.class)
     private IDigitalPlanBeanService digitalPlanBeanService;
+    @Inject
+    @Reference(id = "accidentBeanService", serviceInterface = IAccidentBeanService.class)
+    private IAccidentBeanService accidentBeanService;
 
     //ajax target container
     public GisPanel(String id, WebMarkupContainer wmc) {
@@ -77,38 +84,34 @@ public class GisPanel extends BasePanel implements IHeaderContributor {
         AbstractDefaultAjaxBehavior ajaxBehavior = new AbstractDefaultAjaxBehavior() {
             @Override
             protected void respond(AjaxRequestTarget target) {
+                List<DocumentBean> list = new ArrayList<DocumentBean>();
                 String param1Value = getRequest().getRequestParameters().getParameterValue(AJAX_PARAM1_NAME).toString();
-                String param2Value = getRequest().getRequestParameters().getParameterValue(AJAX_PARAM2_NAME).toString();
-                //0企业   1监管机构预案   2专家    3救援队     4物资
-                String[] type = param2Value.split("_");
-                if(type[0].split(":").length>1){
-                    String values = type[0].split(":")[1];
-                    for (int i=0; i<values.split("#").length; i++){
-                        String v = values.split("#")[i];
-                        ReservePlanBean reservePlanBean = (ReservePlanBean) reservePlanBeanService.getEntity(Long.parseLong(v));
+                Gson gson = new Gson();
+                ResourceJson json = gson.fromJson(param1Value, ResourceJson.class);
+                if (null != json.getReserve() && json.getReserve().length > 0) {
+                    String[] reserve = json.getReserve();
+                    for (int i = 0; i < reserve.length; i++) {
+                        ReservePlanBean reservePlanBean = (ReservePlanBean) reservePlanBeanService.getEntity(Long.parseLong(reserve[i]));
                         DocumentBean DocumentBean = (DocumentBean)uploadDocumentService.getEntity(Long.parseLong(reservePlanBean.getComprehensivePlanId()));
                         list.add(DocumentBean);
                     }
                 }
-                if(type[1].split(":").length>1){
-                    String values = type[1].split(":")[1];
-                    for (int i = 0; i < values.split("#").length; i++) {
-                        String v = values.split("#")[i];
-                        DigitalPlanBean digitalPlanBean = (DigitalPlanBean) digitalPlanBeanService.getEntity(Long.parseLong(v));
+                if (null != json.getDigital() && json.getDigital().length > 0) {
+                    String[] digital = json.getDigital();
+                    for (int i = 0; i < digital.length; i++) {
+                        DigitalPlanBean digitalPlanBean = (DigitalPlanBean) digitalPlanBeanService.getEntity(Long.parseLong(digital[i]));
                         DocumentBean DocumentBean = (DocumentBean) uploadDocumentService.getEntity(Long.parseLong(digitalPlanBean.getDigitalPlanId()));
                         list.add(DocumentBean);
                     }
                 }
-                if(type[2].split(":").length>1){
-                    String values = type[2].split(":")[1];
+                if (null != json.getEquipment() || null != json.getExpert() || null != json.getRescue()) {
+                    String fileName = accidentBeanService.printAccidentResource(json.getEquipment(), json.getExpert(), json.getRescue());
+                    DocumentBean documentBean = new DocumentBean();
+                    documentBean.setName("综合资源列表.xls");
+                    documentBean.setFilePath(IConst.OFFICE_WEB_PATH_WRITE + fileName);
+                    list.add(documentBean);
                 }
-                if(type[3].split(":").length>1){
-                    String values = type[3].split(":")[1];
-                }
-                if(type[4].split(":").length>1){
-                    String values = type[4].split(":")[1];
-                }
-                System.out.println(list.size());
+
                 createDocumentDialog(target, list, "预案列表");
             }
             @Override
