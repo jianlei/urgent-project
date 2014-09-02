@@ -636,7 +636,7 @@ function gotoprint(){
     var rescue_arry = [];//救援队
     var equipment_arry = [];//物资
     var res_dig = {"reserve":"","digital":""};//预案 集合
-    var xls = {"expert":"","rescue":"","equipment":""};//物资专家救援队集合
+    var xls = {"reserve":"","digital":"","expert":"","rescue":"","equipment":""};//物资专家救援队集合
 
     var reserve_str = "";//企业预案
     var digital_str = "";//监管机构预案
@@ -671,11 +671,13 @@ function gotoprint(){
     });
     res_dig.reserve = reserve_arry;
     res_dig.digital = digital_arry;
+    xls.reserve = reserve_arry;
+    xls.digital = digital_arry;
     xls.expert = expert_arry;
     xls.rescue = rescue_arry;
     xls.equipment = equipment_arry;
 
-    if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
+   /* if(expert_arry.length != 0 || rescue_arry.length != 0 ||  equipment_arry.length != 0){
         $.ajax({
             url: "http://localhost:9191/cxf/accident/print",
             type: "post",
@@ -686,10 +688,10 @@ function gotoprint(){
         });
     }
 
-    var parm = "reserve:"+reserve_str+"^digital:"+digital_str+"^expert:"+expert_str+"^rescue:"+rescue_str+"^equipment:"+equipment_str;
+    var parm = "reserve:"+reserve_str+"^digital:"+digital_str+"^expert:"+expert_str+"^rescue:"+rescue_str+"^equipment:"+equipment_str;*/
 
     if(reserve_arry.length != 0 || digital_arry.length != 0){
-        sendToServer("param_str",parm);
+        sendToServer(JSON.stringify(xls),"");
         //$.getJSON("../../cxf/accident/print/"+res_dig+"",{"rand":Math.random()},function(json){});
     }
     clearPrint();
