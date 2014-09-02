@@ -4,6 +4,7 @@ import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
@@ -31,11 +32,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 
 /**
- * @类描述：品牌维护
+ * @类描述：企业预案
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:25
  * @修改人：
@@ -46,7 +46,7 @@ import java.util.Map;
 public class ReservePlanPage extends BasePanel {
 
     ReservePlanDataProvider provider = new ReservePlanDataProvider();
-    Map<String, String> enterpriseNameMap;
+//    Map<String, String> enterpriseNameMap;
 
     @Inject
     private IReservePlanBeanService reservePlanBeanService;
@@ -57,7 +57,7 @@ public class ReservePlanPage extends BasePanel {
 
     public ReservePlanPage(String id, final WebMarkupContainer wmc) {
         super(id, wmc);
-        enterpriseNameMap = enterpriseBeanService.getAllBeansToHashMap();
+//        enterpriseNameMap = enterpriseBeanService.getAllBeansToHashMap();
         initForm(wmc);
     }
 
@@ -75,7 +75,16 @@ public class ReservePlanPage extends BasePanel {
                 item.add(new Label("name", reservePlanBean.getName()));
                 item.add(new Label("approveType", reservePlanBean.getApproveType()));
                 item.add(new Label("version", reservePlanBean.getVersion()));
-                item.add(new Label("enterpriseId", enterpriseNameMap.get(reservePlanBean.getEnterpriseId())));
+
+                EnterpriseBean bean=enterpriseBeanService.getByQyid(reservePlanBean.getEnterpriseId());
+                if(null==bean){
+                    item.add(new Label("enterpriseId", "未知"));
+                }
+                else
+                {
+                    item.add(new Label("enterpriseId", bean.getQymc()));
+                }
+
                 item.add(new Label("approveTime", DateUtil.convertDateToString(reservePlanBean.getApproveTime(), DateUtil.shortSdf)));
                 addDownLoadLink(item, "reservePlanApplyId", reservePlanBean.getReservePlanApplyId());
                 addDownLoadLink(item, "reservePlanRegisterId", reservePlanBean.getReservePlanRegisterId());

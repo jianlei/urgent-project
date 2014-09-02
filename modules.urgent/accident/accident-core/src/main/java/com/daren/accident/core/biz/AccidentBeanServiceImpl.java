@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @类描述：品牌服务实现类
+ * @类描述：事故服务实现类
  * @创建人：wangkr
  * @创建时间：2014-04-04 下午2:42
  * @修改人：
@@ -252,6 +252,7 @@ public class AccidentBeanServiceImpl extends GenericBizServiceImpl implements IA
      */
     private boolean genetateFile(InputStream is,String fileName){
         boolean flag = false;
+
         try{
             FileOutputStream fos = new FileOutputStream(fileName);
             byte[] b = new byte[1024 * 1024];
