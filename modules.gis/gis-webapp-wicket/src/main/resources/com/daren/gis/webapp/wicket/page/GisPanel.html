@@ -155,7 +155,7 @@
             <div class="optionpanel">
                 <fieldset>
                     <legend>个性化检索</legend>
-                    <input id="stylelist"  onchange="searchAll(this.value)" />
+                    <input id="stylelist"  onkeypress="enterHandler(event)" />
                     <p id="desc"></p>
                     <div>
                         <input type="radio" name ="search_radio"  value = "1">专家</input>

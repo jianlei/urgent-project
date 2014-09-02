@@ -1174,7 +1174,16 @@ function rightTab(){
     map.addContextMenu(contextMenu);
 }
 
-
+/**
+ * 绑定回车
+ * @param event
+ */
+function enterHandler(event){
+    var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    if (keyCode == 13){
+        searchAll($("#stylelist").val());
+    }
+}
 //地图警告音
 $(function() {
     $("#jplayer").jPlayer({
