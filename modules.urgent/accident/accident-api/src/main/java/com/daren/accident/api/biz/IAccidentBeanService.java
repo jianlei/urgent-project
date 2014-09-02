@@ -13,4 +13,6 @@ import java.util.List;
 public interface IAccidentBeanService extends IBizService {
     List<AccidentBean> queryAccidentByAccidentLevel();
     public Response addAccident(AccidentBean bean);
+
+    public String printAccidentResource(String[] equipment, String[] expert, String[] rescue);
 }

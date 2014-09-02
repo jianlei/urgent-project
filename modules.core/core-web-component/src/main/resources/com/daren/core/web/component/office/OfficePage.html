@@ -10,8 +10,12 @@
         var webObj = document.getElementById("WebOffice1");
     </script>
     <script>
-        function loadScript(filePath) {alert(filePath);
-            document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+        function loadScript(filePath) {
+            if (filePath.indexOf("xls") == -1) {
+                document.all.WebOffice1.LoadOriginalFile(filePath, "doc");
+            } else {
+                document.all.WebOffice1.LoadOriginalFile(filePath, "xls");
+            }
             document.all.WebOffice1.HideMenuItem(1);
             document.all.WebOffice1.HideMenuItem(2);
         }

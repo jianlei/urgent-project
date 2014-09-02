@@ -1,4 +1,4 @@
-package com.daren.accident.core.model;
+package com.daren.gis.webapp.wicket.page.model;
 
 /**
  * @类描述：用于接收gis返回的需要打印的物资json对象
