@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <relativePath>../poms/compiled/</relativePath>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.daren.cooperate</groupId>
+    <artifactId>modules.cooperate</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Urgent :: Modules - 协同子系统</name>
+
+    <packaging>pom</packaging>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>cooperate-api</module>
+        <module>cooperate-core</module>
+        <module>cooperate-persist-jpa</module>
+        <module>cooperate-entities</module>
+        <module>cooperate-webapp-wicket</module>
+        <module>cooperate-web-bootup-wicket</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.daren.cooperate</groupId>
+                <artifactId>com.daren.cooperate.core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.cooperate</groupId>
+                <artifactId>com.daren.cooperate.api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.cooperate</groupId>
+                <artifactId>com.daren.cooperate.entities</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.cooperate</groupId>
+                <artifactId>com.daren.cooperate.persist.openjpa</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.cooperate</groupId>
+                <artifactId>com.daren.cooperate.webapp.wicket</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
