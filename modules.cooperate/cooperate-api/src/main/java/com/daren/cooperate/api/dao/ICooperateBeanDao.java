@@ -1,5 +1,6 @@
 package com.daren.cooperate.api.dao;
 
+import com.daren.cooperate.entities.CooperateBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 /**
@@ -10,5 +11,5 @@ import com.daren.core.api.persistence.IGenericDao;
  * @修改时间：
  * @修改备注：
  */
-public interface ICooperateBeanDao extends IGenericDao<AboutBean, Long> {
+public interface ICooperateBeanDao extends IGenericDao<CooperateBean, Long> {
 }

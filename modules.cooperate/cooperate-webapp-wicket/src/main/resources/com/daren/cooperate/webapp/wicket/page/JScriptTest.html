@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
+<wicket:head>
+    <title></title>
+    <script>
+        $(document).ready(function () {
+
+
+
+
+            $("p").hover(function () {
+                $(this).addClass("hilite");
+            }, function () {
+                $(this).removeClass("hilite");
+            });
+
+        });
+    </script>
+    <style>
+        p {
+            color: red;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        p.hilite {
+            background: yellow;
+        }
+    </style>
+</wicket:head>
+<body>
+<wicket:panel>
+    <script>
+        var sendToServer;
+        jQuery("#clickme").click(function () {
+            sendToServer(jQuery("#fname").val(),jQuery("#lname").val());
+        });
+    </script>
+    <div wicket:id="feedback"/>
+    First name: <input type="text" id="fname" />
+    Last name: <input type="text" id="lname" />
+    <p id="clickme">点击提交</p>
+    说明：本例子演示了如何在jscript中通过ajax，传递页面参数到wicket，并调用wicket代码
+   <a href="http://stackoverflow.com/questions/13187319/wicket-6-2-abstractdefaultajaxbehavior-getcallbackurl-no-longer-resolves-js-vari/23555297#23555297">参考</a>
+</wicket:panel>
+</body>
+</html>

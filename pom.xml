@@ -99,6 +99,7 @@
         <module>modules.example</module>
         <module>modules.gis</module>
         <module>modules.cooperate</module>
+        <module>modules.middleware/middleware-workflow</module>
 
     </modules>
 

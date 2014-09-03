@@ -3,8 +3,12 @@ package com.daren.enterprise.core.biz;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.api.dao.IOrganizationBeanDao;
+import com.daren.enterprise.core.util.OrgnizationConst;
 import com.daren.enterprise.entities.OrganizationBean;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,4 +60,32 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
     public OrganizationBean getByJgdm(String id) {
       return   organizationBeanDao.findUnique("select a from OrganizationBean a where a.jgdm=?1", id);
     }
+
+    /**
+     * 根据机构代码获取下级部分的集合
+     * @param jgdm
+     * @param page
+     * @param page_size
+     * @return
+     */
+    @POST
+    @Path("/getorglist")
+    @Consumes("application/json;charset=utf-8")
+    @Override
+    public List<OrganizationBean> getOrgListByJgdm(String jgdm, Integer page, Integer page_size) {
+        if(jgdm!=null){
+            jgdm = OrgnizationConst.JILIN_JGDM;
+        }
+        if(page!=null){
+            page = 0;
+        }else{
+            page = page-1;
+        }
+        if(page_size!=null){
+            page_size = 15;
+        }
+        return organizationBeanDao.findbyPage("select t from OrganizationBean t " +
+                "where t.zfbj='0' and t.sjjgdm = '"+jgdm+"'",page,page_size);
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.daren.cooperate.api.internal;
 
-import com.daren.accident.api.ExampleService;
+import com.daren.cooperate.api.ExampleService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 

@@ -4,9 +4,9 @@
 
     <ext:property-placeholder placeholder-prefix="$[" placeholder-suffix="]"/>
 
-    <!--<reference id="homePageProviderService" interface="com.daren.government.web.api.provider.IHomePageProvider"/>-->
+    <!--<reference id="homePageProviderService" interface="com.daren.cooperate.web.api.provider.IHomePageProvider"/>-->
 
-    <!-- <bean id="irisShiroApplication" class="com.daren.government.web.bootup.wicket.IrisShiroApplication">
+    <!-- <bean id="irisShiroApplication" class="com.daren.cooperate.web.bootup.wicket.IrisShiroApplication">
          &lt;!&ndash;<property name="homePageProvider" value=""/>&ndash;&gt;
          &lt;!&ndash;<property name="homePageProvider" ref="homePageProviderService"/>&ndash;&gt;
      </bean>-->
@@ -17,15 +17,15 @@
             <entry key="pax.wicket.applicationname" value="daren.project.cooperate"/>
             <entry key="pax.wicket.mountpoint" value="/cooperate"/>
         </service-properties>
-        <bean class="com.daren.government.web.bootup.wicket.filter.ShiroWebApplicationFactory">
-            <property name="wicketApplication" value="com.daren.government.web.bootup.wicket.IrisShiroApplication"/>
+        <bean class="com.daren.cooperate.web.bootup.wicket.filter.ShiroWebApplicationFactory">
+            <property name="wicketApplication" value="com.daren.cooperate.web.bootup.wicket.IrisShiroApplication"/>
         </bean>
     </service>
 
 
-    <bean id="shiroRealm" class="com.daren.government.web.bootup.wicket.shiro.ShiroRealm">
+    <bean id="shiroRealm" class="com.daren.cooperate.web.bootup.wicket.shiro.ShiroRealm">
         <!--<property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
-        <property name="casService" value="https://localhost:9191/government"/>-->
+        <property name="casService" value="https://localhost:9191/cooperate"/>-->
     </bean>
 
     <bean id="webSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
@@ -84,7 +84,7 @@
     <!-- 用户授权信息Cache, 采用EhCache -->
     <!--<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         &lt;!&ndash;<property name="cacheManager" ref="cacheManager"/>&ndash;&gt;
-        <property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache-government.xml"/>
+        <property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache-cooperate.xml"/>
     </bean>-->
 
     <bean id="shiroCacheManager" class="com.daren.core.security.shiro.ShiroCacheManager">
@@ -97,10 +97,10 @@
 
     <service interface="org.ops4j.pax.wicket.api.FilterFactory">
         <service-properties>
-            <entry key="pax.wicket.applicationname" value="daren.project.government"/>
+            <entry key="pax.wicket.applicationname" value="daren.project.cooperate"/>
             <entry key="pax.wicket.filter.priority" value="2"/>
         </service-properties>
-        <bean class="com.daren.government.web.bootup.wicket.filter.ShiroFilterFactory">
+        <bean class="com.daren.cooperate.web.bootup.wicket.filter.ShiroFilterFactory">
             <property name="webSecurityManager" ref="webSecurityManager"/>
         </bean>
     </service>
