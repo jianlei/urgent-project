@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="processEngineConfiguration"
           class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
         <property name="jdbcUrl" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
-        <property name="jdbcDriver" value="jdbc:mysql://localhost:3306/world"/>
+        <property name="jdbcDriver" value="jdbc:mysql://localhost:3306/activiti"/>
         <property name="jdbcUsername" value="root"/>
         <property name="jdbcPassword" value="1234"/>
         <!-- Database configurations -->

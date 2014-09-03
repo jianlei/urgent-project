@@ -275,6 +275,10 @@
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
         <bundle start-level="85">wrap:mvn:com.vaynberg.wicket.select2/wicket-select2/2.3</bundle>
         <bundle>mvn:commons-codec/commons-codec/1.8</bundle>
+        <!--工作流引擎-->
+        <bundle>mvn:mysql/mysql-connector-java/5.1.18</bundle>
+        <feature>activiti</feature>
+
         <!--<bundle>wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.1 </bundle>-->
     </feature>
     <!--osgi:install -s 'wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.0'-->
