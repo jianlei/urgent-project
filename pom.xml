@@ -98,6 +98,7 @@
         <module>modules.government</module>
         <module>modules.example</module>
         <module>modules.gis</module>
+        <module>modules.cooperate</module>
 
     </modules>
 

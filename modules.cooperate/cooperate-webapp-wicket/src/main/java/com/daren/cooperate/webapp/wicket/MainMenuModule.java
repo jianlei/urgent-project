@@ -14,12 +14,12 @@ import com.daren.core.web.api.module.IMenuModule;
 public class MainMenuModule implements IMenuModule {
     @Override
     public String getProjectName() {
-        return IConst.GOVERNMENT_WICKET_APPLICATION_NAME;
+        return IConst.COOPERATE_WICKET_APPLICATION_NAME;
     }
 
     @Override
     public String getTargetTag() {
-        return new String("government.module.bundles");
+        return new String("cooperate.module.bundles");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public String getName() {
-        return "政务法规管理";
+        return "协同管理";
     }
 
     @Override

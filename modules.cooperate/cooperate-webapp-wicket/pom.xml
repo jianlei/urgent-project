@@ -94,10 +94,8 @@
 
 
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
-            <version>0.0.6_1</version>
-            <scope>provided</scope>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.wicket</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

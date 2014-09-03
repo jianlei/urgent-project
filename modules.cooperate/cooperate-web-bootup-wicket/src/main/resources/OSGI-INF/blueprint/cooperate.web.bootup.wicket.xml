@@ -14,8 +14,8 @@
 
     <service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
         <service-properties>
-            <entry key="pax.wicket.applicationname" value="daren.project.government"/>
-            <entry key="pax.wicket.mountpoint" value="/government"/>
+            <entry key="pax.wicket.applicationname" value="daren.project.cooperate"/>
+            <entry key="pax.wicket.mountpoint" value="/cooperate"/>
         </service-properties>
         <bean class="com.daren.government.web.bootup.wicket.filter.ShiroWebApplicationFactory">
             <property name="wicketApplication" value="com.daren.government.web.bootup.wicket.IrisShiroApplication"/>
