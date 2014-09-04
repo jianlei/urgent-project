@@ -37,14 +37,19 @@
          </properties>
      </persistence-unit>-->
 
-    <persistence-unit transaction-type="JTA" name="enterprise-cm">
+    <persistence-unit transaction-type="JTA" name="cooperate-cm">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <!--<jta-data-source>osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/TradeDataSource)</jta-data-source>-->
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
         </non-jta-data-source>
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
 
-
+        <class>com.daren.cooperate.entities.ChatBasicBean</class>
+        <class>com.daren.cooperate.entities.GroupBasicBean</class>
+        <class>com.daren.cooperate.entities.GroupUserRelBean</class>
+        <class>com.daren.cooperate.entities.GroupUserReqBean</class>
+        <class>com.daren.cooperate.entities.NoticeBasicBean</class>
+        <class>com.daren.cooperate.entities.NoticeUserRelBean</class>
         <class>com.daren.core.api.persistence.PersistentEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
