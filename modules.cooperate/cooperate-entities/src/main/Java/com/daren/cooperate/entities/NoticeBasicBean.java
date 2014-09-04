@@ -32,7 +32,7 @@ public class NoticeBasicBean extends PersistentEntity {
     @NotNull(message = "'日程时间'是必填项")
     private String notice_time;     //日程时间
     private String create_time;     //发布时间
-    private String is_cancle;       //是否取消：0-未取消；1-已取消
+    private int is_cancle;       //是否取消：0-未取消；1-已取消
 
     public NoticeBasicBean(){
 
@@ -78,11 +78,11 @@ public class NoticeBasicBean extends PersistentEntity {
         this.create_time = create_time;
     }
 
-    public String getIs_cancle() {
+    public int getIs_cancle() {
         return is_cancle;
     }
 
-    public void setIs_cancle(String is_cancle) {
+    public void setIs_cancle(int is_cancle) {
         this.is_cancle = is_cancle;
     }
 
