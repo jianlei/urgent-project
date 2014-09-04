@@ -1,4 +1,4 @@
-﻿﻿/**
+﻿/**
  * dlw
  */
 //--地图全局变量
@@ -723,6 +723,21 @@ function goConfirm(parm,_lng,_lat,id,accident_id){
         circleFinveMiter.setFillOpacity(0);
         map.addOverlay(circleFinveMiter);
         overlays.push(circleFinveMiter);
+        var bounds = getSquareBounds(circleFinveMiter.getCenter(),circleFinveMiter.getRadius()+circleFinveMiter.getRadius()*0.36);
+        var point_label = new BMap.Point(bounds.getNorthEast().lng,bounds.getSouthWest().lat);
+        var opts = {
+            position : point_label,    // 指定文本标注所在的地理位置
+            offset   : new BMap.Size(30, -30)    //设置文本偏移量
+        }
+        var label = new BMap.Label("搜索半径:"+Math.round(circleFinveMiter.getRadius())+"米", opts);  // 创建文本标注对象
+        label.setStyle({
+            color : "red",
+            fontSize : "12px",
+            height : "20px",
+            lineHeight : "20px",
+            fontFamily:"微软雅黑"
+        });
+        map.addOverlay(label);
         //根据当前危险点位置的经纬度查询搜索500内的物质 并且标注
         /*
         alert("根据当前危险点位置的经纬度查询搜索500内的物质 并且标注");
@@ -937,6 +952,21 @@ function rightTab(){
                         distance=Math.round(circle.getRadius())/1000;//搜索范围500米
                         //alert("开始检索救援队!"+circle.getCenter().lng+"-------"+circle.getCenter().lat+"半径:"+Math.round(circle.getRadius()) +"米");
                         scope(circle.getCenter().lng,circle.getCenter().lat,0);
+                        var bounds = getSquareBounds(circle.getCenter(),circle.getRadius()+circle.getRadius()*0.36);
+                        var point_label = new BMap.Point(bounds.getNorthEast().lng,bounds.getSouthWest().lat);
+                        var opts = {
+                            position : point_label,    // 指定文本标注所在的地理位置
+                            offset   : new BMap.Size(30, -30)    //设置文本偏移量
+                        }
+                        var label = new BMap.Label("搜索半径:"+Math.round(circle.getRadius())+"米", opts);  // 创建文本标注对象
+                        label.setStyle({
+                            color : "red",
+                            fontSize : "12px",
+                            height : "20px",
+                            lineHeight : "20px",
+                            fontFamily:"微软雅黑"
+                        });
+                        map.addOverlay(label);
                     });
                 },
                 mouseenter: function() {
@@ -1199,6 +1229,34 @@ function PlaySound() {
 function PlayStop() {
     $("#jplayer").jPlayer("stop");
     return true;
+}
+
+/**
+ * 得到圆的内接正方形bounds
+ * @param {Point} centerPoi 圆形范围的圆心
+ * @param {Number} r 圆形范围的半径
+ * @return 无返回值
+ */
+function getSquareBounds(centerPoi,r){
+    var a = Math.sqrt(2) * r; //正方形边长
+
+    mPoi = getMecator(centerPoi);
+    var x0 = mPoi.x, y0 = mPoi.y;
+
+    var x1 = x0 + a / 2 , y1 = y0 + a / 2;//东北点
+    var x2 = x0 - a / 2 , y2 = y0 - a / 2;//西南点
+
+    var ne = getPoi(new BMap.Pixel(x1, y1)), sw = getPoi(new BMap.Pixel(x2, y2));
+    return new BMap.Bounds(sw, ne);
+
+}
+//根据球面坐标获得平面坐标。
+function getMecator(poi){
+    return map.getMapType().getProjection().lngLatToPoint(poi);
+}
+//根据平面坐标获得球面坐标。
+function getPoi(mecator){
+    return map.getMapType().getProjection().pointToLngLat(mecator);
 }
 
 Array.prototype.remove=function(index){
