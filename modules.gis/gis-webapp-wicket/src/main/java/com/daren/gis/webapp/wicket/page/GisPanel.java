@@ -104,7 +104,7 @@ public class GisPanel extends BasePanel implements IHeaderContributor {
                         list.add(DocumentBean);
                     }
                 }
-                if (null != json.getEquipment() || null != json.getExpert() || null != json.getRescue()) {
+                if ((null != json.getEquipment() && json.getEquipment().length > 0) || (null != json.getExpert() && json.getExpert().length > 0) || (null != json.getRescue() && json.getRescue().length > 0)) {
                     String fileName = accidentBeanService.printAccidentResource(json.getEquipment(), json.getExpert(), json.getRescue());
                     DocumentBean documentBean = new DocumentBean();
                     documentBean.setName("综合资源列表.xls");
