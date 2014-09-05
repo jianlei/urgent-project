@@ -1,9 +1,7 @@
 package com.daren.cooperate.api.biz;
 
-import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.core.api.biz.IBizService;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +12,7 @@ import java.util.Map;
  * @修改时间：
  * @修改备注：
  */
-public interface INoticeBasicBeanService extends IBizService {
+public interface INoticeBeanService extends IBizService {
 
     /**
      * 创建日程
@@ -31,7 +29,7 @@ public interface INoticeBasicBeanService extends IBizService {
      * @param notice_id
      * @return
      */
-    public Map cancleNotice(Long notice_id);
+    public Map cancelNotice(Long notice_id);
 
     /**
      * 查询日程列表
@@ -39,20 +37,20 @@ public interface INoticeBasicBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public List<NoticeBasicBean> getNoticeList(Integer page,Integer page_size);
+    public Map getNoticeList(Integer page,Integer page_size);
 
     /**
      * 获取日程信息详情
      * @param notice_id
      * @return
      */
-    public NoticeBasicBean getNoticeDetail(Long notice_id);
+    public Map getNoticeDetail(Long notice_id);
     /**
      * 回应日程
      * @param notice_id
      * @return
      */
-    public Map replyNotice(Long notice_id, String reply_content);
+    public Map replyNotice(Long notice_id, String reply_content,Integer reply_type);
     /**
      * 获取日程回应列表
      * @param notice_id

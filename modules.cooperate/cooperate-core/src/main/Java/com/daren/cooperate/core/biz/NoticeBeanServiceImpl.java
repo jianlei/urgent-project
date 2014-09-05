@@ -1,6 +1,6 @@
-package com.daren.cooperate.core;
+package com.daren.cooperate.core.biz;
 
-import com.daren.cooperate.api.biz.INoticeBasicBeanService;
+import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
 import com.daren.cooperate.entities.NoticeBasicBean;
@@ -11,10 +11,7 @@ import com.daren.core.util.DateUtil;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @类描述：日程基本信息
@@ -24,7 +21,7 @@ import java.util.Map;
  * @修改时间：
  * @修改备注：
  */
-public class NoticeBasicBeanServiceImpl extends GenericBizServiceImpl implements INoticeBasicBeanService {
+public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INoticeBeanService {
 
     private INoticeBasicBeanDao noticeBasicBeanDao;
     private INoticeUserRelBeanDao noticeUserRelBeanDao;
@@ -46,7 +43,7 @@ public class NoticeBasicBeanServiceImpl extends GenericBizServiceImpl implements
     }
 
     @POST
-    @Path("/createnotice")
+    @Path("/createNotice")
     @Consumes("application/json;charset=utf-8")
     @Override
     public Map createNotice(String title, String content, String notice_time, String ids) {
@@ -84,10 +81,10 @@ public class NoticeBasicBeanServiceImpl extends GenericBizServiceImpl implements
     }
 
     @POST
-    @Path("/canclenotice")
+    @Path("/cancelNotice")
     @Consumes("application/json;charset=utf-8")
     @Override
-    public Map cancleNotice(Long notice_id) {
+    public Map cancelNotice(Long notice_id) {
         Map map = new HashMap();
         int result = -1;
         String message = "取消失败！";
@@ -111,45 +108,118 @@ public class NoticeBasicBeanServiceImpl extends GenericBizServiceImpl implements
     }
 
     @POST
-    @Path("/getnoticelist")
+    @Path("/getNoticeList")
     @Consumes("application/json;charset=utf-8")
     @Override
-    public List<NoticeBasicBean> getNoticeList(Integer page, Integer page_size) {
+    public Map getNoticeList(Integer page, Integer page_size) {
         Map map = new HashMap();
         int result = -1;
-        String message = "取消失败！";
+        String message = "获取日程列表失败！";
+        List<NoticeBasicBean> list = new ArrayList<NoticeBasicBean>();
         try{
-
+            list = noticeBasicBeanDao.findbyPage("select t from NoticeBasicBean t",page,page_size);
+            result = 1;
+            if(list!=null && list.size()>0){
+                map.put("response",list);
+                message = "获取日程列表成功！";
+            }else{
+                message = "没有日程记录！";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             map.put("result",result);
             map.put("message",message);
         }
-
-        return null;
+        return map;
     }
 
     @POST
-    @Path("/print")
+    @Path("/getNoticeDetail")
     @Consumes("application/json;charset=utf-8")
     @Override
-    public NoticeBasicBean getNoticeDetail(Long notice_id) {
-        return null;
+    public Map getNoticeDetail(Long notice_id) {
+        Map map = new HashMap();
+        int result = -1;
+        String message = "获取日程详情失败！";
+        try{
+            NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
+            if(notice_id!=null){
+                noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
+                result = 1;
+                if(noticeBasicBean!=null){
+                    message = "获取日程详情成功！";
+                    map.put("response",noticeBasicBean);
+                }else{
+                    message = "没有日程详情信息！";
+                }
+            }else{
+                message = "请输入正确的参数！";
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            map.put("result",result);
+            map.put("message",message);
+        }
+        return map;
     }
     @POST
-    @Path("/print")
+    @Path("/replyNotice")
     @Consumes("application/json;charset=utf-8")
     @Override
-    public Map replyNotice(Long notice_id, String reply_content) {
-        return null;
+    public Map replyNotice(Long notice_id, String reply_content,Integer reply_type) {
+        Map map = new HashMap();
+        int result = -1;
+        String message = "日程回复失败！";
+        try{
+            NoticeUserRelBean nurb = new NoticeUserRelBean();
+            if(notice_id!=null){
+                nurb.setNotice_id(notice_id);
+                //nurb.setUser_id();
+                nurb.setReply_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
+                nurb.setReply_type(reply_type);
+                nurb.setReply_content(reply_content);
+                noticeUserRelBeanDao.save(nurb);
+                result = 1;
+                message = "日程回复成功！";
+            }else{
+                message = "参数有误！";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            map.put("result",result);
+            map.put("message",message);
+        }
+        return map;
     }
+
     @POST
-    @Path("/print")
+    @Path("/getnoticereply")
     @Consumes("application/json;charset=utf-8")
     @Override
     public Map getNoticeReplyList(Long notice_id, Integer page, Integer page_size) {
-        return null;
+        Map map = new HashMap();
+        int result = -1;
+        String message = "获取日程回复列表失败！";
+        List<NoticeUserRelBean> list = new ArrayList<NoticeUserRelBean>();
+        try{
+            list = noticeUserRelBeanDao.findbyPage("select t from NoticeUserRelBean t where t.notice_id="+notice_id,page,page_size);
+            result = 1;
+            if(list!=null && list.size()>0){
+                map.put("response",list);
+                message = "获取日程回复列表成功！";
+            }else{
+                message = "没有日程回复记录！";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            map.put("result",result);
+            map.put("message",message);
+        }
+        return map;
     }
 
 }

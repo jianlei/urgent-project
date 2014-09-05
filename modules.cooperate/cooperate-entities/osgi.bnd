@@ -3,6 +3,7 @@
 #-----------------------------------------------------------------
 
 #Bundle-Activator: ${bundle.namespace}.internal.ExampleActivator
+Import-Package:org.codehaus.jackson.map.annotate,*
 Meta-Persistence: META-INF/persistence.xml
 JPA-PersistenceUnits:cooperate-cm
 #Import-Package:org.apache.derby.jdbc,*

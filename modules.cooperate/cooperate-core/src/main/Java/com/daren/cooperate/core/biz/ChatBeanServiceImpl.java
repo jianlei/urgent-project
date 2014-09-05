@@ -1,6 +1,6 @@
-package com.daren.cooperate.core;
+package com.daren.cooperate.core.biz;
 
-import com.daren.cooperate.api.biz.IChatBasicBeanService;
+import com.daren.cooperate.api.biz.IChatBeanService;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 /**
@@ -11,5 +11,5 @@ import com.daren.core.impl.biz.GenericBizServiceImpl;
  * @修改时间：
  * @修改备注：
  */
-public class ChatBasicBeanServiceImpl extends GenericBizServiceImpl implements IChatBasicBeanService {
+public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatBeanService {
 }

@@ -7,16 +7,22 @@
 
   http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
   http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
-    <service id="noticeService" interface="com.daren.cooperate.api.biz.INoticeBasicBeanService" ref="noticeBeanService">
+    <service id="accidentService" interface="com.daren.accident.api.biz.IAccidentBeanService" ref="accidentBeanService">
     </service>
 
-    <bean id="noticeBeanService" class="com.daren.accident.core.biz.NoticeBeanServiceImpl">
-        <property name="noticeBasicBeanDao" ref="noticeBasicBeanDao"/>
-        <property name="noticeUserRelBeanDao" ref="noticeUserRelBeanDao"/>
+    <bean id="accidentBeanService" class="com.daren.accident.core.biz.AccidentBeanServiceImpl">
+        <property name="accidentBeanDao" ref="accidentBeanDao"/>
+        <property name="equipmentBeanDao" ref="equipmentBeanDao"/>
+        <property name="enterpriseExpertBeanDao" ref="enterpriseExpertBeanDao"/>
+        <property name="rescueBeanDao" ref="rescueBeanDao"/>
+        <property name="dictBeanService" ref="dictBeanService"/>
     </bean>
 
-    <reference id="noticeBasicBeanDao" interface="com.daren.cooperate.api.dao.INoticeBasicBeanDao"/>
-    <reference id="noticeUserRelBeanDao" interface="com.daren.cooperate.api.dao.INoticeUserRelBeanDao"/>
+    <reference id="accidentBeanDao" interface="com.daren.accident.api.dao.IAccidentBeanDao"/>
+    <reference id="equipmentBeanDao" interface="com.daren.equipment.api.dao.IEquipmentBeanDao"/>
+    <reference id="enterpriseExpertBeanDao" interface="com.daren.expert.api.dao.IEnterpriseExpertBeanDao"/>
+    <reference id="rescueBeanDao" interface="com.daren.rescue.api.dao.IRescueBeanDao"/>
+    <reference id="dictBeanService" interface="com.daren.admin.api.biz.IDictBeanService"/>
 
     <cxf:bus>
         <cxf:features>
@@ -24,9 +30,9 @@
         </cxf:features>
     </cxf:bus>
 
-    <jaxrs:server id="noticeRestService" address="/notice">
+    <jaxrs:server id="accidentRestService" address="/accident">
         <jaxrs:serviceBeans>
-            <ref component-id="noticeBeanService"/>
+            <ref component-id="accidentBeanService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref component-id="jsonProvider"/>

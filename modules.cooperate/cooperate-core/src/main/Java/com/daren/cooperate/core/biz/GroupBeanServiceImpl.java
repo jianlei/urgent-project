@@ -1,6 +1,6 @@
-package com.daren.cooperate.core;
+package com.daren.cooperate.core.biz;
 
-import com.daren.cooperate.api.biz.IGroupBasicBeanService;
+import com.daren.cooperate.api.biz.IGroupBeanService;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 /**
@@ -11,5 +11,5 @@ import com.daren.core.impl.biz.GenericBizServiceImpl;
  * @修改时间：
  * @修改备注：
  */
-public class GroupBasicBeanServiceImpl extends GenericBizServiceImpl implements IGroupBasicBeanService {
+public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGroupBeanService {
 }

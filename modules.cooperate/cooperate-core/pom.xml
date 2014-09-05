@@ -57,10 +57,13 @@
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
-            <version>0.0.6_1</version>
-            <scope>provided</scope>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
         </dependency>
     </dependencies>
 

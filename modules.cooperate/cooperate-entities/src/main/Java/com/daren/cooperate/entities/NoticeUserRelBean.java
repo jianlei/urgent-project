@@ -24,7 +24,7 @@ public class NoticeUserRelBean extends PersistentEntity {
 
     private long notice_id;             //通知id
     private String user_id;             //用户id
-    private String reply_type;          //回复：0:待回复；1-确认；2-拒绝
+    private int reply_type;          //回复：0:待回复；1-确认；2-拒绝
     private String reply_time;          //回复时间；
     private String reply_content;       //回复内容；
 
@@ -48,11 +48,11 @@ public class NoticeUserRelBean extends PersistentEntity {
         this.user_id = user_id;
     }
 
-    public String getReply_type() {
+    public int getReply_type() {
         return reply_type;
     }
 
-    public void setReply_type(String reply_type) {
+    public void setReply_type(int reply_type) {
         this.reply_type = reply_type;
     }
 

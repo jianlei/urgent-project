@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,11 +24,8 @@ public class NoticeBasicBean extends PersistentEntity {
 
     private String jgdm;            //机构代码
     private String user_id;         //发布人id
-    @NotNull(message = "'日程标题'是必填项")
     private String title;           //标题
-    @NotNull(message = "'日程内容'是必填项")
     private String content;         //内容
-    @NotNull(message = "'日程时间'是必填项")
     private String notice_time;     //日程时间
     private String create_time;     //发布时间
     private int is_cancle;       //是否取消：0-未取消；1-已取消
