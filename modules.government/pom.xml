@@ -22,45 +22,12 @@
 
     </properties>
     <modules>
-        <module>government-api</module>
-        <module>government-core</module>
-        <module>government-persist-jpa</module>
-        <module>government-entities</module>
-        <module>government-webapp-wicket</module>
+        <module>fireworks</module>
         <module>government-web-bootup-wicket</module>
     </modules>
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.daren.government</groupId>
-                <artifactId>com.daren.government.core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.government</groupId>
-                <artifactId>com.daren.government.api</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.government</groupId>
-                <artifactId>com.daren.government.entities</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.government</groupId>
-                <artifactId>com.daren.government.persist.openjpa</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daren.government</groupId>
-                <artifactId>com.daren.government.webapp.wicket</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>provided</scope>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
