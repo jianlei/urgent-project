@@ -1,0 +1,58 @@
+<html
+        xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <section id="forms">
+        <div class="page-header">
+            <h1>Create new process</h1>
+        </div>
+        <div class="row">
+            <div class="span4 columns">
+                <h2>Example process</h2>
+                <p>Everything in here is actually part of an Activiti form.</p>
+                <p>Create a new process by filling out stuff on the right.</p>
+            </div>
+            <div class="span12 columns">
+                <form wicket:id="form">
+                    <fieldset>
+                        <legend>
+                            Create a new Process
+                        </legend>
+                        <div class="clearfix">
+                            <label for="xlInput">
+                                A generic input field
+                            </label>
+
+                            <div class="input">
+                                <input wicket:id="title" class="xlarge" id="xlInput" name="xlInput" size="30" type="text"
+                                       />
+                            </div>
+                        </div>
+                        <!-- /clearfix -->
+                        <div class="clearfix">
+                            <label for="xlInput">
+                                And another one
+                            </label>
+
+                            <div class="input">
+                                <input wicket:id="description" class="xlarge" id="xlInput" name="xlInput" size="30" type="text"
+                                       />
+                            </div>
+                        </div>
+                        <!-- /clearfix -->
+                        <div class="actions">
+                            <input type="submit" class="btn primary" value="Save Changes" wicket:id="submit">&nbsp;<button type="reset" class="btn">Cancel</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+</wicket:panel>
+</body>
+</html>
+
+
+
+
+

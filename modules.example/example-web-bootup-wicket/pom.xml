@@ -184,6 +184,11 @@
             <artifactId>gson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.example</groupId>
+            <artifactId>com.daren.example.webapp.wicket</artifactId>
+        </dependency>
+
 
 
         <!-- OPTIONAL DEPENDENCY

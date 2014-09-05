@@ -2,10 +2,9 @@ package com.daren.example.web.bootup.wicket;
 
 
 import com.daren.core.web.api.provider.IHomePageProvider;
-import com.daren.core.web.validation.JSR303ValidationListener;
-import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
+import com.daren.example.webapp.wicket.activiti.page.MainPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +14,8 @@ import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
+import org.apache.wicket.markup.html.IPackageResourceGuard;
+import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.markup.html.pages.ExceptionErrorPage;
 import org.apache.wicket.mock.MockPageManager;
 import org.apache.wicket.mock.MockSessionStore;
@@ -70,7 +71,7 @@ public class IrisShiroApplication extends WebApplication {
     public Class<? extends Page> getHomePage() {
         //return homePageProvider.getPageClass();
 //        return TemplatePage.class;
-        return TemplatePage.class;
+        return MainPage.class;
     }
 
     // --------------------------------------------------------------------------
@@ -80,6 +81,14 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
+        IPackageResourceGuard packageResourceGuard = getResourceSettings()
+                .getPackageResourceGuard();
+        if (packageResourceGuard instanceof SecurePackageResourceGuard)
+        {
+            SecurePackageResourceGuard guard = (SecurePackageResourceGuard) packageResourceGuard;
+            //Allow to access only to pdf files placed in the “public” directory.
+            guard.addPattern("+*.less");
+        }
         // Set the proper setting to show the error page
         // note: will be set until the "failure" link is clicked or the application is
         // restarted
@@ -101,7 +110,7 @@ public class IrisShiroApplication extends WebApplication {
         setPageManagerProvider(new NoSerializationPageManagerProvider(this));
         //设置首页映射路径
         //mountPage("/home/", homePageProvider.getPageClass());
-        mountPage("/home/", TemplatePage.class);
+        mountPage("/home/", MainPage.class);
         // Enable Shiro security
         AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
         getSecuritySettings().setAuthorizationStrategy(authz);
@@ -109,7 +118,7 @@ public class IrisShiroApplication extends WebApplication {
                 new ShiroUnauthorizedComponentListener(SignInPage.class, AccessDeniedPage.class, authz));
         // SecurityUtils.getSubject().getSession().setTimeout(-1000l);
         //增加JSR303校验监听器
-        getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
+        //getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
         mountPage("login", SignInPage.class);
 
         /* In case of unhandled exception redirect it to a custom page */

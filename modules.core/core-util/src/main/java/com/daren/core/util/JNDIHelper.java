@@ -26,7 +26,7 @@ public class JNDIHelper {
         }
     }
 
-    public static final <T> T getJNDIService(String serviceName) throws IOException {
+    /*public static final <T> T getJNDIService(String serviceName) throws IOException {
         try {
             InitialContext ic = new InitialContext();
 
@@ -38,5 +38,5 @@ public class JNDIHelper {
             ioe.initCause(e);
             throw ioe;
         }
-    }
+    }*/
 }
