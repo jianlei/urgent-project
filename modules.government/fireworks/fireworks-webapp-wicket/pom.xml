@@ -4,32 +4,32 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.government</groupId>
-        <artifactId>modules.government</artifactId>
+        <groupId>com.daren.fireworks</groupId>
+        <artifactId>modules.fireworks</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.government</groupId>
-    <artifactId>com.daren.government.webapp.wicket</artifactId>
+    <groupId>com.daren.fireworks</groupId>
+    <artifactId>com.daren.fireworks.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Government - Wicket Web Application</name>
-    <description>Government - Webapp Wicket</description>
+    <name>Government :: Fireworks - Wicket Web Application</name>
+    <description>Fireworks - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.government.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.fireworks.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.government</groupId>
-            <artifactId>com.daren.government.api</artifactId>
+            <groupId>com.daren.fireworks</groupId>
+            <artifactId>com.daren.fireworks.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.government</groupId>
-            <artifactId>com.daren.government.core</artifactId>
+            <groupId>com.daren.fireworks</groupId>
+            <artifactId>com.daren.fireworks.core</artifactId>
         </dependency>
 
         <dependency>
@@ -113,8 +113,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.government</groupId>
-            <artifactId>com.daren.government.entities</artifactId>
+            <groupId>com.daren.fireworks</groupId>
+            <artifactId>com.daren.fireworks.entities</artifactId>
         </dependency>
 
         <dependency>

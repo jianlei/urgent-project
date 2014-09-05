@@ -1,4 +1,4 @@
-package com.daren.government.webapp.wicket;
+package com.daren.fireworks.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -28,7 +28,7 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "单选树例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "烟花爆竹经营许可证";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
