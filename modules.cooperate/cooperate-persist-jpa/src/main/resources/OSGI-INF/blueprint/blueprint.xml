@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- default-activation="lazy" -->
 <blueprint
-        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-        >
+        xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
+        xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0"
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-    <!--<service interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao">
-        <bean class="com.daren.enterprise.persist.openjpa.EnterpriseBeanDaoOpenjpa"> &lt;!&ndash;init-method="init">&ndash;&gt;
-            <jpa:context property="entityManager" unitname="enterprise-cm"/>
+    <service interface="com.daren.cooperate.api.dao.INoticeBasicBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.NoticeBasicBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
             <tx:transaction method="*" value="Required"/>
-            &lt;!&ndash;<property name="persistEntityService" ref="persistEntityService" />&ndash;&gt;
         </bean>
-    </service>-->
+    </service>
+
+    <service interface="com.daren.cooperate.api.dao.INoticeUserRelBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.NoticeUserRelBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
 
 </blueprint>
 

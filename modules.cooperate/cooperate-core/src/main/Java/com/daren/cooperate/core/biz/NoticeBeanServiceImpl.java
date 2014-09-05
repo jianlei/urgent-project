@@ -3,14 +3,13 @@ package com.daren.cooperate.core.biz;
 import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
+import com.daren.cooperate.api.model.StatusJson;
 import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.cooperate.entities.NoticeUserRelBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import java.util.*;
 
 /**
@@ -26,16 +25,8 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     private INoticeBasicBeanDao noticeBasicBeanDao;
     private INoticeUserRelBeanDao noticeUserRelBeanDao;
 
-    public INoticeBasicBeanDao getNoticeBasicBeanDao() {
-        return noticeBasicBeanDao;
-    }
-
     public void setNoticeBasicBeanDao(INoticeBasicBeanDao noticeBasicBeanDao) {
         this.noticeBasicBeanDao = noticeBasicBeanDao;
-    }
-
-    public INoticeUserRelBeanDao getNoticeUserRelBeanDao() {
-        return noticeUserRelBeanDao;
     }
 
     public void setNoticeUserRelBeanDao(INoticeUserRelBeanDao noticeUserRelBeanDao) {
@@ -46,10 +37,9 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Path("/createNotice")
     @Consumes("application/json;charset=utf-8")
     @Override
-    public Map createNotice(String title, String content, String notice_time, String ids) {
-        Map map = new HashMap();
-        int result = -1;
-        String message = "创建失败！";
+    public StatusJson createNotice(String title, String content, String notice_time, String ids) {
+        StatusJson statusJson = new StatusJson();
+        statusJson.setMessage("创建失败！");
         try{
             NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
             noticeBasicBean.setTitle(title);
@@ -68,16 +58,13 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                     noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
                 }
             }
-            result = 1;
-            message = "创建成功";
+            statusJson.setResult(1);
+            statusJson.setMessage("创建成功！");
         }catch(Exception e){
-            message = "服务异常";
+            statusJson.setMessage("服务异常！");
             e.printStackTrace();
-        }finally {
-            map.put("result",result);
-            map.put("message",message);
         }
-        return map;
+        return statusJson;
     }
 
     @POST
@@ -107,17 +94,18 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         return map;
     }
 
-    @POST
-    @Path("/getNoticeList")
-    @Consumes("application/json;charset=utf-8")
     @Override
-    public Map getNoticeList(Integer page, Integer page_size) {
+    @GET
+    @Produces("application/json;charset=utf-8")
+    @Path("getNoticeList/{page}/{pageSize}")
+    //@Consumes("application/json;charset=utf-8")
+    public Map getNoticeList(@PathParam("page")Integer page, @PathParam("pageSize")Integer page_size) {
         Map map = new HashMap();
         int result = -1;
         String message = "获取日程列表失败！";
         List<NoticeBasicBean> list = new ArrayList<NoticeBasicBean>();
         try{
-            list = noticeBasicBeanDao.findbyPage("select t from NoticeBasicBean t",page,page_size);
+            list = noticeBasicBeanDao.getAll(NoticeBasicBean.class.getName());
             result = 1;
             if(list!=null && list.size()>0){
                 map.put("response",list);

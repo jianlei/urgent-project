@@ -1,5 +1,6 @@
 package com.daren.cooperate.api.biz;
 
+import com.daren.cooperate.api.model.StatusJson;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.Map;
@@ -22,7 +23,7 @@ public interface INoticeBeanService extends IBizService {
      * @param ids   用户id串
      * @return
      */
-    public Map createNotice(String title, String content, String notice_time, String ids);
+    public StatusJson createNotice(String title, String content, String notice_time, String ids);
 
     /**
      * 取消日程

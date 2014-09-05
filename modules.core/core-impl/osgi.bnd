@@ -6,4 +6,4 @@
 #Meta-Persistence: META-INF/persistence.xml
 #JPA-PersistenceUnits:core-cm
 #Import-Package:com.daren.core.api.persistence,com.daren.admin.entities,*
-DynamicImport-Package: *
+DynamicImport-Package: com.daren.cooperate.entities,*
