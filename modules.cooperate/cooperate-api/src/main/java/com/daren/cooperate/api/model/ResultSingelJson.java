@@ -12,6 +12,22 @@ import com.daren.core.api.persistence.PersistentEntity;
  */
 public class ResultSingelJson {
 
-    private StatusJson statusJson;
+    private StatusJson statusJson = new StatusJson();
     private PersistentEntity entity;
+
+    public StatusJson getStatusJson() {
+        return statusJson;
+    }
+
+    public void setStatusJson(StatusJson statusJson) {
+        this.statusJson = statusJson;
+    }
+
+    public PersistentEntity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(PersistentEntity entity) {
+        this.entity = entity;
+    }
 }

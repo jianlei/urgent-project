@@ -1,9 +1,9 @@
 package com.daren.cooperate.api.biz;
 
+import com.daren.cooperate.api.model.ResultListJson;
+import com.daren.cooperate.api.model.ResultSingelJson;
 import com.daren.cooperate.api.model.StatusJson;
 import com.daren.core.api.biz.IBizService;
-
-import java.util.Map;
 
 /**
  * @类描述：日程基本信息
@@ -30,7 +30,7 @@ public interface INoticeBeanService extends IBizService {
      * @param notice_id
      * @return
      */
-    public Map cancelNotice(Long notice_id);
+    public StatusJson cancelNotice(Long notice_id);
 
     /**
      * 查询日程列表
@@ -38,20 +38,20 @@ public interface INoticeBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getNoticeList(Integer page,Integer page_size);
+    public ResultListJson getNoticeList(Integer page,Integer page_size);
 
     /**
      * 获取日程信息详情
      * @param notice_id
      * @return
      */
-    public Map getNoticeDetail(Long notice_id);
+    public ResultSingelJson getNoticeDetail(Long notice_id);
     /**
      * 回应日程
      * @param notice_id
      * @return
      */
-    public Map replyNotice(Long notice_id, String reply_content,Integer reply_type);
+    public StatusJson replyNotice(Long notice_id, String reply_content,Integer reply_type);
     /**
      * 获取日程回应列表
      * @param notice_id
@@ -59,6 +59,6 @@ public interface INoticeBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getNoticeReplyList(Long notice_id,Integer page,Integer page_size);
+    public ResultListJson getNoticeReplyList(Long notice_id,Integer page,Integer page_size);
 
 }

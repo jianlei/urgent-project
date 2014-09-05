@@ -1,7 +1,5 @@
 package com.daren.cooperate.api.model;
 
-import com.daren.core.api.persistence.PersistentEntity;
-
 import java.util.List;
 
 /**
@@ -14,8 +12,8 @@ import java.util.List;
  */
 public class ResultListJson {
 
-    private StatusJson statusJson;
-    private List<PersistentEntity> list;
+    private StatusJson statusJson = new StatusJson();
+    private List list;
 
     public StatusJson getStatusJson() {
         return statusJson;
@@ -25,11 +23,11 @@ public class ResultListJson {
         this.statusJson = statusJson;
     }
 
-    public List<PersistentEntity> getList() {
+    public List getList() {
         return list;
     }
 
-    public void setList(List<PersistentEntity> list) {
+    public void setList(List list) {
         this.list = list;
     }
 }
