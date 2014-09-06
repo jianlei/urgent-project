@@ -12,6 +12,9 @@
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Review "  activiti:formKey="Review.form">
+        <documentation>
+            Schedule an engineering meeting for next week with the new hire.
+        </documentation>
         <extensionElements>
             <activiti:formProperty  id="title" name="Title" type="string" variable="title" required="false" readable="true" writable="false"/>
             <activiti:formProperty  id="justification" name="Justification" type="string" variable="justification" required="true" readable="true" writable="true"/>

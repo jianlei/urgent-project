@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div wicket:id="tabs"></div>
+    <wicket:fragment wicket:id="mainPanel" id="mainPanel">
+        <div class="alert alert-info">当前位置<b class="tip"/>我的流程<b class="tip"/>新建流程</div>
+        <form method="post" wicket:id="form">
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="tdl">流程名称：</td>
+                    <td class="detail">
+                        <input wicket:id="name" class="ipt"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="left">
+                        <!--<input class="btn btn-inverse" id="find" wicket:id="find" type="button" value="查询"/>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <div wicket:id="container">
+
+            <span wicket:id="feedback"/>
+
+            <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+                <thead>
+                <tr class="tr_detail">
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>描述</th>
+                    <th>版本</th>
+                    <th>是否有效</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr wicket:id="rows">
+                    <td><span wicket:id="id"></span></td>
+                    <td><span wicket:id="name"></span></td>
+                    <td><span wicket:id="description"></span></td>
+                    <td><span wicket:id="version"></span></td>
+                    <td><span wicket:id="suspended"></span></td>
+                    <td>
+                        <a href="#" wicket:id="start"><!--<span wicket:id="linklabel"></span>-->启动</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </wicket:fragment>
+
+    <wicket:fragment wicket:id="addPanel" id="addPanel">
+        <div wicket:id="repeatingView"></div>
+    </wicket:fragment>
+
+</wicket:panel>
+</body>
+</html>
