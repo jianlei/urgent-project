@@ -23,7 +23,7 @@
     </properties>
     <modules>
         <module>fireworks</module>
-        <module>safetyQualifications</module>
+        <module>safetyProduction</module>
         <module>government-web-bootup-wicket</module>
         <module>government-webapp-wicket</module>
     </modules>
