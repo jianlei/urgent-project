@@ -18,8 +18,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Government - API</name>
-    <description>Government API</description>
+    <name>Urgent :: fireworks - API</name>
+    <description>fireworks API</description>
 
     <packaging>bundle</packaging>
 
@@ -45,14 +45,16 @@
             <groupId>com.daren.fireworks</groupId>
             <artifactId>com.daren.fireworks.entities</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
+        </dependency>
     </dependencies>
     <build>
 
         <plugins>
             <plugin>
-                <!--
-                 | the following instructions build a simple set of public/private classes into an OSGi bundle
-                -->
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
@@ -63,42 +65,15 @@
                         <Embed-Dependency>
                             *;scope=compile|runtime
                         </Embed-Dependency>
-                        <!--<Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>-->
-                        <!--<Embed-Directory>lib</Embed-Directory>-->
-                        <!--<Embed-Transitive>true</Embed-Transitive>-->
-                        <!--
-                         | assume public classes are in the top package, and private classes are under ".internal"
-                        -->
                         <Export-Package>
                             ${bundle.namespace}.*;version="1.0-SNAPSHOT"
                         </Export-Package>
-                        <!--<Private-Package>${bundle.namespace}.internal.*</Private-Package>-->
-                        <!--| each module can override these defaults in their osgi.bnd file -->
-                        <!--<Import-Package>*</Import-Package>-->
+                        <Private-Package>${bundle.namespace}.internal.*</Private-Package>
                         <_include>-osgi.bnd</_include>
-                        <!--<Bundle-Activator>${bundle.namespace}.internal.ExampleActivator</Bundle-Activator>-->
+                        <Bundle-Activator>${bundle.namespace}.internal.ExampleActivator</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <copy file="target/${project.artifactId}-${project.version}.jar"
-                                      todir="${karaf.path}"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 

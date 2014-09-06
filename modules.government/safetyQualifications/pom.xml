@@ -19,8 +19,8 @@
     <modules>
         <module>safetyQualifications-api</module>
         <module>safetyQualifications-core</module>
-        <module>safetyQualifications-persist-jpa</module>
         <module>safetyQualifications-entities</module>
+        <module>safetyQualifications-persist-jpa</module>
         <module>safetyQualifications-webapp-wicket</module>
     </modules>
     <dependencyManagement>
