@@ -13,7 +13,7 @@
     <artifactId>modules.safetyProduction</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Government :: Modules - 烟花爆竹</name>
+    <name>Government :: Modules - 安全生产许可证(矿山)</name>
 
     <packaging>pom</packaging>
 

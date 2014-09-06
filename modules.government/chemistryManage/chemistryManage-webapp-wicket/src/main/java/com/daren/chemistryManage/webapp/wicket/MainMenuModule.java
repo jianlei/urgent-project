@@ -1,4 +1,4 @@
-package com.daren.fireworks.webapp.wicket;
+package com.daren.chemistryManage.webapp.wicket;
 
 import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuModule;

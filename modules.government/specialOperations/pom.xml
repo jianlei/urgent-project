@@ -13,7 +13,7 @@
     <artifactId>modules.specialOperations</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Government :: Modules - 烟花爆竹</name>
+    <name>Government :: Modules - 特种作业人员操作资格证</name>
 
     <packaging>pom</packaging>
 
