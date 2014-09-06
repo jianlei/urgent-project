@@ -24,7 +24,7 @@
     <modules>
         <module>fireworks</module>
         <module>safetyProduction</module>
-        <module>safetyQualifications</module>
+        <module>safetyCompetency</module>
         <module>specialOperations</module>
         <module>chemistryManage</module>
         <module>government-web-bootup-wicket</module>
