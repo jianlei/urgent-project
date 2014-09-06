@@ -3,23 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>com.daren.fireworks</groupId>
-        <artifactId>modules.fireworks</artifactId>
+        <groupId>com.daren.chemistryManage</groupId>
+        <artifactId>modules.chemistryManage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.fireworks</groupId>
-    <artifactId>com.daren.fireworks.api</artifactId>
+    <groupId>com.daren.chemistryManage</groupId>
+    <artifactId>com.daren.chemistryManage.api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <bundle.symbolicName>com.daren.fireworks.api</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.chemistryManage.api</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: fireworks - API</name>
-    <description>fireworks API</description>
+    <name>Urgent :: chemistryManage - API</name>
+    <description>chemistryManage API</description>
 
     <packaging>bundle</packaging>
 
@@ -42,8 +42,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.fireworks</groupId>
-            <artifactId>com.daren.fireworks.entities</artifactId>
+            <groupId>com.daren.chemistryManage</groupId>
+            <artifactId>com.daren.chemistryManage.entities</artifactId>
         </dependency>
 
         <dependency>
