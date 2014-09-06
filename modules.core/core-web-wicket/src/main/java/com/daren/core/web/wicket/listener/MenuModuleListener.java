@@ -3,7 +3,7 @@ package com.daren.core.web.wicket.listener;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
-import com.daren.core.web.wicket.MenuModuleManager;
+import com.daren.core.web.wicket.manager.MenuModuleManager;
 import org.apache.log4j.Logger;
 
 /**

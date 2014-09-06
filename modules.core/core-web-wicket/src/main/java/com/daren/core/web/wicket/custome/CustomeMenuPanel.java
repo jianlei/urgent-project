@@ -1,7 +1,7 @@
 package com.daren.core.web.wicket.custome;
 
 import com.daren.core.web.api.module.IMenuModule;
-import com.daren.core.web.wicket.MenuModuleManager;
+import com.daren.core.web.wicket.manager.MenuModuleManager;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;

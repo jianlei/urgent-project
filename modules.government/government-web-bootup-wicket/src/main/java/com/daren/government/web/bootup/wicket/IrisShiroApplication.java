@@ -2,7 +2,6 @@ package com.daren.government.web.bootup.wicket;
 
 
 import com.daren.core.web.api.provider.IHomePageProvider;
-import com.daren.core.web.validation.JSR303ValidationListener;
 import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
@@ -108,7 +107,7 @@ public class IrisShiroApplication extends WebApplication {
                 new ShiroUnauthorizedComponentListener(SignInPage.class, AccessDeniedPage.class, authz));
         // SecurityUtils.getSubject().getSession().setTimeout(-1000l);
         //增加JSR303校验监听器
-        getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
+        //getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
         mountPage("login", SignInPage.class);
 
         /* In case of unhandled exception redirect it to a custom page */

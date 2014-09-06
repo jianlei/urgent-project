@@ -2,7 +2,7 @@ package com.daren.core.web.wicket.panel;
 
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
-import com.daren.core.web.wicket.MenuModuleManager;
+import com.daren.core.web.wicket.manager.MenuModuleManager;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;

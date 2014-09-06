@@ -1,4 +1,4 @@
-package com.daren.core.web.wicket;
+package com.daren.core.web.wicket.manager;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
+    <!--监听工作流form的加载和卸载-->
+    <reference-list id="formHandler"
+                    interface="com.daren.core.web.api.workflow.IFormHandler"  member-type="service-reference">
+        <reference-listener bind-method="bind" unbind-method="unbind">
+            <bean class="com.daren.core.web.wicket.listener.FormPanelListener"/>
+        </reference-listener>
+    </reference-list>
+
     <!--监听菜单项模块的加载和卸载-->
     <reference-list id="menuItemsProviders"
                     interface="com.daren.core.web.api.module.IMenuItemsModule" member-type="service-reference">

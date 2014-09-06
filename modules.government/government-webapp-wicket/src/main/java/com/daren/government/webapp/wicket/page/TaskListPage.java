@@ -2,17 +2,12 @@ package com.daren.government.webapp.wicket.page;
 
 import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
-import com.daren.core.web.wicket.BasePanel;
 import com.daren.government.webapp.wicket.model.TasksAssignableToUserModel;
 import com.daren.government.webapp.wicket.model.UserIdModel;
-import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -22,48 +17,30 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @类描述：代办事项列表页面类
+ * @类描述：待办事项列表页面类
  * @创建人： sunlingfeng
  * @创建时间：2014/9/6
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class TaskListPage extends BasePanel{
+public class TaskListPage extends WorkflowBasePanel{
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "代办事项";
-    private final TabbedPanel tabPanel;
+    private final static String CONST_LIST = "待办事项";
 
     public TaskListPage(String id, WebMarkupContainer wmc) {
-        super(id, wmc);
-        Options options = new Options();
-        tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
-        this.add(tabPanel);
+        super(id, wmc,CONST_LIST);
     }
 
-    /**
-     * 添加tabs
-     *
-     * @return
-     */
-    private List<? extends ITab> newTabList() {
-        List<ITab> tabs = new ArrayList<ITab>();
-        // tab #1 //
-        tabs.add(new AbstractTab(Model.of(CONST_LIST)) {
-            private static final long serialVersionUID = 1L;
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "mainPanel");
-            }
-        });
-        return tabs;
+    @Override
+    public Fragment getMainFragment(String panelId, String makeupId) {
+        return new MainFragment(panelId,makeupId);
     }
+
 
     public class MainFragment extends Fragment {
         private final JQueryFeedbackPanel feedbackPanel;

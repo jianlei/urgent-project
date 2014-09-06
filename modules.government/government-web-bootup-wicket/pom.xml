@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
-    <name>Urgent :: Government - Web Wicket Bootup</name>
+    <name>Government :: Web Wicket Bootup</name>
     <description>Government - Web Wicket Bootup</description>
 
     <dependencies>

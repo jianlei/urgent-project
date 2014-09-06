@@ -1,16 +1,17 @@
 package com.daren.government.webapp.wicket.page;
 
 import com.daren.admin.entities.UserBean;
-import com.daren.core.web.wicket.BasePanel;
+import com.daren.core.web.api.workflow.IFormHandler;
+import com.daren.core.web.wicket.manager.FormPanelManager;
 import com.daren.government.webapp.wicket.model.AvailableProcessesModel;
-import com.googlecode.wicket.jquery.core.Options;
+import com.daren.government.webapp.wicket.model.ProcessDefinitionModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
+import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
+import org.activiti.engine.FormService;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -22,7 +23,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -33,34 +34,21 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class ProcessListPage extends BasePanel{
+public class ProcessListPage extends WorkflowBasePanel{
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "新建流程";
-    private final TabbedPanel tabPanel;
+    @Inject
+    private transient FormService formService;
+    private WebMarkupContainer wmc;
 
     public ProcessListPage(String id, WebMarkupContainer wmc) {
-        super(id, wmc);
-        Options options = new Options();
-        tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
-        this.add(tabPanel);
+        super(id, wmc,CONST_LIST);
+
     }
 
-    /**
-     * 添加tabs
-     *
-     * @return
-     */
-    private List<? extends ITab> newTabList() {
-        List<ITab> tabs = new ArrayList<ITab>();
-        // tab #1 //
-        tabs.add(new AbstractTab(Model.of(CONST_LIST)) {
-            private static final long serialVersionUID = 1L;
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new MainFragment(panelId, "mainPanel");
-            }
-        });
-        return tabs;
+    @Override
+    public Fragment getMainFragment(String panelId, String makeupId) {
+        return new MainFragment(panelId,makeupId);
     }
 
     public class MainFragment extends Fragment {
@@ -106,17 +94,49 @@ public class ProcessListPage extends BasePanel{
 
         }
         /**
-         * 初始化新增按钮
+         * 初始化流程启动按钮
          *
          * @return
          */
-        private IndicatingAjaxLink initStartButton(ProcessDefinition processDefinition) {
+        private IndicatingAjaxLink initStartButton(final ProcessDefinition processDefinition) {
             return new IndicatingAjaxLink("start") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
+                    StartFormData startFormData = formService.getStartFormData(processDefinition.getId());
+                    IFormHandler formHandler= FormPanelManager.getInstall().findFormByKey(processDefinition.getKey(),startFormData.getFormKey());
 
+                    createNewTab(target, "启动 " + processDefinition.getName(), formHandler,new ProcessDefinitionModel(processDefinition.getId()));
                 }
             };
+        }
+        /**
+         * 创建新的页面，用于新增和修改
+         *
+         * @param target
+         * @param tabTitle "修改字典"||"新增字典"
+         * @param model        数据
+         */
+        private void createNewTab(AjaxRequestTarget target, final String tabTitle, final IFormHandler formHandler, final IModel model) {
+            //去掉第二个tab
+            if (tabPanel.getModelObject().size() == 2) {
+                tabPanel.getModelObject().remove(1);
+            }
+            tabPanel.add(new AjaxTab(Model.of(tabTitle)) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public WebMarkupContainer getLazyPanel(String panelId) {
+                    //通过repeatingView增加新的panel
+                    repeatingView.removeAll();
+                    repeatingView.add(formHandler.getPanel(repeatingView.newChildId(),model ) );
+                    Fragment fragment = new Fragment(panelId, "addPanel", ProcessListPage.this);
+                    fragment.add(repeatingView);
+                    return fragment;
+                }
+            });
+
+            tabPanel.setActiveTab(1);
+            target.add(tabPanel);
         }
     }
 
