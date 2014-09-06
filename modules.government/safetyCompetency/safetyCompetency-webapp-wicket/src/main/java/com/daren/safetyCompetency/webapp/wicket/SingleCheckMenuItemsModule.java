@@ -1,4 +1,4 @@
-package com.daren.fireworks.webapp.wicket;
+package com.daren.safetyCompetency.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
