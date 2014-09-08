@@ -1,16 +1,22 @@
 package com.daren.government.webapp.wicket.page;
 
+import com.daren.admin.entities.UserBean;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
+import com.daren.core.web.wicket.PermissionConstant;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.daren.government.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.activiti.engine.FormService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -37,6 +43,10 @@ public class DemoStartFormPage extends Panel {
     private static final Logger LOG = LoggerFactory.getLogger(DemoStartFormPage.class);
     @Inject
     private transient FormService formService;
+    @Inject
+    private transient IdentityService identityService;
+    @Inject
+    private transient RuntimeService runtimeService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     public DemoStartFormPage(String id, final IModel<ProcessDefinition> model) {
@@ -60,7 +70,7 @@ public class DemoStartFormPage extends Panel {
         form.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                TabsUtil.deleteTab(target,DemoStartFormPage.this.findParent(TabbedPanel.class));
+                TabsUtil.deleteTab(target, DemoStartFormPage.this.findParent(TabbedPanel.class));
             }
         });
 
@@ -68,15 +78,24 @@ public class DemoStartFormPage extends Panel {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                LOG.debug("Trying to start new process for {}",processDefinition.getId());
-                Map<String, String> submitMap=new HashMap<String, String>();
-                for (Map.Entry<String, Object> entry:((Map<String, Object>)form.getDefaultModelObject()).entrySet()) {
+                LOG.debug("Trying to start new process for {}", processDefinition.getId());
+                Map<String, Object> submitMap = new HashMap<String, Object>();
+                for (Map.Entry<String, Object> entry : ((Map<String, Object>) form.getDefaultModelObject()).entrySet()) {
                     submitMap.put(entry.getKey(), entry.getValue().toString());
                 }
-                ProcessInstance instance = formService.submitStartFormData(processDefinition.getId(), submitMap);
-                LOG.debug("Started new process for {}", processDefinition.getId());
-                feedbackPanel.info("流程启动成功！");
-                target.add(feedbackPanel);
+                try {
+                    //获得当前登陆用户
+                    Session session = SecurityUtils.getSubject().getSession();
+                    UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
+                    identityService.setAuthenticatedUserId(userBean.getName());
+                    ProcessInstance instance = runtimeService.startProcessInstanceByKey(processDefinition.getKey(), submitMap);
+                    LOG.debug("Started new process for {}", processDefinition.getId());
+                    feedbackPanel.info("流程" + processDefinition.getName() + "启动成功,请点击关闭按钮！");
+                    this.setEnabled(false);
+                    target.add(DemoStartFormPage.this.findParent(TabbedPanel.class));
+                } finally {
+                    identityService.setAuthenticatedUserId(null);
+                }
             }
 
             protected void onError(AjaxRequestTarget target, Form<?> form) {

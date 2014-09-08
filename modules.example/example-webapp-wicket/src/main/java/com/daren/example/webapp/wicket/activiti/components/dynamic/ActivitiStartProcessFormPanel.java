@@ -1,6 +1,7 @@
 package com.daren.example.webapp.wicket.activiti.components.dynamic;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
@@ -35,6 +36,9 @@ public class ActivitiStartProcessFormPanel extends AbstractDynamicActivitiPanel 
     @Inject
     private transient RepositoryService repositoryService;
 
+    @Inject
+    private transient IdentityService identityService;
+
     public ActivitiStartProcessFormPanel(final String id, final IModel<ProcessDefinition> model) {
         super(id, model);
         setOutputMarkupId(true);
@@ -55,8 +59,16 @@ public class ActivitiStartProcessFormPanel extends AbstractDynamicActivitiPanel 
                 for (Map.Entry<String, Object> entry:((Map<String, Object>)form.getDefaultModelObject()).entrySet()) {
                     submitMap.put(entry.getKey(), entry.getValue().toString());
                 }
-                ProcessInstance instance = formService.submitStartFormData(model.getObject().getId(), submitMap);
-                LOG.debug("Started new process for {}", model.getObject().getId());
+                try
+                {
+                    identityService.setAuthenticatedUserId("bono");
+                    ProcessInstance instance = formService.submitStartFormData(model.getObject().getId(), submitMap);
+                    LOG.debug("Started new process for {}", model.getObject().getId());
+                }
+                finally {
+                    identityService.setAuthenticatedUserId(null);
+                }
+
             }
 
             protected void onError(AjaxRequestTarget target, Form<?> form) {

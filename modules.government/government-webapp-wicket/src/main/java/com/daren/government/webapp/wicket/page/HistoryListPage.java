@@ -75,7 +75,10 @@ public class HistoryListPage extends WorkflowBasePanel{
                     }
                     else
                     {
-                        item.add(new Label("status", "结束"));
+                        Label label = new Label("status", "<font color=\"red\">结束</font>");
+                        label.setEscapeModelStrings(false);
+                        label.setRenderBodyOnly(true);
+                        item.add(label);
                     }
 //                    item.add(new Label("durationInMillis", row.getDurationInMillis()));
                     item.add(initViewButton(row));

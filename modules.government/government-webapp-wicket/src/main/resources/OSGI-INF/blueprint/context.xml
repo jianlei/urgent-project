@@ -8,6 +8,12 @@
         </bean>
     </service>
 
+    <!-- demo review form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.government.webapp.wicket.DemoTaskFormHandler">
+        </bean>
+    </service>
+
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
         <bean class="com.daren.government.webapp.wicket.MainMenuModule">

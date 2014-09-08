@@ -64,7 +64,8 @@ public class ActivitiTaskFormPanel extends AbstractDynamicActivitiPanel {
 
     public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> containerClass) {
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(((Task) getDefaultModelObject()).getProcessDefinitionId()).singleResult();
-        return createIResourceStreamFromInputStream(repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), "OSGI-INF/activiti/"+formService.getTaskFormData(((Task)getDefaultModelObject()).getId()).getFormKey()));
+        String id = ((Task) getDefaultModelObject()).getId();
+        return createIResourceStreamFromInputStream(repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), "OSGI-INF/activiti/"+formService.getTaskFormData(id).getFormKey()));
 
     }
 }
