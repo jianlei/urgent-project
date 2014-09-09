@@ -1,6 +1,9 @@
 package com.daren.chemistry.manage.api.biz;
 
+import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.api.biz.IBizService;
+
+import java.util.List;
 
 /**
  * @类描述：危险化学品业务服务接口类
@@ -11,4 +14,5 @@ import com.daren.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface IChemistryManageBeanService extends IBizService {
+    List<ChemistryManageBean> query(ChemistryManageBean bean);
 }

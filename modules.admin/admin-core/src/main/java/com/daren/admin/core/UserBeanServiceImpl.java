@@ -6,6 +6,8 @@ import com.daren.admin.api.dao.IUserBeanDao;
 import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 
@@ -104,6 +106,13 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
             }
         }
         saveUser(userBean);
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        Session session = SecurityUtils.getSubject().getSession();
+        UserBean userBean = (UserBean) session.getAttribute("currentUser");
+        return userBean.getName();
     }
 
 

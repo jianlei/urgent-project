@@ -1,20 +1,22 @@
 package com.daren.chemistry.manage.webapp.wicket.page;
 
-import com.daren.admin.entities.UserBean;
-import com.daren.government.webapp.wicket.model.AvailableProcessesModel;
-import com.daren.government.webapp.wicket.model.ProcessDefinitionModel;
+import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
+import com.daren.chemistry.manage.entities.ChemistryManageBean;
+import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.government.webapp.wicket.page.WorkflowBasePanel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
+import org.activiti.engine.FormService;
+import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -33,6 +35,10 @@ import java.util.List;
 public class ChemistryManageListPage extends WorkflowBasePanel {
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "新建流程";
+    @Inject
+    @Reference(id = "chemistryManageBeanService", serviceInterface = IChemistryManageBeanService.class)
+    protected IChemistryManageBeanService chemistryManageBeanService;
+    ChemistryManageDataProvider provider = new ChemistryManageDataProvider();
     @Inject
     private transient FormService formService;
     private WebMarkupContainer wmc;
@@ -62,26 +68,24 @@ public class ChemistryManageListPage extends WorkflowBasePanel {
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
-            final IModel<List<ProcessDefinition>> listOfProcesses=new AvailableProcessesModel();
             //add listview
-            final ListView<ProcessDefinition> listView = new ListView<ProcessDefinition>("rows", listOfProcesses) {
+            final DataView<ChemistryManageBean> listView = new DataView<ChemistryManageBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
                 @Override
-                protected void populateItem(ListItem<ProcessDefinition> item) {
-                    final ProcessDefinition row = item.getModelObject();
+                protected void populateItem(Item<ChemistryManageBean> item) {
+                    final ChemistryManageBean row = item.getModelObject();
                     item.add(new Label("id", row.getId()));
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("description", row.getDescription()));
+                    item.add(new Label("description", row.getAddress()));
                     item.add(new Label("version", row.getVersion()));
-                    item.add(new Label("suspended", row.isSuspended()));
-                    item.add(initStartButton(row));
+                    item.add(new Label("suspended", row.getHeader()));
                 }
             };
             table.add(listView);
 
 
             //search form
-            Form<UserBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new UserBean()));
+            Form<ChemistryManageBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new ChemistryManageBean()));
             TextField textField = new TextField("name");
             userForm.add(textField.setOutputMarkupId(true));
 
@@ -110,7 +114,7 @@ public class ChemistryManageListPage extends WorkflowBasePanel {
                     //通过repeatingView增加新的panel
                     repeatingView.removeAll();
                     repeatingView.add(formHandler.getPanel(repeatingView.newChildId(),model ) );
-                    Fragment fragment = new Fragment(panelId, "addPanel", ProcessListPage.this);
+                    Fragment fragment = new Fragment(panelId, "addPanel", ChemistryManageListPage.this);
                     fragment.add(repeatingView);
                     return fragment;
                 }
@@ -118,6 +122,27 @@ public class ChemistryManageListPage extends WorkflowBasePanel {
 
             tabPanel.setActiveTab(1);
             target.add(tabPanel);
+        }
+    }
+
+    /**
+     * //查询数据提供者
+     */
+    class ChemistryManageDataProvider extends ListDataProvider<ChemistryManageBean> {
+        private ChemistryManageBean bean = null;
+
+        public void setBean(ChemistryManageBean bean) {
+            this.bean = bean;
+        }
+
+        @Override
+        protected List<ChemistryManageBean> getData() {
+            //类型为空时候，返回全部记录
+            if (bean == null || bean.getName().equals(""))
+                return chemistryManageBeanService.getAllEntity();
+            else {
+                return chemistryManageBeanService.query(bean);
+            }
         }
     }
 }

@@ -5,6 +5,8 @@ import com.daren.chemistry.manage.api.dao.IChemistryManageBeanDao;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
+import java.util.List;
+
 /**
  * @类描述：危险化学品业务服务实现类
  * @创建人： sunlingfeng
@@ -19,5 +21,10 @@ public class ChemistryManageBeanServiceImpl extends GenericBizServiceImpl implem
     public void setChemistryManageBeanDao(IChemistryManageBeanDao chemistryManageBeanDao) {
         this.chemistryManageBeanDao = chemistryManageBeanDao;
         super.init(chemistryManageBeanDao, ChemistryManageBean.class.getName());
+    }
+
+    @Override
+    public List<ChemistryManageBean> query(ChemistryManageBean bean) {
+        return null;
     }
 }
