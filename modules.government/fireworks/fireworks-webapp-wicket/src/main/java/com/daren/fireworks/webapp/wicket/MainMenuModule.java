@@ -29,7 +29,7 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public String getName() {
-        return "政务法规管理";
+        return "流程申请";
     }
 
     @Override
