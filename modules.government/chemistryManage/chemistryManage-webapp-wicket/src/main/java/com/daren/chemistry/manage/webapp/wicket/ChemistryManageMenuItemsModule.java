@@ -1,11 +1,11 @@
-package com.daren.chemistryManage.webapp.wicket;
+package com.daren.chemistry.manage.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：例子子菜单定义类
+ * @类描述：危险化学品子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -13,7 +13,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class SingleCheckMenuItemsModule implements IMenuItemsModule {
+public class ChemistryManageMenuItemsModule implements IMenuItemsModule {
 
 
     @Override

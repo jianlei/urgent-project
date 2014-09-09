@@ -10,7 +10,7 @@
             <extensionElements>
                 <activiti:formProperty id="code" name="登记编号"></activiti:formProperty>
                 <activiti:formProperty id="name" name="经营单位名称"></activiti:formProperty>
-                <activiti:formProperty id="head" name="经营单位负责人"></activiti:formProperty>
+                <activiti:formProperty id="header" name="经营单位负责人"></activiti:formProperty>
                 <activiti:formProperty id="address" name="经营单位住所"></activiti:formProperty>
                 <activiti:formProperty id="unitType" name="经营单位类型"></activiti:formProperty>
                 <activiti:formProperty id="scope" name="许可经营范围"></activiti:formProperty>

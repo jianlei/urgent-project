@@ -3,40 +3,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>com.daren.chemistryManage</groupId>
-        <artifactId>modules.chemistryManage</artifactId>
+        <groupId>com.daren.chemistry.manage</groupId>
+        <artifactId>modules.chemistry.manage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.chemistryManage</groupId>
-    <artifactId>com.daren.chemistryManage.core</artifactId>
+    <groupId>com.daren.chemistry.manage</groupId>
+    <artifactId>com.daren.chemistry.manage.core</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <bundle.symbolicName>com.daren.chemistryManage.core</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.chemistry.manage.core</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Government - Core</name>
-    <description>Urgent Government Core Module</description>
+    <name>Government :: ChemistryManage - Core</name>
+    <description>Government ChemistryManage Core Module</description>
 
     <packaging>bundle</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.api</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.persist.openjpa</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.persist.openjpa</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.entities</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.entities</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -9,8 +9,8 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.chemistryManage</groupId>
-    <artifactId>modules.chemistryManage</artifactId>
+    <groupId>com.daren.chemistry.manage</groupId>
+    <artifactId>modules.chemistry.manage</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>Government :: Modules - 危险化学品经营许可证</name>
@@ -30,32 +30,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.daren.chemistryManage</groupId>
-                <artifactId>com.daren.chemistryManage.core</artifactId>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.core</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.chemistryManage</groupId>
-                <artifactId>com.daren.chemistryManage.api</artifactId>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.api</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.chemistryManage</groupId>
-                <artifactId>com.daren.chemistryManage.entities</artifactId>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.entities</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.chemistryManage</groupId>
-                <artifactId>com.daren.chemistryManage.persist.openjpa</artifactId>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.persist.openjpa</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.chemistryManage</groupId>
-                <artifactId>com.daren.chemistryManage.webapp.wicket</artifactId>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.webapp.wicket</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>

@@ -37,7 +37,7 @@
          </properties>
      </persistence-unit>-->
 
-    <persistence-unit transaction-type="JTA" name="enterprise-cm">
+    <persistence-unit transaction-type="JTA" name="chemistryManage-cm">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <!--<jta-data-source>osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/TradeDataSource)</jta-data-source>-->
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
@@ -46,6 +46,8 @@
 
 
         <class>com.daren.core.api.persistence.PersistentEntity</class>
+        <class>com.daren.core.api.persistence.WorkflowEntity</class>
+        <class>com.daren.chemistry.manage.entities.ChemistryManageBean</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 

@@ -11,6 +11,7 @@
         <!--<jar-file></jar-file>-->
         <!--<class>com.daren.admin.entities.UserBean</class>-->
         <class>com.daren.core.api.persistence.PersistentEntity</class>
+        <class>com.daren.core.api.persistence.WorkflowEntity</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 
