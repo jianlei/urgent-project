@@ -289,6 +289,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.workflow</groupId>
+                <artifactId>com.daren.workflow.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.hazard</groupId>
                 <artifactId>com.daren.hazard.api</artifactId>
                 <version>${project.version}</version>

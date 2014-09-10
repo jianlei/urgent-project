@@ -33,9 +33,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.government</groupId>
-            <artifactId>com.daren.government.webapp.wicket</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.daren.workflow</groupId>
+            <artifactId>com.daren.workflow.webapp.wicket</artifactId>
         </dependency>
 
         <dependency>
