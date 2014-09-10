@@ -71,7 +71,8 @@ public class DemoTaskFormPage extends Panel {
                 for (Map.Entry<String, Object> entry : ((Map<String, Object>) form.getDefaultModelObject()).entrySet()) {
                     submitMap.put(entry.getKey(), entry.getValue().toString());
                 }
-                formService.submitTaskFormData(task.getId(), submitMap);
+                taskService.setVariablesLocal(task.getId(), submitMap);
+                formService.submitTaskFormData(task.getId(), new HashMap<String, String>());
                 model.setObject(null);
                 feedbackPanel.info("事项处理成功，请点击关闭按钮！");
                 this.setEnabled(false);
