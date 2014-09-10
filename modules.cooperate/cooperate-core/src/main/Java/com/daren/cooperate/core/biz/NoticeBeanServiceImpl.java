@@ -3,9 +3,9 @@ package com.daren.cooperate.core.biz;
 import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
-import com.daren.cooperate.api.model.ErrorCodeValue;
-import com.daren.cooperate.api.model.NoticeDetailModel;
-import com.daren.cooperate.api.model.NoticeListModel;
+import com.daren.cooperate.core.model.ErrorCodeValue;
+import com.daren.cooperate.core.model.NoticeDetailModel;
+import com.daren.cooperate.core.model.NoticeListModel;
 import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.cooperate.entities.NoticeUserRelBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
@@ -57,13 +57,13 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 for(int i=0;i<idArr.length;i++){
                     NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
                     noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
-                    noticeUserRelBean.setUser_id(idArr[i]);
+                    noticeUserRelBean.setUser_id(Long.parseLong(idArr[i]));
                     noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
                 }
             }
             result =  1;
         }catch(Exception e){
-            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
+            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
             map.put("result",result);
@@ -106,29 +106,31 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         int result = -1;
         List<NoticeListModel> list = new ArrayList<NoticeListModel>();
         try{
+            int start = 0;
             if(page==null){
-                page=0;
+                start=0;
             }else{
-                page = page-1;
+                start = (page-1)*page_size;
             }
             if(page_size==null){
                 page_size = 15;
             }
+            Long user_id = 1l;
             list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
                     "(\n" +
-                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name\n" +
+                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
                     "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                    "where cnb.notice_time >= substring(now(),1,19) order by cnb.notice_time)\n" +
+                    "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
+                    "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,19) and cnb.is_cancle=0 order by cnb.notice_time)\n" +
                     "union\n" +
-                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name \n" +
+                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
                     "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                    "where cnb.notice_time<substring(now(),1,19) order by cnb.notice_time desc)\n" +
-                    ") t", NoticeListModel.class ,page, page_size);
+                    "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
+                    "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,19) and cnb.is_cancle=0 order by cnb.notice_time desc)\n" +
+                    ") t limit "+start+","+page_size, NoticeListModel.class );
             result = 1;
             if(list!=null && list.size()>0){
                 map.put("response",list);
-            }else{
-                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch (Exception e){
             map.put("errorCode",ErrorCodeValue.INNER_ERROR);
@@ -150,11 +152,13 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             List<NoticeDetailModel> noticeDetail = new ArrayList<NoticeDetailModel>();
             if(notice_id!=null){
                 //noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
-                noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,\n" +
+                Long user_id = 1l;
+                noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id) as total_num,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id and cnur.reply_type=1) as join_num\n" +
-                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                        "where cnb.id="+notice_id,NoticeDetailModel.class);
+                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id " +
+                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
+                        "where cnur.user_id="+user_id+" and cnb.id="+notice_id,NoticeDetailModel.class);
                 result = 1;
                 if(noticeDetail!=null&&noticeDetail.size()>0){
                     map.put("response",noticeDetail.get(0));
@@ -172,12 +176,12 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     }
 
     @POST
-    @Path("/replyNotice/{notice_id}/{reply_content}/{reply_type}")
+    @Path("/replyNotice")
     //@Consumes("application/json;charset=utf-8")
     @Produces("application/json;charset=utf-8")
     @Override
-    public Map replyNotice(@PathParam("notice_id")Long notice_id, @PathParam("reply_content")String reply_content,
-                                  @PathParam("reply_type")Integer reply_type) {
+    public Map replyNotice(@FormParam("notice_id")Long notice_id, @FormParam("reply_content")String reply_content,
+                                  @FormParam("reply_type")Integer reply_type) {
         Map map = new HashMap();
         int result = -1;
         try{
@@ -187,8 +191,10 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 //nurb.setUser_id();
                 nurb.setReply_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
                 nurb.setReply_type(reply_type);
-                nurb.setReply_content(reply_content);
-                noticeUserRelBeanDao.save(nurb);
+                //nurb.setReply_content(reply_content);
+                Long user_id = 1l;
+                noticeUserRelBeanDao.update("update NoticeUserRelBean t set t.reply_type="+reply_type+
+                        " where t.notice_id="+notice_id+" and t.user_id="+user_id);
                 result = 1;
             }else{
                 map.put("errorCode",ErrorCodeValue.PARAM_ERROR);

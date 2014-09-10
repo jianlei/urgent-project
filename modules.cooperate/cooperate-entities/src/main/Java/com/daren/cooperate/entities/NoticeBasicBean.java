@@ -22,8 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class NoticeBasicBean extends PersistentEntity {
 
-    private String jgdm;            //机构代码
-    private String user_id;         //发布人id
+    private long jgdm;            //机构代码
+    private long user_id;         //发布人id
     private String title;           //标题
     private String content;         //内容
     private String notice_time;     //日程时间
@@ -34,19 +34,19 @@ public class NoticeBasicBean extends PersistentEntity {
 
     }
 
-    public String getJgdm() {
+    public long getJgdm() {
         return jgdm;
     }
 
-    public void setJgdm(String jgdm) {
+    public void setJgdm(long jgdm) {
         this.jgdm = jgdm;
     }
 
-    public String getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

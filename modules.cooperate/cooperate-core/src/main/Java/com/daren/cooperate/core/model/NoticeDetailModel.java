@@ -1,4 +1,4 @@
-package com.daren.cooperate.api.model;
+package com.daren.cooperate.core.model;
 
 /**
  * @类描述：用于返回日程详情的类
@@ -11,7 +11,7 @@ package com.daren.cooperate.api.model;
 public class NoticeDetailModel {
 
     private Long id;                //主键id
-    private String user_id;         //发布人id
+    private long user_id;         //发布人id
     private String title;           //标题
     private String content;         //内容
     private String notice_time;     //日程时间
@@ -19,6 +19,7 @@ public class NoticeDetailModel {
     private String name;            //发布人姓名
     private int total_num;          //总人数
     private int join_num;           //参加人数
+    private int reply_type;         //确认类型0:待回复；1-确认；2-拒绝
 
     public NoticeDetailModel(){
 
@@ -32,11 +33,11 @@ public class NoticeDetailModel {
         this.id = id;
     }
 
-    public String getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 
@@ -94,5 +95,13 @@ public class NoticeDetailModel {
 
     public void setJoin_num(int join_num) {
         this.join_num = join_num;
+    }
+
+    public int getReply_type() {
+        return reply_type;
+    }
+
+    public void setReply_type(int reply_type) {
+        this.reply_type = reply_type;
     }
 }

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class NoticeUserRelBean extends PersistentEntity {
 
     private long notice_id;             //通知id
-    private String user_id;             //用户id
+    private long user_id;             //用户id
     private int reply_type;          //回复：0:待回复；1-确认；2-拒绝
     private String reply_time;          //回复时间；
     private String reply_content;       //回复内容；
@@ -40,11 +40,11 @@ public class NoticeUserRelBean extends PersistentEntity {
         this.notice_id = notice_id;
     }
 
-    public String getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 
