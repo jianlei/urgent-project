@@ -3,18 +3,23 @@
 <wicket:head>
     <meta charset="utf-8"/>
     <title></title>
-</wicket:head>
-<body>
-<wicket:panel>
     <script type="text/javascript">
         var map;
         function loadScript(parm) {
             //jQuery("#allmap").load("http://localhost:9191/cus/diagram-viewer/index.html?processDefinitionId=chemistryManage:1:4&processInstanceId=9");
+            initmap(parm);
         }
+        function initmap(parm) {
+            document.getElementById("allmap").src="http://localhost:9191/cus/diagram-viewer/index.html?processDefinitionId=chemistryManage:1:4&processInstanceId=9";
 
+        }
     </script>
-    <div id="allmap"
-         style="border:solid 1px;width: 100%;height:500px;border:solid 1px red; overflow: hidden;margin:0;z-index: 90;"></div>
+</wicket:head>
+<body>
+<wicket:panel>
+
+    <iframe id="allmap"
+         style="border:solid 1px;width: 100%;height:500px;border:solid 1px red; overflow: hidden;margin:0;z-index: 90;"></iframe>
 </wicket:panel>
 </body>
 </html>
