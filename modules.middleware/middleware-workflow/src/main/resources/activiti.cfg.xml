@@ -3,7 +3,6 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
-
     <bean id="processEngineConfiguration"
           class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
         <property name="jdbcUrl" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
@@ -12,13 +11,10 @@
         <property name="jdbcPassword" value="1234"/>
         <!-- Database configurations -->
         <property name="databaseSchemaUpdate" value="drop-create"/>
-
         <!-- job executor configurations -->
         <property name="jobExecutorActivate" value="true"/>
-
         <!-- mail server configurations -->
         <property name="mailServerPort" value="5025"/>
         <property name="history" value="full"/>
     </bean>
-
 </beans>

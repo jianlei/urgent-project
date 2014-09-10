@@ -1,6 +1,9 @@
 package com.daren.fireworks.api.biz;
 
 import com.daren.core.api.biz.IBizService;
+import com.daren.fireworks.entities.FireworksBean;
+
+import java.util.List;
 
 /**
  * @类描述：烟花爆竹经营(批发)许可证
@@ -11,4 +14,5 @@ import com.daren.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface IFireworksService extends IBizService {
+    List<FireworksBean> query(FireworksBean bean);
 }

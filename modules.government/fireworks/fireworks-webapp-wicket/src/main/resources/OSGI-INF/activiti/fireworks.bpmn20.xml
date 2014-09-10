@@ -6,6 +6,7 @@
              typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
              targetNamespace="http://www.activiti.org/test">
     <process id="fireworks" name="烟花爆竹经营许可证流程" isExecutable="true">
+        <documentation>烟花爆竹经营许可证申请流程</documentation>
         <userTask id="usertask1" name="发起审批" activiti:assignee="qy" activiti:formKey="fireworks.form">
             <extensionElements>
                 <activiti:formProperty id="code" name="登记编号"></activiti:formProperty>

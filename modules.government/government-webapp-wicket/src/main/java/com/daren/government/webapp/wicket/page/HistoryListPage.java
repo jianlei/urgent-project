@@ -4,6 +4,7 @@ import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
 import com.daren.government.webapp.wicket.model.ProcessesHistoryListModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
@@ -16,6 +17,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.Date;
 import java.util.List;
@@ -101,13 +103,36 @@ public class HistoryListPage extends WorkflowBasePanel{
          *
          * @return
          */
-        private IndicatingAjaxLink initViewButton(HistoricProcessInstance processDefinition) {
+        private IndicatingAjaxLink initViewButton(final HistoricProcessInstance historicProcessInstance) {
             return new IndicatingAjaxLink("view") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-
+                    createNewTab(target, "历史信息查询", historicProcessInstance);
                 }
             };
+        }
+
+        private void createNewTab(AjaxRequestTarget target, final String tabTitle, final HistoricProcessInstance historicProcessInstance) {
+            //去掉第二个tab
+            if (tabPanel.getModelObject().size() == 2) {
+                tabPanel.getModelObject().remove(1);
+            }
+            tabPanel.add(new AjaxTab(Model.of(tabTitle)) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public WebMarkupContainer getLazyPanel(String panelId) {
+                    //通过repeatingView增加新的panel
+                    repeatingView.removeAll();
+                    repeatingView.add(new ViewHistoryVarinst(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
+                    Fragment fragment = new Fragment(panelId, "addPanel", HistoryListPage.this);
+                    fragment.add(repeatingView);
+                    return fragment;
+                }
+            });
+
+            tabPanel.setActiveTab(1);
+            target.add(tabPanel);
         }
     }
 }

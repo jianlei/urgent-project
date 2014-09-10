@@ -3,6 +3,9 @@ package com.daren.fireworks.core.biz;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.api.dao.IFireworksBeanDao;
+import com.daren.fireworks.entities.FireworksBean;
+
+import java.util.List;
 
 /**
  * @类描述：烟花爆竹经营(批发)许可证
@@ -14,4 +17,14 @@ import com.daren.fireworks.api.dao.IFireworksBeanDao;
  */
 public class FireworksServiceImpl extends GenericBizServiceImpl implements IFireworksService {
     IFireworksBeanDao fireworksBeanDao;
+
+    public void setFireworksBeanDao(IFireworksBeanDao fireworksBeanDao) {
+        this.fireworksBeanDao = fireworksBeanDao;
+        super.init(fireworksBeanDao, FireworksBean.class.getName());
+    }
+
+    @Override
+    public List<FireworksBean> query(FireworksBean bean) {
+        return null;
+    }
 }

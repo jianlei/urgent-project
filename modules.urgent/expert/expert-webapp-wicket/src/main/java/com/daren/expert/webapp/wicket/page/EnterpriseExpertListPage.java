@@ -133,7 +133,6 @@ public class EnterpriseExpertListPage extends BasePanel {
                 return fragment;
             }
         });
-
         tabPanel.setActiveTab(1);
         target.add(tabPanel);
     }
@@ -264,7 +263,6 @@ public class EnterpriseExpertListPage extends BasePanel {
          * @return
          */
         private AjaxButton initFindButton(final DictDataProvider provider, Form form) {
-
             return new AjaxButton("find", form) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

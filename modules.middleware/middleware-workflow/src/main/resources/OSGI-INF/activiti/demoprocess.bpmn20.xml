@@ -7,8 +7,10 @@
   <process id="demoprocess" name="Demo Process">
     <startEvent id="startevent1" name="Start" activiti:formKey="Start.form" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="title" name="Title" type="string" variable="title" required="true" readable="true" writable="true"></activiti:formProperty>
-        <activiti:formProperty id="description" name="Description" type="string" variable="description" required="true" readable="true" writable="true"></activiti:formProperty>
+          <activiti:formProperty id="title" name="标题" type="string" variable="title" required="true" readable="true"
+                                 writable="true"></activiti:formProperty>
+          <activiti:formProperty id="description" name="描述" type="string" variable="description" required="true"
+                                 readable="true" writable="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Review "  activiti:formKey="Review.form">

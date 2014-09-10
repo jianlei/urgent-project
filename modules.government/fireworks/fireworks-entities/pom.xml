@@ -10,8 +10,8 @@
 
     <artifactId>com.daren.fireworks.entities</artifactId>
     <packaging>bundle</packaging>
-    <name>Government :: fireworks - Entities</name>
-    <description>Urgent Government JPA Enhanced Entities Module</description>
+    <name>Government :: Fireworks - Entities</name>
+    <description>Government ChemistryManage JPA Enhanced Entities Module</description>
 
 
     <properties>

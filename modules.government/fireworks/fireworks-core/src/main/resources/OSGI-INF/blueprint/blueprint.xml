@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <!--<service id="enterpriseService" interface="com.daren.enterprise.api.biz.IEnterpriseBeanService">
-        <bean class="com.daren.enterprise.core.biz.EnterpriseBeanServiceImpl">
-            <property name="enterpriseBeanDao" ref="enterpriseBeanDao"/>
+    <service id="fireworksService" interface="com.daren.fireworks.api.biz.IFireworksService">
+        <bean class="com.daren.fireworks.core.biz.FireworksServiceImpl">
+            <property name="fireworksBeanDao" ref="fireworksBeanDao"/>
                 </bean>
     </service>
-    <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>-->
+    <reference id="fireworksBeanDao" interface="com.daren.fireworks.api.dao.IFireworksBeanDao"/>
 </blueprint>
 
