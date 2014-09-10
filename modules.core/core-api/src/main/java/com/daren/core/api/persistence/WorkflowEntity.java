@@ -18,9 +18,7 @@
  *     along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.daren.core.impl.persistence;
-
-import com.daren.core.api.persistence.PersistentEntity;
+package com.daren.core.api.persistence;
 
 import javax.persistence.MappedSuperclass;
 
@@ -36,7 +34,7 @@ import javax.persistence.MappedSuperclass;
 
 public abstract class WorkflowEntity extends PersistentEntity {
      private String processInstanceId;//流程实例id
-     private  WorkflowStaus status;//流程状态，“处理中”，“结束”
+     private  WorkflowStaus status=WorkflowStaus.ACTIVE;//流程状态，“处理中”，“结束”
 
     public String getProcessInstanceId() {
         return processInstanceId;

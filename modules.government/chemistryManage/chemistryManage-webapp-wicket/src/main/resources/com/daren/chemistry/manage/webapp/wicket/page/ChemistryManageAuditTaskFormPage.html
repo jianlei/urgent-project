@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:panel>
+    <body>
+    <div class="alert alert-info">当前位置<b class="tip"/>流程审批<b class="tip"/>危险化学品审批</div>
+    <form method="post" wicket:id="startForm">
+
+        <span wicket:id="feedback"/>
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;危险化学品详细信息 <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+
+            <!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
+            <tbody>
+            <tr>
+                <td class="tdl">登记编号</td>
+                <td class="detail">
+                    <span class="ipt" wicket:id="code"/>
+                </td>
+                <td class="tdl">企业ID</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="qyid"/>
+                </td>
+                <td class="tdl">经营单位名称</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="name"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">经营单位负责人</td>
+                <td class="detail">
+                    <span class="ipt" wicket:id="header"/>
+                </td>
+                <td class="tdl">经营单位住所</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="address"/>
+                </td>
+                <td class="tdl">经营单位类型</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="unitType"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">许可经营范围</td>
+                <td class="detail">
+                    <span class="ipt" wicket:id="scope"/>
+                </td>
+                <td class="tdl">经营方式</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="mode"/>
+                </td>
+                <td class="tdl">发证机关</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="unitsDate"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">有效日期开始</td>
+                <td class="detail">
+                    <span class="ipt" wicket:id="startDate"/>
+                </td>
+                <td class="tdl">有效日期结束</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="endDate"/>
+                </td>
+                <td class="tdl">审请人ID</td>
+                <td class="td_detail">
+                    <span class="ipt" wicket:id="proposerId"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;流程审批-<span wicket:id="taskName"/> <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+
+            <!--<div wicket:id="errors"><i class="icon-remove close" data-dismiss="alert"></i></div>-->
+            <tbody>
+                <tr>
+                    <td class="tdl">审批意见</td>
+                    <td class="detail">
+                        <input class="ipt" wicket:id="comment"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdl">审批结果</td>
+                    <td class="detail">
+                        <input class="ipt" type="checkbox" wicket:id="accepted"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </body>
+</wicket:panel>
+</html>

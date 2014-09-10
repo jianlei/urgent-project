@@ -1,4 +1,4 @@
-package com.daren.core.impl.persistence;
+package com.daren.core.api.persistence;
 
 /**
  * @类描述：${INPUT}

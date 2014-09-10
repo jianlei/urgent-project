@@ -58,6 +58,7 @@
             <groupId>org.apache.servicemix.specs</groupId>
             <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
         </dependency>
+
     </dependencies>
     <build>
 

@@ -16,7 +16,7 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -46,12 +46,10 @@
         <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.persist.openjpa</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.entities</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.daren.core</groupId>
@@ -64,11 +62,14 @@
         <dependency>
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
         </dependency>
         <!--<dependency>
             <groupId>org.codehaus.jackson</groupId>
