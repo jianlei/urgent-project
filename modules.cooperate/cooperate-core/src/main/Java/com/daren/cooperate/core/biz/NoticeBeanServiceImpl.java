@@ -3,18 +3,16 @@ package com.daren.cooperate.core.biz;
 import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
-import com.daren.cooperate.api.model.ResultListJson;
-import com.daren.cooperate.api.model.ResultSingelJson;
-import com.daren.cooperate.api.model.StatusJson;
+import com.daren.cooperate.api.model.ErrorCodeValue;
+import com.daren.cooperate.api.model.NoticeDetailModel;
+import com.daren.cooperate.api.model.NoticeListModel;
 import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.cooperate.entities.NoticeUserRelBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
 
 import javax.ws.rs.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @类描述：日程基本信息
@@ -40,13 +38,11 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Override
     @POST
     @Produces("application/json;charset=utf-8")
-    //@Consumes("application/json;charset=utf-8")
-    @Path("/createNotice/{title}/{content}/{notice_time}/{ids}")
-    public StatusJson createNotice(@PathParam("title")String title, @PathParam("content")String content,
-                                   @PathParam("notice_time")String notice_time, @PathParam("ids")String ids) {
-        StatusJson statusJson = new StatusJson();
+    @Path("/createNotice")
+    public Map createNotice(@FormParam("title")String title, @FormParam("content")String content,
+                                   @FormParam("notice_time")String notice_time, @FormParam("ids")String ids) {
+        Map map = new HashMap();
         int result = -1;
-        String message = "创建失败！";
         try{
             NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
             noticeBasicBean.setTitle(title);
@@ -66,42 +62,38 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 }
             }
             result =  1;
-            message ="创建成功！";
         }catch(Exception e){
-            message = "服务异常！";
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            statusJson.setResult(result);
-            statusJson.setMessage(message);
+            map.put("result",result);
         }
-        return statusJson;
+        return map;
     }
 
     @Override
     @POST
     @Produces("application/json;charset=utf-8")
-    @Path("/cancelNotice/{notice_id}/")
-    public StatusJson cancelNotice(@PathParam("notice_id")Long notice_id) {
-        StatusJson statusJson = new StatusJson();
+    @Path("/cancelNotice/{notice_id}")
+    public Map cancelNotice(@PathParam("notice_id")Long notice_id) {
+        Map map = new HashMap();
         int result = -1;
-        String message = "取消失败！";
         try{
             if(notice_id!=null){
                 NoticeBasicBean noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
                 noticeBasicBean.setIs_cancle(1);
                 noticeBasicBeanDao.save(noticeBasicBean);
                 result = 1;
-                message = "取消成功";
             }else{
-                message = "请选择要取消的日程！";
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch(Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            statusJson.setResult(result);
-            statusJson.setMessage(message);
+            map.put("result", result);
         }
-        return statusJson;
+        return map;
     }
 
     @Override
@@ -109,11 +101,10 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Produces("application/json;charset=utf-8")
     @Path("getNoticeList/{page}/{pageSize}")
     //@Consumes("application/json;charset=utf-8")
-    public ResultListJson getNoticeList(@PathParam("page")Integer page, @PathParam("pageSize")Integer page_size) {
-        ResultListJson rlj = new ResultListJson();
+    public Map getNoticeList(@PathParam("page")Integer page, @PathParam("pageSize")Integer page_size) {
+        Map map = new HashMap();
         int result = -1;
-        String message = "获取日程列表失败！";
-        List<NoticeBasicBean> list = new ArrayList<NoticeBasicBean>();
+        List<NoticeListModel> list = new ArrayList<NoticeListModel>();
         try{
             if(page==null){
                 page=0;
@@ -123,52 +114,61 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             if(page_size==null){
                 page_size = 15;
             }
-            list = noticeBasicBeanDao.findbyPage("select t from NoticeBasicBean t ", page, page_size);
+            list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
+                    "(\n" +
+                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name\n" +
+                    "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
+                    "where cnb.notice_time >= substring(now(),1,19) order by cnb.notice_time)\n" +
+                    "union\n" +
+                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name \n" +
+                    "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
+                    "where cnb.notice_time<substring(now(),1,19) order by cnb.notice_time desc)\n" +
+                    ") t", NoticeListModel.class ,page, page_size);
             result = 1;
             if(list!=null && list.size()>0){
-                rlj.setList(list);
-                message = "获取日程列表成功！";
+                map.put("response",list);
             }else{
-                message = "没有日程记录！";
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch (Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            rlj.getStatusJson().setMessage(message);
-            rlj.getStatusJson().setResult(result);
+            map.put("result", result);
         }
-        return rlj;
+        return map;
     }
 
     @GET
     @Path("/getNoticeDetail/{notice_id}")
     @Produces("application/json;charset=utf-8")
     @Override
-    public ResultSingelJson getNoticeDetail(@PathParam("notice_id")Long notice_id) {
-        ResultSingelJson resultSingelJson = new ResultSingelJson();
+    public Map getNoticeDetail(@PathParam("notice_id")Long notice_id) {
+        Map map = new HashMap();
         int result = -1;
-        String message = "获取日程详情失败！";
         try{
-            NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
+            List<NoticeDetailModel> noticeDetail = new ArrayList<NoticeDetailModel>();
             if(notice_id!=null){
-                noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
+                //noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
+                noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,\n" +
+                        "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id) as total_num,\n" +
+                        "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id and cnur.reply_type=1) as join_num\n" +
+                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
+                        "where cnb.id="+notice_id,NoticeDetailModel.class);
                 result = 1;
-                if(noticeBasicBean!=null){
-                    message = "获取日程详情成功！";
-                    resultSingelJson.setEntity(noticeBasicBean);
-                }else{
-                    message = "没有日程详情信息！";
+                if(noticeDetail!=null&&noticeDetail.size()>0){
+                    map.put("response",noticeDetail.get(0));
                 }
             }else{
-                message = "请输入正确的参数！";
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch(Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            resultSingelJson.getStatusJson().setResult(result);
-            resultSingelJson.getStatusJson().setMessage(message);
+            map.put("result", result);
         }
-        return resultSingelJson;
+        return map;
     }
 
     @POST
@@ -176,11 +176,10 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     //@Consumes("application/json;charset=utf-8")
     @Produces("application/json;charset=utf-8")
     @Override
-    public StatusJson replyNotice(@PathParam("notice_id")Long notice_id, @PathParam("reply_content")String reply_content,
+    public Map replyNotice(@PathParam("notice_id")Long notice_id, @PathParam("reply_content")String reply_content,
                                   @PathParam("reply_type")Integer reply_type) {
-        StatusJson statusJson = new StatusJson();
+        Map map = new HashMap();
         int result = -1;
-        String message = "日程回复失败！";
         try{
             NoticeUserRelBean nurb = new NoticeUserRelBean();
             if(notice_id!=null){
@@ -191,27 +190,25 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 nurb.setReply_content(reply_content);
                 noticeUserRelBeanDao.save(nurb);
                 result = 1;
-                message = "日程回复成功！";
             }else{
-                message = "参数有误！";
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch (Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            statusJson.setResult(result);
-            statusJson.setMessage(message);
+            map.put("result", result);
         }
-        return statusJson;
+        return map;
     }
 
     @GET
     @Path("/getNoticeReplyList/{notice_id}/{page}/{page_size}")
     @Produces("application/json;charset=utf-8")
     @Override
-    public ResultListJson getNoticeReplyList(@PathParam("notice_id")Long notice_id, @PathParam("page")Integer page, @PathParam("page_size")Integer page_size) {
-        ResultListJson rlj = new ResultListJson();
+    public Map getNoticeReplyList(@PathParam("notice_id")Long notice_id, @PathParam("page")Integer page, @PathParam("page_size")Integer page_size) {
+        Map map = new HashMap();
         int result = -1;
-        String message = "获取日程回复列表失败！";
         List<NoticeUserRelBean> list = new ArrayList<NoticeUserRelBean>();
         try{
             if(notice_id!=null){
@@ -226,22 +223,18 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 list = noticeUserRelBeanDao.findbyPage("select t from NoticeUserRelBean t where t.notice_id="+notice_id,page,page_size);
                 result = 1;
                 if(list!=null && list.size()>0){
-                    rlj.setList(list);
-                    message = "获取日程回复列表成功！";
-                }else{
-                    message = "没有日程回复记录！";
+                    map.put("response",list);
                 }
             }else{
-                message = "参数错误！";
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
-
         }catch (Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
         }finally {
-            rlj.getStatusJson().setMessage(message);
-            rlj.getStatusJson().setResult(result);
+            map.put("result",result);
         }
-        return rlj;
+        return map;
     }
 
 }
