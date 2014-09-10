@@ -282,6 +282,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.workflow</groupId>
+                <artifactId>com.daren.workflow.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.hazard</groupId>
                 <artifactId>com.daren.hazard.api</artifactId>
                 <version>${project.version}</version>
@@ -312,20 +319,6 @@
             <dependency>
                 <groupId>com.daren.accident</groupId>
                 <artifactId>com.daren.accident.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.daren.equipment</groupId>
-                <artifactId>com.daren.equipment.api</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.daren.equipment</groupId>
-                <artifactId>com.daren.equipment.entities</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -404,13 +397,6 @@
             <dependency>
                 <groupId>com.daren.admin</groupId>
                 <artifactId>com.daren.admin.webapp.wicket</artifactId>
-                <version>${project.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.daren.enterprise</groupId>
-                <artifactId>com.daren.enterprise.webapp.component</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>

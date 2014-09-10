@@ -16,31 +16,26 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * @类描述：危险化学品流程的审批Taskform类
+ * @类描述：危险化学品流程的修改form类
  * @创建人： sunlingfeng
- * @创建时间：2014/9/10
+ * @创建时间：2014/9/6
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
+public class ChemistryManageModifyFormPage extends BaseFormPanel {
 
     @Inject
     protected IChemistryManageBeanService chemistryManageBeanService;
-    ChemistryManageBean bean = new ChemistryManageBean();
+    ChemistryManageBean bean=new ChemistryManageBean();
     @Inject
     private transient FormService formService;
     @Inject
@@ -51,10 +46,7 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
 
-    private String comment;
-    private boolean accepted;
-
-    public ChemistryManageAuditTaskFormPage(String id, final IModel<Task> model) {
+    public ChemistryManageModifyFormPage(String id, final IModel<Task> model) {
         super(id, model);
         setOutputMarkupId(true);
 
@@ -78,26 +70,21 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //add data to form
-        form.add(new Label("code").setOutputMarkupId(true));
-        form.add(new Label("name").setOutputMarkupId(true));
-        form.add(new Label("header").setOutputMarkupId(true));
-        form.add(new Label("address").setOutputMarkupId(true));
-        form.add(new Label("unitType").setOutputMarkupId(true));
-        form.add(new Label("scope").setOutputMarkupId(true));
-        form.add(new Label("mode").setOutputMarkupId(true));
-        form.add(new Label("startDate").setOutputMarkupId(true));
-        form.add(new Label("endDate").setOutputMarkupId(true));
-        form.add(new Label("unitsDate").setOutputMarkupId(true));
-        form.add(new Label("proposerId").setOutputMarkupId(true));
-        form.add(new Label("qyid").setOutputMarkupId(true));
-        form.add(new Label("taskName", task.getName()));
+        form.add(new TextField("code").setOutputMarkupId(true));
+        form.add(new TextField("name").setOutputMarkupId(true));
+        form.add(new TextField("header").setOutputMarkupId(true));
+        form.add(new TextField("address").setOutputMarkupId(true));
+        form.add(new TextField("unitType").setOutputMarkupId(true));
+        form.add(new TextField("scope").setOutputMarkupId(true));
+        form.add(new TextField("mode").setOutputMarkupId(true));
+        form.add(new TextField("startDate").setOutputMarkupId(true));
+        form.add(new TextField("endDate").setOutputMarkupId(true));
+        form.add(new TextField("unitsDate").setOutputMarkupId(true));
+        form.add(new TextField("proposerId").setOutputMarkupId(true));
+        form.add(new TextField("qyid").setOutputMarkupId(true));
 
-
-        form.add(new CheckBox("accepted", new PropertyModel<Boolean>(this, "accepted")).setOutputMarkupId(true));
-
-        form.add(new TextField("comment", new PropertyModel<String>(this, "comment")).setOutputMarkupId(true));
-
-        /*StartFormData startFormData = formService.getStartFormData(task.getId());
+        /*final Task processDefinition = model.getObject();
+        StartFormData startFormData = formService.getStartFormData(processDefinition.getId());
         List<FormProperty> formProperties = startFormData.getFormProperties();*/
 
         //保存按钮
@@ -105,21 +92,15 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                logger.debug("Trying to start new process for {}", task.getId());
                 try {
-                    //todo 封装到service
-
+                    //todo 需要加入到service
+                    ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
+                    chemistryManageBeanService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
-                    identityService.setAuthenticatedUserId(currentUserName);
-                    taskService.addComment(task.getId(), processInstanceId, comment);
-                    Map<String, String> submitMap = new HashMap<String, String>();
-
-                    submitMap.put("accepted", String.valueOf(accepted));
-                    formService.submitTaskFormData(task.getId(), submitMap);
-                    model.setObject(null);
+                    taskService.complete(task.getId());
                     feedbackPanel.info("事项处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
-                    target.add(ChemistryManageAuditTaskFormPage.this.findParent(TabbedPanel.class));
+                    target.add(ChemistryManageModifyFormPage.this.findParent(TabbedPanel.class));
                 } finally {
                     identityService.setAuthenticatedUserId(null);
                 }
@@ -135,24 +116,8 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
         form.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                TabsUtil.deleteTab(target, ChemistryManageAuditTaskFormPage.this.findParent(TabbedPanel.class));
+                TabsUtil.deleteTab(target, ChemistryManageModifyFormPage.this.findParent(TabbedPanel.class));
             }
         });
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public boolean isAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
     }
 }

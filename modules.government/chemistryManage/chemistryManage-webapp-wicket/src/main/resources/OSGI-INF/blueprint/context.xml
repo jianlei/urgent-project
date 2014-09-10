@@ -12,6 +12,12 @@
         </bean>
     </service>
 
+    <!-- ChemistryManage modify form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageModifyFormHandler">
+        </bean>
+    </service>
+
     <!-- ChemistryManage audit task form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageAuditTaskFormHandler">

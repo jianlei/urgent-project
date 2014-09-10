@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -20,12 +20,12 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <!-- OSGi Arquillian test begin-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-karaf-embedded</artifactId>
             <version>2.1.0.CR4</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <!--<dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-karaf</artifactId>
@@ -38,7 +38,7 @@
             <version>2.1.0.CR4</version>
             <scope>test</scope>
         </dependency>-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.jboss.arquillian</groupId>
             <artifactId>arquillian-bom</artifactId>
             <version>1.1.2.Final</version>
@@ -56,7 +56,7 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <!-- OSGi Arquillian test end-->
     </dependencies>
     <build>
