@@ -37,11 +37,13 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         this.noticeUserRelBeanDao = noticeUserRelBeanDao;
     }
 
-    @POST
-    @Path("/createNotice")
-    @Consumes("application/json;charset=utf-8")
     @Override
-    public StatusJson createNotice(String title, String content, String notice_time, String ids) {
+    @POST
+    @Produces("application/json;charset=utf-8")
+    //@Consumes("application/json;charset=utf-8")
+    @Path("/createNotice/{title}/{content}/{notice_time}/{ids}")
+    public StatusJson createNotice(@PathParam("title")String title, @PathParam("content")String content,
+                                   @PathParam("notice_time")String notice_time, @PathParam("ids")String ids) {
         StatusJson statusJson = new StatusJson();
         int result = -1;
         String message = "创建失败！";
@@ -56,9 +58,9 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             String[] idArr;
             if(ids!=null && !"".equals(ids)){
                 idArr = ids.split(",");
-                NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
-                noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
                 for(int i=0;i<idArr.length;i++){
+                    NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
+                    noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
                     noticeUserRelBean.setUser_id(idArr[i]);
                     noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
                 }
@@ -75,11 +77,11 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         return statusJson;
     }
 
-    @POST
-    @Path("/cancelNotice")
-    @Consumes("application/json;charset=utf-8")
     @Override
-    public StatusJson cancelNotice(Long notice_id) {
+    @POST
+    @Produces("application/json;charset=utf-8")
+    @Path("/cancelNotice/{notice_id}/")
+    public StatusJson cancelNotice(@PathParam("notice_id")Long notice_id) {
         StatusJson statusJson = new StatusJson();
         int result = -1;
         String message = "取消失败！";
@@ -113,7 +115,15 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         String message = "获取日程列表失败！";
         List<NoticeBasicBean> list = new ArrayList<NoticeBasicBean>();
         try{
-            list = noticeBasicBeanDao.getAll(NoticeBasicBean.class.getName());
+            if(page==null){
+                page=0;
+            }else{
+                page = page-1;
+            }
+            if(page_size==null){
+                page_size = 15;
+            }
+            list = noticeBasicBeanDao.findbyPage("select t from NoticeBasicBean t ", page, page_size);
             result = 1;
             if(list!=null && list.size()>0){
                 rlj.setList(list);
@@ -130,11 +140,11 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         return rlj;
     }
 
-    @POST
-    @Path("/getNoticeDetail")
-    @Consumes("application/json;charset=utf-8")
+    @GET
+    @Path("/getNoticeDetail/{notice_id}")
+    @Produces("application/json;charset=utf-8")
     @Override
-    public ResultSingelJson getNoticeDetail(Long notice_id) {
+    public ResultSingelJson getNoticeDetail(@PathParam("notice_id")Long notice_id) {
         ResultSingelJson resultSingelJson = new ResultSingelJson();
         int result = -1;
         String message = "获取日程详情失败！";
@@ -162,10 +172,12 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     }
 
     @POST
-    @Path("/replyNotice")
-    @Consumes("application/json;charset=utf-8")
+    @Path("/replyNotice/{notice_id}/{reply_content}/{reply_type}")
+    //@Consumes("application/json;charset=utf-8")
+    @Produces("application/json;charset=utf-8")
     @Override
-    public StatusJson replyNotice(Long notice_id, String reply_content,Integer reply_type) {
+    public StatusJson replyNotice(@PathParam("notice_id")Long notice_id, @PathParam("reply_content")String reply_content,
+                                  @PathParam("reply_type")Integer reply_type) {
         StatusJson statusJson = new StatusJson();
         int result = -1;
         String message = "日程回复失败！";
@@ -193,23 +205,36 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     }
 
     @GET
-    @Path("/getNoticeReplyList")
-    @Consumes("application/json;charset=utf-8")
+    @Path("/getNoticeReplyList/{notice_id}/{page}/{page_size}")
+    @Produces("application/json;charset=utf-8")
     @Override
-    public ResultListJson getNoticeReplyList(Long notice_id, Integer page, Integer page_size) {
+    public ResultListJson getNoticeReplyList(@PathParam("notice_id")Long notice_id, @PathParam("page")Integer page, @PathParam("page_size")Integer page_size) {
         ResultListJson rlj = new ResultListJson();
         int result = -1;
         String message = "获取日程回复列表失败！";
         List<NoticeUserRelBean> list = new ArrayList<NoticeUserRelBean>();
         try{
-            list = noticeUserRelBeanDao.findbyPage("select t from NoticeUserRelBean t where t.notice_id="+notice_id,page,page_size);
-            result = 1;
-            if(list!=null && list.size()>0){
-                rlj.setList(list);
-                message = "获取日程回复列表成功！";
+            if(notice_id!=null){
+                if(page==null){
+                    page=0;
+                }else{
+                    page = page-1;
+                }
+                if(page_size==null){
+                    page_size = 15;
+                }
+                list = noticeUserRelBeanDao.findbyPage("select t from NoticeUserRelBean t where t.notice_id="+notice_id,page,page_size);
+                result = 1;
+                if(list!=null && list.size()>0){
+                    rlj.setList(list);
+                    message = "获取日程回复列表成功！";
+                }else{
+                    message = "没有日程回复记录！";
+                }
             }else{
-                message = "没有日程回复记录！";
+                message = "参数错误！";
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }finally {
