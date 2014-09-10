@@ -29,7 +29,7 @@ public class TaskListMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "代办事项";  //To change body of implemented methods use File | Settings | File Templates.
+        return "待办事项";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

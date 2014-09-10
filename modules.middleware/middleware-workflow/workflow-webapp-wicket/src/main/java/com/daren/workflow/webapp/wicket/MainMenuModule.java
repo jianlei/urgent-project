@@ -24,7 +24,7 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 100;
+        return 0;
     }
 
     @Override
