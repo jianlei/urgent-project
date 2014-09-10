@@ -40,7 +40,6 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.api</artifactId>
-
         </dependency>
 
         <dependency>

@@ -9,4 +9,41 @@ package com.daren.workflow.api.biz;
  * @修改备注：
  */
 public interface IWorkflowService  {
+
+    void findAllProcessDeployTimes();
+
+    void findAllProcessDefinitions();
+
+    void findAllLastVesions();
+
+
+    void deleteProcessDefinitionById();
+
+    void getProcessDefinitionContent() throws Exception;
+
+    void getProcessDefinitionContentPng() throws Exception;
+
+    void createProcessInstance();
+
+    void findAllTasks();
+
+    void findPersonalTasks();
+
+    void findCandidateUserTasks();
+
+    void findCandidateGroupTasks();
+
+    void findDateRangeTasks();
+
+    void claimTask();
+
+    void handldTask();
+
+    void getVariableByTaskInstanceId();
+
+    void getAllExecuteTaskNodeList();
+
+    void findExecutionList();
+
+    void findProcessInstanceList();
 }
