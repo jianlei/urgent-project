@@ -41,6 +41,9 @@ import java.util.List;
 public class TaskListPage extends WorkflowBasePanel{
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "待办事项";
+    //dialog定义  -dlw
+    final WebMarkupContainer dialogWrapper;
+    private WorkFlowImgViewPage dialog;
 
     @Inject
     private transient RepositoryService repositoryService;
@@ -50,6 +53,18 @@ public class TaskListPage extends WorkflowBasePanel{
 
     public TaskListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc,CONST_LIST);
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog"));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
     }
 
     @Override
@@ -82,7 +97,6 @@ public class TaskListPage extends WorkflowBasePanel{
                 return fragment;
             }
         });
-
         tabPanel.setActiveTab(1);
         target.add(tabPanel);
     }
@@ -116,7 +130,7 @@ public class TaskListPage extends WorkflowBasePanel{
                     item.add(new Label("assignee", row.getAssignee()));
                     item.add(new Label("createTime", DateUtil.convertDateToString(row.getCreateTime(), DateUtil.longSdf)));
                     item.add(initStartButton(row));
-                    item.add(initViewButton(row));
+                    item.add(initViewButton(row,row.getId().toString()));
                 }
             };
             table.add(listView);
@@ -154,13 +168,28 @@ public class TaskListPage extends WorkflowBasePanel{
          *
          * @return
          */
-        private IndicatingAjaxLink initViewButton(Task processDefinition) {
+        private IndicatingAjaxLink initViewButton(Task processDefinition,final String flwid) {
             return new IndicatingAjaxLink("view") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
+                    createDialog(target, "流程查看",flwid);//dialog函数调用  --dlw
+                }
+            };
+        }
+
+        //创建文本框 ---dlw
+        private void createDialog(AjaxRequestTarget target, final String title,String flwid) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new WorkFlowImgViewPage("dialog", title,flwid) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
+                @Override
+                public void updateTarget(AjaxRequestTarget target) {
 
                 }
             };
+            target.add(dialogWrapper);
+            dialog.open(target);
         }
     }
 
