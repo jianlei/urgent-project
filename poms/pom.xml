@@ -553,6 +553,15 @@
                 <scope>provided</scope>
             </dependency>
             <!--Urgent Core end-->
+            <!--government core begin-->
+            <dependency>
+                <groupId>com.daren.government</groupId>
+                <artifactId>com.daren.government.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--government core end-->
+
             <!--openjpa begin-->
             <dependency>
                 <groupId>org.apache.derby</groupId>

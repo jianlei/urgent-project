@@ -18,7 +18,7 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Government - Core</name>
+    <name>Government :: fireworks - Core</name>
     <description>Urgent Government Core Module</description>
 
     <packaging>bundle</packaging>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <!--<service id="enterpriseService" interface="com.daren.enterprise.api.biz.IEnterpriseBeanService">
-        <bean class="com.daren.enterprise.core.biz.EnterpriseBeanServiceImpl">
-            <property name="enterpriseBeanDao" ref="enterpriseBeanDao"/>
-                </bean>
+    <!--危险化学品业务服务-->
+    <service id="chemistryManageBeanService" interface="com.daren.chemistry.manage.api.biz.IChemistryManageBeanService">
+        <bean class="com.daren.chemistry.manage.core.ChemistryManageBeanServiceImpl">
+            <property name="chemistryManageBeanDao" ref="chemistryManageBeanDao"/>
+        </bean>
     </service>
-    <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>-->
+    <reference id="chemistryManageBeanDao" interface="com.daren.chemistry.manage.api.dao.IChemistryManageBeanDao"/>
 </blueprint>
 

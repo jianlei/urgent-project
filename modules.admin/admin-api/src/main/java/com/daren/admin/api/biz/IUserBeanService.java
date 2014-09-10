@@ -48,4 +48,10 @@ public interface IUserBeanService extends IBizService {
      * @param roleSelect
      */
     void saveUserRole(UserBean userBean, List<String> roleSelect);
+
+    /**
+     * 获得当前登陆用户名称
+     * @return
+     */
+    String getCurrentUserName();
 }

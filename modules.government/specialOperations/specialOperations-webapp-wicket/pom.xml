@@ -4,32 +4,32 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.specialOperations</groupId>
-        <artifactId>modules.specialOperations</artifactId>
+        <groupId>com.daren.specialoperations</groupId>
+        <artifactId>modules.specialoperations</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.specialOperations</groupId>
-    <artifactId>com.daren.specialOperations.webapp.wicket</artifactId>
+    <groupId>com.daren.specialoperations</groupId>
+    <artifactId>com.daren.specialoperations.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Government :: specialOperations - Wicket Web Application</name>
-    <description>specialOperations - Webapp Wicket</description>
+    <name>Government :: specialoperations - Wicket Web Application</name>
+    <description>specialoperations - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.specialOperations.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.specialoperations.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.specialOperations</groupId>
-            <artifactId>com.daren.specialOperations.api</artifactId>
+            <groupId>com.daren.specialoperations</groupId>
+            <artifactId>com.daren.specialoperations.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.specialOperations</groupId>
-            <artifactId>com.daren.specialOperations.core</artifactId>
+            <groupId>com.daren.specialoperations</groupId>
+            <artifactId>com.daren.specialoperations.core</artifactId>
         </dependency>
 
         <dependency>
@@ -113,8 +113,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.specialOperations</groupId>
-            <artifactId>com.daren.specialOperations.entities</artifactId>
+            <groupId>com.daren.specialoperations</groupId>
+            <artifactId>com.daren.specialoperations.entities</artifactId>
         </dependency>
 
         <dependency>

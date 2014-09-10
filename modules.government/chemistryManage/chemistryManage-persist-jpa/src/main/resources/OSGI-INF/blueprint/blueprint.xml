@@ -2,16 +2,19 @@
 
 <!-- default-activation="lazy" -->
 <blueprint
+        xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
+        xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-        >
+        xsi:schemaLocation="http://aries.apache.org/xmlns/jpa/v1.0.0 ">
 
-    <!--<service interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao">
-        <bean class="com.daren.enterprise.persist.openjpa.EnterpriseBeanDaoOpenjpa"> &lt;!&ndash;init-method="init">&ndash;&gt;
-            <jpa:context property="entityManager" unitname="enterprise-cm"/>
+    <service interface="com.daren.chemistry.manage.api.dao.IChemistryManageBeanDao">
+        <bean class="com.daren.chemistry.manage.persist.openjpa.ChemistryManageBeanDaoOpenjpa"> <!--init-method="init">-->
+            <jpa:context property="entityManager" unitname="chemistryManage-cm"/>
             <tx:transaction method="*" value="Required"/>
-            &lt;!&ndash;<property name="persistEntityService" ref="persistEntityService" />&ndash;&gt;
+            <!--<property name="persistEntityService" ref="persistEntityService" />-->
         </bean>
-    </service>-->
+    </service>
 
 </blueprint>
 

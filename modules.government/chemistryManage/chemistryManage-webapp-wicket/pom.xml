@@ -4,32 +4,32 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.chemistryManage</groupId>
-        <artifactId>modules.chemistryManage</artifactId>
+        <groupId>com.daren.chemistry.manage</groupId>
+        <artifactId>modules.chemistry.manage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.chemistryManage</groupId>
-    <artifactId>com.daren.chemistryManage.webapp.wicket</artifactId>
+    <groupId>com.daren.chemistry.manage</groupId>
+    <artifactId>com.daren.chemistry.manage.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Government :: chemistryManage - Wicket Web Application</name>
-    <description>chemistryManage - Webapp Wicket</description>
+    <name>Government :: ChemistryManage - Wicket Web Application</name>
+    <description>ChemistryManage - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.chemistryManage.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.chemistry.manage.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.api</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.core</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.core</artifactId>
         </dependency>
 
         <dependency>
@@ -93,12 +93,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
-            <version>0.0.6_1</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -113,8 +108,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.chemistryManage</groupId>
-            <artifactId>com.daren.chemistryManage.entities</artifactId>
+            <groupId>com.daren.chemistry.manage</groupId>
+            <artifactId>com.daren.chemistry.manage.entities</artifactId>
         </dependency>
 
         <dependency>
@@ -191,6 +186,36 @@
         <dependency>
             <groupId>com.daren.enterprise</groupId>
             <artifactId>com.daren.enterprise.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.government</groupId>
+            <artifactId>com.daren.government.webapp.wicket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-osgi</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-converter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
         </dependency>
 
     </dependencies>

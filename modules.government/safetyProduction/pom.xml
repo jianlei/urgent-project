@@ -9,8 +9,8 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.safetyProduction</groupId>
-    <artifactId>modules.safetyProduction</artifactId>
+    <groupId>com.daren.safetyproduction</groupId>
+    <artifactId>modules.safetyproduction</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>Government :: Modules - 安全生产许可证(矿山)</name>
@@ -30,32 +30,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.daren.safetyProduction</groupId>
-                <artifactId>com.daren.safetyProduction.core</artifactId>
+                <groupId>com.daren.safetyproduction</groupId>
+                <artifactId>com.daren.safetyproduction.core</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.safetyProduction</groupId>
-                <artifactId>com.daren.safetyProduction.api</artifactId>
+                <groupId>com.daren.safetyproduction</groupId>
+                <artifactId>com.daren.safetyproduction.api</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.safetyProduction</groupId>
-                <artifactId>com.daren.safetyProduction.entities</artifactId>
+                <groupId>com.daren.safetyproduction</groupId>
+                <artifactId>com.daren.safetyproduction.entities</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.safetyProduction</groupId>
-                <artifactId>com.daren.safetyProduction.persist.openjpa</artifactId>
+                <groupId>com.daren.safetyproduction</groupId>
+                <artifactId>com.daren.safetyproduction.persist.openjpa</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.safetyProduction</groupId>
-                <artifactId>com.daren.safetyProduction.webapp.wicket</artifactId>
+                <groupId>com.daren.safetyproduction</groupId>
+                <artifactId>com.daren.safetyproduction.webapp.wicket</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>

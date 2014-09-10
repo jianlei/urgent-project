@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<blueprint
-        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-        default-activation="lazy"
-        >
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-    <!-- 发布菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.government.webapp.wicket.MainMenuModule">
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageMenuItemsModule">
         </bean>
     </service>
 
-    <!-- 发布SingleCheck目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.government.webapp.wicket.SingleCheckMenuItemsModule">
+    <!-- ChemistryManage start form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageStartFormHandler">
+        </bean>
+    </service>
+
+    <!-- ChemistryManage audit task form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageAuditTaskFormHandler">
         </bean>
     </service>
 </blueprint>
