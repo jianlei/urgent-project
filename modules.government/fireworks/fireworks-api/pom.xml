@@ -18,7 +18,7 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: fireworks - API</name>
+    <name>Government :: fireworks - API</name>
     <description>fireworks API</description>
 
     <packaging>bundle</packaging>

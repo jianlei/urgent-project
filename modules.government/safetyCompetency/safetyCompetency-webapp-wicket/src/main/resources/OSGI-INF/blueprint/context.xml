@@ -4,15 +4,9 @@
         default-activation="lazy"
         >
 
-    <!-- 发布菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.fireworks.webapp.wicket.MainMenuModule">
-        </bean>
-    </service>
-
     <!-- 发布SingleCheck目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.safetyCompetency.webapp.wicket.SingleCheckMenuItemsModule">
+        <bean class="com.daren.safetycompetency.webapp.wicket.SingleCheckMenuItemsModule">
         </bean>
     </service>
 </blueprint>

@@ -1,6 +1,7 @@
 package com.daren.fireworks.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
+import com.daren.fireworks.webapp.wicket.page.FireworksListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -43,7 +44,6 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-//        return new SingleCheckPage(id, wmc);
-        return null;
+        return new FireworksListPage(id, null, wmc);
     }
 }

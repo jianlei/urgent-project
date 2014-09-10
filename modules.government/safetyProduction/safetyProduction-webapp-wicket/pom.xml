@@ -4,32 +4,32 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.safetyProduction</groupId>
-        <artifactId>modules.safetyProduction</artifactId>
+        <groupId>com.daren.safetyproduction</groupId>
+        <artifactId>modules.safetyproduction</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.safetyProduction</groupId>
-    <artifactId>com.daren.safetyProduction.webapp.wicket</artifactId>
+    <groupId>com.daren.safetyproduction</groupId>
+    <artifactId>com.daren.safetyproduction.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Government :: safetyProduction - Wicket Web Application</name>
-    <description>safetyProduction - Webapp Wicket</description>
+    <name>Government :: safetyproduction - Wicket Web Application</name>
+    <description>safetyproduction - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.safetyProduction.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.safetyproduction.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.daren.safetyProduction</groupId>
-            <artifactId>com.daren.safetyProduction.api</artifactId>
+            <groupId>com.daren.safetyproduction</groupId>
+            <artifactId>com.daren.safetyproduction.api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.daren.safetyProduction</groupId>
-            <artifactId>com.daren.safetyProduction.core</artifactId>
+            <groupId>com.daren.safetyproduction</groupId>
+            <artifactId>com.daren.safetyproduction.core</artifactId>
         </dependency>
 
         <dependency>
@@ -113,8 +113,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.safetyProduction</groupId>
-            <artifactId>com.daren.safetyProduction.entities</artifactId>
+            <groupId>com.daren.safetyproduction</groupId>
+            <artifactId>com.daren.safetyproduction.entities</artifactId>
         </dependency>
 
         <dependency>

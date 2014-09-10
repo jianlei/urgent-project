@@ -9,8 +9,8 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.specialOperations</groupId>
-    <artifactId>modules.specialOperations</artifactId>
+    <groupId>com.daren.specialoperations</groupId>
+    <artifactId>modules.specialoperations</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>Government :: Modules - 特种作业人员操作资格证</name>
@@ -30,32 +30,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.daren.specialOperations</groupId>
-                <artifactId>com.daren.specialOperations.core</artifactId>
+                <groupId>com.daren.specialoperations</groupId>
+                <artifactId>com.daren.specialoperations.core</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.specialOperations</groupId>
-                <artifactId>com.daren.specialOperations.api</artifactId>
+                <groupId>com.daren.specialoperations</groupId>
+                <artifactId>com.daren.specialoperations.api</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.specialOperations</groupId>
-                <artifactId>com.daren.specialOperations.entities</artifactId>
+                <groupId>com.daren.specialoperations</groupId>
+                <artifactId>com.daren.specialoperations.entities</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.specialOperations</groupId>
-                <artifactId>com.daren.specialOperations.persist.openjpa</artifactId>
+                <groupId>com.daren.specialoperations</groupId>
+                <artifactId>com.daren.specialoperations.persist.openjpa</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.daren.specialOperations</groupId>
-                <artifactId>com.daren.specialOperations.webapp.wicket</artifactId>
+                <groupId>com.daren.specialoperations</groupId>
+                <artifactId>com.daren.specialoperations.webapp.wicket</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>

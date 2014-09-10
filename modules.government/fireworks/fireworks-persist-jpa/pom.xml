@@ -11,7 +11,7 @@
     <groupId>com.daren.fireworks</groupId>
     <artifactId>com.daren.fireworks.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Government - Persist JPA Container Managed</name>
+    <name>Government :: fireworks - Persist JPA Container Managed</name>
     <description>Urgent Government Persist JPA Container Managed Module</description>
 
     <properties>
