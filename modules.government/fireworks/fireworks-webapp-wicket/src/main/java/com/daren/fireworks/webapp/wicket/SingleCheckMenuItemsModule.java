@@ -44,6 +44,6 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new FireworksListPage(id, null, wmc);
+        return new FireworksListPage(id, wmc);
     }
 }

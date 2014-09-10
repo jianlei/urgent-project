@@ -4,6 +4,7 @@ import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.government.webapp.wicket.page.WorkflowBasePanel;
+import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import org.activiti.engine.FormService;
@@ -75,53 +76,41 @@ public class ChemistryManageListPage extends WorkflowBasePanel {
                 protected void populateItem(Item<ChemistryManageBean> item) {
                     final ChemistryManageBean row = item.getModelObject();
                     item.add(new Label("id", row.getId()));
+                    item.add(new Label("code", row.getCode()));
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("description", row.getAddress()));
-                    item.add(new Label("version", row.getVersion()));
-                    item.add(new Label("suspended", row.getHeader()));
+                    item.add(new Label("header", row.getHeader()));
+                    item.add(new Label("unitsDate", row.getUnitsDate()));
                 }
             };
             table.add(listView);
-
 
             //search form
             Form<ChemistryManageBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new ChemistryManageBean()));
             TextField textField = new TextField("name");
             userForm.add(textField.setOutputMarkupId(true));
-
-//            userForm.add(initStartButton());
             add(userForm);
-
+            userForm.add(initFindButton(provider, userForm));
         }
-
         /**
-         * 创建新的页面，用于新增和修改
+         * 初始化查询按钮
          *
-         * @param target
-         * @param tabTitle "修改字典"||"新增字典"
-         * @param model        数据
+         * @param provider
+         * @param form
+         * @return
          */
-        private void createNewTab(AjaxRequestTarget target, final String tabTitle, final IFormHandler formHandler, final IModel model) {
-            //去掉第二个tab
-            if (tabPanel.getModelObject().size() == 2) {
-                tabPanel.getModelObject().remove(1);
-            }
-            tabPanel.add(new AjaxTab(Model.of(tabTitle)) {
-                private static final long serialVersionUID = 1L;
-
+        private AjaxButton initFindButton(final ChemistryManageDataProvider provider, Form form) {
+            return new AjaxButton("find", form) {
                 @Override
-                public WebMarkupContainer getLazyPanel(String panelId) {
-                    //通过repeatingView增加新的panel
-                    repeatingView.removeAll();
-                    repeatingView.add(formHandler.getPanel(repeatingView.newChildId(),model ) );
-                    Fragment fragment = new Fragment(panelId, "addPanel", ChemistryManageListPage.this);
-                    fragment.add(repeatingView);
-                    return fragment;
+                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    ChemistryManageBean dictBean = (ChemistryManageBean) form.getModelObject();
+                    provider.setBean(dictBean);
+                    target.add(container);
                 }
-            });
-
-            tabPanel.setActiveTab(1);
-            target.add(tabPanel);
+                @Override
+                protected void onError(AjaxRequestTarget target, Form<?> form) {
+                    target.add(feedbackPanel);
+                }
+            };
         }
     }
 

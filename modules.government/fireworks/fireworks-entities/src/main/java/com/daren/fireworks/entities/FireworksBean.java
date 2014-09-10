@@ -1,6 +1,6 @@
 package com.daren.fireworks.entities;
 
-import com.daren.core.impl.persistence.WorkflowEntity;
+import com.daren.core.api.persistence.WorkflowEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
