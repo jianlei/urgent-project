@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"/>流程申请<b class="tip"/>安全生产许可证(非煤矿矿山企业)</div>
+    <div>
+        <span wicket:id="feedBack"/>
+    </div>
+
+    <form wicket:id="majorHazardSourceForm">
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;安全生产许可证(非煤矿矿山企业)<i class="tip-up"></i></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tdl">单位名称</td>
+                <td class="detail"><input class="ipt" wicket:id="name"/></td>
+                <td class="tdl">单位地址</td>
+                <td class="detail"><input class="ipt" wicket:id="address"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">主要负责人</td>
+                <td class="detail"><input class="ipt" wicket:id="head"/></td>
+                <td class="tdl">经济类型</td>
+                <td class="detail"><input class="ipt" wicket:id="economicsType"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">许可范围</td>
+                <td class="detail"><input class="ipt" wicket:id="scope"/></td>
+                <td class="tdl">发证机关</td>
+                <td class="detail"><input class="ipt" wicket:id="unitsDate"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">FM安许证字</td>
+                <td class="detail"><input class="ipt" wicket:id="card"/></td>
+                <td class="tdl">证书编号</td>
+                <td class="detail"><input class="ipt" wicket:id="code"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">发证日期</td>
+                <td class="detail"><input class="ipt" wicket:id="awardDate"/></td>
+                <td class="tdl">有效日期</td>
+                <td class="detail"><input class="ipt" wicket:id="effectiveDate"/></td>
+            </tr>
+            <!--<tr>
+                <td class="tdl">所属企业</td>
+                <td class="detail"><input class="ipt" wicket:id="enterpriseId"/></td>
+            </tr>-->
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</wicket:panel>
+</body>
+</html>

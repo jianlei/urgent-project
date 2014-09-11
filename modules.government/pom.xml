@@ -23,8 +23,8 @@
     </properties>
     <modules>
         <module>fireworks</module>
-        <module>safetyProduction</module>
-        <module>safetyCompetency</module>
+        <module>production</module>
+        <module>competency</module>
         <module>specialOperations</module>
         <module>chemistryManage</module>
     </modules>
