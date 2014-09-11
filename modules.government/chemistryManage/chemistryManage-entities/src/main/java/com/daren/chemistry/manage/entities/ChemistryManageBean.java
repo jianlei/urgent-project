@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
- * @类描述：危险化学品实体类
+ * @类描述：危险化学品经营许可证
  * @创建人： sunlingfeng
  * @创建时间：2014/9/9
  * @修改人：

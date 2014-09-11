@@ -1,7 +1,7 @@
-package com.daren.production.webapp.wicket.page;
+package com.daren.chemistry.manage.webapp.wicket.page;
 
+import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.production.entities.ProductionBean;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -17,23 +17,22 @@ import java.util.List;
 
 
 /**
- * @类描述：peixun
- * @创建人：王凯冉
- * @创建时间：2014-08-01 上午10:25
+ * @类描述：危险化学品列表页面类
+ * @创建人： sunlingfeng
+ * @创建时间：2014/9/9
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-
-public class ProductionTabPage extends BasePanel {
+public class ChemistryManageTabPage extends BasePanel {
 
     final RepeatingView createPage = new RepeatingView("createPage");
     private final TabbedPanel tabPanel;
     AjaxTab createAjaxTab;
     Fragment createFragment;
-    ProductionAddPage productionAddPage;
+    ChemistryManageAddPage chemistryManageAddPage;
 
-    public ProductionTabPage(String id, WebMarkupContainer wmc) {
+    public ChemistryManageTabPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         //增加tabs支持
         tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
@@ -48,22 +47,22 @@ public class ProductionTabPage extends BasePanel {
      */
     private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
         List<ITab> tabs = new ArrayList();
-        tabs.add(new AbstractTab(Model.of("安全生产许可证(非煤矿山)")) {
+        tabs.add(new AbstractTab(Model.of("危险化学品经营许可证")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initProductionListPage(id, wmc);
+                return initFireworksListPage(id, wmc);
             }
         });
         return tabs;
     }
 
-    private ProductionListPage initProductionListPage(final String id, final WebMarkupContainer wmc) {
-        ProductionListPage hazardPage = new ProductionListPage(id, wmc) {
+    private ChemistryManageListPage initFireworksListPage(final String id, final WebMarkupContainer wmc) {
+        ChemistryManageListPage hazardPage = new ChemistryManageListPage(id, wmc) {
             @Override
-            protected void createButtonOnClick(ProductionBean productionBean, AjaxRequestTarget target) {
-                initProductionCreatePage(id, wmc, productionBean, target, true, "安全生产许可证(非煤矿山)");
+            protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
+                initFireworksCreatePage(id, wmc, competencyBean, target, true, "危险化学品经营许可证");
             }
         };
         return hazardPage;
@@ -78,14 +77,14 @@ public class ProductionTabPage extends BasePanel {
         return 0;
     }
 
-    private void initProductionCreatePage(final String id, final WebMarkupContainer wmc, final ProductionBean productionBean, AjaxRequestTarget target, boolean goPage, final String pageName) {
+    private void initFireworksCreatePage(final String id, final WebMarkupContainer wmc, final ChemistryManageBean chemistryManageBean, AjaxRequestTarget target, boolean goPage, final String pageName) {
         if (null == createAjaxTab) {
             createAjaxTab = new AjaxTab(Model.of(pageName)) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public WebMarkupContainer getLazyPanel(String panelId) {
-                    productionAddPage = new ProductionAddPage(createPage.newChildId(), wmc, productionBean) {
+                    chemistryManageAddPage = new ChemistryManageAddPage(createPage.newChildId(), wmc, chemistryManageBean) {
                         @Override
                         protected void onDeleteTabs(AjaxRequestTarget target) {
                             if (getActiveTab(pageName) > 0) {
@@ -96,15 +95,15 @@ public class ProductionTabPage extends BasePanel {
                             target.add(tabPanel);
                         }
                     };
-                    createPage.add(productionAddPage);
-                    createFragment = new Fragment(panelId, "panel-3", ProductionTabPage.this);
+                    createPage.add(chemistryManageAddPage);
+                    createFragment = new Fragment(panelId, "panel-3", ChemistryManageTabPage.this);
                     createFragment.add(createPage);
                     return createFragment;
                 }
             };
             tabPanel.add(createAjaxTab);
         } else {
-            productionAddPage = new ProductionAddPage(createPage.newChildId(), wmc, productionBean) {
+            chemistryManageAddPage = new ChemistryManageAddPage(createPage.newChildId(), wmc, chemistryManageBean) {
                 @Override
                 protected void onDeleteTabs(AjaxRequestTarget target) {
                     if (getActiveTab(pageName) > 0) {
@@ -116,7 +115,7 @@ public class ProductionTabPage extends BasePanel {
                 }
             };
             createPage.removeAll();
-            createPage.add(productionAddPage);
+            createPage.add(chemistryManageAddPage);
             createFragment.removeAll();
             createFragment.add(createPage);
             target.add(createFragment);
