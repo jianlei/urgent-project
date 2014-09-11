@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.daren.government</groupId>
+        <artifactId>modules.government</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.daren.competency</groupId>
+    <artifactId>modules.competency</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Government :: Modules - 安全资格证书(培训)</name>
+
+    <packaging>pom</packaging>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>competency-api</module>
+        <module>competency-core</module>
+        <module>competency-persist-jpa</module>
+        <module>competency-entities</module>
+        <module>competency-webapp-wicket</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.persist.openjpa</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
- * @类描述：危险化学品实体类
+ * @类描述：危险化学品经营许可证
  * @创建人： sunlingfeng
  * @创建时间：2014/9/9
  * @修改人：
@@ -22,18 +22,23 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class ChemistryManageBean extends WorkflowEntity {
-    private String code;//"登记编号"
-    private String name;//"经营单位名称"
-    private String header;//"经营单位负责人"
-    private String address;//"经营单位住所"
-    private String unitType;//"经营单位类型"
-    private String scope;//"许可经营范围"
-    private String  mode;//"经营方式"
-    private Date startDate;//"有效日期开始"
-    private Date endDate;//"有效日期结束"
-    private String unitsDate;//"发证机关"
-    private String proposerId;//"审请人ID"
-    private String qyid;//" "企业ID"
+
+    private String name;//经营单位名称
+    private String header;//经营单位负责人
+    private String phone;//负责人电话
+    private String address;//经营单位住所
+    private String  mode;//经营方式
+    private String unitType;//经营单位类型
+    private String scope;//许可经营范围
+
+    private String code;//登记编号
+    private Date startDate;//有效日期开始
+    private Date endDate;//有效日期结束
+    private String unitsDate;//发证机关
+
+    private String linkHandle;//当前办理环节
+    private String proposerId;//审请人ID
+    private String qyid;//企业ID
 
     public String getCode() {
         return code;
@@ -57,6 +62,22 @@ public class ChemistryManageBean extends WorkflowEntity {
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLinkHandle() {
+        return linkHandle;
+    }
+
+    public void setLinkHandle(String linkHandle) {
+        this.linkHandle = linkHandle;
     }
 
     public String getAddress() {

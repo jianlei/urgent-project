@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div class="alert alert-info">当前位置<b class="tip"/>流程申请<b class="tip"/>烟花爆竹经营许可证</div>
+    <div>
+        <span wicket:id="feedBack"/>
+    </div>
+
+    <form wicket:id="majorHazardSourceForm">
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;烟花爆竹经营许可证<i class="tip-up"></i></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td class="tdl">单位名称</td>
+                <td class="detail"><input class="ipt" wicket:id="name"/></td>
+                <td class="tdl">主要负责人</td>
+                <td class="detail"><input class="ipt" wicket:id="head"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">负责人电话</td>
+                <td class="detail"><input class="ipt" wicket:id="phone"/></td>
+                <td class="tdl">注册地址</td>
+                <td class="detail"><input class="ipt" wicket:id="address"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">经济类型</td>
+                <td class="detail"><input class="ipt" wicket:id="economicsType"/></td>
+                <td class="tdl">仓储设施地址</td>
+                <td class="detail"><input class="ipt" wicket:id="storageAddress"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">许可经营范围</td>
+                <td class="detail"><input class="ipt" wicket:id="scope"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                    <input class="btn btn-inverse" type="button" value="关闭" wicket:id="cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</wicket:panel>
+</body>
+</html>

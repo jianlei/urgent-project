@@ -1,6 +1,7 @@
 package com.daren.chemistry.manage.webapp.wicket;
 
 import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageListPage;
+import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageTabPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -44,6 +45,6 @@ public class ChemistryManageMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new ChemistryManageListPage(id, wmc);
+        return new ChemistryManageTabPage(id, wmc);
     }
 }
