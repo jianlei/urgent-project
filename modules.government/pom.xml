@@ -25,7 +25,7 @@
         <module>fireworks</module>
         <module>production</module>
         <module>competency</module>
-        <module>specialOperations</module>
+        <module>operations</module>
         <module>chemistryManage</module>
     </modules>
     <dependencyManagement>
