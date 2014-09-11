@@ -105,5 +105,6 @@ public class ProductionAddPage extends BasePanel {
         addTextFieldToForm("economicsType");
         addTextFieldToForm("scope");
         addTextFieldToForm("unitsDate");
+        addTextFieldToForm("enterpriseId");
     }
 }
