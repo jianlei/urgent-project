@@ -38,7 +38,7 @@
             <version>2.1.0.CR4</version>
             <scope>test</scope>
         </dependency>-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.jboss.arquillian</groupId>
             <artifactId>arquillian-bom</artifactId>
             <version>1.1.2.Final</version>
@@ -56,7 +56,7 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
             <scope>test</scope>
-        </dependency>-->
+        </dependency>
         <!-- OSGi Arquillian test end-->
     </dependencies>
     <build>
