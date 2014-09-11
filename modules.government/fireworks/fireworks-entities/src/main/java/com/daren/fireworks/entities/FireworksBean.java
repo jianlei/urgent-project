@@ -20,16 +20,21 @@ import java.util.Date;
 @Table(name = "gov_fireworks")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FireworksBean extends WorkflowEntity {
-    private String code;//登记编号
-    private String card;//FM安许证字
+
     private String name;//单位名称
     private String head;//主要负责人
+    private String phone;//负责人电话
     private String address;//注册地址
     private String economicsType;//经济类型
     private String storageAddress;//仓储设施地址
     private String scope;//许可经营范围
+
+    private String code;//登记编号
+    private String card;//FM安许证字
     private Date validityDate;//有效期
     private Date unitsDate;//发证机关
+
+    private String linkHandle;//当前办理环节
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -63,6 +68,14 @@ public class FireworksBean extends WorkflowEntity {
 
     public void setHead(String head) {
         this.head = head;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -111,6 +124,14 @@ public class FireworksBean extends WorkflowEntity {
 
     public void setUnitsDate(Date unitsDate) {
         this.unitsDate = unitsDate;
+    }
+
+    public String getLinkHandle() {
+        return linkHandle;
+    }
+
+    public void setLinkHandle(String linkHandle) {
+        this.linkHandle = linkHandle;
     }
 
     public long getProposerId() {

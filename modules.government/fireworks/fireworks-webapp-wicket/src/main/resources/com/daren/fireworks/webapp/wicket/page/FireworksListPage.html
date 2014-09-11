@@ -1,70 +1,83 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org">
-<wicket:head>
+<head>
     <title></title>
-</wicket:head>
+    <link rel="stylesheet" type="text/css" href="../Styles/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../Styles/admin-all.css"/>
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/ui-lightness/jquery-ui-1.8.22.custom.css"/>
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker();
+
+            $('#list').hide();
+            $('#find').click(function () {
+                $('#list').show();
+            })
+        })
+
+    </script>
+</head>
+
 <body>
 <wicket:panel>
-    <div wicket:id="tabs"></div>
-    <wicket:fragment wicket:id="mainPanel" id="mainPanel">
-        <div class="alert alert-info">当前位置<b class="tip"/>行政审批<b class="tip"/>烟花爆竹流程申请</div>
-        <form method="post" wicket:id="form">
-            <table class="table table-striped table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="tdl">登记编号：</td>
-                    <td class="detail">
-                        <input wicket:id="code" class="ipt"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="6" align="left">
-                        <input class="btn btn-inverse" id="find" wicket:id="find" type="button" value="查询"/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+    <div class="alert alert-info">当前位置<b class="tip"></b>流程申请<b class="tip"></b>烟花爆竹经营许可证</div>
+    <form wicket:id="formQuery">
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+            <tr>
+                <td colspan="6" class="auto-style2">&nbsp;请填写查询条件 <i class="tip-up"></i></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tdl">烟花爆竹经营许可证</td>
+                <td class="detail">
+                    <input id="formid123" class="ipt" wicket:id="name"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" align="left">
+                    <input class="btn btn-inverse" id="find" wicket:id="find" type="button" value="查询"/>
+                    <input class="btn btn-inverse" type="button" value="新建" wicket:id="create"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table table-striped table-bordered table-condensed" wicket:id="table">
+        <thead>
+        <tr class="tr_detail">
+            <th>单位名称</th>
+            <th>主要负责人</th>
+            <th>负责人电话</th>
+            <th>注册地址</th>
+            <th>经济类型</th>
+            <th>仓储设施地址</th>
+            <th>许可经营范围</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr wicket:id="rows">
+            <td wicket:id="name">无</td>
+            <td wicket:id="head">无</td>
+            <td wicket:id="phone">无</td>
+            <td wicket:id="address">无</td>
+            <td wicket:id="economicsType">无</td>
+            <td wicket:id="storageAddress">无</td>
+            <td wicket:id="scope">无</td>
+            <td>
+                <a href="#" wicket:id="check_name">修改</a>
+            </td>
+        </tr>
+        <tr class="tr_pagenumber">
+            <td align="center" colspan="100" wicket:id="navigator"></td>
+        </tr>
+        </tbody>
+    </table>
 
-        <div wicket:id="container">
-
-            <span wicket:id="feedback"/>
-
-            <table class="table table-striped table-bordered table-condensed" wicket:id="table">
-                <thead>
-                <tr class="tr_detail">
-                    <th>ID</th>
-                    <th>登记编号</th>
-                    <th>单位名称</th>
-                    <th>主要负责人</th>
-                    <th>有效期</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr wicket:id="rows">
-                    <td><span wicket:id="id"></span></td>
-                    <td><span wicket:id="code"></span></td>
-                    <td><span wicket:id="name"></span></td>
-                    <td><span wicket:id="head"></span></td>
-                    <td><span wicket:id="validityDate"></span></td>
-                    <td>
-                        <a href="#" wicket:id="view">查看</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </wicket:fragment>
-    <wicket:fragment wicket:id="addPanel" id="addPanel">
-        <div wicket:id="repeatingView"></div>
-    </wicket:fragment>
 </wicket:panel>
 </body>
 </html>

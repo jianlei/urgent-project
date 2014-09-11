@@ -1,5 +1,7 @@
 package com.daren.fireworks.webapp.wicket.page;
 
+import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
 import com.daren.workflow.webapp.wicket.page.WorkflowBasePanel;
@@ -8,6 +10,7 @@ import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.activiti.engine.FormService;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -29,105 +32,104 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class FireworksListPage extends WorkflowBasePanel {
-    private final static int numPerPage = 10;
-    private final static String CONST_LIST = "新建流程";
+public class FireworksListPage extends BasePanel {
+
+    FireworksDataProvider provider = new FireworksDataProvider();
+
     @Inject
-    @Reference(id = "fireworksService", serviceInterface = IFireworksService.class)
-    protected IFireworksService fireworksService;
-    FireworkseDataProvider provider = new FireworkseDataProvider();
-    @Inject
-    private transient FormService formService;
-    private WebMarkupContainer wmc;
+    private IFireworksService fireworksService;
 
-    public FireworksListPage(String id, WebMarkupContainer wmc) {
-        super(id, wmc, CONST_LIST);
+    public FireworksListPage(final String id, final WebMarkupContainer wmc) {
+        super(id, wmc);
+        final WebMarkupContainer table = new WebMarkupContainer("table");
+
+        add(table.setOutputMarkupId(true));
+
+        DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, 10) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(Item<FireworksBean> item) {
+                final FireworksBean competencyBean = item.getModelObject();
+                item.add(new Label("name", competencyBean.getName()));
+                item.add(new Label("head", competencyBean.getHead()));
+                item.add(new Label("phone", competencyBean.getPhone()));
+                item.add(new Label("address", competencyBean.getAddress()));
+                item.add(new Label("economicsType", competencyBean.getEconomicsType()));
+                item.add(new Label("storageAddress", competencyBean.getStorageAddress()));
+                item.add(new Label("scope", competencyBean.getScope()));
+                item.add(getToCreatePageLink("check_name", competencyBean));
+
+            }
+        };
+        CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
+        table.add(pagingNavigator);
+        table.add(listView);
+        createQuery(table, provider, id, wmc);
     }
 
-    @Override
-    public Fragment getMainFragment(String panelId, String makeupId) {
-        return new MainFragment(panelId, makeupId);
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final FireworksBean competencyBean) {
+        AjaxButton ajaxLink = new AjaxButton(wicketId) {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                createButtonOnClick(competencyBean, target);
+            }
+        };
+        return ajaxLink;
     }
 
-    public class MainFragment extends Fragment {
-        private final JQueryFeedbackPanel feedbackPanel;
-        private final WebMarkupContainer container;
-        public MainFragment(String id, String markupId) {
-            super(id, markupId, FireworksListPage.this);
-            container = new WebMarkupContainer("container");
-            add(container.setOutputMarkupId(true));
-            //add feedback
-            feedbackPanel = new JQueryFeedbackPanel("feedback");
-            container.add(feedbackPanel.setOutputMarkupId(true));
-            //add table
-            final WebMarkupContainer table = new WebMarkupContainer("table");
-            container.add(table.setOutputMarkupId(true));
-            //add listview
-            final DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, numPerPage) {
-                private static final long serialVersionUID = 1L;
-                @Override
-                protected void populateItem(Item<FireworksBean> item) {
-                    final FireworksBean row = item.getModelObject();
-                    item.add(new Label("id", row.getId()));
-                    item.add(new Label("code", row.getCode()));
-                    item.add(new Label("name", row.getName()));
-                    item.add(new Label("head", row.getHead()));
-                    item.add(new Label("validityDate", row.getValidityDate()));
-                }
-            };
-            table.add(listView);
-
-
-            //search form
-            Form<FireworksBean> userForm = new Form<>("form", new CompoundPropertyModel<>(new FireworksBean()));
-            TextField textField = new TextField("code");
-            userForm.add(textField.setOutputMarkupId(true));
-            add(userForm);
-            //find button
-            userForm.add(initFindButton(provider, userForm));
-        }
-
-        /**
-         * 初始化查询按钮
-         *
-         * @param provider
-         * @param form
-         * @return
-         */
-        private AjaxButton initFindButton(final FireworkseDataProvider provider, Form form) {
-            return new AjaxButton("find", form) {
-                @Override
-                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    FireworksBean dictBean = (FireworksBean) form.getModelObject();
-                    provider.setBean(dictBean);
-                    target.add(container);
-                }
-                @Override
-                protected void onError(AjaxRequestTarget target, Form<?> form) {
-                    target.add(feedbackPanel);
-                }
-            };
-        }
+    private AjaxLink getToCreatePageLink(String wicketId, final FireworksBean competencyBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createButtonOnClick(competencyBean, target);
+            }
+        };
+        return ajaxLink;
     }
 
+    protected void createButtonOnClick(FireworksBean competencyBean, AjaxRequestTarget target) {
+
+    }
 
     /**
-     * //查询数据提供者
+     * 处理查询页面
+     *
+     * @param table
      */
-    class FireworkseDataProvider extends ListDataProvider<FireworksBean> {
-        private FireworksBean bean = null;
+    private void createQuery(final WebMarkupContainer table, final FireworksDataProvider provider, final String id, final WebMarkupContainer wmc) {
+        //处理查询
+        Form<FireworksBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new FireworksBean()));
+        TextField textField = new TextField("name");
 
-        public void setBean(FireworksBean bean) {
-            this.bean = bean;
+        majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
+        majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
+        add(majorHazardSourceBeanForm.setOutputMarkupId(true));
+
+        AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                FireworksBean competencyBean = (FireworksBean) form.getModelObject();
+                provider.setFireworksBean(competencyBean);
+                target.add(table);
+            }
+        };
+        majorHazardSourceBeanForm.add(findButton);
+    }
+
+
+    class FireworksDataProvider extends ListDataProvider<FireworksBean> {
+        private FireworksBean competencyBean = null;
+
+        public void setFireworksBean(FireworksBean competencyBean) {
+            this.competencyBean = competencyBean;
         }
 
         @Override
         protected List<FireworksBean> getData() {
-            //类型为空时候，返回全部记录
-            if (bean == null || bean.getName().equals(""))
+            if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
                 return fireworksService.getAllEntity();
             else {
-                return fireworksService.query(bean);
+                return fireworksService.getAllEntity();
             }
         }
     }
