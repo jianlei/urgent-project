@@ -23,9 +23,9 @@
     </properties>
     <modules>
         <module>fireworks</module>
-        <module>safetyProduction</module>
-        <module>safetyCompetency</module>
-        <module>specialOperations</module>
+        <module>production</module>
+        <module>competency</module>
+        <module>operations</module>
         <module>chemistryManage</module>
     </modules>
     <dependencyManagement>
