@@ -113,7 +113,6 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     Map<String, String> submitMap = new HashMap<String, String>();
-
                     submitMap.put("accepted", String.valueOf(accepted));
                     formService.submitTaskFormData(task.getId(), submitMap);
                     model.setObject(null);

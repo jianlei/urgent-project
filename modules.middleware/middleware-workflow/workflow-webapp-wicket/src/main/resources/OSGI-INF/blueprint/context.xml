@@ -14,27 +14,33 @@
         </bean>
     </service>
 
-    <!-- 发布菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
+    <!-- 发布主菜单-->
+    <service interface="com.daren.core.web.api.module.IMenuModule">
         <bean class="com.daren.workflow.webapp.wicket.MainMenuModule">
         </bean>
     </service>
 
-    <!-- 发布代办事项目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+    <!-- 发布代办事项子菜单 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.TaskListMenuItemsModule">
         </bean>
     </service>
 
-    <!-- 发布新建流程目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+    <!-- 发布新建流程子菜单 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.ProcessListMenuItemsModule">
         </bean>
     </service>
 
-    <!-- 发布流程历史目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+    <!-- 发布流程历史子菜单 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.HistoryMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布我的申请子菜单 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.workflow.webapp.wicket.MyApplyMenuItemsModule">
         </bean>
     </service>
 </blueprint>

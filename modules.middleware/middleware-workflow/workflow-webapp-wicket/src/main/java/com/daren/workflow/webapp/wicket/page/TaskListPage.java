@@ -4,6 +4,7 @@ import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.core.web.wicket.manager.FormPanelManager;
+import com.daren.workflow.webapp.wicket.component.ActiveActivityImage;
 import com.daren.workflow.webapp.wicket.model.TaskModel;
 import com.daren.workflow.webapp.wicket.model.TasksAssignableToUserModel;
 import com.daren.workflow.webapp.wicket.model.UserIdModel;
@@ -129,6 +130,7 @@ public class TaskListPage extends WorkflowBasePanel{
                     item.add(new Label("owner", row.getOwner()));
                     item.add(new Label("assignee", row.getAssignee()));
                     item.add(new Label("createTime", DateUtil.convertDateToString(row.getCreateTime(), DateUtil.longSdf)));
+                    item.add(new ActiveActivityImage("image",row));
                     item.add(initStartButton(row));
                     item.add(initViewButton(row,row.getId().toString()));
                 }

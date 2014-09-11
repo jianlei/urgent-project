@@ -1,13 +1,11 @@
 package com.daren.workflow.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
-import com.daren.workflow.webapp.wicket.model.ProcessesHistoryListModel;
+import com.daren.workflow.webapp.wicket.model.ProcessesMyApplyHistoryListModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
@@ -30,31 +28,22 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @类描述：流程历史列表页面类
+ * @类描述：我的申请列表页面
  * @创建人： sunlingfeng
- * @创建时间：2014/9/6
+ * @创建时间：2014/9/11
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class HistoryListPage extends WorkflowBasePanel{
-    private final static int numPerPage = 10;
-    private final static String CONST_LIST = "流程历史";
+public class MyApplyListPage extends WorkflowBasePanel{
+    private final static String CONST_LIST = "我的申请";
     @Inject
-    RuntimeService runtimeService;
-    @Inject
-    HistoryService historyService;
-
-    @Inject
-    RepositoryService repositoryService;
+    IUserBeanService userBeanService;
     @Inject
     TaskService taskService;
-
-
-    public HistoryListPage(String id, WebMarkupContainer wmc) {
-        super(id, wmc,CONST_LIST);
+    public MyApplyListPage(String id, WebMarkupContainer wmc) {
+        super(id, wmc, CONST_LIST);
     }
-
 
     @Override
     public Fragment getMainFragment(String panelId, String makeupId) {
@@ -65,7 +54,7 @@ public class HistoryListPage extends WorkflowBasePanel{
         private final JQueryFeedbackPanel feedbackPanel;
         private final WebMarkupContainer container;
         public MainFragment(String id, String markupId) {
-            super(id, markupId, HistoryListPage.this);
+            super(id, markupId, MyApplyListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -76,7 +65,8 @@ public class HistoryListPage extends WorkflowBasePanel{
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
-            final IModel<List<HistoricProcessInstance>> listOfProcesses=new ProcessesHistoryListModel();
+            String userName=userBeanService.getCurrentUserName();
+            final IModel<List<HistoricProcessInstance>> listOfProcesses=new ProcessesMyApplyHistoryListModel(userName);
             //add listview
             final ListView<HistoricProcessInstance> listView = new ListView<HistoricProcessInstance>("rows", listOfProcesses) {
                 private static final long serialVersionUID = 1L;
@@ -93,7 +83,6 @@ public class HistoryListPage extends WorkflowBasePanel{
                     String processInstanceId=((HistoricProcessInstanceEntity)row).getProcessInstanceId();
                     Task task= taskService.createTaskQuery().processInstanceId(processInstanceId).executionId(row.getId()).singleResult();
                     item.add(new Label("activity", task.getName()));
-
                     if(null==endTime){
                         item.add(new Label("status", "办理中"));
                     }
@@ -147,7 +136,7 @@ public class HistoryListPage extends WorkflowBasePanel{
                     //通过repeatingView增加新的panel
                     repeatingView.removeAll();
                     repeatingView.add(new ViewHistoryVarinst(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
-                    Fragment fragment = new Fragment(panelId, "addPanel", HistoryListPage.this);
+                    Fragment fragment = new Fragment(panelId, "addPanel", MyApplyListPage.this);
                     fragment.add(repeatingView);
                     return fragment;
                 }

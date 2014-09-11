@@ -22,7 +22,7 @@
                 <activiti:formProperty id="qyid" name="企业ID"></activiti:formProperty>
             </extensionElements>
         </userTask>
-        <startEvent id="startevent1" name="Start" activiti:formKey="start.form"></startEvent>
+        <startEvent id="startevent1" name="Start" activiti:formKey="start.form" activiti:initiator="applyUserId"></startEvent>
         <userTask id="usertask2" name="符合性审批" activiti:assignee="系统管理员" activiti:formKey="audit.form">
             <extensionElements>
                 <activiti:formProperty id="accepted" name="accepted" type="boolean" variable="accepted" required="true" readable="true" writable="true"/>

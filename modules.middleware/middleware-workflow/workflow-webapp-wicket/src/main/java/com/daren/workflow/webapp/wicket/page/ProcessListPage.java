@@ -3,6 +3,7 @@ package com.daren.workflow.webapp.wicket.page;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.core.web.wicket.manager.FormPanelManager;
+import com.daren.workflow.webapp.wicket.component.ActiveActivityImage;
 import com.daren.workflow.webapp.wicket.model.AvailableProcessesModel;
 import com.daren.workflow.webapp.wicket.model.ProcessDefinitionModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -78,6 +79,7 @@ public class ProcessListPage extends WorkflowBasePanel{
                     item.add(new Label("description", row.getDescription()));
                     item.add(new Label("version", row.getVersion()));
                     item.add(new Label("key", row.getKey()));
+                    item.add(new ActiveActivityImage("image",row));
                     if(row.isSuspended())
                         item.add(new Label("suspended","无效" ));
                     else

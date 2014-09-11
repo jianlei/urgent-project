@@ -150,35 +150,11 @@
 
         <dependency>
             <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.api</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.core</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.entities</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
             <artifactId>com.daren.enterprise.webapp.component</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.persist.openjpa</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.vaynberg.wicket.select2</groupId>
             <artifactId>wicket-select2</artifactId>
@@ -234,10 +210,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.webapp.component</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.vaynberg.wicket.select2</groupId>
             <artifactId>wicket-select2</artifactId>

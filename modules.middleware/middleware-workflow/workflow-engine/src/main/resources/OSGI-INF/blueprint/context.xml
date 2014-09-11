@@ -7,12 +7,17 @@
         <property name="password" value="1234"/>
     </bean>
 
-    <bean id="configurationFactory" class="org.activiti.osgi.blueprint.ConfigurationFactory">
+    <bean id="configurationFactory" class="com.daren.workflow.engine.ConfigurationFactory">
         <property name="dataSource" ref="dataSource"/>
         <property name="databaseSchemaUpdate" value="true"/>
+        <property name="history" value="full"/>
+        <property name="activityFontName" value="微软雅黑" ></property>
+        <property name="labelFontName" value="微软雅黑"></property>
     </bean>
 
-    <bean id="configuration" factory-ref="configurationFactory" factory-method="getConfiguration"/>
+    <bean id="configuration" factory-ref="configurationFactory" factory-method="getConfiguration">
+
+    </bean>
 
     <bean id="processEngineFactory" class="org.activiti.osgi.blueprint.ProcessEngineFactoryWithELResolver"
           init-method="init" destroy-method="destroy">
