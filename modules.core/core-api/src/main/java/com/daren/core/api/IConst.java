@@ -14,8 +14,8 @@ public interface IConst {
     public final static String OFFICE_WEB_PATH_WRITE = "D:/apache-tomcat/webapps/uploadfile/";
     public final static String OFFICE_WEB_PATH_TEMP = "D:/apache-tomcat/webapps/tempfile/";*/
     //release config
-    public final static String OFFICE_WEB_PATH_READ = "http://202.98.7.181:8687/tempfile/";
-    public final static String OFFICE_WEB_PATH_WRITE = "E:\\web\\tomcat_7.0.27_8687\\webapps\\uploadfile\\";
-    public final static String OFFICE_WEB_PATH_TEMP = "E:\\web\\tomcat_7.0.27_8687\\webapps\\tempfile\\";
+    public final static String OFFICE_WEB_PATH_READ = "http://localhost:8080/tempfile/";
+    public final static String OFFICE_WEB_PATH_WRITE = "D:\\apache-tomcat\\webapps\\uploadfile\\";
+    public final static String OFFICE_WEB_PATH_TEMP = "D:\\apache-tomcat\\webapps\\tempfile\\";
 
 }

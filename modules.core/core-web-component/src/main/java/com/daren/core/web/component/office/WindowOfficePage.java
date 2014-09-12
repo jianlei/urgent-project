@@ -22,14 +22,6 @@ public class WindowOfficePage extends OfficeDialog {
         wmc.add(allmap);
         this.add(wmc);
         allmap.add(new OfficePage(allmap.newChildId()));
-
-        //调用OnDomReadyHeader方法
-        this.add(new Behavior() {
-            @Override
-            public void renderHead(Component component, IHeaderResponse response) {
-                response.render(OnDomReadyHeaderItem.forScript("loadScript('" + filePath + "');"));
-            }
-        });
     }
 
     @Override

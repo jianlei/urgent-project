@@ -46,6 +46,7 @@
 
 
         <class>com.daren.core.api.persistence.PersistentEntity</class>
+        <class>com.daren.core.api.persistence.WorkflowEntity</class>
         <class>com.daren.fireworks.entities.FireworksBean</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->

@@ -62,7 +62,7 @@ public class ChemistryManageTabPage extends BasePanel {
         ChemistryManageListPage hazardPage = new ChemistryManageListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
-                initFireworksCreatePage(id, wmc, competencyBean, target, true, "危险化学品经营许可证");
+                initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
             }
         };
         return hazardPage;

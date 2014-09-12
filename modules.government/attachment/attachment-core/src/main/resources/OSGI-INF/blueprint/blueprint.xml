@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <service id="attachmentService" interface="com.daren.attachment.api.biz.IAttachmentService">
+        <bean class="com.daren.attachment.core.biz.AttachmentServiceImpl">
+            <property name="attachmentBeanDao" ref="attachmentBeanDao"/>
+                </bean>
+    </service>
+    <reference id="attachmentBeanDao" interface="com.daren.attachment.api.dao.IAttachmentBeanDao"/>
+</blueprint>
+

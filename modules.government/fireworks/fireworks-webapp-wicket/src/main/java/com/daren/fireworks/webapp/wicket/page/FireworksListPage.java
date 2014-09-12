@@ -1,6 +1,8 @@
 package com.daren.fireworks.webapp.wicket.page;
 
+import com.daren.core.web.component.government.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
+import com.daren.core.web.component.office.WindowOfficePage;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
@@ -33,7 +35,8 @@ import java.util.List;
  * @修改备注：
  */
 public class FireworksListPage extends BasePanel {
-
+    final WebMarkupContainer dialogWrapper;
+    WindowGovernmentPage dialog;
     FireworksDataProvider provider = new FireworksDataProvider();
 
     @Inject
@@ -41,24 +44,35 @@ public class FireworksListPage extends BasePanel {
 
     public FireworksListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
+        //初始化dialogWrapper
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog", ""));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
         final WebMarkupContainer table = new WebMarkupContainer("table");
-
         add(table.setOutputMarkupId(true));
-
         DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
-
             @Override
             protected void populateItem(Item<FireworksBean> item) {
-                final FireworksBean competencyBean = item.getModelObject();
-                item.add(new Label("name", competencyBean.getName()));
-                item.add(new Label("head", competencyBean.getHead()));
-                item.add(new Label("phone", competencyBean.getPhone()));
-                item.add(new Label("address", competencyBean.getAddress()));
-                item.add(new Label("economicsType", competencyBean.getEconomicsType()));
-                item.add(new Label("storageAddress", competencyBean.getStorageAddress()));
-                item.add(new Label("scope", competencyBean.getScope()));
-                item.add(getToCreatePageLink("check_name", competencyBean));
+                final FireworksBean fireworksBean = item.getModelObject();
+                item.add(new Label("name", fireworksBean.getName()));
+                item.add(new Label("head", fireworksBean.getHead()));
+                item.add(new Label("phone", fireworksBean.getPhone()));
+                item.add(new Label("address", fireworksBean.getAddress()));
+                item.add(new Label("economicsType", fireworksBean.getEconomicsType()));
+                item.add(new Label("storageAddress", fireworksBean.getStorageAddress()));
+                item.add(new Label("scope", fireworksBean.getScope()));
+                item.add(getToCreatePageLink("check_name", fireworksBean));
+                item.add(getToUploadPageLink("upload", fireworksBean));
 
             }
         };
@@ -68,27 +82,48 @@ public class FireworksListPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final FireworksBean competencyBean) {
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final FireworksBean fireworksBean) {
         AjaxButton ajaxLink = new AjaxButton(wicketId) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                createButtonOnClick(competencyBean, target);
+                createButtonOnClick(fireworksBean, target);
             }
         };
         return ajaxLink;
     }
 
-    private AjaxLink getToCreatePageLink(String wicketId, final FireworksBean competencyBean) {
+    private AjaxLink getToCreatePageLink(String wicketId, final FireworksBean fireworksBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(competencyBean, target);
+                createButtonOnClick(fireworksBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(FireworksBean competencyBean, AjaxRequestTarget target) {
+    private AjaxLink getToUploadPageLink(String wicketId, final FireworksBean fireworksBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", fireworksBean);
+            }
+        };
+        return ajaxLink;
+    }
 
+    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {}
+
+    private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new WindowGovernmentPage("dialog", title, fireworksBean.getId(), "upload", "fireworks") {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
     }
 
     /**
@@ -100,7 +135,6 @@ public class FireworksListPage extends BasePanel {
         //处理查询
         Form<FireworksBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new FireworksBean()));
         TextField textField = new TextField("name");
-
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
@@ -108,8 +142,8 @@ public class FireworksListPage extends BasePanel {
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                FireworksBean competencyBean = (FireworksBean) form.getModelObject();
-                provider.setFireworksBean(competencyBean);
+                FireworksBean fireworksBean = (FireworksBean) form.getModelObject();
+                provider.setFireworksBean(fireworksBean);
                 target.add(table);
             }
         };
@@ -118,15 +152,13 @@ public class FireworksListPage extends BasePanel {
 
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
-        private FireworksBean competencyBean = null;
-
-        public void setFireworksBean(FireworksBean competencyBean) {
-            this.competencyBean = competencyBean;
+        private FireworksBean fireworksBean = null;
+        public void setFireworksBean(FireworksBean fireworksBean) {
+            this.fireworksBean = fireworksBean;
         }
-
         @Override
         protected List<FireworksBean> getData() {
-            if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
+            if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))
                 return fireworksService.getAllEntity();
             else {
                 return fireworksService.getAllEntity();

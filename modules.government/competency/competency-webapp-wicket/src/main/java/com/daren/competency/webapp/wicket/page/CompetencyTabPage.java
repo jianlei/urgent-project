@@ -63,7 +63,7 @@ public class CompetencyTabPage extends BasePanel {
         CompetencyListPage hazardPage = new CompetencyListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(CompetencyBean competencyBean, AjaxRequestTarget target) {
-                initCompetencyCreatePage(id, wmc, competencyBean, target, true, "安全资格证书（培训）信息");
+                initCompetencyCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
             }
         };
         return hazardPage;
