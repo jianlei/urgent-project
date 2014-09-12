@@ -16,6 +16,14 @@
     </bean>
 
     <reference id="enterpriseBeanDao" interface="com.daren.enterprise.api.dao.IEnterpriseBeanDao"/>
+    <!-- 监管机构服务 -->
+    <service id="organizationBeanService" interface="com.daren.enterprise.api.biz.IOrganizationBeanService"
+            ref="organizationBeanServiceImpl">
+    </service>
+    <bean id="organizationBeanServiceImpl" class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
+        <property name="organizationBeanDao" ref="organizationBeanDao"/>
+    </bean>
+    <reference id="organizationBeanDao" interface="com.daren.enterprise.api.dao.IOrganizationBeanDao"/>
 
     <cxf:bus>
         <cxf:features>
@@ -26,6 +34,15 @@
     <jaxrs:server id="enterpriseBeanService" address="/enterprise">
         <jaxrs:serviceBeans>
             <ref component-id="enterpriseBeanServiceImpl"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <jaxrs:server id="organizationRestService" address="/organization">
+        <jaxrs:serviceBeans>
+            <ref component-id="organizationBeanServiceImpl"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref component-id="jsonProvider"/>
@@ -59,12 +76,5 @@
         <property name="mapper" ref="jacksonMapper"/>
     </bean>
 
-    <!-- 监管机构服务 -->
-    <service id="organizationBeanService" interface="com.daren.enterprise.api.biz.IOrganizationBeanService">
-        <bean class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
-            <property name="organizationBeanDao" ref="organizationBeanDao"/>
-        </bean>
-    </service>
-    <reference id="organizationBeanDao" interface="com.daren.enterprise.api.dao.IOrganizationBeanDao"/>
 </blueprint>
 

@@ -22,23 +22,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class GroupBasicBean extends PersistentEntity {
 
-    private String jgdm="";                    //机构代码
+    private long jgdm;                    //机构代码
     private String group_name="";              //群组名称
     private String group_logo="";              //群组logo
-    private String create_userid="";           //创建人id
+    private long create_userid;           //创建人id
     private String create_time="";             //创建时间
     private int is_generate;                //群组是否为自动生成，0-否；1-是
+    private int group_num;                  //群组人数
 
     public GroupBasicBean(){
 
     }
 
-    public String getJgdm() {
+    public long getJgdm() {
         return jgdm;
     }
 
-    public void setJgdm(String jgdm) {
+    public void setJgdm(long jgdm) {
         this.jgdm = jgdm;
+    }
+
+    public long getCreate_userid() {
+        return create_userid;
+    }
+
+    public void setCreate_userid(long create_userid) {
+        this.create_userid = create_userid;
     }
 
     public String getGroup_name() {
@@ -57,14 +66,6 @@ public class GroupBasicBean extends PersistentEntity {
         this.group_logo = group_logo;
     }
 
-    public String getCreate_userid() {
-        return create_userid;
-    }
-
-    public void setCreate_userid(String create_userid) {
-        this.create_userid = create_userid;
-    }
-
     public String getCreate_time() {
         return create_time;
     }
@@ -79,5 +80,13 @@ public class GroupBasicBean extends PersistentEntity {
 
     public void setIs_generate(int is_generate) {
         this.is_generate = is_generate;
+    }
+
+    public int getGroup_num() {
+        return group_num;
+    }
+
+    public void setGroup_num(int group_num) {
+        this.group_num = group_num;
     }
 }

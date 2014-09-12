@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class GroupUserRelBean extends PersistentEntity {
 
     private long group_id;      //群组id
-    private String user_id;     //用户id
+    private long user_id;       //用户id
     private int hasnew;         //是否有新消息:0-没有；1-有
 
     public GroupUserRelBean(){
@@ -38,11 +38,11 @@ public class GroupUserRelBean extends PersistentEntity {
         this.group_id = group_id;
     }
 
-    public String getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

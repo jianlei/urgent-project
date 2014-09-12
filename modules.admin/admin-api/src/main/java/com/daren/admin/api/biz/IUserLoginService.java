@@ -3,7 +3,10 @@ package com.daren.admin.api.biz;
 
 import com.daren.admin.entities.UserBean;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -61,5 +64,15 @@ public interface IUserLoginService {
      */
     public List<String> getUserPermission(String username);
 
-
+    /**
+     * 手机端登录
+     * @param username
+     * @param password
+     * @param client
+     * @param request
+     * @param response
+     * @return
+     */
+    public Map loginByPhone(String username, String password, String client, HttpServletRequest request,
+                            HttpServletResponse response);
 }

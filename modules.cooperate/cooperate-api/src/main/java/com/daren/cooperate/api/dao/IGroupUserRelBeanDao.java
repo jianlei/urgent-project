@@ -1,6 +1,6 @@
 package com.daren.cooperate.api.dao;
 
-import com.daren.cooperate.entities.GroupUserReqBean;
+import com.daren.cooperate.entities.GroupUserRelBean;
 import com.daren.core.api.persistence.IGenericDao;
 
 /**
@@ -11,5 +11,5 @@ import com.daren.core.api.persistence.IGenericDao;
  * @修改时间：
  * @修改备注：
  */
-public interface IGroupUserRelBeanDao extends IGenericDao<GroupUserReqBean, Long> {
+public interface IGroupUserRelBeanDao extends IGenericDao<GroupUserRelBean, Long> {
 }

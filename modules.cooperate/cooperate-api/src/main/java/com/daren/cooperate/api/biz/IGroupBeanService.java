@@ -2,6 +2,8 @@ package com.daren.cooperate.api.biz;
 
 import com.daren.core.api.biz.IBizService;
 
+import java.util.Map;
+
 /**
  * @类描述：群组基本信息
  * @创建人：xukexin
@@ -11,6 +13,35 @@ import com.daren.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface IGroupBeanService extends IBizService {
+    /**
+     * 创建群组
+     * @param ids
+     * @return
+     */
+    public Map createGroup(String group_name,String group_logo,String ids,String req_msg);
 
+    /**
+     * 获取群组列表
+     * @param page
+     * @param page_size
+     * @return
+     */
+    public Map getGroupList(Integer page, Integer page_size);
+
+    /**
+     * 被邀请人回应邀请
+     * @param group_id
+     * @param res_type
+     * @return
+     */
+    public Map replyReq(Integer group_id, Integer res_type);
+
+    /**
+     * 获取新邀请的列表
+     * @param page
+     * @param page_size
+     * @return
+     */
+    public Map getNewReqList(Integer page, Integer page_size);
 
 }

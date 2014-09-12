@@ -3,7 +3,7 @@
         xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
         xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0"
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-
+    <!-- 日程 -->
     <service interface="com.daren.cooperate.api.dao.INoticeBasicBeanDao">
         <bean class="com.daren.cooperate.persist.openjpa.NoticeBasicBeanDaoOpenjpa">
             <jpa:context property="entityManager" unitname="cooperate-cm"/>
@@ -13,6 +13,27 @@
 
     <service interface="com.daren.cooperate.api.dao.INoticeUserRelBeanDao">
         <bean class="com.daren.cooperate.persist.openjpa.NoticeUserRelBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+    <!-- 群组 -->
+    <service interface="com.daren.cooperate.api.dao.IGroupBasicBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.GroupBasicBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+    <service interface="com.daren.cooperate.api.dao.IGroupUserRelBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.GroupUserRelBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+    <service interface="com.daren.cooperate.api.dao.IGroupUserReqBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.GroupUserReqBeanDaoOpenjpa">
             <jpa:context property="entityManager" unitname="cooperate-cm"/>
             <tx:transaction method="*" value="Required"/>
         </bean>

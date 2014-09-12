@@ -185,13 +185,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         Map map = new HashMap();
         int result = -1;
         try{
-            NoticeUserRelBean nurb = new NoticeUserRelBean();
-            if(notice_id!=null){
-                nurb.setNotice_id(notice_id);
-                //nurb.setUser_id();
-                nurb.setReply_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
-                nurb.setReply_type(reply_type);
-                //nurb.setReply_content(reply_content);
+            if(notice_id!=null && reply_type!=null){
                 Long user_id = 1l;
                 noticeUserRelBeanDao.update("update NoticeUserRelBean t set t.reply_type="+reply_type+
                         " where t.notice_id="+notice_id+" and t.user_id="+user_id);

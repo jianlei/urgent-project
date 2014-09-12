@@ -7,6 +7,7 @@
            http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
            http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
 
+    <!-- 日程 -->
     <service id="noticeService" interface="com.daren.cooperate.api.biz.INoticeBeanService" ref="noticeBeanService">
     </service>
 
@@ -17,6 +18,17 @@
 
     <reference id="noticeBasicBeanDao" interface="com.daren.cooperate.api.dao.INoticeBasicBeanDao"/>
     <reference id="noticeUserRelBeanDao" interface="com.daren.cooperate.api.dao.INoticeUserRelBeanDao"/>
+    <!-- 群组 -->
+    <service id="groupService" interface="com.daren.cooperate.api.biz.IGroupBeanService" ref="groupBeanService">
+    </service>
+    <bean id="groupBeanService" class="com.daren.cooperate.core.biz.GroupBeanServiceImpl">
+        <property name="groupBasicBeanDao" ref="groupBasicBeanDao"/>
+        <property name="groupUserRelBeanDao" ref="groupUserRelBeanDao"/>
+        <property name="groupUserReqBeanDao" ref="groupUserReqBeanDao"/>
+    </bean>
+    <reference id="groupBasicBeanDao" interface="com.daren.cooperate.api.dao.IGroupBasicBeanDao"/>
+    <reference id="groupUserRelBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserRelBeanDao"/>
+    <reference id="groupUserReqBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserReqBeanDao"/>
 
     <cxf:bus>
         <cxf:features>
@@ -27,6 +39,15 @@
     <jaxrs:server id="noticeRestService" address="/cooperate">
         <jaxrs:serviceBeans>
             <ref component-id="noticeBeanService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <jaxrs:server id="groupRestService" address="/group">
+        <jaxrs:serviceBeans>
+            <ref component-id="groupBeanService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref component-id="jsonProvider"/>

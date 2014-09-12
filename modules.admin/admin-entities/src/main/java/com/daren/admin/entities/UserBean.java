@@ -22,8 +22,9 @@ import java.util.List;
  * @修改备注：
  */
 @Entity
-@Table(name = "sys_user")
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Table(name = "sys_user")
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @XmlRootElement(name = "UserBean")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserBean extends PersistentEntity {
@@ -31,6 +32,10 @@ public class UserBean extends PersistentEntity {
     private OfficeBean company;    // 归属公司
     @XmlTransient
     private OfficeBean office;    // 归属部门
+    @XmlTransient
+    private String jgdm;          //机构代码
+    @XmlTransient
+    private String qyid;          //企业id
     @NotNull(message = "'登录名'是必填项")
 //    @XmlAttribute
     private String loginName;// 登录名
@@ -120,11 +125,25 @@ public class UserBean extends PersistentEntity {
         return loginIp;
     }
 
-
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
     }
 
+    public String getJgdm() {
+        return jgdm;
+    }
+
+    public void setJgdm(String jgdm) {
+        this.jgdm = jgdm;
+    }
+
+    public String getQyid() {
+        return qyid;
+    }
+
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
+    }
 
     public Date getLoginDate() {
         return loginDate;

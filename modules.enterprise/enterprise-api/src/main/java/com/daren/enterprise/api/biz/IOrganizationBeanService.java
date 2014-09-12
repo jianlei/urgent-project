@@ -38,7 +38,6 @@ public interface IOrganizationBeanService extends IBizService {
      * @return
      */
     public OrganizationBean getByJgdm(String id);
-
     /**
      * 根据机构代码获取下级部分的集合
      * @param jgdm 机构代码
@@ -47,4 +46,18 @@ public interface IOrganizationBeanService extends IBizService {
      * @return
      */
     public List<OrganizationBean> getOrgListByJgdm(String jgdm, Integer page, Integer page_size);
+
+    /**
+     * 获取第一层节点上的机构
+     * @return
+     */
+    public Map getRootOrgnaizationList(Integer page, Integer page_size);
+
+    /**
+     * 获取下级部门和人员
+     * @param jgdm
+     * @return
+     */
+    public Map getOranizationAndUserList(String jgdm);
+
 }
