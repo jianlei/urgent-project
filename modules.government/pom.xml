@@ -27,6 +27,7 @@
         <module>competency</module>
         <module>operations</module>
         <module>chemistryManage</module>
+        <module>attachment</module>
     </modules>
     <dependencyManagement>
         <dependencies>

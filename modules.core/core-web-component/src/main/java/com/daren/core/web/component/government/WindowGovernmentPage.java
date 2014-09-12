@@ -1,27 +1,31 @@
-package com.daren.core.web.component.office;
+package com.daren.core.web.component.government;
 
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-
-public class WindowOfficePage extends OfficeDialog {
+/**
+ * Created by Administrator on 2014/9/12.
+ */
+public class WindowGovernmentPage extends GovernmentDialog {
+    private String pageType;
     WebMarkupContainer wmc = new WebMarkupContainer("allmapwmc");
     RepeatingView allmap = new RepeatingView("allmap");
-
-    public WindowOfficePage(String id, String title, final String filePath) {
+    public WindowGovernmentPage(String id, String title, long preateId, String type, String appType) {
         super(id, title);
         allmap.setOutputMarkupId(true);
         wmc.setOutputMarkupId(true);
         wmc.add(allmap);
         this.add(wmc);
-        allmap.add(new OfficePage(allmap.newChildId()));
+        pageType = type;
+        if(type.equals("list")){
+            allmap.add(new ListPage(allmap.newChildId()));
+        }else{
+            allmap.add(new UploadPage(allmap.newChildId(), preateId, appType));
+        }
+
     }
 
     @Override
@@ -33,7 +37,12 @@ public class WindowOfficePage extends OfficeDialog {
     @Override
     public void onConfigure(JQueryBehavior behavior) {
         super.onConfigure(behavior);
-        behavior.setOption("width", 800);
-        behavior.setOption("height", 650);
+        if(pageType.equals("list")){
+            behavior.setOption("width", 800);
+            behavior.setOption("height", 650);
+        }else{
+            behavior.setOption("width", 400);
+            behavior.setOption("height", 300);
+        }
     }
 }

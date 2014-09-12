@@ -63,7 +63,7 @@ public class OperationsTabPage extends BasePanel {
         OperationsListPage hazardPage = new OperationsListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(OperationsBean operationsBean, AjaxRequestTarget target) {
-                initOperationsCreatePage(id, wmc, operationsBean, target, true, "特种作业人员操作资格证信息");
+                initOperationsCreatePage(id, wmc, operationsBean, target, true, "编辑流程");
             }
         };
         return hazardPage;

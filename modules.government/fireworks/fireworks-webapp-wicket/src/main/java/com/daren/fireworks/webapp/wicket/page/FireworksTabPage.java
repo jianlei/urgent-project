@@ -62,7 +62,7 @@ public class FireworksTabPage extends BasePanel {
         FireworksListPage hazardPage = new FireworksListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(FireworksBean competencyBean, AjaxRequestTarget target) {
-                initFireworksCreatePage(id, wmc, competencyBean, target, true, "烟花爆竹经营许可证");
+                initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
             }
         };
         return hazardPage;

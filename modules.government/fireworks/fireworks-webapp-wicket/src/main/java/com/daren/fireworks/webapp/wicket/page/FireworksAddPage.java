@@ -25,7 +25,7 @@ import javax.inject.Inject;
  * @修改备注：
  */
 public class FireworksAddPage extends BasePanel {
-    Form<FireworksBean> competencyBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new FireworksBean()));
+    Form<FireworksBean> fireworksBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new FireworksBean()));
     FireworksBean fireworksBean = new FireworksBean();
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
@@ -43,16 +43,16 @@ public class FireworksAddPage extends BasePanel {
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
 
-        competencyBeanForm.setMultiPart(true);
-        this.add(competencyBeanForm);
+        fireworksBeanForm.setMultiPart(true);
+        this.add(fireworksBeanForm);
         addTextFieldsToForm();
-        AjaxButton ajaxSubmitLink = new AjaxButton("save", competencyBeanForm) {
+        AjaxButton ajaxSubmitLink = new AjaxButton("save", fireworksBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                FireworksBean competencyBean = (FireworksBean) form.getModelObject();
-                if (null != competencyBean) {
+                FireworksBean fireworksBean = (FireworksBean) form.getModelObject();
+                if (null != fireworksBean) {
                     try {
-                        fireworksService.saveEntity(competencyBean);
+                        fireworksService.saveEntity(fireworksBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);
                     } catch (Exception e) {
@@ -62,8 +62,8 @@ public class FireworksAddPage extends BasePanel {
                 }
             }
         };
-        competencyBeanForm.add(ajaxSubmitLink);
-        competencyBeanForm.add(new AjaxButton("cancel") {
+        fireworksBeanForm.add(ajaxSubmitLink);
+        fireworksBeanForm.add(new AjaxButton("cancel") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 onDeleteTabs(target);
@@ -75,7 +75,7 @@ public class FireworksAddPage extends BasePanel {
     }
 
     private void initForm(FireworksBean bean) {
-        competencyBeanForm.setModelObject(bean);
+        fireworksBeanForm.setModelObject(bean);
     }
 
     private void initFeedBack() {
@@ -85,12 +85,12 @@ public class FireworksAddPage extends BasePanel {
 
     private void addTextFieldToForm(String value) {
         TextField textField = new TextField(value);
-        competencyBeanForm.add(textField);
+        fireworksBeanForm.add(textField);
     }
 
     private void addHiddenFieldToForm(String value) {
         HiddenField hiddenField = new HiddenField(value);
-        competencyBeanForm.add(hiddenField);
+        fireworksBeanForm.add(hiddenField);
     }
 
     private void addTextFieldsToForm() {
