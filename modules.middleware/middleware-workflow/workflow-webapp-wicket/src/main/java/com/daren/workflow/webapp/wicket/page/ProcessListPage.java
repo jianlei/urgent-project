@@ -3,7 +3,6 @@ package com.daren.workflow.webapp.wicket.page;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.core.web.wicket.manager.FormPanelManager;
-import com.daren.workflow.webapp.wicket.component.ActiveActivityImage;
 import com.daren.workflow.webapp.wicket.model.AvailableProcessesModel;
 import com.daren.workflow.webapp.wicket.model.ProcessDefinitionModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -38,13 +37,27 @@ import java.util.List;
 public class ProcessListPage extends WorkflowBasePanel{
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "新建流程";
+    //dialog定义  -dlw
+    final WebMarkupContainer dialogWrapper;
     @Inject
     private transient FormService formService;
     private WebMarkupContainer wmc;
+    private WorkFlowImgViewPage dialog;
 
     public ProcessListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc,CONST_LIST);
-
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog"));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
     }
 
     @Override
@@ -79,12 +92,13 @@ public class ProcessListPage extends WorkflowBasePanel{
                     item.add(new Label("description", row.getDescription()));
                     item.add(new Label("version", row.getVersion()));
                     item.add(new Label("key", row.getKey()));
-                    item.add(new ActiveActivityImage("image",row));
+                   /* item.add(new ActiveActivityImage("image",row));*/
                     if(row.isSuspended())
                         item.add(new Label("suspended","无效" ));
                     else
                         item.add(new Label("suspended","有效" ));
                     item.add(initStartButton(row));
+                    item.add(initViewButton(row));
                 }
             };
             table.add(listView);
@@ -115,6 +129,37 @@ public class ProcessListPage extends WorkflowBasePanel{
                 }
             };
         }
+
+        /**
+         * 任务查看按钮
+         *
+         * @return
+         */
+        private IndicatingAjaxLink initViewButton(final ProcessDefinition processDefinition) {
+            return new IndicatingAjaxLink("view") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createDialog(target, "流程查看",processDefinition);//dialog函数调用  --dlw
+                }
+            };
+        }
+
+        //创建文本框 ---dlw
+        private void createDialog(AjaxRequestTarget target, final String title, final ProcessDefinition processDefinition) {
+            if (dialog != null) {
+                dialogWrapper.removeAll();
+            }
+            dialog = new WorkFlowImgViewPage("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
+                @Override
+                public void updateTarget(AjaxRequestTarget target) {
+
+                }
+            };
+            target.add(dialogWrapper);
+            dialog.open(target);
+        }
+
+
         /**
          * 创建新的页面，用于新增和修改
          *
