@@ -1,6 +1,6 @@
 package com.daren.workflow.webapp.wicket.page;
 
-import com.daren.core.web.component.map.MapDialog;
+import com.daren.workflow.webapp.wicket.component.WorkFlowDialog;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -17,18 +17,18 @@ import org.apache.wicket.markup.repeater.RepeatingView;
  * @修改时间：
  * @修改备注：
  */
-public class WorkFlowImgViewPage extends MapDialog {
-    WebMarkupContainer wmc = new WebMarkupContainer("allmapwmc");
-    RepeatingView allmap = new RepeatingView("allmap");
+public class WorkFlowImgViewDialog extends WorkFlowDialog {
+    WebMarkupContainer workFlowImgViewDialog_div = new WebMarkupContainer("workFlowImgViewDialog_div");
+    RepeatingView workFlowImgViewDialog_img = new RepeatingView("workFlowImgViewDialog_img");
     //构造函数
-    public WorkFlowImgViewPage(String id, String title,final Task processDefinition) {
+    public WorkFlowImgViewDialog(String id, String title,final Task processDefinition) {
         super(id, title);
-        allmap.setOutputMarkupId(true);
-        wmc.setOutputMarkupId(true);
-        wmc.add(allmap);
-        this.add(wmc);
-        WorkFlowImgView workFlowImgView = new WorkFlowImgView(allmap.newChildId(), processDefinition);
-        allmap.add(workFlowImgView);
+        workFlowImgViewDialog_img.setOutputMarkupId(true);
+        workFlowImgViewDialog_div.setOutputMarkupId(true);
+        workFlowImgViewDialog_div.add(workFlowImgViewDialog_img);
+        this.add(workFlowImgViewDialog_div);
+        WorkFlowImgView workFlowImgView = new WorkFlowImgView(workFlowImgViewDialog_img.newChildId(), processDefinition);
+        workFlowImgViewDialog_img.add(workFlowImgView);
 
 //        //调用OnDomReadyHeader方法
 //        workFlowImgView.add(new Behavior() {
@@ -39,14 +39,14 @@ public class WorkFlowImgViewPage extends MapDialog {
 //        });
     }
 
-    public WorkFlowImgViewPage(String id, String title,final ProcessDefinition processDefinition) {
+    public WorkFlowImgViewDialog(String id, String title,final ProcessDefinition processDefinition) {
         super(id, title);
-        allmap.setOutputMarkupId(true);
-        wmc.setOutputMarkupId(true);
-        wmc.add(allmap);
-        this.add(wmc);
-        WorkFlowImgView workFlowImgView = new WorkFlowImgView(allmap.newChildId(), processDefinition);
-        allmap.add(workFlowImgView);
+        workFlowImgViewDialog_img.setOutputMarkupId(true);
+        workFlowImgViewDialog_div.setOutputMarkupId(true);
+        workFlowImgViewDialog_div.add(workFlowImgViewDialog_img);
+        this.add(workFlowImgViewDialog_div);
+        WorkFlowImgView workFlowImgView = new WorkFlowImgView(workFlowImgViewDialog_img.newChildId(), processDefinition);
+        workFlowImgViewDialog_img.add(workFlowImgView);
 
 //        //调用OnDomReadyHeader方法
 //        workFlowImgView.add(new Behavior() {
@@ -58,8 +58,8 @@ public class WorkFlowImgViewPage extends MapDialog {
     }
     @Override
     public void onClose(AjaxRequestTarget target, DialogButton button) {
-        allmap.removeAll();
-        target.add(wmc);
+        workFlowImgViewDialog_img.removeAll();
+        target.add(workFlowImgViewDialog_div);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class ProcessListPage extends WorkflowBasePanel{
     @Inject
     private transient FormService formService;
     private WebMarkupContainer wmc;
-    private WorkFlowImgViewPage dialog;
+    private WorkFlowImgViewDialog dialog;
 
     public ProcessListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc,CONST_LIST);
@@ -149,7 +149,7 @@ public class ProcessListPage extends WorkflowBasePanel{
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            dialog = new WorkFlowImgViewPage("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
+            dialog = new WorkFlowImgViewDialog("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
 

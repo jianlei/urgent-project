@@ -43,7 +43,7 @@ public class TaskListPage extends WorkflowBasePanel{
     private final static String CONST_LIST = "待办事项";
     //dialog定义  -dlw
     final WebMarkupContainer dialogWrapper;
-    private WorkFlowImgViewPage dialog;
+    private WorkFlowImgViewDialog dialog;
 
     @Inject
     private transient RepositoryService repositoryService;
@@ -183,7 +183,7 @@ public class TaskListPage extends WorkflowBasePanel{
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            dialog = new WorkFlowImgViewPage("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
+            dialog = new WorkFlowImgViewDialog("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
 
