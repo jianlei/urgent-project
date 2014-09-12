@@ -4,7 +4,9 @@ package com.daren.competency.webapp.wicket.page;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
 import com.daren.core.web.wicket.BasePanel;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -12,8 +14,10 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 
 /**
@@ -26,8 +30,8 @@ import javax.inject.Inject;
  */
 
 public class CompetencyAddPage extends BasePanel {
-    Form<CompetencyBean> competencyBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(new CompetencyBean()));
     CompetencyBean competencyBean = new CompetencyBean();
+    Form<CompetencyBean> competencyBeanForm = new Form("majorHazardSourceForm", new CompoundPropertyModel(competencyBean));
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private ICompetencyService competencyService;
@@ -40,6 +44,7 @@ public class CompetencyAddPage extends BasePanel {
         initForm(competencyBean);
         initFeedBack();
         addForm(id, wmc);
+        addDatePickerToForm(competencyBean, competencyBeanForm);
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
@@ -50,16 +55,13 @@ public class CompetencyAddPage extends BasePanel {
         AjaxButton ajaxSubmitLink = new AjaxButton("save", competencyBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                CompetencyBean competencyBean = (CompetencyBean) form.getModelObject();
-                if (null != competencyBean) {
-                    try {
-                        competencyService.saveEntity(competencyBean);
-                        feedbackPanel.info("保存成功！");
-                        target.add(feedbackPanel);
-                    } catch (Exception e) {
-                        feedbackPanel.info("保存失败！");
-                        target.add(feedbackPanel);
-                    }
+                try {
+                    competencyService.saveEntity(competencyBean);
+                    feedbackPanel.info("保存成功！");
+                    target.add(feedbackPanel);
+                } catch (Exception e) {
+                    feedbackPanel.info("保存失败！");
+                    target.add(feedbackPanel);
                 }
             }
         };
@@ -94,6 +96,20 @@ public class CompetencyAddPage extends BasePanel {
         competencyBeanForm.add(hiddenField);
     }
 
+    //日期控件//
+    private void addDatePickerToForm(String value, String dateFormat, String formatOne, String formatTwo, CompetencyBean bean, Form form) {
+        DatePicker accidentTime = new DatePicker(value,
+                new PropertyModel<Date>(bean, value), formatOne,
+                new Options(dateFormat, Options.asString(formatTwo)));
+        form.add(accidentTime);
+    }
+
+    private void addDatePickerToForm(CompetencyBean bean, Form form) {
+        addDatePickerToForm("awardDate", "dateFormat", "yyyy-MM-dd", "yy-mm-dd", bean, form);
+        addDatePickerToForm("effectiveDate", "dateFormat", "yyyy-MM-dd", "yy-mm-dd", bean, form);
+    }
+
+
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
         addTextFieldToForm("sex");
@@ -103,8 +119,6 @@ public class CompetencyAddPage extends BasePanel {
         addTextFieldToForm("id_code");
         addTextFieldToForm("unitType");
         addTextFieldToForm("qualificationsType");
-        addTextFieldToForm("awardDate");
-        addTextFieldToForm("effectiveDate");
         addTextFieldToForm("code");
     }
 }

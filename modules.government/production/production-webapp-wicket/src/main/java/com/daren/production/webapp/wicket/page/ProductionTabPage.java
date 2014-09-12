@@ -63,7 +63,7 @@ public class ProductionTabPage extends BasePanel {
         ProductionListPage hazardPage = new ProductionListPage(id, wmc) {
             @Override
             protected void createButtonOnClick(ProductionBean productionBean, AjaxRequestTarget target) {
-                initProductionCreatePage(id, wmc, productionBean, target, true, "安全生产许可证(非煤矿山)");
+                initProductionCreatePage(id, wmc, productionBean, target, true, "安全生产许可证(非煤矿山)信息编辑");
             }
         };
         return hazardPage;
