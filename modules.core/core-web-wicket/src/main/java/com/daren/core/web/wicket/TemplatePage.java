@@ -5,6 +5,7 @@ import com.daren.core.web.wicket.custome.CustomeMenuPanel;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
@@ -20,7 +21,11 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
 public class TemplatePage extends WebPage {
+
+//    String url = "daren.project.urgent";
+
     public TemplatePage() {
+
         Link home=new Link("home") {
             @Override
             public void onClick() {
@@ -30,6 +35,19 @@ public class TemplatePage extends WebPage {
         };
         this.add(home);
         final WebMarkupContainer wmc = new WebMarkupContainer("container");
+
+        String url = getApplication().getName();
+        String css_url="<style type=\"text/css\">.cus {\n" +
+                "    background: url(../../cus/img/"+url+".png) no-repeat;\n" +
+                "    height: 97px;\n" +
+                "    position: relative;\n" +
+                "}</style>";
+
+        Label label = new Label("css", css_url);
+        label.setEscapeModelStrings(false);
+        label.setRenderBodyOnly(true);
+        this.add(label);
+
         wmc.setOutputMarkupPlaceholderTag(true); //Set the flag placeholder so it can be updated via AJAX
 
         add(wmc.setOutputMarkupId(true));
