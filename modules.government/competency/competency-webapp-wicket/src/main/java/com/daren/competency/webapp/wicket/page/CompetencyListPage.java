@@ -2,6 +2,7 @@ package com.daren.competency.webapp.wicket.page;
 
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -56,8 +57,8 @@ public class CompetencyListPage extends BasePanel {
                 item.add(new Label("id_code", competencyBean.getId_code()));
                 item.add(new Label("unitType", competencyBean.getUnitType()));
                 item.add(new Label("qualificationsType", competencyBean.getQualificationsType()));
-                item.add(new Label("awardDate", competencyBean.getAwardDate()));
-                item.add(new Label("effectiveDate", competencyBean.getEffectiveDate()));
+                item.add(new Label("awardDate", DateUtil.convertDateToString(competencyBean.getAwardDate(), DateUtil.shortSdf)));
+                item.add(new Label("effectiveDate", DateUtil.convertDateToString(competencyBean.getEffectiveDate(), DateUtil.shortSdf)));
                 item.add(new Label("code", competencyBean.getCode()));
 
                 item.add(getToCreatePageLink("check_name", competencyBean));

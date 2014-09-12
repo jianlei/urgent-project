@@ -4,7 +4,6 @@ import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.core.web.wicket.manager.FormPanelManager;
-import com.daren.workflow.webapp.wicket.component.ActiveActivityImage;
 import com.daren.workflow.webapp.wicket.model.TaskModel;
 import com.daren.workflow.webapp.wicket.model.TasksAssignableToUserModel;
 import com.daren.workflow.webapp.wicket.model.UserIdModel;
@@ -44,7 +43,7 @@ public class TaskListPage extends WorkflowBasePanel{
     private final static String CONST_LIST = "待办事项";
     //dialog定义  -dlw
     final WebMarkupContainer dialogWrapper;
-    private WorkFlowImgViewPage dialog;
+    private WorkFlowImgViewDialog dialog;
 
     @Inject
     private transient RepositoryService repositoryService;
@@ -130,9 +129,9 @@ public class TaskListPage extends WorkflowBasePanel{
                     item.add(new Label("owner", row.getOwner()));
                     item.add(new Label("assignee", row.getAssignee()));
                     item.add(new Label("createTime", DateUtil.convertDateToString(row.getCreateTime(), DateUtil.longSdf)));
-                    item.add(new ActiveActivityImage("image",row));
+                    /*item.add(new ActiveActivityImage("image",row));//生成工作流图片*/
                     item.add(initStartButton(row));
-                    item.add(initViewButton(row,row.getId().toString()));
+                    item.add(initViewButton(row));
                 }
             };
             table.add(listView);
@@ -170,21 +169,21 @@ public class TaskListPage extends WorkflowBasePanel{
          *
          * @return
          */
-        private IndicatingAjaxLink initViewButton(Task processDefinition,final String flwid) {
+        private IndicatingAjaxLink initViewButton(final Task processDefinition) {
             return new IndicatingAjaxLink("view") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-                    createDialog(target, "流程查看",flwid);//dialog函数调用  --dlw
+                    createDialog(target, "流程查看",processDefinition);//dialog函数调用  --dlw
                 }
             };
         }
 
         //创建文本框 ---dlw
-        private void createDialog(AjaxRequestTarget target, final String title,String flwid) {
+        private void createDialog(AjaxRequestTarget target, final String title, final Task processDefinition) {
             if (dialog != null) {
                 dialogWrapper.removeAll();
             }
-            dialog = new WorkFlowImgViewPage("dialog", title,flwid) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
+            dialog = new WorkFlowImgViewDialog("dialog", title,processDefinition) {//new 窗体中内容 例如 new WindowMapPage对应WindowMapPage.hml
                 @Override
                 public void updateTarget(AjaxRequestTarget target) {
 
@@ -195,4 +194,4 @@ public class TaskListPage extends WorkflowBasePanel{
         }
     }
 
-    }
+}
