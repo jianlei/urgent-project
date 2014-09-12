@@ -12,20 +12,24 @@ import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,7 +56,7 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
     private JQueryFeedbackPanel feedbackPanel; //信息显示
 
     private String comment;
-    private boolean accepted;
+    private String accepted="同意";
 
     public ChemistryManageAuditTaskFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -71,41 +75,45 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
         }
         bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
 
-        final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
+        final Form<Map<String, String>> form = new Form<>("startForm", new CompoundPropertyModel<Map<String, String>>(new HashMap<String, String>()));
         form.setOutputMarkupId(true);
         add(form);
 
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //add data to form
-        form.add(new Label("code").setOutputMarkupId(true));
-        form.add(new Label("name").setOutputMarkupId(true));
-        form.add(new Label("header").setOutputMarkupId(true));
-        form.add(new Label("address").setOutputMarkupId(true));
-        form.add(new Label("unitType").setOutputMarkupId(true));
-        form.add(new Label("scope").setOutputMarkupId(true));
-        form.add(new Label("mode").setOutputMarkupId(true));
-        form.add(new Label("startDate").setOutputMarkupId(true));
-        form.add(new Label("endDate").setOutputMarkupId(true));
-        form.add(new Label("unitsDate").setOutputMarkupId(true));
-        form.add(new Label("proposerId").setOutputMarkupId(true));
-        form.add(new Label("qyid").setOutputMarkupId(true));
+        form.add(new Label("code",new PropertyModel<String>(bean, "code")));
+        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
+        form.add(new Label("header",new PropertyModel<String>(bean, "header")));
+        form.add(new Label("address",new PropertyModel<String>(bean, "address")));
+        form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
+        form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
+        form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
+        form.add(new Label("startDate",new PropertyModel<String>(bean, "startDate")));
+        form.add(new Label("endDate",new PropertyModel<String>(bean, "endDate")));
+        form.add(new Label("unitsDate",new PropertyModel<String>(bean, "unitsDate")));
+        form.add(new Label("proposerId",new PropertyModel<String>(bean, "proposerId")));
+        form.add(new Label("qyid",new PropertyModel<String>(bean, "qyid")));
         form.add(new Label("taskName", task.getName()));
 
 
-        form.add(new CheckBox("accepted", new PropertyModel<Boolean>(this, "accepted")).setOutputMarkupId(true));
-
+        //审批结果
+        final List<String> TYPES = Arrays.asList(new String[]{"同意", "不同意"});
+        RadioChoice<String> radio_accepted = new RadioChoice<String>(
+                "accepted", new PropertyModel<String>(this, "accepted"), TYPES);
+        form.add(radio_accepted);
+        //审批意见
         form.add(new TextField("comment", new PropertyModel<String>(this, "comment")).setOutputMarkupId(true));
 
-        /*StartFormData startFormData = formService.getStartFormData(task.getId());
-        List<FormProperty> formProperties = startFormData.getFormProperties();*/
+        TaskFormData startFormData = formService.getTaskFormData(task.getId());
+        final List<FormProperty> formProperties = startFormData.getFormProperties();
 
         //保存按钮
         form.add(new AjaxButton("save", form) {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                logger.debug("Trying to start new process for {}", task.getId());
+                logger.debug("Trying to finish a task for {}", task.getId());
                 try {
                     //todo 封装到service
 
@@ -113,7 +121,12 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     Map<String, String> submitMap = new HashMap<String, String>();
-                    submitMap.put("accepted", String.valueOf(accepted));
+
+                    for(FormProperty formProperty:formProperties){
+                        submitMap.put(formProperty.getId(), String.valueOf(accepted));
+                    }
+                    taskService.setVariablesLocal(task.getId(), submitMap);
+
                     formService.submitTaskFormData(task.getId(), submitMap);
                     model.setObject(null);
                     feedbackPanel.info("事项处理成功，请点击关闭按钮！");
@@ -147,11 +160,11 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
         this.comment = comment;
     }
 
-    public boolean isAccepted() {
+    public String getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(String accepted) {
         this.accepted = accepted;
     }
 }

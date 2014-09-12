@@ -1,10 +1,14 @@
 package com.daren.workflow.webapp.wicket.page;
 
 import com.daren.core.util.DateUtil;
+import com.daren.core.web.api.workflow.IBizDataHandler;
+import com.daren.core.web.wicket.manager.BizDataPanelManager;
+import com.daren.workflow.webapp.wicket.util.WorkflowUtil;
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -31,13 +35,30 @@ public class ViewHistoryVarinst extends Panel {
 
     public ViewHistoryVarinst(String id, String historyProcessId, String processDefinitionId) {
         super(id);
+        HistoricProcessInstance processInstance=historyService.createHistoricProcessInstanceQuery().processInstanceId(historyProcessId).singleResult();
+
+        String processKey=WorkflowUtil.getProcessKey(processDefinitionId);
+        IBizDataHandler handler= BizDataPanelManager.getInstall().findPanelByKey(processKey);
+
+        String beanId=WorkflowUtil.getBizId(processInstance.getBusinessKey());
+        initBizData(beanId,handler);
         initDataTable(historyProcessId, processDefinitionId);
         initProcessView(historyProcessId, processDefinitionId);
     }
 
+    /**
+     * 业务数据显示
+     * @param beanId
+     * @param handler
+     */
+    public void initBizData(String beanId,IBizDataHandler handler){
+        Panel bizPanel=handler.getPanel("bizData",beanId);
+        this.add(bizPanel);
+    }
 
     public void initDataTable(String historyProcessId, String processDefinitionId) {
-        final WebMarkupContainer table = new WebMarkupContainer("varTable");
+
+        /*final WebMarkupContainer table = new WebMarkupContainer("varTable");
 
         final DataView<HistoricVariableInstance> listView = new DataView<HistoricVariableInstance>("rows", new HistoricVariableInstanceProvider(historyProcessId), 10) {
             private static final long serialVersionUID = 1L;
@@ -50,7 +71,7 @@ public class ViewHistoryVarinst extends Panel {
             }
         };
         table.add(listView);
-        this.add(table.setOutputMarkupId(true));
+        this.add(table.setOutputMarkupId(true));*/
 
     }
 

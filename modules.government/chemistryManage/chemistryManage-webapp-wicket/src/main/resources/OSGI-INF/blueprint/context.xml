@@ -2,25 +2,31 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageMenuItemsModule">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageMenuItemsModule">
         </bean>
     </service>
 
     <!-- ChemistryManage start form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageStartFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageStartFormHandler">
         </bean>
     </service>
 
     <!-- ChemistryManage modify form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageModifyFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageModifyFormHandler">
         </bean>
     </service>
 
     <!-- ChemistryManage audit task form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.ChemistryManageAuditTaskFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageAuditTaskFormHandler">
+        </bean>
+    </service>
+
+    <!-- ChemistryManage audit task form -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageBizDataHandler">
         </bean>
     </service>
 </blueprint>

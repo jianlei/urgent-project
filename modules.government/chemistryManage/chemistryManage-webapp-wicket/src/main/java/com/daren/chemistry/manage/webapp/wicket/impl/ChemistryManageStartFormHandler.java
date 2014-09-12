@@ -1,5 +1,6 @@
-package com.daren.chemistry.manage.webapp.wicket;
+package com.daren.chemistry.manage.webapp.wicket.impl;
 
+import com.daren.chemistry.manage.webapp.wicket.Const;
 import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageStartFormPage;
 import com.daren.core.web.api.workflow.IFormHandler;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -26,6 +27,6 @@ public class ChemistryManageStartFormHandler implements IFormHandler{
 
     @Override
     public String getProcessDefinitionId() {
-        return "chemistryManage";
+        return Const.PROCESS_KEY;
     }
 }

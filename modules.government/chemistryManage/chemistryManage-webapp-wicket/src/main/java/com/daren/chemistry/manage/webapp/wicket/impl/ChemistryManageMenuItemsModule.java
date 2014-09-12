@@ -1,6 +1,5 @@
-package com.daren.chemistry.manage.webapp.wicket;
+package com.daren.chemistry.manage.webapp.wicket.impl;
 
-import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageListPage;
 import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageTabPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
 import org.apache.wicket.markup.html.WebMarkupContainer;
