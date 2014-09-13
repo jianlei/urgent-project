@@ -1,6 +1,5 @@
 package com.daren.fireworks.webapp.wicket.page;
 
-import com.daren.core.web.component.government.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
@@ -16,6 +15,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
+import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -68,7 +68,7 @@ public class FireworksListPage extends BasePanel {
                 item.add(new Label("scope", fireworksBean.getScope()));
                 item.add(getToCreatePageLink("check_name", fireworksBean));
                 item.add(getToUploadPageLink("upload", fireworksBean));
-
+                item.add(getDuplicateLink("duplicate", fireworksBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -96,11 +96,21 @@ public class FireworksListPage extends BasePanel {
         return ajaxLink;
     }
 
+    private AjaxLink getDuplicateLink(String wicketId, final FireworksBean fireworksBean){
+        AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", fireworksBean, "list");
+            }
+        };
+        return alinkDuplicate;
+    }
+
     private AjaxLink getToUploadPageLink(String wicketId, final FireworksBean fireworksBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean);
+                createDialog(target, "上传复件", fireworksBean, "upload");
             }
         };
         return ajaxLink;
@@ -109,11 +119,11 @@ public class FireworksListPage extends BasePanel {
     protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {
     }
 
-    private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean) {
+    private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean, String type) {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new WindowGovernmentPage("dialog", title, fireworksBean.getId(), "upload", "fireworks") {
+        dialog = new WindowGovernmentPage("dialog", title, fireworksBean.getId(), type, "fireworks") {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
             }

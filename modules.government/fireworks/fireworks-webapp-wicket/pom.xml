@@ -217,6 +217,34 @@
             <artifactId>activiti-bpmn-converter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.api</artifactId>
+        </dependency>
+
+<!--
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.core</artifactId>
+        </dependency>
+-->
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.persist.openjpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.webapp.wicket</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

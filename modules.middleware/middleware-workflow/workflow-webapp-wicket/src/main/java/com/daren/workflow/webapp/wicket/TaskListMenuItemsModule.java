@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：代办事项子菜单定义类
+ * @类描述：代办任务子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -29,7 +29,7 @@ public class TaskListMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "待办事项";  //To change body of implemented methods use File | Settings | File Templates.
+        return "待办任务";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

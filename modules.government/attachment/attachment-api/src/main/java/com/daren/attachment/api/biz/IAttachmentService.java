@@ -1,5 +1,6 @@
 package com.daren.attachment.api.biz;
 
+import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
@@ -13,4 +14,5 @@ import java.util.List;
  * @修改备注：
  */
 public interface IAttachmentService extends IBizService {
+    public List<AttachmentBean> getAttachmentBeanByParentIdAndAppType(long preateId, String appType);
 }

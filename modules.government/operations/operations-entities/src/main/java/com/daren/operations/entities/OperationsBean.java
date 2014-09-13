@@ -29,7 +29,8 @@ public class OperationsBean extends WorkflowEntity {
     private Date endDate;//有效期限结束
     private Date reviewDate;//复审日期
     private long proposerId;//审请人ID
-    private long enterpriseId;//企业名称
+    private long enterpriseName;//企业名称
+    private long enterpriseId;//企业ID
 
     public Date getReceiveDate() {
         return receiveDate;
@@ -101,6 +102,14 @@ public class OperationsBean extends WorkflowEntity {
 
     public void setProposerId(long proposerId) {
         this.proposerId = proposerId;
+    }
+
+    public long getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(long enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
     public long getEnterpriseId() {

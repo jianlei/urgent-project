@@ -1,4 +1,4 @@
-package com.daren.core.web.component.government;
+package com.daren.attachment.webapp.wicket.page;
 
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;

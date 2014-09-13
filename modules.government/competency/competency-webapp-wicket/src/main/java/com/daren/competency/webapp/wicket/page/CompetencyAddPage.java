@@ -113,12 +113,11 @@ public class CompetencyAddPage extends BasePanel {
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
         addTextFieldToForm("sex");
-        addTextFieldToForm("enterpriseId");
+        addTextFieldToForm("enterpriseName");
         addTextFieldToForm("title");
         addTextFieldToForm("cultureLevel");
         addTextFieldToForm("id_code");
         addTextFieldToForm("unitType");
         addTextFieldToForm("qualificationsType");
-        addTextFieldToForm("code");
     }
 }

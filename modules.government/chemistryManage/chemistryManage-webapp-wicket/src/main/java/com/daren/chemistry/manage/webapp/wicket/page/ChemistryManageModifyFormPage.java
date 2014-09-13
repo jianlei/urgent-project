@@ -98,7 +98,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
                     chemistryManageBeanService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
-                    feedbackPanel.info("事项处理成功，请点击关闭按钮！");
+                    feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     target.add(ChemistryManageModifyFormPage.this.findParent(TabbedPanel.class));
                 } finally {
@@ -107,7 +107,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
             }
 
             protected void onError(AjaxRequestTarget target, Form<?> form) {
-                feedbackPanel.error("事项处理失败");
+                feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
             }
         });

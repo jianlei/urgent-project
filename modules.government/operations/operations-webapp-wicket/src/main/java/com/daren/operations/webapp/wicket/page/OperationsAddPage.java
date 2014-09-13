@@ -96,13 +96,8 @@ public class OperationsAddPage extends BasePanel {
 
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
-        addTextFieldToForm("code");
+        addTextFieldToForm("enterpriseName");
         addTextFieldToForm("workType");
         addTextFieldToForm("operationProject");
-        addTextFieldToForm("receiveDate");
-        addTextFieldToForm("startDate");
-        addTextFieldToForm("endDate");
-        addTextFieldToForm("reviewDate");
-        addTextFieldToForm("enterpriseId");
     }
 }

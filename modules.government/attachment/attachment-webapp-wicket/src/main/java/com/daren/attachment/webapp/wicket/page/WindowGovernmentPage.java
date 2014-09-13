@@ -1,4 +1,5 @@
-package com.daren.core.web.component.government;
+package com.daren.attachment.webapp.wicket.page;
+
 
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
@@ -21,7 +22,7 @@ public class WindowGovernmentPage extends GovernmentDialog {
         this.add(wmc);
         pageType = type;
         if(type.equals("list")){
-            allmap.add(new ListPage(allmap.newChildId()));
+            allmap.add(new ListPage(allmap.newChildId(), preateId, appType));
         }else{
             allmap.add(new UploadPage(allmap.newChildId(), preateId, appType));
         }
