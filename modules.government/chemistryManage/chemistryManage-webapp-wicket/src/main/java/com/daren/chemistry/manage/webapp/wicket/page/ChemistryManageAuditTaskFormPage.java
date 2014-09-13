@@ -126,7 +126,7 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
 
                     formService.submitTaskFormData(task.getId(), submitMap);
                     model.setObject(null);
-                    feedbackPanel.info("事项处理成功，请点击关闭按钮！");
+                    feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     target.add(ChemistryManageAuditTaskFormPage.this.findParent(TabbedPanel.class));
                 } finally {
@@ -135,7 +135,7 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
             }
 
             protected void onError(AjaxRequestTarget target, Form<?> form) {
-                feedbackPanel.error("事项处理失败");
+                feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
             }
         });

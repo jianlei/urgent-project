@@ -1,12 +1,12 @@
 package com.daren.workflow.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.core.web.wicket.manager.FormPanelManager;
 import com.daren.workflow.webapp.wicket.model.TaskModel;
-import com.daren.workflow.webapp.wicket.model.TasksAssignableToUserModel;
-import com.daren.workflow.webapp.wicket.model.UserIdModel;
+import com.daren.workflow.webapp.wicket.model.TasksAssignedToUserModel;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import org.activiti.engine.FormService;
@@ -31,7 +31,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * @类描述：待办事项列表页面类
+ * @类描述：待办任务列表页面类
  * @创建人： sunlingfeng
  * @创建时间：2014/9/6
  * @修改人：
@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class TaskListPage extends WorkflowBasePanel{
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "待办事项";
+    private final static String CONST_LIST = "待办任务";
     //dialog定义  -dlw
     final WebMarkupContainer dialogWrapper;
     private WorkFlowImgViewDialog dialog;
@@ -50,6 +50,9 @@ public class TaskListPage extends WorkflowBasePanel{
 
     @Inject
     private transient FormService formService;
+
+    @Inject
+    private transient IUserBeanService userService;
 
     public TaskListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc,CONST_LIST);
@@ -116,7 +119,7 @@ public class TaskListPage extends WorkflowBasePanel{
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
-            final IModel<List<Task>> taskList=new TasksAssignableToUserModel(new UserIdModel());
+            final IModel<List<Task>> taskList=new TasksAssignedToUserModel(Model.of(userService.getCurrentUserName()));
             //add listview
             final ListView<Task> listView = new ListView<Task>("rows", taskList) {
                 private static final long serialVersionUID = 1L;
@@ -126,7 +129,7 @@ public class TaskListPage extends WorkflowBasePanel{
                     item.add(new Label("id", row.getId()));
                     item.add(new Label("name", row.getName()));
                     item.add(new Label("description", row.getDescription()));
-                    item.add(new Label("owner", row.getOwner()));
+//                    item.add(new Label("owner", row.getOwner()));
                     item.add(new Label("assignee", row.getAssignee()));
                     item.add(new Label("createTime", DateUtil.convertDateToString(row.getCreateTime(), DateUtil.longSdf)));
                     /*item.add(new ActiveActivityImage("image",row));//生成工作流图片*/

@@ -92,7 +92,10 @@ public class HistoryListPage extends WorkflowBasePanel{
 
                     String processInstanceId=((HistoricProcessInstanceEntity)row).getProcessInstanceId();
                     Task task= taskService.createTaskQuery().processInstanceId(processInstanceId).executionId(row.getId()).singleResult();
-                    item.add(new Label("activity", task.getName()));
+                    if(task!=null)
+                        item.add(new Label("activity", task.getName()));
+                    else
+                        item.add(new Label("activity", ""));
 
                     if(null==endTime){
                         item.add(new Label("status", "办理中"));

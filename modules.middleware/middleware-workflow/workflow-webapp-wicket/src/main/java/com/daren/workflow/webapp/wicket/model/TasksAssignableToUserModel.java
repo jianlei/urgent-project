@@ -23,7 +23,7 @@ public class TasksAssignableToUserModel extends LoadableDetachableModel<List<Tas
 		return taskService
 				.createTaskQuery()
 				//todo sunlf
-				// .taskCandidateUser(userIdModel.getObject())
+				 .taskCandidateUser(userIdModel.getObject())
                 .list();
 	}
 

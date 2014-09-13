@@ -15,27 +15,31 @@
 <div>
     <span wicket:id="feedback"/>
 </div>
-<form wicket:id="form">
-    <table>
-        <tr>
-            <td>请填写手机号码</td>
-            <td class="td_detail">
-                <input type="text" wicket:id="phone"/>
-            </td>
-        </tr>
-        <tr>
-            <td>请选择流程</td>
-            <td class="td_detail">
-                <!--<select wicket:id="select"></select>-->
-                <select wicket:id="selected"></select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" align="right">
-                <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
-            </td>
-        </tr>
-    </table>
-</form>
+<div>
+    <form wicket:id="form">
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <td>请填写手机号码</td>
+                <td class="td_detail">
+                    <input type="text" wicket:id="phone"/>
+                </td>
+            </tr>
+            <tr>
+                <td>请选择流程</td>
+                <td class="td_detail">
+                    <select wicket:id="selected"></select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right">
+                    <input class="btn btn-inverse" type="button" value="保存" wicket:id="save"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div wicket:id="wmc">
+    <div wicket:id="myApplyProcess"></div>
+</div>
 </body>
 </html>

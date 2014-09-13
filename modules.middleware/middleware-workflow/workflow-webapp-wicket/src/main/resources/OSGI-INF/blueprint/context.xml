@@ -42,7 +42,7 @@
         </bean>
     </service>
 
-    <!-- 发布代办事项子菜单 -->
+    <!-- 发布代办任务子菜单 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.TaskListMenuItemsModule">
         </bean>

@@ -69,6 +69,7 @@ public class FireworksListPage extends BasePanel {
         add(table.setOutputMarkupId(true));
         DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
+
             @Override
             protected void populateItem(Item<FireworksBean> item) {
                 final FireworksBean fireworksBean = item.getModelObject();
@@ -157,7 +158,8 @@ public class FireworksListPage extends BasePanel {
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {}
+    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {
+    }
 
     private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean, String type) {
         if (dialog != null) {
@@ -199,9 +201,11 @@ public class FireworksListPage extends BasePanel {
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
         private FireworksBean fireworksBean = null;
+
         public void setFireworksBean(FireworksBean fireworksBean) {
             this.fireworksBean = fireworksBean;
         }
+
         @Override
         protected List<FireworksBean> getData() {
             if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))
