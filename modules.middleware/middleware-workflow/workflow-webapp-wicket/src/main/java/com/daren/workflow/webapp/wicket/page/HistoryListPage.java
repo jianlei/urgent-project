@@ -146,7 +146,7 @@ public class HistoryListPage extends WorkflowBasePanel{
                 public WebMarkupContainer getLazyPanel(String panelId) {
                     //通过repeatingView增加新的panel
                     repeatingView.removeAll();
-                    repeatingView.add(new ViewHistoryVarinst(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
+                    repeatingView.add(new AcvitityHistoryPanel(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
                     Fragment fragment = new Fragment(panelId, "addPanel", HistoryListPage.this);
                     fragment.add(repeatingView);
                     return fragment;
