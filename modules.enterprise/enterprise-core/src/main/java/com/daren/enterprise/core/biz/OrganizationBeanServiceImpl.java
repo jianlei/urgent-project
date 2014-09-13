@@ -129,7 +129,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
         int result = -1;
         try {
             List list = new ArrayList();
-            List orglist = organizationBeanDao.findByNativeSql("select u.jgdm,u.mc as name from urg_ent_organization u " +
+            List orglist = organizationBeanDao.findByNativeSql("select u.jgdm,u.mc as name ,u.sjjgdm from urg_ent_organization u " +
                     "where u.sjjgdm='"+jgdm+"' and u.zfbj=0 ", OrgnizationListModel.class);
             if(orglist!=null && !orglist.isEmpty()){
                 list.addAll(orglist);

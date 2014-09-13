@@ -12,8 +12,8 @@ public class TengXunXinGe {
 /*	private static long access_id=2100035597;
 	private static String secret_key="07daab39e65c65b6dc575c0c0f7fc69a";
 	private String token="cd623a0e72a6736444dd90dc38e9ff1ec49c4f6f";*/
-	private static long access_id=2100038506;
-	private static String secret_key="8147214150d1dc67c9fae3a4d3d614a4";
+	private static long access_id=2100047027;
+	private static String secret_key="ce007ea5ddb662cc941414dbd334997a";
 	//private static String token="e7853ef3f9b52fb24904b6641fd535628f0354df";//zfl
 	private static String token="cd623a0e72a6736444dd90dc38e9ff1ec49c4f6f";//海信
 	private static Message message1;
@@ -138,7 +138,7 @@ public class TengXunXinGe {
 		XingeApp xinge = new XingeApp(access_id, secret_key);
 		Message message = new Message();
 		message.setTitle(title);
-		//message.setJson_m_content(content);
+		message.setContent(content.toString());
 		message.setType(Message.TYPE_MESSAGE);
 		JSONObject ret = xinge.pushSingleDevice(token, message);
 		

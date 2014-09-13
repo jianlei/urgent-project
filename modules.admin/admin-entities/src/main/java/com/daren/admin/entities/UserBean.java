@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
@@ -22,16 +20,14 @@ import java.util.List;
  * @修改备注：
  */
 @Entity
-//@Table(name = "sys_user")
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@XmlRootElement(name = "UserBean")
-@XmlAccessorType(XmlAccessType.FIELD)
+@Table(name = "sys_user")
+//@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
+//@XmlRootElement(name = "UserBean")
+//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class UserBean extends PersistentEntity {
-    @XmlTransient
-    private OfficeBean company;    // 归属公司
-    @XmlTransient
-    private OfficeBean office;    // 归属部门
+
     @XmlTransient
     private String jgdm;          //机构代码
     @XmlTransient
@@ -170,23 +166,4 @@ public class UserBean extends PersistentEntity {
         this.roleList = roleList;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    public OfficeBean getCompany() {
-        return company;
-    }
-
-    public void setCompany(OfficeBean company) {
-        this.company = company;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "office_id")
-    public OfficeBean getOffice() {
-        return office;
-    }
-
-    public void setOffice(OfficeBean office) {
-        this.office = office;
-    }
 }

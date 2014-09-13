@@ -38,6 +38,20 @@
             <tx:transaction method="*" value="Required"/>
         </bean>
     </service>
+    <!-- 聊天 -->
+    <service interface="com.daren.cooperate.api.dao.IChatBasicBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.ChatBasicBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
+    <service interface="com.daren.cooperate.api.dao.IChatIndexBeanDao">
+        <bean class="com.daren.cooperate.persist.openjpa.ChatIndexBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="cooperate-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
 
 </blueprint>
 

@@ -75,4 +75,12 @@ public interface IUserLoginService {
      */
     public Map loginByPhone(String username, String password, String client, HttpServletRequest request,
                             HttpServletResponse response);
+
+    /**
+     * 修改用户的token
+     * @param token
+     * @return
+     */
+    public Map updateToken(HttpServletRequest request,String token,Long user_id);
+
 }

@@ -48,4 +48,31 @@ public interface IUserBeanService extends IBizService {
      * @param roleSelect
      */
     void saveUserRole(UserBean userBean, List<String> roleSelect);
+
+    /**
+     * 通过用户id串获取用户token集合
+     * @param id
+     * @return
+     */
+    public List getUserTokenListByIds(Long id);
+
+    /**
+     * 通过jgdm获取用户token集合
+     * @return
+     */
+    public List getUserTokenListJgdm(String jgdm);
+
+    /**
+     * 根据日程id获取用户token
+     * @param notice_id
+     * @return
+     */
+    public List getUserTokenListByNoticeId(Long notice_id);
+
+    /**
+     * 根据机构代码串获取这些机构下的所有用户
+     * @param jgdm
+     * @return
+     */
+    public List getUseridListByGgdm(String jgdm);
 }

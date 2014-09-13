@@ -107,8 +107,8 @@ public class UserLoginServiceImpl implements IUserLoginService {
         Map map = new HashMap();
         int result = -1;
         try{
-            UserBean user = userBeanDao.getUser(username);
-            if (user!=null && encrypt(password).equals(user.getPassword())) {
+            UserBean user = userBeanDao.findUnique("select u from UserBean u where u.loginName=?1",username);
+            if (user!=null && password.equals(user.getPassword())) {
                 logon(user, client, request, response);
                 result = 1;
                 Map resMap = new HashMap();
@@ -150,52 +150,25 @@ public class UserLoginServiceImpl implements IUserLoginService {
         }
         return rsMap;
     }
-
-    /*public HashMap updateToken(HttpServletRequest request) {
+    @Override
+    @POST
+    @Produces("application/json;charset=utf-8")
+    @Path("/updateToken")
+    public Map updateToken(@Context HttpServletRequest request, @FormParam("token")String token,@FormParam("user_id") Long user_id) {
         int result =-1;
-        String message="失败!";
-        HashMap returnMap = new HashMap();
+        Map map = new HashMap();
         try {
-            User user = (User)request.getAttribute("userinfo");
-            if(user!=null && !user.equals("")){
-                String token = String.valueOf(request.getParameter("token"));
-                HashMap hm = new HashMap();
-                hm.put("user_id", user.getUser_id());
-                hm.put("token", token);
-                //单点登录判断
-                hm.put("username", user.getUser_name());
-                User checkUserOnline = userService.checkUserOnline(hm);
-                int resu = clientConfigMapperService.updateEqualUserToken(hm);
-                int updateClientClientConfig = clientConfigMapperService.updateClientClientConfigToken(hm);
-                if(updateClientClientConfig>0){
-                    userService.updateUserOnline(hm);//更新在线用token
-                    result =1;
-                    message="成功!";
-                    if(checkUserOnline!=null && checkUserOnline.getUser_id()!=0){
-                        //判断在线token与用户的token是否相同
-                        if(!token.equals(checkUserOnline.getToken())){
-                            //push
-                            if(checkUserOnline.getToken()!=null&&!checkUserOnline.getToken().equals("")){
-                                JSONObject pushjsoncontent = new JSONObject();
-                                pushjsoncontent.put("fuction", 1001);
-                                pushjsoncontent.put("message", "您已被迫下线!");
-                                pushjsoncontent.put("chat_id", 0);
-                                SendMsgByXingeThread smxt = new SendMsgByXingeThread(checkUserOnline.getToken(),3,"","",pushjsoncontent);//3单个token  push
-                                Thread thread = new Thread(smxt);
-                                thread.start();
-                            }
-                        }
-                    }
-                }
+            if(user_id!=null){
+                userBeanDao.update("update UserRelBean u set u.token=null where u.token='"+token+"'");
+                userBeanDao.update("update UserRelBean u set u.token='"+token+"' where u.user_id="+user_id);
+                result = 1;
             }
         } catch (Exception e) {
+            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
-            result =0;
-            message="异常!";
         }finally{
-            returnMap.put("result", result);
-            returnMap.put("message", message);
-            return returnMap;
+            map.put("result", result);
         }
-    }*/
+        return map;
+    }
 }

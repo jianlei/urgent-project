@@ -123,5 +123,28 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
         saveUser(userBean);
     }
 
+    @Override
+    public List getUserTokenListByIds(Long id) {
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.user_id in ("+id+")",String.class);
+    }
+
+    @Override
+    public List getUserTokenListJgdm(String jgdm) {
+        return userBeanDao.findByNativeSql("select sur.token from sys_user s " +
+                "left join sys_user_rel sur on sur.user_id=s.id where s.jgdm= '"+jgdm+"'",String.class);
+    }
+
+    @Override
+    public List getUserTokenListByNoticeId(Long notice_id) {
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.user_id in " +
+                "(select c.user_id from coop_notice_user_rel c where c.notice_id="+notice_id+" and c.reply_type=1)",String.class);
+    }
+
+    @Override
+    public List getUseridListByGgdm(String jgdm) {
+        return userBeanDao.findByNativeSql("select s.id from sys_user s " +
+                " where s.jgdm= '"+jgdm+"'",Long.class);
+    }
+
 
 }

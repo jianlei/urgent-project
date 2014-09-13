@@ -1,15 +1,21 @@
 package com.daren.cooperate.core.biz;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
 import com.daren.cooperate.core.model.ErrorCodeValue;
 import com.daren.cooperate.core.model.NoticeDetailModel;
 import com.daren.cooperate.core.model.NoticeListModel;
+import com.daren.cooperate.core.model.OrgContainerModel;
+import com.daren.cooperate.core.util.SendMsgByXingeThread;
 import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.cooperate.entities.NoticeUserRelBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
+import com.daren.enterprise.core.model.OrgnizationListModel;
+import com.google.gson.Gson;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import java.util.*;
@@ -26,6 +32,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
 
     private INoticeBasicBeanDao noticeBasicBeanDao;
     private INoticeUserRelBeanDao noticeUserRelBeanDao;
+    private IUserBeanService userBeanService;
 
     public void setNoticeBasicBeanDao(INoticeBasicBeanDao noticeBasicBeanDao) {
         this.noticeBasicBeanDao = noticeBasicBeanDao;
@@ -35,12 +42,16 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         this.noticeUserRelBeanDao = noticeUserRelBeanDao;
     }
 
+    public void setUserBeanService(IUserBeanService userBeanService) {
+        this.userBeanService = userBeanService;
+    }
+
     @Override
     @POST
     @Produces("application/json;charset=utf-8")
     @Path("/createNotice")
     public Map createNotice(@FormParam("title")String title, @FormParam("content")String content,
-                                   @FormParam("notice_time")String notice_time, @FormParam("ids")String ids) {
+                                   @FormParam("notice_time")String notice_time, @FormParam("ids")String ids ) {
         Map map = new HashMap();
         int result = -1;
         try{
@@ -51,15 +62,46 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             noticeBasicBean.setCreate_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
             //noticeBasicBean.setJgdm();                //取监管机构
             noticeBasicBean = noticeBasicBeanDao.save(noticeBasicBean);
-            String[] idArr;
+            //保存直接传过来的id串
+            List tokenAllList = new ArrayList();
+            tokenAllList.add("81768099bdd7924d426db3aa643b3dc846fdc381");
             if(ids!=null && !"".equals(ids)){
-                idArr = ids.split(",");
-                for(int i=0;i<idArr.length;i++){
-                    NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
-                    noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
-                    noticeUserRelBean.setUser_id(Long.parseLong(idArr[i]));
-                    noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+                Gson gson = new Gson();
+                OrgContainerModel orgJson = gson.fromJson(ids,OrgContainerModel.class);
+                List<OrgnizationListModel> orgList = orgJson.getModels();
+                for(int i=0;i<orgList.size();i++){
+                    OrgnizationListModel om = orgList.get(i);
+                    if(om.getFlag()==2){        //用户
+                        NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
+                        noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
+                        noticeUserRelBean.setUser_id(om.getUser_id());
+                        noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+                        List tokenList = userBeanService.getUserTokenListByIds(om.getUser_id());
+                        tokenAllList.addAll(tokenList);
+                    }else{                      //组织机构
+                        List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                        if(useridList!=null && !useridList.isEmpty()){
+                            for(int j=0;j<useridList.size();j++){
+                                NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
+                                noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
+                                noticeUserRelBean.setUser_id(useridList.get(j));
+                                noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+                            }
+                        }
+                        List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                        tokenAllList.addAll(tokenJgdmList);
+                    }
                 }
+            }
+            //发送推送
+            if(tokenAllList!=null&&!tokenAllList.isEmpty()){
+                JSONObject pushjsoncontent = new JSONObject();
+                pushjsoncontent.put("function", 10000);
+                pushjsoncontent.put("message", "新日程提醒:您有新的日程-"+title+"!");
+                pushjsoncontent.put("chat_id", 0);
+                SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
+                Thread thread = new Thread(smxt);
+                thread.start();
             }
             result =  1;
         }catch(Exception e){
@@ -118,15 +160,15 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             Long user_id = 1l;
             list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
                     "(\n" +
-                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
+                    "select t1.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
                     "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
                     "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                    "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,19) and cnb.is_cancle=0 order by cnb.notice_time)\n" +
+                    "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time) t1 \n" +
                     "union\n" +
-                    "(select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
+                    "select t2.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
                     "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
                     "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                    "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,19) and cnb.is_cancle=0 order by cnb.notice_time desc)\n" +
+                    "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time desc) t2 \n" +
                     ") t limit "+start+","+page_size, NoticeListModel.class );
             result = 1;
             if(list!=null && list.size()>0){
