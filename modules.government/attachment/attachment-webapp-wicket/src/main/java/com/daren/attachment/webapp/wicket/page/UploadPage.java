@@ -1,4 +1,4 @@
-package com.daren.core.web.component.government;
+package com.daren.attachment.webapp.wicket.page;
 
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;

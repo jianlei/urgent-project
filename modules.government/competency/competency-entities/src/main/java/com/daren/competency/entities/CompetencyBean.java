@@ -30,6 +30,7 @@ public class CompetencyBean extends WorkflowEntity {
     private String id_code;//身份证号
     private String unitType;//单位类型
     private String qualificationsType;//资格类型
+    private String enterpriseName;//所属企业
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -111,6 +112,14 @@ public class CompetencyBean extends WorkflowEntity {
 
     public void setQualificationsType(String qualificationsType) {
         this.qualificationsType = qualificationsType;
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
     public long getProposerId() {

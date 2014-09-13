@@ -57,9 +57,7 @@
             <th>身份证号</th>
             <th>单位类型</th>
             <th>资格类型</th>
-            <th>发证日期</th>
-            <th>有效日期</th>
-            <th>证书编号</th>
+            <th>复件</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -67,16 +65,18 @@
         <tr wicket:id="rows">
             <td wicket:id="name">无</td>
             <td wicket:id="sex">无</td>
-            <td wicket:id="enterpriseId">无</td>
+            <td wicket:id="enterpriseName">无</td>
             <td wicket:id="title">无</td>
             <td wicket:id="cultureLevel">无</td>
             <td wicket:id="id_code">无</td>
             <td wicket:id="unitType">无</td>
             <td wicket:id="qualificationsType">无</td>
-            <td wicket:id="awardDate">无</td>
-            <td wicket:id="effectiveDate">无</td>
-            <td wicket:id="code">无</td>
             <td>
+                <a href="#" wicket:id="duplicate" title="查看"><span>查看</span></a>
+            </td>
+            <td>
+                <a href="#" wicket:id="upload">上传资料</a>
+                <span>&nbsp;|&nbsp;</span>
                 <a href="#" wicket:id="check_name">修改</a>
             </td>
         </tr>
@@ -85,7 +85,9 @@
         </tr>
         </tbody>
     </table>
-
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"/>
+    </div>
 </wicket:panel>
 </body>
 </html>

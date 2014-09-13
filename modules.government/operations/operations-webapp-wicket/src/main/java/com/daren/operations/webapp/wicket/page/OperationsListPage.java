@@ -1,5 +1,6 @@
 package com.daren.operations.webapp.wicket.page;
 
+import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.operations.api.biz.IOperationsService;
@@ -30,35 +31,40 @@ import java.util.List;
  */
 
 public class OperationsListPage extends BasePanel {
-
+    final WebMarkupContainer dialogWrapper;
+    WindowGovernmentPage dialog;
     OperationsDataProvider provider = new OperationsDataProvider();
-
     @Inject
     private IOperationsService operationsService;
-
     public OperationsListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
+        //初始化dialogWrapper
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog", ""));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
         final WebMarkupContainer table = new WebMarkupContainer("table");
-
         add(table.setOutputMarkupId(true));
-
         DataView<OperationsBean> listView = new DataView<OperationsBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
-
             @Override
             protected void populateItem(Item<OperationsBean> item) {
                 final OperationsBean operationsBean = item.getModelObject();
-                item.add(new Label("receiveDate", operationsBean.getReceiveDate()));
-                item.add(new Label("startDate", operationsBean.getStartDate()));
-                item.add(new Label("endDate", operationsBean.getEndDate()));
-                item.add(new Label("reviewDate", operationsBean.getReviewDate()));
-                item.add(new Label("code", operationsBean.getCode()));
                 item.add(new Label("name", operationsBean.getName()));
+                item.add(new Label("enterpriseName", operationsBean.getEnterpriseName()));
                 item.add(new Label("workType", operationsBean.getWorkType()));
                 item.add(new Label("operationProject", operationsBean.getOperationProject()));
-                item.add(new Label("enterpriseId", operationsBean.getEnterpriseId()));
                 item.add(getToCreatePageLink("check_name", operationsBean));
-
+                item.add(getToUploadPageLink("upload", operationsBean));
+                item.add(getDuplicateLink("duplicate", operationsBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -86,8 +92,40 @@ public class OperationsListPage extends BasePanel {
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(OperationsBean operationsBean, AjaxRequestTarget target) {
+    private AjaxLink getDuplicateLink(String wicketId, final OperationsBean operationsBean){
+        AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", operationsBean, "list");
+            }
+        };
+        return alinkDuplicate;
+    }
 
+    private AjaxLink getToUploadPageLink(String wicketId, final OperationsBean operationsBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", operationsBean, "upload");
+            }
+        };
+        return ajaxLink;
+    }
+
+    protected void createButtonOnClick(OperationsBean operationsBean, AjaxRequestTarget target) {
+    }
+
+    private void createDialog(AjaxRequestTarget target, final String title, OperationsBean operationsBean, String type) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new WindowGovernmentPage("dialog", title, operationsBean.getId(), type, "operations") {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
     }
 
     /**
@@ -99,11 +137,9 @@ public class OperationsListPage extends BasePanel {
         //处理查询
         Form<OperationsBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new OperationsBean()));
         TextField textField = new TextField("name");
-
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
-
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -115,14 +151,11 @@ public class OperationsListPage extends BasePanel {
         majorHazardSourceBeanForm.add(findButton);
     }
 
-
     class OperationsDataProvider extends ListDataProvider<OperationsBean> {
         private OperationsBean operationsBean = null;
-
         public void setOperationsBean(OperationsBean operationsBean) {
             this.operationsBean = operationsBean;
         }
-
         @Override
         protected List<OperationsBean> getData() {
             if (operationsBean == null || null == operationsBean.getName() || "".equals(operationsBean.getName().trim()))

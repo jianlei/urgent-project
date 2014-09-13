@@ -1,5 +1,6 @@
 package com.daren.competency.webapp.wicket.page;
 
+import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
 import com.daren.core.util.DateUtil;
@@ -31,38 +32,44 @@ import java.util.List;
  */
 
 public class CompetencyListPage extends BasePanel {
-
+    final WebMarkupContainer dialogWrapper;
+    WindowGovernmentPage dialog;
     CompetencyDataProvider provider = new CompetencyDataProvider();
-
     @Inject
     private ICompetencyService competencyService;
-
     public CompetencyListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
+        //初始化dialogWrapper
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog", ""));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
         final WebMarkupContainer table = new WebMarkupContainer("table");
-
         add(table.setOutputMarkupId(true));
-
         DataView<CompetencyBean> listView = new DataView<CompetencyBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
-
             @Override
             protected void populateItem(Item<CompetencyBean> item) {
                 final CompetencyBean competencyBean = item.getModelObject();
                 item.add(new Label("name", competencyBean.getName()));
                 item.add(new Label("sex", competencyBean.getSex()));
-                item.add(new Label("enterpriseId", competencyBean.getEnterpriseId()));
+                item.add(new Label("enterpriseName", competencyBean.getEnterpriseName()));
                 item.add(new Label("title", competencyBean.getTitle()));
                 item.add(new Label("cultureLevel", competencyBean.getCultureLevel()));
                 item.add(new Label("id_code", competencyBean.getId_code()));
                 item.add(new Label("unitType", competencyBean.getUnitType()));
                 item.add(new Label("qualificationsType", competencyBean.getQualificationsType()));
-                item.add(new Label("awardDate", DateUtil.convertDateToString(competencyBean.getAwardDate(), DateUtil.shortSdf)));
-                item.add(new Label("effectiveDate", DateUtil.convertDateToString(competencyBean.getEffectiveDate(), DateUtil.shortSdf)));
-                item.add(new Label("code", competencyBean.getCode()));
-
                 item.add(getToCreatePageLink("check_name", competencyBean));
-
+                item.add(getToUploadPageLink("upload", competencyBean));
+                item.add(getDuplicateLink("duplicate", competencyBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -90,8 +97,40 @@ public class CompetencyListPage extends BasePanel {
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(CompetencyBean competencyBean, AjaxRequestTarget target) {
+    private AjaxLink getDuplicateLink(String wicketId, final CompetencyBean competencyBean){
+        AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", competencyBean, "list");
+            }
+        };
+        return alinkDuplicate;
+    }
 
+    private AjaxLink getToUploadPageLink(String wicketId, final CompetencyBean competencyBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", competencyBean, "upload");
+            }
+        };
+        return ajaxLink;
+    }
+
+    protected void createButtonOnClick(CompetencyBean competencyBean, AjaxRequestTarget target) {
+    }
+
+    private void createDialog(AjaxRequestTarget target, final String title, CompetencyBean competencyBean, String type) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new WindowGovernmentPage("dialog", title, competencyBean.getId(), type, "competency") {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
     }
 
     /**
@@ -103,11 +142,9 @@ public class CompetencyListPage extends BasePanel {
         //处理查询
         Form<CompetencyBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new CompetencyBean()));
         TextField textField = new TextField("name");
-
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
-
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -122,11 +159,9 @@ public class CompetencyListPage extends BasePanel {
 
     class CompetencyDataProvider extends ListDataProvider<CompetencyBean> {
         private CompetencyBean competencyBean = null;
-
         public void setCompetencyBean(CompetencyBean competencyBean) {
             this.competencyBean = competencyBean;
         }
-
         @Override
         protected List<CompetencyBean> getData() {
             if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
