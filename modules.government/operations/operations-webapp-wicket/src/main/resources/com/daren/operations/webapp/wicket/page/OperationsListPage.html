@@ -50,29 +50,25 @@
         <thead>
         <tr class="tr_detail">
             <th>姓名</th>
-            <th>证书编号</th>
+            <th>企业名称</th>
             <th>作业类别</th>
             <th>准操项目</th>
-            <th>初领日期</th>
-            <th>有效期限开始</th>
-            <th>有效期限结束</th>
-            <th>复审日期</th>
-            <th>企业名称</th>
+            <th>复件</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
         <tr wicket:id="rows">
             <td wicket:id="name">无</td>
-            <td wicket:id="code">无</td>
+            <td wicket:id="enterpriseName">无</td>
             <td wicket:id="workType">无</td>
             <td wicket:id="operationProject">无</td>
-            <td wicket:id="receiveDate">无</td>
-            <td wicket:id="startDate">无</td>
-            <td wicket:id="endDate">无</td>
-            <td wicket:id="reviewDate">无</td>
-            <td wicket:id="enterpriseId">无</td>
             <td>
+                <a href="#" wicket:id="duplicate" title="查看"><span>查看</span></a>
+            </td>
+            <td>
+                <a href="#" wicket:id="upload">上传资料</a>
+                <span>&nbsp;|&nbsp;</span>
                 <a href="#" wicket:id="check_name">修改</a>
             </td>
         </tr>
@@ -81,7 +77,9 @@
         </tr>
         </tbody>
     </table>
-
+    <div wicket:id="dialogWrapper">
+        <div wicket:id="dialog"/>
+    </div>
 </wicket:panel>
 </body>
 </html>

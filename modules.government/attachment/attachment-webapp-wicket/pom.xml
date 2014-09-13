@@ -11,8 +11,8 @@
     <groupId>com.daren.attachment</groupId>
     <artifactId>com.daren.attachment.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Government :: attachment - Wicket Web Application</name>
-    <description>Fireworks - Webapp Wicket</description>
+    <name>Government :: Attachment - Wicket Web Application</name>
+    <description>Attachment - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>

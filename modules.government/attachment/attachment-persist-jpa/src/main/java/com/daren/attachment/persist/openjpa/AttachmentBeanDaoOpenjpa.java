@@ -5,6 +5,9 @@ import com.daren.attachment.api.dao.IAttachmentBeanDao;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.impl.persistence.GenericOpenJpaDao;
 
+import javax.persistence.Query;
+import java.util.List;
+
 /**
  * @类描述：审批附件
  * @创建人：张清欣

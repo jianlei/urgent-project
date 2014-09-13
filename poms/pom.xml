@@ -408,6 +408,28 @@
                 <scope>provided</scope>
             </dependency>
 
+            <dependency>
+                <groupId>com.daren.attachment</groupId>
+                <artifactId>com.daren.attachment.api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.daren.attachment</groupId>
+                <artifactId>com.daren.attachment.entities</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.attachment</groupId>
+                <artifactId>com.daren.attachment.persist.openjpa</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!--Urgent Admin Module begin-->
             <!--Urgent File begin-->
             <dependency>

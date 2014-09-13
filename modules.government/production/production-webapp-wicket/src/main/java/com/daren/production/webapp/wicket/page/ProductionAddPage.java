@@ -95,16 +95,10 @@ public class ProductionAddPage extends BasePanel {
     }
 
     private void addTextFieldsToForm() {
-        addTextFieldToForm("awardDate");
-        addTextFieldToForm("effectiveDate");
-        addTextFieldToForm("code");
-        addTextFieldToForm("card");
         addTextFieldToForm("name");
         addTextFieldToForm("head");
         addTextFieldToForm("address");
         addTextFieldToForm("economicsType");
         addTextFieldToForm("scope");
-        addTextFieldToForm("unitsDate");
-        addTextFieldToForm("enterpriseId");
     }
 }

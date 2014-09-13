@@ -92,7 +92,21 @@
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.entities</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.persist.openjpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.webapp.wicket</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
