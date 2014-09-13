@@ -15,7 +15,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class SingleCheckMenuItemsModule implements IMenuItemsModule {
+public class FireworksItemsModule implements IMenuItemsModule {
 
 
     @Override
