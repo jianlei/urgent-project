@@ -37,6 +37,6 @@ public class ProcessesMyApplyHistoryListModel extends LoadableDetachableModel<Li
         if(startUserName == null)
             return null;
         historyService= (HistoryService) OsgiService.getService(HistoryService.class.getName());
-        return historyService.createHistoricProcessInstanceQuery().startedBy(startUserName).list();
+        return historyService.createHistoricProcessInstanceQuery().startedBy(startUserName).orderByProcessInstanceStartTime().desc().list();
 	}
 }

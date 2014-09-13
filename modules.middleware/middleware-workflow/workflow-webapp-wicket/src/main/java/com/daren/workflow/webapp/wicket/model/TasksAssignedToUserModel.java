@@ -22,7 +22,7 @@ public class TasksAssignedToUserModel extends LoadableDetachableModel<List<Task>
 	protected List<Task> load() {
 		return taskService
 				.createTaskQuery()
-				.taskAssignee(userIdModel.getObject())
+				.taskAssignee(userIdModel.getObject()).orderByTaskCreateTime().desc()
                 .list();
 	}
 

@@ -30,7 +30,7 @@
         </userTask>
         <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
-        <userTask id="usertask3" name="现场复核审批" activiti:assignee="系统管理员">
+        <userTask id="usertask3" name="现场复核审批" activiti:assignee="系统管理员"  activiti:formKey="audit.form">
             <extensionElements>
                 <activiti:formProperty id="accepted" name="登记编号" variable="accepted" type="boolean"></activiti:formProperty>
             </extensionElements>
@@ -43,7 +43,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow6" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
-        <userTask id="usertask4" name="审批委员会会签" activiti:assignee="系统管理员">
+        <userTask id="usertask4" name="审批委员会会签" activiti:assignee="系统管理员"  activiti:formKey="audit.form">
             <extensionElements>
                 <activiti:formProperty id="accepted" name="登记编号" variable="accepted" type="boolean"></activiti:formProperty>
             </extensionElements>
@@ -53,7 +53,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
-        <userTask id="usertask5" name="局长审批" activiti:assignee="系统管理员">
+        <userTask id="usertask5" name="局长审批" activiti:assignee="系统管理员"  activiti:formKey="audit.form">
             <extensionElements>
                 <activiti:formProperty id="accepted" name="登记编号" variable="accepted" type="boolean"></activiti:formProperty>
             </extensionElements>
@@ -63,7 +63,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow11" sourceRef="usertask5" targetRef="exclusivegateway4"></sequenceFlow>
-        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员"></userTask>
+        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员"  activiti:formKey="audit.form"></userTask>
         <sequenceFlow id="flow12" name="同意" sourceRef="exclusivegateway4" targetRef="usertask6">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted}]]></conditionExpression>
         </sequenceFlow>

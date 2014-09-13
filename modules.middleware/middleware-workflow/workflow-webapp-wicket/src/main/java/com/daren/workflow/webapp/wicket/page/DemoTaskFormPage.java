@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @类描述：demo事项完成表单类
+ * @类描述：demo任务完成表单类
  * @创建人： sunlingfeng
  * @创建时间：2014/9/7
  * @修改人：
@@ -74,13 +74,13 @@ public class DemoTaskFormPage extends Panel {
                 taskService.setVariablesLocal(task.getId(), submitMap);
                 formService.submitTaskFormData(task.getId(), new HashMap<String, String>());
                 model.setObject(null);
-                feedbackPanel.info("事项处理成功，请点击关闭按钮！");
+                feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                 this.setEnabled(false);
                 target.add(DemoTaskFormPage.this.findParent(TabbedPanel.class));
             }
 
             protected void onError(AjaxRequestTarget target, Form<?> form) {
-                feedbackPanel.error("事项处理失败");
+                feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
             }
         };
