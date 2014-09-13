@@ -7,9 +7,11 @@ import com.daren.workflow.webapp.wicket.util.WorkflowUtil;
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.task.Comment;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -21,9 +23,14 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by Dell on 14-9-9.
+ * @类描述：流程活动历史页面类
+ * @创建人： sunlingfeng
+ * @创建时间：2014/9/6
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class ViewHistoryVarinst extends Panel {
+public class AcvitityHistoryPanel extends Panel {
     @Inject
     private transient HistoryService historyService;
     @Inject
@@ -32,8 +39,11 @@ public class ViewHistoryVarinst extends Panel {
     @Inject
     private transient FormService formService;
 
+    @Inject
+    private transient TaskService taskService;
 
-    public ViewHistoryVarinst(String id, String historyProcessId, String processDefinitionId) {
+
+    public AcvitityHistoryPanel(String id, String historyProcessId, String processDefinitionId) {
         super(id);
         HistoricProcessInstance processInstance=historyService.createHistoricProcessInstanceQuery().processInstanceId(historyProcessId).singleResult();
 
@@ -89,6 +99,12 @@ public class ViewHistoryVarinst extends Panel {
                 item.add(new Label("assignee", historicActivityInstance.getAssignee()));
                 item.add(new Label("startTime", DateUtil.convertDateToString(historicActivityInstance.getStartTime(), DateUtil.longSdf)));
                 item.add(new Label("endTime", DateUtil.convertDateToString(historicActivityInstance.getEndTime(), DateUtil.longSdf)));
+                List<Comment> commentList= taskService.getTaskComments(historicActivityInstance.getTaskId());
+                String str="";
+                for(Comment comment:commentList){
+                    str=comment.getFullMessage()+str+" ";
+                }
+                item.add(new Label("comment", str));
             }
         };
         table.add(listView);
