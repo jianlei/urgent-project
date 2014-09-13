@@ -2,22 +2,16 @@ package com.daren.fireworks.webapp.wicket.page;
 
 import com.daren.core.web.component.government.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
-import com.daren.core.web.component.office.WindowOfficePage;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
-import com.daren.workflow.webapp.wicket.page.WorkflowBasePanel;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
-import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
-import org.activiti.engine.FormService;
-import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
@@ -61,6 +55,7 @@ public class FireworksListPage extends BasePanel {
         add(table.setOutputMarkupId(true));
         DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
+
             @Override
             protected void populateItem(Item<FireworksBean> item) {
                 final FireworksBean fireworksBean = item.getModelObject();
@@ -111,7 +106,8 @@ public class FireworksListPage extends BasePanel {
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {}
+    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {
+    }
 
     private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean) {
         if (dialog != null) {
@@ -153,9 +149,11 @@ public class FireworksListPage extends BasePanel {
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
         private FireworksBean fireworksBean = null;
+
         public void setFireworksBean(FireworksBean fireworksBean) {
             this.fireworksBean = fireworksBean;
         }
+
         @Override
         protected List<FireworksBean> getData() {
             if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))

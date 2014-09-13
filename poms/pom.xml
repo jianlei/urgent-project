@@ -9,7 +9,6 @@
     </parent>
 
 
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.daren.platform.urgent-project.build</groupId>
     <artifactId>shared-plugin-settings</artifactId>
@@ -280,6 +279,14 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.apply</groupId>
+                <artifactId>com.daren.apply.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
 
             <dependency>
                 <groupId>com.daren.workflow</groupId>
@@ -818,6 +825,44 @@
                 <scope>provided</scope>
             </dependency>
             <!--表达式类库 end-->
+            <!--工作流业务列表页面 strat-->
+            <dependency>
+                <groupId>com.daren.fireworks</groupId>
+                <artifactId>com.daren.fireworks.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.chemistry.manage</groupId>
+                <artifactId>com.daren.chemistry.manage.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.competency</groupId>
+                <artifactId>com.daren.competency.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.operations</groupId>
+                <artifactId>com.daren.operations.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.production</groupId>
+                <artifactId>com.daren.production.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!--工作流业务列表页面 end-->
+
             <!--activiti begin-->
             <dependency>
                 <groupId>org.activiti</groupId>
