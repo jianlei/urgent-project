@@ -73,9 +73,9 @@ public class UserAddPage extends Panel {
             isAdd = false;//edit model
             initForm(model);
             UserBean userBean = model.getObject();
-            Long jgdm=new Long(userBean.getOffice().getCode());
+            Long jgdm=new Long(userBean.getJgdm());
             organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);
-            long enterpriseId = new Long(userBean.getCompany().getCode());
+            long enterpriseId = new Long(userBean.getQyid());
             enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
         }
 
@@ -136,9 +136,9 @@ public class UserAddPage extends Panel {
                 try {
                     UserBean userBean = (UserBean) form.getModelObject();
                     organizationBean=orgnizationSelect2Choice.getModelObject();
-                    userBean.getOffice().setCode(organizationBean.getJgdm());
+                    userBean.setJgdm(organizationBean.getJgdm());
                     enterpriseBean=enterpriseSelect2Choice.getModelObject();
-                    userBean.getCompany().setCode(enterpriseBean.getQyid());
+                    userBean.setQyid(enterpriseBean.getQyid());
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());

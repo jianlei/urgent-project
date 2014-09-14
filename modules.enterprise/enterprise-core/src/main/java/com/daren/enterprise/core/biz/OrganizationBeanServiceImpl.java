@@ -134,7 +134,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl implement
             if(orglist!=null && !orglist.isEmpty()){
                 list.addAll(orglist);
             }
-            List userList = organizationBeanDao.findByNativeSql("select s.id as user_id,s.name,su.user_logo, 2 as flag,'"+jgdm+"' as sjjgdm " +
+            List userList = organizationBeanDao.findByNativeSql("select CONVERT(s.id,CHAR) as jgdm,s.name,su.user_logo, 2 as flag,'"+jgdm+"' as sjjgdm " +
                     "from sys_user s left join sys_user_rel su on su.user_id=s.id " +
                     "where s.jgdm='"+jgdm+"'", OrgnizationListModel.class);
             if(userList!=null && !userList.isEmpty()){

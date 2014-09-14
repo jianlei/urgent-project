@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ChatBasicBean extends PersistentEntity {
 
-    private int group_id;               //0-单一唠嗑；>1就是与该group_id的聊天
+    private long group_id;               //0-单一唠嗑；>1就是与该group_id的聊天
     private int chat_type;              //聊天方式 0-文字；1-语音；2-图片；3-视频；4-文件；5-位置
     private int is_read;                //0-未读；1-已读
     private String chat_content;        //聊天内容
@@ -30,20 +30,50 @@ public class ChatBasicBean extends PersistentEntity {
     private String chat_attach;         //附件
     private String picture_url;         //图片地址
     private String chat_time;           //聊天时间
-    private String from_userid;         //说话人id
-    private String to_userid;           //接收人id
-    private String chat_lat;            //聊天纬度
-    private String chat_lng;            //聊天经度
+    private long from_userid;         //说话人id
+    private long to_userid;           //接收人id
+    private double chat_lat;            //聊天纬度
+    private double chat_lng;            //聊天经度
 
     public ChatBasicBean(){
 
     }
 
-    public int getGroup_id() {
+    public ChatBasicBean(int chat_type, int is_read, String chat_content,
+                String chat_attach, String picture_url, long to_userid,
+                long from_userid, double chat_lat, double chat_lng,String voice_time) {
+        super();
+        this.chat_type = chat_type;
+        this.is_read = is_read;
+        this.chat_content = chat_content;
+        this.chat_attach = chat_attach;
+        this.picture_url = picture_url;
+        this.to_userid = to_userid;
+        this.from_userid = from_userid;
+        this.chat_lat = chat_lat;
+        this.chat_lng = chat_lng;
+        this.voice_time = voice_time;
+    }
+    public ChatBasicBean(long group_id,int chat_type, int is_read, String chat_content,
+                String chat_attach, String picture_url,long from_userid, double chat_lat, double chat_lng,String voice_time) {
+        super();
+        this.group_id = group_id;
+        this.chat_type = chat_type;
+        this.is_read = is_read;
+        this.chat_content = chat_content;
+        this.chat_attach = chat_attach;
+        this.picture_url = picture_url;
+        this.from_userid = from_userid;
+        this.chat_lat = chat_lat;
+        this.chat_lng = chat_lng;
+        this.voice_time = voice_time;
+    }
+
+    public long getGroup_id() {
         return group_id;
     }
 
-    public void setGroup_id(int group_id) {
+    public void setGroup_id(long group_id) {
         this.group_id = group_id;
     }
 
@@ -103,35 +133,35 @@ public class ChatBasicBean extends PersistentEntity {
         this.chat_time = chat_time;
     }
 
-    public String getFrom_userid() {
+    public long getFrom_userid() {
         return from_userid;
     }
 
-    public void setFrom_userid(String from_userid) {
+    public void setFrom_userid(long from_userid) {
         this.from_userid = from_userid;
     }
 
-    public String getTo_userid() {
+    public long getTo_userid() {
         return to_userid;
     }
 
-    public void setTo_userid(String to_userid) {
+    public void setTo_userid(long to_userid) {
         this.to_userid = to_userid;
     }
 
-    public String getChat_lat() {
+    public double getChat_lat() {
         return chat_lat;
     }
 
-    public void setChat_lat(String chat_lat) {
+    public void setChat_lat(double chat_lat) {
         this.chat_lat = chat_lat;
     }
 
-    public String getChat_lng() {
+    public double getChat_lng() {
         return chat_lng;
     }
 
-    public void setChat_lng(String chat_lng) {
+    public void setChat_lng(double chat_lng) {
         this.chat_lng = chat_lng;
     }
 }

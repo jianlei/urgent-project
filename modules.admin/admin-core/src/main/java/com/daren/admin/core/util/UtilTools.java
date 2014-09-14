@@ -333,19 +333,19 @@ public class UtilTools {
 			e.printStackTrace();
 		}
 		//System.out.println("======"+cookie_value);
-		String key = cookie_value.split("\\|\\|")[1];
+		//String key = cookie_value.split("\\|\\|")[1];
 		String value =  cookie_value.split("\\|\\|")[0];
-		value = UtilTools.decryptString(key, value);
-		rmap.put("guid", Long.parseLong(value.split("::")[0]));
-		rmap.put("userId" , Long.parseLong(value.split("::")[1]));
-		rmap.put("userName" , value.split("::")[2]);
-		rmap.put("userNickname" , value.split("::")[3]);
-		rmap.put("CompId" , value.split("::")[4]);
-		if (value.split("::").length == 7) {
-			rmap.put("mapprov" , value.split("::")[5]);
-		} else {
-			rmap.put("mapprov" , "1");
-		}
+		//value = UtilTools.decryptString(key, value);
+		rmap.put("userId", Long.parseLong(value.split("::")[0]));
+		//rmap.put("userName" , Long.parseLong(value.split("::")[1]));
+		//rmap.put("userNickname" , value.split("::")[2]);
+		//rmap.put("userNickname" , value.split("::")[3]);
+		//rmap.put("CompId" , value.split("::")[4]);
+		//if (value.split("::").length == 7) {
+		//	rmap.put("mapprov" , value.split("::")[5]);
+		//} else {
+		//	rmap.put("mapprov" , "1");
+		//}
 		//rmap.put("clinet",value.split("::")[6]);
 		
 		return rmap;

@@ -1,79 +1,54 @@
 package com.daren.cooperate.entities;
 
 import com.daren.core.api.persistence.PersistentEntity;
-import com.daren.core.util.DateUtil;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
 
 /**
  * @类描述：
  * @创建人：xukexin
- * @创建时间：2014/9/12 13:57
+ * @创建时间：2014/9/13 11:47
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
 @Entity
-@Table(name = "coop_chat_index")
+@Table(name = "coop_group_chat_index")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class ChatIndexBean extends PersistentEntity {
+public class GroupChatIndexBean extends PersistentEntity {
 
     private long from_userid;
-    private long to_userid;
     private long group_id;
-    private String neartime= DateUtil.convertDateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
+    private long user_id;
+    private String neartime;
     private String chat_content="";
-    private String unsearch_userid="";//判断删除最近一次聊天记录用
     private int chat_count;
     private int hasnews;//0无新消息 1 有新消息
+    private String unsearch_userid="";//判断删除最近一次聊天记录用
 
-    public ChatIndexBean(){
+    public GroupChatIndexBean(){
 
     }
 
-    public ChatIndexBean(long from_userid, long to_userid, String neartime) {
-        super();
-        this.from_userid = from_userid;
-        this.to_userid = to_userid;
-        this.neartime = neartime;
-    }
-    public ChatIndexBean(long from_userid, long to_userid,long group_id, String neartime) {
-        super();
-        this.from_userid = from_userid;
-        this.to_userid = to_userid;
-        this.group_id = group_id;
-        this.neartime = neartime;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public ChatIndexBean(long from_userid, long to_userid, String neartime,String chat_content,
-                     int chat_count) {
-        super();
-        this.from_userid = from_userid;
-        this.to_userid = to_userid;
-        this.neartime = neartime;
-        this.chat_content = chat_content;
-        this.chat_count = chat_count;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
+
     public long getFrom_userid() {
         return from_userid;
     }
 
     public void setFrom_userid(long from_userid) {
         this.from_userid = from_userid;
-    }
-
-    public long getTo_userid() {
-        return to_userid;
-    }
-
-    public void setTo_userid(long to_userid) {
-        this.to_userid = to_userid;
     }
 
     public long getGroup_id() {
@@ -100,14 +75,6 @@ public class ChatIndexBean extends PersistentEntity {
         this.chat_content = chat_content;
     }
 
-    public String getUnsearch_userid() {
-        return unsearch_userid;
-    }
-
-    public void setUnsearch_userid(String unsearch_userid) {
-        this.unsearch_userid = unsearch_userid;
-    }
-
     public int getChat_count() {
         return chat_count;
     }
@@ -122,5 +89,13 @@ public class ChatIndexBean extends PersistentEntity {
 
     public void setHasnews(int hasnews) {
         this.hasnews = hasnews;
+    }
+
+    public String getUnsearch_userid() {
+        return unsearch_userid;
+    }
+
+    public void setUnsearch_userid(String unsearch_userid) {
+        this.unsearch_userid = unsearch_userid;
     }
 }

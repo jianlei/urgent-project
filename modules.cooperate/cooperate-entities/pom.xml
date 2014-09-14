@@ -78,6 +78,11 @@
         </dependency>
         <!-- end OpenJPA PCEnhancer depends -->
 
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

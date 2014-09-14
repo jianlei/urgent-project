@@ -26,7 +26,7 @@ public interface IChatBeanService extends IBizService {
      * @param request
      * @return
      */
-    public Map sendmes(int chat_type, String chat_content,String chat_lat, String chat_lng,String to_userid,
+    public Map sendmes(int chat_type, String chat_content,double chat_lat, double chat_lng,String to_userid,
                        String group_id,String voice_time,HttpServletRequest request);
 
     /**
@@ -56,7 +56,7 @@ public interface IChatBeanService extends IBizService {
      * @param request
      * @return
      */
-    public Map getChatMsgLsit(Integer page, Integer limit, long to_userid,HttpServletRequest request);
+    public Map getChatMsgList(Integer page, Integer limit, long to_userid,HttpServletRequest request);
 
     /**
      * 获取讨论组聊天列表

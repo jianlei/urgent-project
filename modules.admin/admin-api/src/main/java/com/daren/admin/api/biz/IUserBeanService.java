@@ -63,11 +63,11 @@ public interface IUserBeanService extends IBizService {
     public List getUserTokenListJgdm(String jgdm);
 
     /**
-     * 根据日程id获取用户token
+     * 根据日程id获取不同类型用户token
      * @param notice_id
      * @return
      */
-    public List getUserTokenListByNoticeId(Long notice_id);
+    public List getUserTokenListByNoticeId(Long notice_id,int reply_type,long user_id);
 
     /**
      * 根据机构代码串获取这些机构下的所有用户

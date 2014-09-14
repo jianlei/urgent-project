@@ -1,12 +1,16 @@
 package com.daren.cooperate.core.model;
 
+import com.daren.core.util.DateUtil;
+
+import java.util.Date;
+
 public class ChatIndex {
 	private long from_userid;
 	private long to_userid;
 	private long chat_id;
 	private long group_id;
 	private String name="";
-	private String neartime;
+	private String neartime= DateUtil.convertDateToString(new Date(),"yyyy-MM-dd HH:mm:ss");
 	private String chat_content="";
 	private String logo="";
 	private String unsearch_userid="";//判断删除最近一次聊天记录用

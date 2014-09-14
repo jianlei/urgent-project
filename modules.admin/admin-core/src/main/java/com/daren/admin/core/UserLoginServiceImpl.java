@@ -2,7 +2,6 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IUserLoginService;
 import com.daren.admin.api.dao.IUserBeanDao;
-import com.daren.admin.core.util.UtilTools;
 import com.daren.admin.entities.PermissionBean;
 import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
@@ -16,8 +15,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,20 +129,21 @@ public class UserLoginServiceImpl implements IUserLoginService {
         HashMap rsMap = new HashMap();
         try{
             String map_provide = "1";//先设成1 用时再改
-            String value = user.getId()+"::"+user.getLoginName()+"::"+user.getName()+"::"+map_provide+"::"+client;
+            //String value = user.getId()+"::"+user.getLoginName()+"::"+user.getName()+"::"+map_provide+"::"+client;
+            String value = user.getId()+"::"+user.getLoginName();
             int maxAge = 0;
             if(client.equals("0")) {
                 maxAge= 24*60*60;
             } else{
                 maxAge= 60*24*60*60;
             }
-            String key = UtilTools.generateKey().toString();
-            value = UtilTools.encryptString(key, value);
-            value = URLEncoder.encode(value + "||" + key, "UTF-8");
-            UtilTools.setCookie(response, "jldaren.cooperate", value, maxAge);
+            //String key = UtilTools.generateKey().toString();
+            //value = UtilTools.encryptString(key, value);
+            //value = URLEncoder.encode(value + "||" + key, "UTF-8");
+            setCookie(response, "jldaren.cooperate", value, maxAge);
             rsMap.put("result", rs);
             rsMap.put("user", user);
-        }catch (UnsupportedEncodingException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return rsMap;

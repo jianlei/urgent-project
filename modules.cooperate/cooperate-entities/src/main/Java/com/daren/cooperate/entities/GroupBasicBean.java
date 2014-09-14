@@ -25,7 +25,7 @@ public class GroupBasicBean extends PersistentEntity {
     private long jgdm;                    //机构代码
     private String group_name="";              //群组名称
     private String group_logo="";              //群组logo
-    private long create_userid;           //创建人id
+    private long manager_user;           //创建人id
     private String create_time="";             //创建时间
     private int is_generate;                //群组是否为自动生成，0-否；1-是
     private int group_num;                  //群组人数
@@ -42,12 +42,12 @@ public class GroupBasicBean extends PersistentEntity {
         this.jgdm = jgdm;
     }
 
-    public long getCreate_userid() {
-        return create_userid;
+    public long getManager_user() {
+        return manager_user;
     }
 
-    public void setCreate_userid(long create_userid) {
-        this.create_userid = create_userid;
+    public void setManager_user(long manager_user) {
+        this.manager_user = manager_user;
     }
 
     public String getGroup_name() {

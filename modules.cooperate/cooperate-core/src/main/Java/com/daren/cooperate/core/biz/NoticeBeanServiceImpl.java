@@ -4,10 +4,8 @@ import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.cooperate.api.biz.INoticeBeanService;
 import com.daren.cooperate.api.dao.INoticeBasicBeanDao;
 import com.daren.cooperate.api.dao.INoticeUserRelBeanDao;
-import com.daren.cooperate.core.model.ErrorCodeValue;
-import com.daren.cooperate.core.model.NoticeDetailModel;
-import com.daren.cooperate.core.model.NoticeListModel;
-import com.daren.cooperate.core.model.OrgContainerModel;
+import com.daren.cooperate.core.model.*;
+import com.daren.cooperate.core.util.CookieUtil;
 import com.daren.cooperate.core.util.SendMsgByXingeThread;
 import com.daren.cooperate.entities.NoticeBasicBean;
 import com.daren.cooperate.entities.NoticeUserRelBean;
@@ -17,7 +15,9 @@ import com.daren.enterprise.core.model.OrgnizationListModel;
 import com.google.gson.Gson;
 import org.json.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import java.util.*;
 
 /**
@@ -51,59 +51,68 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Produces("application/json;charset=utf-8")
     @Path("/createNotice")
     public Map createNotice(@FormParam("title")String title, @FormParam("content")String content,
-                                   @FormParam("notice_time")String notice_time, @FormParam("ids")String ids ) {
+                                   @FormParam("notice_time")String notice_time, @FormParam("ids")String ids,
+                                   @FormParam("user_id")Long user_id1,@Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         try{
-            NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
-            noticeBasicBean.setTitle(title);
-            noticeBasicBean.setContent(content);
-            noticeBasicBean.setNotice_time(notice_time);
-            noticeBasicBean.setCreate_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
-            //noticeBasicBean.setJgdm();                //取监管机构
-            noticeBasicBean = noticeBasicBeanDao.save(noticeBasicBean);
-            //保存直接传过来的id串
-            List tokenAllList = new ArrayList();
-            tokenAllList.add("81768099bdd7924d426db3aa643b3dc846fdc381");
-            if(ids!=null && !"".equals(ids)){
-                Gson gson = new Gson();
-                OrgContainerModel orgJson = gson.fromJson(ids,OrgContainerModel.class);
-                List<OrgnizationListModel> orgList = orgJson.getModels();
-                for(int i=0;i<orgList.size();i++){
-                    OrgnizationListModel om = orgList.get(i);
-                    if(om.getFlag()==2){        //用户
-                        NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
-                        noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
-                        noticeUserRelBean.setUser_id(om.getUser_id());
-                        noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
-                        List tokenList = userBeanService.getUserTokenListByIds(om.getUser_id());
-                        tokenAllList.addAll(tokenList);
-                    }else{                      //组织机构
-                        List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
-                        if(useridList!=null && !useridList.isEmpty()){
-                            for(int j=0;j<useridList.size();j++){
-                                NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
-                                noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
-                                noticeUserRelBean.setUser_id(useridList.get(j));
-                                noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(user_id>0){
+                NoticeBasicBean noticeBasicBean = new NoticeBasicBean();
+                noticeBasicBean.setTitle(title);
+                noticeBasicBean.setContent(content);
+                noticeBasicBean.setNotice_time(notice_time);
+                noticeBasicBean.setCreate_time(DateUtil.convertDateToString(new Date(),DateUtil.longSdf));
+                noticeBasicBean.setUser_id(user_id);
+                //noticeBasicBean.setJgdm();                //取监管机构
+                noticeBasicBean = noticeBasicBeanDao.save(noticeBasicBean);
+                NoticeUserRelBean noticeUserRelBean1 = new NoticeUserRelBean();
+                noticeUserRelBean1.setNotice_id(noticeBasicBean.getId());
+                noticeUserRelBean1.setUser_id(user_id);
+                noticeUserRelBeanDao.save(noticeUserRelBean1);           //保存日程和人员关系
+                //保存直接传过来的id串
+                List tokenAllList = new ArrayList();
+                if(ids!=null && !"".equals(ids)){
+                    Gson gson = new Gson();
+                    OrgContainerModel orgJson = gson.fromJson(ids,OrgContainerModel.class);
+                    List<OrgnizationListModel> orgList = orgJson.getModels();
+                    for(int i=0;i<orgList.size();i++){
+                        OrgnizationListModel om = orgList.get(i);
+                        if(om.getFlag()==2){        //用户
+                            NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
+                            noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
+                            noticeUserRelBean.setUser_id(Long.parseLong(om.getJgdm()));
+                            noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+                            List tokenList = userBeanService.getUserTokenListByIds(Long.parseLong(om.getJgdm()));
+                            tokenAllList.addAll(tokenList);
+                        }else{                      //组织机构
+                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                            if(useridList!=null && !useridList.isEmpty()){
+                                for(int j=0;j<useridList.size();j++){
+                                    NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
+                                    noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
+                                    noticeUserRelBean.setUser_id(useridList.get(j));
+                                    noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
+                                }
                             }
+                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                            tokenAllList.addAll(tokenJgdmList);
                         }
-                        List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
-                        tokenAllList.addAll(tokenJgdmList);
                     }
                 }
+                //发送推送
+                if(tokenAllList!=null&&!tokenAllList.isEmpty()){
+                    JSONObject pushjsoncontent = new JSONObject();
+                    pushjsoncontent.put("function", 10000);
+                    pushjsoncontent.put("message", "新日程提醒:您有新的日程-"+title+"!");
+                    pushjsoncontent.put("chat_id", 0);
+                    SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
+                    Thread thread = new Thread(smxt);
+                    thread.start();
+                }
+                result =  1;
             }
-            //发送推送
-            if(tokenAllList!=null&&!tokenAllList.isEmpty()){
-                JSONObject pushjsoncontent = new JSONObject();
-                pushjsoncontent.put("function", 10000);
-                pushjsoncontent.put("message", "新日程提醒:您有新的日程-"+title+"!");
-                pushjsoncontent.put("chat_id", 0);
-                SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
-                Thread thread = new Thread(smxt);
-                thread.start();
-            }
-            result =  1;
         }catch(Exception e){
             map.put("errorCode", ErrorCodeValue.INNER_ERROR);
             e.printStackTrace();
@@ -116,15 +125,28 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Override
     @POST
     @Produces("application/json;charset=utf-8")
-    @Path("/cancelNotice/{notice_id}")
-    public Map cancelNotice(@PathParam("notice_id")Long notice_id) {
+    @Path("/cancelNotice")
+    public Map cancelNotice(@FormParam("notice_id")Long notice_id,@Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         try{
-            if(notice_id!=null){
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(notice_id!=null && user_id>0){
                 NoticeBasicBean noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
                 noticeBasicBean.setIs_cancle(1);
                 noticeBasicBeanDao.save(noticeBasicBean);
+                //发送推送
+                List tokenAllList = userBeanService.getUserTokenListByNoticeId(notice_id, 1, user_id);
+                if(tokenAllList!=null&&!tokenAllList.isEmpty()){
+                    JSONObject pushjsoncontent = new JSONObject();
+                    pushjsoncontent.put("function", 10001);
+                    pushjsoncontent.put("message", "新日程提醒:您有新的日程-"+noticeBasicBean.getTitle()+"!");
+                    pushjsoncontent.put("chat_id", 0);
+                    SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
+                    Thread thread = new Thread(smxt);
+                    thread.start();
+                }
                 result = 1;
             }else{
                 map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
@@ -143,36 +165,42 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Produces("application/json;charset=utf-8")
     @Path("getNoticeList/{page}/{pageSize}")
     //@Consumes("application/json;charset=utf-8")
-    public Map getNoticeList(@PathParam("page")Integer page, @PathParam("pageSize")Integer page_size) {
+    public Map getNoticeList(@PathParam("page")Integer page, @PathParam("pageSize")Integer page_size,
+                             @Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         List<NoticeListModel> list = new ArrayList<NoticeListModel>();
         try{
-            int start = 0;
-            if(page==null){
-                start=0;
-            }else{
-                start = (page-1)*page_size;
-            }
-            if(page_size==null){
-                page_size = 15;
-            }
-            Long user_id = 1l;
-            list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
-                    "(\n" +
-                    "select t1.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
-                    "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                    "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                    "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time) t1 \n" +
-                    "union\n" +
-                    "select t2.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
-                    "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                    "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                    "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time desc) t2 \n" +
-                    ") t limit "+start+","+page_size, NoticeListModel.class );
-            result = 1;
-            if(list!=null && list.size()>0){
-                map.put("response",list);
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(user_id>0){
+                int start = 0;
+                if(page==null){
+                    start=0;
+                }else{
+                    start = (page-1)*page_size;
+                }
+                if(page_size==null){
+                    page_size = 15;
+                }
+                list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
+                        "(\n" +
+                        "select t1.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
+                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
+                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
+                        "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time) t1 \n" +
+                        "union\n" +
+                        "select t2.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
+                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
+                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
+                        "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time desc) t2 \n" +
+                        ") t limit "+start+","+page_size, NoticeListModel.class );
+                result = 1;
+                if(list!=null && list.size()>0){
+                    map.put("response",list);
+                }
+            }else {
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
             }
         }catch (Exception e){
             map.put("errorCode",ErrorCodeValue.INNER_ERROR);
@@ -187,14 +215,15 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Path("/getNoticeDetail/{notice_id}")
     @Produces("application/json;charset=utf-8")
     @Override
-    public Map getNoticeDetail(@PathParam("notice_id")Long notice_id) {
+    public Map getNoticeDetail(@PathParam("notice_id")Long notice_id,@Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         try{
             List<NoticeDetailModel> noticeDetail = new ArrayList<NoticeDetailModel>();
-            if(notice_id!=null){
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(notice_id!=null && user_id>0){
                 //noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
-                Long user_id = 1l;
                 noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id) as total_num,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id and cnur.reply_type=1) as join_num\n" +
@@ -223,12 +252,13 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Produces("application/json;charset=utf-8")
     @Override
     public Map replyNotice(@FormParam("notice_id")Long notice_id, @FormParam("reply_content")String reply_content,
-                                  @FormParam("reply_type")Integer reply_type) {
+                                  @FormParam("reply_type")Integer reply_type,@Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         try{
-            if(notice_id!=null && reply_type!=null){
-                Long user_id = 1l;
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(notice_id!=null && reply_type!=null && user_id>0){
                 noticeUserRelBeanDao.update("update NoticeUserRelBean t set t.reply_type="+reply_type+
                         " where t.notice_id="+notice_id+" and t.user_id="+user_id);
                 result = 1;
@@ -248,12 +278,16 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
     @Path("/getNoticeReplyList/{notice_id}/{page}/{page_size}")
     @Produces("application/json;charset=utf-8")
     @Override
-    public Map getNoticeReplyList(@PathParam("notice_id")Long notice_id, @PathParam("page")Integer page, @PathParam("page_size")Integer page_size) {
+    public Map getNoticeReplyList(@PathParam("notice_id")Long notice_id, @PathParam("page")Integer page,
+                                  @PathParam("page_size")Integer page_size,@Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
         List<NoticeUserRelBean> list = new ArrayList<NoticeUserRelBean>();
         try{
-            if(notice_id!=null){
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(notice_id!=null && user_id>0){
+                int start = 0;
                 if(page==null){
                     page=0;
                 }else{
@@ -262,7 +296,10 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 if(page_size==null){
                     page_size = 15;
                 }
-                list = noticeUserRelBeanDao.findbyPage("select t from NoticeUserRelBean t where t.notice_id="+notice_id,page,page_size);
+                start = page*page_size;
+                list = noticeUserRelBeanDao.findByNativeSql("select c.id,c.user_id,c.reply_type,c.reply_type,s.name " +
+                        "from coop_notice_user_rel c left join sys_user s on s.id=c.user_id " +
+                        "where c.notice_id="+notice_id+" limit "+start+","+page_size , UserNoticeResultModel.class);
                 result = 1;
                 if(list!=null && list.size()>0){
                     map.put("response",list);
@@ -278,5 +315,42 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
         }
         return map;
     }
+
+    @Override
+    @POST
+    @Path("/urgeNotreplyUser")
+    @Produces("application/json;charset=utf-8")
+    public Map urgeNotreplyUser(@FormParam("notice_id")Long notice_id,@Context HttpServletRequest request) {
+        Map map = new HashMap();
+        int result = -1;
+        try{
+            Map cookieMap = CookieUtil.getCookieByName(request);
+            long user_id = (long) cookieMap.get("userId");
+            if(notice_id!=null && user_id>0){
+                //发送推送
+                NoticeBasicBean noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
+                List tokenList = userBeanService.getUserTokenListByNoticeId(notice_id,0,user_id);
+                if(tokenList!=null&&!tokenList.isEmpty()) {
+                    JSONObject pushjsoncontent = new JSONObject();
+                    pushjsoncontent.put("function", 10002);
+                    pushjsoncontent.put("message", "日程提醒:您有日程《" + noticeBasicBean.getTitle() + "》需要回复!");
+                    pushjsoncontent.put("chat_id", 0);
+                    SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenList, 1, "", "", pushjsoncontent);
+                    Thread thread = new Thread(smxt);
+                    thread.start();
+                }
+                result = 1;
+            }else{
+                map.put("errorCode",ErrorCodeValue.PARAM_ERROR);
+            }
+        }catch(Exception e){
+            map.put("errorCode",ErrorCodeValue.INNER_ERROR);
+            e.printStackTrace();
+        }finally {
+            map.put("result", result);
+        }
+        return map;
+    }
+
 
 }

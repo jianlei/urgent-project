@@ -43,6 +43,7 @@
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
         </non-jta-data-source>
         <!--<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/NoTxTradeDataSource)</non-jta-data-source>-->
+        <class>com.daren.cooperate.entities.GroupChatIndexBean</class>
         <class>com.daren.cooperate.entities.ChatIndexBean</class>
         <class>com.daren.cooperate.entities.ChatBasicBean</class>
         <class>com.daren.cooperate.entities.GroupBasicBean</class>

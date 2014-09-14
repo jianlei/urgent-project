@@ -6,7 +6,7 @@ public class SingleChatContent {
 	private String chat_time;
 	private String voice_time="";
 	private String attache_url="";
-	//private String attache_spicurl;
+	private String attache_spicurl;
 	private String logo="";
 	private String name="";
 	private double chat_lat;
@@ -30,7 +30,15 @@ public class SingleChatContent {
 		this.user_id = user_id;
 	}
 
-	public String getChat_content() {
+    public String getAttache_spicurl() {
+        return attache_spicurl;
+    }
+
+    public void setAttache_spicurl(String attache_spicurl) {
+        this.attache_spicurl = attache_spicurl;
+    }
+
+    public String getChat_content() {
 		return chat_content;
 	}
 

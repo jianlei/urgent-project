@@ -10,7 +10,7 @@ public class ChatContent {
 	private String chat_time;
 	private String voice_time="";
 	private String attache_url="";
-	//private String attache_spicurl="";
+	private String attache_spicurl="";
 	private int chat_type;
 	private int is_read;
 	private double chat_lat;
@@ -27,10 +27,18 @@ public class ChatContent {
 		this.logo = logo;
 		this.chat_time = chat_time;
 		this.attache_url = attache_url;
-		//this.attache_spicurl = attache_spicurl;
+		this.attache_spicurl = attache_spicurl;
 	}
 
-	public String getChat_content() {
+    public String getAttache_spicurl() {
+        return attache_spicurl;
+    }
+
+    public void setAttache_spicurl(String attache_spicurl) {
+        this.attache_spicurl = attache_spicurl;
+    }
+
+    public String getChat_content() {
 		return chat_content;
 	}
 

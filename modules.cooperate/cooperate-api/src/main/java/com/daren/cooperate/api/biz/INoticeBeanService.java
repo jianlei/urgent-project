@@ -2,6 +2,7 @@ package com.daren.cooperate.api.biz;
 
 import com.daren.core.api.biz.IBizService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -22,14 +23,15 @@ public interface INoticeBeanService extends IBizService {
      * @param ids   用户id串
      * @return
      */
-    public Map createNotice(String title, String content, String notice_time, String ids);
+    public Map createNotice(String title, String content, String notice_time, String ids,Long user_id,
+                            HttpServletRequest request);
 
     /**
      * 取消日程
      * @param notice_id
      * @return
      */
-    public Map cancelNotice(Long notice_id);
+    public Map cancelNotice(Long notice_id,HttpServletRequest request);
 
     /**
      * 查询日程列表
@@ -37,20 +39,20 @@ public interface INoticeBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getNoticeList(Integer page,Integer page_size);
+    public Map getNoticeList(Integer page,Integer page_size,HttpServletRequest request);
 
     /**
      * 获取日程信息详情
      * @param notice_id
      * @return
      */
-    public Map getNoticeDetail(Long notice_id);
+    public Map getNoticeDetail(Long notice_id,HttpServletRequest request);
     /**
      * 回应日程
      * @param notice_id
      * @return
      */
-    public Map replyNotice(Long notice_id, String reply_content,Integer reply_type);
+    public Map replyNotice(Long notice_id, String reply_content,Integer reply_type,HttpServletRequest request);
     /**
      * 获取日程回应列表
      * @param notice_id
@@ -58,6 +60,13 @@ public interface INoticeBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getNoticeReplyList(Long notice_id,Integer page,Integer page_size);
+    public Map getNoticeReplyList(Long notice_id,Integer page,Integer page_size,HttpServletRequest request);
+
+    /**
+     * 催促未报名者
+     * @param notice_id
+     * @return
+     */
+    public Map urgeNotreplyUser(Long notice_id,HttpServletRequest request);
 
 }

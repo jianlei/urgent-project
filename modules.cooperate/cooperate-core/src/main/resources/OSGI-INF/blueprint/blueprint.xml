@@ -32,14 +32,14 @@
     <reference id="groupUserRelBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserRelBeanDao"/>
     <reference id="groupUserReqBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserReqBeanDao"/>
     <!-- 聊天 -->
-    <!--<service id="chatService" interface="com.daren.cooperate.api.biz.IChatBeanService" ref="chatBeanService">
+    <service id="chatService" interface="com.daren.cooperate.api.biz.IChatBeanService" ref="chatBeanService">
     </service>
-    <bean id="chatBeanService" class="com.daren.cooperate.core.biz.">
+    <bean id="chatBeanService" class="com.daren.cooperate.core.biz.ChatBeanServiceImpl">
         <property name="chatBasicBeanDao" ref="chatBasicBeanDao"/>
         <property name="chatIndexBeanDao" ref="chatIndexBeanDao"/>
     </bean>
     <reference id="chatBasicBeanDao" interface="com.daren.cooperate.api.dao.IChatBasicBeanDao"/>
-    <reference id="chatIndexBeanDao" interface="com.daren.cooperate.api.dao.IChatIndexBeanDao"/>-->
+    <reference id="chatIndexBeanDao" interface="com.daren.cooperate.api.dao.IChatIndexBeanDao"/>
 
     <cxf:bus>
         <cxf:features>
@@ -65,14 +65,14 @@
         </jaxrs:providers>
     </jaxrs:server>
 
-    <!--<jaxrs:server id="chatRestService" address="/chat">
+    <jaxrs:server id="chatRestService" address="/chat">
         <jaxrs:serviceBeans>
             <ref component-id="chatBeanService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref component-id="jsonProvider"/>
         </jaxrs:providers>
-    </jaxrs:server>-->
+    </jaxrs:server>
 
     <!-- cxf的JSON支持配置 -->
     <bean id="jacksonMapper" class="com.daren.core.rest.CustomObjectMapper">

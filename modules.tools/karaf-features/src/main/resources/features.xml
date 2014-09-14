@@ -274,6 +274,7 @@
         <feature>jquery-ui</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
         <bundle start-level="85">wrap:mvn:com.vaynberg.wicket.select2/wicket-select2/2.3</bundle>
+        <bundle start-level="85">wrap:mvn:com.tencent/com.tencent.xinge/1.0</bundle>
         <bundle>mvn:commons-codec/commons-codec/1.8</bundle>
 
         <!--<bundle>wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.1 </bundle>-->

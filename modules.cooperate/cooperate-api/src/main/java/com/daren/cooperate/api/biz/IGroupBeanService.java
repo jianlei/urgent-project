@@ -2,6 +2,7 @@ package com.daren.cooperate.api.biz;
 
 import com.daren.core.api.biz.IBizService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ public interface IGroupBeanService extends IBizService {
      * @param ids
      * @return
      */
-    public Map createGroup(String group_name,String group_logo,String ids,String req_msg);
+    public Map createGroup(String group_name,String group_logo,String ids,String req_msg,HttpServletRequest request);
 
     /**
      * 获取群组列表
@@ -26,7 +27,7 @@ public interface IGroupBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getGroupList(Integer page, Integer page_size);
+    public Map getGroupList(Integer page, Integer page_size,HttpServletRequest request);
 
     /**
      * 被邀请人回应邀请
@@ -34,7 +35,7 @@ public interface IGroupBeanService extends IBizService {
      * @param res_type
      * @return
      */
-    public Map replyReq(Integer group_id, Integer res_type);
+    public Map replyReq(Integer group_id, Integer res_type,HttpServletRequest request);
 
     /**
      * 获取新邀请的列表
@@ -42,6 +43,6 @@ public interface IGroupBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    public Map getNewReqList(Integer page, Integer page_size);
+    public Map getNewReqList(Integer page, Integer page_size,HttpServletRequest request);
 
 }
