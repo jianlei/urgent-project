@@ -20,16 +20,22 @@ import java.util.Date;
 @Table(name = "gov_safety_production")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ProductionBean extends WorkflowEntity {
+
+    private String name;//单位名称
+    private String head;//主要负责人
+    private String phone;//负责人电话
+    private String address;//单位地址
+    private String economicsType;//经济类型
+    private String scope;//许可范围
+
+
     private Date awardDate;//发证日期
     private Date effectiveDate;//有效日期
     private String code;//证书编号
     private String card;//FM安许证字
-    private String name;//单位名称
-    private String head;//主要负责人
-    private String address;//单位地址
-    private String economicsType;//经济类型
-    private String scope;//许可范围
     private String unitsDate;//发证机关
+
+    private String linkHandle;//当前办理环节
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -127,5 +133,21 @@ public class ProductionBean extends WorkflowEntity {
 
     public void setEnterpriseId(long enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLinkHandle() {
+        return linkHandle;
+    }
+
+    public void setLinkHandle(String linkHandle) {
+        this.linkHandle = linkHandle;
     }
 }

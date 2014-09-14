@@ -97,6 +97,7 @@ public class ProductionAddPage extends BasePanel {
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
         addTextFieldToForm("head");
+        addTextFieldToForm("phone");
         addTextFieldToForm("address");
         addTextFieldToForm("economicsType");
         addTextFieldToForm("scope");

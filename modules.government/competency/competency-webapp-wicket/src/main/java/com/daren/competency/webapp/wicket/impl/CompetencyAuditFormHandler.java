@@ -1,23 +1,23 @@
-package com.daren.fireworks.webapp.wicket.impl;
+package com.daren.competency.webapp.wicket.impl;
 
+import com.daren.competency.webapp.wicket.Const;
+import com.daren.competency.webapp.wicket.page.CompetencyAuditFormPage;
 import com.daren.core.web.api.workflow.IFormHandler;
-import com.daren.fireworks.webapp.wicket.Const;
-import com.daren.fireworks.webapp.wicket.page.FireworksAuditFormPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 /**
- * @类描述：烟花爆竹经营(批发)许可证
+ * @类描述：安全资格证书(培训)
  * @创建人： Administrator
  * @创建时间：2014/9/13
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class FireworksAuditFormHandler implements IFormHandler{
+public class CompetencyAuditFormHandler implements IFormHandler{
     @Override
     public Panel getPanel(String id, IModel model) {
-        return new FireworksAuditFormPage(id,model);
+        return new CompetencyAuditFormPage(id,model);
     }
 
     @Override

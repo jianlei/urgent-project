@@ -1,13 +1,11 @@
-package com.daren.fireworks.webapp.wicket.page;
+package com.daren.competency.webapp.wicket.page;
 
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
+import com.daren.competency.api.biz.ICompetencyService;
+import com.daren.competency.entities.CompetencyBean;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
-import com.daren.core.web.component.navigator.CustomerPagingNavigator;
-import com.daren.fireworks.api.biz.IFireworksService;
-import com.daren.fireworks.entities.FireworksBean;
-import com.daren.fireworks.webapp.wicket.impl.FireworksAuditFormHandler;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.daren.workflow.webapp.wicket.util.WorkflowUtil;
@@ -22,7 +20,6 @@ import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -32,7 +29,6 @@ import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -48,18 +44,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @类描述：烟花爆竹经营(批发)许可证
+ * @类描述：安全资格证书(培训)
  * @创建人： Administrator
  * @创建时间：2014/9/13
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class FireworksAuditFormPage extends BaseFormPanel {
+public class CompetencyAuditFormPage extends BaseFormPanel {
     @Inject
     private IAttachmentService attachmentService;
     @Inject
-    private IFireworksService fireworksService;
+    private ICompetencyService competencyService;
     @Inject
     private transient FormService formService;
     @Inject
@@ -68,12 +64,12 @@ public class FireworksAuditFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
-    FireworksBean bean = new FireworksBean();
+    CompetencyBean bean = new CompetencyBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     private String comment="审批通过";
     private String accepted="同意";
 
-    public FireworksAuditFormPage(String id, final IModel<Task> model) {
+    public CompetencyAuditFormPage(String id, final IModel<Task> model) {
         super(id, model);
         setOutputMarkupId(true);
         //得到任务对象
@@ -86,7 +82,7 @@ public class FireworksAuditFormPage extends BaseFormPanel {
         //拆分业务键，拆分成“业务对象名称”和“业务对象ID”的数组
         String beanId = WorkflowUtil.getBizId(businessKey);
         //得到业务实体
-        bean = (FireworksBean) fireworksService.getEntity(new Long(beanId));
+        bean = (CompetencyBean) competencyService.getEntity(new Long(beanId));
         final Form<Map<String, String>> form = new Form<>("startForm", new CompoundPropertyModel<Map<String, String>>(new HashMap<String, String>()));
         form.setOutputMarkupId(true);
         add(form);
@@ -94,12 +90,13 @@ public class FireworksAuditFormPage extends BaseFormPanel {
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
         form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("head",new PropertyModel<String>(bean, "head")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("address",new PropertyModel<String>(bean, "address")));
-        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
-        form.add(new Label("storageAddress",new PropertyModel<String>(bean, "storageAddress")));
-        form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
+        form.add(new Label("sex",new PropertyModel<String>(bean, "sex")));
+        form.add(new Label("enterpriseName",new PropertyModel<String>(bean, "enterpriseName")));
+        form.add(new Label("title",new PropertyModel<String>(bean, "title")));
+        form.add(new Label("cultureLevel",new PropertyModel<String>(bean, "cultureLevel")));
+        form.add(new Label("id_code",new PropertyModel<String>(bean, "id_code")));
+        form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
+        form.add(new Label("qualificationsType",new PropertyModel<String>(bean, "qualificationsType")));
         form.add(new Label("taskName", task.getName()));
         //审批结果
         final List<String> TYPES = Arrays.asList(new String[]{"同意", "不同意"});
@@ -131,7 +128,7 @@ public class FireworksAuditFormPage extends BaseFormPanel {
                     model.setObject(null);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
-                    target.add(FireworksAuditFormPage.this.findParent(TabbedPanel.class));
+                    target.add(CompetencyAuditFormPage.this.findParent(TabbedPanel.class));
                 } finally {
                     identityService.setAuthenticatedUserId(null);
                 }
@@ -145,11 +142,11 @@ public class FireworksAuditFormPage extends BaseFormPanel {
         form.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                TabsUtil.deleteTab(target, FireworksAuditFormPage.this.findParent(TabbedPanel.class));
+                TabsUtil.deleteTab(target, CompetencyAuditFormPage.this.findParent(TabbedPanel.class));
             }
         });
 
-        List<AttachmentBean> list = attachmentService.getAttachmentBeanByParentIdAndAppType(bean.getId(), "fireworks");
+        List<AttachmentBean> list = attachmentService.getAttachmentBeanByParentIdAndAppType(bean.getId(), "competency");
         WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         //构造数据

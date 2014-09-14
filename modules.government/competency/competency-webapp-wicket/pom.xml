@@ -114,6 +114,36 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.workflow</groupId>
+            <artifactId>com.daren.workflow.webapp.wicket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-osgi</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-converter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
             <version>0.0.6_1</version>

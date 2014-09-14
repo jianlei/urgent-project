@@ -9,4 +9,10 @@
         <bean class="com.daren.production.webapp.wicket.SingleCheckMenuItemsModule">
         </bean>
     </service>
+
+    <!-- firework Audit form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.production.webapp.wicket.impl.ProductionAuditFormHandler">
+        </bean>
+    </service>
 </blueprint>
