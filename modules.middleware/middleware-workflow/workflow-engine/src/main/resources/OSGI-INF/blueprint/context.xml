@@ -41,14 +41,14 @@
 
     <bean id="myTaskAssigner" class="com.daren.workflow.engine.MyTaskAssigner"/>
 
-    <service id="processListener" interface="org.activiti.engine.delegate.JavaDelegate" ref="myProcessAssigner">
+    <!--<service id="processListener" interface="org.activiti.engine.delegate.JavaDelegate" ref="myProcessAssigner">
         <service-properties>
             <entry key="osgi.service.blueprint.compname">
                 <value type="java.lang.String">processListener</value>
             </entry>
         </service-properties>
-    </service>
-    <bean id="myProcessAssigner" class="com.daren.workflow.engine.ProcessAssigner"/>
+    </service>-->
+    <!--<bean id="myProcessAssigner" class="com.daren.workflow.engine.ProcessAssigner"/>-->
 
     <bean id="processEngine" factory-ref="processEngineFactory" factory-method="getObject"/>
     <!--流程引擎服务-->

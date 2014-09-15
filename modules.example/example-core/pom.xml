@@ -56,11 +56,11 @@
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.servicemix.specs</groupId>

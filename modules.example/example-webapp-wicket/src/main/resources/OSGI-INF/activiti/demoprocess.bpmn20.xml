@@ -8,7 +8,7 @@
 
     <startEvent id="startevent1" name="Start" activiti:formKey="Start.form" activiti:initiator="initiator">
       <extensionElements>
-            <activiti:executionListener  delegateExpression="${processListener}" event="start" />
+            <activiti:executionListener  class="com.daren.example.webapp.wicket.activiti.events.ProcessEvent" event="start" />
           <activiti:formProperty id="title" name="标题" type="string" variable="title" required="true" readable="true"
                                  writable="true"></activiti:formProperty>
           <activiti:formProperty id="description" name="描述" type="string" variable="description" required="true"
@@ -21,7 +21,7 @@
         </documentation>
         <extensionElements>
             <activiti:taskListener event="complete"
-                                   delegateExpression="${myTaskAssigner}" ></activiti:taskListener>
+                                   class="com.daren.example.webapp.wicket.activiti.events.MyTaskAssigner" ></activiti:taskListener>
 
             <activiti:formProperty  id="title" name="Title" type="string" variable="title" required="false" readable="true" writable="false"/>
             <activiti:formProperty  id="justification" name="Justification" type="string" variable="justification" required="true" readable="true" writable="true"/>
