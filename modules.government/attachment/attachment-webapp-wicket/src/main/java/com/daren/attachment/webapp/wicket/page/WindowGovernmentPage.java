@@ -29,11 +29,7 @@ public class WindowGovernmentPage extends GovernmentDialog {
 
     }
 
-    @Override
-    public void onClose(AjaxRequestTarget target, DialogButton button) {
-        allmap.removeAll();
-        target.add(wmc);
-    }
+    protected void myOnClose(AjaxRequestTarget target) {}
 
     @Override
     public void onConfigure(JQueryBehavior behavior) {

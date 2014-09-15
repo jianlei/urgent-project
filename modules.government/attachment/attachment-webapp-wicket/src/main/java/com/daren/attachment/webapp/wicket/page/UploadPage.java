@@ -3,6 +3,8 @@ package com.daren.attachment.webapp.wicket.page;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.IConst;
+import com.daren.workflow.webapp.wicket.util.TabsUtil;
+import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -32,6 +34,8 @@ public class UploadPage extends Panel {
         form.setMultiPart(true);
         this.add(form);
         form.add(fileUploadField);
+
+        
 
         //保存按钮
         AjaxButton ajaxSubmitLinkCreate = new AjaxButton("save", form) {

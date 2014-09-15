@@ -28,4 +28,9 @@
         </bean>
     </service>
 
+    <!-- firework Modify form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksModifyFormHandler">
+        </bean>
+    </service>
 </blueprint>
