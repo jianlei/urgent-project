@@ -3,9 +3,16 @@ package com.daren.chemistry.manage.webapp.wicket.page;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
+import com.daren.chemistry.manage.webapp.wicket.Const;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -34,6 +41,14 @@ public class ChemistryManageListPage extends BasePanel {
     ChemistryManageDataProvider provider = new ChemistryManageDataProvider();
     @Inject
     private IChemistryManageBeanService chemistryManageBeanService;
+    @Inject
+    private transient IdentityService identityService;
+    @Inject
+    private transient RuntimeService runtimeService;
+    @Inject
+    private TaskService taskService;
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         //初始化dialogWrapper
@@ -49,6 +64,7 @@ public class ChemistryManageListPage extends BasePanel {
             }
         };
         this.add(dialogWrapper.setOutputMarkupId(true));
+        this.add(feedbackPanel);
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         DataView<ChemistryManageBean> listView = new DataView<ChemistryManageBean>("rows", provider, 10) {
@@ -63,9 +79,11 @@ public class ChemistryManageListPage extends BasePanel {
                 item.add(new Label("mode", competencyBean.getMode()));
                 item.add(new Label("unitType", competencyBean.getUnitType()));
                 item.add(new Label("scope", competencyBean.getScope()));
+                item.add(new Label("linkHandle", competencyBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", competencyBean));
                 item.add(getToUploadPageLink("upload", competencyBean));
                 item.add(getDuplicateLink("duplicate", competencyBean));
+                item.add(getSubmitLink("submit", competencyBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -101,6 +119,32 @@ public class ChemistryManageListPage extends BasePanel {
             }
         };
         return alinkDuplicate;
+    }
+
+    private AjaxLink getSubmitLink(String wicketId, final ChemistryManageBean competencyBean){
+        AjaxLink alinkSubmit = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                try {
+                    String bizKey= Const.PROCESS_KEY + ":" + competencyBean.getPhone() + ":" + competencyBean.getId();
+                    //获得当前登陆用户
+                    identityService.setAuthenticatedUserId(competencyBean.getPhone());
+                    ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
+                    competencyBean.setProcessInstanceId(instance.getProcessInstanceId());
+                    Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
+                    competencyBean.setLinkHandle(task.getName());
+                    chemistryManageBeanService.saveEntity(competencyBean);
+                    feedbackPanel.info("危险化学品经营许可证,启动成功！");
+                }catch (Exception e){
+                    feedbackPanel.info("危险化学品经营许可证,启动失败！");
+                }finally {
+                    identityService.setAuthenticatedUserId(null);
+                }
+                target.add(feedbackPanel);
+            }
+
+        };
+        return alinkSubmit;
     }
 
     private AjaxLink getToUploadPageLink(String wicketId, final ChemistryManageBean chemistryManageBean) {

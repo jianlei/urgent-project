@@ -22,4 +22,10 @@
         </bean>
     </service>
 
+    <!-- firework End form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksEndFormHandler">
+        </bean>
+    </service>
+
 </blueprint>
