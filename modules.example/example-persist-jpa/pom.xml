@@ -28,8 +28,8 @@
     <groupId>com.daren.example</groupId>
     <artifactId>com.daren.example.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Enterprise - Persist JPA Container Managed</name>
-    <description>Urgent Enterprise Persist JPA Container Managed Module</description>
+    <name>Urgent :: Example - Persist JPA Container Managed</name>
+    <description>Urgent Example Persist JPA Container Managed Module</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

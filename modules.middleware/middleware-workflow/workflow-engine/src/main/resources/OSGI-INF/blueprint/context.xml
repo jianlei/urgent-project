@@ -7,26 +7,49 @@
         <property name="password" value="1234"/>
     </bean>
 
+    <!--用于activiti JavaDelegate-->
+    <reference-list id="blueprintListener" availability="optional" interface="org.activiti.engine.delegate.JavaDelegate" activation="eager">
+        <reference-listener ref="blueprintELResolver" bind-method="bindService" unbind-method="unbindService"/>
+    </reference-list>
+
+    <bean id="blueprintELResolver"  class="org.activiti.osgi.blueprint.BlueprintELResolver" />
+
     <bean id="configurationFactory" class="com.daren.workflow.engine.ConfigurationFactory">
         <property name="dataSource" ref="dataSource"/>
         <property name="databaseSchemaUpdate" value="true"/>
         <property name="history" value="full"/>
-        <property name="activityFontName" value="微软雅黑" ></property>
-        <property name="labelFontName" value="微软雅黑"></property>
+        <property name="activityFontName" value="微软雅黑"/>
+        <property name="labelFontName" value="微软雅黑"/>
     </bean>
 
-    <bean id="configuration" factory-ref="configurationFactory" factory-method="getConfiguration">
-
-    </bean>
+    <bean id="configuration" factory-ref="configurationFactory" factory-method="getConfiguration"/>
 
     <bean id="processEngineFactory" class="org.activiti.osgi.blueprint.ProcessEngineFactoryWithELResolver"
           init-method="init" destroy-method="destroy">
         <property name="processEngineConfiguration"  ref="configuration"/>
         <property name="bundle" ref="blueprintBundle"/>
-        <property name="blueprintELResolver">
-            <bean class="org.activiti.osgi.blueprint.BlueprintELResolver"/>
-        </property>
+        <property name="blueprintELResolver" ref="blueprintELResolver"/>
     </bean>
+
+    <service id="taskListener" interface="org.activiti.engine.delegate.JavaDelegate" ref="myTaskAssigner">
+        <service-properties>
+            <entry key="osgi.service.blueprint.compname">
+                <value type="java.lang.String">myTaskAssigner</value>
+            </entry>
+        </service-properties>
+    </service>
+
+    <bean id="myTaskAssigner" class="com.daren.workflow.engine.MyTaskAssigner"/>
+
+    <service id="processListener" interface="org.activiti.engine.delegate.JavaDelegate" ref="myProcessAssigner">
+        <service-properties>
+            <entry key="osgi.service.blueprint.compname">
+                <value type="java.lang.String">processListener</value>
+            </entry>
+        </service-properties>
+    </service>
+    <bean id="myProcessAssigner" class="com.daren.workflow.engine.ProcessAssigner"/>
+
     <bean id="processEngine" factory-ref="processEngineFactory" factory-method="getObject"/>
     <!--流程引擎服务-->
     <service interface="org.activiti.engine.ProcessEngine">

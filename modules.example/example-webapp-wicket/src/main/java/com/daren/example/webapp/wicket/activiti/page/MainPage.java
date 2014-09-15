@@ -1,5 +1,6 @@
 package com.daren.example.webapp.wicket.activiti.page;
 
+import com.daren.core.web.wicket.BasePanel;
 import com.daren.example.webapp.wicket.activiti.components.dynamic.ActivitiStartProcessFormPanel;
 import com.daren.example.webapp.wicket.activiti.components.dynamic.ActivitiTaskFormPanel;
 import com.daren.example.webapp.wicket.activiti.components.process.ProcessListPanel;
@@ -19,12 +20,13 @@ import org.apache.wicket.model.IModel;
  * Time: 17:18
  * To change this template use File | Settings | File Templates.
  */
-public class MainPage extends BasePage{
+public class MainPage extends BasePanel{
 
     private IModel<ProcessDefinition> selectedProcessDefinitonModel;
     private IModel<Task> selectedTaskModel;
 
-    public MainPage() {
+    public MainPage(String id, WebMarkupContainer wmc) {
+        super(id,wmc);
 
         selectedProcessDefinitonModel=new ProcessDefinitionModel();
         selectedTaskModel=new TaskModel();
