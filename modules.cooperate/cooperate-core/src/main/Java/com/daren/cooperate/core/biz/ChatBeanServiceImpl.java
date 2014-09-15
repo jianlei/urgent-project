@@ -8,6 +8,7 @@ import com.daren.cooperate.core.model.*;
 import com.daren.cooperate.core.util.CookieUtil;
 import com.daren.cooperate.core.util.SendMsgByXingeThread;
 import com.daren.cooperate.core.util.TimeDifference;
+import com.daren.cooperate.core.util.UploadFileUtil;
 import com.daren.cooperate.entities.ChatBasicBean;
 import com.daren.cooperate.entities.ChatIndexBean;
 import com.daren.core.api.IConst;
@@ -95,7 +96,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                 long currentTimeMillis = System.currentTimeMillis();
                 photo = IConst.OFFICE_WEB_PATH_READ+currentTimeMillis;
                 head_photo = IConst.OFFICE_WEB_PATH_READ+currentTimeMillis;
-//                UploadFileUtil.writerFile(request,photo);
+                UploadFileUtil.writerFile(request, photo);
                 if(group_id==null){//私聊
                     chat = new ChatBasicBean(chat_type, is_read, chat_content,head_photo,  head_spicurl,  Long.parseLong(String.valueOf(to_userid)),user_id,0,0,voice_time);
                     chat.setChat_time(DateUtil.convertDateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
@@ -120,7 +121,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                         chatIndex = chatIndexBeanDao.save(chatIndex); //.insertChatIndex(chatIndex);
                         //push
                         List<String> userTokenByIdList = chatBasicBeanDao.findByNativeSql("SELECT token " +
-                                " FROM sys_user_rel WHERE user_id="+user_id,String.class);
+                                " FROM sys_user_rel WHERE user_id="+to_userid,String.class);
                         //getUserTokenById(Long.parseLong(to_userid));
                         if(userTokenByIdList!=null){
                             String userTokenById = userTokenByIdList.get(0);
@@ -165,7 +166,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                 "AND tub.token is not null AND tub.token != 'null' " +
                                 "UNION SELECT distinct tub.token " +
                                 " FROM coop_group_user_rel tgur LEFT JOIN sys_user_rel tub ON tub.user_id=tgur.user_id " +
-                                "WHERE tgur.group_id="+group_id+" AND tub.user_id!="+user_id+
+                                "WHERE tgur.group_id="+group_id+" AND tub.user_id!="+to_userid+
                                 "AND tub.token is not null AND tub.token != 'null'",String.class);  //.getUserTokenListInGroup(m);
                         if(userTokenListInGroup!=null&&!userTokenListInGroup.isEmpty()){
                             JSONObject pushjsoncontent = new JSONObject();
@@ -298,14 +299,15 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                         List<User> npList = chatBasicBeanDao.findByNativeSql("select sys_user.name," +
                                                 " sys_user_rel.user_logo as head_spicurl " +
                                                 " from sys_user left join sys_user_rel on sys_user_rel.user_id= sys_user.id " +
-                                                " where sys_user.id ="+ci.getFrom_userid(),User.class);
+                                                " where sys_user.id ="+ci.getTo_userid(),User.class);
                                         if(npList!=null){
                                             User np = npList.get(0);
                                             if(np!=null&&np.getHead_spicurl()!=null && np.getHead_spicurl().length()>0){
                                                 teat.setLogo(np.getHead_spicurl());
                                             }
+                                            String ss = np.getName();
                                             if(np!=null&&np.getName()!=null){
-                                                teat.setName(np.getNickname());
+                                                teat.setName(np.getName());
                                             }
                                             userList.add(teat);
                                         }
@@ -339,7 +341,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                                 teat.setLogo(np.getHead_spicurl());
                                             }
                                             if(np!=null&&np.getName()!=null){
-                                                teat.setName(np.getNickname());
+                                                teat.setName(np.getName());
                                             }
                                             userList.add(teat);
                                         }

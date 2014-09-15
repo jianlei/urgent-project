@@ -1,5 +1,6 @@
 package com.daren.cooperate.core.biz;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.cooperate.api.biz.IGroupBeanService;
 import com.daren.cooperate.api.dao.IGroupBasicBeanDao;
 import com.daren.cooperate.api.dao.IGroupUserRelBeanDao;
@@ -7,6 +8,7 @@ import com.daren.cooperate.api.dao.IGroupUserReqBeanDao;
 import com.daren.cooperate.core.model.ErrorCodeValue;
 import com.daren.cooperate.core.model.GroupListModel;
 import com.daren.cooperate.core.model.GroupReqListModel;
+import com.daren.cooperate.core.model.OrgContainerModel;
 import com.daren.cooperate.core.util.CookieUtil;
 import com.daren.cooperate.core.util.SendMsgByXingeThread;
 import com.daren.cooperate.entities.GroupBasicBean;
@@ -14,6 +16,8 @@ import com.daren.cooperate.entities.GroupUserRelBean;
 import com.daren.cooperate.entities.GroupUserReqBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
+import com.daren.enterprise.core.model.OrgnizationListModel;
+import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +38,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
     private IGroupBasicBeanDao groupBasicBeanDao;
     private IGroupUserRelBeanDao groupUserRelBeanDao;
     private IGroupUserReqBeanDao groupUserReqBeanDao;
+    private IUserBeanService userBeanService;
 
     public void setGroupBasicBeanDao(IGroupBasicBeanDao groupBasicBeanDao) {
         this.groupBasicBeanDao = groupBasicBeanDao;
@@ -41,6 +46,10 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
 
     public void setGroupUserRelBeanDao(IGroupUserRelBeanDao groupUserRelBeanDao) {
         this.groupUserRelBeanDao = groupUserRelBeanDao;
+    }
+
+    public void setUserBeanService(IUserBeanService userBeanService) {
+        this.userBeanService = userBeanService;
     }
 
     public void setGroupUserReqBeanDao(IGroupUserReqBeanDao groupUserReqBeanDao) {
@@ -67,27 +76,48 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                 //groupBasicBean.setJgdm();
                 //groupBasicBean.setGroup_logo();
                 groupBasicBean = groupBasicBeanDao.save(groupBasicBean);
-                String[] idArr;
+                List tokenAllList = new ArrayList();
                 if(ids!=null && !"".equals(ids)){
-                    idArr = ids.split(",");
-                    for(int i=0;i<idArr.length;i++){
-                        GroupUserReqBean groupUserReqBean = new GroupUserReqBean();
-                        groupUserReqBean.setGroup_id(groupBasicBean.getId());
-                        groupUserReqBean.setReq_id(user_id);
-                        //groupUserReqBean.setReq_msg(req_msg);
-                        groupUserReqBean.setReq_time(DateUtil.convertDateToString(new Date(), DateUtil.longSdf));
-                        groupUserReqBean.setRes_type(0);
-                        groupUserReqBeanDao.save(groupUserReqBean);           //保存日程和人员关系
+                    Gson gson = new Gson();
+                    OrgContainerModel orgJson = gson.fromJson(ids,OrgContainerModel.class);
+                    List<OrgnizationListModel> orgList = orgJson.getModels();
+                    for(int i=0;i<orgList.size();i++){
+                        OrgnizationListModel om = orgList.get(i);
+                        if(om.getFlag()==2){        //用户
+                            GroupUserReqBean groupUserReqBean = new GroupUserReqBean();
+                            groupUserReqBean.setGroup_id(groupBasicBean.getId());
+                            groupUserReqBean.setReq_id(user_id);
+                            //groupUserReqBean.setReq_msg(req_msg);
+                            groupUserReqBean.setReq_time(DateUtil.convertDateToString(new Date(), DateUtil.longSdf));
+                            groupUserReqBean.setRes_type(0);
+                            groupUserReqBeanDao.save(groupUserReqBean);
+                            List tokenList = userBeanService.getUserTokenListByIds(Long.parseLong(om.getJgdm()));
+                            tokenAllList.addAll(tokenList);
+                        }else{                      //组织机构
+                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                            if(useridList!=null && !useridList.isEmpty()){
+                                for(int j=0;j<useridList.size();j++){
+                                    GroupUserReqBean groupUserReqBean = new GroupUserReqBean();
+                                    groupUserReqBean.setGroup_id(groupBasicBean.getId());
+                                    groupUserReqBean.setReq_id(user_id);
+                                    //groupUserReqBean.setReq_msg(req_msg);
+                                    groupUserReqBean.setReq_time(DateUtil.convertDateToString(new Date(), DateUtil.longSdf));
+                                    groupUserReqBean.setRes_type(0);
+                                    groupUserReqBeanDao.save(groupUserReqBean);
+                                }
+                            }
+                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                            tokenAllList.addAll(tokenJgdmList);
+                        }
                     }
                 }
-                //推送
-                List tokenList = new ArrayList();
-                if(tokenList!=null&&!tokenList.isEmpty()){
+                //发送推送
+                if(tokenAllList!=null&&!tokenAllList.isEmpty()){
                     JSONObject pushjsoncontent = new JSONObject();
-                    pushjsoncontent.put("fuction", 2004);
-                    pushjsoncontent.put("message", "活动取消提醒:很抱歉，您圈子内的活动"+group_name+"已经取消了!");
+                    pushjsoncontent.put("function", 10000);
+                    pushjsoncontent.put("message", "群组邀请提醒:邀请您加入群组-"+groupBasicBean.getGroup_name()+"!");
                     pushjsoncontent.put("chat_id", 0);
-                    SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenList,1,"","",pushjsoncontent);
+                    SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
                     Thread thread = new Thread(smxt);
                     thread.start();
                 }

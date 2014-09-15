@@ -27,6 +27,7 @@
         <property name="groupBasicBeanDao" ref="groupBasicBeanDao"/>
         <property name="groupUserRelBeanDao" ref="groupUserRelBeanDao"/>
         <property name="groupUserReqBeanDao" ref="groupUserReqBeanDao"/>
+        <property name="userBeanService" ref="userBeanService"/>
     </bean>
     <reference id="groupBasicBeanDao" interface="com.daren.cooperate.api.dao.IGroupBasicBeanDao"/>
     <reference id="groupUserRelBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserRelBeanDao"/>
