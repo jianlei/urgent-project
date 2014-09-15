@@ -22,4 +22,9 @@ public class AttachmentServiceImpl extends GenericBizServiceImpl implements IAtt
         this.attachmentBeanDao = attachmentBeanDao;
         super.init(attachmentBeanDao, AttachmentBean.class.getName());
     }
+
+    @Override
+    public List<AttachmentBean> getAttachmentBeanByParentIdAndAppType(long preateId, String appType) {
+        return attachmentBeanDao.find("select a from AttachmentBean a where a.parentId=?1 and a.appType=?2",preateId,appType);
+    }
 }

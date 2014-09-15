@@ -21,7 +21,7 @@ import java.util.Date;
 
 
 /**
- * @类描述：培训
+ * @类描述：安全资格证书(培训)
  * @创建人：王凯冉
  * @创建时间：2014-08-01 上午10:25
  * @修改人：
@@ -44,7 +44,6 @@ public class CompetencyAddPage extends BasePanel {
         initForm(competencyBean);
         initFeedBack();
         addForm(id, wmc);
-        addDatePickerToForm(competencyBean, competencyBeanForm);
     }
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
@@ -96,29 +95,15 @@ public class CompetencyAddPage extends BasePanel {
         competencyBeanForm.add(hiddenField);
     }
 
-    //日期控件//
-    private void addDatePickerToForm(String value, String dateFormat, String formatOne, String formatTwo, CompetencyBean bean, Form form) {
-        DatePicker accidentTime = new DatePicker(value,
-                new PropertyModel<Date>(bean, value), formatOne,
-                new Options(dateFormat, Options.asString(formatTwo)));
-        form.add(accidentTime);
-    }
-
-    private void addDatePickerToForm(CompetencyBean bean, Form form) {
-        addDatePickerToForm("awardDate", "dateFormat", "yyyy-MM-dd", "yy-mm-dd", bean, form);
-        addDatePickerToForm("effectiveDate", "dateFormat", "yyyy-MM-dd", "yy-mm-dd", bean, form);
-    }
-
-
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
         addTextFieldToForm("sex");
-        addTextFieldToForm("enterpriseId");
+        addTextFieldToForm("phone");
+        addTextFieldToForm("enterpriseName");
         addTextFieldToForm("title");
         addTextFieldToForm("cultureLevel");
         addTextFieldToForm("id_code");
         addTextFieldToForm("unitType");
         addTextFieldToForm("qualificationsType");
-        addTextFieldToForm("code");
     }
 }

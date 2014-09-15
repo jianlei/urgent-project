@@ -12,7 +12,14 @@
 
     <!-- 发布SingleCheck目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.fireworks.webapp.wicket.SingleCheckMenuItemsModule">
+        <bean class="com.daren.fireworks.webapp.wicket.FireworksItemsModule">
         </bean>
     </service>
+
+    <!-- firework Audit form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksAuditFormHandler">
+        </bean>
+    </service>
+
 </blueprint>

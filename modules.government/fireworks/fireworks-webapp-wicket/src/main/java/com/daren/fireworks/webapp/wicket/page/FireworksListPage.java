@@ -1,27 +1,29 @@
 package com.daren.fireworks.webapp.wicket.page;
 
-import com.daren.core.web.component.government.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
-import com.daren.core.web.component.office.WindowOfficePage;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
-import com.daren.workflow.webapp.wicket.page.WorkflowBasePanel;
+import com.daren.fireworks.webapp.wicket.Const;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.activiti.engine.FormService;
-import org.apache.aries.blueprint.annotation.Reference;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
+import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -38,10 +40,15 @@ public class FireworksListPage extends BasePanel {
     final WebMarkupContainer dialogWrapper;
     WindowGovernmentPage dialog;
     FireworksDataProvider provider = new FireworksDataProvider();
-
+    @Inject
+    private transient IdentityService identityService;
+    @Inject
+    private transient RuntimeService runtimeService;
     @Inject
     private IFireworksService fireworksService;
-
+    @Inject
+    private TaskService taskService;
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     public FireworksListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         //初始化dialogWrapper
@@ -57,10 +64,12 @@ public class FireworksListPage extends BasePanel {
             }
         };
         this.add(dialogWrapper.setOutputMarkupId(true));
+        this.add(feedbackPanel);
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         DataView<FireworksBean> listView = new DataView<FireworksBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
+
             @Override
             protected void populateItem(Item<FireworksBean> item) {
                 final FireworksBean fireworksBean = item.getModelObject();
@@ -71,9 +80,11 @@ public class FireworksListPage extends BasePanel {
                 item.add(new Label("economicsType", fireworksBean.getEconomicsType()));
                 item.add(new Label("storageAddress", fireworksBean.getStorageAddress()));
                 item.add(new Label("scope", fireworksBean.getScope()));
+                item.add(new Label("linkHandle", fireworksBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", fireworksBean));
                 item.add(getToUploadPageLink("upload", fireworksBean));
-
+                item.add(getDuplicateLink("duplicate", fireworksBean));
+                item.add(getSubmitLink("submit", fireworksBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -101,23 +112,60 @@ public class FireworksListPage extends BasePanel {
         return ajaxLink;
     }
 
+    private AjaxLink getDuplicateLink(String wicketId, final FireworksBean fireworksBean){
+        AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", fireworksBean, "list");
+            }
+        };
+        return alinkDuplicate;
+    }
+
+    private AjaxLink getSubmitLink(String wicketId, final FireworksBean fireworksBean){
+        AjaxLink alinkSubmit = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                try {
+                    String bizKey= Const.PROCESS_KEY + ":" + fireworksBean.getPhone() + ":" + fireworksBean.getId();
+                    //获得当前登陆用户
+                    identityService.setAuthenticatedUserId(fireworksBean.getPhone());
+                    ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
+                    fireworksBean.setProcessInstanceId(instance.getProcessInstanceId());
+                    Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
+                    fireworksBean.setLinkHandle(task.getName());
+                    fireworksService.saveEntity(fireworksBean);
+                    feedbackPanel.info("烟花爆竹经营许可证,启动成功！");
+                }catch (Exception e){
+                    feedbackPanel.info("烟花爆竹经营许可证,启动失败！");
+                }finally {
+                    identityService.setAuthenticatedUserId(null);
+                }
+                target.add(feedbackPanel);
+            }
+
+        };
+        return alinkSubmit;
+    }
+
     private AjaxLink getToUploadPageLink(String wicketId, final FireworksBean fireworksBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean);
+                createDialog(target, "上传复件", fireworksBean, "upload");
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {}
+    protected void createButtonOnClick(FireworksBean fireworksBean, AjaxRequestTarget target) {
+    }
 
-    private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean) {
+    private void createDialog(AjaxRequestTarget target, final String title, FireworksBean fireworksBean, String type) {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new WindowGovernmentPage("dialog", title, fireworksBean.getId(), "upload", "fireworks") {
+        dialog = new WindowGovernmentPage("dialog", title, fireworksBean.getId(), type, "fireworks") {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
             }
@@ -153,9 +201,11 @@ public class FireworksListPage extends BasePanel {
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
         private FireworksBean fireworksBean = null;
+
         public void setFireworksBean(FireworksBean fireworksBean) {
             this.fireworksBean = fireworksBean;
         }
+
         @Override
         protected List<FireworksBean> getData() {
             if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))

@@ -2,6 +2,14 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
 
+    <!--监听工作流form的加载和卸载-->
+    <reference-list id="formHandler"
+                    interface="com.daren.core.web.api.workflow.IFormHandler"  member-type="service-reference">
+        <reference-listener bind-method="bind" unbind-method="unbind">
+            <bean class="com.daren.core.web.wicket.listener.FormPanelListener"/>
+        </reference-listener>
+    </reference-list>
+
     <!-- demo start form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.workflow.webapp.wicket.DemoStartFormHandler">
@@ -14,13 +22,27 @@
         </bean>
     </service>
 
+    <!-- demo BizData -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.workflow.webapp.wicket.DemoBizDataHandler">
+        </bean>
+    </service>
+
+    <!--监听工作流业务数据的加载和卸载-->
+    <reference-list id="bizDataHandler"
+                    interface="com.daren.core.web.api.workflow.IBizDataHandler"  availability="optional">
+        <reference-listener bind-method="bind" unbind-method="unbind">
+            <bean class="com.daren.core.web.wicket.listener.BizDataPanelListener"/>
+        </reference-listener>
+    </reference-list>
+
     <!-- 发布主菜单-->
     <service interface="com.daren.core.web.api.module.IMenuModule">
         <bean class="com.daren.workflow.webapp.wicket.MainMenuModule">
         </bean>
     </service>
 
-    <!-- 发布代办事项子菜单 -->
+    <!-- 发布代办任务子菜单 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.TaskListMenuItemsModule">
         </bean>

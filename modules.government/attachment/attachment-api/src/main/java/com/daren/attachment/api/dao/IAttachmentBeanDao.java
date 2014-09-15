@@ -3,6 +3,8 @@ package com.daren.attachment.api.dao;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.persistence.IGenericDao;
 
+import java.util.List;
+
 /**
  * @类描述：审批附件
  * @创建人：张清欣

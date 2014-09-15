@@ -27,6 +27,6 @@ public class ProcessesHistoryListModel extends LoadableDetachableModel<List<Hist
 	protected List<HistoricProcessInstance> load() {
 
         historyService= (HistoryService) OsgiService.getService(HistoryService.class.getName());
-        return historyService.createHistoricProcessInstanceQuery().list();
+        return historyService.createHistoricProcessInstanceQuery().orderByProcessInstanceStartTime().desc().list();
 	}
 }

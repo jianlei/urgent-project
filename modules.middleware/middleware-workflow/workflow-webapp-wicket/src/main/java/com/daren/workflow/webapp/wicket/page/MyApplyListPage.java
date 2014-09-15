@@ -82,7 +82,10 @@ public class MyApplyListPage extends WorkflowBasePanel{
 
                     String processInstanceId=((HistoricProcessInstanceEntity)row).getProcessInstanceId();
                     Task task= taskService.createTaskQuery().processInstanceId(processInstanceId).executionId(row.getId()).singleResult();
-                    item.add(new Label("activity", task.getName()));
+                    if(task!=null)
+                        item.add(new Label("activity", task.getName()));
+                    else
+                        item.add(new Label("activity", ""));
                     if(null==endTime){
                         item.add(new Label("status", "办理中"));
                     }
@@ -135,7 +138,7 @@ public class MyApplyListPage extends WorkflowBasePanel{
                 public WebMarkupContainer getLazyPanel(String panelId) {
                     //通过repeatingView增加新的panel
                     repeatingView.removeAll();
-                    repeatingView.add(new ViewHistoryVarinst(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
+                    repeatingView.add(new AcvitityHistoryPanel(repeatingView.newChildId(), historicProcessInstance.getId(), historicProcessInstance.getProcessDefinitionId()));
                     Fragment fragment = new Fragment(panelId, "addPanel", MyApplyListPage.this);
                     fragment.add(repeatingView);
                     return fragment;

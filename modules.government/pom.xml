@@ -28,6 +28,7 @@
         <module>operations</module>
         <module>chemistryManage</module>
         <module>attachment</module>
+        <module>apply</module>
     </modules>
     <dependencyManagement>
         <dependencies>

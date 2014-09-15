@@ -20,16 +20,23 @@ import java.util.Date;
 @Table(name = "gov_safety_competency")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class CompetencyBean extends WorkflowEntity {
-    private Date awardDate;//发证日期
-    private Date effectiveDate;//有效日期
-    private String code;//证书编号
+
+
     private String name;//姓名
     private String sex;//性别
+    private String phone;//电话
+    private String enterpriseName;//所属企业
     private String title;//职称
     private String cultureLevel;//文化程度
     private String id_code;//身份证号
     private String unitType;//单位类型
     private String qualificationsType;//资格类型
+
+    private String code;//证书编号
+    private Date awardDate;//发证日期
+    private Date effectiveDate;//有效日期
+
+    private String linkHandle;//当前办理环节
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -113,6 +120,14 @@ public class CompetencyBean extends WorkflowEntity {
         this.qualificationsType = qualificationsType;
     }
 
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+    }
+
     public long getProposerId() {
         return proposerId;
     }
@@ -128,4 +143,21 @@ public class CompetencyBean extends WorkflowEntity {
     public void setEnterpriseId(long enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLinkHandle() {
+        return linkHandle;
+    }
+
+    public void setLinkHandle(String linkHandle) {
+        this.linkHandle = linkHandle;
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.daren.chemistry.manage.webapp.wicket.page;
 
+import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
@@ -28,21 +29,30 @@ import java.util.List;
  * @修改备注：
  */
 public class ChemistryManageListPage extends BasePanel {
-
+    final WebMarkupContainer dialogWrapper;
+    WindowGovernmentPage dialog;
     ChemistryManageDataProvider provider = new ChemistryManageDataProvider();
-
     @Inject
     private IChemistryManageBeanService chemistryManageBeanService;
-
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
+        //初始化dialogWrapper
+        dialogWrapper = new WebMarkupContainer("dialogWrapper") {
+            @Override
+            protected void onBeforeRender() {
+                if (dialog == null) {
+                    addOrReplace(new Label("dialog", ""));
+                } else {
+                    addOrReplace(dialog);
+                }
+                super.onBeforeRender();
+            }
+        };
+        this.add(dialogWrapper.setOutputMarkupId(true));
         final WebMarkupContainer table = new WebMarkupContainer("table");
-
         add(table.setOutputMarkupId(true));
-
         DataView<ChemistryManageBean> listView = new DataView<ChemistryManageBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
-
             @Override
             protected void populateItem(Item<ChemistryManageBean> item) {
                 final ChemistryManageBean competencyBean = item.getModelObject();
@@ -54,7 +64,8 @@ public class ChemistryManageListPage extends BasePanel {
                 item.add(new Label("unitType", competencyBean.getUnitType()));
                 item.add(new Label("scope", competencyBean.getScope()));
                 item.add(getToCreatePageLink("check_name", competencyBean));
-
+                item.add(getToUploadPageLink("upload", competencyBean));
+                item.add(getDuplicateLink("duplicate", competencyBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -82,8 +93,40 @@ public class ChemistryManageListPage extends BasePanel {
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
+    private AjaxLink getDuplicateLink(String wicketId, final ChemistryManageBean chemistryManageBean){
+        AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", chemistryManageBean, "list");
+            }
+        };
+        return alinkDuplicate;
+    }
 
+    private AjaxLink getToUploadPageLink(String wicketId, final ChemistryManageBean chemistryManageBean) {
+        AjaxLink ajaxLink = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                createDialog(target, "上传复件", chemistryManageBean, "upload");
+            }
+        };
+        return ajaxLink;
+    }
+
+    private void createDialog(AjaxRequestTarget target, final String title, ChemistryManageBean chemistryManageBean, String type) {
+        if (dialog != null) {
+            dialogWrapper.removeAll();
+        }
+        dialog = new WindowGovernmentPage("dialog", title, chemistryManageBean.getId(), type, "chemistryManage") {
+            @Override
+            public void updateTarget(AjaxRequestTarget target) {
+            }
+        };
+        target.add(dialogWrapper);
+        dialog.open(target);
+    }
+
+    protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
     }
 
     /**
@@ -95,11 +138,9 @@ public class ChemistryManageListPage extends BasePanel {
         //处理查询
         Form<ChemistryManageBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new ChemistryManageBean()));
         TextField textField = new TextField("name");
-
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
-
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -111,14 +152,11 @@ public class ChemistryManageListPage extends BasePanel {
         majorHazardSourceBeanForm.add(findButton);
     }
 
-
     class ChemistryManageDataProvider extends ListDataProvider<ChemistryManageBean> {
         private ChemistryManageBean competencyBean = null;
-
         public void setChemistryManageBean(ChemistryManageBean competencyBean) {
             this.competencyBean = competencyBean;
         }
-
         @Override
         protected List<ChemistryManageBean> getData() {
             if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
