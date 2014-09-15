@@ -75,10 +75,8 @@ public class ChemistryManageListPage extends BasePanel {
                 item.add(new Label("name", competencyBean.getName()));
                 item.add(new Label("header", competencyBean.getHeader()));
                 item.add(new Label("phone", competencyBean.getPhone()));
-                item.add(new Label("address", competencyBean.getAddress()));
                 item.add(new Label("mode", competencyBean.getMode()));
                 item.add(new Label("unitType", competencyBean.getUnitType()));
-                item.add(new Label("scope", competencyBean.getScope()));
                 item.add(new Label("linkHandle", competencyBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", competencyBean));
                 item.add(getToUploadPageLink("upload", competencyBean));

@@ -15,4 +15,10 @@
         <bean class="com.daren.operations.webapp.wicket.impl.OperationsAuditFormHandler">
         </bean>
     </service>
+
+    <!-- firework End form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.operations.webapp.wicket.impl.OperationsEndFormHandler">
+        </bean>
+    </service>
 </blueprint>

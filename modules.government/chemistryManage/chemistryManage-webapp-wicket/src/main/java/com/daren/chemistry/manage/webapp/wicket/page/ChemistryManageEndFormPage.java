@@ -1,11 +1,11 @@
-package com.daren.fireworks.webapp.wicket.page;
+package com.daren.chemistry.manage.webapp.wicket.page;
 
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
+import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
+import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
-import com.daren.fireworks.api.biz.IFireworksService;
-import com.daren.fireworks.entities.FireworksBean;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.daren.workflow.webapp.wicket.util.WorkflowUtil;
@@ -18,17 +18,13 @@ import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.TextFilter;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
@@ -41,24 +37,21 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * @类描述：烟花爆竹经营(批发)许可证
+ * @类描述：危险化学品经营许可证
  * @创建人： Administrator
  * @创建时间：2014/9/13
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class FireworksEndFormPage extends BaseFormPanel {
+public class ChemistryManageEndFormPage extends BaseFormPanel {
     @Inject
     private IAttachmentService attachmentService;
     @Inject
-    private IFireworksService fireworksService;
+    private IChemistryManageBeanService chemistryManageBeanService;
     @Inject
     private transient FormService formService;
     @Inject
@@ -67,12 +60,12 @@ public class FireworksEndFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
-    FireworksBean bean = new FireworksBean();
+    ChemistryManageBean bean = new ChemistryManageBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     private String comment="审批通过";
     private String accepted="同意";
 
-    public FireworksEndFormPage(String id, final IModel<Task> model) {
+    public ChemistryManageEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
         setOutputMarkupId(true);
         //得到任务对象
@@ -85,25 +78,27 @@ public class FireworksEndFormPage extends BaseFormPanel {
         //拆分业务键，拆分成“业务对象名称”和“业务对象ID”的数组
         String beanId = WorkflowUtil.getBizId(businessKey);
         //得到业务实体
-        bean = (FireworksBean) fireworksService.getEntity(new Long(beanId));
-        final Form<FireworksBean> form = new Form<>("startForm", new CompoundPropertyModel<FireworksBean>(bean));
+        bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
+        final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<ChemistryManageBean>(bean));
         form.setOutputMarkupId(true);
         add(form);
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
         form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("head",new PropertyModel<String>(bean, "head")));
+        form.add(new Label("header",new PropertyModel<String>(bean, "header")));
         form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
         form.add(new Label("address",new PropertyModel<String>(bean, "address")));
-        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
-        form.add(new Label("storageAddress",new PropertyModel<String>(bean, "storageAddress")));
+        form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
+        form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
         form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
         form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
-        form.add(new TextField("card",new PropertyModel<String>(bean, "card")));
         //日期控件//
-        final DatePicker validityDateTime = new DatePicker("validityDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
-        form.add(validityDateTime);
+        final DatePicker startDateTime = new DatePicker("startDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
+        form.add(startDateTime);
+        //日期控件//
+        final DatePicker endDateTime = new DatePicker("endDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
+        form.add(endDateTime);
         //日期控件//
         final DatePicker unitsDateTime = new DatePicker("unitsDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(unitsDateTime);
@@ -120,11 +115,11 @@ public class FireworksEndFormPage extends BaseFormPanel {
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     taskService.complete(task.getId());
                     model.setObject(null);
-                    FireworksBean fireworksBean = (FireworksBean) form.getModelObject();
-                    fireworksService.saveEntity(fireworksBean);
+                    ChemistryManageBean chemistryManageBean = (ChemistryManageBean) form.getModelObject();
+                    chemistryManageBeanService.saveEntity(chemistryManageBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
-                    target.add(FireworksEndFormPage.this.findParent(TabbedPanel.class));
+                    target.add(ChemistryManageEndFormPage.this.findParent(TabbedPanel.class));
                 } finally {
                     identityService.setAuthenticatedUserId(null);
                 }
@@ -138,7 +133,7 @@ public class FireworksEndFormPage extends BaseFormPanel {
         form.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                TabsUtil.deleteTab(target, FireworksEndFormPage.this.findParent(TabbedPanel.class));
+                TabsUtil.deleteTab(target, ChemistryManageEndFormPage.this.findParent(TabbedPanel.class));
             }
         });
 

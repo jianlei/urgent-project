@@ -11,4 +11,10 @@
         <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageAuditTaskFormHandler">
         </bean>
     </service>
+
+    <!-- ChemistryManage End task form -->
+    <service interface="com.daren.core.web.api.workflow.IFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageEndFormHandler">
+        </bean>
+    </service>
 </blueprint>

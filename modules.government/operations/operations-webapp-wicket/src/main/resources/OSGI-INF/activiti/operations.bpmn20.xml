@@ -16,10 +16,25 @@
         <sequenceFlow id="flow6" name="不同意" sourceRef="exclusivegateway1" targetRef="usertask4">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!accepted}]]></conditionExpression>
         </sequenceFlow>
-        <userTask id="usertask3" name="颁发证件" activiti:assignee="系统管理员">
+        <userTask id="usertask3" name="颁发证件" activiti:assignee="系统管理员" activiti:formKey="end.form">
             <documentation>
                 特种作业人员操作资格证
             </documentation>
+            <extensionElements>
+                <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
+                <activiti:formProperty id="phone" name="电话"></activiti:formProperty>
+                <activiti:formProperty id="workType" name="作业类别"></activiti:formProperty>
+                <activiti:formProperty id="operationProject" name="准操项目"></activiti:formProperty>
+                <activiti:formProperty id="enterpriseName" name="企业名称"></activiti:formProperty>
+                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
+                <activiti:formProperty id="receiveDate" name="初领日期"></activiti:formProperty>
+                <activiti:formProperty id="startDate" name="有效期限开始"></activiti:formProperty>
+                <activiti:formProperty id="endDate" name="有效期限结束"></activiti:formProperty>
+                <activiti:formProperty id="reviewDate" name="复审日期"></activiti:formProperty>
+                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
+                <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
+                <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
+            </extensionElements>
         </userTask>
         <endEvent id="endevent1" name="End"></endEvent>
         <sequenceFlow id="flow5" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
@@ -28,15 +43,19 @@
         </sequenceFlow>
         <userTask id="usertask4" name="审批修改" activiti:assignee="系统管理员" activiti:formKey="modify.form">
             <extensionElements>
-                <activiti:formProperty id="code" name="证号"></activiti:formProperty>
                 <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
+                <activiti:formProperty id="phone" name="电话"></activiti:formProperty>
                 <activiti:formProperty id="workType" name="作业类别"></activiti:formProperty>
                 <activiti:formProperty id="operationProject" name="准操项目"></activiti:formProperty>
+                <activiti:formProperty id="enterpriseName" name="企业名称"></activiti:formProperty>
+                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
                 <activiti:formProperty id="receiveDate" name="初领日期"></activiti:formProperty>
                 <activiti:formProperty id="startDate" name="有效期限开始"></activiti:formProperty>
                 <activiti:formProperty id="endDate" name="有效期限结束"></activiti:formProperty>
                 <activiti:formProperty id="reviewDate" name="复审日期"></activiti:formProperty>
+                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
                 <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
+                <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
             </extensionElements>
         </userTask>
         <sequenceFlow id="flow7" sourceRef="usertask4" targetRef="usertask2"></sequenceFlow>

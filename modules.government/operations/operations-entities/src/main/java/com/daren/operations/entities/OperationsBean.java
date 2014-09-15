@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @类描述：安全资格证书(培训)
+ * @类描述：特种作业人员操作资格证
  * @创建人：张清欣
  * @创建时间：2014-09-09 下午14:50
  * @修改人：
