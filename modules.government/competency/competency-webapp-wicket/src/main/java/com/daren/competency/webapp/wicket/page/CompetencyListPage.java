@@ -117,7 +117,7 @@ public class CompetencyListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", competencyBean, "list");
+                createDialog(target, "上传附件", competencyBean, "list");
             }
         };
         return alinkDuplicate;
@@ -153,7 +153,7 @@ public class CompetencyListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", competencyBean, "upload");
+                createDialog(target, "上传附件", competencyBean, "upload");
             }
         };
         return ajaxLink;

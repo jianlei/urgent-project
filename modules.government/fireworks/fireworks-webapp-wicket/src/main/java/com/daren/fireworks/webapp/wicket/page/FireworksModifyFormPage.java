@@ -117,7 +117,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
                 if (dialog != null) {
                     dialogWrapper.removeAll();
                 }
-                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "fireworks") {
+                dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "fireworks") {
                     @Override
                     public void updateTarget(AjaxRequestTarget target) {}
                 };

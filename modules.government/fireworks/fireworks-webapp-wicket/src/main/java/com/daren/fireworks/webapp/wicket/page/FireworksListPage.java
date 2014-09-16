@@ -49,7 +49,7 @@ public class FireworksListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    public FireworksListPage(final String id, final WebMarkupContainer wmc) {
+    public FireworksListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
@@ -99,6 +99,9 @@ public class FireworksListPage extends BasePanel {
                 createButtonOnClick(fireworksBean, target);
             }
         };
+        if(provider.size() > 0 ){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -116,7 +119,7 @@ public class FireworksListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean, "list");
+                createDialog(target, "上传附件", fireworksBean, "list");
             }
         };
         return alinkDuplicate;
@@ -152,7 +155,7 @@ public class FireworksListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean, "upload");
+                createDialog(target, "上传附件", fireworksBean, "upload");
             }
         };
         return ajaxLink;

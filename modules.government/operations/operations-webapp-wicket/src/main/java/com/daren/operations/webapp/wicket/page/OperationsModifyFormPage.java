@@ -112,7 +112,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
                 if (dialog != null) {
                     dialogWrapper.removeAll();
                 }
-                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "operations") {
+                dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "operations") {
                     @Override
                     public void updateTarget(AjaxRequestTarget target) {}
                 };
