@@ -1,13 +1,13 @@
-package com.daren.chemistry.manage.webapp.wicket.page;
+package com.daren.production.webapp.wicket.page;
 
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
-import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
-import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
+import com.daren.production.api.biz.IProductionService;
+import com.daren.production.entities.ProductionBean;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -42,17 +42,17 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @类描述：危险化学品流程的修改form类
+ * @类描述：烟花爆竹经营许可证流程
  * @创建人： sunlingfeng
  * @创建时间：2014/9/6
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class ChemistryManageModifyFormPage extends BaseFormPanel {
+public class ProductionModifyFormPage extends BaseFormPanel {
     @Inject
-    protected IChemistryManageBeanService chemistryManageBeanService;
-    ChemistryManageBean bean=new ChemistryManageBean();
+    protected IProductionService productionService;
+    ProductionBean bean=new ProductionBean();
     @Inject
     private transient IdentityService identityService;
     @Inject
@@ -66,7 +66,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
     WindowGovernmentPage dialog;
     WebMarkupContainer table;
 
-    public ChemistryManageModifyFormPage(String id, final IModel<Task> model) {
+    public ProductionModifyFormPage(String id, final IModel<Task> model) {
         super(id, model);
         setOutputMarkupId(true);
         //初始化dialogWrapper
@@ -93,19 +93,18 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         if (StringUtils.isNotBlank(businessKey)) {
             beanId = businessKey.split(":")[2];
         }
-        bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
-        final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
+        bean = (ProductionBean) productionService.getEntity(new Long(beanId));
+        final Form<ProductionBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
         form.setOutputMarkupId(true);
         add(form);
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //add data to form
         form.add(new TextField("name").setOutputMarkupId(true));
-        form.add(new TextField("header").setOutputMarkupId(true));
+        form.add(new TextField("head").setOutputMarkupId(true));
         form.add(new TextField("phone").setOutputMarkupId(true));
         form.add(new TextField("address").setOutputMarkupId(true));
-        form.add(new TextField("mode").setOutputMarkupId(true));
-        form.add(new TextField("unitType").setOutputMarkupId(true));
+        form.add(new TextField("economicsType").setOutputMarkupId(true));
         form.add(new TextField("scope").setOutputMarkupId(true));
         //上传复件按钮
         final AjaxButton uploadButton = new AjaxButton("upload", form) {
@@ -114,7 +113,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
                 if (dialog != null) {
                     dialogWrapper.removeAll();
                 }
-                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "chemistryManage") {
+                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "production") {
                     @Override
                     public void updateTarget(AjaxRequestTarget target) {}
                 };
@@ -130,14 +129,14 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
-                    chemistryManageBeanService.saveEntity(bean);
+                    ProductionBean bean= (ProductionBean) form.getModelObject();
+                    productionService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     uploadButton.setEnabled(false);
-                    target.add(ChemistryManageModifyFormPage.this.findParent(TabbedPanel.class));
+                    target.add(ProductionModifyFormPage.this.findParent(TabbedPanel.class));
                 } finally {
                     identityService.setAuthenticatedUserId(null);
                 }
@@ -151,10 +150,10 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         form.add(new IrisIndicatingAjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                TabsUtil.deleteTab(target, ChemistryManageModifyFormPage.this.findParent(TabbedPanel.class));
+                TabsUtil.deleteTab(target, ProductionModifyFormPage.this.findParent(TabbedPanel.class));
             }
         });
-        DataProvider dataProvider=new DataProvider(bean.getId(), "chemistryManage");
+        DataProvider dataProvider=new DataProvider(bean.getId(), "production");
         table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         //构造数据
