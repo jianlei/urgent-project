@@ -12,7 +12,7 @@
         <userTask id="modifyApply" name="调整申请" activiti:assignee="${applyUserId}">
             <extensionElements>
                 <activiti:taskListener event="complete"
-                                       delegateExpression="${afterModifyApplyContentProcessor}"></activiti:taskListener>
+                                       delegateExpression="${myTaskAssigner"></activiti:taskListener>
             </extensionElements>
         </userTask>
         <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr"></userTask>

@@ -4,7 +4,7 @@
 
     <!--监听工作流form的加载和卸载-->
     <reference-list id="formHandler"
-                    interface="com.daren.core.web.api.workflow.IFormHandler"  member-type="service-reference">
+                    interface="com.daren.core.web.api.workflow.IFormHandler"  member-type="service-reference"  availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.FormPanelListener"/>
         </reference-listener>
@@ -30,7 +30,7 @@
 
     <!--监听工作流业务数据的加载和卸载-->
     <reference-list id="bizDataHandler"
-                    interface="com.daren.core.web.api.workflow.IBizDataHandler"  availability="optional">
+                    interface="com.daren.core.web.api.workflow.IBizDataHandler"  availability="optional" member-type="service-reference"  >
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.BizDataPanelListener"/>
         </reference-listener>

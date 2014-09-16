@@ -1,7 +1,6 @@
 package com.daren.workflow.web.bootup.wicket;
 
 
-import com.daren.apply.webapp.wicket.page.ApplyPage;
 import com.daren.core.web.api.provider.IHomePageProvider;
 import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
@@ -110,7 +109,6 @@ public class IrisShiroApplication extends WebApplication {
         //增加JSR303校验监听器
         //getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
         mountPage("login", SignInPage.class);
-        mountPage("apply", ApplyPage.class);
 
         /* In case of unhandled exception redirect it to a custom page */
         getRequestCycleListeners().add(new AbstractRequestCycleListener() {

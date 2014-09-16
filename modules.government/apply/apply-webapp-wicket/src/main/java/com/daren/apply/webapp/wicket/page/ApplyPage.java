@@ -33,14 +33,12 @@ import java.util.Map;
  */
 public class ApplyPage extends WebPage {
 
-    @Inject
-    private transient RepositoryService repositoryService;
-
     RepeatingView rv = new RepeatingView("myApplyProcess");
     WebMarkupContainer wmc = new WebMarkupContainer("wmc");
-
     String phone;
     String selected;
+    @Inject
+    private transient RepositoryService repositoryService;
 
     public ApplyPage() {
         super();
