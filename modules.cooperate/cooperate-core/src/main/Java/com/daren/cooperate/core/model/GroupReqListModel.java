@@ -11,6 +11,7 @@ package com.daren.cooperate.core.model;
 public class GroupReqListModel {
 
     private long id;
+    private long group_id;
     private String name;
     private String req_time;
     private String req_msg;
@@ -18,6 +19,14 @@ public class GroupReqListModel {
 
     public GroupReqListModel(){
 
+    }
+
+    public long getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(long group_id) {
+        this.group_id = group_id;
     }
 
     public long getId() {

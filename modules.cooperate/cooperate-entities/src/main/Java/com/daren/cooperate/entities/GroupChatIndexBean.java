@@ -35,6 +35,27 @@ public class GroupChatIndexBean extends PersistentEntity {
 
     }
 
+    public GroupChatIndexBean(long from_userid, String neartime) {
+        super();
+        this.from_userid = from_userid;
+        this.neartime = neartime;
+    }
+    public GroupChatIndexBean(long from_userid,long group_id, String neartime) {
+        super();
+        this.from_userid = from_userid;
+        this.group_id = group_id;
+        this.neartime = neartime;
+    }
+
+    public GroupChatIndexBean(long from_userid, String neartime,String chat_content,
+                         int chat_count) {
+        super();
+        this.from_userid = from_userid;
+        this.neartime = neartime;
+        this.chat_content = chat_content;
+        this.chat_count = chat_count;
+    }
+
     public long getUser_id() {
         return user_id;
     }

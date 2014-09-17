@@ -125,18 +125,18 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     @Override
     public List getUserTokenListByIds(Long id) {
-        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.user_id in ("+id+")",String.class);
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in ("+id+")",String.class);
     }
 
     @Override
     public List getUserTokenListJgdm(String jgdm) {
         return userBeanDao.findByNativeSql("select sur.token from sys_user s " +
-                "left join sys_user_rel sur on sur.user_id=s.id where s.jgdm= '"+jgdm+"'",String.class);
+                "left join sys_user_rel sur on sur.user_id=s.id where sur.token is not null and s.jgdm= '"+jgdm+"'",String.class);
     }
 
     @Override
     public List getUserTokenListByNoticeId(Long notice_id,int reply_type,long user_id) {
-        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.user_id in " +
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in " +
                 "(select c.user_id from coop_notice_user_rel c " +
                 "where c.user_id != "+user_id+" and c.notice_id="+notice_id+" and c.reply_type="+reply_type+")",String.class);
     }

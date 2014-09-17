@@ -1,6 +1,7 @@
 package com.daren.cooperate.api.biz;
 
 import com.daren.core.api.biz.IBizService;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -27,7 +28,7 @@ public interface IChatBeanService extends IBizService {
      * @return
      */
     public Map sendmes(int chat_type, String chat_content,double chat_lat, double chat_lng,String to_userid,
-                       String group_id,String voice_time,HttpServletRequest request);
+                       String group_id,int voice_time,Attachment voice,HttpServletRequest request);
 
     /**
      * 删除最后一条聊天消息记录

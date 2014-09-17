@@ -38,9 +38,11 @@
     <bean id="chatBeanService" class="com.daren.cooperate.core.biz.ChatBeanServiceImpl">
         <property name="chatBasicBeanDao" ref="chatBasicBeanDao"/>
         <property name="chatIndexBeanDao" ref="chatIndexBeanDao"/>
+        <property name="groupChatIndexBeanDao" ref="groupChatIndexBeanDao"/>
     </bean>
     <reference id="chatBasicBeanDao" interface="com.daren.cooperate.api.dao.IChatBasicBeanDao"/>
     <reference id="chatIndexBeanDao" interface="com.daren.cooperate.api.dao.IChatIndexBeanDao"/>
+    <reference id="groupChatIndexBeanDao" interface="com.daren.cooperate.api.dao.IGroupChatIndexBeanDao"/>
 
     <cxf:bus>
         <cxf:features>

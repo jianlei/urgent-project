@@ -67,10 +67,11 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 noticeBasicBean.setUser_id(user_id);
                 //noticeBasicBean.setJgdm();                //取监管机构
                 noticeBasicBean = noticeBasicBeanDao.save(noticeBasicBean);
-                NoticeUserRelBean noticeUserRelBean1 = new NoticeUserRelBean();
+                /*NoticeUserRelBean noticeUserRelBean1 = new NoticeUserRelBean();
                 noticeUserRelBean1.setNotice_id(noticeBasicBean.getId());
                 noticeUserRelBean1.setUser_id(user_id);
-                noticeUserRelBeanDao.save(noticeUserRelBean1);           //保存日程和人员关系
+                noticeUserRelBean1.setReply_type(1);
+                noticeUserRelBeanDao.save(noticeUserRelBean1);           //保存日程和人员关系*/
                 //保存直接传过来的id串
                 List tokenAllList = new ArrayList();
                 if(ids!=null && !"".equals(ids)){
@@ -141,7 +142,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                 if(tokenAllList!=null&&!tokenAllList.isEmpty()){
                     JSONObject pushjsoncontent = new JSONObject();
                     pushjsoncontent.put("function", 10001);
-                    pushjsoncontent.put("message", "新日程提醒:您有新的日程-"+noticeBasicBean.getTitle()+"!");
+                    pushjsoncontent.put("message", "日程取消提醒:您的日程-"+noticeBasicBean.getTitle()+"-已取消!");
                     pushjsoncontent.put("chat_id", 0);
                     SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
                     Thread thread = new Thread(smxt);
@@ -184,16 +185,24 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                     page_size = 15;
                 }
                 list = noticeBasicBeanDao.findByNativeSql("select * from \n" +
-                        "(\n" +
-                        "select t1.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type\n" +
-                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                        "where cnur.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time) t1 \n" +
+                        "(select t1.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,-1 as reply_type\n" +
+                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id\n" +
+                        "where cnb.user_id="+user_id+" and cnb.notice_time >= substring(now(),1,16) and cnb.is_cancle=0\n" +
                         "union\n" +
-                        "select t2.* from (select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type \n" +
-                        "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id \n" +
-                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                        "where cnur.user_id="+user_id+" and cnb.notice_time<substring(now(),1,16) and cnb.is_cancle=0 order by cnb.notice_time desc) t2 \n" +
+                        "select cnb1.id,cnb1.title,cnb1.content,cnb1.notice_time,cnb1.user_id,cnb1.create_time,su1.name,cnur1.reply_type\n" +
+                        "from coop_notice_basic cnb1 left join sys_user su1 on su1.id=cnb1.user_id\n" +
+                        "left join coop_notice_user_rel cnur1 on cnur1.notice_id=cnb1.id\n" +
+                        "where cnur1.user_id="+user_id+" and cnb1.notice_time>= substring(now(),1,16) and cnb1.is_cancle=0\n" +
+                        "order by notice_time) t1\n" +
+                        "union\n" +
+                        "select t2.* from (select cnb2.id,cnb2.title,cnb2.content,cnb2.notice_time,cnb2.user_id,cnb2.create_time,su2.name,-1 as reply_type\n" +
+                        "from coop_notice_basic cnb2 left join sys_user su2 on su2.id=cnb2.user_id\n" +
+                        "where cnb2.user_id="+user_id+" and cnb2.notice_time <substring(now(),1,16) and cnb2.is_cancle=0\n" +
+                        "union\n" +
+                        "select cnb3.id,cnb3.title,cnb3.content,cnb3.notice_time,cnb3.user_id,cnb3.create_time,su3.name,cnur3.reply_type\n" +
+                        "from coop_notice_basic cnb3 left join sys_user su3 on su3.id=cnb3.user_id\n" +
+                        "left join coop_notice_user_rel cnur3 on cnur3.notice_id=cnb3.id\n" +
+                        "where cnur3.user_id="+user_id+" and cnb3.notice_time<substring(now(),1,16) and cnb3.is_cancle=0 order by notice_time desc) t2" +
                         ") t limit "+start+","+page_size, NoticeListModel.class );
                 result = 1;
                 if(list!=null && list.size()>0){
@@ -224,12 +233,20 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
             long user_id = (long) cookieMap.get("userId");
             if(notice_id!=null && user_id>0){
                 //noticeBasicBean = noticeBasicBeanDao.get(NoticeBasicBean.class.getName(),notice_id);
-                noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time,cnb.user_id,cnb.create_time,su.name,cnur.reply_type,\n" +
+                noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time," +
+                        "cnb.user_id,cnb.create_time,su.name,-1 as reply_type,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id) as total_num,\n" +
                         "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id and cnur.reply_type=1) as join_num\n" +
                         "from coop_notice_basic cnb left join sys_user su on su.id=cnb.user_id " +
-                        "left join coop_notice_user_rel cnur on cnur.notice_id=cnb.id \n" +
-                        "where cnur.user_id="+user_id+" and cnb.id="+notice_id,NoticeDetailModel.class);
+                        "where cnb.user_id="+user_id+" and cnb.id="+notice_id,NoticeDetailModel.class);
+                if(noticeDetail==null || noticeDetail.size()==0){
+                    noticeDetail = noticeBasicBeanDao.findByNativeSql("select cnb.id,cnb.title,cnb.content,cnb.notice_time," +
+                            "cnb.user_id,cnb.create_time,su.name,cnur.reply_type as reply_type,\n" +
+                            "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id) as total_num,\n" +
+                            "(select count(cnur.id) from coop_notice_user_rel cnur where cnur.notice_id=cnb.id and cnur.reply_type=1) as join_num\n" +
+                            "from coop_notice_user_rel cnur left join coop_notice_basic cnb on cnb.id=cnur.notice_id\n" +
+                            " left join sys_user su on su.id=cnb.user_id where cnur.user_id="+user_id+" and cnb.id="+notice_id,NoticeDetailModel.class);
+                }
                 result = 1;
                 if(noticeDetail!=null&&noticeDetail.size()>0){
                     map.put("response",noticeDetail.get(0));

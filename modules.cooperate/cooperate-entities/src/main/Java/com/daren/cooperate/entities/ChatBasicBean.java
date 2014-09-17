@@ -22,18 +22,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ChatBasicBean extends PersistentEntity {
 
-    private long group_id;               //0-单一唠嗑；>1就是与该group_id的聊天
-    private int chat_type;              //聊天方式 0-文字；1-语音；2-图片；3-视频；4-文件；5-位置
-    private int is_read;                //0-未读；1-已读
-    private String chat_content;        //聊天内容
-    private String voice_time;          //语音时间长度
-    private String chat_attach;         //附件
-    private String picture_url;         //图片地址
-    private String chat_time;           //聊天时间
-    private long from_userid;         //说话人id
-    private long to_userid;           //接收人id
-    private double chat_lat;            //聊天纬度
-    private double chat_lng;            //聊天经度
+    private long group_id=0;               //0-单一唠嗑；>1就是与该group_id的聊天
+    private int chat_type=0;              //聊天方式 0-文字；1-语音；2-图片；3-视频；4-文件；5-位置
+    private int is_read=0;                //0-未读；1-已读
+    private String chat_content="";        //聊天内容
+    private String voice_time="";          //语音时间长度
+    private String chat_attach="";         //附件
+    private String picture_url="";         //图片地址
+    private String chat_time="";           //聊天时间
+    private long from_userid=0;         //说话人id
+    private long to_userid=0;           //接收人id
+    private double chat_lat=0;            //聊天纬度
+    private double chat_lng=0.0;            //聊天经度
 
     public ChatBasicBean(){
 

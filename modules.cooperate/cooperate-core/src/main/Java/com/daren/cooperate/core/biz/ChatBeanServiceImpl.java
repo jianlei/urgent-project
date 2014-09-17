@@ -4,22 +4,27 @@ import com.daren.admin.core.util.UtilTools;
 import com.daren.cooperate.api.biz.IChatBeanService;
 import com.daren.cooperate.api.dao.IChatBasicBeanDao;
 import com.daren.cooperate.api.dao.IChatIndexBeanDao;
+import com.daren.cooperate.api.dao.IGroupChatIndexBeanDao;
 import com.daren.cooperate.core.model.*;
 import com.daren.cooperate.core.util.CookieUtil;
 import com.daren.cooperate.core.util.SendMsgByXingeThread;
 import com.daren.cooperate.core.util.TimeDifference;
-import com.daren.cooperate.core.util.UploadFileUtil;
 import com.daren.cooperate.entities.ChatBasicBean;
 import com.daren.cooperate.entities.ChatIndexBean;
+import com.daren.cooperate.entities.GroupChatIndexBean;
 import com.daren.core.api.IConst;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.json.JSONObject;
 
+import javax.activation.DataHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import java.io.File;
+import javax.ws.rs.core.MediaType;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -35,6 +40,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
 
     private IChatBasicBeanDao chatBasicBeanDao;
     private IChatIndexBeanDao chatIndexBeanDao;
+    private IGroupChatIndexBeanDao groupChatIndexBeanDao;
 
     public void setChatBasicBeanDao(IChatBasicBeanDao chatBasicBeanDao) {
         this.chatBasicBeanDao = chatBasicBeanDao;
@@ -44,12 +50,52 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
         this.chatIndexBeanDao = chatIndexBeanDao;
     }
 
+    public void setGroupChatIndexBeanDao(IGroupChatIndexBeanDao groupChatIndexBeanDao) {
+        this.groupChatIndexBeanDao = groupChatIndexBeanDao;
+    }
+
+    @POST
+    @Path("/test")
+    @Produces("application/json;charset=utf-8")
+    @Consumes({"multipart/form-data"})
+   public void testFile(@Multipart(value = "voice", required = false) Attachment  voiceFile,@Multipart( value = "chat_type",required = false) int chatType){
+        Attachment  test = voiceFile;
+        System.out.println(chatType +"---------------------------------asdf");
+    }
+
+    private boolean writeToFile(InputStream ins, String path) {
+        boolean flag = false;
+        try {
+            OutputStream out = new FileOutputStream(new File(path));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = ins.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+            flag = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
     @POST
     @Path("/sendmes")
     @Produces("application/json;charset=utf-8")
-    public Map sendmes(@FormParam("chat_type")int chat_type,@FormParam("chat_content") String chat_content,@FormParam("chat_lat")double chat_lat,
-                       @FormParam("chat_lng")double chat_lng, @FormParam("to_userid")String to_userid,@FormParam("group_id")String group_id,
-                       @FormParam("voice_time")String voice_time,@Context HttpServletRequest request) {
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Map sendmes(@Multipart(value = "chat_type",required = false)int chat_type,
+                       @Multipart(value = "chat_content",required = false) String chat_content,
+                       @Multipart(value = "chat_lat",required = false)double chat_lat,
+                       @Multipart(value = "chat_lng",required = false)double chat_lng,
+                       @Multipart(value = "to_userid",required = false)String to_userid,
+                       @Multipart(value = "group_id",required = false)String group_id,
+                       @Multipart(value = "vt",required = false)int voice_time,
+                       @Multipart(value = "attachment", required = false) Attachment  attachment,
+                       @Context HttpServletRequest request) {
         int result =-1;
         long uid = 0;
         String photo="";
@@ -64,9 +110,9 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
             Map cookieMap = CookieUtil.getCookieByName(request);
             long user_id = (long) cookieMap.get("userId");
             if(user_id>0){
-//                chat_lat = chat_lat;
-//                chat_lng =chat_lng!=null?chat_lng:0;
-                voice_time =voice_time!=null?voice_time:"";
+                //chat_lat = chat_lat;
+                //chat_lng =chat_lng!=null?chat_lng:0;
+                //voice_time =voice_time!=null?voice_time:"";
                 switch(chat_type){
                     case 1:{
                         pushmessage = "[语音]";
@@ -93,23 +139,43 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                     }
                 }
                 //上传图片
-                long currentTimeMillis = System.currentTimeMillis();
-                photo = IConst.OFFICE_WEB_PATH_READ+currentTimeMillis;
-                head_photo = IConst.OFFICE_WEB_PATH_READ+currentTimeMillis;
-                UploadFileUtil.writerFile(request, photo);
+//                String disposition =  attachment.getHeader("Content-Disposition");
+//                if(disposition != null && disposition.length() > 0){
+//                    int filenameIndex = disposition.indexOf("filename");
+//                    disposition.substring()
+//                }
+                if (attachment!=null) {
+                    long currentTimeMillis = System.currentTimeMillis();
+                    photo = IConst.XT_OFFICE_WEB_PATH_READ+currentTimeMillis;
+                    head_photo = IConst.XT_OFFICE_WEB_PATH_READ+currentTimeMillis;
+                    DataHandler dh = attachment.getDataHandler();
+                    System.out.println(attachment.getContentType().toString());
+                    try {
+                        System.out.println(dh.getName());
+                        //dh.getAllCommands();
+                        head_photo = IConst.XT_OFFICE_WEB_PATH_READ+dh.getName();
+                        writeToFile(dh.getInputStream(),IConst.XT_OFFICE_WEB_PATH_WRITE + dh.getName());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("file type out");
+                }
+//                UploadFileUtil.writerFile(request, photo);
                 if(group_id==null){//私聊
-                    chat = new ChatBasicBean(chat_type, is_read, chat_content,head_photo,  head_spicurl,  Long.parseLong(String.valueOf(to_userid)),user_id,0,0,voice_time);
+                    chat = new ChatBasicBean(chat_type, is_read, chat_content,head_photo,  head_photo,  Long.parseLong(String.valueOf(to_userid)),user_id,chat_lat,chat_lng,voice_time+"");
                     chat.setChat_time(DateUtil.convertDateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
                     chat = chatBasicBeanDao.save(chat);
                     //.addPrivateLocMessage(chat);
                 }else{//群聊
-                    chat = new ChatBasicBean(Long.parseLong(String.valueOf(group_id)),chat_type, is_read, chat_content,head_photo,  head_spicurl, user_id,chat_lat,chat_lng,voice_time);
+                    chat = new ChatBasicBean(Long.parseLong(String.valueOf(group_id)),chat_type, is_read, chat_content,head_photo,  head_spicurl, user_id,chat_lat,chat_lng,voice_time+"");
                     chat.setChat_time(DateUtil.convertDateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
                     chat = chatBasicBeanDao.save(chat);
                 }
                 if(chat!=null){
                     if(group_id==null){//私聊
-                        ChatIndexBean chatIndex = new ChatIndexBean(user_id,Long.parseLong(String.valueOf(to_userid)), UtilTools.getSysDateTime("yyyy-MM-dd HH:mm"));
+                        ChatIndexBean chatIndex = new ChatIndexBean(user_id,Long.parseLong(String.valueOf(to_userid)),0, UtilTools.getSysDateTime("yyyy-MM-dd HH:mm"));
                         //更新
                         chatBasicBeanDao.update("update ChatIndexBean c " +
                                 "set c.chat_count=c.chat_count+1,c.neartime ='"+UtilTools.getSysDateTime("yyyy-MM-dd HH:mm")+"'" +
@@ -118,7 +184,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                         chatBasicBeanDao.update("update ChatIndexBean c set c.unsearch_userid='' " +
                                 " where c.from_userid in("+user_id+","+to_userid+") and c.to_userid in("+to_userid+","+user_id+")");
                         //插入
-                        chatIndex = chatIndexBeanDao.save(chatIndex); //.insertChatIndex(chatIndex);
+                        chatIndex = chatIndexBeanDao.save(chatIndex); //.insertGROUPChatIndex(chatIndex);//插入
                         //push
                         List<String> userTokenByIdList = chatBasicBeanDao.findByNativeSql("SELECT token " +
                                 " FROM sys_user_rel WHERE user_id="+to_userid,String.class);
@@ -126,7 +192,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                         if(userTokenByIdList!=null){
                             String userTokenById = userTokenByIdList.get(0);
                             JSONObject pushjsoncontent = new JSONObject();
-                            pushjsoncontent.put("fuction", 5001);
+                            pushjsoncontent.put("function", 5001);
                             pushjsoncontent.put("message", pushmessage);
                             pushjsoncontent.put("chat_id", chat.getId());
                             pushjsoncontent.put("messageid", Long.parseLong(String.valueOf(user_id)));
@@ -139,15 +205,16 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                         HashMap hm = new HashMap();
                         hm.put("group_id", group_id);
                         hm.put("is_read", 0);//该讨论组中我的消息全变未读
-                        ChatIndexBean chatIndex = new ChatIndexBean(user_id,0,Long.parseLong(String.valueOf(group_id)), UtilTools.getSysDateTime("yyyy-MM-dd HH:mm"));
+                        GroupChatIndexBean chatIndex = new GroupChatIndexBean(user_id,Long.parseLong(group_id), UtilTools.getSysDateTime("yyyy-MM-dd HH:mm"));
+
                         chatBasicBeanDao.update("update GroupChatIndexBean g " +
-                                "set g.chat_count=g.chat_count+1,g.neartime ='"+UtilTools.getSysDateTime("yyyy-MM-dd HH:mm")+"'",
-                                "g.from_userid = "+user_id+
-                                "where g.group_id = "+group_id); //.updateGroupChatIndex(chatIndex);//更新
+                                " set g.chat_count=g.chat_count+1,g.neartime ='"+UtilTools.getSysDateTime("yyyy-MM-dd HH:mm")+"',"+
+                                " g.from_userid = "+user_id+
+                                " where g.group_id = "+group_id); //.updateGroupChatIndex(chatIndex);//更新
                         chatBasicBeanDao.update("update GroupChatIndexBean g " +
-                                "set g.unsearch_userid='' " +
-                                "where g.group_id ="+group_id);  //.updateChatIndexGroupSearch(hm);//可查询最近一次聊天记录
-                        chatIndex = chatIndexBeanDao.save(chatIndex); //.insertGROUPChatIndex(chatIndex);//插入
+                                " set g.unsearch_userid='' " +
+                                " where g.group_id ="+group_id);  //.updateChatIndexGroupSearch(hm);//可查询最近一次聊天记录
+                        chatIndex = groupChatIndexBeanDao.save(chatIndex); //.insertChatIndex(chatIndex);
                         chatIndexBeanDao.update("update ChatBasicBean c " +
                                 "set c.is_read =0 " +
                                 "where c.group_id = "+group_id); //.updateGroupAllPeopleLookStatus(hm);
@@ -161,16 +228,16 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                         m.put("user_id", user_id);
                         m.put("group_id", group_id);
                         List<String> userTokenListInGroup = chatIndexBeanDao.findByNativeSql("SELECT tub.token " +
-                                "FROM coop_group_basic tg LEFT JOIN sys_user_rel tub ON tub.user_id=tg.manager_user " +
-                                "WHERE tg.group_id="+group_id+" AND tub.user_id!="+user_id +
-                                "AND tub.token is not null AND tub.token != 'null' " +
-                                "UNION SELECT distinct tub.token " +
+                                " FROM coop_group_basic tg LEFT JOIN sys_user_rel tub ON tub.user_id=tg.manager_user " +
+                                " WHERE tg.id="+group_id+" AND tub.user_id!="+user_id +
+                                " AND tub.token is not null " +
+                                " UNION SELECT distinct tub.token " +
                                 " FROM coop_group_user_rel tgur LEFT JOIN sys_user_rel tub ON tub.user_id=tgur.user_id " +
-                                "WHERE tgur.group_id="+group_id+" AND tub.user_id!="+to_userid+
-                                "AND tub.token is not null AND tub.token != 'null'",String.class);  //.getUserTokenListInGroup(m);
+                                " WHERE tgur.group_id="+group_id+" AND tub.user_id!="+user_id+
+                                " AND tub.token is not null AND tub.token != 'null'",String.class);  //.getUserTokenListInGroup(m);
                         if(userTokenListInGroup!=null&&!userTokenListInGroup.isEmpty()){
                             JSONObject pushjsoncontent = new JSONObject();
-                            pushjsoncontent.put("fuction", 5002);
+                            pushjsoncontent.put("function", 5002);
                             pushjsoncontent.put("message", pushmessage);
                             pushjsoncontent.put("chat_id", chat.getId());
                             pushjsoncontent.put("messageid", Long.parseLong(String.valueOf(group_id)));
@@ -256,8 +323,8 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                 //根据from_userid看是否为空   空这根据to_userid
                 List<ChatIndex> mpl = chatBasicBeanDao.findByNativeSql("SELECT from_userid,0 as to_userid,chat_content," +
                         " 2 as messagetype,neartime,group_id,hasnews,unsearch_userid FROM coop_group_chat_index " +
-                        " WHERE group_id in (select group_id from coop_group_basic where manager_user="+user_id +
-                        " union select group_id from coop_group_chat_index where user_id="+user_id +
+                        " WHERE group_id in (select id from coop_group_basic where manager_user="+user_id +
+                        " union select group_id from coop_group_user_rel where user_id="+user_id +
                         " ) Union SELECT from_userid,to_userid,chat_content,3 as messagetype,coop_chat_index.neartime," +
                         " group_id,hasnews,unsearch_userid FROM coop_chat_index " +
                         " WHERE from_userid ="+user_id +" OR to_userid ="+user_id +
@@ -300,7 +367,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                                 " sys_user_rel.user_logo as head_spicurl " +
                                                 " from sys_user left join sys_user_rel on sys_user_rel.user_id= sys_user.id " +
                                                 " where sys_user.id ="+ci.getTo_userid(),User.class);
-                                        if(npList!=null){
+                                        if(npList!=null && npList.size()>0 ){
                                             User np = npList.get(0);
                                             if(np!=null&&np.getHead_spicurl()!=null && np.getHead_spicurl().length()>0){
                                                 teat.setLogo(np.getHead_spicurl());
@@ -335,7 +402,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                                 " sys_user_rel.user_logo as head_spicurl " +
                                                 " from sys_user left join sys_user_rel on sys_user_rel.user_id= sys_user.id " +
                                                 " where sys_user.id ="+ci.getFrom_userid(),User.class);
-                                        if(npList!=null){
+                                        if(npList!=null && npList.size()>0){
                                             User np = npList.get(0);
                                             if(np!=null&&np.getHead_spicurl()!=null && np.getHead_spicurl().length()>0){
                                                 teat.setLogo(np.getHead_spicurl());
@@ -369,6 +436,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                         " sys_user.name as chat_voice,coop_group_basic.group_name as chat_content " +
                                         " FROM coop_group_user_rel LEFT JOIN sys_user ON coop_group_user_rel.user_id = sys_user.id " +
                                         " LEFT JOIN coop_group_basic ON coop_group_user_rel.group_id = coop_group_basic.id " +
+                                        " left join sys_user_rel on sys_user_rel.user_id = sys_user.id "+
                                         " WHERE coop_group_user_rel.group_id ="+ci.getGroup_id()+
                                         " LIMIT 3",ChatListForIndex.class);
                                 if(grupMessPhotos!=null){
@@ -410,7 +478,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                             List<ChatListForIndex> teagroupunlookmesList = chatBasicBeanDao.findByNativeSql("SELECT hasnews" +
                                                     " FROM coop_group_user_rel WHERE group_id="+ci.getGroup_id()+
                                                     " and user_id="+user_id,ChatListForIndex.class);
-                                            if(teagroupunlookmesList!=null){
+                                            if(teagroupunlookmesList!=null && teagroupunlookmesList.size()>0){
                                                 ChatListForIndex teagroupunlookmes = teagroupunlookmesList.get(0);
                                                 if(teagroupunlookmes==null){
                                                     teat.setHasnews(tea.getHasnews()==1?0:1);
@@ -421,8 +489,13 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                                         }
                                         teat.setNeartime(tea.getNeartime());
                                     }
-                                    List<ChatListForIndex> group_manager_userList = chatBasicBeanDao.findByNativeSql("",ChatListForIndex.class);
-                                    if(group_manager_userList!=null){
+                                    List<ChatListForIndex> group_manager_userList = chatBasicBeanDao.findByNativeSql("SELECT hasnews " +
+                                            "FROM " +
+                                            "coop_group_user_rel " +
+                                            "WHERE " +
+                                            "group_id="+ci.getGroup_id()+
+                                            " and user_id="+user_id,ChatListForIndex.class);
+                                    if(group_manager_userList!=null && group_manager_userList.size()>0){
                                         ChatListForIndex group_manager_user = group_manager_userList.get(0);
                                         teat.setGroup_creater(group_manager_user.getGroup_manager_user()==user_id?1:0);
                                         userList.add(teat);
@@ -447,7 +520,7 @@ public class ChatBeanServiceImpl extends GenericBizServiceImpl implements IChatB
                     for (int i = 0; i < mpl.size(); i++) {
                         ChatIndex ci = mpl.get(i);
                         if(ci.getMessagetype()==1){
-                            ci.setName("长春志愿者联合会");
+                            ci.setName("四平市安监协同平台");
                             userList.add(ci);
                         }
                     }
