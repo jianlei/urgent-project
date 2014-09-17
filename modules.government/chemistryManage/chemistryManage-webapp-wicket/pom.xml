@@ -94,6 +94,11 @@
 
         <dependency>
             <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
             <artifactId>com.daren.attachment.entities</artifactId>
         </dependency>
 

@@ -59,7 +59,7 @@ public class FireworksTabPage extends BasePanel {
     }
 
     private FireworksListPage initFireworksListPage(final String id, final WebMarkupContainer wmc) {
-        FireworksListPage hazardPage = new FireworksListPage(id, wmc) {
+        FireworksListPage hazardPage = new FireworksListPage(id, wmc, null) {
             @Override
             protected void createButtonOnClick(FireworksBean competencyBean, AjaxRequestTarget target) {
                 initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
