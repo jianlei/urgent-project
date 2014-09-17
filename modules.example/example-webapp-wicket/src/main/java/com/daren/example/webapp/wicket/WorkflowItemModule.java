@@ -1,7 +1,6 @@
 package com.daren.example.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.activiti.page.MainPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -41,6 +40,7 @@ public class WorkflowItemModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new MainPage(id, wmc);
+//        return new MainPage(id, wmc);
+        return null;
     }
 }
