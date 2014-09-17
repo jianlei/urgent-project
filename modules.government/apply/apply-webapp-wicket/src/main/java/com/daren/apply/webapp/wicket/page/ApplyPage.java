@@ -128,7 +128,7 @@ public class ApplyPage extends WebPage {
         } else if ("烟花爆竹经营许可证".equals(processName)) {
             rv.add(new FireworksTabPage(rv.newChildId(), wmc));
         } else if ("安全资格证书(培训)".equals(processName)) {
-            rv.add(new CompetencyTabPage(rv.newChildId(), wmc));
+            rv.add(new CompetencyTabPage(rv.newChildId(), wmc, phone));
         } else if ("特种作业人员操作资格证".equals(processName)) {
             rv.add(new OperationsTabPage(rv.newChildId(), wmc));
         } else if (" 安全生产许可证(非煤矿矿山企业)".equals(processName)) {

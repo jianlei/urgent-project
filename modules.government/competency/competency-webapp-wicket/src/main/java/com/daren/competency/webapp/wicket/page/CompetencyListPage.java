@@ -51,9 +51,11 @@ public class CompetencyListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    private String phoneNumber = null;
 
-    public CompetencyListPage(final String id, final WebMarkupContainer wmc) {
+    public CompetencyListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -206,8 +208,8 @@ public class CompetencyListPage extends BasePanel {
         }
         @Override
         protected List<CompetencyBean> getData() {
-            if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
-                return competencyService.getAllEntity();
+            if (null!=phoneNumber)
+                return competencyService.getCompetencyByPhone(phoneNumber);
             else {
                 return competencyService.getAllEntity();
             }

@@ -1,6 +1,9 @@
 package com.daren.competency.api.biz;
 
+import com.daren.competency.entities.CompetencyBean;
 import com.daren.core.api.biz.IBizService;
+
+import java.util.List;
 
 /**
  * @类描述：安全资格证书(培训)
@@ -11,4 +14,5 @@ import com.daren.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface ICompetencyService extends IBizService {
+    public List<CompetencyBean> getCompetencyByPhone(String phone);
 }
