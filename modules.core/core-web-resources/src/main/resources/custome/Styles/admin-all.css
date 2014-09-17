@@ -20,6 +20,23 @@
     position: relative;
 }
 
+.top_government {
+    background: url(../img/daren.project.government.png) no-repeat;
+    height: 97px;
+    position: relative;
+}
+
+.content_not_found_process {
+    background: url(../img/NotFoundProcess.png);
+    background-color: #fffbef;
+    border: 1px solid #ffab00;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 95px;
+    margin-top: 95px;
+}
+
 .darenBody {
     background-image: url(../img/welcome_bg.png);
     width: 825px;

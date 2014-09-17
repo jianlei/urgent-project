@@ -19,6 +19,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -31,7 +32,6 @@ import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.activiti.engine.task.Task;
 import org.apache.wicket.util.file.Files;
 
 import javax.inject.Inject;
@@ -66,8 +66,8 @@ public class OperationsAuditFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     OperationsBean bean = new OperationsBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment="审批通过";
-    private String accepted="同意";
+    private String comment = "审批通过";
+    private String accepted = "同意";
 
     public OperationsAuditFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -89,11 +89,11 @@ public class OperationsAuditFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("workType",new PropertyModel<String>(bean, "workType")));
-        form.add(new Label("operationProject",new PropertyModel<String>(bean, "operationProject")));
-        form.add(new Label("enterpriseName",new PropertyModel<String>(bean, "enterpriseName")));
+        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
+        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("workType", new PropertyModel<String>(bean, "workType")));
+        form.add(new Label("operationProject", new PropertyModel<String>(bean, "operationProject")));
+        form.add(new Label("enterpriseName", new PropertyModel<String>(bean, "enterpriseName")));
         form.add(new Label("taskName", task.getName()));
         //审批结果
         final List<String> TYPES = Arrays.asList(new String[]{"同意", "不同意"});
@@ -117,7 +117,7 @@ public class OperationsAuditFormPage extends BaseFormPanel {
                     taskService.addComment(task.getId(), processInstanceId, comment);
 
                     Map<String, String> submitMap = new HashMap<String, String>();
-                    boolean passed=accepted.equals("同意")?true:false;
+                    boolean passed = accepted.equals("同意") ? true : false;
                     submitMap.put("accepted", String.valueOf(passed));
                     taskService.setVariablesLocal(task.getId(), submitMap);
 
@@ -130,6 +130,7 @@ public class OperationsAuditFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);

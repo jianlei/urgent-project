@@ -2,9 +2,9 @@ package com.daren.example.web.bootup.wicket;
 
 
 import com.daren.core.web.api.provider.IHomePageProvider;
-import com.daren.core.web.wicket.TemplatePage;
 import com.daren.core.web.wicket.security.AccessDeniedPage;
 import com.daren.core.web.wicket.security.SignInPage;
+import com.daren.example.webapp.wicket.activiti.page.MainPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -70,8 +70,8 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     public Class<? extends Page> getHomePage() {
         //return homePageProvider.getPageClass();
-        return TemplatePage.class;
-//        return MainPage.class;
+//        return TemplatePage.class;
+        return MainPage.class;
     }
 
     // --------------------------------------------------------------------------
@@ -110,7 +110,7 @@ public class IrisShiroApplication extends WebApplication {
         setPageManagerProvider(new NoSerializationPageManagerProvider(this));
         //设置首页映射路径
         //mountPage("/home/", homePageProvider.getPageClass());
-        mountPage("/home/", TemplatePage.class);
+        mountPage("/home/", MainPage.class);
         // Enable Shiro security
         AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
         getSecuritySettings().setAuthorizationStrategy(authz);

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @类描述：安全生产许可证(非煤矿矿山企业)
+ * @类描述：安全资格证书(培训)
  * @创建人：张清欣
  * @创建时间：2014-09-09 下午14:50
  * @修改人：
@@ -28,11 +28,12 @@ public class ProductionBean extends WorkflowEntity {
     private String economicsType;//经济类型
     private String scope;//许可范围
 
+
+    private Date awardDate;//发证日期
+    private Date effectiveDate;//有效日期
     private String code;//证书编号
     private String card;//FM安许证字
     private String unitsDate;//发证机关
-    private Date awardDate;//发证日期
-    private Date effectiveDate;//有效日期
 
     private String linkHandle;//当前办理环节
     private long proposerId;//审请人ID

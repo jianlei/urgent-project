@@ -3,4 +3,3 @@
 #-----------------------------------------------------------------
 
 #Bundle-Activator: ${bundle.namespace}.internal.ExampleActivator
-DynamicImport-Package:*

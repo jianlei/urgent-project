@@ -58,27 +58,10 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow9" sourceRef="usertask5" targetRef="exclusivegateway4"></sequenceFlow>
-        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员"  activiti:formKey="end.form">
+        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员">
             <documentation>
                 安全资格证书(培训)
             </documentation>
-            <extensionElements>
-                <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
-                <activiti:formProperty id="sex" name="性别"></activiti:formProperty>
-                <activiti:formProperty id="phone" name="电话"></activiti:formProperty>
-                <activiti:formProperty id="enterpriseName" name="所属企业"></activiti:formProperty>
-                <activiti:formProperty id="title" name="职称"></activiti:formProperty>
-                <activiti:formProperty id="cultureLevel" name="文化程度"></activiti:formProperty>
-                <activiti:formProperty id="id_code" name="身份证号"></activiti:formProperty>
-                <activiti:formProperty id="unitType" name="单位类型"></activiti:formProperty>
-                <activiti:formProperty id="qualificationsType" name="资格类型"></activiti:formProperty>
-                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
-                <activiti:formProperty id="awardDate" name="发证日期"></activiti:formProperty>
-                <activiti:formProperty id="effectiveDate" name="有效日期"></activiti:formProperty>
-                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
-                <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
-                <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
-            </extensionElements>
         </userTask>
         <sequenceFlow id="flow10" name="同意" sourceRef="exclusivegateway4" targetRef="usertask6">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted}]]></conditionExpression>
@@ -87,19 +70,16 @@
         <sequenceFlow id="flow11" sourceRef="usertask6" targetRef="endevent1"></sequenceFlow>
         <userTask id="usertask7" name="审批修改" activiti:assignee="系统管理员" activiti:formKey="modify.form">
             <extensionElements>
+                <activiti:formProperty id="awardDate" name="发证日期"></activiti:formProperty>
+                <activiti:formProperty id="effectiveDate" name="有效日期"></activiti:formProperty>
+                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
                 <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
                 <activiti:formProperty id="sex" name="性别"></activiti:formProperty>
-                <activiti:formProperty id="phone" name="电话"></activiti:formProperty>
-                <activiti:formProperty id="enterpriseName" name="所属企业"></activiti:formProperty>
                 <activiti:formProperty id="title" name="职称"></activiti:formProperty>
                 <activiti:formProperty id="cultureLevel" name="文化程度"></activiti:formProperty>
                 <activiti:formProperty id="id_code" name="身份证号"></activiti:formProperty>
                 <activiti:formProperty id="unitType" name="单位类型"></activiti:formProperty>
                 <activiti:formProperty id="qualificationsType" name="资格类型"></activiti:formProperty>
-                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
-                <activiti:formProperty id="awardDate" name="发证日期"></activiti:formProperty>
-                <activiti:formProperty id="effectiveDate" name="有效日期"></activiti:formProperty>
-                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
                 <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
                 <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
             </extensionElements>

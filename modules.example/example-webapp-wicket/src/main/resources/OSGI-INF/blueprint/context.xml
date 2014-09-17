@@ -45,10 +45,4 @@
         <bean class="com.daren.example.webapp.wicket.AjaxMenuItemModule">
         </bean>
     </service>
-
-    <!-- 发布工作流目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.WorkflowItemModule">
-        </bean>
-    </service>
 </blueprint>

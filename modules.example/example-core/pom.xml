@@ -18,8 +18,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Example - Core</name>
-    <description>Urgent Example Core Module</description>
+    <name>Urgent :: Enterprise - Core</name>
+    <description>Urgent Enterprise Core Module</description>
 
     <packaging>bundle</packaging>
 
@@ -56,24 +56,12 @@
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>-->
-
         <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.jsr339-api-m10</artifactId>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
+            <version>0.0.6_1</version>
+            <scope>provided</scope>
         </dependency>
-
-       <!-- <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>-->
-
-
     </dependencies>
 
     <build>

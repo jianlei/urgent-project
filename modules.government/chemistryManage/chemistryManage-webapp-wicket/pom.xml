@@ -109,11 +109,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.attachment</groupId>
-            <artifactId>com.daren.attachment.api</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>

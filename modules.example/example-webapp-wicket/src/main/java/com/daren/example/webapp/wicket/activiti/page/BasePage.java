@@ -6,17 +6,16 @@ import com.daren.example.webapp.wicket.activiti.models.UserIdModel;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptContentHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
 @SuppressWarnings("serial")
 
-public abstract class BasePage extends Panel {
+public abstract class BasePage extends WebPage {
 
-    public BasePage(String id) {
-        super(id);
+    protected BasePage() {
 		add(new Label("userId", new UserIdModel()));
     }
 

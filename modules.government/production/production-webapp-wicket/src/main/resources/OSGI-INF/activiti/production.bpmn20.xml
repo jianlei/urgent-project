@@ -52,27 +52,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow9" sourceRef="usertask5" targetRef="exclusivegateway4"></sequenceFlow>
-        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员" activiti:formKey="end.form">
-            <documentation>
-                安全生产许可证(非煤矿矿山企业)
-            </documentation>
-            <extensionElements>
-                <activiti:formProperty id="name" name="单位名称"></activiti:formProperty>
-                <activiti:formProperty id="head" name="主要负责人"></activiti:formProperty>
-                <activiti:formProperty id="phone" name="负责人电话"></activiti:formProperty>
-                <activiti:formProperty id="address" name="注册地址"></activiti:formProperty>
-                <activiti:formProperty id="economicsType" name="经济类型"></activiti:formProperty>
-                <activiti:formProperty id="scope" name="许可经营范围"></activiti:formProperty>
-                <activiti:formProperty id="awardDate" name="发证日期"></activiti:formProperty>
-                <activiti:formProperty id="effectiveDate" name="有效日期"></activiti:formProperty>
-                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
-                <activiti:formProperty id="card" name="FM安许证字"></activiti:formProperty>
-                <activiti:formProperty id="unitsDate" name="发证机关"></activiti:formProperty>
-                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
-                <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
-                <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
-            </extensionElements>
-        </userTask>
+        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员"></userTask>
         <sequenceFlow id="flow10" name="同意" sourceRef="exclusivegateway4" targetRef="usertask6">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted}]]></conditionExpression>
         </sequenceFlow>
@@ -80,18 +60,16 @@
         <sequenceFlow id="flow11" sourceRef="usertask6" targetRef="endevent1"></sequenceFlow>
         <userTask id="usertask7" name="审批修改" activiti:assignee="系统管理员" activiti:formKey="modify.form">
             <extensionElements>
+                <activiti:formProperty id="code" name="编号"></activiti:formProperty>
+                <activiti:formProperty id="card" name="FM安许证字"></activiti:formProperty>
                 <activiti:formProperty id="name" name="单位名称"></activiti:formProperty>
                 <activiti:formProperty id="head" name="主要负责人"></activiti:formProperty>
-                <activiti:formProperty id="phone" name="负责人电话"></activiti:formProperty>
-                <activiti:formProperty id="address" name="注册地址"></activiti:formProperty>
+                <activiti:formProperty id="address" name="单位地址"></activiti:formProperty>
                 <activiti:formProperty id="economicsType" name="经济类型"></activiti:formProperty>
-                <activiti:formProperty id="scope" name="许可经营范围"></activiti:formProperty>
-                <activiti:formProperty id="awardDate" name="发证日期"></activiti:formProperty>
-                <activiti:formProperty id="effectiveDate" name="有效日期"></activiti:formProperty>
-                <activiti:formProperty id="code" name="证书编号"></activiti:formProperty>
-                <activiti:formProperty id="card" name="FM安许证字"></activiti:formProperty>
+                <activiti:formProperty id="scope" name="许可范围"></activiti:formProperty>
+                <activiti:formProperty id="startDate" name="有效日期开始"></activiti:formProperty>
+                <activiti:formProperty id="endDate" name="有效日期结束"></activiti:formProperty>
                 <activiti:formProperty id="unitsDate" name="发证机关"></activiti:formProperty>
-                <activiti:formProperty id="linkHandle" name="当前办理环节"></activiti:formProperty>
                 <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
                 <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
             </extensionElements>

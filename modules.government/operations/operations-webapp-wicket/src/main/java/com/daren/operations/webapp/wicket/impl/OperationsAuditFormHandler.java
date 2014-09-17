@@ -14,10 +14,10 @@ import org.apache.wicket.model.IModel;
  * @修改时间：
  * @修改备注：
  */
-public class OperationsAuditFormHandler implements IFormHandler{
+public class OperationsAuditFormHandler implements IFormHandler {
     @Override
     public Panel getPanel(String id, IModel model) {
-        return new OperationsAuditFormPage(id,model);
+        return new OperationsAuditFormPage(id, model);
     }
 
     @Override

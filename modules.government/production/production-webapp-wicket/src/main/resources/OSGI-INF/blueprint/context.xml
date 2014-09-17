@@ -15,16 +15,4 @@
         <bean class="com.daren.production.webapp.wicket.impl.ProductionAuditFormHandler">
         </bean>
     </service>
-
-    <!-- firework Audit form -->
-    <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.production.webapp.wicket.impl.ProductionEndFormHandler">
-        </bean>
-    </service>
-
-    <!-- firework Modify form -->
-    <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.production.webapp.wicket.impl.ProductionModifyFormHandler">
-        </bean>
-    </service>
 </blueprint>

@@ -62,8 +62,8 @@ public class OperationsEndFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     OperationsBean bean = new OperationsBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment="审批通过";
-    private String accepted="同意";
+    private String comment = "审批通过";
+    private String accepted = "同意";
 
     public OperationsEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -85,12 +85,12 @@ public class OperationsEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("workType",new PropertyModel<String>(bean, "workType")));
-        form.add(new Label("operationProject",new PropertyModel<String>(bean, "operationProject")));
-        form.add(new Label("enterpriseName",new PropertyModel<String>(bean, "enterpriseName")));
-        form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
+        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
+        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("workType", new PropertyModel<String>(bean, "workType")));
+        form.add(new Label("operationProject", new PropertyModel<String>(bean, "operationProject")));
+        form.add(new Label("enterpriseName", new PropertyModel<String>(bean, "enterpriseName")));
+        form.add(new TextField("code", new PropertyModel<String>(bean, "code")));
         //日期控件//
         final DatePicker receiveDateTime = new DatePicker("receiveDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(receiveDateTime);
@@ -125,6 +125,7 @@ public class OperationsEndFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
