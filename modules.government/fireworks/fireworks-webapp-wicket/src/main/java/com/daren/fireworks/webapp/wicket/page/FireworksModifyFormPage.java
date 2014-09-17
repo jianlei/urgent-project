@@ -13,7 +13,6 @@ import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
-import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -26,8 +25,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -55,7 +52,7 @@ import java.util.List;
 public class FireworksModifyFormPage extends BaseFormPanel {
     @Inject
     protected IFireworksService fireworksService;
-    FireworksBean bean=new FireworksBean();
+    FireworksBean bean = new FireworksBean();
     @Inject
     private transient IdentityService identityService;
     @Inject
@@ -119,7 +116,8 @@ public class FireworksModifyFormPage extends BaseFormPanel {
                 }
                 dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "fireworks") {
                     @Override
-                    public void updateTarget(AjaxRequestTarget target) {}
+                    public void updateTarget(AjaxRequestTarget target) {
+                    }
                 };
                 target.add(dialogWrapper);
                 dialog.open(target);
@@ -133,7 +131,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    FireworksBean bean= (FireworksBean) form.getModelObject();
+                    FireworksBean bean = (FireworksBean) form.getModelObject();
                     fireworksService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
@@ -145,6 +143,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
@@ -157,7 +156,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
                 TabsUtil.deleteTab(target, FireworksModifyFormPage.this.findParent(TabbedPanel.class));
             }
         });
-        DataProvider dataProvider=new DataProvider(bean.getId(), "fireworks");
+        DataProvider dataProvider = new DataProvider(bean.getId(), "fireworks");
         table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         //构造数据
@@ -176,31 +175,37 @@ public class FireworksModifyFormPage extends BaseFormPanel {
     }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {
-        List<AttachmentBean> beanList=new ArrayList<>();
+        List<AttachmentBean> beanList = new ArrayList<>();
         private long id;
         private String str;
-        public  DataProvider(long id,String str){
-            this.id=id;
-            this.str=str;
+
+        public DataProvider(long id, String str) {
+            this.id = id;
+            this.str = str;
             getData();
         }
+
         public List<AttachmentBean> getData() {
             beanList = attachmentService.getAttachmentBeanByParentIdAndAppType(id, str);
             return beanList;
         }
+
         @Override
         public Iterator<? extends AttachmentBean> iterator(long l, long l2) {
             getData();
             return beanList.iterator();
         }
+
         @Override
         public long size() {
             return beanList.size();
         }
+
         @Override
         public IModel<AttachmentBean> model(AttachmentBean attachmentBean) {
             return Model.of(attachmentBean);
         }
+
         @Override
         public void detach() {
         }
@@ -226,6 +231,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
         };
         return alink;
     }
+
     private AjaxLink initDeleteButton(final AttachmentBean attachmentBean) {
         IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("deleteDuplicate") {
             @Override

@@ -5,7 +5,6 @@ import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
-import com.daren.competency.webapp.wicket.impl.CompetencyModifyFormHandler;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
@@ -53,7 +52,7 @@ import java.util.List;
 public class CompetencyModifyFormPage extends BaseFormPanel {
     @Inject
     protected ICompetencyService competencyService;
-    CompetencyBean bean=new CompetencyBean();
+    CompetencyBean bean = new CompetencyBean();
     @Inject
     private transient IdentityService identityService;
     @Inject
@@ -119,7 +118,8 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
                 }
                 dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "competency") {
                     @Override
-                    public void updateTarget(AjaxRequestTarget target) {}
+                    public void updateTarget(AjaxRequestTarget target) {
+                    }
                 };
                 target.add(dialogWrapper);
                 dialog.open(target);
@@ -133,7 +133,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    CompetencyBean bean= (CompetencyBean) form.getModelObject();
+                    CompetencyBean bean = (CompetencyBean) form.getModelObject();
                     competencyService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
@@ -145,6 +145,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
@@ -157,7 +158,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
                 TabsUtil.deleteTab(target, CompetencyModifyFormPage.this.findParent(TabbedPanel.class));
             }
         });
-        DataProvider dataProvider=new DataProvider(bean.getId(), "competency");
+        DataProvider dataProvider = new DataProvider(bean.getId(), "competency");
         table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         //构造数据
@@ -176,31 +177,37 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
     }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {
-        List<AttachmentBean> beanList=new ArrayList<>();
+        List<AttachmentBean> beanList = new ArrayList<>();
         private long id;
         private String str;
-        public  DataProvider(long id,String str){
-            this.id=id;
-            this.str=str;
+
+        public DataProvider(long id, String str) {
+            this.id = id;
+            this.str = str;
             getData();
         }
+
         public List<AttachmentBean> getData() {
             beanList = attachmentService.getAttachmentBeanByParentIdAndAppType(id, str);
             return beanList;
         }
+
         @Override
         public Iterator<? extends AttachmentBean> iterator(long l, long l2) {
             getData();
             return beanList.iterator();
         }
+
         @Override
         public long size() {
             return beanList.size();
         }
+
         @Override
         public IModel<AttachmentBean> model(AttachmentBean attachmentBean) {
             return Model.of(attachmentBean);
         }
+
         @Override
         public void detach() {
         }
@@ -226,6 +233,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
         };
         return alink;
     }
+
     private AjaxLink initDeleteButton(final AttachmentBean attachmentBean) {
         IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("deleteDuplicate") {
             @Override

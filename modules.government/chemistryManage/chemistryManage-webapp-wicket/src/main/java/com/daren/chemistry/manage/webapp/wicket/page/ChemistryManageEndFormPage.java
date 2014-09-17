@@ -62,8 +62,8 @@ public class ChemistryManageEndFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     ChemistryManageBean bean = new ChemistryManageBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment="审批通过";
-    private String accepted="同意";
+    private String comment = "审批通过";
+    private String accepted = "同意";
 
     public ChemistryManageEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -85,14 +85,14 @@ public class ChemistryManageEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("header",new PropertyModel<String>(bean, "header")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("address",new PropertyModel<String>(bean, "address")));
-        form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
-        form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
-        form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
-        form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
+        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
+        form.add(new Label("header", new PropertyModel<String>(bean, "header")));
+        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("address", new PropertyModel<String>(bean, "address")));
+        form.add(new Label("mode", new PropertyModel<String>(bean, "mode")));
+        form.add(new Label("unitType", new PropertyModel<String>(bean, "unitType")));
+        form.add(new Label("scope", new PropertyModel<String>(bean, "scope")));
+        form.add(new TextField("code", new PropertyModel<String>(bean, "code")));
         //日期控件//
         final DatePicker startDateTime = new DatePicker("startDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(startDateTime);
@@ -124,6 +124,7 @@ public class ChemistryManageEndFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);

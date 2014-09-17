@@ -18,17 +18,13 @@ import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.TextFilter;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
@@ -41,10 +37,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @类描述：烟花爆竹经营(批发)许可证
@@ -69,8 +62,8 @@ public class FireworksEndFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     FireworksBean bean = new FireworksBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment="审批通过";
-    private String accepted="同意";
+    private String comment = "审批通过";
+    private String accepted = "同意";
 
     public FireworksEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -92,15 +85,15 @@ public class FireworksEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("head",new PropertyModel<String>(bean, "head")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("address",new PropertyModel<String>(bean, "address")));
-        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
-        form.add(new Label("storageAddress",new PropertyModel<String>(bean, "storageAddress")));
-        form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
-        form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
-        form.add(new TextField("card",new PropertyModel<String>(bean, "card")));
+        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
+        form.add(new Label("head", new PropertyModel<String>(bean, "head")));
+        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("address", new PropertyModel<String>(bean, "address")));
+        form.add(new Label("economicsType", new PropertyModel<String>(bean, "economicsType")));
+        form.add(new Label("storageAddress", new PropertyModel<String>(bean, "storageAddress")));
+        form.add(new Label("scope", new PropertyModel<String>(bean, "scope")));
+        form.add(new TextField("code", new PropertyModel<String>(bean, "code")));
+        form.add(new TextField("card", new PropertyModel<String>(bean, "card")));
         //日期控件//
         final DatePicker validityDateTime = new DatePicker("validityDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(validityDateTime);
@@ -129,6 +122,7 @@ public class FireworksEndFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
+
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
