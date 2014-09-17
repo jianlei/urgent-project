@@ -126,7 +126,7 @@ public class ApplyPage extends WebPage {
         } else if ("危险化学品经营许可证".equals(processName)) {
             rv.add(new ChemistryManageTabPage(rv.newChildId(), wmc, phone));
         } else if ("烟花爆竹经营许可证".equals(processName)) {
-            rv.add(new FireworksTabPage(rv.newChildId(), wmc));
+            rv.add(new FireworksTabPage(rv.newChildId(), wmc, phone));
         } else if ("安全资格证书(培训)".equals(processName)) {
             rv.add(new CompetencyTabPage(rv.newChildId(), wmc, phone));
         } else if ("特种作业人员操作资格证".equals(processName)) {

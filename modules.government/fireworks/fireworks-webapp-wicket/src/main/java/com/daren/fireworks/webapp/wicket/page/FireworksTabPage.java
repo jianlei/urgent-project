@@ -32,10 +32,10 @@ public class FireworksTabPage extends BasePanel {
     Fragment createFragment;
     FireworksAddPage fireworksAddPage;
 
-    public FireworksTabPage(String id, WebMarkupContainer wmc) {
+    public FireworksTabPage(String id, WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //增加tabs支持
-        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc, phone));
         this.add(tabPanel);
         createPage.setOutputMarkupId(true);
     }
@@ -45,21 +45,21 @@ public class FireworksTabPage extends BasePanel {
      *
      * @return
      */
-    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc, final String phone) {
         List<ITab> tabs = new ArrayList();
         tabs.add(new AbstractTab(Model.of("烟花爆竹经营许可证")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initFireworksListPage(id, wmc);
+                return initFireworksListPage(id, wmc, phone);
             }
         });
         return tabs;
     }
 
-    private FireworksListPage initFireworksListPage(final String id, final WebMarkupContainer wmc) {
-        FireworksListPage hazardPage = new FireworksListPage(id, wmc, null) {
+    private FireworksListPage initFireworksListPage(final String id, final WebMarkupContainer wmc, String phone) {
+        FireworksListPage hazardPage = new FireworksListPage(id, wmc, phone) {
             @Override
             protected void createButtonOnClick(FireworksBean competencyBean, AjaxRequestTarget target) {
                 initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
