@@ -1,7 +1,10 @@
 package com.daren.chemistry.manage.webapp.wicket.page;
 
+import com.daren.attachment.api.biz.IAttachmentService;
+import com.daren.attachment.entities.AttachmentBean;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
+import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
@@ -18,15 +21,23 @@ import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.util.file.Files;
 
 import javax.inject.Inject;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +52,8 @@ import java.util.Map;
  * @修改备注：
  */
 public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
-
+    @Inject
+    private IAttachmentService attachmentService;
     @Inject
     protected IChemistryManageBeanService chemistryManageBeanService;
     ChemistryManageBean bean = new ChemistryManageBean();
@@ -81,18 +93,13 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //add data to form
-        form.add(new Label("code",new PropertyModel<String>(bean, "code")));
         form.add(new Label("name",new PropertyModel<String>(bean, "name")));
         form.add(new Label("header",new PropertyModel<String>(bean, "header")));
+        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
         form.add(new Label("address",new PropertyModel<String>(bean, "address")));
+        form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
         form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
         form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
-        form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
-        form.add(new Label("startDate",new PropertyModel<String>(bean, "startDate")));
-        form.add(new Label("endDate",new PropertyModel<String>(bean, "endDate")));
-        form.add(new Label("unitsDate",new PropertyModel<String>(bean, "unitsDate")));
-        form.add(new Label("proposerId",new PropertyModel<String>(bean, "proposerId")));
-        form.add(new Label("qyid",new PropertyModel<String>(bean, "qyid")));
         form.add(new Label("taskName", task.getName()));
 
         //审批结果
@@ -147,6 +154,43 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
                 TabsUtil.deleteTab(target, ChemistryManageAuditTaskFormPage.this.findParent(TabbedPanel.class));
             }
         });
+
+        List<AttachmentBean> list = attachmentService.getAttachmentBeanByParentIdAndAppType(bean.getId(), "chemistryManage");
+        WebMarkupContainer table = new WebMarkupContainer("table");
+        add(table.setOutputMarkupId(true));
+        //构造数据
+        PageableListView<AttachmentBean> lv = new PageableListView<AttachmentBean>("rows", list, 20) {
+            @Override
+            protected void populateItem(ListItem<AttachmentBean> item) {
+                final AttachmentBean attachmentBean = item.getModelObject();
+                item.add(new Label("names", attachmentBean.getName()));
+                item.add(initPreviewButton(attachmentBean));
+            }
+        };
+        table.setVersioned(false);
+        table.add(lv);
+        form.add(table);
+    }
+
+    private AjaxLink initPreviewButton(final AttachmentBean attachmentBean) {
+        AjaxLink alink = new AjaxLink("previewDuplicate") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                FileInputStream fileInputStream = null;
+                try {
+                    File tempFile = new File(IConst.OFFICE_WEB_PATH_TEMP + attachmentBean.getName());
+                    fileInputStream = new FileInputStream(attachmentBean.getPath());
+                    DataInputStream data = new DataInputStream(fileInputStream);
+                    Files.writeTo(tempFile, data);
+                    fileInputStream.close();
+//                    createDialog(target, "Office", IConst.OFFICE_WEB_PATH_READ + attachmentBean.getName());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        return alink;
     }
 
     public String getComment() {

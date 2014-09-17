@@ -13,7 +13,7 @@ import org.activiti.engine.delegate.TaskListener;
  * @修改时间：
  * @修改备注：
  */
-public class MyTaskAssigner implements TaskListener, JavaDelegate {
+public class MyTaskAssigner implements TaskListener,JavaDelegate {
     @Override
     public void notify(DelegateTask delegateTask) {
         System.out.print(delegateTask.getName());

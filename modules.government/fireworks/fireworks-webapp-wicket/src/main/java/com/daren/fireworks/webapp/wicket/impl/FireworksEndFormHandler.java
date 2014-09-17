@@ -2,6 +2,7 @@ package com.daren.fireworks.webapp.wicket.impl;
 
 import com.daren.core.web.api.workflow.IFormHandler;
 import com.daren.fireworks.webapp.wicket.Const;
+import com.daren.fireworks.webapp.wicket.page.FireworksAuditFormPage;
 import com.daren.fireworks.webapp.wicket.page.FireworksEndFormPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -14,10 +15,10 @@ import org.apache.wicket.model.IModel;
  * @修改时间：
  * @修改备注：
  */
-public class FireworksEndFormHandler implements IFormHandler {
+public class FireworksEndFormHandler implements IFormHandler{
     @Override
     public Panel getPanel(String id, IModel model) {
-        return new FireworksEndFormPage(id, model);
+        return new FireworksEndFormPage(id,model);
     }
 
     @Override

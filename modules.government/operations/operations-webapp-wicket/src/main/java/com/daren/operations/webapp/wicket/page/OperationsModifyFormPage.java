@@ -52,7 +52,7 @@ import java.util.List;
 public class OperationsModifyFormPage extends BaseFormPanel {
     @Inject
     protected IOperationsService operationsService;
-    OperationsBean bean = new OperationsBean();
+    OperationsBean bean=new OperationsBean();
     @Inject
     private transient IdentityService identityService;
     @Inject
@@ -114,8 +114,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
                 }
                 dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "operations") {
                     @Override
-                    public void updateTarget(AjaxRequestTarget target) {
-                    }
+                    public void updateTarget(AjaxRequestTarget target) {}
                 };
                 target.add(dialogWrapper);
                 dialog.open(target);
@@ -129,7 +128,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    OperationsBean bean = (OperationsBean) form.getModelObject();
+                    OperationsBean bean= (OperationsBean) form.getModelObject();
                     operationsService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
@@ -141,7 +140,6 @@ public class OperationsModifyFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
-
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
@@ -154,7 +152,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
                 TabsUtil.deleteTab(target, OperationsModifyFormPage.this.findParent(TabbedPanel.class));
             }
         });
-        DataProvider dataProvider = new DataProvider(bean.getId(), "operations");
+        DataProvider dataProvider=new DataProvider(bean.getId(), "operations");
         table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         //构造数据
@@ -173,37 +171,31 @@ public class OperationsModifyFormPage extends BaseFormPanel {
     }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {
-        List<AttachmentBean> beanList = new ArrayList<>();
+        List<AttachmentBean> beanList=new ArrayList<>();
         private long id;
         private String str;
-
-        public DataProvider(long id, String str) {
-            this.id = id;
-            this.str = str;
+        public  DataProvider(long id,String str){
+            this.id=id;
+            this.str=str;
             getData();
         }
-
         public List<AttachmentBean> getData() {
             beanList = attachmentService.getAttachmentBeanByParentIdAndAppType(id, str);
             return beanList;
         }
-
         @Override
         public Iterator<? extends AttachmentBean> iterator(long l, long l2) {
             getData();
             return beanList.iterator();
         }
-
         @Override
         public long size() {
             return beanList.size();
         }
-
         @Override
         public IModel<AttachmentBean> model(AttachmentBean attachmentBean) {
             return Model.of(attachmentBean);
         }
-
         @Override
         public void detach() {
         }
@@ -229,7 +221,6 @@ public class OperationsModifyFormPage extends BaseFormPanel {
         };
         return alink;
     }
-
     private AjaxLink initDeleteButton(final AttachmentBean attachmentBean) {
         IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("deleteDuplicate") {
             @Override

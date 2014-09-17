@@ -14,10 +14,10 @@ import org.apache.wicket.model.IModel;
  * @修改时间：
  * @修改备注：
  */
-public class ChemistryManageEndFormHandler implements IFormHandler {
+public class ChemistryManageEndFormHandler implements IFormHandler{
     @Override
     public Panel getPanel(String id, IModel model) {
-        return new ChemistryManageEndFormPage(id, model);
+        return new ChemistryManageEndFormPage(id,model);
     }
 
     @Override

@@ -2,13 +2,13 @@
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-    <!-- While mountings are done automatically with the PaxWicketMountPoint annotation a service needs to be exported if you
-      like to do this manually -->
-    <service interface="org.ops4j.pax.wicket.api.PageMounter">
-        <service-properties>
-            <entry key="pax.wicket.applicationname" value="daren.project.government"/>
-        </service-properties>
-        <bean class="com.daren.apply.webapp.wicket.mount.ManuallyPageMounter"/>
-    </service>
+  <!-- While mountings are done automatically with the PaxWicketMountPoint annotation a service needs to be exported if you
+    like to do this manually -->
+  <service interface="org.ops4j.pax.wicket.api.PageMounter">
+    <service-properties>
+      <entry key="pax.wicket.applicationname" value="daren.project.government" />
+    </service-properties>
+    <bean class="com.daren.apply.webapp.wicket.mount.ManuallyPageMounter" />
+  </service>
 
 </blueprint>

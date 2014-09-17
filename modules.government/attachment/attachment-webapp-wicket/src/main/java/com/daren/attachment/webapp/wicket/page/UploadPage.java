@@ -3,6 +3,9 @@ package com.daren.attachment.webapp.wicket.page;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.IConst;
+import com.daren.workflow.webapp.wicket.util.TabsUtil;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -24,6 +27,7 @@ public class UploadPage extends Panel {
     @Inject
     @Reference(id = "attachmentService", serviceInterface = IAttachmentService.class)
     private IAttachmentService attachmentService;
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     public UploadPage(String id, final long preateId, final String appType) {
         super(id);
         final AttachmentBean attachmentBean = new AttachmentBean();
@@ -31,6 +35,7 @@ public class UploadPage extends Panel {
         Form form = new Form("form", new CompoundPropertyModel(attachmentBean));
         form.setMultiPart(true);
         this.add(form);
+        this.add(feedbackPanel);
         form.add(fileUploadField);
 
         //保存按钮
@@ -56,6 +61,8 @@ public class UploadPage extends Panel {
                             formBean.setAppType(appType);
                         }
                     }
+                    feedbackPanel.info("上传成功！");
+                    target.add(feedbackPanel);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

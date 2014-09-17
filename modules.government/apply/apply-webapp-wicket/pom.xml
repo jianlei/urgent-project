@@ -22,11 +22,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.ops4j.pax.wicket</groupId>
-            <artifactId>org.ops4j.pax.wicket.service</artifactId>
-        </dependency>
-
         <!--workflow start -->
         <dependency>
             <groupId>org.activiti</groupId>
@@ -74,10 +69,6 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.wicket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.validation</artifactId>
         </dependency>
         <!--core end-->
 
@@ -128,6 +119,11 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <!--inject end-->
+
+        <dependency>
+            <groupId>org.ops4j.pax.wicket</groupId>
+            <artifactId>org.ops4j.pax.wicket.service</artifactId>
+        </dependency>
 
 
     </dependencies>

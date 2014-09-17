@@ -98,6 +98,16 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.persist.openjpa</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.workflow</groupId>
             <artifactId>com.daren.workflow.webapp.wicket</artifactId>
         </dependency>
@@ -125,16 +135,6 @@
         <dependency>
             <groupId>com.daren.attachment</groupId>
             <artifactId>com.daren.attachment.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.attachment</groupId>
-            <artifactId>com.daren.attachment.entities</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.attachment</groupId>
-            <artifactId>com.daren.attachment.persist.openjpa</artifactId>
         </dependency>
 
         <dependency>

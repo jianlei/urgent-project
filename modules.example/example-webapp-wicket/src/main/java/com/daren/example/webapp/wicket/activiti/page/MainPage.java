@@ -19,12 +19,13 @@ import org.apache.wicket.model.IModel;
  * Time: 17:18
  * To change this template use File | Settings | File Templates.
  */
-public class MainPage extends BasePage{
+public class MainPage extends BasePage {
 
     private IModel<ProcessDefinition> selectedProcessDefinitonModel;
     private IModel<Task> selectedTaskModel;
 
-    public MainPage() {
+    public MainPage(String id, WebMarkupContainer wmc) {
+        super(id);
 
         selectedProcessDefinitonModel=new ProcessDefinitionModel();
         selectedTaskModel=new TaskModel();

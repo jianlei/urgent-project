@@ -49,7 +49,7 @@ public class FireworksListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    public FireworksListPage(final String id, final WebMarkupContainer wmc, final String phone) {
+    public FireworksListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {

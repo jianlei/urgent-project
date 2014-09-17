@@ -94,11 +94,6 @@
 
         <dependency>
             <groupId>com.daren.attachment</groupId>
-            <artifactId>com.daren.attachment.api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.attachment</groupId>
             <artifactId>com.daren.attachment.entities</artifactId>
         </dependency>
 
@@ -111,6 +106,11 @@
             <groupId>com.daren.attachment</groupId>
             <artifactId>com.daren.attachment.webapp.wicket</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.attachment</groupId>
+            <artifactId>com.daren.attachment.api</artifactId>
         </dependency>
 
         <dependency>

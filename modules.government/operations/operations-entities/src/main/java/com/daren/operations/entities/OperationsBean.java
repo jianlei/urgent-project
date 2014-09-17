@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @类描述：安全资格证书(培训)
+ * @类描述：特种作业人员操作资格证
  * @创建人：张清欣
  * @创建时间：2014-09-09 下午14:50
  * @修改人：
@@ -21,15 +21,19 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class OperationsBean extends WorkflowEntity {
     private String name;//姓名
-    private String code;//证书编号
+    private String phone;//电话
     private String workType;//作业类别
     private String operationProject;//准操项目
+    private String enterpriseName;//企业名称
+
+    private String code;//证书编号
     private Date receiveDate;//初领日期
     private Date startDate;//有效期限开始
     private Date endDate;//有效期限结束
     private Date reviewDate;//复审日期
+
+    private String linkHandle;//当前办理环节
     private long proposerId;//审请人ID
-    private long enterpriseName;//企业名称
     private long enterpriseId;//企业ID
 
     public Date getReceiveDate() {
@@ -38,6 +42,14 @@ public class OperationsBean extends WorkflowEntity {
 
     public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Date getStartDate() {
@@ -104,11 +116,11 @@ public class OperationsBean extends WorkflowEntity {
         this.proposerId = proposerId;
     }
 
-    public long getEnterpriseName() {
+    public String getEnterpriseName() {
         return enterpriseName;
     }
 
-    public void setEnterpriseName(long enterpriseName) {
+    public void setEnterpriseName(String enterpriseName) {
         this.enterpriseName = enterpriseName;
     }
 
@@ -118,5 +130,13 @@ public class OperationsBean extends WorkflowEntity {
 
     public void setEnterpriseId(long enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getLinkHandle() {
+        return linkHandle;
+    }
+
+    public void setLinkHandle(String linkHandle) {
+        this.linkHandle = linkHandle;
     }
 }

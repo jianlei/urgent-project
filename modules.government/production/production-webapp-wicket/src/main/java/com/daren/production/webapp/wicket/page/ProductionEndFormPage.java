@@ -62,8 +62,8 @@ public class ProductionEndFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     ProductionBean bean = new ProductionBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment = "审批通过";
-    private String accepted = "同意";
+    private String comment="审批通过";
+    private String accepted="同意";
 
     public ProductionEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -85,14 +85,14 @@ public class ProductionEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
-        form.add(new Label("head", new PropertyModel<String>(bean, "head")));
-        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("address", new PropertyModel<String>(bean, "address")));
-        form.add(new Label("economicsType", new PropertyModel<String>(bean, "economicsType")));
-        form.add(new Label("scope", new PropertyModel<String>(bean, "scope")));
-        form.add(new TextField("code", new PropertyModel<String>(bean, "code")));
-        form.add(new TextField("card", new PropertyModel<String>(bean, "card")));
+        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
+        form.add(new Label("head",new PropertyModel<String>(bean, "head")));
+        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("address",new PropertyModel<String>(bean, "address")));
+        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
+        form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
+        form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
+        form.add(new TextField("card",new PropertyModel<String>(bean, "card")));
         //日期控件//
         final DatePicker unitsDateTime = new DatePicker("unitsDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(unitsDateTime);
@@ -124,7 +124,6 @@ public class ProductionEndFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
-
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);

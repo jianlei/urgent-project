@@ -96,8 +96,9 @@ public class OperationsAddPage extends BasePanel {
 
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
-        addTextFieldToForm("enterpriseName");
+        addTextFieldToForm("phone");
         addTextFieldToForm("workType");
         addTextFieldToForm("operationProject");
+        addTextFieldToForm("enterpriseName");
     }
 }

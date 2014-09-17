@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 /**
- * @类描述：demo流程的修改form注册服务
+ * @类描述：危险化学品经营许可证
  * @创建人： sunlingfeng
  * @创建时间：2014/9/6
  * @修改人：

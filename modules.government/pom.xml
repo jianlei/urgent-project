@@ -29,6 +29,7 @@
         <module>chemistryManage</module>
         <module>attachment</module>
         <module>apply</module>
+        <module>util</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -5,7 +5,14 @@ import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.operations.api.biz.IOperationsService;
 import com.daren.operations.entities.OperationsBean;
+import com.daren.operations.webapp.wicket.Const;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -22,7 +29,7 @@ import java.util.List;
 
 
 /**
- * @类描述：重大危险源管理
+ * @类描述：特种作业人员操作资格证
  * @创建人：王凯冉
  * @创建时间：2014-08-01 上午10:25
  * @修改人：
@@ -36,6 +43,14 @@ public class OperationsListPage extends BasePanel {
     OperationsDataProvider provider = new OperationsDataProvider();
     @Inject
     private IOperationsService operationsService;
+    @Inject
+    private transient IdentityService identityService;
+    @Inject
+    private transient RuntimeService runtimeService;
+    @Inject
+    private TaskService taskService;
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+
     public OperationsListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         //初始化dialogWrapper
@@ -51,6 +66,7 @@ public class OperationsListPage extends BasePanel {
             }
         };
         this.add(dialogWrapper.setOutputMarkupId(true));
+        this.add(feedbackPanel);
         final WebMarkupContainer table = new WebMarkupContainer("table");
         add(table.setOutputMarkupId(true));
         DataView<OperationsBean> listView = new DataView<OperationsBean>("rows", provider, 10) {
@@ -59,12 +75,15 @@ public class OperationsListPage extends BasePanel {
             protected void populateItem(Item<OperationsBean> item) {
                 final OperationsBean operationsBean = item.getModelObject();
                 item.add(new Label("name", operationsBean.getName()));
-                item.add(new Label("enterpriseName", operationsBean.getEnterpriseName()));
+                item.add(new Label("phone", operationsBean.getPhone()));
                 item.add(new Label("workType", operationsBean.getWorkType()));
                 item.add(new Label("operationProject", operationsBean.getOperationProject()));
+                item.add(new Label("enterpriseName", operationsBean.getEnterpriseName()));
+                item.add(new Label("linkHandle", operationsBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", operationsBean));
                 item.add(getToUploadPageLink("upload", operationsBean));
                 item.add(getDuplicateLink("duplicate", operationsBean));
+                item.add(getSubmitLink("submit", operationsBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -96,17 +115,43 @@ public class OperationsListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", operationsBean, "list");
+                createDialog(target, "上传附件", operationsBean, "list");
             }
         };
         return alinkDuplicate;
+    }
+
+    private AjaxLink getSubmitLink(String wicketId, final OperationsBean operationsBean){
+        AjaxLink alinkSubmit = new AjaxLink(wicketId) {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                try {
+                    String bizKey= Const.PROCESS_KEY + ":" + operationsBean.getPhone() + ":" + operationsBean.getId();
+                    //获得当前登陆用户
+                    identityService.setAuthenticatedUserId(operationsBean.getPhone());
+                    ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
+                    operationsBean.setProcessInstanceId(instance.getProcessInstanceId());
+                    Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
+                    operationsBean.setLinkHandle(task.getName());
+                    operationsService.saveEntity(operationsBean);
+                    feedbackPanel.info("特种作业人员操作资格证,启动成功！");
+                }catch (Exception e){
+                    feedbackPanel.info("特种作业人员操作资格证,启动失败！");
+                }finally {
+                    identityService.setAuthenticatedUserId(null);
+                }
+                target.add(feedbackPanel);
+            }
+
+        };
+        return alinkSubmit;
     }
 
     private AjaxLink getToUploadPageLink(String wicketId, final OperationsBean operationsBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", operationsBean, "upload");
+                createDialog(target, "上传附件", operationsBean, "upload");
             }
         };
         return ajaxLink;

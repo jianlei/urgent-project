@@ -76,14 +76,11 @@ public class CompetencyListPage extends BasePanel {
             protected void populateItem(Item<CompetencyBean> item) {
                 final CompetencyBean competencyBean = item.getModelObject();
                 item.add(new Label("name", competencyBean.getName()));
-                item.add(new Label("sex", competencyBean.getSex()));
                 item.add(new Label("phone", competencyBean.getPhone()));
                 item.add(new Label("enterpriseName", competencyBean.getEnterpriseName()));
                 item.add(new Label("title", competencyBean.getTitle()));
                 item.add(new Label("cultureLevel", competencyBean.getCultureLevel()));
                 item.add(new Label("id_code", competencyBean.getId_code()));
-                item.add(new Label("unitType", competencyBean.getUnitType()));
-                item.add(new Label("qualificationsType", competencyBean.getQualificationsType()));
                 item.add(new Label("linkHandle", competencyBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", competencyBean));
                 item.add(getToUploadPageLink("upload", competencyBean));
@@ -120,7 +117,7 @@ public class CompetencyListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", competencyBean, "list");
+                createDialog(target, "上传附件", competencyBean, "list");
             }
         };
         return alinkDuplicate;
@@ -156,7 +153,7 @@ public class CompetencyListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", competencyBean, "upload");
+                createDialog(target, "上传附件", competencyBean, "upload");
             }
         };
         return ajaxLink;

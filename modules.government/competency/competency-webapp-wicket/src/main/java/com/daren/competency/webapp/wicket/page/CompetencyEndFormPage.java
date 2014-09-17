@@ -62,8 +62,8 @@ public class CompetencyEndFormPage extends BaseFormPanel {
     private transient TaskService taskService;
     CompetencyBean bean = new CompetencyBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    private String comment = "审批通过";
-    private String accepted = "同意";
+    private String comment="审批通过";
+    private String accepted="同意";
 
     public CompetencyEndFormPage(String id, final IModel<Task> model) {
         super(id, model);
@@ -85,16 +85,16 @@ public class CompetencyEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name", new PropertyModel<String>(bean, "name")));
-        form.add(new Label("sex", new PropertyModel<String>(bean, "sex")));
-        form.add(new Label("phone", new PropertyModel<String>(bean, "phone")));
-        form.add(new Label("enterpriseName", new PropertyModel<String>(bean, "enterpriseName")));
-        form.add(new Label("title", new PropertyModel<String>(bean, "title")));
-        form.add(new Label("cultureLevel", new PropertyModel<String>(bean, "cultureLevel")));
-        form.add(new Label("id_code", new PropertyModel<String>(bean, "id_code")));
-        form.add(new Label("unitType", new PropertyModel<String>(bean, "unitType")));
-        form.add(new Label("qualificationsType", new PropertyModel<String>(bean, "qualificationsType")));
-        form.add(new TextField("code", new PropertyModel<String>(bean, "code")));
+        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
+        form.add(new Label("sex",new PropertyModel<String>(bean, "sex")));
+        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("enterpriseName",new PropertyModel<String>(bean, "enterpriseName")));
+        form.add(new Label("title",new PropertyModel<String>(bean, "title")));
+        form.add(new Label("cultureLevel",new PropertyModel<String>(bean, "cultureLevel")));
+        form.add(new Label("id_code",new PropertyModel<String>(bean, "id_code")));
+        form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
+        form.add(new Label("qualificationsType",new PropertyModel<String>(bean, "qualificationsType")));
+        form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
         //日期控件//
         final DatePicker awardDateDateTime = new DatePicker("awardDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
         form.add(awardDateDateTime);
@@ -123,7 +123,6 @@ public class CompetencyEndFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(null);
                 }
             }
-
             protected void onError(AjaxRequestTarget target, Form<?> form) {
                 feedbackPanel.error("任务处理失败");
                 target.add(feedbackPanel);
