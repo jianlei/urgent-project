@@ -124,8 +124,8 @@ public class ApplyPage extends WebPage {
         } else if ("请假流程".equals(processName)) {
             rv.add(new NotFoundProcess(rv.newChildId()));
         } else if ("危险化学品经营许可证".equals(processName)) {
-            rv.add(new ChemistryManageTabPage(rv.newChildId(), wmc));
-        } else if ("烟花爆竹经营许可证流程".equals(processName)) {
+            rv.add(new ChemistryManageTabPage(rv.newChildId(), wmc, phone));
+        } else if ("烟花爆竹经营许可证".equals(processName)) {
             rv.add(new FireworksTabPage(rv.newChildId(), wmc));
         } else if ("安全资格证书(培训)".equals(processName)) {
             rv.add(new CompetencyTabPage(rv.newChildId(), wmc));

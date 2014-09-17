@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface IFireworksService extends IBizService {
     List<FireworksBean> query(FireworksBean bean);
+    List<FireworksBean> getFireworksBeanByPhone(String phone);
 }

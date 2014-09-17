@@ -49,8 +49,10 @@ public class FireworksListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    private String phoneNumber = null;
     public FireworksListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -99,7 +101,7 @@ public class FireworksListPage extends BasePanel {
                 createButtonOnClick(fireworksBean, target);
             }
         };
-        if(provider.size() > 0 ){
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -112,6 +114,9 @@ public class FireworksListPage extends BasePanel {
                 createButtonOnClick(fireworksBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -148,6 +153,9 @@ public class FireworksListPage extends BasePanel {
             }
 
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -158,6 +166,9 @@ public class FireworksListPage extends BasePanel {
                 createDialog(target, "上传附件", fireworksBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -204,15 +215,13 @@ public class FireworksListPage extends BasePanel {
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
         private FireworksBean fireworksBean = null;
-
         public void setFireworksBean(FireworksBean fireworksBean) {
             this.fireworksBean = fireworksBean;
         }
-
         @Override
         protected List<FireworksBean> getData() {
-            if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))
-                return fireworksService.getAllEntity();
+            if (null!=phoneNumber)
+                return fireworksService.getFireworksBeanByPhone(phoneNumber);
             else {
                 return fireworksService.getAllEntity();
             }
