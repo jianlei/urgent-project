@@ -97,7 +97,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                             List tokenList = userBeanService.getUserTokenListByIds(Long.parseLong(om.getJgdm()));
                             tokenAllList.addAll(tokenList);
                         }else{                      //组织机构
-                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm(),user_id);
                             if(useridList!=null && !useridList.isEmpty()){
                                 for(int j=0;j<useridList.size();j++){
                                     GroupUserReqBean groupUserReqBean = new GroupUserReqBean();
@@ -110,7 +110,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                                     groupUserReqBeanDao.save(groupUserReqBean);
                                 }
                             }
-                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm(),user_id);
                             tokenAllList.addAll(tokenJgdmList);
                         }
                     }
@@ -151,7 +151,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
             long user_id = (long) cookieMap.get("userId");
             if(user_id>0){
                 //GroupBasicBean groupBasicBean = groupBasicBeanDao.get(GroupBasicBean.class.getName(),group_id);
-                groupBasicBeanDao.update("update GroupBasicBean g set g.group_name = "+group_name);
+                groupBasicBeanDao.update("update GroupBasicBean g set g.group_name = '"+group_name+"' where g.id="+group_id );
                 result =  1;
             }else {
                 map.put("errorCode", ErrorCodeValue.PARAM_ERROR);
@@ -188,25 +188,27 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                             groupUserReqBean.setGroup_id(group_id);
                             groupUserReqBean.setReq_id(user_id);
                             //groupUserReqBean.setReq_msg(req_msg);
+                            groupUserReqBean.setRes_id(Long.parseLong(om.getJgdm()));
                             groupUserReqBean.setReq_time(DateUtil.convertDateToString(new Date(), DateUtil.longSdf));
                             groupUserReqBean.setRes_type(0);
                             groupUserReqBeanDao.save(groupUserReqBean);
                             List tokenList = userBeanService.getUserTokenListByIds(Long.parseLong(om.getJgdm()));
                             tokenAllList.addAll(tokenList);
                         }else{                      //组织机构
-                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm(),user_id);
                             if(useridList!=null && !useridList.isEmpty()){
                                 for(int j=0;j<useridList.size();j++){
                                     GroupUserReqBean groupUserReqBean = new GroupUserReqBean();
                                     groupUserReqBean.setGroup_id(group_id);
                                     groupUserReqBean.setReq_id(user_id);
                                     //groupUserReqBean.setReq_msg(req_msg);
+                                    groupUserReqBean.setRes_id(useridList.get(j));
                                     groupUserReqBean.setReq_time(DateUtil.convertDateToString(new Date(), DateUtil.longSdf));
                                     groupUserReqBean.setRes_type(0);
                                     groupUserReqBeanDao.save(groupUserReqBean);
                                 }
                             }
-                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm(),user_id);
                             tokenAllList.addAll(tokenJgdmList);
                         }
                     }
@@ -256,10 +258,12 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                     page_size = 15;
                 }
                 groupList = groupBasicBeanDao.findByNativeSql("select * from(\n" +
-                        "(select cgb.id,cgb.group_name,cgb.group_logo,cgb.group_num from coop_group_basic cgb where cgb.is_generate=1 and cgb.id in \n" +
+                        "(select cgb.id,cgb.group_name,cgb.group_logo,cgb.group_num,cgb.manager_user as create_userid " +
+                        "from coop_group_basic cgb where cgb.is_generate=1 and cgb.id in \n" +
                         "(select group_id from coop_group_user_rel where user_id="+user_id+") order by cgb.create_time desc)\n" +
                         "union\n" +
-                        "(select cgb.id,cgb.group_name,cgb.group_logo,cgb.group_num from coop_group_basic cgb where cgb.is_generate=0 and cgb.id in \n" +
+                        "(select cgb.id,cgb.group_name,cgb.group_logo,cgb.group_num,cgb.manager_user as create_userid " +
+                        "from coop_group_basic cgb where cgb.is_generate=0 and cgb.id in \n" +
                         "(select group_id from coop_group_user_rel where user_id="+user_id+") order by cgb.create_time desc)\n" +
                         ") t", GroupListModel.class ,start, page_size);
                 if(groupList!=null && groupList.size()>0){
@@ -302,7 +306,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                     groupUserRelBean.setGroup_id(group_id);
                     groupUserRelBean.setUser_id(user_id);
                     groupUserRelBeanDao.save(groupUserRelBean);
-                    groupBasicBeanDao.update("update GroupBasicBean t set t.group_num=t.group_num+1,t.group_name=concat(t.group_name,',"+name+"') where t.id="+group_id);
+                    groupBasicBeanDao.update("update GroupBasicBean t set t.group_num=t.group_num+1 where t.id="+group_id);   //groupUserReqBean.setRes_id(Long.parseLong(om.getJgdm()));
                 }
                 result = 1;
             }else{
@@ -389,9 +393,9 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
 
     @POST
     @Produces("application/json;charset=utf-8")
-    @Path("/deleleUserFromGroup")
+    @Path("/deleteUserFromGroup")
     @Override
-    public Map deleleUserFromGroup(@FormParam("group_id")Long group_id,@FormParam("delete_user_id") Long delete_user_id,
+    public Map deleteUserFromGroup(@FormParam("group_id")Long group_id,@FormParam("delete_user_id") Long delete_user_id,
                                    @Context HttpServletRequest request) {
         Map map = new HashMap();
         int result = -1;
@@ -452,7 +456,7 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
             if(group_id!=null && user_id>0){
                 List<GroupUserListModel> groupUserListModels = groupUserRelBeanDao.findByNativeSql("select c.user_id,su.name,s.head_spicurl " +
                         "from coop_group_user_rel c left join sys_user su on su.id=c.user_id " +
-                        "left join sys_user_rel s on s.user_id = c.user_id where c.group_id="+group_id,GroupUserListModel.class);
+                        "left join sys_user_rel s on s.user_id = c.user_id where c.user_id!="+user_id+" and c.group_id="+group_id,GroupUserListModel.class);
                 Map resMap = new HashMap();
                 GroupBasicBean groupBasicBean = groupBasicBeanDao.get(GroupBasicBean.class.getName(),group_id);
                 if(groupBasicBean!=null){

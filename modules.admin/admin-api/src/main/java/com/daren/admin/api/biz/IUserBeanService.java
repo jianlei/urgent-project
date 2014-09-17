@@ -60,7 +60,7 @@ public interface IUserBeanService extends IBizService {
      * 通过jgdm获取用户token集合
      * @return
      */
-    public List getUserTokenListJgdm(String jgdm);
+    public List getUserTokenListJgdm(String jgdm, long user_id);
 
     /**
      * 根据日程id获取不同类型用户token
@@ -74,5 +74,5 @@ public interface IUserBeanService extends IBizService {
      * @param jgdm
      * @return
      */
-    public List getUseridListByGgdm(String jgdm);
+    public List getUseridListByGgdm(String jgdm, long user_id);
 }

@@ -80,7 +80,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                     List<OrgnizationListModel> orgList = orgJson.getModels();
                     for(int i=0;i<orgList.size();i++){
                         OrgnizationListModel om = orgList.get(i);
-                        if(om.getFlag()==2){        //用户
+                        if(om.getFlag()==2 && Long.parseLong(om.getJgdm())!=user_id){        //用户
                             NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
                             noticeUserRelBean.setNotice_id(noticeBasicBean.getId());
                             noticeUserRelBean.setUser_id(Long.parseLong(om.getJgdm()));
@@ -88,7 +88,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                             List tokenList = userBeanService.getUserTokenListByIds(Long.parseLong(om.getJgdm()));
                             tokenAllList.addAll(tokenList);
                         }else{                      //组织机构
-                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm());
+                            List<Long> useridList = userBeanService.getUseridListByGgdm(om.getJgdm(),user_id);
                             if(useridList!=null && !useridList.isEmpty()){
                                 for(int j=0;j<useridList.size();j++){
                                     NoticeUserRelBean noticeUserRelBean = new NoticeUserRelBean();
@@ -97,7 +97,7 @@ public class NoticeBeanServiceImpl extends GenericBizServiceImpl implements INot
                                     noticeUserRelBeanDao.save(noticeUserRelBean);           //保存日程和人员关系
                                 }
                             }
-                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm());
+                            List tokenJgdmList = userBeanService.getUserTokenListJgdm(om.getJgdm(),user_id);
                             tokenAllList.addAll(tokenJgdmList);
                         }
                     }

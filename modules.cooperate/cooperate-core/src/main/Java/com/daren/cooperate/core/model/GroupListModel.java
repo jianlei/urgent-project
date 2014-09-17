@@ -14,9 +14,18 @@ public class GroupListModel {
     private String group_name="";              //群组名称
     private String group_logo="";              //群组logo
     private int group_num = 1;                 //人数
+    private long create_userid;
 
     public GroupListModel(){
 
+    }
+
+    public long getCreate_userid() {
+        return create_userid;
+    }
+
+    public void setCreate_userid(long create_userid) {
+        this.create_userid = create_userid;
     }
 
     public long getId() {

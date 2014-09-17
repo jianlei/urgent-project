@@ -77,7 +77,7 @@ public interface IGroupBeanService extends IBizService {
      * @param request
      * @return
      */
-    public Map deleleUserFromGroup(Long group_id, Long delete_user_id, HttpServletRequest request);
+    public Map deleteUserFromGroup(Long group_id, Long delete_user_id, HttpServletRequest request);
 
     /**
      * 退出群组
