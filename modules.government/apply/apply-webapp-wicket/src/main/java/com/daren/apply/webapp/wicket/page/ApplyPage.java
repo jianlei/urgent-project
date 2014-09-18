@@ -31,6 +31,7 @@ import java.util.Map;
  * @修改时间：
  * @修改备注：
  */
+//@PaxWicketMountPoint(mountPoint = "/apply")
 public class ApplyPage extends WebPage {
 
     RepeatingView rv = new RepeatingView("myApplyProcess");

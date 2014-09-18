@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.daren.example</groupId>
+        <artifactId>modules.example</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+	<artifactId>wicketstuff-push-examples</artifactId>
+	<packaging>bundle</packaging>
+
+	<name>Wicketstuff Push - Examples</name>
+
+    <properties>
+        <bundle.symbolicName>org.wicketstuff.push.examples</bundle.symbolicName>
+        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.daren.example</groupId>
+			<artifactId>wicketstuff-push-cometd</artifactId>
+			<version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-push-timer</artifactId>
+			<version>7.0-SNAPSHOT</version>
+            <scope>provided</scope>
+		</dependency>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.ops4j.pax.wicket</groupId>
+            <artifactId>org.ops4j.pax.wicket.service</artifactId>
+        </dependency>
+
+
+
+		<!-- JETTY DEPENDENCIES FOR TESTING -->
+
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-extensions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-velocity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-devutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+        </dependency>
+
+	</dependencies>
+    <build>
+        <plugins>
+
+        </plugins>
+    </build>
+
+</project>
