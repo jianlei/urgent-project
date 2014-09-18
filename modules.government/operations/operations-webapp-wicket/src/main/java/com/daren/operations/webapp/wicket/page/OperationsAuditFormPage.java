@@ -115,17 +115,15 @@ public class OperationsAuditFormPage extends BaseFormPanel {
                     //添加备注信息
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
-                    OperationsBean bean= (OperationsBean) form.getModelObject();
-                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-                    bean.setLinkHandle(taskN.getName());
-                    operationsService.saveEntity(bean);
                     Map<String, String> submitMap = new HashMap<String, String>();
                     boolean passed=accepted.equals("同意")?true:false;
                     submitMap.put("accepted", String.valueOf(passed));
                     taskService.setVariablesLocal(task.getId(), submitMap);
-
                     formService.submitTaskFormData(task.getId(), submitMap);
                     model.setObject(null);
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    operationsService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     target.add(OperationsAuditFormPage.this.findParent(TabbedPanel.class));
