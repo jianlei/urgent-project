@@ -51,8 +51,10 @@ public class OperationsListPage extends BasePanel {
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     private String phoneNumber=null;
+    final WebMarkupContainer wmc;
     public OperationsListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        this.wmc = wmc;
         phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
@@ -148,6 +150,7 @@ public class OperationsListPage extends BasePanel {
                     identityService.setAuthenticatedUserId(null);
                 }
                 target.add(feedbackPanel);
+                target.add(wmc);
             }
         };
         if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){

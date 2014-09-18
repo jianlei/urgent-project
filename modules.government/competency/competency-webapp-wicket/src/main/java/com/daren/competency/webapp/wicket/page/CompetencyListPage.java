@@ -52,9 +52,10 @@ public class CompetencyListPage extends BasePanel {
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     private String phoneNumber = null;
-
+    final WebMarkupContainer wmc;
     public CompetencyListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        this.wmc = wmc;
         phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
@@ -151,6 +152,7 @@ public class CompetencyListPage extends BasePanel {
                     identityService.setAuthenticatedUserId(null);
                 }
                 target.add(feedbackPanel);
+                target.add(wmc);
             }
 
         };

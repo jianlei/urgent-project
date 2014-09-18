@@ -48,9 +48,11 @@ public class ChemistryManageListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    final WebMarkupContainer wmc;
 
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
         super(id, wmc);
+        this.wmc=wmc;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -145,6 +147,7 @@ public class ChemistryManageListPage extends BasePanel {
                     identityService.setAuthenticatedUserId(null);
                 }
                 target.add(feedbackPanel);
+                target.add(wmc);
             }
 
         };
