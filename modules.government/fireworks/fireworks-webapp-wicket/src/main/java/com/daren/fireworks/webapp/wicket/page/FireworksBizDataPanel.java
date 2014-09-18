@@ -1,5 +1,6 @@
 package com.daren.fireworks.webapp.wicket.page;
 
+import com.daren.core.util.DateUtil;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
 import org.apache.wicket.markup.html.basic.Label;
@@ -8,6 +9,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 /**
  * @类描述：显示业务数据的页面类
@@ -40,8 +42,10 @@ public class FireworksBizDataPanel extends Panel {
         add(new Label("scope",new PropertyModel<String>(bean, "scope")));
         add(new Label("code",new PropertyModel<String>(bean, "code")));
         add(new Label("card",new PropertyModel<String>(bean, "card")));
-        add(new Label("validityDate",new PropertyModel<String>(bean, "validityDate")));
-        add(new Label("unitsDate",new PropertyModel<String>(bean, "unitsDate")));
+        Date validityDate=new PropertyModel<Date>(bean, "validityDate").getObject();
+        add(new Label("validityDate",DateUtil.convertDateToString(validityDate, DateUtil.shortSdf)));
+        Date unitsDate=new PropertyModel<Date>(bean, "unitsDate").getObject();
+        add(new Label("unitsDate", DateUtil.convertDateToString(unitsDate, DateUtil.shortSdf)));
         add(new Label("linkHandle",new PropertyModel<String>(bean, "linkHandle")));
     }
 }

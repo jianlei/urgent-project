@@ -2,12 +2,14 @@ package com.daren.competency.webapp.wicket.page;
 
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
+import com.daren.core.util.DateUtil;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 /**
  * @类描述：显示业务数据的页面类
@@ -41,8 +43,10 @@ public class CompetencyBizDataPanel extends Panel {
         add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
         add(new Label("qualificationsType",new PropertyModel<String>(bean, "qualificationsType")));
         add(new Label("code",new PropertyModel<String>(bean, "code")));
-        add(new Label("awardDate",new PropertyModel<String>(bean, "awardDate")));
-        add(new Label("effectiveDate",new PropertyModel<String>(bean, "effectiveDate")));
+        Date awardDate=new PropertyModel<Date>(bean, "awardDate").getObject();
+        add(new Label("awardDate", DateUtil.convertDateToString(awardDate, DateUtil.shortSdf)));
+        Date effectiveDate=new PropertyModel<Date>(bean, "effectiveDate").getObject();
+        add(new Label("effectiveDate", DateUtil.convertDateToString(effectiveDate, DateUtil.shortSdf)));
         add(new Label("linkHandle",new PropertyModel<String>(bean, "linkHandle")));
     }
 }

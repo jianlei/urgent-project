@@ -3,12 +3,14 @@ package com.daren.chemistry.manage.webapp.wicket.page;
 
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
+import com.daren.core.util.DateUtil;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 /**
  * @类描述：显示业务数据的页面类
@@ -39,8 +41,10 @@ public class ChemistryManageBizDataPanel extends Panel {
         add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
         add(new Label("scope",new PropertyModel<String>(bean, "scope")));
         add(new Label("mode",new PropertyModel<String>(bean, "mode")));
-        add(new Label("startDate",new PropertyModel<String>(bean, "startDate")));
-        add(new Label("endDate",new PropertyModel<String>(bean, "endDate")));
+        Date startDate=new PropertyModel<Date>(bean, "startDate").getObject();
+        add(new Label("startDate",DateUtil.convertDateToString(startDate, DateUtil.shortSdf)));
+        Date endDate=new PropertyModel<Date>(bean, "endDate").getObject();
+        add(new Label("endDate",DateUtil.convertDateToString(endDate, DateUtil.shortSdf)));
         add(new Label("unitsDate",new PropertyModel<String>(bean, "unitsDate")));
         add(new Label("proposerId",new PropertyModel<String>(bean, "proposerId")));
         add(new Label("qyid",new PropertyModel<String>(bean, "qyid")));
