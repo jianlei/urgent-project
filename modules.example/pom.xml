@@ -28,6 +28,8 @@
         <module>example-entities</module>
         <module>example-webapp-wicket</module>
         <module>example-web-bootup-wicket</module>
+        <module>push-examples</module>
+        <module>push-cometd</module>
     </modules>
     <dependencyManagement>
         <dependencies>

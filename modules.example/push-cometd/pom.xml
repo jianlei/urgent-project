@@ -1,0 +1,169 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.daren.example</groupId>
+        <artifactId>modules.example</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+	<artifactId>wicketstuff-push-cometd</artifactId>
+	<packaging>bundle</packaging>
+
+	<name>Wicketstuff Push - CometD</name>
+	<description>CometD (bayeux) implementation of Wicketstuff Push</description>
+
+    <properties>
+        <bundle.symbolicName>org.wicketstuff.push.cometd</bundle.symbolicName>
+        <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cometd.version>2.9.1</cometd.version>
+    </properties>
+
+	<dependencies>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>bayeux-api</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-common</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>org.cometd.javascript</groupId>
+            <artifactId>cometd-javascript-common</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-server</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-client</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-websocket-jetty</artifactId>
+            <version>${cometd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.cometd-java-server</artifactId>
+            <version>2.3.1_2</version>
+            <scope>provided</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-push-core</artifactId>
+            <version>7.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+         <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+        </dependency>
+       <!-- <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-datetime</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-extensions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-velocity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-devutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+        </dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!--<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<obrRepository>NONE</obrRepository>
+					<excludeDependencies>true</excludeDependencies>
+					<instructions>
+						<Bundle-Name>${project.artifactId}-${project.version}</Bundle-Name>
+						<Bundle-SymbolicName>${project.artifactId}-${project.version}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Export-Package>${wicketstuff.osgi.export.package}</Export-Package>
+						<Import-Package>${wicketstuff.osgi.import.package}</Import-Package>
+						<Private-Package>${wicketstuff.osgi.private.package}</Private-Package>
+						<Embed-Dependency>${wicketstuff.osgi.embed.dependency}</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-cometd-javascript</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.cometd.javascript</groupId>
+                                    <artifactId>cometd-javascript-common</artifactId>
+                                    <version>${cometd.version}</version>
+                                    <type>war</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.outputDirectory}/org/wicketstuff/push/cometd</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*.js</includes>
+                            <excludes>**/*.properties</excludes>
+                            <excludes>**/*.xml</excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+		</plugins>
+	</build>
+</project>
