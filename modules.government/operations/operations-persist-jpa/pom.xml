@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.operations</groupId>
     <artifactId>com.daren.operations.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
     <name>Government :: operations - Persist JPA Container Managed</name>

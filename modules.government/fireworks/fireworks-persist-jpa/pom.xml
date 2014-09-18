@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.fireworks</groupId>
     <artifactId>com.daren.fireworks.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
     <name>Government :: fireworks - Persist JPA Container Managed</name>

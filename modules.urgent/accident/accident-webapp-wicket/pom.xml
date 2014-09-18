@@ -9,7 +9,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.accident</groupId>
     <artifactId>com.daren.accident.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Accident - Wicket Web Application</name>
@@ -144,10 +143,7 @@
             <artifactId>openjpa</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.daren.file</groupId>
             <artifactId>com.daren.file.api</artifactId>

@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
@@ -23,14 +21,17 @@ import java.util.List;
  */
 @Entity
 @Table(name = "sys_user")
+//@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement(name = "UserBean")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlRootElement(name = "UserBean")
+//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class UserBean extends PersistentEntity {
+
     @XmlTransient
-    private OfficeBean company;    // 归属公司
+    private String jgdm;          //机构代码
     @XmlTransient
-    private OfficeBean office;    // 归属部门
+    private String qyid;          //企业id
     @NotNull(message = "'登录名'是必填项")
 //    @XmlAttribute
     private String loginName;// 登录名
@@ -120,11 +121,25 @@ public class UserBean extends PersistentEntity {
         return loginIp;
     }
 
-
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
     }
 
+    public String getJgdm() {
+        return jgdm;
+    }
+
+    public void setJgdm(String jgdm) {
+        this.jgdm = jgdm;
+    }
+
+    public String getQyid() {
+        return qyid;
+    }
+
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
+    }
 
     public Date getLoginDate() {
         return loginDate;
@@ -151,23 +166,4 @@ public class UserBean extends PersistentEntity {
         this.roleList = roleList;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    public OfficeBean getCompany() {
-        return company;
-    }
-
-    public void setCompany(OfficeBean company) {
-        this.company = company;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "office_id")
-    public OfficeBean getOffice() {
-        return office;
-    }
-
-    public void setOffice(OfficeBean office) {
-        this.office = office;
-    }
 }

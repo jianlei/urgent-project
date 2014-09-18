@@ -8,7 +8,7 @@
         <artifactId>modules.urgent.hazard</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.hazard</groupId>
+
     <artifactId>com.daren.hazard.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Major Hazard Source - Wicket Web Application</name>
@@ -61,12 +61,6 @@
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.api</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.daren.enterprise</groupId>
-            <artifactId>com.daren.enterprise.webapp.component</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>com.daren.core</groupId>

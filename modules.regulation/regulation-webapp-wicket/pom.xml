@@ -8,7 +8,7 @@
         <artifactId>modules.regulation</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.regulation</groupId>
+
     <artifactId>com.daren.regulation.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Regulation - Wicket Web Application</name>

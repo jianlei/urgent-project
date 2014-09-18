@@ -9,7 +9,6 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.chemistry.manage</groupId>
     <artifactId>com.daren.chemistry.manage.core</artifactId>
     <version>1.0-SNAPSHOT</version>
 

@@ -54,4 +54,31 @@ public interface IUserBeanService extends IBizService {
      * @return
      */
     String getCurrentUserName();
+
+    /**
+     * 通过用户id串获取用户token集合
+     * @param id
+     * @return
+     */
+    public List getUserTokenListByIds(Long id);
+
+    /**
+     * 通过jgdm获取用户token集合
+     * @return
+     */
+    public List getUserTokenListJgdm(String jgdm, long user_id);
+
+    /**
+     * 根据日程id获取不同类型用户token
+     * @param notice_id
+     * @return
+     */
+    public List getUserTokenListByNoticeId(Long notice_id,int reply_type,long user_id);
+
+    /**
+     * 根据机构代码串获取这些机构下的所有用户
+     * @param jgdm
+     * @return
+     */
+    public List getUseridListByGgdm(String jgdm, long user_id);
 }

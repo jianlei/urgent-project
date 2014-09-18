@@ -25,7 +25,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.example</groupId>
     <artifactId>com.daren.example.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
     <name>Urgent :: Example - Persist JPA Container Managed</name>

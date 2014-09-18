@@ -118,10 +118,7 @@
             <artifactId>org.apache.servicemix.specs.jsr303-api-1.0.0</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
+
         <!--inject end-->
 
         <dependency>

@@ -50,7 +50,7 @@
         <class>com.daren.admin.entities.DictBean</class>
         <class>com.daren.admin.entities.OfficeBean</class>
         <class>com.daren.admin.entities.AreaBean</class>
-
+        <class>com.daren.admin.entities.UserRelBean</class>
 
         <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 

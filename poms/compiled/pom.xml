@@ -15,10 +15,7 @@
 
     <packaging>pom</packaging>
     <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
+
         <!-- OSGi Arquillian test begin-->
         <!--<dependency>
             <groupId>org.jboss.arquillian.container</groupId>

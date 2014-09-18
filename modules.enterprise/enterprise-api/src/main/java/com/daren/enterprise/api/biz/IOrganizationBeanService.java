@@ -16,13 +16,13 @@ public interface IOrganizationBeanService extends IBizService {
      * @param organizationBean
      * @return
      */
-    List<OrganizationBean> queryOrganization(OrganizationBean organizationBean);
+    public List<OrganizationBean> queryOrganization(OrganizationBean organizationBean);
 
     /**
      *
      * @return
      */
-    Map<String, String> getAllBeansToHashMap();
+    public Map<String, String> getAllBeansToHashMap();
     /**
      * 根据名称进行查询
      * @param term
@@ -30,12 +30,34 @@ public interface IOrganizationBeanService extends IBizService {
      * @param page_size
      * @return
      */
-    List<OrganizationBean> findByName(String term, int page, int page_size);
+    public List<OrganizationBean> findByName(String term, int page, int page_size);
 
     /**
      * 通过机构代码获得机构
      * @param id
      * @return
      */
-    OrganizationBean getByJgdm(String id);
+    public OrganizationBean getByJgdm(String id);
+    /**
+     * 根据机构代码获取下级部分的集合
+     * @param jgdm 机构代码
+     * @param page
+     * @param page_size
+     * @return
+     */
+    public List<OrganizationBean> getOrgListByJgdm(String jgdm, Integer page, Integer page_size);
+
+    /**
+     * 获取第一层节点上的机构
+     * @return
+     */
+    public Map getRootOrgnaizationList(Integer page, Integer page_size);
+
+    /**
+     * 获取下级部门和人员
+     * @param jgdm
+     * @return
+     */
+    public Map getOranizationAndUserList(String jgdm);
+
 }

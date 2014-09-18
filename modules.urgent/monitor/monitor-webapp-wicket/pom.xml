@@ -8,7 +8,7 @@
         <artifactId>modules.urgent.monitor</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.monitor</groupId>
+
     <artifactId>com.daren.monitor.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Monitor - Wicket Web Application</name>
@@ -155,10 +155,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.vaynberg.wicket.select2</groupId>
-            <artifactId>wicket-select2</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.api</artifactId>

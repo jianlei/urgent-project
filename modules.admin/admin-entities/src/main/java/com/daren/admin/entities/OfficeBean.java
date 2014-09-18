@@ -37,7 +37,7 @@ public class OfficeBean extends PersistentEntity {
     private String fax;    // 传真
     private String email;    // 邮箱
     @XmlTransient
-    private List<UserBean> userList = Lists.newArrayList();   // 拥有用户列表
+    //private List<UserBean> userList = Lists.newArrayList();   // 拥有用户列表
     private List<OfficeBean> childList = Lists.newArrayList();// 拥有子机构列表
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -138,7 +138,7 @@ public class OfficeBean extends PersistentEntity {
         this.email = email;
     }
 
-    @OneToMany(mappedBy = "office", fetch = FetchType.LAZY)
+/*    @OneToMany(mappedBy = "office", fetch = FetchType.LAZY)
     @OrderBy(value = "id")
     public List<UserBean> getUserList() {
         return userList;
@@ -146,7 +146,7 @@ public class OfficeBean extends PersistentEntity {
 
     public void setUserList(List<UserBean> userList) {
         this.userList = userList;
-    }
+    }*/
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     @OrderBy(value = "code")
