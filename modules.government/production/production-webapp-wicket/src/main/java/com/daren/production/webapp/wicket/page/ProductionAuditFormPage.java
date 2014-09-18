@@ -52,6 +52,7 @@ import java.util.Map;
  * @修改备注：
  */
 public class ProductionAuditFormPage extends BaseFormPanel {
+    ProductionBean bean = new ProductionBean();
     @Inject
     private IAttachmentService attachmentService;
     @Inject
@@ -64,7 +65,6 @@ public class ProductionAuditFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
-    ProductionBean bean = new ProductionBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     private String comment="审批通过";
     private String accepted="同意";
@@ -117,7 +117,7 @@ public class ProductionAuditFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     Map<String, String> submitMap = new HashMap<String, String>();
-                    boolean passed=accepted.equals("同意")?true:false;
+                    boolean passed= accepted.equals("同意");
                     submitMap.put("accepted", String.valueOf(passed));
                     taskService.setVariablesLocal(task.getId(), submitMap);
                     formService.submitTaskFormData(task.getId(), submitMap);

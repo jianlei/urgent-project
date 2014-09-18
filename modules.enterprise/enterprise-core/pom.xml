@@ -17,8 +17,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Enterprise - Core</name>
-    <description>Urgent Enterprise Core Module</description>
+    <name>System :: Enterprise - Core</name>
+    <description>System Enterprise Core Module</description>
 
     <packaging>bundle</packaging>
 

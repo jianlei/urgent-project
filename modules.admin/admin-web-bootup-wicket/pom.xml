@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
-    <name>Urgent :: Admin - Web Wicket Bootup</name>
+    <name>System :: Admin - Web Wicket Bootup</name>
     <description>Admin - Web Wicket Bootup</description>
 
     <dependencies>

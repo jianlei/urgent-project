@@ -11,7 +11,7 @@
 
     <artifactId>com.daren.enterprise.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Enterprise - Wicket Web Application</name>
+    <name>System :: Enterprise - Wicket Web Application</name>
     <description>Enterprise - Webapp Wicket</description>
     <packaging>bundle</packaging>
 

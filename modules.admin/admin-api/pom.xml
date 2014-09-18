@@ -19,8 +19,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Admin - API</name>
-    <description>Admin API</description>
+    <name>System :: Admin - API</name>
+    <description>System API</description>
 
     <packaging>bundle</packaging>
 

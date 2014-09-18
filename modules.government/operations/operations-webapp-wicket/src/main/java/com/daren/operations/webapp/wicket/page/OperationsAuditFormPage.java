@@ -19,6 +19,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -31,7 +32,6 @@ import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.activiti.engine.task.Task;
 import org.apache.wicket.util.file.Files;
 
 import javax.inject.Inject;
@@ -52,6 +52,7 @@ import java.util.Map;
  * @修改备注：
  */
 public class OperationsAuditFormPage extends BaseFormPanel {
+    OperationsBean bean = new OperationsBean();
     @Inject
     private IAttachmentService attachmentService;
     @Inject
@@ -64,7 +65,6 @@ public class OperationsAuditFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
-    OperationsBean bean = new OperationsBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     private String comment="审批通过";
     private String accepted="同意";
@@ -116,7 +116,7 @@ public class OperationsAuditFormPage extends BaseFormPanel {
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     Map<String, String> submitMap = new HashMap<String, String>();
-                    boolean passed=accepted.equals("同意")?true:false;
+                    boolean passed= accepted.equals("同意");
                     submitMap.put("accepted", String.valueOf(passed));
                     taskService.setVariablesLocal(task.getId(), submitMap);
                     formService.submitTaskFormData(task.getId(), submitMap);

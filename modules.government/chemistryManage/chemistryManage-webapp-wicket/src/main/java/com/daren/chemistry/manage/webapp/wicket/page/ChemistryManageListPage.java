@@ -37,8 +37,10 @@ import java.util.List;
  */
 public class ChemistryManageListPage extends BasePanel {
     final WebMarkupContainer dialogWrapper;
+    final WebMarkupContainer wmc;
     WindowGovernmentPage dialog;
     ChemistryManageDataProvider provider = new ChemistryManageDataProvider();
+    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IChemistryManageBeanService chemistryManageBeanService;
     @Inject
@@ -47,8 +49,6 @@ public class ChemistryManageListPage extends BasePanel {
     private transient RuntimeService runtimeService;
     @Inject
     private TaskService taskService;
-    JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    final WebMarkupContainer wmc;
 
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
         super(id, wmc);
@@ -92,8 +92,8 @@ public class ChemistryManageListPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final ChemistryManageBean competencyBean) {
-        AjaxButton ajaxLink = new AjaxButton(wicketId) {
+    private AjaxButton getToCreatePageAjaxButton(final ChemistryManageBean competencyBean) {
+        AjaxButton ajaxLink = new AjaxButton("create") {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createButtonOnClick(competencyBean, target);
             }
@@ -121,7 +121,7 @@ public class ChemistryManageListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传附件", chemistryManageBean, "list");
+                createDialog(target, chemistryManageBean, "list");
             }
         };
         return alinkDuplicate;
@@ -161,7 +161,7 @@ public class ChemistryManageListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传附件", chemistryManageBean, "upload");
+                createDialog(target, chemistryManageBean, "upload");
             }
         };
         if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
@@ -170,11 +170,11 @@ public class ChemistryManageListPage extends BasePanel {
         return ajaxLink;
     }
 
-    private void createDialog(AjaxRequestTarget target, final String title, ChemistryManageBean chemistryManageBean, String type) {
+    private void createDialog(AjaxRequestTarget target, ChemistryManageBean chemistryManageBean, String type) {
         if (dialog != null) {
             dialogWrapper.removeAll();
         }
-        dialog = new WindowGovernmentPage("dialog", title, chemistryManageBean.getId(), type, "chemistryManage") {
+        dialog = new WindowGovernmentPage("dialog", "上传附件", chemistryManageBean.getId(), type, "chemistryManage") {
             @Override
             public void updateTarget(AjaxRequestTarget target) {
             }
@@ -196,7 +196,7 @@ public class ChemistryManageListPage extends BasePanel {
         Form<ChemistryManageBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new ChemistryManageBean()));
         TextField textField = new TextField("name");
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorHazardSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
+        majorHazardSourceBeanForm.add(getToCreatePageAjaxButton(null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override

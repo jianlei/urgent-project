@@ -27,8 +27,8 @@
 
     <artifactId>com.daren.enterprise.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Enterprise - Persist JPA Container Managed</name>
-    <description>Urgent Enterprise Persist JPA Container Managed Module</description>
+    <name>System :: Enterprise - Persist JPA Container Managed</name>
+    <description>System Enterprise Persist JPA Container Managed Module</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

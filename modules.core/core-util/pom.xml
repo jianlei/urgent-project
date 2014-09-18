@@ -24,7 +24,7 @@
 
 
     </properties>
-    <name>Urgent :: Core - Util</name>
+    <name>Daren :: Core - Util</name>
     <description>Core - Util</description>
 
     <dependencies>
@@ -77,42 +77,7 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.openjpa</groupId>
-                <artifactId>openjpa-maven-plugin</artifactId>
-                <configuration>
-                    <includes>com/daren/admin/entities/**/*.class</includes>
-                    <addDefaultConstructor>true</addDefaultConstructor>
-                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
 
-                    <!-- Pass additional properties to the Plugin here -->
-                    <toolProperties>
-                        <property>
-                            <name>directory</name>
-                            <value>src/main/resources/sql/create.sql</value>
-                        </property>
-                    </toolProperties>
-
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>enhancer</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.openjpa</groupId>
-                        <artifactId>openjpa</artifactId>
-                        <version>2.3.0</version>
-                    </dependency>
-                </dependencies>
-
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>

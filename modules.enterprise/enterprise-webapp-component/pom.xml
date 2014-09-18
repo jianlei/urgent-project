@@ -11,7 +11,7 @@
 
     <artifactId>com.daren.enterprise.webapp.component</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Enterprise - Component</name>
+    <name>System :: Enterprise - Component</name>
     <description>Enterprise - Webapp Component</description>
     <packaging>bundle</packaging>
 
