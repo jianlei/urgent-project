@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>modules.tools</artifactId>
 
-    <name>Urgent :: Modules - Tools</name>
+    <name>Daren :: Modules - Tools</name>
 
     <packaging>pom</packaging>
     <version>1.0</version>

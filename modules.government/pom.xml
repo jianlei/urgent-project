@@ -14,7 +14,7 @@
     <artifactId>modules.government</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - 政务子系统</name>
+    <name>Government :: Modules - 政务子系统</name>
 
     <packaging>pom</packaging>
 

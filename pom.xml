@@ -93,13 +93,13 @@
         <module>modules.urgent/digitalplan</module>
         <module>modules.urgent/accident</module>
         <module>modules.urgent/monitor</module>
-        <module>modules.regulation</module>
+        <module>modules.urgent/regulation</module>
         <module>modules.common</module>
         <module>modules.government</module>
-        <!--<module>modules.example</module>-->
         <module>modules.gis</module>
         <module>modules.cooperate</module>
         <module>modules.middleware</module>
+        <module>modules.example</module>
 
     </modules>
 
