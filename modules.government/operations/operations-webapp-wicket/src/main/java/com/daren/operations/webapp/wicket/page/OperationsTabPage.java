@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /**
- * @类描述：peixun
+ * @类描述：特种作业人员操作资格证
  * @创建人：王凯冉
  * @创建时间：2014-08-01 上午10:25
  * @修改人：
@@ -33,10 +33,10 @@ public class OperationsTabPage extends BasePanel {
     Fragment createFragment;
     OperationsAddPage operationsAddPage;
 
-    public OperationsTabPage(String id, WebMarkupContainer wmc) {
+    public OperationsTabPage(String id, WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //增加tabs支持
-        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc, phone));
         this.add(tabPanel);
         createPage.setOutputMarkupId(true);
     }
@@ -46,21 +46,21 @@ public class OperationsTabPage extends BasePanel {
      *
      * @return
      */
-    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc, final String phone) {
         List<ITab> tabs = new ArrayList();
         tabs.add(new AbstractTab(Model.of("特种作业人员操作资格证")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initOperationsListPage(id, wmc);
+                return initOperationsListPage(id, wmc, phone);
             }
         });
         return tabs;
     }
 
-    private OperationsListPage initOperationsListPage(final String id, final WebMarkupContainer wmc) {
-        OperationsListPage hazardPage = new OperationsListPage(id, wmc) {
+    private OperationsListPage initOperationsListPage(final String id, final WebMarkupContainer wmc, String phone) {
+        OperationsListPage hazardPage = new OperationsListPage(id, wmc, phone) {
             @Override
             protected void createButtonOnClick(OperationsBean operationsBean, AjaxRequestTarget target) {
                 initOperationsCreatePage(id, wmc, operationsBean, target, true, "编辑流程");

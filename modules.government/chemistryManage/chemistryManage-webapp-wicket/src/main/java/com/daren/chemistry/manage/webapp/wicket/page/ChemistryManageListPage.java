@@ -48,9 +48,11 @@ public class ChemistryManageListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
+    final WebMarkupContainer wmc;
 
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
         super(id, wmc);
+        this.wmc=wmc;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -96,6 +98,9 @@ public class ChemistryManageListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -106,6 +111,9 @@ public class ChemistryManageListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -139,9 +147,13 @@ public class ChemistryManageListPage extends BasePanel {
                     identityService.setAuthenticatedUserId(null);
                 }
                 target.add(feedbackPanel);
+                target.add(wmc);
             }
 
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -152,6 +164,9 @@ public class ChemistryManageListPage extends BasePanel {
                 createDialog(target, "上传附件", chemistryManageBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 

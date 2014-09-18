@@ -1,6 +1,9 @@
 package com.daren.operations.api.biz;
 
 import com.daren.core.api.biz.IBizService;
+import com.daren.operations.entities.OperationsBean;
+
+import java.util.List;
 
 /**
  * @类描述：安全资格证书(培训)
@@ -11,4 +14,5 @@ import com.daren.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface IOperationsService extends IBizService {
+    public List<OperationsBean> getOperationsByPhone(String phone);
 }
