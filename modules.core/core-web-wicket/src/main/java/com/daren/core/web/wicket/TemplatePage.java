@@ -26,6 +26,8 @@ public class TemplatePage extends WebPage {
 
     public TemplatePage() {
 
+        add(new Label("title",Const.map.get(getApplication().getName())));
+
         Link home=new Link("home") {
             @Override
             public void onClick() {

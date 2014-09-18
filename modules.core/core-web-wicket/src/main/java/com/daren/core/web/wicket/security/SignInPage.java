@@ -2,6 +2,7 @@ package com.daren.core.web.wicket.security;
 
 
 import com.daren.core.web.validation.JSR303FormValidator;
+import com.daren.core.web.wicket.Const;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.shiro.SecurityUtils;
@@ -30,7 +31,7 @@ public class SignInPage extends WebPage {
     private LoginBean loginBean = new LoginBean();
     public SignInPage(PageParameters parameters) {
         super(parameters);
-
+        add(new Label("title", Const.map.get(getApplication().getName())));
         String css_url="<img src=\"../cus/img/login_"+getApplication().getName()+".png\" alt=\"\"></img>";
         Label label = new Label("img", css_url);
         label.setEscapeModelStrings(false);

@@ -1,12 +1,12 @@
 package com.daren.enterprise.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.enterprise.webapp.wicket.page.OrganizationTabPage;
+import com.daren.enterprise.webapp.wicket.page.ThirdListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：监管机构子菜单定义类
+ * @类描述：第三方数据接口子菜单定义类
  * @创建人：xukx
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class OrganizationMenuItemsModule implements IMenuItemsModule {
+public class ThirdMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class OrganizationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 20;
     }
 
     @Override
     public String getName() {
-        return "监管机构管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "第三方数据接口";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,6 +44,6 @@ public class OrganizationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new OrganizationTabPage(id, wmc);
+        return new ThirdListPage(id, wmc);
     }
 }
