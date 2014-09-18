@@ -96,7 +96,7 @@
         <module>modules.regulation</module>
         <module>modules.common</module>
         <module>modules.government</module>
-        <module>modules.example</module>
+        <!--<module>modules.example</module>-->
         <module>modules.gis</module>
         <module>modules.cooperate</module>
         <module>modules.middleware</module>

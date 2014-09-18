@@ -20,7 +20,13 @@
 
     <!-- ChemistryManage Modify task form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageModifyFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageAuditTaskFormHandler">
+        </bean>
+    </service>
+
+    <!-- ChemistryManage 业务数据 -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageBizDataHandler">
         </bean>
     </service>
 </blueprint>
