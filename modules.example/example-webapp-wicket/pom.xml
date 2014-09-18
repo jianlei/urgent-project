@@ -219,6 +219,12 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-bpmn-converter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>
