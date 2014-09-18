@@ -33,10 +33,10 @@ public class ProductionTabPage extends BasePanel {
     Fragment createFragment;
     ProductionAddPage productionAddPage;
 
-    public ProductionTabPage(String id, WebMarkupContainer wmc) {
+    public ProductionTabPage(String id, WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //增加tabs支持
-        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc, phone));
         this.add(tabPanel);
         createPage.setOutputMarkupId(true);
     }
@@ -46,21 +46,21 @@ public class ProductionTabPage extends BasePanel {
      *
      * @return
      */
-    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc, final String phone) {
         List<ITab> tabs = new ArrayList();
         tabs.add(new AbstractTab(Model.of("安全生产许可证(非煤矿山)")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initProductionListPage(id, wmc);
+                return initProductionListPage(id, wmc, phone);
             }
         });
         return tabs;
     }
 
-    private ProductionListPage initProductionListPage(final String id, final WebMarkupContainer wmc) {
-        ProductionListPage hazardPage = new ProductionListPage(id, wmc) {
+    private ProductionListPage initProductionListPage(final String id, final WebMarkupContainer wmc, String phone) {
+        ProductionListPage hazardPage = new ProductionListPage(id, wmc, phone) {
             @Override
             protected void createButtonOnClick(ProductionBean productionBean, AjaxRequestTarget target) {
                 initProductionCreatePage(id, wmc, productionBean, target, true, "编辑流程");

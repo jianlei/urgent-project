@@ -50,9 +50,10 @@ public class ProductionListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-
-    public ProductionListPage(final String id, final WebMarkupContainer wmc) {
+    private String phoneNumber = null;
+    public ProductionListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -99,6 +100,9 @@ public class ProductionListPage extends BasePanel {
                 createButtonOnClick(productionBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -109,6 +113,9 @@ public class ProductionListPage extends BasePanel {
                 createButtonOnClick(productionBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -143,8 +150,10 @@ public class ProductionListPage extends BasePanel {
                 }
                 target.add(feedbackPanel);
             }
-
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -155,6 +164,9 @@ public class ProductionListPage extends BasePanel {
                 createDialog(target, "上传附件", productionBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -205,8 +217,8 @@ public class ProductionListPage extends BasePanel {
         }
         @Override
         protected List<ProductionBean> getData() {
-            if (productionBean == null || null == productionBean.getName() || "".equals(productionBean.getName().trim()))
-                return productionService.getAllEntity();
+            if (null!=phoneNumber)
+                return productionService.getProductionByPhone(phoneNumber);
             else {
                 return productionService.getAllEntity();
             }

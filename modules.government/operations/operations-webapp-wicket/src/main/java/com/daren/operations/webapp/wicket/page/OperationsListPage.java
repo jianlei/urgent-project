@@ -50,9 +50,10 @@ public class OperationsListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-
-    public OperationsListPage(final String id, final WebMarkupContainer wmc) {
+    private String phoneNumber=null;
+    public OperationsListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -98,6 +99,9 @@ public class OperationsListPage extends BasePanel {
                 createButtonOnClick(operationsBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -108,6 +112,9 @@ public class OperationsListPage extends BasePanel {
                 createButtonOnClick(operationsBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -142,8 +149,10 @@ public class OperationsListPage extends BasePanel {
                 }
                 target.add(feedbackPanel);
             }
-
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -154,6 +163,9 @@ public class OperationsListPage extends BasePanel {
                 createDialog(target, "上传附件", operationsBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -203,8 +215,8 @@ public class OperationsListPage extends BasePanel {
         }
         @Override
         protected List<OperationsBean> getData() {
-            if (operationsBean == null || null == operationsBean.getName() || "".equals(operationsBean.getName().trim()))
-                return operationsService.getAllEntity();
+            if (null!=phoneNumber)
+                return operationsService.getOperationsByPhone(phoneNumber);
             else {
                 return operationsService.getAllEntity();
             }

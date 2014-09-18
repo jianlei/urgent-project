@@ -45,6 +45,6 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
 //        return new SingleCheckPage(id, wmc);
-        return new ProductionTabPage(id, wmc);
+        return new ProductionTabPage(id, wmc, null);
     }
 }

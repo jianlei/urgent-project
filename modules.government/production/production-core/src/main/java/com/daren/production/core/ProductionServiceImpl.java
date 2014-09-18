@@ -5,6 +5,8 @@ import com.daren.production.api.biz.IProductionService;
 import com.daren.production.api.dao.IProductionBeanDao;
 import com.daren.production.entities.ProductionBean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2014/9/10.
  */
@@ -14,5 +16,10 @@ public class ProductionServiceImpl extends GenericBizServiceImpl implements IPro
     public void setProductionBeanDao(IProductionBeanDao productionBeanDao) {
         this.productionBeanDao = productionBeanDao;
         super.init(productionBeanDao, ProductionBean.class.getName());
+    }
+
+    @Override
+    public List<ProductionBean> getProductionByPhone(String phone) {
+        return productionBeanDao.find("select p from ProductionBean p where p.phone=?1", phone);
     }
 }

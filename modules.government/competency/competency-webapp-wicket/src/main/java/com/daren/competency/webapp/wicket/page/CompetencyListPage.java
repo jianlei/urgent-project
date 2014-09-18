@@ -102,6 +102,9 @@ public class CompetencyListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -112,6 +115,9 @@ public class CompetencyListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -148,6 +154,9 @@ public class CompetencyListPage extends BasePanel {
             }
 
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -158,6 +167,9 @@ public class CompetencyListPage extends BasePanel {
                 createDialog(target, "上传附件", competencyBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
