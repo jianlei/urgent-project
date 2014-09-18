@@ -8,6 +8,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -57,7 +58,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setJgdm(String jgdm) {
         this.jgdm = jgdm;
     }
-
+    @XmlTransient
     public String getSjjgdm() {
         return sjjgdm;
     }
@@ -73,7 +74,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setMc(String mc) {
         this.mc = mc;
     }
-
+    @XmlTransient
     public String getMcj() {
         return mcj;
     }
@@ -81,7 +82,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setMcj(String mcj) {
         this.mcj = mcj;
     }
-
+    @XmlTransient
     public String getZfbj() {
         return zfbj;
     }
@@ -89,7 +90,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setZfbj(String zfbj) {
         this.zfbj = zfbj;
     }
-
+    @XmlTransient
     public String getJgbmbj() {
         return jgbmbj;
     }
@@ -97,7 +98,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setJgbmbj(String jgbmbj) {
         this.jgbmbj = jgbmbj;
     }
-
+    @XmlTransient
     public String getJglxbj() {
         return jglxbj;
     }
@@ -105,7 +106,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setJglxbj(String jglxbj) {
         this.jglxbj = jglxbj;
     }
-
+    @XmlTransient
     public String getCreatetime() {
         return createtime;
     }
@@ -113,7 +114,7 @@ public class OrganizationBean extends PersistentEntity {
     public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
-
+    @XmlTransient
     public String getXzqh_dm() {
         return xzqh_dm;
     }

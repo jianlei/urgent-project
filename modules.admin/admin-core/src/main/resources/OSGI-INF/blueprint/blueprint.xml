@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+           http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+           http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
 
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
-<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
-    <!--<bean id="userBeanServiceImpl" class="com.daren.admin.core.UserBeanServiceImpl" init-method="init">-->
 
     <bean id="userBeanServiceImpl" class="com.daren.admin.core.UserBeanServiceImpl">
         <property name="userBeanDao" ref="userBeanDao"/>
@@ -83,16 +70,42 @@
              interface="com.daren.admin.api.biz.IAboutBeanService"/>
     <reference id="aboutBeanDao" interface="com.daren.admin.api.dao.IAboutBeanDao"/>
 
-    <!--<cxf:bus>
+    <cxf:bus>
         <cxf:features>
             <cxf:logging/>
         </cxf:features>
     </cxf:bus>
 
-    <jaxrs:server id="loginService" address="/userBean">
+    <jaxrs:server id="userBeanRestService" address="/user">
         <jaxrs:serviceBeans>
-            <ref component-id="userBeanServiceImpl"/>
+            <ref component-id="loginBeanServiceImpl"/>
         </jaxrs:serviceBeans>
-    </jaxrs:server>-->
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <!-- cxf的JSON支持配置 -->
+    <bean id="jacksonMapper" class="com.daren.core.rest.CustomObjectMapper">
+        <property name="serializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <property name="deserializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <property name="serializerProvider.nullKeySerializer">
+            <bean class="com.daren.core.rest.NullSerializer"/>
+        </property>
+    </bean>
+
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" >
+        <property name="mapper" ref="jacksonMapper" />
+    </bean>
 </blueprint>
 

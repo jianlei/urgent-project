@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+           http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+           http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+    <!-- 日程 -->
+    <service id="noticeService" interface="com.daren.cooperate.api.biz.INoticeBeanService" ref="noticeBeanService">
+    </service>
+
+    <bean id="noticeBeanService" class="com.daren.cooperate.core.biz.NoticeBeanServiceImpl">
+        <property name="noticeBasicBeanDao" ref="noticeBasicBeanDao"/>
+        <property name="noticeUserRelBeanDao" ref="noticeUserRelBeanDao"/>
+        <property name="userBeanService" ref="userBeanService"/>
+    </bean>
+
+    <reference id="noticeBasicBeanDao" interface="com.daren.cooperate.api.dao.INoticeBasicBeanDao"/>
+    <reference id="noticeUserRelBeanDao" interface="com.daren.cooperate.api.dao.INoticeUserRelBeanDao"/>
+    <reference id="userBeanService" interface="com.daren.admin.api.biz.IUserBeanService"/>
+    <!-- 群组 -->
+    <service id="groupService" interface="com.daren.cooperate.api.biz.IGroupBeanService" ref="groupBeanService">
+    </service>
+    <bean id="groupBeanService" class="com.daren.cooperate.core.biz.GroupBeanServiceImpl">
+        <property name="groupBasicBeanDao" ref="groupBasicBeanDao"/>
+        <property name="groupUserRelBeanDao" ref="groupUserRelBeanDao"/>
+        <property name="groupUserReqBeanDao" ref="groupUserReqBeanDao"/>
+        <property name="userBeanService" ref="userBeanService"/>
+    </bean>
+    <reference id="groupBasicBeanDao" interface="com.daren.cooperate.api.dao.IGroupBasicBeanDao"/>
+    <reference id="groupUserRelBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserRelBeanDao"/>
+    <reference id="groupUserReqBeanDao" interface="com.daren.cooperate.api.dao.IGroupUserReqBeanDao"/>
+    <!-- 聊天 -->
+    <service id="chatService" interface="com.daren.cooperate.api.biz.IChatBeanService" ref="chatBeanService">
+    </service>
+    <bean id="chatBeanService" class="com.daren.cooperate.core.biz.ChatBeanServiceImpl">
+        <property name="chatBasicBeanDao" ref="chatBasicBeanDao"/>
+        <property name="chatIndexBeanDao" ref="chatIndexBeanDao"/>
+        <property name="groupChatIndexBeanDao" ref="groupChatIndexBeanDao"/>
+    </bean>
+    <reference id="chatBasicBeanDao" interface="com.daren.cooperate.api.dao.IChatBasicBeanDao"/>
+    <reference id="chatIndexBeanDao" interface="com.daren.cooperate.api.dao.IChatIndexBeanDao"/>
+    <reference id="groupChatIndexBeanDao" interface="com.daren.cooperate.api.dao.IGroupChatIndexBeanDao"/>
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="noticeRestService" address="/cooperate">
+        <jaxrs:serviceBeans>
+            <ref component-id="noticeBeanService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <jaxrs:server id="groupRestService" address="/group">
+        <jaxrs:serviceBeans>
+            <ref component-id="groupBeanService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <jaxrs:server id="chatRestService" address="/chat">
+        <jaxrs:serviceBeans>
+            <ref component-id="chatBeanService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <!-- cxf的JSON支持配置 -->
+    <bean id="jacksonMapper" class="com.daren.core.rest.CustomObjectMapper">
+        <property name="serializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <property name="deserializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <!--<property name="serializationConfig.serializationInclusion">
+            <value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_DEFAULT</value>
+        </property>-->
+
+        <property name="serializerProvider.nullKeySerializer">
+            <bean class="com.daren.core.rest.NullSerializer"/>
+        </property>
+    </bean>
+
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" >
+        <property name="mapper" ref="jacksonMapper" />
+    </bean>
+
+</blueprint>
+

@@ -18,13 +18,30 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     private IUserBeanDao userBeanDao;
     private IRoleBeanDao roleBeanDao;
 
-    public void setUserBeanDao(IUserBeanDao userBeanDao) {
-        this.userBeanDao = userBeanDao;
-        super.init(userBeanDao, UserBean.class.getName());
+//    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+//        this.userBeanDao = userBeanDao;
+////        super.init(userBeanDao, UserBean.class.getName());
+//    }
+//
+//    public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
+//        this.roleBeanDao = roleBeanDao;
+//    }
+
+
+    public IRoleBeanDao getRoleBeanDao() {
+        return roleBeanDao;
     }
 
     public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
         this.roleBeanDao = roleBeanDao;
+    }
+
+    public IUserBeanDao getUserBeanDao() {
+        return userBeanDao;
+    }
+
+    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+        this.userBeanDao = userBeanDao;
     }
 
     public void init() {
@@ -113,6 +130,30 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
         Session session = SecurityUtils.getSubject().getSession();
         UserBean userBean = (UserBean) session.getAttribute("currentUser");
         return userBean.getName();
+    }
+
+    @Override
+    public List getUserTokenListByIds(Long id) {
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in ("+id+")",String.class);
+    }
+
+    @Override
+    public List getUserTokenListJgdm(String jgdm,long user_id) {
+        return userBeanDao.findByNativeSql("select sur.token from sys_user s " +
+                "left join sys_user_rel sur on sur.user_id=s.id where s.id!="+user_id+" and sur.token is not null and s.jgdm= '"+jgdm+"'",String.class);
+    }
+
+    @Override
+    public List getUserTokenListByNoticeId(Long notice_id,int reply_type,long user_id) {
+        return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in " +
+                "(select c.user_id from coop_notice_user_rel c " +
+                "where c.user_id != "+user_id+" and c.notice_id="+notice_id+" and c.reply_type="+reply_type+")",String.class);
+    }
+
+    @Override
+    public List getUseridListByGgdm(String jgdm, long user_id) {
+        return userBeanDao.findByNativeSql("select s.id from sys_user s " +
+                " where s.id!="+user_id+" and s.jgdm= '"+jgdm+"'",Long.class);
     }
 
 

@@ -12,6 +12,9 @@ public interface IConst {
     public final static String GIS_WICKET_APPLICATION_NAME = "daren.project.gis";//daren.project.gis
     /*public final static String OFFICE_WEB_PATH_READ = "http://localhost:8080/tempfile/";
     public final static String OFFICE_WEB_PATH_WRITE = "D:/apache-tomcat/webapps/uploadfile/";
+    public final static String OFFICE_WEB_PATH_TEMP = "D:/apache-tomcat/webapps/tempfile/";
+    public final static String XT_OFFICE_WEB_PATH_WRITE = "D:/tomcat7-9-16/webapps/uploadfile/";
+    public final static String XT_OFFICE_WEB_PATH_READ = "http://192.168.1.80:8080/uploadfile/";
     public final static String OFFICE_WEB_PATH_TEMP = "D:/apache-tomcat/webapps/tempfile/";*/
     //release config
     public final static String OFFICE_WEB_PATH_READ = "http://localhost:8080/tempfile/";
