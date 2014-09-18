@@ -78,11 +78,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.wicket</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
         </dependency>
@@ -176,11 +171,6 @@
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.persist.openjpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.component</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.daren.enterprise</groupId>
             <artifactId>com.daren.enterprise.webapp.component</artifactId>

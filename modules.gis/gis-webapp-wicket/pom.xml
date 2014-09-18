@@ -110,11 +110,6 @@
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.api</artifactId>
         </dependency>

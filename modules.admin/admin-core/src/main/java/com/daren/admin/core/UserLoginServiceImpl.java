@@ -5,7 +5,7 @@ import com.daren.admin.api.dao.IUserBeanDao;
 import com.daren.admin.entities.PermissionBean;
 import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
-import com.daren.cooperate.core.model.ErrorCodeValue;
+import com.daren.core.api.ErrorCodeValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

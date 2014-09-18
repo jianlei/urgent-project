@@ -1,6 +1,6 @@
 package com.daren.cooperate.core.util;
 
-import com.daren.admin.core.util.UtilTools;
+import com.daren.core.util.UtilTools;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

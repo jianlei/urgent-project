@@ -8,7 +8,7 @@
         <artifactId>modules.operations</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.operations</groupId>
+
     <artifactId>com.daren.operations.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Government :: operations - Wicket Web Application</name>
@@ -75,11 +75,6 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.impl</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
 
         <dependency>
@@ -163,11 +158,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.daren.operations</groupId>
-            <artifactId>com.daren.operations.entities</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-velocity</artifactId>
         </dependency>
@@ -205,11 +195,6 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.validation</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
         </dependency>
 
         <dependency>

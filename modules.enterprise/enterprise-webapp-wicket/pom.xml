@@ -9,7 +9,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.enterprise</groupId>
     <artifactId>com.daren.enterprise.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Enterprise - Wicket Web Application</name>
@@ -148,11 +147,6 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.validation</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
         </dependency>
 
         <dependency>

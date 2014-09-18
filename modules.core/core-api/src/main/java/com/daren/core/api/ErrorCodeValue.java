@@ -1,4 +1,4 @@
-package com.daren.cooperate.core.model;
+package com.daren.core.api;
 
 /**
  * @类描述：

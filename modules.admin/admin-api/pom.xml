@@ -47,6 +47,10 @@
             <artifactId>com.daren.core.api</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.entities</artifactId>
         </dependency>

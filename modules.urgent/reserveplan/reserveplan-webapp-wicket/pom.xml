@@ -8,7 +8,7 @@
         <artifactId>modules.urgent.reserveplan</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.reserveplan</groupId>
+
     <artifactId>com.daren.reserveplan.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Reserveplan - Wicket Web Application</name>

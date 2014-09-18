@@ -25,7 +25,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.daren.cooperate</groupId>
     <artifactId>com.daren.cooperate.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
     <name>Urgent :: Cooperate - Persist JPA Container Managed</name>

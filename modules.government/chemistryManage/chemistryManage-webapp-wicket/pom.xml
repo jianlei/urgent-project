@@ -8,7 +8,7 @@
         <artifactId>modules.chemistry.manage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.chemistry.manage</groupId>
+
     <artifactId>com.daren.chemistry.manage.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Government :: ChemistryManage - Wicket Web Application</name>
@@ -172,11 +172,6 @@
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.api</artifactId>
         </dependency>
@@ -191,10 +186,6 @@
         <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.persist.openjpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
 
         <dependency>

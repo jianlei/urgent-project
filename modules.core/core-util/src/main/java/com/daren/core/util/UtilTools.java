@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.daren.admin.core.util;
+package com.daren.core.util;
 
 //import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
@@ -46,14 +46,15 @@ public class UtilTools {
 	//--bean操作
 	@SuppressWarnings("rawtypes")
 	public static HashMap MobilecopyBean(Object obj) {
-		HashMap map = null;
+		/*HashMap map = null;
 		try {
 			map = AnnotationMoblieProc.parseMoblie(obj);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return map;
+		return map;*/
+        return null;
 	}
 	
 	@SuppressWarnings({ "unchecked", "unused", "rawtypes" })

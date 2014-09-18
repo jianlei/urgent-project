@@ -8,7 +8,7 @@
         <artifactId>modules.urgent.drill</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.drill</groupId>
+
     <artifactId>com.daren.drill.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Urgent :: Drill - Wicket Web Application</name>

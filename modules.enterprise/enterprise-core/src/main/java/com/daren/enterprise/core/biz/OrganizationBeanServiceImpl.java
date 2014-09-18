@@ -1,6 +1,6 @@
 package com.daren.enterprise.core.biz;
 
-import com.daren.cooperate.core.model.ErrorCodeValue;
+import com.daren.core.api.ErrorCodeValue;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.api.dao.IOrganizationBeanDao;

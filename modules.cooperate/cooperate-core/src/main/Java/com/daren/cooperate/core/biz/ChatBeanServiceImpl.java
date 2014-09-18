@@ -1,6 +1,5 @@
 package com.daren.cooperate.core.biz;
 
-import com.daren.admin.core.util.UtilTools;
 import com.daren.cooperate.api.biz.IChatBeanService;
 import com.daren.cooperate.api.dao.IChatBasicBeanDao;
 import com.daren.cooperate.api.dao.IChatIndexBeanDao;
@@ -12,9 +11,11 @@ import com.daren.cooperate.core.util.TimeDifference;
 import com.daren.cooperate.entities.ChatBasicBean;
 import com.daren.cooperate.entities.ChatIndexBean;
 import com.daren.cooperate.entities.GroupChatIndexBean;
+import com.daren.core.api.ErrorCodeValue;
 import com.daren.core.api.IConst;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import com.daren.core.util.DateUtil;
+import com.daren.core.util.UtilTools;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.json.JSONObject;
