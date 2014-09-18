@@ -3,18 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <relativePath>../poms/compiled/</relativePath>
-        <groupId>com.daren.platform.urgent-project.build</groupId>
-        <artifactId>compiled-bundle-settings</artifactId>
+        <groupId>com.daren.government</groupId>
+        <artifactId>modules.government</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.daren.government</groupId>
-    <artifactId>modules.government</artifactId>
+    <groupId>com.daren.util</groupId>
+    <artifactId>modules.util</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - 政务子系统</name>
+    <name>Government :: Modules - 行政审批工具包</name>
 
     <packaging>pom</packaging>
 
@@ -22,19 +21,16 @@
 
     </properties>
     <modules>
-        <module>fireworks</module>
-        <module>production</module>
-        <module>competency</module>
-        <module>operations</module>
-        <module>chemistryManage</module>
-        <module>attachment</module>
-        <module>apply</module>
         <module>util</module>
     </modules>
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>com.daren.util</groupId>
+                <artifactId>com.daren.util.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>

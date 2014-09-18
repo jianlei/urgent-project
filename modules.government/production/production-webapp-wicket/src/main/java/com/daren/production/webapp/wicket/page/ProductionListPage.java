@@ -116,7 +116,7 @@ public class ProductionListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", productionBean, "list");
+                createDialog(target, "上传附件", productionBean, "list");
             }
         };
         return alinkDuplicate;
@@ -152,7 +152,7 @@ public class ProductionListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", productionBean, "upload");
+                createDialog(target, "上传附件", productionBean, "upload");
             }
         };
         return ajaxLink;

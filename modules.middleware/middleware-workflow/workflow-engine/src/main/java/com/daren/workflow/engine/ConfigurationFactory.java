@@ -21,6 +21,7 @@ public class ConfigurationFactory {
     String history;
     String activityFontName;
     String labelFontName;
+    boolean dbIdentityUsed;
 
     public StandaloneProcessEngineConfiguration getConfiguration() {
         StandaloneProcessEngineConfiguration conf =
@@ -31,7 +32,16 @@ public class ConfigurationFactory {
         conf.setHistory(history);
         conf.setActivityFontName(activityFontName);
         conf.setLabelFontName(labelFontName);
+        conf.setDbIdentityUsed(dbIdentityUsed);
         return conf;
+    }
+
+    public boolean isDbIdentityUsed() {
+        return dbIdentityUsed;
+    }
+
+    public void setDbIdentityUsed(boolean dbIdentityUsed) {
+        this.dbIdentityUsed = dbIdentityUsed;
     }
 
     public void setDataSource(DataSource dataSource) {

@@ -114,7 +114,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
                 if (dialog != null) {
                     dialogWrapper.removeAll();
                 }
-                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "chemistryManage") {
+                dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "chemistryManage") {
                     @Override
                     public void updateTarget(AjaxRequestTarget target) {}
                 };

@@ -45,6 +45,6 @@ public class FireworksItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new FireworksTabPage(id, wmc);
+        return new FireworksTabPage(id, wmc, null);
     }
 }

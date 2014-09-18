@@ -33,10 +33,10 @@ public class CompetencyTabPage extends BasePanel {
     Fragment createFragment;
     CompetencyAddPage competencyAddPage;
 
-    public CompetencyTabPage(String id, WebMarkupContainer wmc) {
+    public CompetencyTabPage(String id, WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //增加tabs支持
-        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc, phone));
         this.add(tabPanel);
         createPage.setOutputMarkupId(true);
     }
@@ -46,21 +46,21 @@ public class CompetencyTabPage extends BasePanel {
      *
      * @return
      */
-    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc, final String phone) {
         List<ITab> tabs = new ArrayList();
         tabs.add(new AbstractTab(Model.of("安全资格证书（培训）")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initCompetencyListPage(id, wmc);
+                return initCompetencyListPage(id, wmc, phone);
             }
         });
         return tabs;
     }
 
-    private CompetencyListPage initCompetencyListPage(final String id, final WebMarkupContainer wmc) {
-        CompetencyListPage hazardPage = new CompetencyListPage(id, wmc) {
+    private CompetencyListPage initCompetencyListPage(final String id, final WebMarkupContainer wmc, String phone) {
+        CompetencyListPage hazardPage = new CompetencyListPage(id, wmc, phone) {
             @Override
             protected void createButtonOnClick(CompetencyBean competencyBean, AjaxRequestTarget target) {
                 initCompetencyCreatePage(id, wmc, competencyBean, target, true, "编辑流程");

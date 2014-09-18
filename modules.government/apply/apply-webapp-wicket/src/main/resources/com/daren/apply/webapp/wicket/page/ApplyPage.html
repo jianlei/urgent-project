@@ -12,6 +12,10 @@
     <script type="text/javascript" src="cus/Scripts/index.js"></script>
 </head>
 <body>
+<div class="top_c_bg">
+    <div class="top_government">
+    </div>
+</div>
 <div style="margin:50px 50px 50px 50px!important">
     <div>
         <span wicket:id="feedback"/>
@@ -32,8 +36,19 @@
                     </td>
                 </tr>
                 <tr>
+                    <td> 验证码</td>
+                    <td>
+                        <input class="m-wrap placeholder-no-fix" type="text" placeholder="验证码"
+                               name="validateCode"
+                               wicket:id="validateCode"/>
+                        <a wicket:id="link" title="刷新"><img style="height: 30px;width: 100px" wicket:id="captchaImage"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+
                     <td colspan="6" align="right">
-                        <input class="btn btn-inverse" type="button" value="提交查询" wicket:id="save"/>
+                        <input class="btn red pull-center" type="button" value="提交查询" wicket:id="save"/>
                     </td>
                 </tr>
             </table>

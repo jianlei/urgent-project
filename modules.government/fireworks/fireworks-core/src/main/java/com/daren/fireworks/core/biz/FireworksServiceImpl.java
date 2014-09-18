@@ -27,4 +27,9 @@ public class FireworksServiceImpl extends GenericBizServiceImpl implements IFire
     public List<FireworksBean> query(FireworksBean bean) {
         return null;
     }
+
+    @Override
+    public List<FireworksBean> getFireworksBeanByPhone(String phone) {
+        return fireworksBeanDao.find("select f from FireworksBean f where f.phone=?1",phone);
+    }
 }

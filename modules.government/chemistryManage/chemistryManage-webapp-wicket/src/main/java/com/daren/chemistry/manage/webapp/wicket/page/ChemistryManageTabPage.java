@@ -32,10 +32,10 @@ public class ChemistryManageTabPage extends BasePanel {
     Fragment createFragment;
     ChemistryManageAddPage chemistryManageAddPage;
 
-    public ChemistryManageTabPage(String id, WebMarkupContainer wmc) {
+    public ChemistryManageTabPage(String id, WebMarkupContainer wmc, String phone) {
         super(id, wmc);
         //增加tabs支持
-        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc));
+        tabPanel = new TabbedPanel("tabs", this.newTabList(id, wmc, phone));
         this.add(tabPanel);
         createPage.setOutputMarkupId(true);
     }
@@ -45,24 +45,24 @@ public class ChemistryManageTabPage extends BasePanel {
      *
      * @return
      */
-    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc) {
+    private List<ITab> newTabList(final String id, final WebMarkupContainer wmc, final String phone) {
         List<ITab> tabs = new ArrayList();
         tabs.add(new AbstractTab(Model.of("危险化学品经营许可证")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return initFireworksListPage(id, wmc);
+                return initFireworksListPage(id, wmc, phone);
             }
         });
         return tabs;
     }
 
-    private ChemistryManageListPage initFireworksListPage(final String id, final WebMarkupContainer wmc) {
-        ChemistryManageListPage hazardPage = new ChemistryManageListPage(id, wmc) {
+    private ChemistryManageListPage initFireworksListPage(final String id, final WebMarkupContainer wmc, final String phone) {
+        ChemistryManageListPage hazardPage = new ChemistryManageListPage(id, wmc, phone) {
             @Override
             protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
-                initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程");
+                initFireworksCreatePage(id, wmc, competencyBean, target, true, "编辑流程", phone);
             }
         };
         return hazardPage;
@@ -77,7 +77,7 @@ public class ChemistryManageTabPage extends BasePanel {
         return 0;
     }
 
-    private void initFireworksCreatePage(final String id, final WebMarkupContainer wmc, final ChemistryManageBean chemistryManageBean, AjaxRequestTarget target, boolean goPage, final String pageName) {
+    private void initFireworksCreatePage(final String id, final WebMarkupContainer wmc, final ChemistryManageBean chemistryManageBean, AjaxRequestTarget target, boolean goPage, final String pageName, String phone) {
         if (null == createAjaxTab) {
             createAjaxTab = new AjaxTab(Model.of(pageName)) {
                 private static final long serialVersionUID = 1L;

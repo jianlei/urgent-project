@@ -4,67 +4,24 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.daren.apply</groupId>
-        <artifactId>modules.apply</artifactId>
+        <groupId>com.daren.util</groupId>
+        <artifactId>modules.util</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.daren.apply</groupId>
-    <artifactId>com.daren.apply.webapp.wicket</artifactId>
+    <groupId>com.daren.util</groupId>
+    <artifactId>com.daren.util.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Government :: Apply - Wicket Web Application</name>
-    <description>Apply - Webapp Wicket</description>
+    <name>Government :: util - Wicket Web Application</name>
+    <description>util - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.daren.apply.webapp.wicket</bundle.symbolicName>
+        <bundle.symbolicName>com.daren.util.webapp.wicket</bundle.symbolicName>
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!--workflow start -->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-engine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.chemistry.manage</groupId>
-            <artifactId>com.daren.chemistry.manage.webapp.wicket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.competency</groupId>
-            <artifactId>com.daren.competency.webapp.wicket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.operations</groupId>
-            <artifactId>com.daren.operations.webapp.wicket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.daren.production</groupId>
-            <artifactId>com.daren.production.webapp.wicket</artifactId>
-        </dependency>
-        <!--workflow end -->
-
-        <!--workflow buss-->
-
-        <dependency>
-            <groupId>com.daren.fireworks</groupId>
-            <artifactId>com.daren.fireworks.webapp.wicket</artifactId>
-        </dependency>
-        <!--workflow buss-->
-
-        <!--wicket start-->
-        <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-core</artifactId>
-        </dependency>
-        <!--wicket end-->
-
-        <!--core end-->
-        <dependency>
-            <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.component</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.daren.core</groupId>
@@ -72,11 +29,60 @@
         </dependency>
         <dependency>
             <groupId>com.daren.core</groupId>
-            <artifactId>com.daren.core.web.validation</artifactId>
+            <artifactId>com.daren.core.impl</artifactId>
         </dependency>
-        <!--core end-->
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.component</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.resources</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.util</artifactId>
+        </dependency>
 
-        <!--inject end-->
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.entities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.persist.openjpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-extensions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaynberg.wicket.select2</groupId>
+            <artifactId>wicket-select2</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -87,6 +93,31 @@
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.lightcouch</artifactId>
+            <version>0.0.6_1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-velocity</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.velocity</artifactId>
@@ -117,18 +148,15 @@
             <groupId>org.apache.servicemix.specs</groupId>
             <artifactId>org.apache.servicemix.specs.jsr303-api-1.0.0</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.validation</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-        <!--inject end-->
-
-        <dependency>
-            <groupId>org.ops4j.pax.wicket</groupId>
-            <artifactId>org.ops4j.pax.wicket.service</artifactId>
-        </dependency>
-
 
     </dependencies>
     <build>

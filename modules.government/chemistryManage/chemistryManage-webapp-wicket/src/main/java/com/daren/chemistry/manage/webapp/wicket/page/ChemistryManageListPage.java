@@ -49,7 +49,7 @@ public class ChemistryManageListPage extends BasePanel {
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
 
-    public ChemistryManageListPage(final String id, final WebMarkupContainer wmc) {
+    public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
         super(id, wmc);
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
@@ -113,7 +113,7 @@ public class ChemistryManageListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", chemistryManageBean, "list");
+                createDialog(target, "上传附件", chemistryManageBean, "list");
             }
         };
         return alinkDuplicate;
@@ -149,7 +149,7 @@ public class ChemistryManageListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", chemistryManageBean, "upload");
+                createDialog(target, "上传附件", chemistryManageBean, "upload");
             }
         };
         return ajaxLink;

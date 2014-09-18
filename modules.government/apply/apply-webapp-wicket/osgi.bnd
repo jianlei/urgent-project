@@ -3,7 +3,7 @@
 #-----------------------------------------------------------------
 
 #Bundle-Activator: ${bundle.namespace}.internal.ExampleActivator
-Import-Package: org.activiti.bpmn.model,*
+Import-Package: org.activiti.bpmn.model,org.ops4j.pax.wicket.api,*
 #-wab:src/main/webapp
 #打包类库
 #-wablib: {maven-dependencies}

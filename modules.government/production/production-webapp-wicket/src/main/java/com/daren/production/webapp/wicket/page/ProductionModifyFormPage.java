@@ -113,7 +113,7 @@ public class ProductionModifyFormPage extends BaseFormPanel {
                 if (dialog != null) {
                     dialogWrapper.removeAll();
                 }
-                dialog = new WindowGovernmentPage("dialog", "上传复件", bean.getId(), "upload", "production") {
+                dialog = new WindowGovernmentPage("dialog", "上传附件", bean.getId(), "upload", "production") {
                     @Override
                     public void updateTarget(AjaxRequestTarget target) {}
                 };

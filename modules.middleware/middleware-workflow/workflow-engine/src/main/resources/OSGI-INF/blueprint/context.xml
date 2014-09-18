@@ -20,6 +20,7 @@
         <property name="history" value="full"/>
         <property name="activityFontName" value="微软雅黑"/>
         <property name="labelFontName" value="微软雅黑"/>
+        <property name="dbIdentityUsed" value="false"/>
     </bean>
 
     <bean id="configuration" factory-ref="configurationFactory" factory-method="getConfiguration"/>

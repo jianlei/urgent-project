@@ -49,8 +49,10 @@ public class FireworksListPage extends BasePanel {
     @Inject
     private TaskService taskService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    public FireworksListPage(final String id, final WebMarkupContainer wmc) {
+    private String phoneNumber = null;
+    public FireworksListPage(final String id, final WebMarkupContainer wmc, String phone) {
         super(id, wmc);
+        phoneNumber = phone;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -99,6 +101,9 @@ public class FireworksListPage extends BasePanel {
                 createButtonOnClick(fireworksBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -109,6 +114,9 @@ public class FireworksListPage extends BasePanel {
                 createButtonOnClick(fireworksBean, target);
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -116,7 +124,7 @@ public class FireworksListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean, "list");
+                createDialog(target, "上传附件", fireworksBean, "list");
             }
         };
         return alinkDuplicate;
@@ -145,6 +153,9 @@ public class FireworksListPage extends BasePanel {
             }
 
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            alinkSubmit.setVisible(false);
+        }
         return alinkSubmit;
     }
 
@@ -152,9 +163,12 @@ public class FireworksListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", fireworksBean, "upload");
+                createDialog(target, "上传附件", fireworksBean, "upload");
             }
         };
+        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -201,15 +215,13 @@ public class FireworksListPage extends BasePanel {
 
     class FireworksDataProvider extends ListDataProvider<FireworksBean> {
         private FireworksBean fireworksBean = null;
-
         public void setFireworksBean(FireworksBean fireworksBean) {
             this.fireworksBean = fireworksBean;
         }
-
         @Override
         protected List<FireworksBean> getData() {
-            if (fireworksBean == null || null == fireworksBean.getName() || "".equals(fireworksBean.getName().trim()))
-                return fireworksService.getAllEntity();
+            if (null!=phoneNumber)
+                return fireworksService.getFireworksBeanByPhone(phoneNumber);
             else {
                 return fireworksService.getAllEntity();
             }

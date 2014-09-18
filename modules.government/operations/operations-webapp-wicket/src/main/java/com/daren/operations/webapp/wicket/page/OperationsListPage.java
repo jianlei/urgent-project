@@ -115,7 +115,7 @@ public class OperationsListPage extends BasePanel {
         AjaxLink alinkDuplicate = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", operationsBean, "list");
+                createDialog(target, "上传附件", operationsBean, "list");
             }
         };
         return alinkDuplicate;
@@ -151,7 +151,7 @@ public class OperationsListPage extends BasePanel {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createDialog(target, "上传复件", operationsBean, "upload");
+                createDialog(target, "上传附件", operationsBean, "upload");
             }
         };
         return ajaxLink;
