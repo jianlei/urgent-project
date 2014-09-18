@@ -5,6 +5,7 @@ import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
+import com.daren.chemistry.manage.webapp.wicket.Const;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
@@ -130,10 +131,13 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
-                    chemistryManageBeanService.saveEntity(bean);
+
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
+                    ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    chemistryManageBeanService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     uploadButton.setEnabled(false);

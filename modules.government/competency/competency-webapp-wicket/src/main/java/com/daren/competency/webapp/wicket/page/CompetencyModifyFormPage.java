@@ -5,6 +5,7 @@ import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
+import com.daren.competency.webapp.wicket.Const;
 import com.daren.competency.webapp.wicket.impl.CompetencyModifyFormHandler;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
@@ -133,10 +134,12 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    CompetencyBean bean= (CompetencyBean) form.getModelObject();
-                    competencyService.saveEntity(bean);
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
+                    CompetencyBean bean= (CompetencyBean) form.getModelObject();
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    competencyService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     uploadButton.setEnabled(false);

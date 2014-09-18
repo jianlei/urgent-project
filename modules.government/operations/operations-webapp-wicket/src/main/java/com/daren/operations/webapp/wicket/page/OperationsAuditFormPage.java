@@ -115,7 +115,10 @@ public class OperationsAuditFormPage extends BaseFormPanel {
                     //添加备注信息
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
-
+                    OperationsBean bean= (OperationsBean) form.getModelObject();
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    operationsService.saveEntity(bean);
                     Map<String, String> submitMap = new HashMap<String, String>();
                     boolean passed=accepted.equals("同意")?true:false;
                     submitMap.put("accepted", String.valueOf(passed));

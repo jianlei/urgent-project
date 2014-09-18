@@ -121,6 +121,7 @@ public class FireworksEndFormPage extends BaseFormPanel {
                     taskService.complete(task.getId());
                     model.setObject(null);
                     FireworksBean fireworksBean = (FireworksBean) form.getModelObject();
+                    fireworksBean.setLinkHandle("审批结束");
                     fireworksService.saveEntity(fireworksBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);

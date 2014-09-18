@@ -117,6 +117,7 @@ public class OperationsEndFormPage extends BaseFormPanel {
                     taskService.complete(task.getId());
                     model.setObject(null);
                     OperationsBean operationsBean = (OperationsBean) form.getModelObject();
+                    operationsBean.setLinkHandle("审批结束");
                     operationsService.saveEntity(operationsBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
