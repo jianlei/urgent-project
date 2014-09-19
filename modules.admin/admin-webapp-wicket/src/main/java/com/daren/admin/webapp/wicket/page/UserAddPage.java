@@ -3,7 +3,6 @@ package com.daren.admin.webapp.wicket.page;
 import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
-import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
@@ -91,10 +90,10 @@ public class UserAddPage extends Panel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         userForm.add(feedbackPanel.setOutputMarkupId(true));
 
-        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("company", Model.of(enterpriseBean));
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
         enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
         userForm.add(enterpriseSelect2Choice);
-        orgnizationSelect2Choice = new OrgnizationSelect2Choice ("office",Model.of(organizationBean));
+        orgnizationSelect2Choice = new OrgnizationSelect2Choice ("jgdm",Model.of(organizationBean));
         orgnizationSelect2Choice.getSettings().setMinimumInputLength(2);
         userForm.add(orgnizationSelect2Choice);
 
@@ -136,9 +135,13 @@ public class UserAddPage extends Panel {
                 try {
                     UserBean userBean = (UserBean) form.getModelObject();
                     organizationBean=orgnizationSelect2Choice.getModelObject();
-                    userBean.setJgdm(organizationBean.getJgdm());
+                    if(organizationBean!=null){
+                        userBean.setJgdm(organizationBean.getJgdm());
+                    }
                     enterpriseBean=enterpriseSelect2Choice.getModelObject();
-                    userBean.setQyid(enterpriseBean.getQyid());
+                    if(enterpriseBean!=null){
+                        userBean.setQyid(enterpriseBean.getQyid());
+                    }
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());
@@ -170,7 +173,7 @@ public class UserAddPage extends Panel {
             }
         });
         userForm.setOutputMarkupId(true);
-        userForm.add(new JSR303FormValidator());
+        //userForm.add(new JSR303FormValidator());
         add(userForm);
     }
 
