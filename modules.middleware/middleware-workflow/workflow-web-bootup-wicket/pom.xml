@@ -182,6 +182,11 @@
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
        <!-- <dependency>
             <groupId>com.daren.apply</groupId>
             <artifactId>com.daren.apply.webapp.wicket</artifactId>

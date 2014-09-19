@@ -24,7 +24,7 @@ public class OrganizationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 10;
     }
 
     @Override

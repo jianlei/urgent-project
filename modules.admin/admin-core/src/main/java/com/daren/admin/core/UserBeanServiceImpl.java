@@ -42,6 +42,7 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
         this.userBeanDao = userBeanDao;
+        super.init(userBeanDao, UserBean.class.getName());
     }
 
     public void init() {

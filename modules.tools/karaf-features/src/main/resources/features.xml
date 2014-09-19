@@ -256,6 +256,18 @@
         <feature>urgent-admin</feature>
         <bundle start-level="85">wrap:mvn:org.wicketstuff/wicketstuff-shiro/${wicket.version}</bundle>
     </feature>
+    <feature name="cometed">
+        <bundle>mvn:org.cometd.java/bayeux-api/2.9.1</bundle>
+        <bundle>mvn:org.cometd.java/cometd-java-common/2.9.1</bundle>
+        <bundle>mvn:org.cometd.java/cometd-java-server/2.9.1</bundle>
+        <bundle>mvn:org.cometd.java/cometd-websocket-jetty/2.9.1</bundle>
+        <bundle>mvn:org.cometd.java/cometd-java-client/2.9.1</bundle>
+
+        <!--<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cometd-java-server/2.3.1_2</bundle>-->
+        <bundle>mvn:org.wicketstuff/wicketstuff-push-core/7.0-SNAPSHOT</bundle>
+        <!--<bundle>mvn:org.wicketstuff/wicketstuff-push-cometd/7.0-SNAPSHOT</bundle>-->
+        <bundle>mvn:org.wicketstuff/wicketstuff-push-timer/7.0-SNAPSHOT</bundle>
+    </feature>
     <!--urgetn debug environment-->
     <feature name="urgent-dev" version="3.0.1">
         <feature>webconsole</feature>
@@ -282,7 +294,7 @@
         <!--工作流引擎-->
         <bundle>mvn:mysql/mysql-connector-java/5.1.18</bundle>
         <feature>activiti</feature>
-        <feature>cometed</feature>
+        <!--<feature>cometed</feature>-->
 
         <!--<bundle>wrap:mvn:org.jasig.cas.client/cas-client-core/3.2.1$Bundle-SymbolicName=cas-client-core&Bundle-Version=3.2.1 </bundle>-->
     </feature>

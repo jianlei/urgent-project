@@ -70,6 +70,7 @@
             <artifactId>wicket-auth-roles</artifactId>
         </dependency>
 
+
 	</dependencies>
     <build>
         <plugins>

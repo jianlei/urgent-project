@@ -2,6 +2,7 @@ package com.daren.core.web.wicket.security;
 
 
 import com.daren.core.web.validation.JSR303FormValidator;
+import com.daren.core.web.wicket.Const;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.shiro.SecurityUtils;
@@ -13,6 +14,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -27,9 +29,14 @@ import javax.validation.constraints.NotNull;
 public class SignInPage extends WebPage {
     private Form<LoginBean> form;
     private LoginBean loginBean = new LoginBean();
-
     public SignInPage(PageParameters parameters) {
         super(parameters);
+        add(new Label("title", Const.map.get(getApplication().getName())));
+        String css_url="<img src=\"../cus/img/login_"+getApplication().getName()+".png\" alt=\"\"></img>";
+        Label label = new Label("img", css_url);
+        label.setEscapeModelStrings(false);
+        label.setRenderBodyOnly(true);
+        this.add(label);
 
         form = new Form<LoginBean>("loginForm", new CompoundPropertyModel<LoginBean>(loginBean));
 

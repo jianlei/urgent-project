@@ -52,6 +52,7 @@ import java.util.Map;
  * @修改备注：
  */
 public class ProductionAuditFormPage extends BaseFormPanel {
+    ProductionBean bean = new ProductionBean();
     @Inject
     private IAttachmentService attachmentService;
     @Inject
@@ -64,7 +65,6 @@ public class ProductionAuditFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
-    ProductionBean bean = new ProductionBean();
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     private String comment="审批通过";
     private String accepted="同意";
@@ -116,14 +116,15 @@ public class ProductionAuditFormPage extends BaseFormPanel {
                     //添加备注信息
                     identityService.setAuthenticatedUserId(currentUserName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
-
                     Map<String, String> submitMap = new HashMap<String, String>();
-                    boolean passed=accepted.equals("同意")?true:false;
+                    boolean passed= accepted.equals("同意");
                     submitMap.put("accepted", String.valueOf(passed));
                     taskService.setVariablesLocal(task.getId(), submitMap);
-
                     formService.submitTaskFormData(task.getId(), submitMap);
                     model.setObject(null);
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    productionService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     target.add(ProductionAuditFormPage.this.findParent(TabbedPanel.class));

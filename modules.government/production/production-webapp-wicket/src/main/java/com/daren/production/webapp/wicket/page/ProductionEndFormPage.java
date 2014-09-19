@@ -115,8 +115,9 @@ public class ProductionEndFormPage extends BaseFormPanel {
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     taskService.complete(task.getId());
                     model.setObject(null);
-                    ProductionBean fireworksBean = (ProductionBean) form.getModelObject();
-                    productionService.saveEntity(fireworksBean);
+                    ProductionBean productionBean = (ProductionBean) form.getModelObject();
+                    productionBean.setLinkHandle("审批结束");
+                    productionService.saveEntity(productionBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     target.add(ProductionEndFormPage.this.findParent(TabbedPanel.class));

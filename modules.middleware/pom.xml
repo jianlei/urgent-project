@@ -12,7 +12,7 @@
     <artifactId>modules.middleware</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - Middleware</name>
+    <name>Daren :: Modules - 中间件</name>
 
     <packaging>pom</packaging>
 

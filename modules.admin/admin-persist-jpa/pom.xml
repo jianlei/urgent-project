@@ -29,8 +29,8 @@
     <groupId>com.daren.admin</groupId>
     <artifactId>com.daren.admin.persist.openjpa</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Admin - Persist JPA Container Managed</name>
-    <description>Urgent Admin Persist JPA Container Managed Module</description>
+    <name>System :: Admin - Persist JPA Container Managed</name>
+    <description>System Admin Persist JPA Container Managed Module</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

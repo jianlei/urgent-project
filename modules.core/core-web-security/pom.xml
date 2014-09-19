@@ -22,8 +22,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>Urgent :: Core - Security</name>
-    <description>Urgent Core Security</description>
+    <name>Daren :: Core - Security</name>
+    <description>Daren Core Security</description>
 
     <dependencies>
         <dependency>

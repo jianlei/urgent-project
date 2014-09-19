@@ -17,7 +17,7 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Enterprise - API</name>
+    <name>System :: Enterprise - API</name>
     <description>Enterprise API</description>
 
     <packaging>bundle</packaging>

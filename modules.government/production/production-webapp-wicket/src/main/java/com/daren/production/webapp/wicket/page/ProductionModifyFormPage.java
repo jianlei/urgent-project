@@ -8,6 +8,7 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLi
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.production.api.biz.IProductionService;
 import com.daren.production.entities.ProductionBean;
+import com.daren.production.webapp.wicket.Const;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -129,10 +130,13 @@ public class ProductionModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    ProductionBean bean= (ProductionBean) form.getModelObject();
-                    productionService.saveEntity(bean);
+
                     taskService.claim(task.getId(), currentUserName);
                     taskService.complete(task.getId());
+                    ProductionBean bean= (ProductionBean) form.getModelObject();
+                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+                    bean.setLinkHandle(taskN.getName());
+                    productionService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
                     uploadButton.setEnabled(false);

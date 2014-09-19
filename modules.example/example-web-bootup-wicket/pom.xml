@@ -21,8 +21,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
-    <name>Urgent :: Example - Web Wicket Bootup</name>
-    <description>Example - Web Wicket Bootup</description>
+    <name>Daren :: Example - Web Wicket Bootup</name>
+    <description>Daren - Web Wicket Bootup</description>
 
     <dependencies>
         <dependency>

@@ -116,6 +116,7 @@ public class ChemistryManageEndFormPage extends BaseFormPanel {
                     taskService.complete(task.getId());
                     model.setObject(null);
                     ChemistryManageBean chemistryManageBean = (ChemistryManageBean) form.getModelObject();
+                    chemistryManageBean.setLinkHandle("审批结束");
                     chemistryManageBeanService.saveEntity(chemistryManageBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);

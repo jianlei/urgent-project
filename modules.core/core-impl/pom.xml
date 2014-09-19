@@ -22,7 +22,7 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>Urgent :: Core - Impl</name>
+    <name>Daren :: Core - Impl</name>
     <description>Core Impl</description>
 
     <dependencies>

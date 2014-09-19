@@ -17,8 +17,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
     </properties>
 
-    <name>Urgent :: Example - Core</name>
-    <description>Urgent Example Core Module</description>
+    <name>Daren :: Example - Core</name>
+    <description>Daren Example Core Module</description>
 
     <packaging>bundle</packaging>
 

@@ -22,8 +22,8 @@
         <bundle.namespace>${bundle.symbolicName}</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>Urgent :: Core - Web JSR303 Validation</name>
-    <description>Urgent Core Web Validation</description>
+    <name>Daren :: Core - Web JSR303 Validation</name>
+    <description>Daren Core Web Validation</description>
 
     <dependencies>
         <dependency>

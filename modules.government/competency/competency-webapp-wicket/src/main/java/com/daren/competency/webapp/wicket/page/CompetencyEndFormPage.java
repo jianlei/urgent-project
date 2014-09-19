@@ -115,6 +115,7 @@ public class CompetencyEndFormPage extends BaseFormPanel {
                     taskService.complete(task.getId());
                     model.setObject(null);
                     CompetencyBean competencyBean = (CompetencyBean) form.getModelObject();
+                    competencyBean.setLinkHandle("审批结束");
                     competencyService.saveEntity(competencyBean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);

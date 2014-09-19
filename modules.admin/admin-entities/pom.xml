@@ -29,8 +29,8 @@
     <groupId>com.daren.admin</groupId>
     <artifactId>com.daren.admin.entities</artifactId>
     <packaging>bundle</packaging>
-    <name>Urgent :: Admin - Entities</name>
-    <description>Urgent Admin JPA Enhanced Entities Module</description>
+    <name>System :: Admin - Entities</name>
+    <description>System Admin JPA Enhanced Entities Module</description>
 
 
     <properties>

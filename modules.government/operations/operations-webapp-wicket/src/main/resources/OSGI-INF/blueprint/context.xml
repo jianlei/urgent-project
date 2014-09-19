@@ -27,4 +27,10 @@
         <bean class="com.daren.operations.webapp.wicket.impl.OperationsModifyFormHandler">
         </bean>
     </service>
+
+    <!-- Operations Biz 业务数据 -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.operations.webapp.wicket.impl.OperationsBizDataHandler">
+        </bean>
+    </service>
 </blueprint>

@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
-    <name>Urgent :: Core - Web Wicket Bootup</name>
+    <name>Daren :: Core - Web Wicket Bootup</name>
     <description>Core - Web Wicket Bootup</description>
 
     <dependencies>

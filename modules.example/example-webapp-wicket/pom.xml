@@ -11,8 +11,8 @@
 
     <artifactId>com.daren.example.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Urgent :: Example - Wicket Web Application</name>
-    <description>Example - Webapp Wicket</description>
+    <name>Daren :: Example - Wicket Web Application</name>
+    <description>Daren Example - Webapp Wicket</description>
     <packaging>bundle</packaging>
 
     <properties>
@@ -45,6 +45,11 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
 
         <dependency>
@@ -209,6 +214,12 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-bpmn-converter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

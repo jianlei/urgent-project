@@ -40,19 +40,14 @@ import java.util.Map;
 //@PaxWicketMountPoint(mountPoint = "/apply")
 public class ApplyPage extends WebPage {
 
-    @Inject
-    private transient RepositoryService repositoryService;
-
     RepeatingView rv = new RepeatingView("myApplyProcess");
     WebMarkupContainer wmc = new WebMarkupContainer("wmc");
-
     @NotNull(message = "'手机号'是必填项")
     @Pattern(regexp = "((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)", message = "手机格式不正确")
     String phone;
-
-
     String selected;
-
+    @Inject
+    private transient RepositoryService repositoryService;
     @NotNull(message = "'校验码'是必填项")
     private String validateCode;
 
@@ -143,9 +138,9 @@ public class ApplyPage extends WebPage {
 
 
     //通过Map初始化下拉列表
-    private void initSelect(String name, Map<String, String> typeMap, Form form) {
+    private void initSelect(Map<String, String> typeMap, Form form) {
         //下拉列表
-        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, typeMap);
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>("selected", typeMap);
         form.add(listSites);
     }
 
@@ -158,7 +153,7 @@ public class ApplyPage extends WebPage {
                 typeMap.put(processDefinition.getName(), processDefinition.getName());
             }
         }
-        initSelect("selected", typeMap, form);
+        initSelect(typeMap, form);
     }
 
     public String getPhone() {

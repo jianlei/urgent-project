@@ -33,4 +33,10 @@
         <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksModifyFormHandler">
         </bean>
     </service>
+
+    <!-- firework Biz 业务数据 -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksBizDataHandler">
+        </bean>
+    </service>
 </blueprint>

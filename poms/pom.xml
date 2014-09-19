@@ -13,7 +13,7 @@
     <groupId>com.daren.platform.urgent-project.build</groupId>
     <artifactId>shared-plugin-settings</artifactId>
 
-    <name>urgent-project - plugin configuration</name>
+    <name>Daren-Project - Plugin Configuration</name>
 
     <packaging>pom</packaging>
 

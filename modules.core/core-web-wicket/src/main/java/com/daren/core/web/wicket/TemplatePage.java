@@ -26,6 +26,8 @@ public class TemplatePage extends WebPage {
 
     public TemplatePage() {
 
+        add(new Label("title",Const.map.get(getApplication().getName())));
+
         Link home=new Link("home") {
             @Override
             public void onClick() {
@@ -36,9 +38,9 @@ public class TemplatePage extends WebPage {
         this.add(home);
         final WebMarkupContainer wmc = new WebMarkupContainer("container");
 
-        String url = getApplication().getName();
+        String name = getApplication().getName();
         String css_url="<style type=\"text/css\">.cus {\n" +
-                "    background: url(../../cus/img/"+url+".png) no-repeat;\n" +
+                "    background: url(../../cus/img/"+name+".png) no-repeat;\n" +
                 "    height: 97px;\n" +
                 "    position: relative;\n" +
                 "}</style>";

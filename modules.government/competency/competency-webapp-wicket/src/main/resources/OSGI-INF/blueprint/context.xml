@@ -10,21 +10,27 @@
         </bean>
     </service>
 
-    <!-- firework Audit form -->
+    <!-- Competency Audit form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.competency.webapp.wicket.impl.CompetencyAuditFormHandler">
         </bean>
     </service>
 
-    <!-- firework End form -->
+    <!-- Competency End form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.competency.webapp.wicket.impl.CompetencyEndFormHandler">
         </bean>
     </service>
 
-    <!-- firework Modify form -->
+    <!-- Competency Modify form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.competency.webapp.wicket.impl.CompetencyModifyFormHandler">
+        </bean>
+    </service>
+
+    <!-- Competency Biz 业务数据 -->
+    <service interface="com.daren.core.web.api.workflow.IBizDataHandler">
+        <bean class="com.daren.competency.webapp.wicket.impl.CompetencyBizDataHandler">
         </bean>
     </service>
 </blueprint>
