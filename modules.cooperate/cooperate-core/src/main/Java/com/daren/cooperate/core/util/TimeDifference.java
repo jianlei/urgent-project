@@ -17,7 +17,7 @@ public class TimeDifference {
 	 */
 	public static String getTimeDifdference(String time) {
 		String num = "1";
-		String oneday = "24";
+        String oneday = "24";
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date d1;
 		try {
@@ -33,35 +33,47 @@ public class TimeDifference {
 				return String.valueOf(days)+ "秒之前";
 			}
 			// 判断是否是分钟
-			if (days / 60 <= 60) {
-				if (days / 60 == 60) {
-					return num + "小时之前";
-				}
-				return String.valueOf(days / 60) + "分钟之前";
-			}
-			// 判断是否是小时
-			if (days / 3600 <= 24) {
-				if (days / 3600 == 24) {
-					return oneday + "小时之前";
-				} else {
-					float hours = days / 3600f;
-					if (hours == 0.0f) {
-						String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf(".") - 1);
-						return lasthours + "小时之前";
-						} else {
-						String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf("."));
-						return lasthours + "小时之前";
-					}
-				}
-			} else {
-				//return oneday + "小时之前";
-				return time.substring(0, 16);
-			}
+            return getMinute(days,oneday,num,time);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return "";
 	}
+
+    /**
+     * 判断是否是分钟
+     * @param days
+     * @param oneday
+     * @param num
+     * @param time
+     * @return
+     */
+    private static String getMinute(long days, String oneday, String num, String time){
+        if (days / 60 <= 60) {
+            if (days / 60 == 60) {
+                return num + "小时之前";
+            }
+            return String.valueOf(days / 60) + "分钟之前";
+        }
+        // 判断是否是小时
+        if (days / 3600 <= 24) {
+            if (days / 3600 == 24) {
+                return oneday + "小时之前";
+            } else {
+                float hours = days / 3600f;
+                if (hours == 0.0f) {
+                    String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf(".") - 1);
+                    return lasthours + "小时之前";
+                } else {
+                    String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf("."));
+                    return lasthours + "小时之前";
+                }
+            }
+        } else {
+            //return oneday + "小时之前";
+            return time.substring(0, 16);
+        }
+    }
 	
 	/**
 	 * 聊天记录时间判断
@@ -87,30 +99,7 @@ public class TimeDifference {
 				return "";
 			}
 			// 判断是否是分钟
-			if (days / 60 <= 60) {
-				if (days / 60 == 60) {
-					return num + "小时之前";
-				}
-				return String.valueOf(days / 60) + "分钟之前";
-			}
-			// 判断是否是小时
-			if (days / 3600 <= 24) {
-				if (days / 3600 == 24) {
-					return oneday + "小时之前";
-				} else {
-					float hours = days / 3600f;
-					if (hours == 0.0f) {
-						String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf(".") - 1);
-						return lasthours + "小时之前";
-					} else {
-						String lasthours = String.valueOf(hours).substring(0,String.valueOf(hours).indexOf("."));
-						return lasthours + "小时之前";
-					}
-				}
-			} else {
-				//return oneday + "小时之前";
-				return time.substring(0, 16);
-			}
+            return getMinute(days,oneday,num,time);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
