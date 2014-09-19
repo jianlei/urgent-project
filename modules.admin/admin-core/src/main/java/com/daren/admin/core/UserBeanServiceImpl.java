@@ -139,8 +139,10 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     @Override
     public List getUserTokenListJgdm(String jgdm,long user_id) {
+        String jgdmStr = jgdm.replaceAll("(0+)$", "");
         return userBeanDao.findByNativeSql("select sur.token from sys_user s " +
-                "left join sys_user_rel sur on sur.user_id=s.id where s.id!="+user_id+" and sur.token is not null and s.jgdm= '"+jgdm+"'",String.class);
+                " left join sys_user_rel sur on sur.user_id=s.id where s.id!="+user_id+
+                " and sur.token is not null and s.jgdm like '"+jgdmStr+"%'",String.class);
     }
 
     @Override
@@ -152,8 +154,9 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
 
     @Override
     public List getUseridListByGgdm(String jgdm, long user_id) {
+        String jgdmStr = jgdm.replaceAll("(0+)$", "");
         return userBeanDao.findByNativeSql("select s.id from sys_user s " +
-                " where s.id!="+user_id+" and s.jgdm= '"+jgdm+"'",Long.class);
+                " where s.id!="+user_id+" and s.jgdm like '"+jgdmStr+"%'",Long.class);
     }
 
 
