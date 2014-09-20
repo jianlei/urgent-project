@@ -48,6 +48,8 @@ public class UserBean extends PersistentEntity {
     private String mobile;    // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
+    private long office_id;
+    private long company_id;
     //    @XmlElement(name="role")
     @XmlTransient
     private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
@@ -56,6 +58,21 @@ public class UserBean extends PersistentEntity {
 
     }
 
+    public long getOffice_id() {
+        return office_id;
+    }
+
+    public void setOffice_id(long office_id) {
+        this.office_id = office_id;
+    }
+
+    public long getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(long company_id) {
+        this.company_id = company_id;
+    }
 
     public String getEmail() {
         return email;

@@ -221,7 +221,8 @@ public class GroupBeanServiceImpl extends GenericBizServiceImpl implements IGrou
                 if(tokenAllList!=null&&!tokenAllList.isEmpty()){
                     JSONObject pushjsoncontent = new JSONObject();
                     pushjsoncontent.put("function", 1007);
-                    pushjsoncontent.put("message", "群组邀请提醒:邀请您加入群组-"+1+"!");
+                    GroupBasicBean groupBasicBean = groupBasicBeanDao.get(GroupBasicBean.class.getName(),group_id);
+                    pushjsoncontent.put("message", "群组邀请提醒:邀请您加入群组-"+groupBasicBean.getGroup_name()+"!");
                     pushjsoncontent.put("chat_id", 0);
                     SendMsgByXingeThread smxt = new SendMsgByXingeThread(tokenAllList,1,"","",pushjsoncontent);
                     Thread thread = new Thread(smxt);
