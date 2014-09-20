@@ -51,4 +51,16 @@
         <bean class="com.daren.example.webapp.wicket.WorkflowItemModule">
         </bean>
     </service>
+
+    <!-- 发布Lightbox2目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.Lightbox2MenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布JGrowl目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.JGrowlMenuItemsModule">
+        </bean>
+    </service>
 </blueprint>
