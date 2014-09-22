@@ -1,7 +1,7 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.CheckedTreePage;
+import com.daren.example.webapp.wicket.page.Lightbox2PageTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class CheckedTreeMenuItemsModule implements IMenuItemsModule {
+public class Lightbox2MenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class CheckedTreeMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 0;
+        return 100;
     }
 
     @Override
     public String getName() {
-        return "多选数表例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Lightbox2例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,7 +44,6 @@ public class CheckedTreeMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new CheckedTreePage(id, wmc);
-//        return null;
+        return new Lightbox2PageTest(id, wmc);
     }
 }

@@ -1,7 +1,7 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.JGrowl;
+import com.daren.example.webapp.wicket.page.SingleCheckPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class JGrowlMenuItemsModule implements IMenuItemsModule {
+public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class JGrowlMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 110;
+        return 10;
     }
 
     @Override
     public String getName() {
-        return "JGrow例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "单选树例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,6 +44,6 @@ public class JGrowlMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new JGrowl(id, wmc);
+        return new SingleCheckPage(id, wmc);
     }
 }

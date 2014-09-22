@@ -34,12 +34,15 @@ public class JGrowl extends BasePanel {
         errorOptions.set("header", "Error");
         errorOptions.set("theme", "error");
         errorOptions.set("glue", "before");
+        errorOptions.set("position", "center");
         feedback.setErrorMessageOptions(errorOptions);
 
         final Options infoOptions = new Options();
         infoOptions.set("header", "Info");
         infoOptions.set("theme", "info");
         infoOptions.set("glue", "after");
+        infoOptions.set("position", "center");
+        infoOptions.set("closer", "false");
         feedback.setInfoMessageOptions(infoOptions);
 
         final AjaxLink<Void> link = new AjaxLink<Void>("showButton")

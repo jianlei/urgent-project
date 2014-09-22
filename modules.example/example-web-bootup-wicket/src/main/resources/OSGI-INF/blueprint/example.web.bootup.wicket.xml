@@ -10,8 +10,18 @@
          &lt;!&ndash;<property name="homePageProvider" value=""/>&ndash;&gt;
          &lt;!&ndash;<property name="homePageProvider" ref="homePageProviderService"/>&ndash;&gt;
      </bean>-->
-
-
+    <!--<service interface="javax.servlet.http.HttpServlet" ref="Atmospherefilter">
+        <service-properties>
+            <entry key="alias" value="/*"/>
+            <entry key="init.timeout" value="15000"/>
+            <entry key="init.multi-timeout" value="1500"/>
+            <entry key="init.verbose" value="false"/>
+            <entry key="init.transports" value="org.cometd.websocket.server.WebSocketTransport"/>
+        </service-properties>
+    </service>
+    &lt;!&ndash;<bean id="cometdServlet" class="org.cometd.server.CometdServlet"/>&ndash;&gt;
+    <bean id="Atmospherefilter" class="org.atmosphere.cpr.AtmosphereServlet"/>
+-->
     <service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
         <service-properties>
             <entry key="pax.wicket.applicationname" value="daren.project.example"/>
@@ -21,6 +31,7 @@
             <property name="wicketApplication" value="com.daren.example.web.bootup.wicket.IrisShiroApplication"/>
         </bean>
     </service>
+
 
 
     <bean id="shiroRealm" class="com.daren.example.web.bootup.wicket.shiro.ShiroRealm">
@@ -104,4 +115,14 @@
             <property name="webSecurityManager" ref="webSecurityManager"/>
         </bean>
     </service>
+
+    <!--<service interface="org.ops4j.pax.wicket.api.FilterFactory">
+        <service-properties>
+            <entry key="pax.wicket.applicationname" value="daren.project.example"/>
+            <entry key="pax.wicket.filter.priority" value="1"/>
+        </service-properties>
+        <bean class="com.daren.example.web.bootup.wicket.filter.AtmoFilterFactory">
+            &lt;!&ndash;<property name="webSecurityManager" ref="webSecurityManager"/>&ndash;&gt;
+        </bean>
+    </service>-->
 </blueprint>

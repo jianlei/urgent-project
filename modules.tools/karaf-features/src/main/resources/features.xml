@@ -268,6 +268,10 @@
         <!--<bundle>mvn:org.wicketstuff/wicketstuff-push-cometd/7.0-SNAPSHOT</bundle>-->
         <bundle>mvn:org.wicketstuff/wicketstuff-push-timer/7.0-SNAPSHOT</bundle>
     </feature>
+
+    <feature name="atmosphere">
+        <bundle>mvn:org.atmosphere/atmosphere-runtime/2.1.8</bundle>
+    </feature>
     <!--urgetn debug environment-->
     <feature name="urgent-dev" version="3.0.1">
         <feature>webconsole</feature>

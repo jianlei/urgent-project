@@ -1,21 +1,19 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.IframeOfficePage;
-import com.daren.example.webapp.wicket.page.OfficeTest;
+import com.daren.example.webapp.wicket.atmosphere.AtmosphereTestPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * 项目名称:  urgent-project
- * 类描述:
- * 创建人:    sunlf
- * 创建时间:  2014/7/9 19:53
- * 修改人:    sunlf
- * 修改时间:  2014/7/9 19:53
- * 修改备注:  [说明本次修改内容]
+ * @类描述：${INPUT}
+ * @创建人： sunlingfeng
+ * @创建时间：2014/9/20
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class OfficeMenuItemModule implements IMenuItemsModule {
+public class AtmosphereMenuItemModule implements IMenuItemsModule {
     @Override
     public String getNo() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -28,7 +26,7 @@ public class OfficeMenuItemModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "office例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Atmosphere例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -43,6 +41,6 @@ public class OfficeMenuItemModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new OfficeTest(id, wmc);
+        return new AtmosphereTestPage(id, wmc);
     }
 }
