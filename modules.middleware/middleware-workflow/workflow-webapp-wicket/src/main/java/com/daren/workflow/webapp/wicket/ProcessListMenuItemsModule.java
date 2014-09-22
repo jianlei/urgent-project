@@ -29,7 +29,7 @@ public class ProcessListMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "新建流程";  //To change body of implemented methods use File | Settings | File Templates.
+        return "查看流程";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
