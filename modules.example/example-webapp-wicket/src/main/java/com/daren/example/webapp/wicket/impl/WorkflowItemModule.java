@@ -1,20 +1,18 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.AjaxTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * 项目名称:  urgent-project
- * 类描述:
- * 创建人:    sunlf
- * 创建时间:  2014/7/9 19:53
- * 修改人:    sunlf
- * 修改时间:  2014/7/9 19:53
- * 修改备注:  [说明本次修改内容]
+ * @类描述：工作流演示注册类
+ * @创建人： sunlingfeng
+ * @创建时间：2014/9/15
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class AjaxMenuItemModule implements IMenuItemsModule {
+public class WorkflowItemModule implements IMenuItemsModule {
     @Override
     public String getNo() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -22,12 +20,12 @@ public class AjaxMenuItemModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 20;
+        return 30;
     }
 
     @Override
     public String getName() {
-        return "Ajax例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "工作流例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -42,6 +40,7 @@ public class AjaxMenuItemModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new AjaxTest(id, wmc);
+//        return new MainPage(id, wmc);
+        return null;
     }
 }

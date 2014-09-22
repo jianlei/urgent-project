@@ -1,22 +1,20 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.Select2PageTest;
+import com.daren.example.webapp.wicket.page.AjaxTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：例子子菜单定义类
- * @创建人：sunlf
- * @创建时间：2014-03-29 上午10:23
- * @修改人：
- * @修改时间：
- * @修改备注：
+ * 项目名称:  urgent-project
+ * 类描述:
+ * 创建人:    sunlf
+ * 创建时间:  2014/7/9 19:53
+ * 修改人:    sunlf
+ * 修改时间:  2014/7/9 19:53
+ * 修改备注:  [说明本次修改内容]
  */
-
-public class Select2MenuItemsModule implements IMenuItemsModule {
-
-
+public class AjaxMenuItemModule implements IMenuItemsModule {
     @Override
     public String getNo() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -29,7 +27,7 @@ public class Select2MenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "Select2例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Ajax例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,6 +42,6 @@ public class Select2MenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new Select2PageTest(id, wmc);
+        return new AjaxTest(id, wmc);
     }
 }

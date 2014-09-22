@@ -1,4 +1,4 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuModule;

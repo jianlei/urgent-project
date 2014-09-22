@@ -1,7 +1,7 @@
-package com.daren.example.webapp.wicket;
+package com.daren.example.webapp.wicket.impl;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.example.webapp.wicket.page.SingleCheckPage;
+import com.daren.example.webapp.wicket.page.Select2PageTest;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class SingleCheckMenuItemsModule implements IMenuItemsModule {
+public class Select2MenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 10;
+        return 20;
     }
 
     @Override
     public String getName() {
-        return "单选树例子";  //To change body of implemented methods use File | Settings | File Templates.
+        return "Select2例子";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,6 +44,6 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new SingleCheckPage(id, wmc);
+        return new Select2PageTest(id, wmc);
     }
 }

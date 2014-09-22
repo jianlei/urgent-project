@@ -12,6 +12,9 @@ import org.apache.wicket.Application;
 import org.apache.wicket.DefaultPageManagerProvider;
 import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.atmosphere.EventBus;
+import org.apache.wicket.atmosphere.config.AtmosphereLogLevel;
+import org.apache.wicket.atmosphere.config.AtmosphereTransport;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.markup.html.IPackageResourceGuard;
@@ -32,6 +35,8 @@ import org.apache.wicket.session.ISessionStore;
 import org.apache.wicket.settings.IExceptionSettings;
 import org.apache.wicket.util.IProvider;
 import org.apache.wicket.util.lang.Args;
+import org.atmosphere.cpr.AtmosphereFramework;
+import org.atmosphere.util.SimpleBroadcaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
@@ -43,6 +48,10 @@ import java.io.Serializable;
 
 public class IrisShiroApplication extends WebApplication {
     private IHomePageProvider homePageProvider;
+
+    private EventBus eventBus;
+
+
 
     public IrisShiroApplication() {
         /*try {
@@ -81,6 +90,18 @@ public class IrisShiroApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
+        final AtmosphereFramework framework = new AtmosphereFramework(false, true);
+       // getServletContext().getServletRegistration()
+        getServletContext().setAttribute("Atmospherefilter",framework);
+        SimpleBroadcaster broadcaster = new SimpleBroadcaster();
+        this.eventBus = new EventBus(this, broadcaster);
+//        broadcaster.addAtmosphereResource()
+
+
+        eventBus.getParameters().setTransport(AtmosphereTransport.STREAMING);
+        eventBus.getParameters().setLogLevel(AtmosphereLogLevel.DEBUG);
+
+
         IPackageResourceGuard packageResourceGuard = getResourceSettings()
                 .getPackageResourceGuard();
         if (packageResourceGuard instanceof SecurePackageResourceGuard)
