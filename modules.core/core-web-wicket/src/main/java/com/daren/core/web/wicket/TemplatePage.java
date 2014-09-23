@@ -2,6 +2,7 @@ package com.daren.core.web.wicket;
 
 import com.daren.core.web.wicket.custome.CustomeHeaderPanel;
 import com.daren.core.web.wicket.custome.CustomeMenuPanel;
+import com.daren.core.web.wicket.panel.SysMenuPanel;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -53,7 +54,11 @@ public class TemplatePage extends WebPage {
         wmc.setOutputMarkupPlaceholderTag(true); //Set the flag placeholder so it can be updated via AJAX
 
         add(wmc.setOutputMarkupId(true));
+
+        add(new SysMenuPanel("sysMenuPanel"));          //添加系统菜单
+
         add(new CustomeHeaderPanel("headerPanel"));
+
         add(new CustomeMenuPanel("menuPanel", wmc));
         wmc.add(new HomePanel("panel", wmc));
         add(new FooterPage("footer"));

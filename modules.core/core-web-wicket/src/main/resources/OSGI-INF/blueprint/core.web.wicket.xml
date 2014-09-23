@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-
-
     <!--监听菜单项模块的加载和卸载-->
     <reference-list id="menuItemsProviders"
-                    interface="com.daren.core.web.api.module.IMenuItemsModule" member-type="service-reference">
+                    interface="com.daren.core.web.api.module.IMenuItemsModule" member-type="service-reference" availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.MenuModuleListener"/>
         </reference-listener>
     </reference-list>
     <!--监听菜单模块的加载和卸载-->
     <reference-list id="menuProviders"
-                    interface="com.daren.core.web.api.module.IMenuModule">
+                    interface="com.daren.core.web.api.module.IMenuModule" availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.MenuModuleListener"/>
+        </reference-listener>
+    </reference-list>
+    <!-- 监听系统子菜单 -->
+    <reference-list id="sysMenuItemsPanelProviders"
+                    interface="com.daren.core.web.api.module.ISystemItemModule" member-type="service-reference" availability="optional">
+        <reference-listener bind-method="bind" unbind-method="unbind">
+            <bean class="com.daren.core.web.wicket.listener.SysMenuPanelListener"/>
+        </reference-listener>
+    </reference-list>
+    <!-- 系统菜单监听 -->
+    <reference-list id="sysMenuProviders"
+                    interface="com.daren.core.web.api.module.ISystemModule" availability="optional">
+        <reference-listener bind-method="bind" unbind-method="unbind">
+            <bean class="com.daren.core.web.wicket.listener.SysMenuPanelListener"/>
         </reference-listener>
     </reference-list>
 

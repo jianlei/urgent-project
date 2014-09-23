@@ -9,11 +9,10 @@ package com.daren.core.web.api.module;
  */
 public interface ISystemModule extends IModule {
 
-
     /**
-     * 系统编号
+     * 获取可以附加到这个菜单下的item的tag
      *
      * @return
      */
-    public String getNo();
+    public String getTargetTag();
 }
