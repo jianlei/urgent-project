@@ -330,7 +330,8 @@ public class UserListPage extends BasePanel {
         protected List<UserBean> getData() {
             //类型为空时候，返回全部记录
             if (userBean == null || userBean.getName().equals(""))
-                return userBeanService.getAllEntity();
+                //return userBeanService.getAllEntity();
+                return userBeanService.getUserListByCond(0);
             else {
                 return userBeanService.query(userBean);
             }

@@ -4,11 +4,8 @@ import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
-import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.entities.OrganizationBean;
-import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.enterprise.webapp.component.form.OrgnizationSelect2Choice;
 import com.googlecode.wicket.jquery.ui.form.CheckChoice;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -42,8 +39,8 @@ import java.util.List;
 public class UserAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     OrgnizationSelect2Choice orgnizationSelect2Choice;
-    EnterpriseBean enterpriseBean = new EnterpriseBean();
-    EnterpriseSelect2Choice enterpriseSelect2Choice;
+    //EnterpriseBean enterpriseBean = new EnterpriseBean();
+    //EnterpriseSelect2Choice enterpriseSelect2Choice;
     private String confirPwd;
     private boolean isAdd;
     @Inject
@@ -58,8 +55,8 @@ public class UserAddPage extends Panel {
     private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
     private IOrganizationBeanService organizationBeanService;
-    @Inject
-    private IEnterpriseBeanService enterpriseBeanService;
+    /*@Inject
+    private IEnterpriseBeanService enterpriseBeanService;*/
 
     public UserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
@@ -74,8 +71,8 @@ public class UserAddPage extends Panel {
             UserBean userBean = model.getObject();
             Long jgdm=new Long(userBean.getJgdm());
             organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);
-            long enterpriseId = new Long(userBean.getQyid());
-            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
+            /*long enterpriseId = new Long(userBean.getQyid());
+            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);*/
         }
 
     }
@@ -90,9 +87,9 @@ public class UserAddPage extends Panel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         userForm.add(feedbackPanel.setOutputMarkupId(true));
 
-        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
+        /*enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
         enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
-        userForm.add(enterpriseSelect2Choice);
+        userForm.add(enterpriseSelect2Choice);*/
         orgnizationSelect2Choice = new OrgnizationSelect2Choice ("jgdm",Model.of(organizationBean));
         orgnizationSelect2Choice.getSettings().setMinimumInputLength(2);
         userForm.add(orgnizationSelect2Choice);
@@ -138,10 +135,10 @@ public class UserAddPage extends Panel {
                     if(organizationBean!=null){
                         userBean.setJgdm(organizationBean.getJgdm());
                     }
-                    enterpriseBean=enterpriseSelect2Choice.getModelObject();
+                    /*enterpriseBean=enterpriseSelect2Choice.getModelObject();
                     if(enterpriseBean!=null){
                         userBean.setQyid(enterpriseBean.getQyid());
-                    }
+                    }*/
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());

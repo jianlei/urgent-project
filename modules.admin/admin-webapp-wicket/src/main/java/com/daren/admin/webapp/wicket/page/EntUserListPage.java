@@ -125,7 +125,7 @@ public class EntUserListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                UserAddPage dictAddPage = new UserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                EntUserAddPage dictAddPage = new EntUserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -329,7 +329,8 @@ public class EntUserListPage extends BasePanel {
         protected List<UserBean> getData() {
             //类型为空时候，返回全部记录
             if (userBean == null || userBean.getName().equals(""))
-                return userBeanService.getAllEntity();
+                //return userBeanService.getAllEntity();
+                return userBeanService.getUserListByCond(1);
             else {
                 return userBeanService.query(userBean);
             }
