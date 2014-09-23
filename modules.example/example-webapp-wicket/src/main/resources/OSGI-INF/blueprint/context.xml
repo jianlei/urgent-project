@@ -6,49 +6,67 @@
 
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.MainMenuModule">
+        <bean class="com.daren.example.webapp.wicket.impl.MainMenuModule">
         </bean>
     </service>
 
     <!-- 发布Select2目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.Select2MenuItemsModule">
+        <bean class="com.daren.example.webapp.wicket.impl.Select2MenuItemsModule">
         </bean>
     </service>
 
     <!-- 发布checkedTree目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.CheckedTreeMenuItemsModule">
+        <bean class="com.daren.example.webapp.wicket.impl.CheckedTreeMenuItemsModule">
         </bean>
     </service>
 
     <!-- 发布SingleCheck目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.SingleCheckMenuItemsModule">
+        <bean class="com.daren.example.webapp.wicket.impl.SingleCheckMenuItemsModule">
         </bean>
     </service>
 
     <!-- 发布Office目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.OfficeMenuItemModule">
+        <bean class="com.daren.example.webapp.wicket.impl.OfficeMenuItemModule">
         </bean>
     </service>
 
     <!-- 发布JScript目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.JScriptMenuItemModule">
+        <bean class="com.daren.example.webapp.wicket.impl.JScriptMenuItemModule">
         </bean>
     </service>
 
     <!-- 发布Ajax目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.AjaxMenuItemModule">
+        <bean class="com.daren.example.webapp.wicket.impl.AjaxMenuItemModule">
         </bean>
     </service>
 
     <!-- 发布工作流目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.example.webapp.wicket.WorkflowItemModule">
+        <bean class="com.daren.example.webapp.wicket.impl.WorkflowItemModule">
+        </bean>
+    </service>
+
+    <!-- 发布Lightbox2目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.impl.Lightbox2MenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布JGrowl目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.impl.JGrowlMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布Atmosphere目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.example.webapp.wicket.impl.AtmosphereMenuItemModule">
         </bean>
     </service>
 </blueprint>

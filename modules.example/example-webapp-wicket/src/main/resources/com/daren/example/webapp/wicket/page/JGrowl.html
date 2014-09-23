@@ -1,0 +1,46 @@
+<html xmlns:wicket="http://wicket.apache.org">
+    <wicket:head>
+        <title>Demo of JGrowl feedback messages</title>
+        <!--<link rel="stylesheet" href="../../cus/jgrowl/css/jgrowl.css" />-->
+ <!--       <script type="text/javascript">
+            function loadScript() {//异步加载js
+                var jgrowl_css = document.createElement("link");
+                jgrowl_css.rel = "stylesheet";
+                jgrowl_css.href = "../../cus/jgrowl/css/jgrowl.css";
+                document.body.appendChild(jgrowl_css);
+            }
+        </script>-->
+
+    </wicket:head>
+    <body>
+    <wicket:panel>
+        <style type="text/css">
+
+            /*
+             * Some demo styles for the used demo themes ('error' and 'info')
+             */
+
+            div#jGrowl div.error {
+                background-color: red;
+                color: black;
+            }
+
+            div#jGrowl div.error div.header {
+                font-size: larger;
+            }
+
+            div.jGrowl div.jGrowl-notification.Info{
+                background-color: green!important;;
+                color: black!important;;
+            }
+
+            div#jGrowl div.info div.header {
+                font-size: larger;
+            }
+        </style>
+            <div wicket:id="jgrowlFeedback"></div>
+            <button wicket:id="showButton">显示JGrow提示</button>
+        <h2>详细参考地址https://github.com/stanlemon/jGrowl</h2>
+    </wicket:panel>
+    </body>
+</html>

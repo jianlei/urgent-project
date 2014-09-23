@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<blueprint default-activation="lazy" xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<blueprint xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           default-activation="lazy"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xsi:schemaLocation="
 http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://svn.apache.org/repos/asf/aries/trunk/blueprint/blueprint-cm/src/main/resources/org/apache/aries/blueprint/compendium/cm/blueprint-cm-1.1.0.xsd">
 
-    <cm:property-placeholder persistent-id="com.ninedemons.osgi.jedis.ds.ExampleDatasource"
+    <cm:property-placeholder persistent-id="com.daren.cache.datasource"
                              update-strategy="reload">
         <cm:default-properties>
             <cm:property name="hostName" value="localhost"/>
@@ -27,20 +27,17 @@ http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://svn.apache.or
         <argument index="1">
             <list>
                 <bean class="redis.clients.jedis.JedisShardInfo">
-                    <argument index="0" value="127.0.0.1"/>
-                    <argument index="1" value="6379"
-                              type="int"/>
+                    <argument index="0" value="${hostName}"/> <!--//127.0.0.1-->
+                    <argument index="1" value="${port}" type="int"/>
                 </bean>
             </list>
         </argument>
     </bean>
 
-    <bean id="defaultCacheManager" class="com.daren.core.impl.cache.DefaultCacheManager">
-        <property name="pool" ref="shardedJedisPool"/>
-    </bean>
-
-    <service ref="defaultCacheManager" interface="com.daren.core.api.cache.ICacheManager">
-
+    <service interface="com.daren.core.api.cache.ICacheManager">
+        <bean class="com.daren.core.impl.cache.DefaultCacheManager">
+            <property name="pool" ref="shardedJedisPool"/>
+        </bean>
     </service>
 
 </blueprint>

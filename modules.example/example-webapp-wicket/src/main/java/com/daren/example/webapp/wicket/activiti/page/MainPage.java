@@ -10,6 +10,7 @@ import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -26,7 +27,7 @@ public class MainPage extends BasePage {
 
     public MainPage(String id, WebMarkupContainer wmc) {
         super(id);
-
+        add(new Label("tabs",""));
         selectedProcessDefinitonModel=new ProcessDefinitionModel();
         selectedTaskModel=new TaskModel();
         add(new ProcessListPanel("processSelectionPanel", new AvailableProcessesModel(), selectedProcessDefinitonModel));
