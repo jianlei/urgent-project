@@ -9,6 +9,7 @@ public interface IConst {
     public final static String SYSTEM_WICKET_APPLICATION_NAME = "daren.project.system";//系统配置
     public final static String EXAMPLE_WICKET_APPLICATION_NAME = "daren.project.example";//例子
     public final static String GOVERNMENT_WICKET_APPLICATION_NAME = "daren.project.government";//政务
+    public final static String COMPANY_WICKET_APPLICATION_NAME ="daren.project.company";//企业用户
     public final static String GIS_WICKET_APPLICATION_NAME = "daren.project.gis";//daren.project.gis
     public final static String COOPERATE_WICKET_APPLICATION_NAME = "daren.project.cooperate";
     /*public final static String OFFICE_WEB_PATH_READ = "http://localhost:8080/tempfile/";

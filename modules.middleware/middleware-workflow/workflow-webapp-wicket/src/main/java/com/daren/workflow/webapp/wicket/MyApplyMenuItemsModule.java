@@ -39,7 +39,7 @@ public class MyApplyMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "process.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "company.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
