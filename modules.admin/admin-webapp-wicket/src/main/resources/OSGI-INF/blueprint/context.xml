@@ -17,6 +17,12 @@
         </bean>
     </service>
 
+    <!-- 发布企业用户子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.EntUserMenuItemsModule">
+        </bean>
+    </service>
+
     <!-- 发布角色子菜单模块 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.RoleMenuItemsModule">
