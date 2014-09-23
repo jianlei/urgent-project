@@ -97,7 +97,7 @@ public class ProcessListPage extends WorkflowBasePanel{
                         item.add(new Label("suspended","无效" ));
                     else
                         item.add(new Label("suspended","有效" ));
-                    item.add(initStartButton(row));
+//                    item.add(initStartButton(row));
                     item.add(initViewButton(row));
                 }
             };
