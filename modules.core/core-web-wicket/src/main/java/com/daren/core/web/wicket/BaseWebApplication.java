@@ -117,7 +117,7 @@ public abstract class BaseWebApplication extends WebApplication {
         });*/
     }
 
-    private void mountLoginPage() {
+    public  void mountLoginPage() {
         mountPage("login", SignInPage.class);
     }
 

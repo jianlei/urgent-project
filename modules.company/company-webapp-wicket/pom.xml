@@ -24,6 +24,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ops4j.pax.wicket</groupId>
+            <artifactId>org.ops4j.pax.wicket.service</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.resources</artifactId>
         </dependency>
@@ -136,6 +141,16 @@
         <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.api</artifactId>
         </dependency>
 
         <dependency>
