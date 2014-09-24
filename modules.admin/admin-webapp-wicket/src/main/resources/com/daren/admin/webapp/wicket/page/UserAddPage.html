@@ -52,16 +52,8 @@
                            style="width: 300px;"/>
                 </td>
             </tr>
-            <tr>
-                <td class="tdl">密码</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="password" type="password"/>
-                </td>
-                <td class="tdl">确认密码</td>
-                <td class="detail">
-                    <input class="ipt" wicket:id="confirPwd" type="password"/>
-                </td>
-            </tr>
+            <div wicket:id="pwdContainer"></div>
+
             <tr>
                 <td class="tdl">角色</td>
                 <td class="td_detail">
@@ -82,4 +74,20 @@
     </form>
     </body>
 </wicket:panel>
+<wicket:fragment wicket:id="hiddenFragment">
+    <input class="ipt" wicket:id="password" type="hidden"/>
+</wicket:fragment>
+<wicket:fragment wicket:id="pwdFragment">
+    <tr>
+        <td class="tdl">密码</td>
+        <td class="td_detail">
+            <input class="ipt" wicket:id="password" type="password"/>
+        </td>
+        <td class="tdl">确认密码</td>
+        <td class="detail">
+            <input class="ipt" wicket:id="confirPwd" type="password"/>
+        </td>
+    </tr>
+</wicket:fragment>
+
 </html>
