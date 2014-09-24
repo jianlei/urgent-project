@@ -55,7 +55,7 @@ public class TemplatePage extends WebPage {
 
         add(wmc.setOutputMarkupId(true));
 
-        add(new SysMenuPanel("sysMenuPanel"));          //添加系统菜单
+        add(new SysMenuPanel("sysMenuPanel").setRenderBodyOnly(true));          //添加系统菜单
 
         add(new CustomeHeaderPanel("headerPanel"));
 

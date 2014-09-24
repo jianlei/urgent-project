@@ -1,11 +1,13 @@
 package com.daren.core.web.wicket.manager;
 
-import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IModule;
 import com.daren.core.web.api.module.ISystemItemModule;
 import com.daren.core.web.api.module.ISystemModule;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @类描述：系统级菜单控制
@@ -26,8 +28,8 @@ public class SysMenuModuleManager {
         }
     };
 
-    private List<ISystemItemModule> systemItemModulesList = new ArrayList<ISystemItemModule>();      //子菜单集合
-    private Map<String, List<ISystemModule>> sysModuleMap = new HashMap<>();      //包含顶级菜单（List<IMenuModule>），和每类菜单对应的key
+    private List<ISystemItemModule> sysItemModulesList = new ArrayList<ISystemItemModule>();      //子菜单集合
+    private List<ISystemModule> sysModuleList = new ArrayList<>();      //包含顶级菜单（List<IMenuModule>），和每类菜单对应的key
 
     private SysMenuModuleManager() {
 
@@ -39,56 +41,40 @@ public class SysMenuModuleManager {
         }
         return install;
     }
-    //通过key获取一级菜单项并排序
-    public List<ISystemModule> getSystemModuleMap(String key) {
-        List<ISystemModule> list = sysModuleMap.get(key);
-        if(list!=null)
-            Collections.sort(list, COMPARATOR);
-        return list;
-    }
-    //获取子菜单集合
-    public List<ISystemItemModule> getSystemItemModulesList() {
-        return systemItemModulesList;
+
+    //获取一级菜单项并排序
+    public List<ISystemModule> getSystemModuleMap() {
+        if(sysModuleList!=null)
+            Collections.sort(sysModuleList, COMPARATOR);
+        return sysModuleList;
     }
 
+
     /**
-     * 根据name添加
+     * 添加
      * @param systemModule
      */
     public void add(ISystemModule systemModule) {
-        List<ISystemModule> list;
-        String name = systemModule.getName(); //menusModule.getProjectName();
-        if (sysModuleMap.containsKey(name)) {       //如果已包含改菜单
-            list = sysModuleMap.get(name);
-            list.add(systemModule);
-        } else {
-            list = new ArrayList<>();               //如果未包含
-            list.add(systemModule);
-            sysModuleMap.put(name, list);
-        }
-
+        if(!sysModuleList.contains(systemModule))
+            sysModuleList.add(systemModule);
     }
 
     /**
-     * 根据name移除
+     * 移除
      * @param systemModule
      */
     public void remove(ISystemModule systemModule) {
-        List<ISystemModule> list;
-        String name = systemModule.getName();       //.getProjectName();
-        list = sysModuleMap.get(name);
-        list.remove(systemModule);
-        if (list.size() == 0) {
-            sysModuleMap.remove(name);
+        if(sysModuleList.contains(systemModule)){
+            sysItemModulesList.remove(systemModule);
         }
     }
     //添加子菜单项
     public void add(ISystemItemModule systemItemModule) {
-        systemItemModulesList.add(systemItemModule);
+        sysItemModulesList.add(systemItemModule);
     }
     //移除子菜单项
     public void remove(ISystemItemModule systemItemModule) {
-        systemItemModulesList.remove(systemItemModule);
+        sysItemModulesList.remove(systemItemModule);
     }
 
     /**
@@ -96,11 +82,11 @@ public class SysMenuModuleManager {
      * @param tag
      * @return
      */
-    public List<IModule> findMenusByTag(String tag) {
-        List<IModule> modules = new ArrayList<IModule>();
+    public List<ISystemItemModule> findMenusByTag(String tag) {
+        List<ISystemItemModule> modules = new ArrayList<>();
         //获取对应的tag的菜单
-        if (systemItemModulesList != null) {
-            for (IMenuItemsModule menusModule : systemItemModulesList) {
+        if (sysItemModulesList != null) {
+            for (ISystemItemModule menusModule : sysItemModulesList) {
                 if (tag.equals(menusModule.getTag())) {
                     modules.add(menusModule);
                 }

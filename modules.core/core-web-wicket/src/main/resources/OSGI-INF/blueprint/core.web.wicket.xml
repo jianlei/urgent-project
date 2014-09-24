@@ -14,16 +14,18 @@
             <bean class="com.daren.core.web.wicket.listener.MenuModuleListener"/>
         </reference-listener>
     </reference-list>
-    <!-- 监听系统子菜单 -->
-    <reference-list id="sysMenuItemsPanelProviders"
-                    interface="com.daren.core.web.api.module.ISystemItemModule" member-type="service-reference" availability="optional">
+
+    <!-- 系统菜单监听 -->
+    <reference-list id="sysMenuProviders"
+                    interface="com.daren.core.web.api.module.ISystemModule" availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.SysMenuPanelListener"/>
         </reference-listener>
     </reference-list>
-    <!-- 系统菜单监听 -->
-    <reference-list id="sysMenuProviders"
-                    interface="com.daren.core.web.api.module.ISystemModule" availability="optional">
+
+    <!-- 监听系统子菜单 -->
+    <reference-list id="sysMenuItemsPanelProviders"
+                    interface="com.daren.core.web.api.module.ISystemItemModule" member-type="service-reference" availability="optional">
         <reference-listener bind-method="bind" unbind-method="unbind">
             <bean class="com.daren.core.web.wicket.listener.SysMenuPanelListener"/>
         </reference-listener>
@@ -42,6 +44,11 @@
     <!--signinPage service-->
     <service id="signinService" interface="com.daren.core.web.api.provider.ISigninPageProvider">
         <bean class="com.daren.core.web.wicket.impl.SigninPageProviderImpl"/>
+    </service>
+
+    <!--系统根菜单注册-->
+    <service id="systemModule" interface="com.daren.core.web.api.module.ISystemModule">
+        <bean class="com.daren.core.web.wicket.ProjectSysModule"/>
     </service>
 
 </blueprint>

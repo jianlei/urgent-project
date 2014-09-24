@@ -10,10 +10,21 @@ import org.apache.wicket.markup.html.WebPage;
  * @修改时间：
  * @修改备注：
  */
-public interface ISystemItemModule extends IMenuItemsModule{
+public interface ISystemItemModule extends IModule{
     /**
      * 获得返回的页面
      * @return
      */
     WebPage getWebPage();
+    /**
+     * wicket application name
+     * @return
+     */
+    String getProjectName();
+
+    /**
+     * 获得系统的url路径
+     * @return
+     */
+    String getUrl();
 }

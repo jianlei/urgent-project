@@ -1,37 +1,37 @@
-package com.daren.gis.web.bootup.wicket;
+package com.daren.admin.web.bootup.wicket;
 
 import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.ISystemItemModule;
-import com.daren.gis.webapp.wicket.page.GisTemplatePage;
+import com.daren.core.web.wicket.TemplatePage;
 import org.apache.wicket.markup.html.WebPage;
 
 /**
- * @类描述：系统菜单Gis子菜单
+ * @类描述：系统菜单Admin子菜单
  * @创建人：xukexin
  * @创建时间：2014/9/23 8:19
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class GisSysItemModule implements ISystemItemModule{
+public class AdminSysItemModule implements ISystemItemModule{
     @Override
     public String getProjectName() {
-        return IConst.GIS_WICKET_APPLICATION_NAME;
+        return IConst.SYSTEM_WICKET_APPLICATION_NAME;
     }
 
     @Override
     public String getUrl() {
-        return "../../gis";
+        return "../../sys";
     }
 
     @Override
     public WebPage getWebPage(){
-        return  new GisTemplatePage();
+        return  new TemplatePage();
     }
 
     @Override
     public String getName() {
-        return "GIS系统";
+        return "系统管理";
     }
 
     @Override
@@ -46,7 +46,7 @@ public class GisSysItemModule implements ISystemItemModule{
 
     @Override
     public int getIndex() {
-        return 0;
+        return 10;
     }
 
 }
