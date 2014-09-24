@@ -37,18 +37,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 项目名称:  urgent-project
- * 类描述:    用户列表页面类
- * 创建人:    sunlf
- * 创建时间:  2014/8/5 13:34
- * 修改人:    sunlf
- * 修改时间:  2014/8/5 13:34
- * 修改备注:  [说明本次修改内容]
+ * @类描述：企业用户列表
+ * @创建人：xukexin
+ * @创建时间：2014/9/23 15:03
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 @AuthorizeInstantiation("ADMIN")
-public class UserListPage extends BasePanel {
+public class EntUserListPage extends BasePanel {
+
     private final static int numPerPage = 10;
-    private final static String CONST_LIST = "用户管理";
+    private final static String CONST_LIST = "企业用户管理";
     private final static String CONST_ADD = "添加用户";
     private final static String CONST_EDIT = "编辑用户";
     private final TabbedPanel tabPanel;
@@ -60,12 +60,11 @@ public class UserListPage extends BasePanel {
     private IUserBeanService userBeanService;
 
     //构造函数
-    public UserListPage(String id, WebMarkupContainer wmc) {
+    public EntUserListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
-
     }
 
     /**
@@ -126,7 +125,7 @@ public class UserListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                UserAddPage dictAddPage = new UserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                EntUserAddPage dictAddPage = new EntUserAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -136,7 +135,7 @@ public class UserListPage extends BasePanel {
                     }
                 };
                 repeatingView.add(dictAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", UserListPage.this);
+                Fragment fragment = new Fragment(panelId, "addPanel", EntUserListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -153,7 +152,7 @@ public class UserListPage extends BasePanel {
         private final WebMarkupContainer container;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, UserListPage.this);
+            super(id, markupId, EntUserListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));
@@ -331,10 +330,11 @@ public class UserListPage extends BasePanel {
             //类型为空时候，返回全部记录
             if (userBean == null || userBean.getName().equals(""))
                 //return userBeanService.getAllEntity();
-                return userBeanService.getUserListByCond(0);
+                return userBeanService.getUserListByCond(1);
             else {
                 return userBeanService.query(userBean);
             }
         }
     }
+
 }

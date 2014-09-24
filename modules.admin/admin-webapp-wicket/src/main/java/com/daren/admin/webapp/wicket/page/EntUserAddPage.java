@@ -4,9 +4,9 @@ import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.enterprise.api.biz.IOrganizationBeanService;
-import com.daren.enterprise.entities.OrganizationBean;
-import com.daren.enterprise.webapp.component.form.OrgnizationSelect2Choice;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.googlecode.wicket.jquery.ui.form.CheckChoice;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -28,19 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 项目名称:  urgent-project
- * 类描述:    用户新增或修改页面
- * 创建人:    sunlf
- * 创建时间:  2014/8/5 13:44
- * 修改人:    sunlf
- * 修改时间:  2014/8/5 13:44
- * 修改备注:  [说明本次修改内容]
+ * @类描述：
+ * @创建人：xukexin
+ * @创建时间：2014/9/23 15:30
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
-public class UserAddPage extends Panel {
+public class EntUserAddPage extends Panel {
+
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
-    OrgnizationSelect2Choice orgnizationSelect2Choice;
-    //EnterpriseBean enterpriseBean = new EnterpriseBean();
-    //EnterpriseSelect2Choice enterpriseSelect2Choice;
+    //OrgnizationSelect2Choice orgnizationSelect2Choice;
+    EnterpriseBean enterpriseBean = new EnterpriseBean();
+    EnterpriseSelect2Choice enterpriseSelect2Choice;
     private String confirPwd;
     private boolean isAdd;
     @Inject
@@ -52,13 +52,13 @@ public class UserAddPage extends Panel {
     private JQueryFeedbackPanel feedbackPanel; //信息显示
     //存储已有的角色列表
     private ArrayList<String> roleSelect = new ArrayList<String>();
-    private OrganizationBean organizationBean = new OrganizationBean();
+    /*private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
-    private IOrganizationBeanService organizationBeanService;
-    /*@Inject
-    private IEnterpriseBeanService enterpriseBeanService;*/
+    private IOrganizationBeanService organizationBeanService;*/
+    @Inject
+    private IEnterpriseBeanService enterpriseBeanService;
 
-    public UserAddPage(String id, String type, IModel<UserBean> model) {
+    public EntUserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
         this.type = type;
 
@@ -69,10 +69,10 @@ public class UserAddPage extends Panel {
             isAdd = false;//edit model
             initForm(model);
             UserBean userBean = model.getObject();
-            Long jgdm=new Long(userBean.getJgdm());
-            organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);
-            /*long enterpriseId = new Long(userBean.getQyid());
-            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);*/
+            /*Long jgdm=new Long(userBean.getJgdm());
+            organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);*/
+            long enterpriseId = new Long(userBean.getQyid());
+            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);
         }
 
     }
@@ -82,17 +82,17 @@ public class UserAddPage extends Panel {
     }
 
     private void initForm(IModel<UserBean> model) {
-        final Form<UserBean> userForm = new Form("userForm", new CompoundPropertyModel(model));
+        final Form<UserBean> userForm = new Form("entUserForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         userForm.add(feedbackPanel.setOutputMarkupId(true));
 
-        /*enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
+        enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
         enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
-        userForm.add(enterpriseSelect2Choice);*/
-        orgnizationSelect2Choice = new OrgnizationSelect2Choice ("jgdm",Model.of(organizationBean));
+        userForm.add(enterpriseSelect2Choice);
+        /*orgnizationSelect2Choice = new OrgnizationSelect2Choice ("jgdm",Model.of(organizationBean));
         orgnizationSelect2Choice.getSettings().setMinimumInputLength(2);
-        userForm.add(orgnizationSelect2Choice);
+        userForm.add(orgnizationSelect2Choice);*/
 
         userForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         userForm.add(new TextField("loginName").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
@@ -131,14 +131,14 @@ public class UserAddPage extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     UserBean userBean = (UserBean) form.getModelObject();
-                    organizationBean=orgnizationSelect2Choice.getModelObject();
+                    /*organizationBean=orgnizationSelect2Choice.getModelObject();
                     if(organizationBean!=null){
                         userBean.setJgdm(organizationBean.getJgdm());
-                    }
-                    /*enterpriseBean=enterpriseSelect2Choice.getModelObject();
+                    }*/
+                    enterpriseBean=enterpriseSelect2Choice.getModelObject();
                     if(enterpriseBean!=null){
                         userBean.setQyid(enterpriseBean.getQyid());
-                    }*/
+                    }
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());

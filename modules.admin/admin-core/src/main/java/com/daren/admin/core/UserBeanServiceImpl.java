@@ -103,12 +103,14 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     public String getRoleList(UserBean userBean) {
         List<RoleBean> roleBeanList = userBean.getRoleList();
         String value = "";
-        for (RoleBean roleBean : roleBeanList) {
-            value = value + roleBean.getName() + ",";
+        if(roleBeanList!=null && roleBeanList.size()>0){
+            for (RoleBean roleBean : roleBeanList) {
+                value = value + roleBean.getName() + ",";
+            }
+            //截掉最后一个“，”
+            if (value.length() > 1)
+                value = value.substring(0, value.length() - 1);
         }
-        //截掉最后一个“，”
-        if (value.length() > 1)
-            value = value.substring(0, value.length() - 1);
         return value;
     }
 
@@ -160,5 +162,9 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
                 " where s.id!="+user_id+" and s.jgdm like '"+jgdmStr+"%'",Long.class);
     }
 
+    @Override
+    public List<UserBean> getUserListByCond(int is_ent_user) {
+        return userBeanDao.findByNativeSql("select * from sys_user u where u.is_ent_user="+is_ent_user,UserBean.class);
+    }
 
 }

@@ -50,6 +50,7 @@ public class UserBean extends PersistentEntity {
     private Date loginDate;    // 最后登陆日期
     private long office_id;
     private long company_id;
+    private int is_ent_user;   //是否是企业用户：0-否；1-是
     //    @XmlElement(name="role")
     @XmlTransient
     private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
@@ -162,11 +163,17 @@ public class UserBean extends PersistentEntity {
         return loginDate;
     }
 
-
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
     }
 
+    public int getIs_ent_user() {
+        return is_ent_user;
+    }
+
+    public void setIs_ent_user(int is_ent_user) {
+        this.is_ent_user = is_ent_user;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"),

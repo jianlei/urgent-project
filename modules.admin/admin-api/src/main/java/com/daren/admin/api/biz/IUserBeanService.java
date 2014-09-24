@@ -81,4 +81,6 @@ public interface IUserBeanService extends IBizService {
      * @return
      */
     public List getUseridListByGgdm(String jgdm, long user_id);
+
+    public List<UserBean> getUserListByCond(int is_ent_user);
 }
