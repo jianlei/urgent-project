@@ -85,7 +85,7 @@ public class ChemistryManageStartFormPage extends BaseFormPanel {
                     chemistryManageBeanService.saveEntity(bean);
                     String bizKey=processDefinition.getKey()+":"+bean.getQyid()+":"+bean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(currentUserName);
+                    identityService.setAuthenticatedUserId(currentUserLoginName);
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(processDefinition.getKey(),bizKey);
                     bean.setProcessInstanceId(instance.getProcessInstanceId());
                     chemistryManageBeanService.saveEntity(bean);

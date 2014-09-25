@@ -136,6 +136,13 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     }
 
     @Override
+    public String getCurrentUserLoginName() {
+        Session session = SecurityUtils.getSubject().getSession();
+        UserBean userBean = (UserBean) session.getAttribute("currentUser");
+        return userBean.getLoginName();
+    }
+
+    @Override
     public List getUserTokenListByIds(Long id) {
         return userBeanDao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in ("+id+")",String.class);
     }

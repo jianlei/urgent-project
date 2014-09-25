@@ -20,7 +20,6 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.io.IClusterable;
 
 import javax.validation.constraints.NotNull;
@@ -29,8 +28,8 @@ import javax.validation.constraints.NotNull;
 public class SignInPage extends WebPage {
     private Form<LoginBean> form;
     private LoginBean loginBean = new LoginBean();
-    public SignInPage(PageParameters parameters) {
-        super(parameters);
+    public SignInPage() {
+        super();
         add(new Label("title", Const.map.get(getApplication().getName())));
         String css_url="<img src=\"../cus/img/login_"+getApplication().getName()+".png\" alt=\"\"></img>";
         Label label = new Label("img", css_url);

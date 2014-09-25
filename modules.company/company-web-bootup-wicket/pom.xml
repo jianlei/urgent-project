@@ -28,6 +28,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.daren.company</groupId>
+            <artifactId>com.daren.company.webapp.wicket</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
@@ -55,6 +59,7 @@
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.wicket</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>com.daren.core</groupId>

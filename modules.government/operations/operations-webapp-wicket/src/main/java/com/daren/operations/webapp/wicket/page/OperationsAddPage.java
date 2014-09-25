@@ -1,6 +1,7 @@
 package com.daren.operations.webapp.wicket.page;
 
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.operations.api.biz.IOperationsService;
 import com.daren.operations.entities.OperationsBean;
@@ -31,6 +32,8 @@ public class OperationsAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IOperationsService operationsService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public OperationsAddPage(final String id, final WebMarkupContainer wmc, final OperationsBean bean) {
         super(id, wmc);
@@ -53,6 +56,7 @@ public class OperationsAddPage extends BasePanel {
                 OperationsBean operationsBean = (OperationsBean) form.getModelObject();
                 if (null != operationsBean) {
                     try {
+                        operationsBean.setLoginName(userBeanService.getCurrentUserLoginName());
                         operationsService.saveEntity(operationsBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);

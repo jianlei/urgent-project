@@ -56,6 +56,12 @@ public interface IUserBeanService extends IBizService {
     String getCurrentUserName();
 
     /**
+     * 获得当前登陆用户登陆名称
+     * @return
+     */
+    String getCurrentUserLoginName();
+
+    /**
      * 通过用户id串获取用户token集合
      * @param id
      * @return

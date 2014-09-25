@@ -10,6 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.daren.company</groupId>
     <artifactId>com.daren.company.webapp.wicket</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Company :: Wicket Web Application</name>
@@ -23,6 +24,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.ops4j.pax.wicket</groupId>
+            <artifactId>org.ops4j.pax.wicket.service</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.resources</artifactId>
@@ -62,6 +68,8 @@
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.wicket</artifactId>
         </dependency>
+
+
 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -139,6 +147,16 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.admin</groupId>
             <artifactId>com.daren.admin.persist.openjpa</artifactId>
         </dependency>
@@ -151,6 +169,11 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
         </dependency>
 
     </dependencies>

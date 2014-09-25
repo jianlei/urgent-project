@@ -119,7 +119,7 @@ public class TaskListPage extends WorkflowBasePanel{
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
-            final IModel<List<Task>> taskList=new TasksAssignedToUserModel(Model.of(userService.getCurrentUserName()));
+            final IModel<List<Task>> taskList=new TasksAssignedToUserModel(Model.of(userService.getCurrentUserLoginName()));
             //add listview
             final ListView<Task> listView = new ListView<Task>("rows", taskList) {
                 private static final long serialVersionUID = 1L;

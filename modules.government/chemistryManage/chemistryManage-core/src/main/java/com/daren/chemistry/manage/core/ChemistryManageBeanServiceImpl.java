@@ -27,4 +27,9 @@ public class ChemistryManageBeanServiceImpl extends GenericBizServiceImpl implem
     public List<ChemistryManageBean> query(ChemistryManageBean bean) {
         return null;
     }
+
+    @Override
+    public List<ChemistryManageBean> getChemistryManageByLoginName(String loginName) {
+        return chemistryManageBeanDao.find("select c from ChemistryManageBean c where c.loginName=?1 ", loginName);
+    }
 }

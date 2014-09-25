@@ -19,7 +19,7 @@ public class OperationsServiceImpl extends GenericBizServiceImpl implements IOpe
     }
 
     @Override
-    public List<OperationsBean> getOperationsByPhone(String phone) {
-        return operationsBeanDao.find("select o from OperationsBean o where o.phone=?1", phone);
+    public List<OperationsBean> getOperationsByLoginName(String loginName) {
+        return operationsBeanDao.find("select o from OperationsBean o where o.loginName=?1", loginName);
     }
 }

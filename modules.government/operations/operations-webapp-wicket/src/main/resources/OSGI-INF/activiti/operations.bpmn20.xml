@@ -3,7 +3,7 @@
     <process id="operations" name="特种作业人员操作资格证" isExecutable="true">
         <documentation>特种作业人员操作资格证流程</documentation>
         <startEvent id="startevent1" name="Start" activiti:formKey="start.form"></startEvent>
-        <userTask id="usertask2" name="符合性审批" activiti:assignee="系统管理员" activiti:formKey="audit.form">
+        <userTask id="usertask2" name="符合性审批" activiti:assignee="test" activiti:formKey="audit.form">
             <documentation>
                 特种作业人员操作资格证
             </documentation>
@@ -16,7 +16,7 @@
         <sequenceFlow id="flow6" name="不同意" sourceRef="exclusivegateway1" targetRef="usertask4">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!accepted}]]></conditionExpression>
         </sequenceFlow>
-        <userTask id="usertask3" name="颁发证件" activiti:assignee="系统管理员" activiti:formKey="end.form">
+        <userTask id="usertask3" name="颁发证件" activiti:assignee="test" activiti:formKey="end.form">
             <documentation>
                 特种作业人员操作资格证
             </documentation>
@@ -41,7 +41,7 @@
         <sequenceFlow id="flow14" name="同意" sourceRef="exclusivegateway1" targetRef="usertask3">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted}]]></conditionExpression>
         </sequenceFlow>
-        <userTask id="usertask4" name="审批修改" activiti:assignee="系统管理员" activiti:formKey="modify.form">
+        <userTask id="usertask4" name="审批修改" activiti:assignee="test" activiti:formKey="modify.form">
             <extensionElements>
                 <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
                 <activiti:formProperty id="phone" name="电话"></activiti:formProperty>

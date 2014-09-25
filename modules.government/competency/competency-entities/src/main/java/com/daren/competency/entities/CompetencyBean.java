@@ -37,6 +37,7 @@ public class CompetencyBean extends WorkflowEntity {
     private Date effectiveDate;//有效日期
 
     private String linkHandle;//当前办理环节
+    private String loginName;//申请人登陆名
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -142,6 +143,14 @@ public class CompetencyBean extends WorkflowEntity {
 
     public void setEnterpriseId(long enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPhone() {

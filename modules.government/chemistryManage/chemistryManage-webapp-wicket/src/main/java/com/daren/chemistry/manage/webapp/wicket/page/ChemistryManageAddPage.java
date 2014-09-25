@@ -1,5 +1,6 @@
 package com.daren.chemistry.manage.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.web.wicket.BasePanel;
@@ -23,6 +24,8 @@ public class ChemistryManageAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IChemistryManageBeanService chemistryManageBeanService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public ChemistryManageAddPage(final String id, final WebMarkupContainer wmc, final ChemistryManageBean bean) {
         super(id, wmc);
@@ -45,6 +48,7 @@ public class ChemistryManageAddPage extends BasePanel {
                 ChemistryManageBean competencyBean = (ChemistryManageBean) form.getModelObject();
                 if (null != competencyBean) {
                     try {
+                        competencyBean.setLoginName(userBeanService.getCurrentUserLoginName());
                         chemistryManageBeanService.saveEntity(competencyBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);

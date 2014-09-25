@@ -1,5 +1,6 @@
 package com.daren.fireworks.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
@@ -48,6 +49,9 @@ public class FireworksListPage extends BasePanel {
     private IFireworksService fireworksService;
     @Inject
     private TaskService taskService;
+    @Inject
+    private IUserBeanService userBeanService;
+
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     private String phoneNumber = null;
     final WebMarkupContainer wmc;
@@ -223,11 +227,7 @@ public class FireworksListPage extends BasePanel {
         }
         @Override
         protected List<FireworksBean> getData() {
-            if (null!=phoneNumber)
-                return fireworksService.getFireworksBeanByPhone(phoneNumber);
-            else {
-                return fireworksService.getAllEntity();
-            }
+            return fireworksService.getFireworksBeanByLoginName(userBeanService.getCurrentUserLoginName());
         }
     }
 }

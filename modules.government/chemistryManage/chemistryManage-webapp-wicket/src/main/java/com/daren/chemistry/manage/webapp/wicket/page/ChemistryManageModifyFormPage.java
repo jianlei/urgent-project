@@ -5,7 +5,6 @@ import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
-import com.daren.chemistry.manage.webapp.wicket.Const;
 import com.daren.core.api.IConst;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
@@ -132,7 +131,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
                 try {
                     //todo 需要加入到service
 
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     taskService.complete(task.getId());
                     ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
                     Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();

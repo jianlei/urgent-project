@@ -11,11 +11,14 @@ import com.googlecode.wicket.jquery.ui.form.CheckChoice;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -39,10 +42,14 @@ import java.util.List;
 public class UserAddPage extends Panel {
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
     OrgnizationSelect2Choice orgnizationSelect2Choice;
+    PasswordTextField pwd;
+    PasswordTextField pwdConfirm;
+    Form<UserBean> userForm;
     //EnterpriseBean enterpriseBean = new EnterpriseBean();
     //EnterpriseSelect2Choice enterpriseSelect2Choice;
     private String confirPwd;
     private boolean isAdd;
+    private String temp_password;
     @Inject
     @Reference(id = "userBeanService", serviceInterface = IUserBeanService.class)
     private IUserBeanService userBeanService;
@@ -50,13 +57,13 @@ public class UserAddPage extends Panel {
     @Reference(id = "roleBeanService", serviceInterface = IRoleBeanService.class)
     private IRoleBeanService roleBeanService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
+    /*@Inject
+    private IEnterpriseBeanService enterpriseBeanService;*/
     //存储已有的角色列表
     private ArrayList<String> roleSelect = new ArrayList<String>();
     private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
     private IOrganizationBeanService organizationBeanService;
-    /*@Inject
-    private IEnterpriseBeanService enterpriseBeanService;*/
 
     public UserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
@@ -68,6 +75,7 @@ public class UserAddPage extends Panel {
         } else {
             isAdd = false;//edit model
             initForm(model);
+            temp_password=model.getObject().getPassword();
             UserBean userBean = model.getObject();
             Long jgdm=new Long(userBean.getJgdm());
             organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);
@@ -82,7 +90,7 @@ public class UserAddPage extends Panel {
     }
 
     private void initForm(IModel<UserBean> model) {
-        final Form<UserBean> userForm = new Form("userForm", new CompoundPropertyModel(model));
+         userForm = new Form("userForm", new CompoundPropertyModel(model));
 
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         userForm.add(feedbackPanel.setOutputMarkupId(true));
@@ -102,15 +110,18 @@ public class UserAddPage extends Panel {
 
         userForm.add(new TextField("phone"));
         userForm.add(new TextField("mobile").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        PasswordTextField pwd = new PasswordTextField("password");
-        pwd.setLabel(Model.of("'密码'"));
-        userForm.add(pwd.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-        PasswordTextField pwdConfirm = new PasswordTextField("confirPwd", new PropertyModel(this, "confirPwd"));
-        pwdConfirm.setLabel(Model.of("'确认密码'"));
-        userForm.add(pwdConfirm).setOutputMarkupId(true);
-        //密码相同的校验
-        EqualPasswordInputValidator equalPasswordInputValidator = new EqualPasswordInputValidator(pwd, pwdConfirm);
-        userForm.add(equalPasswordInputValidator);
+
+        if(isAdd){
+            userForm.add(new PwdFragment("pwdContainer","pwdFragment",UserAddPage.this));
+            //密码相同的校验
+            EqualPasswordInputValidator equalPasswordInputValidator = new EqualPasswordInputValidator(pwd, pwdConfirm);
+            userForm.add(equalPasswordInputValidator);
+        }
+        else{
+            userForm.add(new HIddenFragment("pwdContainer","hiddenFragment",UserAddPage.this));
+        }
+
+
 //      userForm.add(new TextField("loginDate").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
 
         //获得全部的角色列表
@@ -180,5 +191,30 @@ public class UserAddPage extends Panel {
 
     public void setConfirPwd(String confirPwd) {
         this.confirPwd = confirPwd;
+    }
+
+    private class HIddenFragment extends Fragment {
+
+        public HIddenFragment(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
+            HiddenField pwd = new HiddenField<String>("password");
+            add(pwd);
+        }
+    }
+
+    private class PwdFragment extends Fragment {
+
+        public PwdFragment(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
+
+                pwd = new PasswordTextField("password");
+                pwdConfirm = new PasswordTextField("confirPwd", new PropertyModel(UserAddPage.this, "confirPwd"));
+                pwd.setLabel(Model.of("'密码'"));
+                add(pwd.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+
+                pwdConfirm.setLabel(Model.of("'确认密码'"));
+                add(pwdConfirm).setOutputMarkupId(true);
+
+        }
     }
 }

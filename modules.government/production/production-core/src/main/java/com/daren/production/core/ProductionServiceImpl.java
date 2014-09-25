@@ -19,7 +19,7 @@ public class ProductionServiceImpl extends GenericBizServiceImpl implements IPro
     }
 
     @Override
-    public List<ProductionBean> getProductionByPhone(String phone) {
-        return productionBeanDao.find("select p from ProductionBean p where p.phone=?1", phone);
+    public List<ProductionBean> getProductionByLoginName(String loginName) {
+        return productionBeanDao.find("select p from ProductionBean p where p.loginName=?1", loginName);
     }
 }

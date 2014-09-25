@@ -35,6 +35,7 @@ public class FireworksBean extends WorkflowEntity {
     private Date unitsDate;//发证机关
 
     private String linkHandle;//当前办理环节
+    private String loginName;//申请人登陆名
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -132,6 +133,14 @@ public class FireworksBean extends WorkflowEntity {
 
     public void setLinkHandle(String linkHandle) {
         this.linkHandle = linkHandle;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public long getProposerId() {

@@ -50,6 +50,16 @@ public abstract class BaseWebApplication extends WebApplication {
         }*/
     }
 
+    /**
+     * 配置登陆页面
+     * @return
+     */
+    public Class<? extends Page> getLoginPage() {
+        return SignInPage.class;
+    }
+
+
+
     // --------------------------------------------------------------------------
     // Constructors
     // --------------------------------------------------------------------------
@@ -99,7 +109,7 @@ public abstract class BaseWebApplication extends WebApplication {
         AnnotationsShiroAuthorizationStrategy authz = new AnnotationsShiroAuthorizationStrategy();
         getSecuritySettings().setAuthorizationStrategy(authz);
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(
-                new ShiroUnauthorizedComponentListener(SignInPage.class, AccessDeniedPage.class, authz));
+                new ShiroUnauthorizedComponentListener(getLoginPage(), AccessDeniedPage.class, authz));
         // SecurityUtils.getSubject().getSession().setTimeout(-1000l);
         //增加JSR303校验监听器
         getComponentPostOnBeforeRenderListeners().add(new JSR303ValidationListener());
@@ -117,8 +127,8 @@ public abstract class BaseWebApplication extends WebApplication {
         });*/
     }
 
-    private void mountLoginPage() {
-        mountPage("login", SignInPage.class);
+    public  void mountLoginPage() {
+        mountPage("login", getLoginPage());
     }
 
     /**

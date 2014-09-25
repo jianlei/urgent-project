@@ -1,6 +1,7 @@
 package com.daren.production.webapp.wicket.page;
 
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.production.api.biz.IProductionService;
 import com.daren.production.entities.ProductionBean;
@@ -31,6 +32,8 @@ public class ProductionAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IProductionService productionService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public ProductionAddPage(final String id, final WebMarkupContainer wmc, final ProductionBean bean) {
         super(id, wmc);
@@ -53,6 +56,7 @@ public class ProductionAddPage extends BasePanel {
                 ProductionBean productionBean = (ProductionBean) form.getModelObject();
                 if (null != productionBean) {
                     try {
+                        productionBean.setLoginName(userBeanService.getCurrentUserLoginName());
                         productionService.saveEntity(productionBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);

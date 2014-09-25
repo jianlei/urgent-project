@@ -8,7 +8,6 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLi
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.production.api.biz.IProductionService;
 import com.daren.production.entities.ProductionBean;
-import com.daren.production.webapp.wicket.Const;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -131,7 +130,7 @@ public class ProductionModifyFormPage extends BaseFormPanel {
                 try {
                     //todo 需要加入到service
 
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     taskService.complete(task.getId());
                     ProductionBean bean= (ProductionBean) form.getModelObject();
                     Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();

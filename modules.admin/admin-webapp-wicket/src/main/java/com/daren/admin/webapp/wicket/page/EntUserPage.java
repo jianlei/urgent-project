@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @类描述：行管用户
+ * @类描述：企业用户
  * @创建人：xukexin
  * @创建时间：2014/9/23 15:03
  * @修改人：
