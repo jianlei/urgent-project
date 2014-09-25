@@ -185,7 +185,7 @@
 			easing: 			'swing',
 			closer: 			true,
 			closeTemplate: 		'&times;',
-			closerTemplate: 	'<div>[ close all ]</div>',
+			closerTemplate: 	'<div>[ 关闭全部 ]</div>',
 			log:				function() {},
 			beforeOpen:			function() {},
 			afterOpen:			function() {},

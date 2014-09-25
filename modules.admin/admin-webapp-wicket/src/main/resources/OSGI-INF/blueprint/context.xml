@@ -56,6 +56,11 @@
         <bean class="com.daren.admin.webapp.wicket.AreaMenuItemsModule"/>
     </service>
 
+    <!-- 发布系统消息子菜单模块 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.MessageMenuItemsModule"/>
+    </service>
+
     <service interface="com.daren.core.web.api.provider.IAboutDialogProvider">
         <bean class="com.daren.admin.webapp.wicket.AboutDialogProviderImpl"/>
     </service>

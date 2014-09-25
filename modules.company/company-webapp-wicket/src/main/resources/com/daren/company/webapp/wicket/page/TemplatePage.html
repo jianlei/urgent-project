@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8"/>
+    <title wicket:id="title"></title>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/formui.css"/>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/base.css"/>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/admin-all.css"/>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="cus/Styles/ui-lightness/jquery-ui.css"/>
+    <!--<script type="text/javascript" src="cus/Scripts/jquery-1.7.2.js"></script>-->
+    <!--<script type="text/javascript" src="cus/Scripts/jquery-ui-1.8.22.custom.min.js"></script>-->
+    <script type="text/javascript" src="cus/Scripts/index.js"></script>
+    <script type="text/javascript" src="cus/Scripts/jquery-ui-datepicker-zh.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="res/css/kendo/kendo.common.min.css" media="all" />-->
+    <!--<link rel="stylesheet" type="text/css" href="res/css/kendo/kendo.default.min.css" media="all" />-->
+
+</head>
+<body>
+<div class="warp">
+    <div wicket:id="jgrowlFeedback"></div>
+    <div wicket:id="css"/>
+    <!--头部开始-->
+    <div class="top_c_bg">
+        <div class="cus">
+        <div class="top-menu">
+            <ul class="top-menu-nav">
+                <li><a wicket:id="home">首页</a></li>
+
+            </ul>
+        </div>
+        <div wicket:id="headerPanel"></div>
+
+        </div>
+    </div>
+    <!--头部结束-->
+    <!--左边菜单开始-->
+    <div wicket:id="menuPanel"></div>
+    <!--左边菜单结束-->
+    <!--右边框架开始-->
+    <div class="right_c">
+        <div class="nav-tip" onclick="javascript:void(0)">&nbsp;</div>
+    </div>
+    <!--<div class="Conframe">
+        <wicket:child />
+    </div>-->
+    <!--右边框架结束-->
+    <div class="Conframe" wicket:id="container">
+
+    <div wicket:id="panel"/>
+
+    </div>
+    <!--底部开始-->
+    <div class="bottom_c" wicket:id="footer"></div>
+    <!--底部结束-->
+</div>
+</body>
+</html>

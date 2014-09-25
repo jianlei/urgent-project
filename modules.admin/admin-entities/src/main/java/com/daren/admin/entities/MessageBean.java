@@ -22,8 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class MessageBean extends PersistentEntity {
     private String sender="系统管理员";//发送人
-    private String message;//消息体
-    private long userId;//接收用户id
+    private String title;//消息名称
+    private String message;//消息内容
+    private long userId;//接收用户名称
     private int status=0;//消息状态，0为未读，1为已读
 
     public String getSender() {
@@ -56,5 +57,13 @@ public class MessageBean extends PersistentEntity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

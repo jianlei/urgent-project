@@ -5,6 +5,8 @@ import com.daren.admin.api.dao.IMessageBeanDao;
 import com.daren.admin.entities.MessageBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
+import java.util.List;
+
 /**
  * @类描述：系统消息服务实现类
  * @创建人： sunlingfeng
@@ -21,4 +23,8 @@ public class MessageBeanServiceImpl extends GenericBizServiceImpl implements IMe
         super.init(messageBeanDao, MessageBean.class.getName());
     }
 
+    @Override
+    public List<MessageBean> query(MessageBean bean) {
+        return null;
+    }
 }

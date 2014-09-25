@@ -2,8 +2,8 @@ package com.daren.company.web.bootup.wicket;
 
 
 import com.daren.company.webapp.wicket.page.SignInPage;
+import com.daren.company.webapp.wicket.page.TemplatePage;
 import com.daren.core.web.wicket.BaseWebApplication;
-import com.daren.core.web.wicket.TemplatePage;
 import org.apache.wicket.Page;
 
 public class IrisShiroApplication extends BaseWebApplication {
