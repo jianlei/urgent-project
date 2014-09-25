@@ -121,9 +121,9 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
                 logger.debug("Trying to finish a task for {}", task.getId());
                 try {
                     //todo 封装到service
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     //添加备注信息
-                    identityService.setAuthenticatedUserId(currentUserName);
+                    identityService.setAuthenticatedUserId(currentUserLoginName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     Map<String, String> submitMap = new HashMap<String, String>();
                     boolean passed=accepted.equals("同意")?true:false;

@@ -33,6 +33,7 @@ public class OperationsBean extends WorkflowEntity {
     private Date reviewDate;//复审日期
 
     private String linkHandle;//当前办理环节
+    private String loginName;//申请人登陆名
     private long proposerId;//审请人ID
     private long enterpriseId;//企业ID
 
@@ -122,6 +123,14 @@ public class OperationsBean extends WorkflowEntity {
 
     public void setEnterpriseName(String enterpriseName) {
         this.enterpriseName = enterpriseName;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public long getEnterpriseId() {

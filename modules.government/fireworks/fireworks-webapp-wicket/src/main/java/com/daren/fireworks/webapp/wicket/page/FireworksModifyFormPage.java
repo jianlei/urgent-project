@@ -8,13 +8,11 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLi
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
-import com.daren.fireworks.webapp.wicket.Const;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
-import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -27,8 +25,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -135,7 +131,7 @@ public class FireworksModifyFormPage extends BaseFormPanel {
                 try {
                     //todo 需要加入到service
 
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     taskService.complete(task.getId());
                     FireworksBean bean= (FireworksBean) form.getModelObject();
                     Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();

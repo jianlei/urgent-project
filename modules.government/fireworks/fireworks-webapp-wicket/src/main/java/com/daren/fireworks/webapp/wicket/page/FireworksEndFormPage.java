@@ -18,17 +18,13 @@ import org.activiti.engine.FormService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.TextFilter;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
@@ -41,10 +37,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @类描述：烟花爆竹经营(批发)许可证
@@ -114,9 +107,9 @@ public class FireworksEndFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 封装到service
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     //添加备注信息
-                    identityService.setAuthenticatedUserId(currentUserName);
+                    identityService.setAuthenticatedUserId(currentUserLoginName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     taskService.complete(task.getId());
                     model.setObject(null);

@@ -18,11 +18,14 @@ import javax.inject.Inject;
  */
 public abstract class BaseFormPanel extends Panel {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-    protected String currentUserName;//当前登陆用户
+    protected String currentUserLoginName;//当前登陆用户登陆名
+    protected String currentUserName;//当前登陆用户名
+
     @Inject
     IUserBeanService userBeanService;
     public BaseFormPanel(String id, IModel<?> model) {
         super(id, model);
+        currentUserLoginName =userBeanService.getCurrentUserLoginName();
         currentUserName=userBeanService.getCurrentUserName();
     }
 }

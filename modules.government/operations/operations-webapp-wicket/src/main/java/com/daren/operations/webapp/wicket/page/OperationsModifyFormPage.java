@@ -8,7 +8,6 @@ import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLi
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.operations.api.biz.IOperationsService;
 import com.daren.operations.entities.OperationsBean;
-import com.daren.operations.webapp.wicket.Const;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
@@ -129,7 +128,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     taskService.complete(task.getId());
                     OperationsBean bean= (OperationsBean) form.getModelObject();
                     Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();

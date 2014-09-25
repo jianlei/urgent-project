@@ -108,9 +108,9 @@ public class CompetencyEndFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 封装到service
-                    taskService.claim(task.getId(), currentUserName);
+                    taskService.claim(task.getId(), currentUserLoginName);
                     //添加备注信息
-                    identityService.setAuthenticatedUserId(currentUserName);
+                    identityService.setAuthenticatedUserId(currentUserLoginName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
                     taskService.complete(task.getId());
                     model.setObject(null);

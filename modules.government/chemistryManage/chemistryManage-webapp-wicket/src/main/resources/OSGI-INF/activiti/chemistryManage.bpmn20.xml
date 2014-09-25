@@ -3,7 +3,7 @@
     <process id="chemistryManage" name="危险化学品经营许可证" isExecutable="true">
         <documentation>危险化学品经营许可证流程</documentation>
         <startEvent id="startevent1" name="Start" activiti:formKey="start.form"></startEvent>
-        <userTask id="usertask2" name="符合性审批" activiti:assignee="系统管理员" activiti:formKey="audit.form">
+        <userTask id="usertask2" name="符合性审批" activiti:assignee="test" activiti:formKey="audit.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
@@ -13,7 +13,7 @@
         </userTask>
         <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
-        <userTask id="usertask3" name="现场复核审批" activiti:assignee="系统管理员" activiti:formKey="audit.form">
+        <userTask id="usertask3" name="现场复核审批" activiti:assignee="test" activiti:formKey="audit.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
@@ -29,7 +29,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow5" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
-        <userTask id="usertask4" name="审批委员会会签" activiti:assignee="系统管理员" activiti:formKey="audit.form">
+        <userTask id="usertask4" name="审批委员会会签" activiti:assignee="test" activiti:formKey="audit.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
@@ -45,7 +45,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow7" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
-        <userTask id="usertask5" name="局长审批" activiti:assignee="系统管理员" activiti:formKey="audit.form">
+        <userTask id="usertask5" name="局长审批" activiti:assignee="test" activiti:formKey="audit.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
@@ -58,7 +58,7 @@
         </sequenceFlow>
         <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow9" sourceRef="usertask5" targetRef="exclusivegateway4"></sequenceFlow>
-        <userTask id="usertask6" name="颁发证件" activiti:assignee="系统管理员" activiti:formKey="end.form">
+        <userTask id="usertask6" name="颁发证件" activiti:assignee="test" activiti:formKey="end.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
@@ -90,7 +90,7 @@
         <sequenceFlow id="flow13" name="不同意" sourceRef="exclusivegateway3" targetRef="usertask7">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!accepted}]]></conditionExpression>
         </sequenceFlow>
-        <userTask id="usertask7" name="审批修改" activiti:assignee="系统管理员" activiti:formKey="modify.form">
+        <userTask id="usertask7" name="审批修改" activiti:assignee="test" activiti:formKey="modify.form">
             <extensionElements>
                 <activiti:formProperty id="name" name="经营单位名称"></activiti:formProperty>
                 <activiti:formProperty id="header" name="经营单位负责人"></activiti:formProperty>

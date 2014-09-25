@@ -37,6 +37,7 @@ public class ChemistryManageBean extends WorkflowEntity {
     private String unitsDate;//发证机关
 
     private String linkHandle;//当前办理环节
+    private String loginName;//申请人登陆名
     private String proposerId;//审请人ID
     private String qyid;//企业ID
 
@@ -134,6 +135,14 @@ public class ChemistryManageBean extends WorkflowEntity {
 
     public void setUnitsDate(String unitsDate) {
         this.unitsDate = unitsDate;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getProposerId() {
