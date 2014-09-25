@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @类描述：
+ * @类描述：用户扩展关联表
  * @创建人：xukexin
  * @创建时间：2014/9/12 9:41
  * @修改人：
@@ -22,9 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserRelBean extends PersistentEntity {
 
-    private long user_id;
-    private String user_logo;
-    private String token;
+    private long user_id;       //用户ID
+    private String user_logo;   //用户logo
+    private String token;       //手机端上传的token
 
     public UserRelBean(){
 
