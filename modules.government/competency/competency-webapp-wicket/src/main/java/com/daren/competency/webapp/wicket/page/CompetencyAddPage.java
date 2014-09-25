@@ -1,6 +1,7 @@
 package com.daren.competency.webapp.wicket.page;
 
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
 import com.daren.core.web.wicket.BasePanel;
@@ -35,6 +36,8 @@ public class CompetencyAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private ICompetencyService competencyService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public CompetencyAddPage(final String id, final WebMarkupContainer wmc, final CompetencyBean bean) {
         super(id, wmc);
@@ -55,6 +58,7 @@ public class CompetencyAddPage extends BasePanel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
+                    competencyBean.setLoginName(userBeanService.getCurrentUserLoginName());
                     competencyService.saveEntity(competencyBean);
                     feedbackPanel.info("保存成功！");
                     target.add(feedbackPanel);

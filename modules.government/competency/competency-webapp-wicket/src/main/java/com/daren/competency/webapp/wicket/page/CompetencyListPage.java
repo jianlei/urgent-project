@@ -1,5 +1,6 @@
 package com.daren.competency.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.competency.api.biz.ICompetencyService;
 import com.daren.competency.entities.CompetencyBean;
@@ -50,6 +51,8 @@ public class CompetencyListPage extends BasePanel {
     private transient RuntimeService runtimeService;
     @Inject
     private TaskService taskService;
+    @Inject
+    private IUserBeanService userBeanService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     private String phoneNumber = null;
     final WebMarkupContainer wmc;
@@ -222,11 +225,7 @@ public class CompetencyListPage extends BasePanel {
         }
         @Override
         protected List<CompetencyBean> getData() {
-            if (null!=phoneNumber)
-                return competencyService.getCompetencyByPhone(phoneNumber);
-            else {
-                return competencyService.getAllEntity();
-            }
+            return competencyService.getCompetencyByLoginName(userBeanService.getCurrentUserLoginName());
         }
     }
 }

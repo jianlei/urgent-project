@@ -1,5 +1,6 @@
 package com.daren.chemistry.manage.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
@@ -49,6 +50,8 @@ public class ChemistryManageListPage extends BasePanel {
     private transient RuntimeService runtimeService;
     @Inject
     private TaskService taskService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
         super(id, wmc);
@@ -216,11 +219,7 @@ public class ChemistryManageListPage extends BasePanel {
         }
         @Override
         protected List<ChemistryManageBean> getData() {
-            if (competencyBean == null || null == competencyBean.getName() || "".equals(competencyBean.getName().trim()))
-                return chemistryManageBeanService.getAllEntity();
-            else {
-                return chemistryManageBeanService.getAllEntity();
-            }
+            return chemistryManageBeanService.getChemistryManageByLoginName(userBeanService.getCurrentUserLoginName());
         }
     }
 }

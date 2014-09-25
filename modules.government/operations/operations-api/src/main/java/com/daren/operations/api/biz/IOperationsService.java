@@ -14,5 +14,5 @@ import java.util.List;
  * @修改备注：
  */
 public interface IOperationsService extends IBizService {
-    public List<OperationsBean> getOperationsByPhone(String phone);
+    public List<OperationsBean> getOperationsByLoginName(String loginName);
 }

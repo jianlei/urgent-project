@@ -15,4 +15,6 @@ import java.util.List;
  */
 public interface IChemistryManageBeanService extends IBizService {
     List<ChemistryManageBean> query(ChemistryManageBean bean);
+
+    List<ChemistryManageBean> getChemistryManageByLoginName(String loginName);
 }

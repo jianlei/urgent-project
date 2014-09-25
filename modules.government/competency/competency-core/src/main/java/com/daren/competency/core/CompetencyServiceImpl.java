@@ -19,7 +19,7 @@ public class CompetencyServiceImpl extends GenericBizServiceImpl implements ICom
     }
 
     @Override
-    public List<CompetencyBean> getCompetencyByPhone(String phone) {
-        return competencyBeanDao.find("select c from CompetencyBean c where c.phone=?1", phone);
+    public List<CompetencyBean> getCompetencyByLoginName(String loginName) {
+        return competencyBeanDao.find("select c from CompetencyBean c where c.loginName=?1", loginName);
     }
 }

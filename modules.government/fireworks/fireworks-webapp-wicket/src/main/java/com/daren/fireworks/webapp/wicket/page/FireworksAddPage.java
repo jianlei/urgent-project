@@ -1,6 +1,7 @@
 package com.daren.fireworks.webapp.wicket.page;
 
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
@@ -30,6 +31,8 @@ public class FireworksAddPage extends BasePanel {
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IFireworksService fireworksService;
+    @Inject
+    private IUserBeanService userBeanService;
 
     public FireworksAddPage(final String id, final WebMarkupContainer wmc, final FireworksBean bean) {
         super(id, wmc);
@@ -52,6 +55,7 @@ public class FireworksAddPage extends BasePanel {
                 FireworksBean fireworksBean = (FireworksBean) form.getModelObject();
                 if (null != fireworksBean) {
                     try {
+                        fireworksBean.setLoginName(userBeanService.getCurrentUserLoginName());
                         fireworksService.saveEntity(fireworksBean);
                         feedbackPanel.info("保存成功！");
                         target.add(feedbackPanel);

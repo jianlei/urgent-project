@@ -1,5 +1,6 @@
 package com.daren.production.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -49,6 +50,8 @@ public class ProductionListPage extends BasePanel {
     private transient RuntimeService runtimeService;
     @Inject
     private TaskService taskService;
+    @Inject
+    private IUserBeanService userBeanService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     private String phoneNumber = null;
     final WebMarkupContainer wmc;
@@ -220,11 +223,7 @@ public class ProductionListPage extends BasePanel {
         }
         @Override
         protected List<ProductionBean> getData() {
-            if (null!=phoneNumber)
-                return productionService.getProductionByPhone(phoneNumber);
-            else {
-                return productionService.getAllEntity();
-            }
+            return productionService.getProductionByLoginName(userBeanService.getCurrentUserLoginName());
         }
     }
 }

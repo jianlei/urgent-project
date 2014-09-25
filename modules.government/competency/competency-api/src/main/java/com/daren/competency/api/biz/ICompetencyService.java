@@ -14,5 +14,5 @@ import java.util.List;
  * @修改备注：
  */
 public interface ICompetencyService extends IBizService {
-    public List<CompetencyBean> getCompetencyByPhone(String phone);
+    public List<CompetencyBean> getCompetencyByLoginName(String loginName);
 }

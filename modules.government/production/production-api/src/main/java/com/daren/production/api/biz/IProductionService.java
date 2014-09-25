@@ -14,5 +14,5 @@ import java.util.List;
  * @修改备注：
  */
 public interface IProductionService extends IBizService {
-    public List<ProductionBean> getProductionByPhone(String phone);
+    public List<ProductionBean> getProductionByLoginName(String loginName);
 }
