@@ -10,5 +10,12 @@
         </bean>
     </service>
 
+    <service interface="org.ops4j.pax.wicket.api.PageMounter">
+        <service-properties>
+            <entry key="pax.wicket.applicationname" value="daren.project.company" />
+        </service-properties>
+        <bean class="com.daren.company.webapp.wicket.mount.ManuallyPageMounter" />
+    </service>
+
 
 </blueprint>
