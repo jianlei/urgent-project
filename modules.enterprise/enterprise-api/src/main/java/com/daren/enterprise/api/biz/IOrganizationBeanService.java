@@ -60,4 +60,11 @@ public interface IOrganizationBeanService extends IBizService {
      */
     public Map getOranizationAndUserList(String jgdm);
 
+    /**
+     * 根据区划代码获取组织机构
+     * @return
+     */
+    public List<OrganizationBean> getOrganizationListByQhdm();
+
+
 }

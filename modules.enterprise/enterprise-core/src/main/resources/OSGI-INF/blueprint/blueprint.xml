@@ -22,8 +22,10 @@
     </service>
     <bean id="organizationBeanServiceImpl" class="com.daren.enterprise.core.biz.OrganizationBeanServiceImpl">
         <property name="organizationBeanDao" ref="organizationBeanDao"/>
+        <property name="aboutBeanDao" ref="aboutBeanDao"/>
     </bean>
     <reference id="organizationBeanDao" interface="com.daren.enterprise.api.dao.IOrganizationBeanDao"/>
+    <reference id="aboutBeanDao" interface="com.daren.admin.api.dao.IAboutBeanDao"/>
 
     <cxf:bus>
         <cxf:features>

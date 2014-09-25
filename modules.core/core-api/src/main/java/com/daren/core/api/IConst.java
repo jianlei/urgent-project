@@ -18,7 +18,8 @@ public interface IConst {
     /*public final static String XT_OFFICE_WEB_PATH_WRITE = "D:/tomcat7-9-16/webapps/uploadfile/";
     public final static String XT_OFFICE_WEB_PATH_READ = "http://192.168.1.80:8080/uploadfile/";*/
     public final static String XT_OFFICE_WEB_PATH_WRITE = "E:\\web\\tomcat_7.0.27_8687\\webapps\\uploadfile\\";
-    public final static String XT_OFFICE_WEB_PATH_READ = "http://202.98.7.181:8687/uploadfile/";
+    //public final static String XT_OFFICE_WEB_PATH_READ = "http://202.98.7.181:8687/uploadfile/";
+    public final static String XT_OFFICE_WEB_PATH_READ = "http://192.168.1.106:8080/uploadfile/";
     //release config
     public final static String OFFICE_WEB_PATH_READ = "http://202.98.7.181:8687/tempfile/";
     public final static String OFFICE_WEB_PATH_WRITE = "E:\\web\\tomcat_7.0.27_8687\\webapps\\uploadfile\\";

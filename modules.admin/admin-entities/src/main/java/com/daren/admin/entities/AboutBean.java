@@ -24,8 +24,9 @@ public class AboutBean extends PersistentEntity {
 
     private String systemName;//系统名称
     private String systemVersion;//系统版本号
-    private String userName;//用户名称
+    private String userName;//用户名称，如四平市安全生产监督管理局
     private String code;//系统编码()
+    private String xzqh_dm;  //区划代码
 
     public String getSystemVersion() {
         return systemVersion;
@@ -49,5 +50,21 @@ public class AboutBean extends PersistentEntity {
 
     public void setSystemName(String systemName) {
         this.systemName = systemName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getXzqh_dm() {
+        return xzqh_dm;
+    }
+
+    public void setXzqh_dm(String xzqh_dm) {
+        this.xzqh_dm = xzqh_dm;
     }
 }

@@ -188,7 +188,8 @@ public class OrganizationListPage extends BasePanel {
         protected List<OrganizationBean> getData() {
             //判断名称查询条件是否为空
             if (organizationBean == null || null == organizationBean.getMc() || "".equals(organizationBean.getMc().trim()))
-                return organizationBeanService.getAllEntity();
+                //return organizationBeanService.getAllEntity();
+                return organizationBeanService.getOrganizationListByQhdm();      //
             else {
                 return organizationBeanService.queryOrganization(organizationBean);
             }
