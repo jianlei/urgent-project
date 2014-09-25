@@ -500,6 +500,13 @@
                 <version>${project.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.daren.company</groupId>
+                <artifactId>com.daren.company.webapp.wicket</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>com.daren.core</groupId>
                 <artifactId>com.daren.core.web.wicket</artifactId>

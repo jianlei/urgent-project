@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
@@ -34,6 +35,7 @@ public class RegisterPage extends WebPage {
 
         final JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedback");
         feedbackPanel.setOutputMarkupId(true);
+        feedbackPanel.info("请认真填写以下字段，下列内容均为必填字段！");
         add(feedbackPanel);
         Form<UserBean> userform = new Form<>("form", new CompoundPropertyModel<UserBean>(userBean));
         this.add(userform);
@@ -110,5 +112,13 @@ public class RegisterPage extends WebPage {
             }
         };
         userform.add(ajaxSubmitLink);
+
+        Link back=new Link("back") {
+            @Override
+            public void onClick() {
+                setResponsePage(getApplication().getHomePage());
+            }
+        };
+        userform.add(back);
     }
 }

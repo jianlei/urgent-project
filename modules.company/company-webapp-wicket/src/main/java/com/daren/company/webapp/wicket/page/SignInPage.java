@@ -1,9 +1,12 @@
-package com.daren.core.web.wicket.security;
+package com.daren.company.webapp.wicket.page;
 
 
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.Const;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
+import com.daren.core.web.wicket.security.CaptchaException;
+import com.daren.core.web.wicket.security.CaptchaImage;
+import com.daren.core.web.wicket.security.UsernamePasswordToken;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -18,6 +21,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.io.IClusterable;
@@ -58,6 +62,14 @@ public class SignInPage extends WebPage {
                     target.add(feedback);
             }
         };
+
+        Link register=new Link("register") {
+            @Override
+            public void onClick() {
+                setResponsePage(new RegisterPage());
+            }
+        };
+        form.add(register);
 
         form.add(findButton);
 

@@ -107,5 +107,14 @@
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" >
         <property name="mapper" ref="jacksonMapper" />
     </bean>
+
+    <!--注册系统消息服务类-->
+    <service id="messageBeanService" interface="com.daren.admin.api.biz.IMessageBeanService">
+        <bean class="com.daren.admin.core.MessageBeanServiceImpl">
+            <property name="messageBeanDao" ref="messageBeanDao"/>
+        </bean>
+    </service>
+    <reference id="messageBeanDao" interface="com.daren.admin.api.dao.IMessageBeanDao"/>
+
 </blueprint>
 
