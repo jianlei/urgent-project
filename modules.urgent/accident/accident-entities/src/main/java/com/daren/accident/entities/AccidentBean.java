@@ -12,7 +12,12 @@ import java.util.Date;
 
 
 /**
- * Created by dell on 14-1-16.
+ * @类描述：事故管理
+ * @创建人：王凯冉
+ * @创建时间：2014-08-01 上午10:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 @Entity
 @Table(name = "urg_accident")

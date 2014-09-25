@@ -18,6 +18,7 @@ public class Const {
         map.put("daren.project.gis","安全生产应急管理平台");
         map.put("daren.project.system","安全生产系统管理平台");
         map.put("daren.project.government","安全生产政务管理平台");
+        map.put("daren.project.company","安全生产信息管理平台");
         map.put("daren.project.example","Wicket示例");
     }
 }
