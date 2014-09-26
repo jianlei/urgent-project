@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <relativePath>../../poms/compiled/</relativePath>
+        <groupId>com.daren.platform.urgent-project.build</groupId>
+        <artifactId>compiled-bundle-settings</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.daren.danger</groupId>
+    <artifactId>modules.urgent.danger</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Urgent :: Modules - 危化品</name>
+
+    <packaging>pom</packaging>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>danger-api</module>
+        <module>danger-core</module>
+        <module>danger-persist-jpa</module>
+        <module>danger-entities</module>
+        <module>danger-webapp-wicket</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.daren.danger</groupId>
+                <artifactId>com.daren.danger.core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.danger</groupId>
+                <artifactId>com.daren.danger.api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.danger</groupId>
+                <artifactId>com.daren.danger.entities</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.danger</groupId>
+                <artifactId>com.daren.danger.persist.openjpa</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.daren.danger</groupId>
+                <artifactId>com.daren.danger.webapp.wicket</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
