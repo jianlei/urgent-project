@@ -65,7 +65,7 @@ public class MyApplyListPage extends WorkflowBasePanel{
             //add table
             final WebMarkupContainer table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
-            String userName=userBeanService.getCurrentUserName();
+            String userName=userBeanService.getCurrentUserLoginName();
             final IModel<List<HistoricProcessInstance>> listOfProcesses=new ProcessesMyApplyHistoryListModel(userName);
             //add listview
             final ListView<HistoricProcessInstance> listView = new ListView<HistoricProcessInstance>("rows", listOfProcesses) {

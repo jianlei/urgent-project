@@ -139,9 +139,9 @@ public class OperationsListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + operationsBean.getPhone() + ":" + operationsBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + userBeanService.getCurrentUserLoginName() + ":" + operationsBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(operationsBean.getPhone());
+                    identityService.setAuthenticatedUserId(userBeanService.getCurrentUserLoginName());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
                     operationsBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();

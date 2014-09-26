@@ -136,9 +136,9 @@ public class ProductionListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + productionBean.getPhone() + ":" + productionBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + userBeanService.getCurrentUserLoginName() + ":" + productionBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(productionBean.getPhone());
+                    identityService.setAuthenticatedUserId(userBeanService.getCurrentUserLoginName());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
                     productionBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
