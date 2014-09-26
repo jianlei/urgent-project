@@ -42,7 +42,7 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        userBean = userLoginService.login(username, password);
+        userBean = userLoginService.login(username, password,0);
         return (userBean != null) ? true : false;
 
     }

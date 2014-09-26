@@ -54,13 +54,13 @@ public class UserLoginServiceImpl implements IUserLoginService {
     }
 
     @Override
-    public UserBean login(String username, String password) {
+    public UserBean login(String username, String password, int is_ent_user) {
         UserBean user = userBeanDao.getUser(username);
         if (user == null) {
             return null;
         }
-        if (encrypt(password).equals(user.getPassword())) {
-
+        //判断密码和用户类型是否对应
+        if (encrypt(password).equals(user.getPassword()) && user.getIs_ent_user()==is_ent_user) {
             return user;
         } else {
             return null;
