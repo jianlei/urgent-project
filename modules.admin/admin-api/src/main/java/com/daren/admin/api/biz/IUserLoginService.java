@@ -38,15 +38,15 @@ public interface IUserLoginService {
      */
     public final static int SUCCESS = 1;
 
-
     /**
      * 用户登录
      *
      * @param username 用户名
      * @param password 用户密码
+     * @param is_ent_user 是否是企业用户：0-否；1-是；
      * @return
      */
-    public UserBean login(String username, String password);
+    public UserBean login(String username, String password, int is_ent_user);
 
     /**
      * 记录用户登录后的时间和登录ip

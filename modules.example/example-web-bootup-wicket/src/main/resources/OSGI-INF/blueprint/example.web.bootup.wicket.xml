@@ -34,7 +34,7 @@
 
 
 
-    <bean id="shiroRealm" class="com.daren.example.web.bootup.wicket.shiro.ShiroRealm">
+    <bean id="shiroRealm" class="com.daren.core.web.bootup.wicket.ShiroRealm">
         <!--<property name="casServerUrlPrefix" value="http//localhost:8080/cas"/>
         <property name="casService" value="https://localhost:9191/example"/>-->
     </bean>

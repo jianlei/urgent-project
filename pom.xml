@@ -94,6 +94,7 @@
         <module>modules.urgent/accident</module>
         <module>modules.urgent/monitor</module>
         <module>modules.urgent/regulation</module>
+        <module>modules.urgent/danger</module>
         <module>modules.common</module>
         <module>modules.government</module>
         <module>modules.gis</module>

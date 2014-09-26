@@ -84,7 +84,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (token.getCaptcha() == null || !token.getCaptcha().equalsIgnoreCase(code)) {
             throw new CaptchaException("验证码错误!");
         }
-        UserBean userBean = userLoginService.login(userName, String.valueOf(password));
+        UserBean userBean = userLoginService.login(userName, String.valueOf(password),1);
         if (userBean != null) {
             //保存用户信息到session
             session = SecurityUtils.getSubject().getSession();
