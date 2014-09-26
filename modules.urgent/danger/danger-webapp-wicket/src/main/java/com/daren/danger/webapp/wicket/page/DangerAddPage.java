@@ -50,10 +50,10 @@ public class DangerAddPage extends BasePanel {
 
     public DangerAddPage(final String id, final WebMarkupContainer wmc, final DangerBean bean) {
         super(id, wmc);
-        /*if (null != bean) {
+        if (null != bean) {
             dangerBean = bean;
-            enterpriseBean=enterpriseBeanService.getByQyid(dangerBean.getQyid());
-        }*/
+            //enterpriseBean=enterpriseBeanService.getByQyid(dangerBean.getQyid());
+        }
         initForm(dangerBean);
         initFeedBack();
         addForm(id, wmc);
