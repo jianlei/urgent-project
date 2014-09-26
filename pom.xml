@@ -58,7 +58,7 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 
-        <karaf.path>E:/OSGI/java-develop/apache-karaf-3.0.1/deploy</karaf.path>
+        <karaf.path>D:/java-develop/tools/apache-karaf-3.0.1/deploy</karaf.path>
         <karaf.bin.path>D:/java-develop/tools/apache-karaf-3.0.1/bin</karaf.bin.path>
         <version.apache.karaf>3.0.1</version.apache.karaf>
         <!-- Database settings -->
