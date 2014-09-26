@@ -10,9 +10,13 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-
 /**
- * Created by WKR on 14-1-16.
+ * @类描述：企业实体类
+ * @创建人：sunlf
+ * @创建时间：2014-05-14 下午1:49
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 @Entity
 @Table(name = "urg_ent_enterprise")

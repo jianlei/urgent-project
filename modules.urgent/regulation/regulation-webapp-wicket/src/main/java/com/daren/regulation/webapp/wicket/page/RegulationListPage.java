@@ -1,16 +1,19 @@
 package com.daren.regulation.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
 import com.daren.regulation.api.biz.IRegulationBeanService;
 import com.daren.regulation.entities.RegulationBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.AjaxTab;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.apache.aries.blueprint.annotation.Reference;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @类描述：法律法规
+ * @类描述：法律法规列表页面类
  * @创建人：张清欣
  * @创建时间：2014-03-29 上午10:25
  * @修改人：
@@ -52,6 +55,7 @@ public class RegulationListPage extends BasePanel {
     DictDataProvider provider = new DictDataProvider();
     IrisAbstractDialog dialog;
     Fragment fragment;
+    private boolean isEnt;//判断是否为企业用户
     //注入服务
     @Inject
     @Reference(id = "regulationBeanService", serviceInterface = IRegulationBeanService.class)
@@ -64,8 +68,16 @@ public class RegulationListPage extends BasePanel {
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
         this.add(tabPanel);
-
+        isEntUser();
     }
+
+    /**
+     * 判断是否为企业登陆用户
+     */
+    private void isEntUser() {
+        isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;
+    }
+
 
     /**
      * 添加tabs
@@ -98,6 +110,19 @@ public class RegulationListPage extends BasePanel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
+            }
+
+            /**
+             * 如果为企业用户则隐藏
+             * @param behavior
+             */
+            @Override
+            public void onConfigure(JQueryBehavior behavior) {
+                super.onConfigure(behavior);
+                if(isEnt)
+                {
+                    this.setVisible(false);
+                }
             }
         };
         return addButton;
@@ -265,6 +290,18 @@ public class RegulationListPage extends BasePanel {
                 public void onClick(AjaxRequestTarget target) {
                     createNewTab(target, CONST_EDIT, row);
                 }
+
+                /**
+                 * 如果为企业用户则隐藏
+                 */
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    if(isEnt)
+                    {
+                        this.setVisible(false);
+                    }
+                }
             };
             return alink;
         }
@@ -298,6 +335,12 @@ public class RegulationListPage extends BasePanel {
                         e.printStackTrace();
                     }
                 }
+
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    this.setVisible(!isEnt);
+                }
             };
             return alink;
         }
@@ -313,6 +356,12 @@ public class RegulationListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     createUploadDialog(target, row, "上传文档");
+                }
+
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    this.setVisible(!isEnt);
                 }
             };
             return alink;
@@ -361,6 +410,26 @@ public class RegulationListPage extends BasePanel {
             else {
                 return regulationBeanService.query(dictBean);
             }
+        }
+    }
+
+    /**
+     * 行管部门操作Fragment类
+     */
+    class OrgFragment extends Fragment{
+
+        public OrgFragment(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
+        }
+    }
+
+    /**
+     * 企业用户操作Fragment类
+     */
+    class EntFragment extends Fragment{
+
+        public EntFragment(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
         }
     }
 }

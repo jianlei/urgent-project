@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：法律法规子菜单定义类
+ * @类描述：企业法律法规子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class RegulationMenuItemsModule implements IMenuItemsModule {
+public class EntRegulationMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -39,7 +39,7 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "regulation.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "ent.regulation.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

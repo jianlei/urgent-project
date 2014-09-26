@@ -16,6 +16,18 @@
         </bean>
     </service>
 
+    <!-- 发布菜单目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
+        <bean class="com.daren.fireworks.webapp.wicket.EntMainMenuModule">
+        </bean>
+    </service>
+
+    <!-- 发布企业用户目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.fireworks.webapp.wicket.EntFireworksItemsModule">
+        </bean>
+    </service>
+
     <!-- firework Audit form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.fireworks.webapp.wicket.impl.FireworksAuditFormHandler">

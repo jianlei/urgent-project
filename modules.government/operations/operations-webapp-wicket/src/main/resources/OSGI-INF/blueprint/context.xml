@@ -4,9 +4,15 @@
         default-activation="lazy"
         >
 
-    <!-- 发布SingleCheck目录 -->
+    <!-- 发布特种作业人员操作资格证子菜单定义类目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.operations.webapp.wicket.SingleCheckMenuItemsModule">
+        <bean class="com.daren.operations.webapp.wicket.OperationsMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布企业用户特种作业人员操作资格证子菜单定义类目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.operations.webapp.wicket.EntOperationsMenuItemsModule">
         </bean>
     </service>
 

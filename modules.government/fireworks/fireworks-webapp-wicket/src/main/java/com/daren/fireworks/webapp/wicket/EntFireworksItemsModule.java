@@ -1,12 +1,12 @@
-package com.daren.operations.webapp.wicket;
+package com.daren.fireworks.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.operations.webapp.wicket.page.OperationsTabPage;
+import com.daren.fireworks.webapp.wicket.page.FireworksTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：例子子菜单定义类
+ * @类描述：企业用户烟花爆竹子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class SingleCheckMenuItemsModule implements IMenuItemsModule {
+public class EntFireworksItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 70;
+        return 10;
     }
 
     @Override
     public String getName() {
-        return "特种作业人员操作资格证";  //To change body of implemented methods use File | Settings | File Templates.
+        return "烟花爆竹经营许可证";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -39,12 +39,11 @@ public class SingleCheckMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "government.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "ent.government.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-//        return new SingleCheckPage(id, wmc);
-        return new OperationsTabPage(id, wmc, null);
+        return new FireworksTabPage(id, wmc, null);
     }
 }
