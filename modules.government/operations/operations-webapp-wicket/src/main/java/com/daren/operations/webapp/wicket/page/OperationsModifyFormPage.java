@@ -1,5 +1,6 @@
 package com.daren.operations.webapp.wicket.page;
 
+import com.daren.apply.webapp.wicket.util.PageUtil;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
@@ -16,6 +17,7 @@ import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.Page;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
@@ -163,7 +165,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
             protected void populateItem(Item<AttachmentBean> item) {
                 final AttachmentBean attachmentBean = item.getModelObject();
                 item.add(new Label("names", attachmentBean.getName()));
-                item.add(initPreviewButton(attachmentBean));
+                item.add(PageUtil.initPreviewButton(attachmentBean));
                 item.add(initDeleteButton(attachmentBean));
             }
         };
@@ -203,26 +205,7 @@ public class OperationsModifyFormPage extends BaseFormPanel {
         }
     }
 
-    private AjaxLink initPreviewButton(final AttachmentBean attachmentBean) {
-        AjaxLink alink = new AjaxLink("previewDuplicate") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                FileInputStream fileInputStream = null;
-                try {
-                    File tempFile = new File(IConst.OFFICE_WEB_PATH_TEMP + attachmentBean.getName());
-                    fileInputStream = new FileInputStream(attachmentBean.getPath());
-                    DataInputStream data = new DataInputStream(fileInputStream);
-                    Files.writeTo(tempFile, data);
-                    fileInputStream.close();
-//                    createDialog(target, "Office", IConst.OFFICE_WEB_PATH_READ + attachmentBean.getName());
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        return alink;
-    }
     private AjaxLink initDeleteButton(final AttachmentBean attachmentBean) {
         IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("deleteDuplicate") {
             @Override

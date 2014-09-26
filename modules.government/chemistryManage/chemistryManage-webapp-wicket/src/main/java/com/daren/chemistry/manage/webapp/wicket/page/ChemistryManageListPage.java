@@ -76,17 +76,17 @@ public class ChemistryManageListPage extends BasePanel {
             private static final long serialVersionUID = 1L;
             @Override
             protected void populateItem(Item<ChemistryManageBean> item) {
-                final ChemistryManageBean competencyBean = item.getModelObject();
-                item.add(new Label("name", competencyBean.getName()));
-                item.add(new Label("header", competencyBean.getHeader()));
-                item.add(new Label("phone", competencyBean.getPhone()));
-                item.add(new Label("mode", competencyBean.getMode()));
-                item.add(new Label("unitType", competencyBean.getUnitType()));
-                item.add(new Label("linkHandle", competencyBean.getLinkHandle()));
-                item.add(getToCreatePageLink("check_name", competencyBean));
-                item.add(getToUploadPageLink("upload", competencyBean));
-                item.add(getDuplicateLink("duplicate", competencyBean));
-                item.add(getSubmitLink("submit", competencyBean));
+                final ChemistryManageBean chemistryManageBean = item.getModelObject();
+                item.add(new Label("name", chemistryManageBean.getName()));
+                item.add(new Label("header", chemistryManageBean.getHeader()));
+                item.add(new Label("phone", chemistryManageBean.getPhone()));
+                item.add(new Label("mode", chemistryManageBean.getMode()));
+                item.add(new Label("unitType", chemistryManageBean.getUnitType()));
+                item.add(new Label("linkHandle", chemistryManageBean.getLinkHandle()));
+                item.add(getToCreatePageLink("check_name", chemistryManageBean));
+                item.add(getToUploadPageLink("upload", chemistryManageBean));
+                item.add(getDuplicateLink("duplicate", chemistryManageBean));
+                item.add(getSubmitLink("submit", chemistryManageBean));
             }
         };
         CustomerPagingNavigator pagingNavigator = new CustomerPagingNavigator("navigator", listView);
@@ -95,26 +95,23 @@ public class ChemistryManageListPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxButton getToCreatePageAjaxButton(final ChemistryManageBean competencyBean) {
+    private AjaxButton getToCreatePageAjaxButton(final ChemistryManageBean chemistryManageBean) {
         AjaxButton ajaxLink = new AjaxButton("create") {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                createButtonOnClick(competencyBean, target);
+                createButtonOnClick(chemistryManageBean, target);
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
-            ajaxLink.setVisible(false);
-        }
         return ajaxLink;
     }
 
-    private AjaxLink getToCreatePageLink(String wicketId, final ChemistryManageBean competencyBean) {
+    private AjaxLink getToCreatePageLink(String wicketId, final ChemistryManageBean chemistryManageBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(competencyBean, target);
+                createButtonOnClick(chemistryManageBean, target);
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -130,19 +127,19 @@ public class ChemistryManageListPage extends BasePanel {
         return alinkDuplicate;
     }
 
-    private AjaxLink getSubmitLink(String wicketId, final ChemistryManageBean competencyBean){
+    private AjaxLink getSubmitLink(String wicketId, final ChemistryManageBean chemistryManageBean){
         AjaxLink alinkSubmit = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + competencyBean.getPhone() + ":" + competencyBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + chemistryManageBean.getPhone() + ":" + chemistryManageBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(competencyBean.getPhone());
+                    identityService.setAuthenticatedUserId(chemistryManageBean.getPhone());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
-                    competencyBean.setProcessInstanceId(instance.getProcessInstanceId());
+                    chemistryManageBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
-                    competencyBean.setLinkHandle(task.getName());
-                    chemistryManageBeanService.saveEntity(competencyBean);
+                    chemistryManageBean.setLinkHandle(task.getName());
+                    chemistryManageBeanService.saveEntity(chemistryManageBean);
                     feedbackPanel.info("危险化学品经营许可证,启动成功！");
                 }catch (Exception e){
                     feedbackPanel.info("危险化学品经营许可证,启动失败！");
@@ -154,7 +151,7 @@ public class ChemistryManageListPage extends BasePanel {
             }
 
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
             alinkSubmit.setVisible(false);
         }
         return alinkSubmit;
@@ -167,7 +164,7 @@ public class ChemistryManageListPage extends BasePanel {
                 createDialog(target, chemistryManageBean, "upload");
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -186,7 +183,7 @@ public class ChemistryManageListPage extends BasePanel {
         dialog.open(target);
     }
 
-    protected void createButtonOnClick(ChemistryManageBean competencyBean, AjaxRequestTarget target) {
+    protected void createButtonOnClick(ChemistryManageBean chemistryManageBean, AjaxRequestTarget target) {
     }
 
     /**
@@ -204,8 +201,8 @@ public class ChemistryManageListPage extends BasePanel {
         AjaxButton findButton = new AjaxButton("find", majorHazardSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                ChemistryManageBean competencyBean = (ChemistryManageBean) form.getModelObject();
-                provider.setChemistryManageBean(competencyBean);
+                ChemistryManageBean chemistryManageBean = (ChemistryManageBean) form.getModelObject();
+                provider.setChemistryManageBean(chemistryManageBean);
                 target.add(table);
             }
         };
@@ -213,9 +210,9 @@ public class ChemistryManageListPage extends BasePanel {
     }
 
     class ChemistryManageDataProvider extends ListDataProvider<ChemistryManageBean> {
-        private ChemistryManageBean competencyBean = null;
-        public void setChemistryManageBean(ChemistryManageBean competencyBean) {
-            this.competencyBean = competencyBean;
+        private ChemistryManageBean chemistryManageBean = null;
+        public void setChemistryManageBean(ChemistryManageBean chemistryManageBean) {
+            this.chemistryManageBean = chemistryManageBean;
         }
         @Override
         protected List<ChemistryManageBean> getData() {
