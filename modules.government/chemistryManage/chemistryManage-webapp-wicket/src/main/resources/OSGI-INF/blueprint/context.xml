@@ -6,6 +6,12 @@
         </bean>
     </service>
 
+    <!--企业用户危险化学品子菜单定义类-->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.EntChemistryManageMenuItemsModule">
+        </bean>
+    </service>
+
     <!-- ChemistryManage audit task form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
         <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageAuditTaskFormHandler">

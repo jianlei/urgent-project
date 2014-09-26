@@ -1,13 +1,12 @@
 package com.daren.fireworks.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.fireworks.webapp.wicket.page.FireworksListPage;
 import com.daren.fireworks.webapp.wicket.page.FireworksTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：例子子菜单定义类
+ * @类描述：烟花爆竹子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：

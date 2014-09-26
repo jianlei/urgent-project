@@ -1,12 +1,12 @@
-package com.daren.regulation.webapp.wicket;
+package com.daren.operations.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.regulation.webapp.wicket.page.RegulationListPage;
+import com.daren.operations.webapp.wicket.page.OperationsTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：法律法规子菜单定义类
+ * @类描述：特种作业人员操作资格证子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class RegulationMenuItemsModule implements IMenuItemsModule {
+public class OperationsMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 1;
+        return 70;
     }
 
     @Override
     public String getName() {
-        return "法律法规管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "特种作业人员操作资格证";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -39,11 +39,12 @@ public class RegulationMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "regulation.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "government.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new RegulationListPage(id, wmc);
+//        return new SingleCheckPage(id, wmc);
+        return new OperationsTabPage(id, wmc, null);
     }
 }

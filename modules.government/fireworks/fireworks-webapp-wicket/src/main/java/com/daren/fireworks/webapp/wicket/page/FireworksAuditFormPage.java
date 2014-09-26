@@ -1,5 +1,6 @@
 package com.daren.fireworks.webapp.wicket.page;
 
+import com.daren.apply.webapp.wicket.util.PageUtil;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.IConst;
@@ -117,14 +118,15 @@ public class FireworksAuditFormPage extends BaseFormPanel {
                     //添加备注信息
                     identityService.setAuthenticatedUserId(currentUserLoginName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
-                    Map<String, String> submitMap = new HashMap<String, String>();
+                    Map<String, Object> submitMap = new HashMap<String, Object>();
                     boolean passed= accepted.equals("同意");
-                    submitMap.put("accepted", String.valueOf(passed));
-                    taskService.setVariablesLocal(task.getId(), submitMap);
-                    formService.submitTaskFormData(task.getId(), submitMap);
-                    model.setObject(null);
-                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-                    bean.setLinkHandle(taskN.getName());
+                    submitMap.put("accepted", passed);
+                    if("符合性审批".equals(task.getName())){
+                        List assigneeList = Arrays.asList("test","zqx","slf");
+                        submitMap.put("assigneeList", assigneeList);
+                    }
+                    taskService.complete(task.getId(), submitMap);
+                    bean.setLinkHandle(task.getName());
                     fireworksService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
@@ -155,7 +157,7 @@ public class FireworksAuditFormPage extends BaseFormPanel {
             protected void populateItem(ListItem<AttachmentBean> item) {
                 final AttachmentBean attachmentBean = item.getModelObject();
                 item.add(new Label("names", attachmentBean.getName()));
-                item.add(initPreviewButton(attachmentBean));
+                item.add(PageUtil.initPreviewButton(attachmentBean));
             }
         };
         table.setVersioned(false);
@@ -163,26 +165,6 @@ public class FireworksAuditFormPage extends BaseFormPanel {
         form.add(table);
     }
 
-    private AjaxLink initPreviewButton(final AttachmentBean attachmentBean) {
-        AjaxLink alink = new AjaxLink("previewDuplicate") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                FileInputStream fileInputStream = null;
-                try {
-                    File tempFile = new File(IConst.OFFICE_WEB_PATH_TEMP + attachmentBean.getName());
-                    fileInputStream = new FileInputStream(attachmentBean.getPath());
-                    DataInputStream data = new DataInputStream(fileInputStream);
-                    Files.writeTo(tempFile, data);
-                    fileInputStream.close();
-//                    createDialog(target, "Office", IConst.OFFICE_WEB_PATH_READ + attachmentBean.getName());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        return alink;
-    }
 
     public String getComment() {
         return comment;

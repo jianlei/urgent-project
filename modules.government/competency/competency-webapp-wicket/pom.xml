@@ -24,6 +24,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.daren.apply</groupId>
+            <artifactId>com.daren.apply.webapp.wicket</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.competency</groupId>
             <artifactId>com.daren.competency.api</artifactId>
         </dependency>

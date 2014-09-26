@@ -1,14 +1,6 @@
 package com.daren.apply.webapp.wicket.page;
 
-import com.daren.chemistry.manage.webapp.wicket.page.ChemistryManageTabPage;
-import com.daren.competency.webapp.wicket.page.CompetencyTabPage;
-import com.daren.core.web.component.form.IrisDropDownChoice;
-import com.daren.core.web.validation.JSR303FormValidator;
-import com.daren.core.web.wicket.ValidationStyleBehavior;
-import com.daren.core.web.wicket.security.CaptchaImage;
-import com.daren.fireworks.webapp.wicket.page.FireworksTabPage;
-import com.daren.operations.webapp.wicket.page.OperationsTabPage;
-import com.daren.production.webapp.wicket.page.ProductionTabPage;
+
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -40,7 +32,7 @@ import java.util.Map;
 //@PaxWicketMountPoint(mountPoint = "/apply")
 public class ApplyPage extends WebPage {
 
-    RepeatingView rv = new RepeatingView("myApplyProcess");
+    /*RepeatingView rv = new RepeatingView("myApplyProcess");
     WebMarkupContainer wmc = new WebMarkupContainer("wmc");
     @NotNull(message = "'手机号'是必填项")
     @Pattern(regexp = "((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)", message = "手机格式不正确")
@@ -178,5 +170,5 @@ public class ApplyPage extends WebPage {
 
     public void setValidateCode(String validateCode) {
         this.validateCode = validateCode;
-    }
+    }*/
 }

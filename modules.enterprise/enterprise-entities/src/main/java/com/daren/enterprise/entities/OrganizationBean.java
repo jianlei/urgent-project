@@ -12,9 +12,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
- * @类描述：cache implement class
+ * @类描述：监管部门实体类
  * @创建人：sunlf
- * @创建时间：2014-07-01 下午3:47
+ * @创建时间：2014-05-14 下午1:49
  * @修改人：
  * @修改时间：
  * @修改备注：

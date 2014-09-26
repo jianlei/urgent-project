@@ -13,13 +13,23 @@
         </userTask>
         <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
         <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
-        <userTask id="usertask3" name="现场复核审批" activiti:assignee="test" activiti:formKey="audit.form">
+        <userTask id="usertask3" name="现场复核审批" activiti:formKey="audit.form">
             <documentation>
                 危险化学品经营许可证流程
             </documentation>
             <extensionElements>
                 <activiti:formProperty id="accepted" name="判断环节" variable="accepted" type="boolean"></activiti:formProperty>
             </extensionElements>
+            <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>${assignee}</formalExpression>
+                </resourceAssignmentExpression>
+            </humanPerformer>
+            <multiInstanceLoopCharacteristics isSequential="false">
+                <loopDataInputRef>assigneeList</loopDataInputRef>
+                <inputDataItem name="assignee"></inputDataItem>
+                <completionCondition>${nrOfCompletedInstances/nrOfInstances == 1}</completionCondition>
+            </multiInstanceLoopCharacteristics>
         </userTask>
         <sequenceFlow id="flow4" name="同意" sourceRef="exclusivegateway1" targetRef="usertask3">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted}]]></conditionExpression>
@@ -90,7 +100,7 @@
         <sequenceFlow id="flow13" name="不同意" sourceRef="exclusivegateway3" targetRef="usertask7">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!accepted}]]></conditionExpression>
         </sequenceFlow>
-        <userTask id="usertask7" name="审批修改" activiti:assignee="test" activiti:formKey="modify.form">
+        <userTask id="usertask7" name="审批修改" activiti:assignee="admin" activiti:formKey="modify.form">
             <extensionElements>
                 <activiti:formProperty id="name" name="经营单位名称"></activiti:formProperty>
                 <activiti:formProperty id="header" name="经营单位负责人"></activiti:formProperty>

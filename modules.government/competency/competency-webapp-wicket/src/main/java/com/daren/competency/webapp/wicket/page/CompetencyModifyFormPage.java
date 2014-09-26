@@ -1,5 +1,6 @@
 package com.daren.competency.webapp.wicket.page;
 
+import com.daren.apply.webapp.wicket.util.PageUtil;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
@@ -167,7 +168,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
             protected void populateItem(Item<AttachmentBean> item) {
                 final AttachmentBean attachmentBean = item.getModelObject();
                 item.add(new Label("names", attachmentBean.getName()));
-                item.add(initPreviewButton(attachmentBean));
+                item.add(PageUtil.initPreviewButton(attachmentBean));
                 item.add(initDeleteButton(attachmentBean));
             }
         };
@@ -207,26 +208,7 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
         }
     }
 
-    private AjaxLink initPreviewButton(final AttachmentBean attachmentBean) {
-        AjaxLink alink = new AjaxLink("previewDuplicate") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                FileInputStream fileInputStream = null;
-                try {
-                    File tempFile = new File(IConst.OFFICE_WEB_PATH_TEMP + attachmentBean.getName());
-                    fileInputStream = new FileInputStream(attachmentBean.getPath());
-                    DataInputStream data = new DataInputStream(fileInputStream);
-                    Files.writeTo(tempFile, data);
-                    fileInputStream.close();
-//                    createDialog(target, "Office", IConst.OFFICE_WEB_PATH_READ + attachmentBean.getName());
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        return alink;
-    }
     private AjaxLink initDeleteButton(final AttachmentBean attachmentBean) {
         IrisDeleteAjaxLink alink = new IrisDeleteAjaxLink("deleteDuplicate") {
             @Override
