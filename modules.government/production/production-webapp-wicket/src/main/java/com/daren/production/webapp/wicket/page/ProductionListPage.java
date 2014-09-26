@@ -105,9 +105,6 @@ public class ProductionListPage extends BasePanel {
                 createButtonOnClick(productionBean, target);
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
-            ajaxLink.setVisible(false);
-        }
         return ajaxLink;
     }
 
@@ -118,7 +115,7 @@ public class ProductionListPage extends BasePanel {
                 createButtonOnClick(productionBean, target);
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(productionBean.getLinkHandle()!=null&&!"".equals(productionBean.getLinkHandle())){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -157,7 +154,7 @@ public class ProductionListPage extends BasePanel {
                 target.add(wmc);
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(productionBean.getLinkHandle()!=null&&!"".equals(productionBean.getLinkHandle())){
             alinkSubmit.setVisible(false);
         }
         return alinkSubmit;
@@ -170,7 +167,7 @@ public class ProductionListPage extends BasePanel {
                 createDialog(target, "上传附件", productionBean, "upload");
             }
         };
-        if(provider.size() > 0 && provider.getData().get(0).getLinkHandle()!=null){
+        if(productionBean.getLinkHandle()!=null&&!"".equals(productionBean.getLinkHandle())){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;

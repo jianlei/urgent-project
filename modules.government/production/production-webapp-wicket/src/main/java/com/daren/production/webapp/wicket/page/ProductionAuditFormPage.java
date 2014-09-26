@@ -117,14 +117,15 @@ public class ProductionAuditFormPage extends BaseFormPanel {
                     //添加备注信息
                     identityService.setAuthenticatedUserId(currentUserLoginName);
                     taskService.addComment(task.getId(), processInstanceId, comment);
-                    Map<String, String> submitMap = new HashMap<String, String>();
+                    Map<String, Object> submitMap = new HashMap<String, Object>();
                     boolean passed= accepted.equals("同意");
-                    submitMap.put("accepted", String.valueOf(passed));
-                    taskService.setVariablesLocal(task.getId(), submitMap);
-                    formService.submitTaskFormData(task.getId(), submitMap);
-                    model.setObject(null);
-                    Task taskN=taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-                    bean.setLinkHandle(taskN.getName());
+                    submitMap.put("accepted", passed);
+                    if("符合性审批".equals(task.getName())){
+                        List assigneeList = Arrays.asList("test","zqx","slf");
+                        submitMap.put("assigneeList", assigneeList);
+                    }
+                    taskService.complete(task.getId(), submitMap);
+                    bean.setLinkHandle(task.getName());
                     productionService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
                     this.setEnabled(false);
