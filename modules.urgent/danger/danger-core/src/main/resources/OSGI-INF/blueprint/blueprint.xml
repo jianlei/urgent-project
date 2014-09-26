@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+    <service id="dangerService" interface="com.daren.danger.api.biz.IDangerBeanService" ref="dangerBeanServiceImpl">
+
+    </service>
+
+    <bean id="dangerBeanServiceImpl" class="com.daren.danger.core.biz.DangerBeanServiceImpl">
+        <property name="dangerBeanDao" ref="dangerBeanDao"/>
+    </bean>
+    <reference id="dangerBeanDao" interface="com.daren.danger.api.dao.IDangerBeanDao"/>
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="dangerBeanService" address="/danger">
+        <jaxrs:serviceBeans>
+            <ref component-id="dangerBeanServiceImpl"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref component-id="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <!-- cxf的JSON支持配置 -->
+    <bean id="jacksonMapper" class="com.daren.core.rest.CustomObjectMapper">
+        <property name="serializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <property name="deserializationConfig.dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <argument value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+
+        <!--<property name="serializationConfig.serializationInclusion">
+            <value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_DEFAULT</value>
+        </property>-->
+
+        <property name="serializerProvider.nullKeySerializer">
+            <bean class="com.daren.core.rest.NullSerializer"/>
+        </property>
+    </bean>
+
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider">
+        <property name="mapper" ref="jacksonMapper"/>
+    </bean>
+</blueprint>
+
