@@ -134,7 +134,6 @@ public class ChemistryManageAuditTaskFormPage extends BaseFormPanel {
                         submitMap.put("assigneeList", assigneeList);
                     }
                     taskService.complete(task.getId(), submitMap);
-                    model.setObject(null);
                     bean.setLinkHandle(task.getName());
                     chemistryManageBeanService.saveEntity(bean);
                     feedbackPanel.info("任务处理成功，请点击关闭按钮！");
