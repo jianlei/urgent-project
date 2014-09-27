@@ -25,6 +25,8 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
  * 修改备注:  [说明本次修改内容]
  */
 @ShiroSecurityConstraint(constraint = ShiroConstraint.LoggedIn)
+
+//@ShiroSecurityConstraint(constraint = ShiroConstraint.HasPermission,value ="entUser")
 public class TemplatePage extends WebPage {
 
 //    String url = "daren.project.urgent";

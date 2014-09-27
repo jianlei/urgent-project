@@ -14,7 +14,7 @@
     <artifactId>modules.urgent.danger</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Urgent :: Modules - 危化品</name>
+    <name>Urgent :: Modules - 危化品理化特征</name>
 
     <packaging>pom</packaging>
 

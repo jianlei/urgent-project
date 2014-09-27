@@ -1,31 +1,31 @@
-package com.daren.expert.webapp.wicket;
+package com.daren.accident.webapp.wicket;
 
 import com.daren.core.api.IConst;
 import com.daren.core.web.api.module.IMenuModule;
 
 /**
  * 项目名称:  urgent-project
- * 类描述:   资源管理菜单类
+ * 类描述:    企业用户应急管理主菜单
  * 创建人:    sunlf
  * 创建时间:  2014/7/9 19:53
  * 修改人:    sunlf
  * 修改时间:  2014/7/9 19:53
  * 修改备注:  [说明本次修改内容]
  */
-public class MainMenuModule implements IMenuModule {
+public class EntMainMenuModule implements IMenuModule {
     @Override
     public String getProjectName() {
-        return IConst.URGENT_WICKET_APPLICATION_NAME;
+        return IConst.COMPANY_WICKET_APPLICATION_NAME;
     }
 
     @Override
     public String getTargetTag() {
-        return "resources.module.bundles";
+        return "ent.plan.module.bundles";
     }
 
     @Override
     public String getName() {
-        return "资源管理";
+        return "应急管理";
     }
 
     @Override
@@ -40,6 +40,6 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 30;
+        return 20;
     }
 }

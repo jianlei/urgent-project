@@ -29,7 +29,7 @@ public class DangerMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getName() {
-        return "危化品管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "危化品理化特征";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

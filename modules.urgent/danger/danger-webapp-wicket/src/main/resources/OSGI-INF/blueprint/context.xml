@@ -3,9 +3,15 @@
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
         default-activation="lazy"
         >
-    <!-- 发布菜单目录 -->
+    <!-- 发布危化品理化特征 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.danger.webapp.wicket.DangerMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布企业危化品理化特征 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.danger.webapp.wicket.EntDangerMenuItemsModule">
         </bean>
     </service>
 </blueprint>

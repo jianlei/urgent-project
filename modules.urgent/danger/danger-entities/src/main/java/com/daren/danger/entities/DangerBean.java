@@ -22,51 +22,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DangerBean extends PersistentEntity {
+    @NotNull(message = "'中文名称'是必填项")
+    private String chinese_name="";         //中文名称
+    private String chinese_otherName;       //中文别名
+    private String english_name;            //英文名称
+    private String english_otherName="";    //英文别名
+    private String CAS_num="";              //cas编号
+    private String formula="";              //分子式
+    private String formula_weight="";       //分子量
+    private String physical_property="";    //理化特性识别知识
+    private String shape="";                //外形与形状
+    private String melting_point="";        //熔点
+    private String temperature="";          //
+    private String tolerance="";            //相对气度
+    private String boiling_point="";        //沸点
+    private String air_pressure="";         //
+    private String critical_pressure="";    //临界压力
+    private String density_ratio="";        //相对密度
+    private String burn_Hot="";             //燃烧热
+    private String flash_point="";          //闪点
+    private String nature_temperature="";   //自燃温度
+    private String explode_upper="";        //燃烧上限
+    private String explode_below="";        //燃烧下限
+    private String harm_type="";            //
+    private String harm_health="";          //健康危害
+    private String first_aid="";            //急救措施
+    private String fire_control="";         //消防措施
+    private String release_measures="";     //泄漏应急处理
+    private String control_setting="";      //操作设置
+    private String touch_control="";        //接触控制
+    private String stability="";            //稳定性和反应活性
+    private String toxicology_data="";      //毒性
+    private String transport_information="";//运输信息
 
-    private String name;
-    private String chinese_name=""; //中文名称
-    private String chinese_otherName;  //中文别名
-    private String english_name;//英文名称
-    private String English_OtherName="";//英文别名
-    private String CAS_Num="";//cas编号
-    private String Formula="";//分子式
-    private String Formula_Weight="";//分子量
-    private String Physical_property="";//理化特性识别知识
-    private String Shape="";//
-    private String Melting_Point="";//
-    private String Temperature="";//
-    private String Tolerance="";//
-    private String Boiling_Point="";//
-    private String Air_Pressure="";//
-    private String critical_pressure="";//
-    private String density_ratio="";//
-    private String burn_Hot="";//
-    private String flash_point="";//
-    private String nature_temperature="";//
-    private String explode_upper="";//
-    private String explode_below="";//
-    private String harm_type="";//是否危化企业（西）
-    private String harm_health="";//剧本企业最近直线距离（西）
-    private String first_aid="";//情况类型（西）
-    private String fire_control="";//周边情况（北）
-    private String release_measures="";//是否危化企业（北）
-    private String control_setting="";//剧本企业最近直线距离（北）
-    private String touch_control="";//情况类型（北）
-    private String stability="";//影响范围
-    private String toxicology_data="";//基本情况
-    private String transport_information="";//
 
 
     public DangerBean() {
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getChinese_name() {
@@ -93,92 +85,92 @@ public class DangerBean extends PersistentEntity {
         this.english_name = english_name;
     }
 
-    public String getEnglish_OtherName() {
-        return English_OtherName;
+    public String getEnglish_otherName() {
+        return english_otherName;
     }
 
-    public void setEnglish_OtherName(String english_OtherName) {
-        English_OtherName = english_OtherName;
+    public void setEnglish_otherName(String english_otherName) {
+        this.english_otherName = english_otherName;
     }
 
-    public String getCAS_Num() {
-        return CAS_Num;
+    public void setCAS_num(String CAS_num) {
+        this.CAS_num = CAS_num;
     }
 
-    public void setCAS_Num(String CAS_Num) {
-        this.CAS_Num = CAS_Num;
+    public String getCAS_num() {
+        return CAS_num;
     }
 
     public String getFormula() {
-        return Formula;
+        return formula;
     }
 
     public void setFormula(String formula) {
-        Formula = formula;
+        this.formula = formula;
     }
 
-    public String getFormula_Weight() {
-        return Formula_Weight;
+    public String getFormula_weight() {
+        return formula_weight;
     }
 
-    public void setFormula_Weight(String formula_Weight) {
-        Formula_Weight = formula_Weight;
+    public void setFormula_weight(String formula_weight) {
+        this.formula_weight = formula_weight;
     }
 
     public String getPhysical_property() {
-        return Physical_property;
+        return physical_property;
     }
 
     public void setPhysical_property(String physical_property) {
-        Physical_property = physical_property;
+        this.physical_property = physical_property;
     }
 
     public String getShape() {
-        return Shape;
+        return shape;
     }
 
     public void setShape(String shape) {
-        Shape = shape;
+        this.shape = shape;
     }
 
-    public String getMelting_Point() {
-        return Melting_Point;
+    public String getMelting_point() {
+        return melting_point;
     }
 
-    public void setMelting_Point(String melting_Point) {
-        Melting_Point = melting_Point;
+    public void setMelting_point(String melting_point) {
+        this.melting_point = melting_point;
     }
 
     public String getTemperature() {
-        return Temperature;
+        return temperature;
     }
 
     public void setTemperature(String temperature) {
-        Temperature = temperature;
+        this.temperature = temperature;
     }
 
     public String getTolerance() {
-        return Tolerance;
+        return tolerance;
     }
 
     public void setTolerance(String tolerance) {
-        Tolerance = tolerance;
+        this.tolerance = tolerance;
     }
 
-    public String getBoiling_Point() {
-        return Boiling_Point;
+    public String getBoiling_point() {
+        return boiling_point;
     }
 
-    public void setBoiling_Point(String boiling_Point) {
-        Boiling_Point = boiling_Point;
+    public void setBoiling_point(String boiling_point) {
+        this.boiling_point = boiling_point;
     }
 
-    public String getAir_Pressure() {
-        return Air_Pressure;
+    public String getAir_pressure() {
+        return air_pressure;
     }
 
-    public void setAir_Pressure(String air_Pressure) {
-        Air_Pressure = air_Pressure;
+    public void setAir_pressure(String air_pressure) {
+        this.air_pressure = air_pressure;
     }
 
     public String getCritical_pressure() {

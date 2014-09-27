@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
@@ -76,6 +77,28 @@ public class DangerAddPage extends BasePanel {
         dangerBeanForm.setMultiPart(true);
         this.add(dangerBeanForm);
 
+        final TextArea<String> physical_property = new TextArea<String>("physical_property");
+        dangerBeanForm.add(physical_property);
+        final TextArea<String> harm_health = new TextArea<String>("harm_health");
+        dangerBeanForm.add(harm_health);
+        final TextArea<String> first_aid = new TextArea<String>("first_aid");
+        dangerBeanForm.add(first_aid);
+        final TextArea<String> fire_control = new TextArea<String>("fire_control");
+        dangerBeanForm.add(fire_control);
+        final TextArea<String> release_measures = new TextArea<String>("release_measures");
+        dangerBeanForm.add(release_measures);
+        final TextArea<String> control_setting = new TextArea<String>("control_setting");
+        dangerBeanForm.add(control_setting);
+        final TextArea<String> touch_control = new TextArea<String>("touch_control");
+        dangerBeanForm.add(touch_control);
+        final TextArea<String> stability = new TextArea<String>("stability");
+        dangerBeanForm.add(stability);
+        final TextArea<String> toxicology_data = new TextArea<String>("toxicology_data");
+        dangerBeanForm.add(toxicology_data);
+        final TextArea<String> transport_information = new TextArea<String>("transport_information");
+        dangerBeanForm.add(transport_information);
+
+
         /*enterpriseSelect2Choice = new EnterpriseSelect2Choice("qyid", Model.of(enterpriseBean));
         dangerBeanForm.add(enterpriseSelect2Choice);*/
         addTextFieldsToForm();
@@ -130,43 +153,34 @@ public class DangerAddPage extends BasePanel {
     }
 
     private void addTextFieldsToForm() {
-        //addHiddenFieldToForm("jd");
-        //addHiddenFieldToForm("wd");
-        //addTextFieldToForm("estimate");
-        addTextFieldToForm("name");
-        //addTextFieldToForm("expertName");
-        //addTextFieldToForm("accidentRate");
-
-//        addTextFieldToForm("enterpriseBeanId");
-/*        addTextFieldToForm("place");
-        addTextFieldToForm("startTime");
-        addTextFieldToForm("level");
-        addTextFieldToForm("describe");
-        addTextFieldToForm("inChemical");
-
-        addTextFieldToForm("scope500MHaveMans");
-        addTextFieldToForm("lastThreeYearAccident");
-        addTextFieldToForm("roadConditions");
-        addTextFieldToForm("zbqkd");
-        addTextFieldToForm("sfwhqyd");
-        addTextFieldToForm("jbqyzjzxjld");
-        addTextFieldToForm("zbqklxd");
-        addTextFieldToForm("zbqkn");
-        addTextFieldToForm("sfwhqydn");
-        addTextFieldToForm("jbqyzjzxjln");
-        addTextFieldToForm("zbqklxn");
-        addTextFieldToForm("zbqkx");
-        addTextFieldToForm("sfwhqyx");
-        addTextFieldToForm("jbqyzjzxjlx");
-        addTextFieldToForm("zbqklxx");
-        addTextFieldToForm("zbqkb");
-        addTextFieldToForm("sfwhqyb");
-        addTextFieldToForm("jbqyzjzxjlb");
-        addTextFieldToForm("zbqklxb");
-        addTextFieldToForm("yxfw");
-        addTextFieldToForm("jbqk");
-        addTextFieldToForm("zlcs");
-        addTextFieldToForm("remark");*/
+        addTextFieldToForm("chinese_name");
+        addTextFieldToForm("chinese_otherName");
+        addTextFieldToForm("english_name");
+        addTextFieldToForm("english_otherName");
+        addTextFieldToForm("CAS_num");
+        addTextFieldToForm("formula");
+        addTextFieldToForm("formula_weight");
+        //addTextFieldToForm("physical_property");
+        addTextFieldToForm("shape");
+        addTextFieldToForm("melting_point");
+        addTextFieldToForm("tolerance");
+        addTextFieldToForm("boiling_point");
+        addTextFieldToForm("critical_pressure");
+        addTextFieldToForm("density_ratio");
+        addTextFieldToForm("burn_Hot");
+        addTextFieldToForm("flash_point");
+        addTextFieldToForm("nature_temperature");
+        addTextFieldToForm("explode_upper");
+        addTextFieldToForm("explode_below");
+        //addTextFieldToForm("harm_health");
+        //addTextFieldToForm("first_aid");
+        //addTextFieldToForm("fire_control");
+        //addTextFieldToForm("release_measures");
+        //addTextFieldToForm("control_setting");
+        //addTextFieldToForm("touch_control");
+        //addTextFieldToForm("stability");
+        //addTextFieldToForm("toxicology_data");
+        //addTextFieldToForm("transport_information");
     }
 
     private void createDialog(AjaxRequestTarget target, final String title) {

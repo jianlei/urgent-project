@@ -5,22 +5,22 @@ import com.daren.core.web.api.module.IMenuModule;
 
 /**
  * 项目名称:  urgent-project
- * 类描述:   资源管理菜单类
+ * 类描述:  企业用户资源管理菜单类
  * 创建人:    sunlf
  * 创建时间:  2014/7/9 19:53
  * 修改人:    sunlf
  * 修改时间:  2014/7/9 19:53
  * 修改备注:  [说明本次修改内容]
  */
-public class MainMenuModule implements IMenuModule {
+public class EntMainMenuModule implements IMenuModule {
     @Override
     public String getProjectName() {
-        return IConst.URGENT_WICKET_APPLICATION_NAME;
+        return IConst.COMPANY_WICKET_APPLICATION_NAME;
     }
 
     @Override
     public String getTargetTag() {
-        return "resources.module.bundles";
+        return "ent.resources.module.bundles";
     }
 
     @Override
@@ -40,6 +40,6 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public int getIndex() {
-        return 30;
+        return 300;
     }
 }
