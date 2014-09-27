@@ -132,9 +132,9 @@ public class ChemistryManageListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + chemistryManageBean.getPhone() + ":" + chemistryManageBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + userBeanService.getCurrentUserLoginName() + ":" + chemistryManageBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(chemistryManageBean.getPhone());
+                    identityService.setAuthenticatedUserId(userBeanService.getCurrentUserLoginName());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
                     chemistryManageBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();

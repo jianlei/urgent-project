@@ -137,9 +137,9 @@ public class CompetencyListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + competencyBean.getPhone() + ":" + competencyBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + userBeanService.getCurrentUserLoginName() + ":" + competencyBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(competencyBean.getPhone());
+                    identityService.setAuthenticatedUserId(userBeanService.getCurrentUserLoginName());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
                     competencyBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();

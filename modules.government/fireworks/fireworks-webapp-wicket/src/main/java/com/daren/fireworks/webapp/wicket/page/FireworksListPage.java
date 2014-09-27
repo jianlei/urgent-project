@@ -138,9 +138,9 @@ public class FireworksListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 try {
-                    String bizKey= Const.PROCESS_KEY + ":" + fireworksBean.getPhone() + ":" + fireworksBean.getId();
+                    String bizKey= Const.PROCESS_KEY + ":" + userBeanService.getCurrentUserLoginName() + ":" + fireworksBean.getId();
                     //获得当前登陆用户
-                    identityService.setAuthenticatedUserId(fireworksBean.getPhone());
+                    identityService.setAuthenticatedUserId(userBeanService.getCurrentUserLoginName());
                     ProcessInstance instance = runtimeService.startProcessInstanceByKey(Const.PROCESS_KEY, bizKey);
                     fireworksBean.setProcessInstanceId(instance.getProcessInstanceId());
                     Task task=taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
