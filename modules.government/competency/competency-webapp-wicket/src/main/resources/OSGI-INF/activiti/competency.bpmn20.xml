@@ -95,7 +95,7 @@
         </sequenceFlow>
         <endEvent id="endevent1" name="End"></endEvent>
         <sequenceFlow id="flow11" sourceRef="usertask6" targetRef="endevent1"></sequenceFlow>
-        <userTask id="usertask7" name="审批修改" activiti:assignee="test" activiti:formKey="modify.form">
+        <userTask id="usertask7" name="审批修改" activiti:formKey="modify.form">
             <extensionElements>
                 <activiti:formProperty id="name" name="姓名"></activiti:formProperty>
                 <activiti:formProperty id="sex" name="性别"></activiti:formProperty>
@@ -113,6 +113,11 @@
                 <activiti:formProperty id="proposerId" name="审请人ID"></activiti:formProperty>
                 <activiti:formProperty id="enterpriseId" name="企业ID"></activiti:formProperty>
             </extensionElements>
+            <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>${assignee}</formalExpression>
+                </resourceAssignmentExpression>
+            </humanPerformer>
         </userTask>
         <sequenceFlow id="flow13" name="不同意" sourceRef="exclusivegateway3" targetRef="usertask7">
             <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!accepted}]]></conditionExpression>

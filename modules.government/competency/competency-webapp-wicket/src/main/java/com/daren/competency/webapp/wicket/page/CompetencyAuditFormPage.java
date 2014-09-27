@@ -81,7 +81,7 @@ public class CompetencyAuditFormPage extends BaseFormPanel {
         //通过流程实例获取“业务键”
         String businessKey = pi.getBusinessKey();
         //拆分业务键，拆分成“业务对象名称”和“业务对象ID”的数组
-        String beanId = WorkflowUtil.getBizId(businessKey);
+        final String beanId = WorkflowUtil.getBizId(businessKey);
         //得到业务实体
         bean = (CompetencyBean) competencyService.getEntity(new Long(beanId));
         final Form<Map<String, String>> form = new Form<>("startForm", new CompoundPropertyModel<Map<String, String>>(new HashMap<String, String>()));
@@ -122,9 +122,13 @@ public class CompetencyAuditFormPage extends BaseFormPanel {
                     Map<String, Object> submitMap = new HashMap<String, Object>();
                     boolean passed= accepted.equals("同意");
                     submitMap.put("accepted", passed);
-                    if("符合性审批".equals(task.getName())){
-                        List assigneeList = Arrays.asList("test","zqx","slf");
-                        submitMap.put("assigneeList", assigneeList);
+                    if(passed){
+                        if("符合性审批".equals(task.getName())){
+                            List assigneeList = Arrays.asList("test","zqx","slf");
+                            submitMap.put("assigneeList", assigneeList);
+                        }
+                    }else{
+                        submitMap.put("assignee", bean.getLoginName());
                     }
                     taskService.complete(task.getId(), submitMap);
                     bean.setLinkHandle(task.getName());

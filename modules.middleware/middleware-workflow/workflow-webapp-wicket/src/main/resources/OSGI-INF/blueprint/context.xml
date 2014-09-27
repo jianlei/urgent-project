@@ -48,6 +48,12 @@
         </bean>
     </service>
 
+    <!-- 发布企业用户代办任务子菜单 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule">
+        <bean class="com.daren.workflow.webapp.wicket.EntTaskListMenuItemsModule">
+        </bean>
+    </service>
+
     <!-- 发布新建流程子菜单 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.workflow.webapp.wicket.ProcessListMenuItemsModule">

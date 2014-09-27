@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class DangerBean  extends PersistentEntity{
 
+    private String name;
     private String chinese_name=""; //中文名称
     private String chinese_otherName;  //中文别名
     private String english_name;//英文名称
@@ -58,6 +59,14 @@ public class DangerBean  extends PersistentEntity{
 
     public DangerBean() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getChinese_name() {
