@@ -44,6 +44,6 @@ public class EntChemistryManageMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new ChemistryManageTabPage(id, wmc, null);
+        return new ChemistryManageTabPage(id, wmc, "enterprise");
     }
 }

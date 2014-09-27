@@ -10,6 +10,8 @@ import java.util.Date;
  * Created by Administrator on 2014/9/24.
  */
 public class UserBean implements IClusterable {
+    @NotNull(message = "'企业编号'是必填项")
+    String qyid;//企业编号
     @NotNull(message = "'企业名称'是必填项")
     String qymc;//企业名称
     @NotNull(message = "'成立时间'是必填项")
@@ -40,6 +42,14 @@ public class UserBean implements IClusterable {
     @NotNull(message = "'手机号'是必填项")
     @Pattern(regexp = "((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)", message = "手机格式不正确")
     private String mobile;    // 手机
+
+    public String getQyid() {
+        return qyid;
+    }
+
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
+    }
 
     public String getQymc() {
         return qymc;

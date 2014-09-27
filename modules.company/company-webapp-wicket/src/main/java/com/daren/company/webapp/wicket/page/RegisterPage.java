@@ -41,6 +41,8 @@ public class RegisterPage extends WebPage {
         this.add(userform);
         userform.setOutputMarkupId(true);
 
+        final TextField qyid = new TextField("qyid");
+        userform.add(qyid);
         final TextField qymc = new TextField("qymc");
         userform.add(qymc);
         final DatePicker clsj = new DatePicker("clsj", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
@@ -81,6 +83,7 @@ public class RegisterPage extends WebPage {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 userBean = (UserBean)form.getDefaultModelObject();
                 EnterpriseBean enterpriseBean = new EnterpriseBean();
+                enterpriseBean.setQyid(userBean.getQyid());
                 enterpriseBean.setQymc(userBean.getQymc());
                 enterpriseBean.setClsj(userBean.getClsj());
                 enterpriseBean.setFrdb(userBean.getFrdb());
@@ -93,7 +96,7 @@ public class RegisterPage extends WebPage {
                 enterpriseBeanService.saveEntity(enterpriseBean);
 
                 com.daren.admin.entities.UserBean uBean = new com.daren.admin.entities.UserBean();
-                uBean.setQyid(String.valueOf(enterpriseBean.getId()));
+                uBean.setQyid(String.valueOf(enterpriseBean.getQyid()));
                 uBean.setName(userBean.getName());
                 uBean.setLoginName(userBean.getLoginName());
                 uBean.setPassword(userBean.getPassword());
