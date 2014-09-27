@@ -368,7 +368,7 @@ public class RegulationListPage extends BasePanel {
         }
 
         /**
-         * 初始化查询按钮
+         * 初始化询按钮
          *
          * @param provider
          * @param form

@@ -32,7 +32,7 @@ public class DangerBeanServiceImpl extends GenericBizServiceImpl implements IDan
 
     @Override
     public List<DangerBean> queryDangerSource(DangerBean dangerBean) {
-        return dangerBeanDao.find("select a from DangerBean a where a.name LIKE ?1", "%" + dangerBean.getName() + "%");
+        return dangerBeanDao.find("select a from DangerBean a where a.chinese_name LIKE ?1", "%" + dangerBean.getChinese_name() + "%");
     }
 }
 

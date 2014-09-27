@@ -26,14 +26,14 @@
                 <td class="detail"><input class="ipt" wicket:id="chinese_name"/></td>
                 <td class="tdl">中文别名</td>
                 <td class="detail"><input class="ipt" wicket:id="chinese_otherName"/></td>
-                <td class="tdl">英文名称</td>
-                <td class="detail"><input class="ipt" wicket:id="english_name"/></td>
-            </tr>
-            <tr>
-                <td class="tdl">英文别名</td>
-                <td class="detail"><input class="ipt" wicket:id="english_otherName"/></td>
                 <td class="tdl">CAS编号</td>
                 <td class="detail"><input class="ipt" wicket:id="CAS_num"/></td>
+            </tr>
+            <tr>
+                <td class="tdl">英文名称</td>
+                <td class="detail"><input class="ipt" wicket:id="english_name"/></td>
+                <td class="tdl">英文别名</td>
+                <td class="detail"><input class="ipt" wicket:id="english_otherName"/></td>
                 <td class="tdl">分子式</td>
                 <td class="detail"><input class="ipt" wicket:id="formula"/></td>
             </tr>
@@ -42,26 +42,24 @@
                 <td class="detail"><input class="ipt" wicket:id="formula_weight"/></td>
                 <td class="tdl">外形与形状</td>
                 <td class="detail"><input class="ipt" wicket:id="shape"/></td>
-            </tr>
-            <tr>
-                <td class="tdl">理化特性识别知识</td>
-                <td class="detail"><input class="ipt" wicket:id="physical_property"/></td>
-            </tr>
-            <tr>
                 <td class="tdl">熔点</td>
                 <td class="detail"><input class="ipt" wicket:id="melting_point"/></td>
+            </tr>
+            <tr>
                 <td class="tdl">相对气度</td>
                 <td class="detail"><input class="ipt" wicket:id="tolerance"/></td>
                 <td class="tdl">沸点</td>
                 <td class="detail"><input class="ipt" wicket:id="boiling_point"/></td>
-            </tr>
-            <tr>
                 <td class="tdl">临界压力</td>
                 <td class="detail"><input class="ipt" wicket:id="critical_pressure"/></td>
+            </tr>
+            <tr>
                 <td class="tdl">相对密度</td>
                 <td class="detail"><input class="ipt" wicket:id="density_ratio"/></td>
                 <td class="tdl">燃烧热</td>
                 <td class="detail"><input class="ipt" wicket:id="burn_Hot"/></td>
+                <td class="tdl">燃烧下限</td>
+                <td class="detail"><input class="ipt" wicket:id="explode_below"/></td>
             </tr>
             <tr>
                 <td class="tdl">闪点</td>
@@ -71,33 +69,64 @@
                 <td class="tdl">燃烧上限</td>
                 <td class="detail"><input class="ipt" wicket:id="explode_upper"/></td>
             </tr>
+
             <tr>
-                <td class="tdl">燃烧下限</td>
-                <td class="detail"><input class="ipt" wicket:id="explode_below"/></td>
+                <td class="tdl">理化特性识别知识</td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="physical_property" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="physical_property"/></td>-->
+                </td>
                 <td class="tdl">健康危害</td>
-                <td class="detail"><input class="ipt" wicket:id="harm_health"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="harm_health" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="harm_health"/>-->
+                </td>
                 <td class="tdl">急救措施</td>
-                <td class="detail"><input class="ipt" wicket:id="first_aid"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="first_aid" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="first_aid"/>-->
+                </td>
             </tr>
             <tr>
                 <td class="tdl">消防措施</td>
-                <td class="detail"><input class="ipt" wicket:id="fire_control"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="fire_control" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="fire_control"/>-->
+                </td>
                 <td class="tdl">泄漏应急处理</td>
-                <td class="detail"><input class="ipt" wicket:id="release_measures"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="release_measures" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="release_measures"/>-->
+                </td>
                 <td class="tdl">操作设置</td>
-                <td class="detail"><input class="ipt" wicket:id="control_setting"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="control_setting" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="control_setting"/>-->
+                </td>
             </tr>
             <tr>
                 <td class="tdl">接触控制</td>
-                <td class="detail"><input class="ipt" wicket:id="touch_control"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="touch_control" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="touch_control"/>-->
+                </td>
                 <td class="tdl">稳定性和反应活性</td>
-                <td class="detail"><input class="ipt" wicket:id="stability"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="stability" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="stability"/>-->
+                </td>
                 <td class="tdl">毒性</td>
-                <td class="detail"><input class="ipt" wicket:id="toxicology_data"/></td>
+                <td class="detail">
+                    <TEXTAREA wicket:id="toxicology_data" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="toxicology_data"/>-->
+                </td>
             </tr>
             <tr>
                 <td class="tdl">运输信息</td>
-                <td class="detail" colspan="5"><input class="ipt" wicket:id="transport_information"/></td>
+                <td class="detail" colspan="5">
+                    <TEXTAREA wicket:id="transport_information" COLS=40 ROWS=6></TEXTAREA>
+                    <!--<input class="ipt" wicket:id="transport_information"/>-->
+                </td>
             </tr>
             </tbody>
         </table>

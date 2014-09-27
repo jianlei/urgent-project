@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DangerBean extends PersistentEntity {
-
+    @NotNull(message = "'中文名称'是必填项")
     private String chinese_name="";         //中文名称
     private String chinese_otherName;       //中文别名
     private String english_name;            //英文名称

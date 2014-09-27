@@ -1,11 +1,13 @@
 package com.daren.danger.webapp.wicket.page;
 
+import com.daren.core.api.IConst;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.danger.api.biz.IDangerBeanService;
 import com.daren.danger.entities.DangerBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -36,6 +38,7 @@ import java.util.List;
 public class DangerListPage extends BasePanel {
 
     MajorDangerSourceDataProvider provider = new MajorDangerSourceDataProvider();
+    private boolean isEnt;//判断是否为企业用户
 
     @Inject
     private IDangerBeanService majorDangerSourceService;
@@ -57,10 +60,13 @@ public class DangerListPage extends BasePanel {
             protected void populateItem(Item<DangerBean> item) {
                 final DangerBean dangerBean = item.getModelObject();
                 item.add(new Label("chinese_name", dangerBean.getChinese_name()));
-                item.add(new Label("english_name", dangerBean.getCAS_num()));
+                item.add(new Label("english_name", dangerBean.getEnglish_name()));
                 item.add(new Label("formula", dangerBean.getFormula()));
                 item.add(new Label("CAS_num", dangerBean.getCAS_num()));
-                item.add(getToCreatePageLink("check_name", dangerBean));
+                AjaxLink check_name = getToCreatePageLink("check_name", dangerBean);
+                item.add(check_name);
+                String oper_name =isEnt ?"查看": "修改";
+                check_name.add(new Label("oper_name", oper_name));
                 AjaxLink alink = new AjaxLink("del") {
                     @Override
                     protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -77,6 +83,12 @@ public class DangerListPage extends BasePanel {
                         majorDangerSourceService.deleteEntity(dangerBean.getId());
                         target.add(table);
                     }
+
+                    @Override
+                    protected void onConfigure() {
+                        super.onConfigure();
+                        this.setVisible(!isEnt);
+                    }
                 };
                 item.add(alink.setOutputMarkupId(true));
             }
@@ -85,12 +97,29 @@ public class DangerListPage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
         createQuery(table, provider, id, wmc);
+        isEntUser();
+    }
+
+    /**
+     * 判断是否为企业登陆用户
+     */
+    private void isEntUser() {
+        isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;
     }
 
     private AjaxButton getToCreatePageAjaxButton(String wicketId, final DangerBean dangerBean) {
         AjaxButton ajaxLink = new AjaxButton(wicketId) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createButtonOnClick(dangerBean, target);
+            }
+            /**
+             * 如果为企业用户则隐藏
+             * @param behavior
+             */
+            @Override
+            public void onConfigure(JQueryBehavior behavior) {
+                super.onConfigure(behavior);
+                this.setVisible(!isEnt);
             }
         };
         return ajaxLink;
@@ -101,6 +130,15 @@ public class DangerListPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 createButtonOnClick(dangerBean, target);
+            }
+            /**
+             * 如果为企业用户则隐藏
+             */
+            @Override
+            public void onConfigure() {
+                super.onConfigure();
+//                this.setVisible(!isEnt);
+
             }
         };
         return ajaxLink;
