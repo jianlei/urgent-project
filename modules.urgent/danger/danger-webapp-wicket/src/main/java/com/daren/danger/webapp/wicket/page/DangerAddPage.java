@@ -2,15 +2,13 @@ package com.daren.danger.webapp.wicket.page;
 
 import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.enterprise.api.biz.IEnterpriseBeanService;
-import com.daren.enterprise.entities.EnterpriseBean;
-import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.danger.api.biz.IDangerBeanService;
 import com.daren.danger.entities.DangerBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -18,7 +16,6 @@ import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 
 import javax.inject.Inject;
 
@@ -37,17 +34,11 @@ public class DangerAddPage extends BasePanel {
     final WebMarkupContainer dialogWrapper;
     Form<DangerBean> dangerBeanForm = new Form("majorDangerSourceForm", new CompoundPropertyModel(new DangerBean()));
 
-    EnterpriseBean enterpriseBean=new EnterpriseBean();
     DangerBean dangerBean = new DangerBean();
-    EnterpriseSelect2Choice enterpriseSelect2Choice;
     WindowMapPage dialog;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
     @Inject
     private IDangerBeanService dangerBeanService;
-
-    @Inject
-    private IEnterpriseBeanService enterpriseBeanService;
-
 
     public DangerAddPage(final String id, final WebMarkupContainer wmc, final DangerBean bean) {
         super(id, wmc);
@@ -74,30 +65,30 @@ public class DangerAddPage extends BasePanel {
 
     public void addForm(final String id, final WebMarkupContainer wmc) {
 
+
         dangerBeanForm.setMultiPart(true);
         this.add(dangerBeanForm);
 
-        final TextArea<String> physical_property = new TextArea<String>("physical_property");
+        final EntTextArea<String> physical_property = new EntTextArea<String>("physical_property");
         dangerBeanForm.add(physical_property);
-        final TextArea<String> harm_health = new TextArea<String>("harm_health");
+        final EntTextArea<String> harm_health = new EntTextArea<String>("harm_health");
         dangerBeanForm.add(harm_health);
-        final TextArea<String> first_aid = new TextArea<String>("first_aid");
+        final EntTextArea<String> first_aid = new EntTextArea<String>("first_aid");
         dangerBeanForm.add(first_aid);
-        final TextArea<String> fire_control = new TextArea<String>("fire_control");
+        final EntTextArea<String> fire_control = new EntTextArea<String>("fire_control");
         dangerBeanForm.add(fire_control);
-        final TextArea<String> release_measures = new TextArea<String>("release_measures");
+        final EntTextArea<String> release_measures = new EntTextArea<String>("release_measures");
         dangerBeanForm.add(release_measures);
-        final TextArea<String> control_setting = new TextArea<String>("control_setting");
+        final EntTextArea<String> control_setting = new EntTextArea<String>("control_setting");
         dangerBeanForm.add(control_setting);
-        final TextArea<String> touch_control = new TextArea<String>("touch_control");
+        final EntTextArea<String> touch_control = new EntTextArea<String>("touch_control");
         dangerBeanForm.add(touch_control);
-        final TextArea<String> stability = new TextArea<String>("stability");
+        final EntTextArea<String> stability = new EntTextArea<String>("stability");
         dangerBeanForm.add(stability);
-        final TextArea<String> toxicology_data = new TextArea<String>("toxicology_data");
+        final EntTextArea<String> toxicology_data = new EntTextArea<String>("toxicology_data");
         dangerBeanForm.add(toxicology_data);
-        final TextArea<String> transport_information = new TextArea<String>("transport_information");
+        final EntTextArea<String> transport_information = new EntTextArea<String>("transport_information");
         dangerBeanForm.add(transport_information);
-
 
         /*enterpriseSelect2Choice = new EnterpriseSelect2Choice("qyid", Model.of(enterpriseBean));
         dangerBeanForm.add(enterpriseSelect2Choice);*/
@@ -119,6 +110,12 @@ public class DangerAddPage extends BasePanel {
                         target.add(feedbackPanel);
                     }
                 }
+            }
+            //企业用户则隐藏
+            @Override
+            public void onConfigure(JQueryBehavior behavior) {
+                super.onConfigure(behavior);
+                    this.setVisible(!isEnt);
             }
         };
         dangerBeanForm.add(ajaxSubmitLink);
@@ -195,6 +192,23 @@ public class DangerAddPage extends BasePanel {
         };
         target.add(dialogWrapper);
         dialog.open(target);
+    }
+
+    private class EntTextArea<T> extends TextArea {
+
+        public EntTextArea(String id) {
+            super(id);
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return !isEnt;
+        }
+
+        @Override
+        protected void onDisabled(ComponentTag tag) {
+            tag.put("readonly", "readonly");
+        }
     }
 
     /*private AjaxLink initGisButton() {
