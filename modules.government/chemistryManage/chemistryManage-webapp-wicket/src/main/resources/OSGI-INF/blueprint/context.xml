@@ -26,7 +26,7 @@
 
     <!-- ChemistryManage Modify task form -->
     <service interface="com.daren.core.web.api.workflow.IFormHandler">
-        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageAuditTaskFormHandler">
+        <bean class="com.daren.chemistry.manage.webapp.wicket.impl.ChemistryManageModifyFormHandler">
         </bean>
     </service>
 
