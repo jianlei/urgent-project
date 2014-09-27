@@ -86,13 +86,40 @@ public class ChemistryManageEndFormPage extends BaseFormPanel {
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //设置页面字段
-        form.add(new Label("name",new PropertyModel<String>(bean, "name")));
-        form.add(new Label("header",new PropertyModel<String>(bean, "header")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("qyCode",new PropertyModel<String>(bean, "qyCode")));
+        form.add(new Label("qyName",new PropertyModel<String>(bean, "qyName")));
         form.add(new Label("address",new PropertyModel<String>(bean, "address")));
+        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("fax",new PropertyModel<String>(bean, "fax")));
+        form.add(new Label("zipCode",new PropertyModel<String>(bean, "zipCode")));
+        form.add(new Label("qyType",new PropertyModel<String>(bean, "qyType")));
+        form.add(new Label("illegalPerson",new PropertyModel<String>(bean, "illegalPerson")));
+        form.add(new Label("specialType",new PropertyModel<String>(bean, "specialType")));
+        form.add(new Label("economicsNature",new PropertyModel<String>(bean, "economicsNature")));
+        form.add(new Label("directorUnits",new PropertyModel<String>(bean, "directorUnits")));
+        form.add(new Label("registrationAuthority",new PropertyModel<String>(bean, "registrationAuthority")));
+        form.add(new Label("mainHead",new PropertyModel<String>(bean, "mainHead")));
+        form.add(new Label("mainHeadId",new PropertyModel<String>(bean, "mainHeadId")));
+        form.add(new Label("chargeHead",new PropertyModel<String>(bean, "chargeHead")));
+        form.add(new Label("chargeHeadId",new PropertyModel<String>(bean, "chargeHeadId")));
+        form.add(new Label("workersNumber",new PropertyModel<String>(bean, "workersNumber")));
+        form.add(new Label("technologyNumber",new PropertyModel<String>(bean, "technologyNumber")));
+        form.add(new Label("safetyNumber",new PropertyModel<String>(bean, "safetyNumber")));
+        form.add(new Label("registrationCapital",new PropertyModel<String>(bean, "registrationCapital")));
+        form.add(new Label("fixedAssets",new PropertyModel<String>(bean, "fixedAssets")));
+        form.add(new Label("yearSale",new PropertyModel<String>(bean, "yearSale")));
+        form.add(new Label("manageAddress",new PropertyModel<String>(bean, "manageAddress")));
+        form.add(new Label("manageProperty",new PropertyModel<String>(bean, "manageProperty")));
+        form.add(new Label("storageAddress",new PropertyModel<String>(bean, "storageAddress")));
+        form.add(new Label("storageProperty",new PropertyModel<String>(bean, "storageProperty")));
+        form.add(new Label("buildingStructure",new PropertyModel<String>(bean, "buildingStructure")));
+        form.add(new Label("storageCapacity",new PropertyModel<String>(bean, "storageCapacity")));
+        form.add(new Label("systemName",new PropertyModel<String>(bean, "systemName")));
+        form.add(new Label("communication",new PropertyModel<String>(bean, "communication")));
         form.add(new Label("mode",new PropertyModel<String>(bean, "mode")));
         form.add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
         form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
+
         form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
         //日期控件//
         final DatePicker startDateTime = new DatePicker("startDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));

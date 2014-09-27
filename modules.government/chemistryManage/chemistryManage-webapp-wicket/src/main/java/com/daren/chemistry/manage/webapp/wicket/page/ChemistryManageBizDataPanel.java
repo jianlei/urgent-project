@@ -35,18 +35,18 @@ public class ChemistryManageBizDataPanel extends Panel {
     private void addBizData() {
         //add data to form
         add(new Label("code",new PropertyModel<String>(bean, "code")));
-        add(new Label("name",new PropertyModel<String>(bean, "name")));
-        add(new Label("header",new PropertyModel<String>(bean, "header")));
+        add(new Label("qyCode",new PropertyModel<String>(bean, "qyCode")));
+        add(new Label("qyName",new PropertyModel<String>(bean, "qyName")));
+        add(new Label("mainHead",new PropertyModel<String>(bean, "mainHead")));
         add(new Label("address",new PropertyModel<String>(bean, "address")));
-        add(new Label("unitType",new PropertyModel<String>(bean, "unitType")));
+        add(new Label("qyType",new PropertyModel<String>(bean, "qyType")));
         add(new Label("scope",new PropertyModel<String>(bean, "scope")));
         add(new Label("mode",new PropertyModel<String>(bean, "mode")));
+        Date unitsDate=new PropertyModel<Date>(bean, "unitsDate").getObject();
+        add(new Label("unitsDate",DateUtil.convertDateToString(unitsDate, DateUtil.shortSdf)));
         Date startDate=new PropertyModel<Date>(bean, "startDate").getObject();
         add(new Label("startDate",DateUtil.convertDateToString(startDate, DateUtil.shortSdf)));
         Date endDate=new PropertyModel<Date>(bean, "endDate").getObject();
         add(new Label("endDate",DateUtil.convertDateToString(endDate, DateUtil.shortSdf)));
-        add(new Label("unitsDate",new PropertyModel<String>(bean, "unitsDate")));
-        add(new Label("proposerId",new PropertyModel<String>(bean, "proposerId")));
-        add(new Label("qyid",new PropertyModel<String>(bean, "qyid")));
     }
 }

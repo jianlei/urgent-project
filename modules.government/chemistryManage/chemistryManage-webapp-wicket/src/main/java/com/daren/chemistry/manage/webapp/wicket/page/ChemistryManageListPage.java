@@ -52,10 +52,12 @@ public class ChemistryManageListPage extends BasePanel {
     private TaskService taskService;
     @Inject
     private IUserBeanService userBeanService;
+    private String pageType;
 
-    public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String phone) {
+    public ChemistryManageListPage(final String id, final WebMarkupContainer wmc,String pageType) {
         super(id, wmc);
         this.wmc=wmc;
+        this.pageType = pageType;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -77,11 +79,11 @@ public class ChemistryManageListPage extends BasePanel {
             @Override
             protected void populateItem(Item<ChemistryManageBean> item) {
                 final ChemistryManageBean chemistryManageBean = item.getModelObject();
-                item.add(new Label("name", chemistryManageBean.getName()));
-                item.add(new Label("header", chemistryManageBean.getHeader()));
+                item.add(new Label("qyCode", chemistryManageBean.getQyCode()));
+                item.add(new Label("qyName", chemistryManageBean.getQyName()));
+                item.add(new Label("address", chemistryManageBean.getAddress()));
+                item.add(new Label("mainHead", chemistryManageBean.getMainHead()));
                 item.add(new Label("phone", chemistryManageBean.getPhone()));
-                item.add(new Label("mode", chemistryManageBean.getMode()));
-                item.add(new Label("unitType", chemistryManageBean.getUnitType()));
                 item.add(new Label("linkHandle", chemistryManageBean.getLinkHandle()));
                 item.add(getToCreatePageLink("check_name", chemistryManageBean));
                 item.add(getToUploadPageLink("upload", chemistryManageBean));
@@ -101,6 +103,9 @@ public class ChemistryManageListPage extends BasePanel {
                 createButtonOnClick(chemistryManageBean, target);
             }
         };
+        if("manage".equals(pageType)){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -111,7 +116,7 @@ public class ChemistryManageListPage extends BasePanel {
                 createButtonOnClick(chemistryManageBean, target);
             }
         };
-        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
+        if((chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle()))||"manage".equals(pageType)){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -151,7 +156,7 @@ public class ChemistryManageListPage extends BasePanel {
             }
 
         };
-        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
+        if((chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle()))||"manage".equals(pageType)){
             alinkSubmit.setVisible(false);
         }
         return alinkSubmit;
@@ -164,7 +169,7 @@ public class ChemistryManageListPage extends BasePanel {
                 createDialog(target, chemistryManageBean, "upload");
             }
         };
-        if(chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle())){
+        if((chemistryManageBean.getLinkHandle()!=null&&!"".equals(chemistryManageBean.getLinkHandle()))||"manage".equals(pageType)){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -194,7 +199,7 @@ public class ChemistryManageListPage extends BasePanel {
     private void createQuery(final WebMarkupContainer table, final ChemistryManageDataProvider provider, final String id, final WebMarkupContainer wmc) {
         //处理查询
         Form<ChemistryManageBean> majorHazardSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new ChemistryManageBean()));
-        TextField textField = new TextField("name");
+        TextField textField = new TextField("qyName");
         majorHazardSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorHazardSourceBeanForm.add(getToCreatePageAjaxButton(null));
         add(majorHazardSourceBeanForm.setOutputMarkupId(true));
@@ -216,7 +221,11 @@ public class ChemistryManageListPage extends BasePanel {
         }
         @Override
         protected List<ChemistryManageBean> getData() {
-            return chemistryManageBeanService.getChemistryManageByLoginName(userBeanService.getCurrentUserLoginName());
+            if("enterprise".equals(pageType)){
+                return chemistryManageBeanService.getChemistryManageByLoginName(userBeanService.getCurrentUserLoginName());
+            }else{
+                return chemistryManageBeanService.getAllEntity();
+            }
         }
     }
 }
