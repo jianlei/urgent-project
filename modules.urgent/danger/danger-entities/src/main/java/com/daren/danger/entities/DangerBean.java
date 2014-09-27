@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "urg_danger")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class DangerBean extends PersistentEntity {
+public class DangerBean  extends PersistentEntity{
 
     private String chinese_name=""; //中文名称
     private String chinese_otherName;  //中文别名
@@ -31,29 +31,29 @@ public class DangerBean extends PersistentEntity {
     private String Formula="";//分子式
     private String Formula_Weight="";//分子量
     private String Physical_property="";//理化特性识别知识
-    private String Shape="";//
-    private String Melting_Point="";//
+    private String Shape="";//外形与形状
+    private String Melting_Point="";//熔点
     private String Temperature="";//
-    private String Tolerance="";//
-    private String Boiling_Point="";//
+    private String Tolerance="";//相对气度
+    private String Boiling_Point="";//沸点
     private String Air_Pressure="";//
-    private String critical_pressure="";//
-    private String density_ratio="";//
-    private String burn_Hot="";//
-    private String flash_point="";//
-    private String nature_temperature="";//
-    private String explode_upper="";//
-    private String explode_below="";//
-    private String harm_type="";//是否危化企业（西）
-    private String harm_health="";//剧本企业最近直线距离（西）
-    private String first_aid="";//情况类型（西）
-    private String fire_control="";//周边情况（北）
-    private String release_measures="";//是否危化企业（北）
-    private String control_setting="";//剧本企业最近直线距离（北）
-    private String touch_control="";//情况类型（北）
-    private String stability="";//影响范围
-    private String toxicology_data="";//基本情况
-    private String transport_information="";//
+    private String critical_pressure="";//临界压力
+    private String density_ratio="";//相对密度
+    private String burn_Hot="";//燃烧热
+    private String flash_point="";//闪点
+    private String nature_temperature="";//自燃温度
+    private String explode_upper="";//燃烧上限
+    private String explode_below="";//燃烧下限
+    private String harm_type="";//
+    private String harm_health="";//健康危害
+    private String first_aid="";//急救措施
+    private String fire_control="";//消防措施
+    private String release_measures="";//泄漏应急处理
+    private String control_setting="";//操作设置
+    private String touch_control="";//接触控制
+    private String stability="";//稳定性和反应活性
+    private String toxicology_data="";//毒性
+    private String transport_information="";//运输信息
 
 
     public DangerBean() {
