@@ -1,19 +1,21 @@
-package com.daren.admin.webapp.wicket;
+package com.daren.expert.webapp.wicket;
 
-import com.daren.admin.webapp.wicket.page.EntUserListPage;
 import com.daren.core.web.api.module.IMenuItemsModule;
+import com.daren.expert.webapp.wicket.page.EnterpriseExpertListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：企业用户菜单类
- * @创建人：xukexin
- * @创建时间：2014/9/23 15:16
+ * @类描述：品牌子菜单定义类
+ * @创建人：sunlf
+ * @创建时间：2014-03-29 上午10:23
  * @修改人：
  * @修改时间：
  * @修改备注：
  */
-public class EntUserMenuItemsModule implements IMenuItemsModule {
+
+public class EntEnterpriseExpertMenuItemsModule implements IMenuItemsModule {
+
 
     @Override
     public String getNo() {
@@ -25,10 +27,9 @@ public class EntUserMenuItemsModule implements IMenuItemsModule {
         return 0;
     }
 
-
     @Override
     public String getName() {
-        return "企业用户管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "企业专家管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -38,12 +39,11 @@ public class EntUserMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "enterprise.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "ent.resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new EntUserListPage(id, wmc);
+        return new EnterpriseExpertListPage(id, wmc);
     }
-
 }

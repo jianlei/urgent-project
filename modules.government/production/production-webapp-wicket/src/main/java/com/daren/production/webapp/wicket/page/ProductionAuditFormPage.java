@@ -120,9 +120,13 @@ public class ProductionAuditFormPage extends BaseFormPanel {
                     Map<String, Object> submitMap = new HashMap<String, Object>();
                     boolean passed= accepted.equals("同意");
                     submitMap.put("accepted", passed);
-                    if("符合性审批".equals(task.getName())){
-                        List assigneeList = Arrays.asList("test","zqx","slf");
-                        submitMap.put("assigneeList", assigneeList);
+                    if(passed){
+                        if("符合性审批".equals(task.getName())){
+                            List assigneeList = Arrays.asList("test","zqx","slf");
+                            submitMap.put("assigneeList", assigneeList);
+                        }
+                    }else {
+                        submitMap.put("assignee", bean.getLoginName());
                     }
                     taskService.complete(task.getId(), submitMap);
                     bean.setLinkHandle(task.getName());

@@ -4,6 +4,23 @@
 
     <ext:property-placeholder placeholder-prefix="$[" placeholder-suffix="]"/>
 
+    <reference id="rememberMeManager" interface="org.apache.shiro.mgt.RememberMeManager">
+
+    </reference>
+
+    <!-- 发布cookie 服务 -->
+    <reference id="sessionIdCookie" interface="org.apache.shiro.web.servlet.Cookie">
+
+    </reference>
+
+    <!-- 发布记住cookie manager -->
+
+    <bean id="rememberMeCookie" class="com.daren.company.web.bootup.wicket.shiro.ShiroCookie">
+        <argument value="remember"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/> <!-- 30天 -->
+    </bean>
+
     <!--<reference id="homePageProviderService" interface="com.daren.company.web.api.provider.IHomePageProvider"/>-->
 
     <!-- <bean id="irisShiroApplication" class="com.daren.company.web.bootup.wicket.IrisShiroApplication">
@@ -32,8 +49,9 @@
           destroy-method="destroy">
         <property name="realm" ref="shiroRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
-        <!--<property name="sessionMode" value="native"/>-->
+        <property name="sessionMode" value="native"/>
         <property name="sessionManager" ref="sessionManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
     <!--<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
@@ -50,7 +68,10 @@
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1200000"/>
         <property name="sessionDAO" ref="customShiroSessionDAO"/>
+        <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionFactory" ref="SessionFactory"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
         <!--<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>-->
     </bean>
@@ -68,7 +89,7 @@
         <argument index="2" value="6379" type="int"/>
     </bean>
 
-    <bean id="jedisShiroSessionRepository" class="com.daren.core.security.shiro.JedisShiroSessionRepository">
+    <bean id="jedisShiroSessionRepository" class="com.daren.company.web.bootup.wicket.shiro.JedisShiroSessionRepository">
         <property name="jedisPool" ref="shardedJedisPool"/>
     </bean>
 
@@ -79,20 +100,19 @@
 
     <bean id="customShiroSessionDAO" class="com.daren.core.security.shiro.CustomShiroSessionDAO">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+        <!--<property name="sessionIdGenerator"  ref="randomSessionIdGenerator"/>-->
     </bean>
 
-    <!-- 用户授权信息Cache, 采用EhCache -->
-    <!--<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        &lt;!&ndash;<property name="cacheManager" ref="cacheManager"/>&ndash;&gt;
-        <property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache-company.xml"/>
-    </bean>-->
-
+    <!--<bean id="randomSessionIdGenerator" class="org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator"/>-->
     <bean id="shiroCacheManager" class="com.daren.core.security.shiro.ShiroCacheManager">
         <property name="cacheManager" ref="cacheManager"/>
         <!--<property name="cacheManagerConfigFile" value="$[karaf.base]/etc/ehcache.xml"/>-->
     </bean>
 
     <reference id="cacheManager" interface="com.daren.core.api.cache.ICacheManager"/>
+
+
+
 
 
     <service interface="org.ops4j.pax.wicket.api.FilterFactory">
