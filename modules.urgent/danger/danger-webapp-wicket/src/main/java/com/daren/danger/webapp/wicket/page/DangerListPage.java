@@ -56,16 +56,11 @@ public class DangerListPage extends BasePanel {
             @Override
             protected void populateItem(Item<DangerBean> item) {
                 final DangerBean dangerBean = item.getModelObject();
-                item.add(new Label("name", dangerBean.getName()));
-                //EnterpriseBean enterpriseBean= enterpriseBeanService.getByQyid(dangerBean.getQyid());
-                //item.add(new Label("qyid", enterpriseBean.getQymc()));
-//                item.add(new Label("estimate", dangerBean.getEstimate()));
-                //item.add(new Label("jd", dangerBean.getJd()));
-               // item.add(new Label("wd", dangerBean.getWd()));
-                //item.add(new Label("accidentRate", dangerBean.getAccidentRate()));
-
+                item.add(new Label("chinese_name", dangerBean.getChinese_name()));
+                item.add(new Label("english_name", dangerBean.getCAS_num()));
+                item.add(new Label("formula", dangerBean.getFormula()));
+                item.add(new Label("CAS_num", dangerBean.getCAS_num()));
                 item.add(getToCreatePageLink("check_name", dangerBean));
-
                 AjaxLink alink = new AjaxLink("del") {
                     @Override
                     protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -123,7 +118,7 @@ public class DangerListPage extends BasePanel {
     private void createQuery(final WebMarkupContainer table, final MajorDangerSourceDataProvider provider, final String id, final WebMarkupContainer wmc) {
         //处理查询
         Form<DangerBean> majorDangerSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new DangerBean()));
-        TextField textField = new TextField("name");
+        TextField textField = new TextField("chinese_name");
 
         majorDangerSourceBeanForm.add(textField.setOutputMarkupId(true));
         majorDangerSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
@@ -150,7 +145,7 @@ public class DangerListPage extends BasePanel {
 
         @Override
         protected List<DangerBean> getData() {
-            if (dangerBean == null || null == dangerBean.getName() || "".equals(dangerBean.getName().trim()))
+            if (dangerBean == null || null == dangerBean.getChinese_name() || "".equals(dangerBean.getChinese_name().trim()))
                 return majorDangerSourceService.getAllEntity();
             else {
                 return majorDangerSourceService.queryDangerSource(dangerBean);
