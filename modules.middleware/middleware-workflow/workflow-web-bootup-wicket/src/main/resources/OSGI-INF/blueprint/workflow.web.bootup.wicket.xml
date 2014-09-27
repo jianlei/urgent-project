@@ -104,4 +104,9 @@
             <property name="webSecurityManager" ref="webSecurityManager"/>
         </bean>
     </service>
+
+    <service id="systemItemModule" interface="com.daren.core.web.api.module.ISystemItemModule">
+        <bean class="com.daren.workflow.web.bootup.wicket.GovernmentSysItemModule"/>
+    </service>
+
 </blueprint>
