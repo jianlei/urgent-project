@@ -44,16 +44,19 @@
                 <thead>
                 <tr class="tr_detail">
                     <th>演练名称</th>
+                    <th>企业名称</th>
+                    <th>状态</th>
                     <th>文档</th>
                     <th>视频</th>
                     <th>图片</th>
-                    <th>描述</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr wicket:id="rows">
                     <td><span wicket:id="name"></span></td>
+                    <td><span wicket:id="qymc"></span></td>
+                    <td><span wicket:id="confirm_status"></span></td>
                     <td>
                         <a href="#" wicket:id="document" title="下载文档"><span wicket:id="documentlabel"></span></a>
                     </td>
@@ -63,7 +66,7 @@
                     <td>
                         <a href="#" wicket:id="image" title="下载图片"><span wicket:id="imagelabel"></span></a>
                     </td>
-                    <td><span wicket:id="description"></span></td>
+                    <!--<td><span wicket:id="description"></span></td>-->
                     <td>
                         <a href="#" wicket:id="edit">修改</a>
                         <a href="#" wicket:id="delete">删除</a>

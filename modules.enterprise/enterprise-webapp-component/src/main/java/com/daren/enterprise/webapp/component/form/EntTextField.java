@@ -17,6 +17,11 @@ public class EntTextField extends TextField {
         isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;
     }
 
+    public EntTextField(String id,int flag){
+        super(id);
+        isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?false:true;
+    }
+
     @Override
     public boolean isEnabled() {
         return !isEnt;
