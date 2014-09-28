@@ -11,7 +11,9 @@ import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
 import com.daren.workflow.webapp.wicket.util.TabsUtil;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
 import org.activiti.engine.IdentityService;
@@ -103,11 +105,28 @@ public class FireworksModifyFormPage extends BaseFormPanel {
         //add data to form
         form.add(new TextField("name").setOutputMarkupId(true));
         form.add(new TextField("head").setOutputMarkupId(true));
-        form.add(new TextField("phone").setOutputMarkupId(true));
         form.add(new TextField("address").setOutputMarkupId(true));
-        form.add(new TextField("economicsType").setOutputMarkupId(true));
+        form.add(new TextField("postalCode").setOutputMarkupId(true));
         form.add(new TextField("storageAddress").setOutputMarkupId(true));
+        form.add(new TextField("economicsType").setOutputMarkupId(true));
+        form.add(new TextField("registrationCapital").setOutputMarkupId(true));
+        form.add(new TextField("phone").setOutputMarkupId(true));
+        form.add(new TextField("fax").setOutputMarkupId(true));
+        form.add(new TextField("website").setOutputMarkupId(true));
+        form.add(new TextField("mail").setOutputMarkupId(true));
+        form.add(new TextField("businessCode").setOutputMarkupId(true));
+        final DatePicker validityDateTime = new DatePicker("registrationDate", "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
+        form.add(validityDateTime);
+        form.add(new TextField("registrationUnits").setOutputMarkupId(true));
+        form.add(new TextField("fixedAssets").setOutputMarkupId(true));
+        form.add(new TextField("sales").setOutputMarkupId(true));
+        form.add(new TextField("exitusSales").setOutputMarkupId(true));
+        form.add(new TextField("workersNumber").setOutputMarkupId(true));
+        form.add(new TextField("safety").setOutputMarkupId(true));
+        form.add(new TextField("warehouse").setOutputMarkupId(true));
+        form.add(new TextField("transport").setOutputMarkupId(true));
         form.add(new TextField("scope").setOutputMarkupId(true));
+        form.add(new TextField("products").setOutputMarkupId(true));
         //上传复件按钮
         final AjaxButton uploadButton = new AjaxButton("upload", form) {
             @Override
