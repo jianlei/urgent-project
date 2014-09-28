@@ -1,12 +1,10 @@
 package com.daren.danger.webapp.wicket.page;
 
-import com.daren.core.api.IConst;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
-import com.daren.enterprise.api.biz.IEnterpriseBeanService;
-import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.danger.api.biz.IDangerBeanService;
 import com.daren.danger.entities.DangerBean;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -38,7 +36,7 @@ import java.util.List;
 public class DangerListPage extends BasePanel {
 
     MajorDangerSourceDataProvider provider = new MajorDangerSourceDataProvider();
-    private boolean isEnt;//判断是否为企业用户
+
 
     @Inject
     private IDangerBeanService majorDangerSourceService;
@@ -97,15 +95,9 @@ public class DangerListPage extends BasePanel {
         table.add(pagingNavigator);
         table.add(listView);
         createQuery(table, provider, id, wmc);
-        isEntUser();
     }
 
-    /**
-     * 判断是否为企业登陆用户
-     */
-    private void isEntUser() {
-        isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;
-    }
+
 
     private AjaxButton getToCreatePageAjaxButton(String wicketId, final DangerBean dangerBean) {
         AjaxButton ajaxLink = new AjaxButton(wicketId) {

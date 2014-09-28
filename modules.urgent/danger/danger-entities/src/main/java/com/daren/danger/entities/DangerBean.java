@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -93,12 +94,12 @@ public class DangerBean extends PersistentEntity {
         this.english_otherName = english_otherName;
     }
 
-    public void setCAS_num(String CAS_num) {
-        this.CAS_num = CAS_num;
-    }
-
     public String getCAS_num() {
         return CAS_num;
+    }
+
+    public void setCAS_num(String CAS_num) {
+        this.CAS_num = CAS_num;
     }
 
     public String getFormula() {
