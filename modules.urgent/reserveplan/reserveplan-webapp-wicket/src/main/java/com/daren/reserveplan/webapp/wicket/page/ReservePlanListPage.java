@@ -1,5 +1,7 @@
 package com.daren.reserveplan.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IUserBeanService;
+import com.daren.admin.entities.UserBean;
 import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
@@ -9,6 +11,7 @@ import com.daren.file.api.biz.IUploadDocumentService;
 import com.daren.file.entities.DocumentBean;
 import com.daren.reserveplan.api.biz.IReservePlanBeanService;
 import com.daren.reserveplan.entities.ReservePlanBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -43,7 +46,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class ReservePlanPage extends BasePanel {
+public class ReservePlanListPage extends BasePanel {
 
     ReservePlanDataProvider provider = new ReservePlanDataProvider();
 //    Map<String, String> enterpriseNameMap;
@@ -54,8 +57,10 @@ public class ReservePlanPage extends BasePanel {
     private IUploadDocumentService uploadDocumentService;
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
+    @Inject
+    private IUserBeanService userBeanService;
 
-    public ReservePlanPage(String id, final WebMarkupContainer wmc) {
+    public ReservePlanListPage(String id, final WebMarkupContainer wmc) {
         super(id, wmc);
 //        enterpriseNameMap = enterpriseBeanService.getAllBeansToHashMap();
         initForm(wmc);
@@ -127,6 +132,12 @@ public class ReservePlanPage extends BasePanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 addButtonOnClick(target, new ReservePlanBean());
             }
+
+            @Override
+            public void onConfigure(JQueryBehavior behavior) {
+                super.onConfigure(behavior);
+                this.setVisible(!isEnt);
+            }
         };
         reservePlanBeanForm.add(addButton);
         reservePlanBeanForm.add(findButton);
@@ -178,6 +189,13 @@ public class ReservePlanPage extends BasePanel {
                 reservePlanBeanService.deleteEntity(reservePlanBean.getId());
                 target.add(table);
             }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                this.setVisible(!isEnt);
+            }
+
         };
         item.add(ajaxLink.setOutputMarkupId(true));
     }
@@ -187,6 +205,12 @@ public class ReservePlanPage extends BasePanel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 addButtonOnClick(target, reservePlanBean);
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                this.setVisible(!isEnt);
             }
         };
         item.add(ajaxLink.setOutputMarkupId(true));
@@ -251,7 +275,14 @@ public class ReservePlanPage extends BasePanel {
         @Override
         protected List<ReservePlanBean> getData() {
             if (reservePlanBean == null || null == reservePlanBean.getName() || "".equals(reservePlanBean.getName().trim()))
-                return reservePlanBeanService.getAllEntity();
+            {
+                if(!isEnt)
+                    return reservePlanBeanService.getAllEntity();
+                else {//如果企业用户，则查询当前用户所属的企业
+                    UserBean userBean= userBeanService.getCurrentUser();
+                    return reservePlanBeanService.getReservePlanByEnterpriseId(userBean.getQyid());
+                }
+            }
             else {
                 return reservePlanBeanService.queryByName(reservePlanBean);
             }

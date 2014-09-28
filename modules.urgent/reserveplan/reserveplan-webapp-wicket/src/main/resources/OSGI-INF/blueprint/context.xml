@@ -3,14 +3,20 @@
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
         default-activation="lazy"
         >
-    <!-- 发布菜单目录 -->
+    <!-- 发布预案管理菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
         <bean class="com.daren.reserveplan.webapp.wicket.MainMenuModule">
         </bean>
     </service>
-    <!-- 发布菜单目录 -->
+    <!-- 发布企业预案子菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.reserveplan.webapp.wicket.ReservePlanMenuItemsModule">
+        </bean>
+    </service>
+
+    <!-- 发布企业用户应急预案子菜单目录 -->
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.reserveplan.webapp.wicket.EntReservePlanMenuItemsModule">
         </bean>
     </service>
 </blueprint>

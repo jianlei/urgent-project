@@ -10,22 +10,24 @@
     </service>
 
     <!-- 发布企业用户菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
+    <!--<service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
         <bean class="com.daren.expert.webapp.wicket.EntMainMenuModule">
         </bean>
-    </service>
+    </service>-->
 
-    <!-- 发布菜单目录 -->
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+    <!-- 发布行管专家菜单目录 -->
+    <!--<service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.expert.webapp.wicket.SafetySupervisionExpertMenuItemsModule">
         </bean>
-    </service>
+    </service>-->
+    <!-- 发布企业专家菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.expert.webapp.wicket.EnterpriseExpertMenuItemsModule">
         </bean>
     </service>
-    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+    <!-- 发布企业用户企业专家菜单目录 -->
+    <!--<service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.expert.webapp.wicket.EntEnterpriseExpertMenuItemsModule">
         </bean>
-    </service>
+    </service>-->
 </blueprint>

@@ -71,8 +71,8 @@ public class ReservePlanTabPage extends BasePanel {
         return tabs;
     }
 
-    private ReservePlanPage initReservePlanPage(final String id, final WebMarkupContainer wmc) {
-        ReservePlanPage reservePlanPage = new ReservePlanPage(id, wmc) {
+    private ReservePlanListPage initReservePlanPage(final String id, final WebMarkupContainer wmc) {
+        ReservePlanListPage reservePlanPage = new ReservePlanListPage(id, wmc) {
             @Override
             protected void addButtonOnClick(AjaxRequestTarget target, ReservePlanBean reservePlanBean) {
                 initReservePlanEditPage(id, wmc, reservePlanBean, target, true);
