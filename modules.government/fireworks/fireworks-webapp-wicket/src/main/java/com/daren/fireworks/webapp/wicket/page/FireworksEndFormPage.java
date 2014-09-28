@@ -4,6 +4,7 @@ import com.daren.apply.webapp.wicket.util.PageUtil;
 import com.daren.attachment.api.biz.IAttachmentService;
 import com.daren.attachment.entities.AttachmentBean;
 import com.daren.core.api.IConst;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
@@ -38,6 +39,7 @@ import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -88,11 +90,29 @@ public class FireworksEndFormPage extends BaseFormPanel {
         //设置页面字段
         form.add(new Label("name",new PropertyModel<String>(bean, "name")));
         form.add(new Label("head",new PropertyModel<String>(bean, "head")));
-        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
         form.add(new Label("address",new PropertyModel<String>(bean, "address")));
-        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
+        form.add(new Label("postalCode",new PropertyModel<String>(bean, "postalCode")));
         form.add(new Label("storageAddress",new PropertyModel<String>(bean, "storageAddress")));
+        form.add(new Label("economicsType",new PropertyModel<String>(bean, "economicsType")));
+        form.add(new Label("registrationCapital",new PropertyModel<String>(bean, "registrationCapital")));
+        form.add(new Label("phone",new PropertyModel<String>(bean, "phone")));
+        form.add(new Label("fax",new PropertyModel<String>(bean, "fax")));
+        form.add(new Label("website",new PropertyModel<String>(bean, "website")));
+        form.add(new Label("mail",new PropertyModel<String>(bean, "mail")));
+        form.add(new Label("businessCode",new PropertyModel<String>(bean, "businessCode")));
+        PropertyModel<Date> registrationDate = new PropertyModel<Date>(bean, "registrationDate");
+        form.add(new Label("registrationDate", DateUtil.convertDateToString(registrationDate.getObject(), DateUtil.shortSdf)));
+        form.add(new Label("registrationUnits",new PropertyModel<String>(bean, "registrationUnits")));
+        form.add(new Label("fixedAssets",new PropertyModel<String>(bean, "fixedAssets")));
+        form.add(new Label("sales",new PropertyModel<String>(bean, "sales")));
+        form.add(new Label("exitusSales",new PropertyModel<String>(bean, "exitusSales")));
+        form.add(new Label("workersNumber",new PropertyModel<String>(bean, "workersNumber")));
+        form.add(new Label("safety",new PropertyModel<String>(bean, "safety")));
+        form.add(new Label("warehouse",new PropertyModel<String>(bean, "warehouse")));
+        form.add(new Label("transport",new PropertyModel<String>(bean, "transport")));
         form.add(new Label("scope",new PropertyModel<String>(bean, "scope")));
+        form.add(new Label("products",new PropertyModel<String>(bean, "products")));
+
         form.add(new TextField("code",new PropertyModel<String>(bean, "code")));
         form.add(new TextField("card",new PropertyModel<String>(bean, "card")));
         //日期控件//
