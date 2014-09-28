@@ -4,17 +4,16 @@ import com.daren.core.web.component.map.WindowMapPage;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.danger.api.biz.IDangerBeanService;
 import com.daren.danger.entities.DangerBean;
+import com.daren.enterprise.webapp.component.utils.EntTextField;
+import com.daren.enterprise.webapp.component.utils.EntTextArea;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import javax.inject.Inject;
@@ -115,7 +114,7 @@ public class DangerAddPage extends BasePanel {
             @Override
             public void onConfigure(JQueryBehavior behavior) {
                 super.onConfigure(behavior);
-                    this.setVisible(!isEnt);
+                this.setVisible(!isEnt);
             }
         };
         dangerBeanForm.add(ajaxSubmitLink);
@@ -140,7 +139,8 @@ public class DangerAddPage extends BasePanel {
     }
 
     private void addTextFieldToForm(String value) {
-        TextField textField = new TextField(value);
+        //TextField textField = new TextField(value);
+        EntTextField textField = new EntTextField(value);
         dangerBeanForm.add(textField);
     }
 
@@ -192,23 +192,6 @@ public class DangerAddPage extends BasePanel {
         };
         target.add(dialogWrapper);
         dialog.open(target);
-    }
-
-    private class EntTextArea<T> extends TextArea {
-
-        public EntTextArea(String id) {
-            super(id);
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return !isEnt;
-        }
-
-        @Override
-        protected void onDisabled(ComponentTag tag) {
-            tag.put("readonly", "readonly");
-        }
     }
 
     /*private AjaxLink initGisButton() {
