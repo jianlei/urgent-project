@@ -1,18 +1,18 @@
-package com.daren.enterprise.webapp.component.utils;
+package com.daren.enterprise.webapp.component.form;
 
 import com.daren.core.api.IConst;
 import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.TextArea;
 
 /**
- * 扩展的textfield(input)，当为企业用户登录时，内容不可修改
+ * 扩展的textarea，当为企业用户登录时，内容不可修改
  * Created by xukexin on 2014-09-28.
  */
-public class EntTextField extends TextField {
+public class EntTextArea<T> extends TextArea {
 
     protected boolean isEnt=false;//判断是否为企业用户
 
-    public EntTextField(String id) {
+    public EntTextArea(String id) {
         super(id);
         isEnt=(getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;
     }
@@ -26,5 +26,4 @@ public class EntTextField extends TextField {
     protected void onDisabled(ComponentTag tag) {
         tag.put("readonly", "readonly");
     }
-
 }
