@@ -5,7 +5,9 @@ import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.fireworks.api.biz.IFireworksService;
 import com.daren.fireworks.entities.FireworksBean;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -97,13 +99,34 @@ public class FireworksAddPage extends BasePanel {
         fireworksBeanForm.add(hiddenField);
     }
 
+    private void addDateToForm(String value){
+        final DatePicker validityDateTime = new DatePicker(value, "yyyy-MM-dd", new Options("dateFormat", Options.asString("yy-mm-dd")));
+        fireworksBeanForm.add(validityDateTime);
+    }
+
     private void addTextFieldsToForm() {
         addTextFieldToForm("name");
         addTextFieldToForm("head");
-        addTextFieldToForm("phone");
         addTextFieldToForm("address");
-        addTextFieldToForm("economicsType");
+        addTextFieldToForm("postalCode");
         addTextFieldToForm("storageAddress");
+        addTextFieldToForm("economicsType");
+        addTextFieldToForm("registrationCapital");
+        addTextFieldToForm("phone");
+        addTextFieldToForm("fax");
+        addTextFieldToForm("website");
+        addTextFieldToForm("mail");
+        addTextFieldToForm("businessCode");
+        addDateToForm("registrationDate");
+        addTextFieldToForm("registrationUnits");
+        addTextFieldToForm("fixedAssets");
+        addTextFieldToForm("sales");
+        addTextFieldToForm("exitusSales");
+        addTextFieldToForm("workersNumber");
+        addTextFieldToForm("safety");
+        addTextFieldToForm("warehouse");
+        addTextFieldToForm("transport");
         addTextFieldToForm("scope");
+        addTextFieldToForm("products");
     }
 }
