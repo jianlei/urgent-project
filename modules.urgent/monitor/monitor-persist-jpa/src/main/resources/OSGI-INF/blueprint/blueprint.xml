@@ -13,5 +13,12 @@
         </bean>
     </service>
 
+    <service interface="com.daren.monitor.api.dao.ISingleMonitorBeanDao">
+        <bean class="com.daren.monitor.persist.openjpa.SingleMonitorBeanDaoOpenjpa">
+            <jpa:context property="entityManager" unitname="monitor-cm"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
+    </service>
+
 </blueprint>
 
