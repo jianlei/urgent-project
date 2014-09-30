@@ -4,8 +4,8 @@ import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
-import com.daren.monitor.api.biz.IMonitorBeanService;
-import com.daren.monitor.entities.MonitorBean;
+import com.daren.monitor.api.biz.ISingleMonitorBeanService;
+import com.daren.monitor.entities.SingleMonitorBean;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -33,42 +33,42 @@ import java.util.List;
  * @修改备注：
  */
 
-public class MonitorListPage extends BasePanel {
+public class SingleMonitorListPage extends BasePanel {
 
-    MajorMonitorSourceDataProvider provider = new MajorMonitorSourceDataProvider();
+    MajorSingleMonitorSourceDataProvider provider = new MajorSingleMonitorSourceDataProvider();
 
     @Inject
-    private IMonitorBeanService monitorBeanService;
+    private ISingleMonitorBeanService singleMonitorBeanService;
 
     @Inject
     private IEnterpriseBeanService enterpriseBeanService;
 
-    public MonitorListPage(final String id, final WebMarkupContainer wmc) {
+    public SingleMonitorListPage(final String id, final WebMarkupContainer wmc) {
         super(id, wmc);
         final WebMarkupContainer table = new WebMarkupContainer("table");
 
         add(table.setOutputMarkupId(true));
 
-        DataView<MonitorBean> listView = new DataView<MonitorBean>("rows", provider, 10) {
+        DataView<SingleMonitorBean> listView = new DataView<SingleMonitorBean>("rows", provider, 10) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(Item<MonitorBean> item) {
-                final MonitorBean monitorBean = item.getModelObject();
-                item.add(new Label("name", monitorBean.getName()));
-                item.add(new Label("ipAddress", monitorBean.getIpAddress()));
-                item.add(new Label("port", monitorBean.getPort()));
-                item.add(new Label("channel", monitorBean.getChannel()));
-                EnterpriseBean enterpriseBean = enterpriseBeanService.getByQyid(monitorBean.getAffiliation());
+            protected void populateItem(Item<SingleMonitorBean> item) {
+                final SingleMonitorBean singleMonitorBean = item.getModelObject();
+                item.add(new Label("name", singleMonitorBean.getName()));
+                item.add(new Label("streamingMediaIP", singleMonitorBean.getStreamingMediaIP()));
+                item.add(new Label("streamingMediaPort", singleMonitorBean.getStreamingMediaPort()));
+                item.add(new Label("channel", singleMonitorBean.getChannel()));
+                EnterpriseBean enterpriseBean = enterpriseBeanService.getByQyid(singleMonitorBean.getAffiliation());
                 if (null != enterpriseBean) {
                     item.add(new Label("affiliation", enterpriseBean.getQymc()));//企业名称
                 } else {
                     item.add(new Label("affiliation", "未绑定"));//企业名称
                 }
 
-                /*item.add(new Label("admin", monitorBean.getAdmin()));//企业名称
-                item.add(new Label("password", monitorBean.getPassword()));//企业名称*/
-                item.add(getToCreatePageLink("check_name", monitorBean));
+                /*item.add(new Label("admin", singleMonitorBean.getAdmin()));//企业名称
+                item.add(new Label("password", singleMonitorBean.getPassword()));//企业名称*/
+                item.add(getToCreatePageLink("check_name", singleMonitorBean));
 
                 AjaxLink alink = new AjaxLink("del") {
                     @Override
@@ -81,7 +81,7 @@ public class MonitorListPage extends BasePanel {
 
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        monitorBeanService.deleteEntity(monitorBean.getId());
+                        singleMonitorBeanService.deleteEntity(singleMonitorBean.getId());
                         target.add(table);
                     }
                 };
@@ -94,26 +94,26 @@ public class MonitorListPage extends BasePanel {
         createQuery(table, provider, id, wmc);
     }
 
-    private AjaxButton getToCreatePageAjaxButton(String wicketId, final MonitorBean monitorBean) {
+    private AjaxButton getToCreatePageAjaxButton(String wicketId, final SingleMonitorBean singleMonitorBean) {
         AjaxButton ajaxLink = new AjaxButton(wicketId) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                createButtonOnClick(monitorBean, target);
+                createButtonOnClick(singleMonitorBean, target);
             }
         };
         return ajaxLink;
     }
 
-    private AjaxLink getToCreatePageLink(String wicketId, final MonitorBean monitorBean) {
+    private AjaxLink getToCreatePageLink(String wicketId, final SingleMonitorBean singleMonitorBean) {
         AjaxLink ajaxLink = new AjaxLink(wicketId) {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                createButtonOnClick(monitorBean, target);
+                createButtonOnClick(singleMonitorBean, target);
             }
         };
         return ajaxLink;
     }
 
-    protected void createButtonOnClick(MonitorBean monitorBean, AjaxRequestTarget target) {
+    protected void createButtonOnClick(SingleMonitorBean singleMonitorBean, AjaxRequestTarget target) {
 
     }
 
@@ -122,40 +122,40 @@ public class MonitorListPage extends BasePanel {
      *
      * @param table
      */
-    private void createQuery(final WebMarkupContainer table, final MajorMonitorSourceDataProvider provider, final String id, final WebMarkupContainer wmc) {
+    private void createQuery(final WebMarkupContainer table, final MajorSingleMonitorSourceDataProvider provider, final String id, final WebMarkupContainer wmc) {
         //处理查询
-        Form<MonitorBean> majorMonitorSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new MonitorBean()));
+        Form<SingleMonitorBean> majorSingleMonitorSourceBeanForm = new Form<>("formQuery", new CompoundPropertyModel<>(new SingleMonitorBean()));
         TextField textField = new TextField("name");
 
-        majorMonitorSourceBeanForm.add(textField.setOutputMarkupId(true));
-        majorMonitorSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
-        add(majorMonitorSourceBeanForm.setOutputMarkupId(true));
+        majorSingleMonitorSourceBeanForm.add(textField.setOutputMarkupId(true));
+        majorSingleMonitorSourceBeanForm.add(getToCreatePageAjaxButton("create", null));
+        add(majorSingleMonitorSourceBeanForm.setOutputMarkupId(true));
 
-        AjaxButton findButton = new AjaxButton("find", majorMonitorSourceBeanForm) {
+        AjaxButton findButton = new AjaxButton("find", majorSingleMonitorSourceBeanForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                MonitorBean monitorBean = (MonitorBean) form.getModelObject();
-                provider.setMonitorBean(monitorBean);
+                SingleMonitorBean singleMonitorBean = (SingleMonitorBean) form.getModelObject();
+                provider.setSingleMonitorBean(singleMonitorBean);
                 target.add(table);
             }
         };
-        majorMonitorSourceBeanForm.add(findButton);
+        majorSingleMonitorSourceBeanForm.add(findButton);
     }
 
 
-    class MajorMonitorSourceDataProvider extends ListDataProvider<MonitorBean> {
-        private MonitorBean monitorBean = null;
+    class MajorSingleMonitorSourceDataProvider extends ListDataProvider<SingleMonitorBean> {
+        private SingleMonitorBean singleMonitorBean = null;
 
-        public void setMonitorBean(MonitorBean monitorBean) {
-            this.monitorBean = monitorBean;
+        public void setSingleMonitorBean(SingleMonitorBean singleMonitorBean) {
+            this.singleMonitorBean = singleMonitorBean;
         }
 
         @Override
-        protected List<MonitorBean> getData() {
-            if (monitorBean == null || null == monitorBean.getName() || "".equals(monitorBean.getName().trim()))
-                return monitorBeanService.getAllEntity();
+        protected List<SingleMonitorBean> getData() {
+            if (singleMonitorBean == null || null == singleMonitorBean.getName() || "".equals(singleMonitorBean.getName().trim()))
+                return singleMonitorBeanService.getAllEntity();
             else {
-                return monitorBeanService.queryMonitor(monitorBean);
+                return singleMonitorBeanService.querySingleMonitor(singleMonitorBean);
             }
         }
     }

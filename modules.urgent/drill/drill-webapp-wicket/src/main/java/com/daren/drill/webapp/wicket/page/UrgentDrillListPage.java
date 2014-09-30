@@ -1,5 +1,6 @@
 package com.daren.drill.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.core.web.component.navigator.CustomerPagingNavigator;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.core.web.wicket.component.dialog.IrisAbstractDialog;
@@ -8,6 +9,9 @@ import com.daren.drill.api.biz.IUploadImageService;
 import com.daren.drill.api.biz.IUploadVideoService;
 import com.daren.drill.api.biz.IUrgentDrillBeanService;
 import com.daren.drill.entities.UrgentDrillBean;
+import com.daren.enterprise.api.biz.IEnterpriseBeanService;
+import com.daren.enterprise.entities.EnterpriseBean;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -35,6 +39,7 @@ import org.apache.wicket.model.Model;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：应急演练
@@ -68,6 +73,9 @@ public class UrgentDrillListPage extends BasePanel {
     @Inject
     @Reference(id = "uploadImageService", serviceInterface = IUploadImageService.class)
     private IUploadImageService uploadImageService;
+    @Inject
+    @Reference(id = "enterpriseBeanService", serviceInterface = IEnterpriseBeanService.class)
+    private IEnterpriseBeanService enterpriseBeanService;
 
     //构造函数
     public UrgentDrillListPage(String id, WebMarkupContainer wmc) {
@@ -108,6 +116,12 @@ public class UrgentDrillListPage extends BasePanel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 createNewTab(target, CONST_ADD, null);
+            }
+            //如果为监管机构，不显示
+            @Override
+            public void onConfigure(JQueryBehavior behavior) {
+                super.onConfigure(behavior);
+                this.setVisible(isEnt);
             }
         };
         return addButton;
@@ -185,6 +199,7 @@ public class UrgentDrillListPage extends BasePanel {
             table = new WebMarkupContainer("table");
             container.add(table.setOutputMarkupId(true));
 
+            final Map<String,String> confirm_map =dictBeanService.getDictMap(IDictConstService.DRILL_CONFIRM);
             //add listview
             final DataView<UrgentDrillBean> listView = new DataView<UrgentDrillBean>("rows", provider, numPerPage) {
                 private static final long serialVersionUID = 1L;
@@ -193,7 +208,11 @@ public class UrgentDrillListPage extends BasePanel {
                 protected void populateItem(Item<UrgentDrillBean> item) {
                     final UrgentDrillBean row = item.getModelObject();
                     item.add(new Label("name", row.getName()));
-                    item.add(new Label("description", row.getDescription()));
+                    item.add(new Label("confirm_status", confirm_map.get(row.getIs_confirm()+"")));
+                    EnterpriseBean enterpriseBean = (EnterpriseBean)enterpriseBeanService.getEntity(row.getQyid());
+                    String qymc = enterpriseBean!=null ? enterpriseBean.getQymc() : "";
+                    item.add(new Label("qymc", qymc));
+                    //item.add(new Label("description", row.getDescription()));
 
                     AjaxLink alinkDocument = new AjaxLink("document") {
                         @Override
@@ -386,6 +405,11 @@ public class UrgentDrillListPage extends BasePanel {
                 public void onClick(AjaxRequestTarget target) {
                     createUploadDocumentDialog(target, row, "上传文档");
                 }
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    this.setVisible(isEnt);
+                }
             };
             return alink;
         }
@@ -402,6 +426,11 @@ public class UrgentDrillListPage extends BasePanel {
                 public void onClick(AjaxRequestTarget target) {
                     createUploadVideoDialog(target, row, "上传视频");
                 }
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    this.setVisible(isEnt);
+                }
             };
             return alink;
         }
@@ -417,6 +446,11 @@ public class UrgentDrillListPage extends BasePanel {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     createUploadImageDialog(target, row, "上传图片");
+                }
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    this.setVisible(isEnt);
                 }
             };
             return alink;

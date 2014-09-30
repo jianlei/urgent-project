@@ -7,6 +7,7 @@ import com.daren.attachment.webapp.wicket.page.WindowGovernmentPage;
 import com.daren.chemistry.manage.api.biz.IChemistryManageBeanService;
 import com.daren.chemistry.manage.entities.ChemistryManageBean;
 import com.daren.core.api.IConst;
+import com.daren.core.util.DateUtil;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisDeleteAjaxLink;
 import com.daren.core.web.component.extensions.ajax.markup.html.IrisIndicatingAjaxLink;
 import com.daren.workflow.webapp.wicket.page.BaseFormPanel;
@@ -14,10 +15,14 @@ import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -29,6 +34,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -60,6 +66,8 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
+    @Inject
+    private transient HistoryService historyService;
     @Inject
     private IAttachmentService attachmentService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
@@ -94,46 +102,14 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         if (StringUtils.isNotBlank(businessKey)) {
             beanId = businessKey.split(":")[2];
         }
-        bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
-        final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
-        form.setOutputMarkupId(true);
-        add(form);
-        feedbackPanel = new JQueryFeedbackPanel("feedback");
-        form.add(feedbackPanel.setOutputMarkupId(true));
-        //add data to form
-        form.add(new TextField("qyCode").setOutputMarkupId(true));
-        form.add(new TextField("qyName").setOutputMarkupId(true));
-        form.add(new TextField("address").setOutputMarkupId(true));
-        form.add(new TextField("phone").setOutputMarkupId(true));
-        form.add(new TextField("fax").setOutputMarkupId(true));
-        form.add(new TextField("zipCode").setOutputMarkupId(true));
-        form.add(new TextField("qyType").setOutputMarkupId(true));
-        form.add(new TextField("illegalPerson").setOutputMarkupId(true));
-        form.add(new TextField("specialType").setOutputMarkupId(true));
-        form.add(new TextField("economicsNature").setOutputMarkupId(true));
-        form.add(new TextField("directorUnits").setOutputMarkupId(true));
-        form.add(new TextField("registrationAuthority").setOutputMarkupId(true));
-        form.add(new TextField("mainHead").setOutputMarkupId(true));
-        form.add(new TextField("mainHeadId").setOutputMarkupId(true));
-        form.add(new TextField("chargeHead").setOutputMarkupId(true));
-        form.add(new TextField("chargeHeadId").setOutputMarkupId(true));
-        form.add(new TextField("workersNumber").setOutputMarkupId(true));
-        form.add(new TextField("technologyNumber").setOutputMarkupId(true));
-        form.add(new TextField("safetyNumber").setOutputMarkupId(true));
-        form.add(new TextField("registrationCapital").setOutputMarkupId(true));
-        form.add(new TextField("fixedAssets").setOutputMarkupId(true));
-        form.add(new TextField("yearSale").setOutputMarkupId(true));
-        form.add(new TextField("manageAddress").setOutputMarkupId(true));
-        form.add(new TextField("manageProperty").setOutputMarkupId(true));
-        form.add(new TextField("storageAddress").setOutputMarkupId(true));
-        form.add(new TextField("storageProperty").setOutputMarkupId(true));
-        form.add(new TextField("buildingStructure").setOutputMarkupId(true));
-        form.add(new TextField("storageCapacity").setOutputMarkupId(true));
-        form.add(new TextField("systemName").setOutputMarkupId(true));
-        form.add(new TextField("communication").setOutputMarkupId(true));
-        form.add(new TextField("mode").setOutputMarkupId(true));
-        form.add(new TextField("unitType").setOutputMarkupId(true));
-        form.add(new TextField("scope").setOutputMarkupId(true));
+
+        //流程例史
+        HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        WebMarkupContainer table = PageUtil.initHistoricProcessView(historicProcessInstance.getId(),taskService,historyService);
+        this.add(table);
+
+        //页面表单
+        final Form<ChemistryManageBean> form = getComponents(beanId);
         //上传复件按钮
         final AjaxButton uploadButton = new AjaxButton("upload", form) {
             @Override
@@ -157,7 +133,6 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
                     //todo 需要加入到service
-
                     taskService.claim(task.getId(), currentUserLoginName);
                     taskService.complete(task.getId());
                     ChemistryManageBean bean= (ChemistryManageBean) form.getModelObject();
@@ -200,6 +175,50 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         table.setVersioned(false);
         table.add(lv);
         form.add(table);
+    }
+    //初始化页面Form表单
+    private Form<ChemistryManageBean> getComponents(String beanId) {
+        bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
+        final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
+        form.setOutputMarkupId(true);
+        add(form);
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
+        form.add(feedbackPanel.setOutputMarkupId(true));
+        //add data to form
+        form.add(new TextField("qyCode").setOutputMarkupId(true));
+        form.add(new TextField("qyName").setOutputMarkupId(true));
+        form.add(new TextField("address").setOutputMarkupId(true));
+        form.add(new TextField("phone").setOutputMarkupId(true));
+        form.add(new TextField("fax").setOutputMarkupId(true));
+        form.add(new TextField("zipCode").setOutputMarkupId(true));
+        form.add(new TextField("qyType").setOutputMarkupId(true));
+        form.add(new TextField("illegalPerson").setOutputMarkupId(true));
+        form.add(new TextField("specialType").setOutputMarkupId(true));
+        form.add(new TextField("economicsNature").setOutputMarkupId(true));
+        form.add(new TextField("directorUnits").setOutputMarkupId(true));
+        form.add(new TextField("registrationAuthority").setOutputMarkupId(true));
+        form.add(new TextField("mainHead").setOutputMarkupId(true));
+        form.add(new TextField("mainHeadId").setOutputMarkupId(true));
+        form.add(new TextField("chargeHead").setOutputMarkupId(true));
+        form.add(new TextField("chargeHeadId").setOutputMarkupId(true));
+        form.add(new TextField("workersNumber").setOutputMarkupId(true));
+        form.add(new TextField("technologyNumber").setOutputMarkupId(true));
+        form.add(new TextField("safetyNumber").setOutputMarkupId(true));
+        form.add(new TextField("registrationCapital").setOutputMarkupId(true));
+        form.add(new TextField("fixedAssets").setOutputMarkupId(true));
+        form.add(new TextField("yearSale").setOutputMarkupId(true));
+        form.add(new TextField("manageAddress").setOutputMarkupId(true));
+        form.add(new TextField("manageProperty").setOutputMarkupId(true));
+        form.add(new TextField("storageAddress").setOutputMarkupId(true));
+        form.add(new TextField("storageProperty").setOutputMarkupId(true));
+        form.add(new TextField("buildingStructure").setOutputMarkupId(true));
+        form.add(new TextField("storageCapacity").setOutputMarkupId(true));
+        form.add(new TextField("systemName").setOutputMarkupId(true));
+        form.add(new TextField("communication").setOutputMarkupId(true));
+        form.add(new TextField("mode").setOutputMarkupId(true));
+        form.add(new TextField("unitType").setOutputMarkupId(true));
+        form.add(new TextField("scope").setOutputMarkupId(true));
+        return form;
     }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {

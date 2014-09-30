@@ -1,12 +1,12 @@
-package com.daren.drill.webapp.wicket;
+package com.daren.monitor.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.drill.webapp.wicket.page.UrgentDrillListPage;
+import com.daren.monitor.webapp.wicket.page.SingleMonitorTabPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：应急演练管理
+ * @类描述：品牌子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
+public class SingleMonitorMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public int getIndex() {
-        return 2;
+        return 20;
     }
 
     @Override
     public String getName() {
-        return "应急演练管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "单兵设备管理";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -44,6 +44,6 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new UrgentDrillListPage(id, wmc);
+        return new SingleMonitorTabPage(id, wmc);
     }
 }

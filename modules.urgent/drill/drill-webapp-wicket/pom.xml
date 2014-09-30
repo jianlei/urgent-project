@@ -137,6 +137,31 @@
             <artifactId>com.daren.core.web.component</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.entities</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.daren.enterprise</groupId>
+            <artifactId>com.daren.enterprise.webapp.component</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>
