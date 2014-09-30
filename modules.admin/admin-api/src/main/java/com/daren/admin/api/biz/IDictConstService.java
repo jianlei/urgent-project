@@ -23,4 +23,6 @@ public interface IDictConstService {
     public final static String ORGANIZATION_JGBMBJ = "ORGANIZATION_JGBMBJ"; //机关部门标记
     public final static String ORGANIZATION_JGLXBJ = "ORGANIZATION_JGLXBJ"; //机构类型标记
     public final static String ORGANIZATION_ZFBJ = "ORGANIZATION_ZFBJ"; //作废标记
+    public final static String DRILL_CONFIRM = "DRILL_CONFIRM"; //应急演练确认状态
+
 }

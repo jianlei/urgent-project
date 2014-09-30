@@ -1,12 +1,12 @@
-package com.daren.expert.webapp.wicket;
+package com.daren.drill.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.expert.webapp.wicket.page.SafetySupervisionExpertListPage;
+import com.daren.drill.webapp.wicket.page.UrgentDrillListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：行管专家子菜单定义类
+ * @类描述：企业应急演练
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class SafetySupervisionExpertMenuItemsModule implements IMenuItemsModule {
+public class EntUrgentDrillMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
@@ -24,12 +24,12 @@ public class SafetySupervisionExpertMenuItemsModule implements IMenuItemsModule 
 
     @Override
     public int getIndex() {
-        return 1    ;
+        return 2;
     }
 
     @Override
     public String getName() {
-        return "行管专家管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return "应急演练";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -39,11 +39,11 @@ public class SafetySupervisionExpertMenuItemsModule implements IMenuItemsModule 
 
     @Override
     public String getTag() {
-        return "resources.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "ent.plan.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new SafetySupervisionExpertListPage(id, wmc);
+        return new UrgentDrillListPage(id, wmc);
     }
 }

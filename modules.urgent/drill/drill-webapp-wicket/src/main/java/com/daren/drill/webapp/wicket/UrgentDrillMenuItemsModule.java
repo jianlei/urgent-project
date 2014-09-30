@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：品牌子菜单定义类
+ * @类描述：应急演练管理
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：

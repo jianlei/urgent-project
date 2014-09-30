@@ -33,6 +33,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.admin</groupId>
+            <artifactId>com.daren.admin.entities</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>

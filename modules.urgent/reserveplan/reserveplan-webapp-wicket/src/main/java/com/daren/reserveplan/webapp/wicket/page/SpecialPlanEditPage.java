@@ -40,7 +40,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Dell on 14-8-11.
+ * @类描述：专项预案
+ * @创建人：sunlf
+ * @创建时间：2014-03-29 上午10:25
+ * @修改人：
+ * @修改时间：
+ * @修改备注：
  */
 public class SpecialPlanEditPage extends BasePanel {
 
