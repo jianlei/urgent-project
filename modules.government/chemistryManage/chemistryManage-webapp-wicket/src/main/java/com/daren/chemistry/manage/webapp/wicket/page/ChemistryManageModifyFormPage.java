@@ -105,7 +105,9 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
 
         //流程例史
         HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        initProcessView(historicProcessInstance.getId());
+        WebMarkupContainer table = PageUtil.initHistoricProcessView(historicProcessInstance.getId(),taskService,historyService);
+        this.add(table);
+
         //页面表单
         final Form<ChemistryManageBean> form = getComponents(beanId);
         //上传复件按钮
@@ -218,30 +220,6 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         form.add(new TextField("scope").setOutputMarkupId(true));
         return form;
     }
-    //流程审批例史
-    private void initProcessView(String historyProcessId) {
-        final WebMarkupContainer table = new WebMarkupContainer("historicTable");
-        final DataView<HistoricActivityInstance> listView = new DataView<HistoricActivityInstance>("historicRows", new HistoricActivityInstanceProvider(historyProcessId), 10) {
-            private static final long serialVersionUID = 1L;
-            @Override
-            protected void populateItem(Item<HistoricActivityInstance> item) {
-                final HistoricActivityInstance historicActivityInstance = item.getModelObject();
-                item.add(new Label("id", historicActivityInstance.getId()));
-                item.add(new Label("name", historicActivityInstance.getActivityName()));
-                item.add(new Label("assignee", historicActivityInstance.getAssignee()));
-                item.add(new Label("startTime", DateUtil.convertDateToString(historicActivityInstance.getStartTime(), DateUtil.longSdf)));
-                item.add(new Label("endTime", DateUtil.convertDateToString(historicActivityInstance.getEndTime(), DateUtil.longSdf)));
-                List<Comment> commentList= taskService.getTaskComments(historicActivityInstance.getTaskId());
-                String str="";
-                for(Comment comment:commentList){
-                    str=comment.getFullMessage()+str+" ";
-                }
-                item.add(new Label("comment", str));
-            }
-        };
-        table.add(listView);
-        this.add(table.setOutputMarkupId(true));
-    }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {
         List<AttachmentBean> beanList=new ArrayList<>();
@@ -285,23 +263,5 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
             }
         };
         return alink;
-    }
-
-    class HistoricActivityInstanceProvider extends ListDataProvider {
-        String historyProcessId;
-        public HistoricActivityInstanceProvider(String historyProcessId) {
-            this.historyProcessId = historyProcessId;
-        }
-
-        @Override
-        protected List<HistoricActivityInstance> getData() {
-            List<HistoricActivityInstance> list = historyService.createHistoricActivityInstanceQuery().processInstanceId(historyProcessId).list();
-            for (int i = list.size(); i > 0; i--) {
-                if (null == list.get(i - 1).getTaskId()) {
-                    list.remove(i - 1);
-                }
-            }
-            return list;
-        }
     }
 }
