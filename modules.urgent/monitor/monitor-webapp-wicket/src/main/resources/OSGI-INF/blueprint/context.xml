@@ -8,4 +8,9 @@
         <bean class="com.daren.monitor.webapp.wicket.MonitorMenuItemsModule">
         </bean>
     </service>
+
+    <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
+        <bean class="com.daren.monitor.webapp.wicket.SingleMonitorMenuItemsModule">
+        </bean>
+    </service>
 </blueprint>
