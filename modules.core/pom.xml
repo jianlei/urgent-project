@@ -33,11 +33,7 @@
         <module>core-web-bootup-wicket</module>
         <module>core-web-resources</module>
         <module>core-web-wicket</module>
-        <module>core-web-component</module>
         <module>core-rest</module>
-        <module>core-web-jgrowl</module>
-        <module>core-web-lightbox2</module>
-
     </modules>
     <dependencyManagement>
         <dependencies>

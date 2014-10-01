@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.daren.platform</groupId>
+        <artifactId>urgent-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>modules.component</artifactId>
+
+    <name>Daren :: Modules - Component</name>
+    <description>包括各类wicket组件以及自定义组件</description>
+
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <properties>
+
+    </properties>
+    <modules>
+        <module>core-web-component</module>
+        <module>core-web-jgrowl</module>
+        <module>core-web-lightbox2</module>
+        <module>core-web-dashboard</module>
+        <module>core-web-select2</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

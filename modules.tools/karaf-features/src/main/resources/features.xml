@@ -272,6 +272,26 @@
     <feature name="atmosphere">
         <bundle>mvn:org.atmosphere/atmosphere-runtime/2.1.8</bundle>
     </feature>
+
+    <feature name="xstream" version="1.4.7" start-level="50">
+        <bundle dependency="true">mvn:org.codehaus.jettison/jettison/1.3.5</bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xpp3/1.1.4c_7
+        </bundle>
+        <bundle dependency="true">mvn:joda-time/joda-time/1.6.2</bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jdom/1.1_4
+        </bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.dom4j/1.6.1_5
+        </bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kxml2/2.3.0_2
+        </bundle>
+        <bundle dependency="true">
+            mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xstream/1.4.7_1
+        </bundle>
+    </feature>
     <!--urgetn debug environment-->
     <feature name="urgent-dev" version="3.0.1">
         <feature>webconsole</feature>

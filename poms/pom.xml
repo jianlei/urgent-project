@@ -290,6 +290,34 @@
             </dependency>
 
             <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component.dashboard</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component.jgrowl</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component.lightbox2</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.daren.core</groupId>
+                <artifactId>com.daren.core.web.component.select2</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.daren.apply</groupId>
                 <artifactId>com.daren.apply.webapp.wicket</artifactId>
                 <version>${project.version}</version>

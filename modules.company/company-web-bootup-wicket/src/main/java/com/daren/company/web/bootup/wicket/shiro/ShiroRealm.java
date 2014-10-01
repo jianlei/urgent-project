@@ -59,7 +59,6 @@ public class ShiroRealm extends AuthorizingRealm {
             for (String permission : userPermission)
                 info.addStringPermission(permission);
         }
-        info.addStringPermission("entUser");
 
         return info;
     }

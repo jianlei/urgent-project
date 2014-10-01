@@ -41,8 +41,8 @@
 
 
         <dependency>
-            <groupId>com.vaynberg.wicket.select2</groupId>
-            <artifactId>wicket-select2</artifactId>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.component.select2</artifactId>
         </dependency>
         <dependency>
             <groupId>com.daren.enterprise</groupId>
