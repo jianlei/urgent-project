@@ -23,6 +23,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.enterprise</groupId>
             <artifactId>com.daren.enterprise.api</artifactId>
         </dependency>

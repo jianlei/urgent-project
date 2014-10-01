@@ -2,13 +2,13 @@ package com.daren.example.webapp.wicket.page;
 
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
+import com.daren.core.web.component.select2.Response;
+import com.daren.core.web.component.select2.TextChoiceProvider;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.entities.OrganizationBean;
 import com.daren.enterprise.webapp.component.form.EnterpriseSelect2Choice;
 import com.daren.enterprise.webapp.component.form.OrganizationSelectChoice;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;

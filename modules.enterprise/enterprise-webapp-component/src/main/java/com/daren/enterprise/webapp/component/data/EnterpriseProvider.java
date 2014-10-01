@@ -1,10 +1,10 @@
 package com.daren.enterprise.webapp.component.data;
 
 import com.daren.core.util.JNDIHelper;
+import com.daren.core.web.component.select2.ChoiceProvider;
+import com.daren.core.web.component.select2.Response;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
 import org.json.JSONException;
 import org.json.JSONWriter;
 

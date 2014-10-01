@@ -1,12 +1,12 @@
 package com.daren.enterprise.webapp.component.form;
 
 import com.daren.core.api.persistence.PersistentEntity;
+import com.daren.core.web.component.json.JsonBuilder;
+import com.daren.core.web.component.select2.AbstractSelect2Choice;
+import com.daren.core.web.component.select2.ChoiceProvider;
+import com.daren.core.web.component.select2.JQuery;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.webapp.component.data.EnterpriseProvider;
-import com.vaynberg.wicket.select2.AbstractSelect2Choice;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.JQuery;
-import com.vaynberg.wicket.select2.json.JsonBuilder;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.model.IModel;

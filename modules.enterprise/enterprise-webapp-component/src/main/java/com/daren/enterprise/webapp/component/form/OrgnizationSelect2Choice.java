@@ -1,8 +1,8 @@
 package com.daren.enterprise.webapp.component.form;
 
+import com.daren.core.web.component.select2.Select2Choice;
 import com.daren.enterprise.entities.OrganizationBean;
 import com.daren.enterprise.webapp.component.data.OrganizationProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
 import org.apache.wicket.model.IModel;
 
 /**
