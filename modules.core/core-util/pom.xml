@@ -97,7 +97,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <version>1.0-beta-3</version>
@@ -155,7 +155,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
+                        &lt;!&ndash; Runs before integration tests and jetty:run-war &ndash;&gt;
                         <id>test</id>
                         <phase>test</phase>
                         <goals>
@@ -170,7 +170,7 @@
                         <version>${jdbc.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
