@@ -7,12 +7,11 @@ import com.daren.admin.entities.UserBean;
 import com.daren.core.web.validation.JSR303FormValidator;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
+import com.googlecode.wicket.jquery.ui.form.palette.Palette;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.form.palette.Palette;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
@@ -96,7 +95,7 @@ public class RoleAddPage extends Panel {
         palette = new Palette<UserBean>("palette",
                 new ListModel<UserBean>(selectedUserList),
                 new CollectionModel<UserBean>(availableUserList),
-                renderer, 10, false, true) {
+                renderer, 10, false) {
             @Override
             protected Component newAvailableHeader(String componentId) {
                 return new Label(componentId, "候选用户");

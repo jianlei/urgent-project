@@ -42,7 +42,7 @@
         <serp.Version>1.13.1</serp.Version>
         <log4j.version>1.2.17</log4j.version>
         <!--apache wicket start-->
-        <wicket.version>6.16.0</wicket.version>
+        <wicket.version>6.17.0</wicket.version>
         <pax.wicket.version>3.0.2</pax.wicket.version>
         <geronimo.inject.version>1.0</geronimo.inject.version>
         <ops4j.base.version>1.4.0</ops4j.base.version>
@@ -60,7 +60,7 @@
         <activiti.version>5.15.1</activiti.version>
         <cxf.version>2.7.10</cxf.version>
         <guava.version>15.0</guava.version>
-        <jquery-ui.version>6.16.0</jquery-ui.version>
+        <jquery-ui.version>6.17.0</jquery-ui.version>
         <lightcouch.version>0.0.6_1</lightcouch.version>
         <jedis.version>2.4.2</jedis.version>
         <org.apache.servicemix.bundles.jedis.version>2.5.1_1</org.apache.servicemix.bundles.jedis.version>

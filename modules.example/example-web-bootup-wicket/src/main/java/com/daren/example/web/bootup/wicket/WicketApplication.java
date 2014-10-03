@@ -16,6 +16,11 @@
  */
 package com.daren.example.web.bootup.wicket;
 
+import com.daren.core.web.component.dashboard.Dashboard;
+import com.daren.core.web.component.dashboard.DashboardContextInitializer;
+import com.daren.core.web.component.dashboard.DefaultDashboard;
+import com.daren.core.web.component.dashboard.web.DashboardContext;
+import com.daren.core.web.component.dashboard.widget.NoticeWidgetDescriptor;
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.atmosphere.EventBus;
@@ -35,6 +40,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class WicketApplication extends WebApplication {
 	private EventBus eventBus;
+    private Dashboard dashboard;
 
 	public static WicketApplication get() {
 		return (WicketApplication) Application.get();
@@ -87,5 +93,22 @@ public class WicketApplication extends WebApplication {
 			}
 		};
 		scheduler.scheduleWithFixedDelay(beeper, 2, 2, TimeUnit.SECONDS);
+
+        //init dashboard
+        DashboardContext dashboardContext = getDashboardContext();
+        dashboardContext.getWidgetRegistry()
+                .registerWidget(new NoticeWidgetDescriptor());
+        initDashboard();
 	}
+
+    private DashboardContext getDashboardContext() {
+        return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+    }
+
+    private void initDashboard() {
+        dashboard = getDashboardContext().getDashboardPersiter().load();
+        if (dashboard == null) {
+            dashboard = new DefaultDashboard("default", "Default");
+        }
+    }
 }

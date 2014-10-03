@@ -4,7 +4,8 @@ import com.daren.admin.entities.AreaBean;
 import com.daren.core.web.component.table.AutocheckedFolder;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.example.webapp.wicket.data.AreaTreeProvider;
-import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -33,7 +34,14 @@ public class SingleCheckPage extends BasePanel {
 
     public SingleCheckPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        final JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedback");
+        final KendoFeedbackPanel feedbackPanel = new KendoFeedbackPanel("feedback"){
+            @Override
+            public void onConfigure(JQueryBehavior behavior)
+            {
+                behavior.setOption("hideOnClick", true);
+                behavior.setOption("autoHideAfter", 0);
+            }
+        };
         add(feedbackPanel.setOutputMarkupId(true));
         theme = new WindowsTheme();
 

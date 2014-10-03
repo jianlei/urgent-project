@@ -7,7 +7,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 
-
 /**
  * 项目名称:  urgent-project
  * 类描述:    测试jgrowl

@@ -4,7 +4,6 @@ import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.widget.dialog.AbstractDialog;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 
 import java.io.Serializable;
@@ -75,10 +74,10 @@ public class IrisAbstractDialog<T extends Serializable> extends AbstractDialog {
         return true;
     }
 
-    @Override
+    /*@Override
     public void setModelObject(Serializable object) {
         this.setDefaultModel(new CompoundPropertyModel<>(object));
-    }
+    }*/
 
     //更新父页面列表
     public void updateTarget(AjaxRequestTarget target) {

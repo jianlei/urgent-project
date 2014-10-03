@@ -9,7 +9,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
 import java.util.Arrays;
@@ -68,11 +67,11 @@ public abstract class ChangePasswordDialog extends AbstractFormDialog<UserBean> 
         return this.form;
     }
 
-    @Override
+    /*@Override
     public void setModelObject(UserBean user) {
         this.setDefaultModel(new CompoundPropertyModel<>(user));
     }
-
+*/
     // Events //
     @Override
     protected void onOpen(AjaxRequestTarget target) {

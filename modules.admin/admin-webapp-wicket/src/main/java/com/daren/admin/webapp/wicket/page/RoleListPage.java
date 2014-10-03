@@ -46,6 +46,7 @@ public class RoleListPage extends BasePanel {
     private final static String CONST_LIST = "角色管理";
     private final static String CONST_ADD = "添加角色";
     private final static String CONST_EDIT = "编辑角色";
+    private final static String CONST_PERMIT = "权限分配";
     private final TabbedPanel tabPanel;
     private final RepeatingView repeatingView = new RepeatingView("repeatingView");
     DictDataProvider provider = new DictDataProvider();
@@ -173,6 +174,7 @@ public class RoleListPage extends BasePanel {
                     item.add(new Label("creationDate", DateUtil.convertDateToString(row.getCreationDate(), DateUtil.shortSdf)));
                     //add delete button
                     item.add(initDeleteButton(row));
+                    item.add(initPermitButton(row));
                     //add update button
                     item.add(initUpdateButton(row));
                 }
@@ -197,6 +199,23 @@ public class RoleListPage extends BasePanel {
 
 
             add(userForm);
+        }
+
+        /**
+         * 初始化权限分配按钮
+         *
+         * @param row 数据
+         * @return link
+         */
+        private AjaxLink initPermitButton(final RoleBean row) {
+            //修改功能
+            AjaxLink alink = new AjaxLink("permit") {
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    createNewTab(target, CONST_PERMIT, row);
+                }
+            };
+            return alink;
         }
 
         /**

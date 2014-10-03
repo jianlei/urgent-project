@@ -4,7 +4,8 @@ import com.daren.admin.entities.AreaBean;
 import com.daren.core.web.component.table.SingleSelectNestedTree;
 import com.daren.core.web.wicket.BasePanel;
 import com.daren.example.webapp.wicket.data.AreaTreeProvider;
-import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.core.JQueryBehavior;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -26,7 +27,14 @@ public class CheckedTreePage extends BasePanel {
 
     public CheckedTreePage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
-        final JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedback");
+        final KendoFeedbackPanel feedbackPanel = new KendoFeedbackPanel("feedback"){
+            @Override
+            public void onConfigure(JQueryBehavior behavior)
+            {
+                behavior.setOption("hideOnClick", true);
+                behavior.setOption("autoHideAfter", 500);
+            }
+        };
         add(feedbackPanel.setOutputMarkupId(true));
         tree = new SingleSelectNestedTree<>("tree", new AreaTreeProvider(), selModel);
         add(tree);

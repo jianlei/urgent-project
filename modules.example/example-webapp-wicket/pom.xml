@@ -29,13 +29,11 @@
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.component.lightbox2</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.daren.core</groupId>
             <artifactId>com.daren.core.web.component.jgrowl</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -191,6 +189,21 @@
         </dependency>
 
         <dependency>
+            <groupId>com.daren.core</groupId>
+            <artifactId>com.daren.core.web.component.dashboard</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-shiro</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.daren.enterprise</groupId>
             <artifactId>com.daren.enterprise.webapp.component</artifactId>
         </dependency>
@@ -236,6 +249,18 @@
             <artifactId>wicket-atmosphere</artifactId>
             <version>0.19</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-jquery-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-jquery-ui-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+            <artifactId>wicket-kendo-ui</artifactId>
         </dependency>
 
     </dependencies>

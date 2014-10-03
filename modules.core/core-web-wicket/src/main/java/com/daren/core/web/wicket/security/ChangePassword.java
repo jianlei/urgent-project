@@ -8,7 +8,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
 import java.util.Arrays;
@@ -70,10 +69,10 @@ public abstract class ChangePassword extends AbstractFormDialog<PasswordInfo> {
         return this.form;
     }
 
-    @Override
+    /*@Override
     public void setModelObject(PasswordInfo passwordInfo) {
         this.setDefaultModel(new CompoundPropertyModel<>(passwordInfo));
-    }
+    }*/
 
     // Events //
     @Override

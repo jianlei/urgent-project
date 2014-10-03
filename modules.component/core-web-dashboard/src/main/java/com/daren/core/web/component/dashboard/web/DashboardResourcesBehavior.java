@@ -35,9 +35,9 @@ public class DashboardResourcesBehavior extends Behavior {
 			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryReference()));
 		}
 
-		if (settings.isIncludeJQueryUI()) {
+		/*if (settings.isIncludeJQueryUI()) {
 			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryUIReference()));
-		}
+		}*/
 
 		if (settings.isIncludeJQueryJson()) {
 			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryJsonReference()));
