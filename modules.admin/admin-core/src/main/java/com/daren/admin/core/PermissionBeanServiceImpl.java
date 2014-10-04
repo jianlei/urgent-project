@@ -2,10 +2,13 @@ package com.daren.admin.core;
 
 import com.daren.admin.api.biz.IPermissionBeanService;
 import com.daren.admin.api.dao.IPermissionBeanDao;
+import com.daren.admin.api.dao.IRoleBeanDao;
 import com.daren.admin.entities.PermissionBean;
+import com.daren.admin.entities.RoleBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @类描述：权限服务实现类
@@ -18,11 +21,16 @@ import java.util.List;
 
 public class PermissionBeanServiceImpl extends GenericBizServiceImpl implements IPermissionBeanService {
     private IPermissionBeanDao permissionBeanDao;
+    private IRoleBeanDao roleBeanDao;
 
     public void setPermissionBeanDao(IPermissionBeanDao permissionBeanDao) {
         this.permissionBeanDao = permissionBeanDao;
         super.init(permissionBeanDao, PermissionBean.class.getName());
 
+    }
+
+    public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
+        this.roleBeanDao = roleBeanDao;
     }
 
     @Override
@@ -48,5 +56,19 @@ public class PermissionBeanServiceImpl extends GenericBizServiceImpl implements 
     @Override
     public List<PermissionBean> getChildBeanList(PermissionBean permissionBean) {
         return permissionBeanDao.find("select u from PermissionBean u where u.parent= ?1", permissionBean);
+    }
+
+    /**
+     * 根据角色分配权限
+     * @param roleBean 角色bean
+     * @param checkedNodes 权限列表
+     */
+    @Override
+    public void assignPermission(RoleBean roleBean, Set<PermissionBean> checkedNodes) {
+        roleBean.getPermissionList().clear();
+        for(PermissionBean bean:checkedNodes){
+            roleBean.getPermissionList().add(bean);
+        }
+        roleBeanDao.save(roleBean);
     }
 }

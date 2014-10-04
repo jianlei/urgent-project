@@ -21,14 +21,24 @@ public class DictMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN_DICT;
+    }
+
+    @Override
     public int getIndex() {
-        return 40;
+        return Const.INDEX_ADMIN_DICT;
     }
 
 
     @Override
     public String getName() {
-        return "字典管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_ADMIN_DICT;
     }
 
     @Override
@@ -40,7 +50,6 @@ public class DictMenuItemsModule implements IMenuItemsModule {
     public String getTag() {
         return "admin.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
-
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {

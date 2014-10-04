@@ -29,7 +29,7 @@ public class AdminMenuModule implements IMenuModule {
 
     @Override
     public String getName() {
-        return "系统管理";
+        return Const.MENU_ADMIN;
     }
 
     @Override
@@ -40,5 +40,15 @@ public class AdminMenuModule implements IMenuModule {
     @Override
     public String getTag() {
         return "8plat";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN;
     }
 }

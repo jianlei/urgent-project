@@ -35,7 +35,7 @@ public class ShiroRealm extends AuthorizingRealm {
     // --------------------------------------------------------------------------
 
     public ShiroRealm() {
-        setName("memoryRealm");
+        setName("myMemoryRealm");
         CredentialsMatcher cm = new SimpleCredentialsMatcher();
         setCredentialsMatcher(cm);
 
@@ -59,8 +59,6 @@ public class ShiroRealm extends AuthorizingRealm {
             for (String permission : userPermission)
                 info.addStringPermission(permission);
         }
-
-
         return info;
     }
 
@@ -90,10 +88,13 @@ public class ShiroRealm extends AuthorizingRealm {
             //保存用户信息到session
             session = SecurityUtils.getSubject().getSession();
             session.setAttribute(PermissionConstant.SYS_CURRENT_USER, userBean);
+//            doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
             userLoginService.updateUserLoginInfo(userBean.getId(), SecurityUtils.getSubject().getSession().getHost());
             return new SimpleAuthenticationInfo(userName, password, getName());
         }
+
         throw new AuthenticationException();
+
     }
 
 }

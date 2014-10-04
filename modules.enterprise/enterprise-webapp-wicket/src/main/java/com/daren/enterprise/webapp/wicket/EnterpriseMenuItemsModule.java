@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * @类描述：品牌子菜单定义类
+ * @类描述：企业信息子菜单定义类
  * @创建人：sunlf
  * @创建时间：2014-03-29 上午10:23
  * @修改人：
@@ -23,13 +23,23 @@ public class EnterpriseMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_INFO_ENT;
+    }
+
+    @Override
     public int getIndex() {
-        return 0;
+        return Const.INDEX_INFO_ENT;
     }
 
     @Override
     public String getName() {
-        return "企业信息管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_INFO_ENT;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

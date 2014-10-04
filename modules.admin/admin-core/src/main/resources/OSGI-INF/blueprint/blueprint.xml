@@ -33,6 +33,7 @@
     <!--权限服务注册-->
     <bean id="permissionBeanServiceImpl" class="com.daren.admin.core.PermissionBeanServiceImpl">
         <property name="permissionBeanDao" ref="permissionBeanDao"/>
+        <property name="roleBeanDao" ref="roleBeanDao"/>
     </bean>
     <service id="permissionBeanService" ref="permissionBeanServiceImpl"
              interface="com.daren.admin.api.biz.IPermissionBeanService"/>

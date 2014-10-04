@@ -1,9 +1,11 @@
 package com.daren.admin.api.biz;
 
 import com.daren.admin.entities.PermissionBean;
+import com.daren.admin.entities.RoleBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @类描述：权限服务接口类
@@ -29,4 +31,11 @@ public interface IPermissionBeanService extends IBizService {
     List<PermissionBean> getRootBeanList();
 
     List<PermissionBean> getChildBeanList(PermissionBean permissionBean);
+
+    /**
+     * 根据角色分配权限
+     * @param roleBean 角色bean
+     * @param checkedNodes 权限列表
+     */
+    void assignPermission(RoleBean roleBean, Set<PermissionBean> checkedNodes);
 }

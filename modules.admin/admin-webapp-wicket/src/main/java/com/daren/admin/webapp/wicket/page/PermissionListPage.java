@@ -197,16 +197,17 @@ public class PermissionListPage extends BasePanel {
             //添加数表
             IrisTableTree<PermissionBean, String> tree = new IrisTableTree<PermissionBean, String>(
                     "tree", treeColumns(), provider, numPerPage) {
+
             };
 
             container.add(tree.setOutputMarkupId(true));
 
             //增加form
-            Form<PermissionBean> dictForm = new Form<>("form", new CompoundPropertyModel<>(new PermissionBean()));
+            Form<PermissionBean> form = new Form<>("form", new CompoundPropertyModel<>(new PermissionBean()));
             //add button
-            dictForm.add(initAddButton());
+            form.add(initAddButton());
 
-            add(dictForm);
+            add(form);
         }
 
         /**

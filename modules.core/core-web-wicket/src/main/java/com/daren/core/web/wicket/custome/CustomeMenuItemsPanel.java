@@ -4,6 +4,8 @@ import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
 import com.daren.core.web.wicket.manager.MenuModuleManager;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -14,6 +16,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +32,23 @@ public class CustomeMenuItemsPanel extends Panel {
         add(labelName);
 
         //获取目录下面的子菜单
-        List<IModule> submenus = MenuModuleManager.getInstall().findMenusByTag(menus.getTargetTag());
-        ListView<IModule> listView = new ListView<IModule>("menuList", submenus) {
+        List<IMenuItemsModule> submenus = MenuModuleManager.getInstall().findMenusByTag(menus.getTargetTag());
+        //权限检查
+        List<IMenuItemsModule> permitedMenu=new ArrayList<>();
+        Subject currentUser = SecurityUtils.getSubject();
+        for (IMenuItemsModule menu : submenus){
+            if(menu.isPermissionAvaliable()){//权限检查
+                if(currentUser.isPermitted(menu.getPermissionName())){
+                    permitedMenu.add(menu);
+                }
+            }
+            else
+            {
+                permitedMenu.add(menu);
+            }
+        }
+
+        ListView<IModule> listView = new ListView<IModule>("menuList", permitedMenu) {
             @Override
             protected void populateItem(final ListItem<IModule> item) {
                 AjaxLink submenusLink = new AjaxLink("menus") {

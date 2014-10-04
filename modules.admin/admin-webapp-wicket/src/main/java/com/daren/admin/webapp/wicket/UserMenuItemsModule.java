@@ -22,14 +22,24 @@ public class UserMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN_USER;
+    }
+
+    @Override
     public int getIndex() {
-        return 0;
+        return Const.INDEX_ADMIN_USER;
     }
 
 
     @Override
     public String getName() {
-        return "用户管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_ADMIN_USER;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

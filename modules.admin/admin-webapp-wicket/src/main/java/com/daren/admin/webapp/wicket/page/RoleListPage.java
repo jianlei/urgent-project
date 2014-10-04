@@ -144,6 +144,44 @@ public class RoleListPage extends BasePanel {
         target.add(tabPanel);
     }
 
+    /**
+     * 创建新的页面，用于权限编辑
+     *
+     * @param target
+     * @param newTabType
+     * @param row        数据
+     */
+    private void createNewPermissionTab(AjaxRequestTarget target, final String newTabType, final RoleBean row) {
+        //去掉第二个tab
+        if (tabPanel.getModelObject().size() == 2) {
+            tabPanel.getModelObject().remove(1);
+        }
+        tabPanel.add(new AjaxTab(Model.of(newTabType)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public WebMarkupContainer getLazyPanel(String panelId) {
+                //通过repeatingView增加新的panel
+                repeatingView.removeAll();
+                RolePermissionEditPage roleAddPage = new RolePermissionEditPage(repeatingView.newChildId(), Model.of(row)) {
+                    //关闭新增tab
+                    @Override
+                    protected void onDeleteTabs(AjaxRequestTarget target) {
+                        if (tabPanel.getModelObject().size() == 2)
+                            tabPanel.getModelObject().remove(1);
+                        target.add(tabPanel);
+                    }
+                };
+                repeatingView.add(roleAddPage);
+                Fragment fragment = new Fragment(panelId, "addPanel", RoleListPage.this);
+                fragment.add(repeatingView);
+                return fragment;
+            }
+        });
+
+        tabPanel.setActiveTab(1);
+        target.add(tabPanel);
+    }
     //列表显示
     public class MainFragment extends Fragment {
         private final JQueryFeedbackPanel feedbackPanel;
@@ -212,7 +250,7 @@ public class RoleListPage extends BasePanel {
             AjaxLink alink = new AjaxLink("permit") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-                    createNewTab(target, CONST_PERMIT, row);
+                    createNewPermissionTab(target, CONST_PERMIT, row);
                 }
             };
             return alink;

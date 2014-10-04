@@ -18,23 +18,33 @@ public class AreaMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getNo() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
+    }
+
+    @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN_AREA;
     }
 
     @Override
     public int getIndex() {
-        return 15;
+        return Const.INDEX_ADMIN_AREA;
     }
 
 
     @Override
     public String getName() {
-        return "区域管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_ADMIN_AREA;
     }
 
     @Override
     public String getIcon() {
-        return "";  //To change body of implemented methods use File | Settings | File Templates.
+        return "";
     }
 
     @Override

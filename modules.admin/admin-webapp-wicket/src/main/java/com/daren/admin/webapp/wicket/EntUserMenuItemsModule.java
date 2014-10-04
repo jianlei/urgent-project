@@ -21,14 +21,24 @@ public class EntUserMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN_ENT_USER;
+    }
+
+    @Override
     public int getIndex() {
-        return 0;
+        return Const.INDEX_ADMIN_ENT_USER;
     }
 
 
     @Override
     public String getName() {
-        return "企业用户管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_ADMIN_ENT_USER;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

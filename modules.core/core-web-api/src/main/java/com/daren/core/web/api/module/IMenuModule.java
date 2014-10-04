@@ -10,6 +10,16 @@ package com.daren.core.web.api.module;
 public interface IMenuModule extends IModule {
 
     /**
+     * 权限是否生效，只有为真时，权限才生效
+     * @return
+     */
+    boolean isPermissionAvaliable();
+    /**
+     * 获得权限名称
+     * @return
+     */
+    String getPermissionName();
+    /**
      * wicket application name
      * @return
      */

@@ -37,7 +37,7 @@
 
     <!-- 发布权限管理子菜单模块 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
-        <bean class="com.daren.admin.webapp.wicket.AuthorityMenuItemsModule">
+        <bean class="com.daren.admin.webapp.wicket.PermissionMenuItemsModule">
         </bean>
     </service>
 

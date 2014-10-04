@@ -55,7 +55,7 @@
           destroy-method="destroy">
         <property name="realm" ref="shiroRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
-        <!--<property name="sessionMode" value="native"/>-->
+        <property name="sessionMode" value="native"/>
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 

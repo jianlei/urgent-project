@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class AuthorityMenuItemsModule implements IMenuItemsModule {
+public class PermissionMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getNo() {
@@ -22,14 +22,24 @@ public class AuthorityMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_ADMIN_PERMISSION;
+    }
+
+    @Override
     public int getIndex() {
-        return 20;
+        return Const.INDEX_ADMIN_PERMISSION;
     }
 
 
     @Override
     public String getName() {
-        return "权限管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_ADMIN_PERMISSION ;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

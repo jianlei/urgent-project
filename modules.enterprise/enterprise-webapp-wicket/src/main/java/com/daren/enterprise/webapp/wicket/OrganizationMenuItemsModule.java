@@ -23,13 +23,23 @@ public class OrganizationMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_INFO_ORG;
+    }
+
+    @Override
     public int getIndex() {
-        return 10;
+        return Const.INDEX_INFO_ORG;
     }
 
     @Override
     public String getName() {
-        return "监管机构管理";  //To change body of implemented methods use File | Settings | File Templates.
+        return Const.MENU_INFO_ORG;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

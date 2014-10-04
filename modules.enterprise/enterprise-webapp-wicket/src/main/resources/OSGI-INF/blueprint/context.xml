@@ -6,7 +6,7 @@
 
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuModule" ranking="500">
-        <bean class="com.daren.enterprise.webapp.wicket.MainMenuModule">
+        <bean class="com.daren.enterprise.webapp.wicket.EnterpriseMenuModule">
         </bean>
     </service>
 

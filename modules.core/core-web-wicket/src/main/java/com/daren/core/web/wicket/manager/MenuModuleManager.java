@@ -91,8 +91,8 @@ public class MenuModuleManager {
      * @param tag
      * @return
      */
-    public List<IModule> findMenusByTag(String tag) {
-        List<IModule> modules = new ArrayList<IModule>();
+    public List<IMenuItemsModule> findMenusByTag(String tag) {
+        List<IMenuItemsModule> modules = new ArrayList<IMenuItemsModule>();
 
         //获取对应的tag的菜单
         if (menuItemModuleList != null) {

@@ -69,6 +69,7 @@ public class IrisTableTree<T, S> extends TableTree<T, S> {
      */
     @Override
     protected Component newContentComponent(String id, IModel<T> model) {
+
         return new Folder<T>(id, this, model);
     }
 

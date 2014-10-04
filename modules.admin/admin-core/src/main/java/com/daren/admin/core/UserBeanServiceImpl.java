@@ -101,7 +101,7 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
      */
     @Override
     public String getRoleList(UserBean userBean) {
-        List<RoleBean> roleBeanList = userBean.getRoleList();
+        List<RoleBean> roleBeanList =roleBeanDao.find("select r from RoleBean r join r.userList u where u=?1",userBean);
         String value = "";
         if(roleBeanList!=null && roleBeanList.size()>0){
             for (RoleBean roleBean : roleBeanList) {

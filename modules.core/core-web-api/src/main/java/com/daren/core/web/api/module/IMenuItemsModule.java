@@ -17,5 +17,16 @@ public interface IMenuItemsModule extends IPanelModule {
      */
     public String getNo();
 
+    /**
+     * 权限是否生效，只有为真时，权限才生效
+     * @return
+     */
+    boolean isPermissionAvaliable();
+    /**
+     * 获得权限名称
+     * @return
+     */
+    String getPermissionName();
+
 
 }

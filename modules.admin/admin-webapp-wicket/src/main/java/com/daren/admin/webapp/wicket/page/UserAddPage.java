@@ -7,16 +7,12 @@ import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.OrganizationBean;
 import com.daren.enterprise.webapp.component.form.OrgnizationSelect2Choice;
-import com.googlecode.wicket.jquery.ui.form.CheckChoice;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -133,7 +129,7 @@ public class UserAddPage extends Panel {
         }
 
         final IModel<ArrayList<String>> checkModel = new Model<ArrayList<String>>(roleSelect);
-        final CheckChoice<String> roleChoice = new CheckChoice<String>("roleList", checkModel, RoleNameList);
+        final CheckBoxMultipleChoice<String> roleChoice = new CheckBoxMultipleChoice<String>("roleList", checkModel, RoleNameList);
         userForm.add(roleChoice);
 
 

@@ -81,9 +81,8 @@ public class UserLoginServiceImpl implements IUserLoginService {
             for (RoleBean rolebean : roleBeanList) {
                 for (PermissionBean permissionBean : rolebean.getPermissionList()) {
                     String permission = permissionBean.getPermission();
-                    if (null != permission && !permission.equals(""))
+                    if (null != permission && !permission.equals("")&&(!stringList.contains(permission)))
                         stringList.add(permission);
-
                 }
             }
         }

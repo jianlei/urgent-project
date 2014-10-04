@@ -1,5 +1,6 @@
 package com.daren.core.web.wicket.panel;
 
+import com.daren.core.web.api.module.IMenuItemsModule;
 import com.daren.core.web.api.module.IMenuModule;
 import com.daren.core.web.api.module.IModule;
 import com.daren.core.web.wicket.manager.MenuModuleManager;
@@ -60,7 +61,7 @@ public class MenuItemsPanel extends Panel {
         };
 
         //获取目录下面的子菜单
-        List<IModule> submenus = MenuModuleManager.getInstall().findMenusByTag(menus.getTargetTag());
+        List<IMenuItemsModule> submenus = MenuModuleManager.getInstall().findMenusByTag(menus.getTargetTag());
         Label iconLabel = new Label("name", "<i class=\"" + menus.getIcon() + "\"></i>" + "<span class=\"title\">" + menus.getName() + "</span><span class=\"arrow\"></span>");
         iconLabel.setEscapeModelStrings(false);
         iconLabel.setRenderBodyOnly(true);

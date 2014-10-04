@@ -12,7 +12,17 @@ import com.daren.core.web.api.module.IMenuModule;
  * 修改时间:  2014/7/9 19:53
  * 修改备注:  [说明本次修改内容]
  */
-public class MainMenuModule implements IMenuModule {
+public class EnterpriseMenuModule implements IMenuModule {
+    @Override
+    public boolean isPermissionAvaliable() {
+        return true;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return Const.PERMISSION_INFO;
+    }
+
     @Override
     public String getProjectName() {
         return IConst.SYSTEM_WICKET_APPLICATION_NAME;
@@ -25,7 +35,7 @@ public class MainMenuModule implements IMenuModule {
 
     @Override
     public String getName() {
-        return "信息管理";
+        return Const.MENU_INFO;
     }
 
     @Override
