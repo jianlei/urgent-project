@@ -1,7 +1,7 @@
 package com.daren.drill.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.drill.webapp.wicket.page.UrgentDrillListPage;
+import com.daren.drill.webapp.wicket.page.DrillListPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -14,12 +14,22 @@ import org.apache.wicket.markup.html.panel.Panel;
  * @修改备注：
  */
 
-public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
+public class DrillMenuItemsModule implements IMenuItemsModule {
 
 
     @Override
     public String getNo() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isPermissionAvaliable() {
+        return false;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return null;
     }
 
     @Override
@@ -44,6 +54,6 @@ public class UrgentDrillMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public Panel getPanel(String id, WebMarkupContainer wmc) {
-        return new UrgentDrillListPage(id, wmc);
+        return new DrillListPage(id, wmc);
     }
 }

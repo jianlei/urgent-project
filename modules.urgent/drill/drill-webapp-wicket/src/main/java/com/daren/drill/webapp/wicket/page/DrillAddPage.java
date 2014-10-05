@@ -5,14 +5,11 @@ import com.daren.admin.api.biz.IDictConstService;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
 import com.daren.core.api.IConst;
-import com.daren.core.web.wicket.BasePanel;
 import com.daren.drill.api.biz.IUrgentDrillBeanService;
 import com.daren.drill.entities.UrgentDrillBean;
 import com.daren.enterprise.api.biz.IEnterpriseBeanService;
 import com.daren.enterprise.entities.EnterpriseBean;
 import com.daren.enterprise.webapp.component.form.EntTextField;
-import com.googlecode.wicket.jquery.core.JQueryBehavior;
-import com.googlecode.wicket.jquery.ui.JQueryIcon;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
@@ -20,7 +17,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -37,11 +33,14 @@ import java.util.Map;
  * @修改时间：
  * @修改备注：
  */
-public class UrgentDrillAddPage extends Panel {
+public class DrillAddPage extends Panel {
 
     private final String type;//操作类型 ：新增(add) 或编辑（edit）
-    private boolean isAdd;
     protected boolean isEnt = false;//判断是否为企业用户
+    @Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    protected IDictBeanService dictBeanService;
+    private boolean isAdd;
     //注入服务
     @Inject
     @Reference(id = "urgentDrillBeanService", serviceInterface = IUrgentDrillBeanService.class)
@@ -52,12 +51,9 @@ public class UrgentDrillAddPage extends Panel {
     @Inject
     @Reference(id = "enterpriseBeanService", serviceInterface = IEnterpriseBeanService.class)
     private IEnterpriseBeanService enterpriseBeanService;
-    @Inject
-    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
-    protected IDictBeanService dictBeanService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
 
-    public UrgentDrillAddPage(String id, String type, IModel<UrgentDrillBean> model) {
+    public DrillAddPage(String id, String type, IModel<UrgentDrillBean> model) {
         super(id, model);
         this.type = type;
         isEnt = (getApplication().getName().equals(IConst.COMPANY_WICKET_APPLICATION_NAME))?true:false;

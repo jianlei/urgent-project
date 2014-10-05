@@ -1,9 +1,7 @@
 package com.daren.equipment.webapp.wicket;
 
 import com.daren.core.web.api.module.IMenuItemsModule;
-import com.daren.equipment.webapp.wicket.page.EquipmentPage;
 import com.daren.equipment.webapp.wicket.page.EquipmentTabPage;
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -22,6 +20,16 @@ public class EquipmentMenuItemsModule implements IMenuItemsModule {
     @Override
     public String getNo() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isPermissionAvaliable() {
+        return false;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return null;
     }
 
     @Override

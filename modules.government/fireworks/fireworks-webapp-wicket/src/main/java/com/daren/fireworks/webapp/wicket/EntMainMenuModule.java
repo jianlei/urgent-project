@@ -13,6 +13,16 @@ import com.daren.core.web.api.module.IMenuModule;
  */
 public class EntMainMenuModule implements IMenuModule {
     @Override
+    public boolean isPermissionAvaliable() {
+        return false;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return null;
+    }
+
+    @Override
     public String getProjectName() {
         return IConst.COMPANY_WICKET_APPLICATION_NAME;
     }

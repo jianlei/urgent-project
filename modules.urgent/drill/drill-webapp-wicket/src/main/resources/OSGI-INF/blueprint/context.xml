@@ -5,13 +5,13 @@
         >
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.drill.webapp.wicket.UrgentDrillMenuItemsModule">
+        <bean class="com.daren.drill.webapp.wicket.DrillMenuItemsModule">
         </bean>
     </service>
 
     <!-- 发布企业应急演练 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
-        <bean class="com.daren.drill.webapp.wicket.EntUrgentDrillMenuItemsModule">
+        <bean class="com.daren.drill.webapp.wicket.EntDrillMenuItemsModule">
         </bean>
     </service>
 

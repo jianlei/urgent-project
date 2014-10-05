@@ -49,7 +49,7 @@ import java.util.Map;
  * @修改时间：
  * @修改备注：
  */
-public class UrgentDrillListPage extends BasePanel {
+public class DrillListPage extends BasePanel {
 
     private final static int numPerPage = 10;
     private final static String CONST_LIST = "应急演练";
@@ -78,7 +78,7 @@ public class UrgentDrillListPage extends BasePanel {
     private IEnterpriseBeanService enterpriseBeanService;
 
     //构造函数
-    public UrgentDrillListPage(String id, WebMarkupContainer wmc) {
+    public DrillListPage(String id, WebMarkupContainer wmc) {
         super(id, wmc);
         Options options = new Options();
         tabPanel = new TabbedPanel("tabs", this.newTabList(), options);
@@ -146,7 +146,7 @@ public class UrgentDrillListPage extends BasePanel {
             public WebMarkupContainer getLazyPanel(String panelId) {
                 //通过repeatingView增加新的panel
                 repeatingView.removeAll();
-                UrgentDrillAddPage urgentDrillAddPage = new UrgentDrillAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
+                DrillAddPage urgentDrillAddPage = new DrillAddPage(repeatingView.newChildId(), newTabType, Model.of(row)) {
                     //关闭新增tab
                     @Override
                     protected void onDeleteTabs(AjaxRequestTarget target) {
@@ -156,7 +156,7 @@ public class UrgentDrillListPage extends BasePanel {
                     }
                 };
                 repeatingView.add(urgentDrillAddPage);
-                Fragment fragment = new Fragment(panelId, "addPanel", UrgentDrillListPage.this);
+                Fragment fragment = new Fragment(panelId, "addPanel", DrillListPage.this);
                 fragment.add(repeatingView);
                 return fragment;
             }
@@ -173,7 +173,7 @@ public class UrgentDrillListPage extends BasePanel {
         private final WebMarkupContainer container, dialogWrapper;
 
         public MainFragment(String id, String markupId) {
-            super(id, markupId, UrgentDrillListPage.this);
+            super(id, markupId, DrillListPage.this);
 
             container = new WebMarkupContainer("container");
             add(container.setOutputMarkupId(true));

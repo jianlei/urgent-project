@@ -23,6 +23,16 @@ public class ReservePlanMenuItemsModule implements IMenuItemsModule {
     }
 
     @Override
+    public boolean isPermissionAvaliable() {
+        return false;
+    }
+
+    @Override
+    public String getPermissionName() {
+        return null;
+    }
+
+    @Override
     public int getIndex() {
         return 0;
     }
