@@ -25,6 +25,8 @@ public class UserRelBean extends PersistentEntity {
     private long user_id;       //用户ID
     private String user_logo;   //用户logo
     private String token;       //手机端上传的token
+    private int position;       //职位
+    private int order_num;      //排序
 
     public UserRelBean(){
 
@@ -52,5 +54,21 @@ public class UserRelBean extends PersistentEntity {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getOrder_num() {
+        return order_num;
+    }
+
+    public void setOrder_num(int order_num) {
+        this.order_num = order_num;
     }
 }

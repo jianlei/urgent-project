@@ -32,10 +32,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.daren.platform</groupId>
-    <artifactId>urgent-project</artifactId>
+    <artifactId>prov-coop</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>com.daren.urgent-project (OSGi Project)</name>
+    <name>com.daren.prov-coop (OSGi Project)</name>
 
     <!--
      | describe your project here
@@ -83,25 +83,9 @@
         <module>modules.tools</module>
         <module>modules.file</module>
         <module>modules.enterprise</module>
-        <module>modules.urgent/expert</module>
-        <module>modules.urgent/reserveplan</module>
-        <module>modules.urgent/application</module>
-        <module>modules.urgent/hazard</module>
-        <module>modules.urgent/drill</module>
-        <module>modules.urgent/rescue</module>
-        <module>modules.urgent/equipment</module>
-        <module>modules.urgent/digitalplan</module>
-        <module>modules.urgent/accident</module>
-        <module>modules.urgent/monitor</module>
-        <module>modules.urgent/regulation</module>
-        <module>modules.urgent/danger</module>
         <module>modules.common</module>
-        <module>modules.government</module>
-        <module>modules.gis</module>
         <module>modules.cooperate</module>
-        <module>modules.middleware</module>
         <!--<module>modules.example</module>-->
-        <module>modules.company</module>
     </modules>
 
     <build>
@@ -210,7 +194,7 @@
 
         </plugins>
     </build>
-    <reporting>
+    <!--<reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -223,7 +207,7 @@
                 <version>3.3</version>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting>-->
     <repositories>
         <repository>
             <id>activiti</id>

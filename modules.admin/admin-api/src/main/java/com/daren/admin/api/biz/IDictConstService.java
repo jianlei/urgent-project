@@ -25,4 +25,6 @@ public interface IDictConstService {
     public final static String ORGANIZATION_ZFBJ = "ORGANIZATION_ZFBJ"; //作废标记
     public final static String DRILL_CONFIRM = "DRILL_CONFIRM"; //应急演练确认状态
 
+    public final static String USER_POSITION = "USER_POSITION"; //应急演练确认状态
+
 }

@@ -10,20 +10,20 @@
         </bean>
     </service>
 
-    <!-- 发布菜单目录 -->
+    <!-- 发布菜单目录
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.enterprise.webapp.wicket.EnterpriseMenuItemsModule">
         </bean>
-    </service>
+    </service> -->
 
     <!-- 发布菜单目录 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.enterprise.webapp.wicket.OrganizationMenuItemsModule">
         </bean>
     </service>
-    <!-- 发布第三方数据接口目录 -->
+    <!-- 发布第三方数据接口目录
     <service interface="com.daren.core.web.api.module.IMenuItemsModule" ranking="500">
         <bean class="com.daren.enterprise.webapp.wicket.ThirdMenuItemsModule">
         </bean>
-    </service>
+    </service> -->
 </blueprint>

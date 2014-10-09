@@ -39,7 +39,7 @@ public class UserMenuItemsModule implements IMenuItemsModule {
 
     @Override
     public String getTag() {
-        return "admin.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
+        return "enterprise.module.bundles";  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -11,6 +11,7 @@
     <bean id="userBeanServiceImpl" class="com.daren.admin.core.UserBeanServiceImpl">
         <property name="userBeanDao" ref="userBeanDao"/>
         <property name="roleBeanDao" ref="roleBeanDao"/>
+        <property name="userRelBeanDao" ref="userRelBeanDao"/>
     </bean>
     <service id="userBeanService" ref="userBeanServiceImpl" interface="com.daren.admin.api.biz.IUserBeanService"/>
 
@@ -29,6 +30,7 @@
     <service id="roleBeanService" ref="roleBeanServiceImpl"
              interface="com.daren.admin.api.biz.IRoleBeanService"/>
     <reference id="roleBeanDao" interface="com.daren.admin.api.dao.IRoleBeanDao"/>
+    <reference id="userRelBeanDao" interface="com.daren.admin.api.dao.IUserRelBeanDao"/>
 
     <!--权限服务注册-->
     <bean id="permissionBeanServiceImpl" class="com.daren.admin.core.PermissionBeanServiceImpl">

@@ -1,8 +1,12 @@
 package com.daren.admin.webapp.wicket.page;
 
+import com.daren.admin.api.biz.IDictBeanService;
+import com.daren.admin.api.biz.IDictConstService;
 import com.daren.admin.api.biz.IRoleBeanService;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.entities.UserBean;
+import com.daren.admin.entities.UserRelBean;
+import com.daren.core.web.component.form.IrisDropDownChoice;
 import com.daren.core.web.wicket.ValidationStyleBehavior;
 import com.daren.enterprise.api.biz.IOrganizationBeanService;
 import com.daren.enterprise.entities.OrganizationBean;
@@ -13,10 +17,7 @@ import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import org.apache.aries.blueprint.annotation.Reference;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -45,8 +46,6 @@ public class UserAddPage extends Panel {
     PasswordTextField pwd;
     PasswordTextField pwdConfirm;
     Form<UserBean> userForm;
-    //EnterpriseBean enterpriseBean = new EnterpriseBean();
-    //EnterpriseSelect2Choice enterpriseSelect2Choice;
     private String confirPwd;
     private boolean isAdd;
     private String temp_password;
@@ -57,13 +56,15 @@ public class UserAddPage extends Panel {
     @Reference(id = "roleBeanService", serviceInterface = IRoleBeanService.class)
     private IRoleBeanService roleBeanService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
-    /*@Inject
-    private IEnterpriseBeanService enterpriseBeanService;*/
     //存储已有的角色列表
     private ArrayList<String> roleSelect = new ArrayList<String>();
     private OrganizationBean organizationBean = new OrganizationBean();
     @Inject
     private IOrganizationBeanService organizationBeanService;
+    //注入字典业务服务
+    @Inject
+    @Reference(id = "dictBeanService", serviceInterface = IDictBeanService.class)
+    private IDictBeanService dictBeanService;
 
     public UserAddPage(String id, String type, IModel<UserBean> model) {
         super(id, model);
@@ -79,8 +80,6 @@ public class UserAddPage extends Panel {
             UserBean userBean = model.getObject();
             Long jgdm=new Long(userBean.getJgdm());
             organizationBean= (OrganizationBean) organizationBeanService.getEntity(jgdm);
-            /*long enterpriseId = new Long(userBean.getQyid());
-            enterpriseBean = (EnterpriseBean) enterpriseBeanService.getEntity(enterpriseId);*/
         }
 
     }
@@ -90,26 +89,29 @@ public class UserAddPage extends Panel {
     }
 
     private void initForm(IModel<UserBean> model) {
-         userForm = new Form("userForm", new CompoundPropertyModel(model));
-
+        //UserBean userBean = model.getObject();
+        //Map<String,String> posi_map =dictBeanService.getDictMap(IDictConstService.USER_POSITION);
+        userForm = new Form("userForm", new CompoundPropertyModel(model));
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         userForm.add(feedbackPanel.setOutputMarkupId(true));
-
-        /*enterpriseSelect2Choice = new EnterpriseSelect2Choice ("qyid", Model.of(enterpriseBean));
-        enterpriseSelect2Choice.getSettings().setMinimumInputLength(2);
-        userForm.add(enterpriseSelect2Choice);*/
+        addSelectToForm();
         orgnizationSelect2Choice = new OrgnizationSelect2Choice ("jgdm",Model.of(organizationBean));
         orgnizationSelect2Choice.getSettings().setMinimumInputLength(2);
         userForm.add(orgnizationSelect2Choice);
-
         userForm.add(new TextField("name").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         userForm.add(new TextField("loginName").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
         TextField email = new TextField("email");
         email.add(EmailAddressValidator.getInstance());
         userForm.add(email.setOutputMarkupId(true).add(new ValidationStyleBehavior()));
-
+        /*int position = userBean!=null ? userBean.getPosition() : 0;
+        userForm.add(new Label("position", posi_map.get(position+"")));*/
         userForm.add(new TextField("phone"));
         userForm.add(new TextField("mobile").setOutputMarkupId(true).add(new ValidationStyleBehavior()));
+        NumberTextField ntf = new NumberTextField("order_num");
+        ntf.setMinimum(1);
+        ntf.setMaximum(9999);
+        ntf.setStep(1);
+        userForm.add(ntf);
 
         if(isAdd){
             userForm.add(new PwdFragment("pwdContainer","pwdFragment",UserAddPage.this));
@@ -146,10 +148,10 @@ public class UserAddPage extends Panel {
                     if(organizationBean!=null){
                         userBean.setJgdm(organizationBean.getJgdm());
                     }
-                    /*enterpriseBean=enterpriseSelect2Choice.getModelObject();
-                    if(enterpriseBean!=null){
-                        userBean.setQyid(enterpriseBean.getQyid());
-                    }*/
+
+                    UserRelBean userRelBean = new UserRelBean();
+                    userRelBean.setUser_id(userBean.getId());
+                    userBeanService.addUserRel(userRelBean);
                     userBeanService.saveUserRole(userBean, (List<String>) roleChoice.getModelObject());
                     if (isAdd) {
                         userForm.setModelObject(new UserBean());
@@ -183,6 +185,17 @@ public class UserAddPage extends Panel {
         userForm.setOutputMarkupId(true);
         //userForm.add(new JSR303FormValidator());
         add(userForm);
+    }
+
+    private void addSelectToForm() {
+        initSelect("position", IDictConstService.USER_POSITION);
+    }
+
+    //通过字典初始化下拉列表
+    private void initSelect(String name, String dictConst) {
+        //下拉列表
+        IrisDropDownChoice<String> listSites = new IrisDropDownChoice<String>(name, dictConst);
+        userForm.add(listSites);
     }
 
     public String getConfirPwd() {

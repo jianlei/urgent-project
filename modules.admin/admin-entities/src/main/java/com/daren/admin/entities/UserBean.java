@@ -41,16 +41,18 @@ public class UserBean extends PersistentEntity {
     //    @XmlAttribute
     @NotNull(message = "'密码'是必填项")
     private String password; // 密码
-    @NotNull(message = "'邮箱'是必填项")
+    //@NotNull(message = "'邮箱'是必填项")
     private String email; // 邮箱
     private String phone;    // 电话
-    @NotNull(message = "'手机'是必填项")
+    //@NotNull(message = "'手机'是必填项")
     private String mobile;    // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
     private long office_id;
     private long company_id;
     private int is_ent_user;   //是否是企业用户：0-否；1-是
+    private int position;       //职位
+    private int order_num;      //排序
     //    @XmlElement(name="role")
     @XmlTransient
     private List<RoleBean> roleList = Lists.newArrayList(); // 拥有角色列表
@@ -173,6 +175,22 @@ public class UserBean extends PersistentEntity {
 
     public void setIs_ent_user(int is_ent_user) {
         this.is_ent_user = is_ent_user;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getOrder_num() {
+        return order_num;
+    }
+
+    public void setOrder_num(int order_num) {
+        this.order_num = order_num;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)

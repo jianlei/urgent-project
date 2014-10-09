@@ -45,7 +45,7 @@
     </service>
 
     <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/urgent"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/prov_coop"/>
         <property name="user" value="root"/>
         <property name="password" value="1234"/>
     </bean>

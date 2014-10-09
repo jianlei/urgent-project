@@ -2,6 +2,7 @@ package com.daren.admin.api.biz;
 
 
 import com.daren.admin.entities.UserBean;
+import com.daren.admin.entities.UserRelBean;
 import com.daren.core.api.biz.IBizService;
 
 import java.util.List;
@@ -95,4 +96,18 @@ public interface IUserBeanService extends IBizService {
     public List getUseridListByGgdm(String jgdm, long user_id);
 
     public List<UserBean> getUserListByCond(int is_ent_user);
+
+    /**
+     * 添加
+     * @param userRelBean
+     * @return
+     */
+    public UserRelBean addUserRel(UserRelBean userRelBean);
+
+    /**
+     * 删除
+     * @param user_id
+     */
+    public void delUserRel(Long user_id);
+
 }

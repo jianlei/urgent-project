@@ -5,6 +5,7 @@ import com.daren.admin.api.dao.IUserBeanDao;
 import com.daren.admin.entities.PermissionBean;
 import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
+import com.daren.admin.entities.UserRelBean;
 import com.daren.core.api.ErrorCodeValue;
 
 import javax.servlet.http.Cookie;
@@ -108,11 +109,19 @@ public class UserLoginServiceImpl implements IUserLoginService {
             if (user!=null && password.equals(user.getPassword())) {
                 logon(user, client, request, response);
                 result = 1;
+                List<UserRelBean> userRelBeanList = userBeanDao.findByNativeSql("select * from sys_user_rel where user_id="+user.getId(),UserRelBean.class);
+                UserRelBean userRelBean = new UserRelBean();
+                if(userRelBeanList!=null){
+                    userRelBean = userRelBeanList.get(0);
+                }
                 Map resMap = new HashMap();
                 resMap.put("user_id",user.getId());
                 resMap.put("name",user.getName());
                 resMap.put("user_name",user.getLoginName());
                 resMap.put("password",user.getPassword());
+                resMap.put("jgdm",user.getJgdm());
+                resMap.put("position",user.getPosition());
+                resMap.put("logo",userRelBean.getUser_logo());
                 map.put("response",resMap);
             }
         }catch(Exception e){

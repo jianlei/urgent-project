@@ -3,8 +3,10 @@ package com.daren.admin.core;
 import com.daren.admin.api.biz.IUserBeanService;
 import com.daren.admin.api.dao.IRoleBeanDao;
 import com.daren.admin.api.dao.IUserBeanDao;
+import com.daren.admin.api.dao.IUserRelBeanDao;
 import com.daren.admin.entities.RoleBean;
 import com.daren.admin.entities.UserBean;
+import com.daren.admin.entities.UserRelBean;
 import com.daren.core.impl.biz.GenericBizServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -17,6 +19,7 @@ import java.util.List;
 public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserBeanService {
     private IUserBeanDao userBeanDao;
     private IRoleBeanDao roleBeanDao;
+    private IUserRelBeanDao userRelBeanDao;
 
 //    public void setUserBeanDao(IUserBeanDao userBeanDao) {
 //        this.userBeanDao = userBeanDao;
@@ -43,6 +46,14 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
         this.userBeanDao = userBeanDao;
         super.init(userBeanDao, UserBean.class.getName());
+    }
+
+    public IUserRelBeanDao getUserRelBeanDao() {
+        return userRelBeanDao;
+    }
+
+    public void setUserRelBeanDao(IUserRelBeanDao userRelBeanDao) {
+        this.userRelBeanDao = userRelBeanDao;
     }
 
     public void init() {
@@ -179,6 +190,16 @@ public class UserBeanServiceImpl extends GenericBizServiceImpl implements IUserB
     @Override
     public List<UserBean> getUserListByCond(int is_ent_user) {
         return userBeanDao.findByNativeSql("select * from sys_user u where u.is_ent_user="+is_ent_user,UserBean.class);
+    }
+
+    @Override
+    public UserRelBean addUserRel(UserRelBean userRelBean) {
+        return userRelBeanDao.saveUserRel(userRelBean);
+    }
+
+    @Override
+    public void delUserRel(Long user_id) {
+        userRelBeanDao.update("delete from sys_user_rel where user_id="+user_id);
     }
 
 }

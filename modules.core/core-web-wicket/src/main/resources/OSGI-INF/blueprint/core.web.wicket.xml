@@ -46,9 +46,9 @@
         <bean class="com.daren.core.web.wicket.impl.SigninPageProviderImpl"/>
     </service>
 
-    <!--系统根菜单注册-->
+    <!--系统根菜单注册
     <service id="systemModule" interface="com.daren.core.web.api.module.ISystemModule">
         <bean class="com.daren.core.web.wicket.ProjectSysModule"/>
-    </service>
+    </service>-->
 
 </blueprint>

@@ -11,7 +11,7 @@
 
             <thead>
             <tr>
-                <td colspan="6" class="auto-style2">&nbsp;用户详细信息 <i class="tip-up"></i></td>
+                <td colspan="4" class="auto-style2">&nbsp;用户详细信息 <i class="tip-up"></i></td>
             </tr>
             </thead>
 
@@ -23,12 +23,21 @@
                     <input class="ipt" wicket:id="name"/>
                 </td>
                 <td class="tdl">登录名</td>
-                <td class="td_detail">
+                <td class="detail">
                     <input class="ipt" wicket:id="loginName"/>
                 </td>
-                <td class="tdl">邮箱</td>
-                <td class="td_detail">
-                    <input class="ipt" wicket:id="email"/>
+
+            </tr>
+
+            <tr>
+                <td class="tdl">归属机构</td>
+                <td class="detail">
+                    <input wicket:id="jgdm" type="hidden"
+                           style="width: 300px;"/>
+                </td>
+                <td class="tdl">职务</td>
+                <td class="detail">
+                    <select wicket:id="position"></select>
                 </td>
             </tr>
 
@@ -38,25 +47,26 @@
                     <input  class="ipt" wicket:id="phone"/>
                 </td>
                 <td class="tdl">手机</td>
-                <td class="td_detail">
+                <td class="detail">
                     <input class="ipt" wicket:id="mobile"/>
-                </td>
-                <!--<td class="tdl">所属企业</td>
-                <td class="detail">
-                    <input wicket:id="qyid" type="hidden"
-                           style="width: 300px;"/>
-                </td>-->
-                <td class="tdl">归属机构</td>
-                <td class="detail">
-                    <input wicket:id="jgdm" type="hidden"
-                           style="width: 300px;"/>
                 </td>
             </tr>
             <div wicket:id="pwdContainer"></div>
 
             <tr>
+                <td class="tdl">排序</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="order_num" type="number"/>
+                </td>
+                <td class="tdl">邮箱</td>
+                <td class="detail">
+                    <input class="ipt" wicket:id="email"/>
+                </td>
+            </tr>
+
+            <tr>
                 <td class="tdl">角色</td>
-                <td class="td_detail">
+                <td class="detail">
                     <div wicket:id="roleList">角色列表</div>
                 </td>
             </tr>

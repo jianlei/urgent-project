@@ -17,11 +17,11 @@
         </bean>
     </service>
 
-    <!-- 发布企业用户子菜单模块 -->
+    <!-- 发布企业用户子菜单模块
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.EntUserMenuItemsModule">
         </bean>
-    </service>
+    </service>-->
 
     <!-- 发布角色子菜单模块 -->
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
@@ -51,15 +51,15 @@
         <bean class="com.daren.admin.webapp.wicket.OfficeMenuItemsModule"/>
     </service>-->
 
-    <!-- 发布区域管理子菜单模块 -->
+    <!-- 发布区域管理子菜单模块
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.AreaMenuItemsModule"/>
-    </service>
+    </service>-->
 
-    <!-- 发布系统消息子菜单模块 -->
+    <!-- 发布系统消息子菜单模块
     <service interface="com.daren.core.web.api.module.IMenuItemsModule">
         <bean class="com.daren.admin.webapp.wicket.MessageMenuItemsModule"/>
-    </service>
+    </service>-->
 
     <service interface="com.daren.core.web.api.provider.IAboutDialogProvider">
         <bean class="com.daren.admin.webapp.wicket.AboutDialogProviderImpl"/>
