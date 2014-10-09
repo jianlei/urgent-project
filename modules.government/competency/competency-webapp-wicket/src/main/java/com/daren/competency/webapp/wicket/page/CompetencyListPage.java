@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * @类描述：安全资格证书(培训)
- * @创建人：王凯冉
+ * @创建人：zhangqingxin
  * @创建时间：2014-08-01 上午10:25
  * @修改人：
  * @修改时间：
@@ -54,12 +54,12 @@ public class CompetencyListPage extends BasePanel {
     @Inject
     private IUserBeanService userBeanService;
     JQueryFeedbackPanel feedbackPanel = new JQueryFeedbackPanel("feedBack");
-    private String phoneNumber = null;
+    private String pageType;
     final WebMarkupContainer wmc;
-    public CompetencyListPage(final String id, final WebMarkupContainer wmc, String phone) {
+    public CompetencyListPage(final String id, final WebMarkupContainer wmc, String pageType) {
         super(id, wmc);
         this.wmc = wmc;
-        phoneNumber = phone;
+        this.pageType = pageType;
         //初始化dialogWrapper
         dialogWrapper = new WebMarkupContainer("dialogWrapper") {
             @Override
@@ -106,6 +106,9 @@ public class CompetencyListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
+        if("manage".equals(pageType)){
+            ajaxLink.setVisible(false);
+        }
         return ajaxLink;
     }
 
@@ -116,7 +119,7 @@ public class CompetencyListPage extends BasePanel {
                 createButtonOnClick(competencyBean, target);
             }
         };
-        if(competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle())){
+        if((competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle()))||"manage".equals(pageType)){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -155,7 +158,7 @@ public class CompetencyListPage extends BasePanel {
                 target.add(wmc);
             }
         };
-        if(competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle())){
+        if((competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle()))||"manage".equals(pageType)){
             alinkSubmit.setVisible(false);
         }
         return alinkSubmit;
@@ -168,7 +171,7 @@ public class CompetencyListPage extends BasePanel {
                 createDialog(target, "上传附件", competencyBean, "upload");
             }
         };
-        if(competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle())){
+        if((competencyBean.getLinkHandle()!=null&&!"".equals(competencyBean.getLinkHandle()))||"manage".equals(pageType)){
             ajaxLink.setVisible(false);
         }
         return ajaxLink;
@@ -221,7 +224,11 @@ public class CompetencyListPage extends BasePanel {
         }
         @Override
         protected List<CompetencyBean> getData() {
-            return competencyService.getCompetencyByLoginName(userBeanService.getCurrentUserLoginName());
+            if("enterprise".equals(pageType)){
+                return competencyService.getCompetencyByLoginName(userBeanService.getCurrentUserLoginName());
+            }else{
+                return competencyService.getAllEntity();
+            }
         }
     }
 }

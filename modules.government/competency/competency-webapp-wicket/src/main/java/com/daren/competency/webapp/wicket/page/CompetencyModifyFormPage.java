@@ -14,9 +14,11 @@ import com.daren.workflow.webapp.wicket.util.TabsUtil;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.tabs.TabbedPanel;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
@@ -43,8 +45,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @类描述：烟花爆竹经营许可证流程
- * @创建人： sunlingfeng
+ * @类描述：安全资格证书(培训)
+ * @创建人： zhangqingxin
  * @创建时间：2014/9/6
  * @修改人：
  * @修改时间：
@@ -60,6 +62,8 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
     private transient RuntimeService runtimeService;
     @Inject
     private transient TaskService taskService;
+    @Inject
+    private transient HistoryService historyService;
     @Inject
     private IAttachmentService attachmentService;
     private JQueryFeedbackPanel feedbackPanel; //信息显示
@@ -94,22 +98,13 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
         if (StringUtils.isNotBlank(businessKey)) {
             beanId = businessKey.split(":")[2];
         }
-        bean = (CompetencyBean) competencyService.getEntity(new Long(beanId));
-        final Form<CompetencyBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
-        form.setOutputMarkupId(true);
-        add(form);
-        feedbackPanel = new JQueryFeedbackPanel("feedback");
-        form.add(feedbackPanel.setOutputMarkupId(true));
-        //add data to form
-        form.add(new TextField("name").setOutputMarkupId(true));
-        form.add(new TextField("sex").setOutputMarkupId(true));
-        form.add(new TextField("phone").setOutputMarkupId(true));
-        form.add(new TextField("enterpriseName").setOutputMarkupId(true));
-        form.add(new TextField("title").setOutputMarkupId(true));
-        form.add(new TextField("cultureLevel").setOutputMarkupId(true));
-        form.add(new TextField("id_code").setOutputMarkupId(true));
-        form.add(new TextField("unitType").setOutputMarkupId(true));
-        form.add(new TextField("qualificationsType").setOutputMarkupId(true));
+
+        //流程例史
+        HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        WebMarkupContainer table = PageUtil.initHistoricProcessView(historicProcessInstance.getId(),taskService,historyService);
+        this.add(table);
+
+        final Form<CompetencyBean> form = getComponents(beanId);
         //上传复件按钮
         final AjaxButton uploadButton = new AjaxButton("upload", form) {
             @Override
@@ -175,6 +170,26 @@ public class CompetencyModifyFormPage extends BaseFormPanel {
         table.setVersioned(false);
         table.add(lv);
         form.add(table);
+    }
+
+    private Form<CompetencyBean> getComponents(String beanId) {
+        bean = (CompetencyBean) competencyService.getEntity(new Long(beanId));
+        final Form<CompetencyBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
+        form.setOutputMarkupId(true);
+        add(form);
+        feedbackPanel = new JQueryFeedbackPanel("feedback");
+        form.add(feedbackPanel.setOutputMarkupId(true));
+        //add data to form
+        form.add(new TextField("name").setOutputMarkupId(true));
+        form.add(new TextField("sex").setOutputMarkupId(true));
+        form.add(new TextField("phone").setOutputMarkupId(true));
+        form.add(new TextField("enterpriseName").setOutputMarkupId(true));
+        form.add(new TextField("title").setOutputMarkupId(true));
+        form.add(new TextField("cultureLevel").setOutputMarkupId(true));
+        form.add(new TextField("id_code").setOutputMarkupId(true));
+        form.add(new TextField("unitType").setOutputMarkupId(true));
+        form.add(new TextField("qualificationsType").setOutputMarkupId(true));
+        return form;
     }
 
     private class DataProvider implements IDataProvider<AttachmentBean> {

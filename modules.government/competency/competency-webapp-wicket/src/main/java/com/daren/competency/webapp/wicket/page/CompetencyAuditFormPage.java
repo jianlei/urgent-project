@@ -46,7 +46,7 @@ import java.util.Map;
 
 /**
  * @类描述：安全资格证书(培训)
- * @创建人： Administrator
+ * @创建人： zhangqingxin
  * @创建时间：2014/9/13
  * @修改人：
  * @修改时间：

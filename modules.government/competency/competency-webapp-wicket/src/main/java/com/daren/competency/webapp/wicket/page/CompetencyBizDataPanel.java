@@ -13,7 +13,7 @@ import java.util.Date;
 
 /**
  * @类描述：显示业务数据的页面类
- * @创建人： sunlingfeng
+ * @创建人： zhangqingxin
  * @创建时间：2014/9/12
  * @修改人：
  * @修改时间：

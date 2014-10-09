@@ -181,7 +181,7 @@ public class ChemistryManageModifyFormPage extends BaseFormPanel {
         bean = (ChemistryManageBean) chemistryManageBeanService.getEntity(new Long(beanId));
         final Form<ChemistryManageBean> form = new Form<>("startForm", new CompoundPropertyModel<>(bean));
         form.setOutputMarkupId(true);
-        add(form);
+        this.add(form);
         feedbackPanel = new JQueryFeedbackPanel("feedback");
         form.add(feedbackPanel.setOutputMarkupId(true));
         //add data to form
